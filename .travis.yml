@@ -1,0 +1,18 @@
+language: rust
+matrix:
+  include:
+    - env: TARGET=x86_64-unknown-linux-gnu
+      os: linux
+      rust: stable
+    - env: TARGET=x86_64-unknown-linux-gnu
+      os: linux
+      rust: beta
+    - env: TARGET=x86_64-unknown-linux-gnu
+      os: linux
+      rust: nightly
+cache: cargo
+install: ci/install.sh
+script: ci/script.sh
+branches:
+  only:
+    - master
