@@ -1,0 +1,10 @@
+[package]
+name = "android-ndk-sys"
+version = "0.0.1"
+authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.51"

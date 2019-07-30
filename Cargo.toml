@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "android-ndk-sys",
+    "android-ndk",
+]
