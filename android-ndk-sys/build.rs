@@ -17,6 +17,7 @@ fn main() {
         // This is, however, supported in Clang 8.0 when compiling C, but not Clang 7 or GCC.
         .clang_arg("-xc++")
         .header("wrapper.h")
+        .rustfmt_bindings(true)
         .generate()
         .expect("Bindgen failed");
 
