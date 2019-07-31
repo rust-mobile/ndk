@@ -64,7 +64,7 @@ impl AInputEvent {
     /// native `AInputEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: *mut ffi::AInputEvent) -> Self {
-        match ffi::AInputEvent_getType(ptr) {
+        match ffi::AInputEvent_getType(ptr) as u32 {
             ffi::AINPUT_EVENT_TYPE_KEY => AInputEvent::AKeyEvent(AKeyEvent::from_ptr(ptr)),
             ffi::AINPUT_EVENT_TYPE_MOTION => AInputEvent::AMotionEvent(AMotionEvent::from_ptr(ptr)),
             x => panic!("Bad event type received: {}", x),
@@ -86,7 +86,7 @@ impl AInputEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
     #[inline]
     pub fn source(&self) -> Source {
-        let source = unsafe { ffi::AInputEvent_getSource(self.ptr()) };
+        let source = unsafe { ffi::AInputEvent_getSource(self.ptr()) as u32 };
         source.try_into().unwrap_or(Source::Unknown)
     }
 
