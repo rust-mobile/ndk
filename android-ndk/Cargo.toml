@@ -4,7 +4,7 @@ version = "0.0.1"
 authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
 edition = "2018"
 description = "Safe Rust bindings to the Android NDK"
-license = "MIT OR Apache 2.0"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 num_enum = "0.2"
