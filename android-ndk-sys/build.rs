@@ -13,6 +13,9 @@ fn main() {
 
     let bindings = bindgen::Builder::default()
         .clang_arg(format!("-I{}/sysroot/usr/include", ndk_dir))
+        // For some reason, some headers use `enum T : uint32_t { ... }`, a C++11 feature.
+        // This is, however, supported in Clang 8.0 when compiling C, but not Clang 7 or GCC.
+        .clang_arg("-xc++")
         .header("wrapper.h")
         .generate()
         .expect("Bindgen failed");
