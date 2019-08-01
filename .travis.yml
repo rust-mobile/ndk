@@ -19,3 +19,12 @@ script: ci/script.sh
 branches:
   only:
     - master
+after_success:
+  - |
+      [ $TRAVIS_BRANCH = master ] &&
+      [ $TRAVIS_PULL_REQUEST = false ] &&
+      (cd android-ndk-sys; cargo publish --token ${CRATESIO_TOKEN})
+  - |
+      [ $TRAVIS_BRANCH = master ] &&
+      [ $TRAVIS_PULL_REQUEST = false ] &&
+      (cd android-ndk; cargo publish --token ${CRATESIO_TOKEN})
