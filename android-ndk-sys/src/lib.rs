@@ -1,3 +1,10 @@
+//! Raw FFI bindings to the Android NDK.
+//!
+//! The bindings are pre-generated and the right one for the platform is selected at compile time.
+//!
+//! If you are including `android_native_app_glue.c`, the [`android_native_app_glue`
+//! module](android_native_app_glue/index.html) contains the interface for that.
+
 // Bindgen lints
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
@@ -23,6 +30,8 @@ include!("ffi_i686.rs");
 
 #[cfg(all(target_os = "android", target_arch = "x86_64"))]
 include!("ffi_x86_64.rs");
+
+pub mod android_native_app_glue;
 
 #[cfg(all(test, target_arch = "aarch64"))]
 mod ffi_aarch64;
