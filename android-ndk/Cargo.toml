@@ -1,6 +1,6 @@
 [package]
 name = "android-ndk"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
 edition = "2018"
 description = "Safe Rust bindings to the Android NDK"
@@ -17,6 +17,17 @@ include = [
     "Cargo.toml",
 ]
 
+[features]
+default = []
+rustdoc = ["ffi/rustdoc"]
+
+[package.metadata.docs.rs]
+features = ["rustdoc"]
+
 [dependencies]
 num_enum = "0.2"
-ffi = {package = "android-ndk-sys", version = "0.1"}
+
+[dependencies.ffi]
+package = "android-ndk-sys"
+path = "../android-ndk-sys"
+version = "0.1"
