@@ -5,12 +5,18 @@ authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
 edition = "2018"
 description = "Safe Rust bindings to the Android NDK"
 license = "MIT OR Apache-2.0"
+keywords = ["android", "ndk"]
+readme = "../README.md"
+
+documentation = "https://docs.rs/android-ndk"
+homepage = "https://github.com/mb64/android-ndk-rs"
+repository = "https://github.com/mb64/android-ndk-rs"
+
+include = [
+    "src/*",
+    "Cargo.toml",
+]
 
 [dependencies]
 num_enum = "0.2"
-
-[dependencies.ffi]
-package = "android-ndk-sys"
-version = "0.1.0"
-path = "../android-ndk-sys"
-#android-ndk-sys = "0.0.1"
+ffi = {package = "android-ndk-sys", version = "0.1"}
