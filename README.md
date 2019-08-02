@@ -1,10 +1,10 @@
 # `android-ndk`: Rust bindings of the Android NDK
 
 [![Build Status](https://travis-ci.org/mb64/android-ndk-rs.svg?branch=master)](https://travis-ci.org/mb64/android-ndk-rs)
-
-`android-ndk-sys`: [![Crates.io Status](https://meritbadge.herokuapp.com/android-ndk-sys)](https://crates.io/crates/android-ndk-sys)
-
-`android-ndk`: [![Crates.io Status](https://meritbadge.herokuapp.com/android-ndk)](https://crates.io/crates/android-ndk)
+[![Crates.io Status](https://meritbadge.herokuapp.com/android-ndk-sys)](https://crates.io/crates/android-ndk-sys)
+[![Docs.rs Status](https://docs.rs/android-ndk-sys/badge.svg)](https://docs.rs/android-ndk-sys)
+[![Crates.io Status](https://meritbadge.herokuapp.com/android-ndk)](https://crates.io/crates/android-ndk)
+[![Docs.rs Status](https://docs.rs/android-ndk/badge.svg)](https://docs.rs/android-ndk)
 
 This is a work in progress at the moment.
 
