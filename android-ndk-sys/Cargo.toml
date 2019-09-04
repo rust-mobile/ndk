@@ -1,6 +1,6 @@
 [package]
 name = "android-ndk-sys"
-version = "0.1.3"
+version = "0.2.0"
 authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
 edition = "2018"
 description = "FFI bindings for the Android NDK"
@@ -18,7 +18,6 @@ include = [
 ]
 
 [features]
-default = []
 rustdoc = []
 
 [package.metadata.docs.rs]

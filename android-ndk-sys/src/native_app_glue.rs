@@ -54,4 +54,5 @@ extern "C" {
     pub fn android_app_read_cmd(app: *mut android_app) -> i8;
     pub fn android_app_pre_exec_cmd(app: *mut android_app, cmd: i8);
     pub fn android_app_post_exec_cmd(app: *mut android_app, cmd: i8);
+    pub fn app_dummy();
 }

@@ -13,7 +13,7 @@
 // Test setup lints
 #![cfg_attr(test, allow(dead_code))]
 
-pub mod android_native_app_glue;
+pub mod native_app_glue;
 
 #[cfg(all(not(target_os = "android"), not(test), not(feature = "rustdoc")))]
 compile_error!("android-ndk-sys only supports compiling for Android");

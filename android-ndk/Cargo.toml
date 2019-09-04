@@ -30,4 +30,4 @@ num_enum = "0.2"
 [dependencies.ffi]
 package = "android-ndk-sys"
 path = "../android-ndk-sys"
-version = "0.1"
+version = "0.2"
