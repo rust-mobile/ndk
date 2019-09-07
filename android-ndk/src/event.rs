@@ -10,6 +10,7 @@
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
 use std::fmt;
+use std::ptr::NonNull;
 
 /// A `const AInputEvent *`
 ///
@@ -63,8 +64,8 @@ impl InputEvent {
     /// By calling this function, you assert that the pointer is a valid, non-null pointer to a
     /// native `AInputEvent`.
     #[inline]
-    pub unsafe fn from_ptr(ptr: *mut ffi::AInputEvent) -> Self {
-        match ffi::AInputEvent_getType(ptr) as u32 {
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
+        match ffi::AInputEvent_getType(ptr.as_ptr()) as u32 {
             ffi::AINPUT_EVENT_TYPE_KEY => InputEvent::KeyEvent(KeyEvent::from_ptr(ptr)),
             ffi::AINPUT_EVENT_TYPE_MOTION => InputEvent::MotionEvent(MotionEvent::from_ptr(ptr)),
             x => panic!("Bad event type received: {}", x),
@@ -73,7 +74,7 @@ impl InputEvent {
 
     /// Returns a pointer to the native `AInputEvent`.
     #[inline]
-    pub fn ptr(&self) -> *mut ffi::AInputEvent {
+    pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         match self {
             InputEvent::MotionEvent(MotionEvent { ptr }) => *ptr,
             InputEvent::KeyEvent(KeyEvent { ptr }) => *ptr,
@@ -86,7 +87,7 @@ impl InputEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
     #[inline]
     pub fn source(&self) -> Source {
-        let source = unsafe { ffi::AInputEvent_getSource(self.ptr()) as u32 };
+        let source = unsafe { ffi::AInputEvent_getSource(self.ptr().as_ptr()) as u32 };
         source.try_into().unwrap_or(Source::Unknown)
     }
 
@@ -96,7 +97,7 @@ impl InputEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getdeviceid)
     #[inline]
     pub fn device_id(&self) -> i32 {
-        unsafe { ffi::AInputEvent_getDeviceId(self.ptr()) }
+        unsafe { ffi::AInputEvent_getDeviceId(self.ptr().as_ptr()) }
     }
 }
 
@@ -182,7 +183,7 @@ impl MetaState {
 /// For general discussion of motion events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/MotionEvent).
 pub struct MotionEvent {
-    ptr: *mut ffi::AInputEvent,
+    ptr: NonNull<ffi::AInputEvent>,
 }
 
 impl fmt::Debug for MotionEvent {
@@ -347,13 +348,13 @@ impl MotionEvent {
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to a
     /// native `AInputEvent`, and that that `AInputEvent` is an `AMotionEvent`.
     #[inline]
-    pub unsafe fn from_ptr(ptr: *mut ffi::AInputEvent) -> Self {
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         Self { ptr }
     }
 
     /// Returns a pointer to the native `AInputEvent`
     #[inline]
-    pub fn ptr(&self) -> *mut ffi::AInputEvent {
+    pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr
     }
 
@@ -364,7 +365,7 @@ impl MotionEvent {
     #[inline]
     pub fn action(&self) -> MotionAction {
         let action = unsafe {
-            ffi::AMotionEvent_getAction(self.ptr) as u32 & ffi::AMOTION_EVENT_ACTION_MASK
+            ffi::AMotionEvent_getAction(self.ptr.as_ptr()) as u32 & ffi::AMOTION_EVENT_ACTION_MASK
         };
         action.try_into().unwrap()
     }
@@ -378,7 +379,7 @@ impl MotionEvent {
     /// `PointerDown`.
     #[inline]
     pub fn pointer_index(&self) -> usize {
-        let action = unsafe { ffi::AMotionEvent_getAction(self.ptr) as u32 };
+        let action = unsafe { ffi::AMotionEvent_getAction(self.ptr.as_ptr()) as u32 };
         let index = (action & ffi::AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
             >> ffi::AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
         index as usize
@@ -392,7 +393,7 @@ impl MotionEvent {
     // TODO: look at output with out-of-range pointer index
     // Probably -1 though
     pub fn pointer_id_for(&self, pointer_index: usize) -> i32 {
-        unsafe { ffi::AMotionEvent_getPointerId(self.ptr, pointer_index) }
+        unsafe { ffi::AMotionEvent_getPointerId(self.ptr.as_ptr(), pointer_index) }
     }
     */
 
@@ -402,7 +403,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getpointercount)
     #[inline]
     pub fn pointer_count(&self) -> usize {
-        unsafe { ffi::AMotionEvent_getPointerCount(self.ptr) }
+        unsafe { ffi::AMotionEvent_getPointerCount(self.ptr.as_ptr()) }
     }
 
     /// An iterator over the pointers in this motion event
@@ -437,7 +438,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_gethistorysize)
     #[inline]
     pub fn history_size(&self) -> usize {
-        unsafe { ffi::AMotionEvent_getHistorySize(self.ptr) }
+        unsafe { ffi::AMotionEvent_getHistorySize(self.ptr.as_ptr()) }
     }
 
     /// An iterator over the historical events contained in this event.
@@ -457,7 +458,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getmetastate)
     #[inline]
     pub fn meta_state(&self) -> MetaState {
-        unsafe { MetaState(ffi::AMotionEvent_getMetaState(self.ptr) as u32) }
+        unsafe { MetaState(ffi::AMotionEvent_getMetaState(self.ptr.as_ptr()) as u32) }
     }
 
     /// Returns the button state during this event, as a bitfield.
@@ -466,7 +467,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getbuttonstate)
     #[inline]
     pub fn button_state(&self) -> ButtonState {
-        unsafe { ButtonState(ffi::AMotionEvent_getButtonState(self.ptr) as u32) }
+        unsafe { ButtonState(ffi::AMotionEvent_getButtonState(self.ptr.as_ptr()) as u32) }
     }
 
     /// Returns the time of the start of this gesture, in the `java.lang.System.nanoTime()` time
@@ -476,7 +477,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getdowntime)
     #[inline]
     pub fn down_time(&self) -> i64 {
-        unsafe { ffi::AMotionEvent_getDownTime(self.ptr) }
+        unsafe { ffi::AMotionEvent_getDownTime(self.ptr.as_ptr()) }
     }
 
     /// Returns a bitfield indicating which edges were touched by this event.
@@ -485,7 +486,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getedgeflags)
     #[inline]
     pub fn edge_flags(&self) -> EdgeFlags {
-        unsafe { EdgeFlags(ffi::AMotionEvent_getEdgeFlags(self.ptr) as u32) }
+        unsafe { EdgeFlags(ffi::AMotionEvent_getEdgeFlags(self.ptr.as_ptr()) as u32) }
     }
 
     /// Returns the time of this event, in the `java.lang.System.nanoTime()` time base
@@ -494,7 +495,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_geteventtime)
     #[inline]
     pub fn event_time(&self) -> i64 {
-        unsafe { ffi::AMotionEvent_getEventTime(self.ptr) }
+        unsafe { ffi::AMotionEvent_getEventTime(self.ptr.as_ptr()) }
     }
 
     /// The flags associated with a motion event.
@@ -503,7 +504,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getflags)
     #[inline]
     pub fn flags(&self) -> MotionEventFlags {
-        unsafe { MotionEventFlags(ffi::AMotionEvent_getFlags(self.ptr) as u32) }
+        unsafe { MotionEventFlags(ffi::AMotionEvent_getFlags(self.ptr.as_ptr()) as u32) }
     }
 
     /// Returns the offset in the x direction between the coordinates and the raw coordinates
@@ -512,7 +513,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getxoffset)
     #[inline]
     pub fn x_offset(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getXOffset(self.ptr) }
+        unsafe { ffi::AMotionEvent_getXOffset(self.ptr.as_ptr()) }
     }
 
     /// Returns the offset in the y direction between the coordinates and the raw coordinates
@@ -521,7 +522,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getyoffset)
     #[inline]
     pub fn y_offset(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getYOffset(self.ptr) }
+        unsafe { ffi::AMotionEvent_getYOffset(self.ptr.as_ptr()) }
     }
 
     /// Returns the precision of the x value of the coordinates
@@ -530,7 +531,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getxprecision)
     #[inline]
     pub fn x_precision(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getXPrecision(self.ptr) }
+        unsafe { ffi::AMotionEvent_getXPrecision(self.ptr.as_ptr()) }
     }
 
     /// Returns the precision of the y value of the coordinates
@@ -539,13 +540,13 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getyprecision)
     #[inline]
     pub fn y_precision(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getYPrecision(self.ptr) }
+        unsafe { ffi::AMotionEvent_getYPrecision(self.ptr.as_ptr()) }
     }
 }
 
 /// A view into the data of a specific pointer in a motion event.
 pub struct Pointer<'a> {
-    event: *const ffi::AInputEvent,
+    event: NonNull<ffi::AInputEvent>,
     index: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
@@ -558,63 +559,63 @@ impl<'a> Pointer<'a> {
 
     #[inline]
     pub fn pointer_id(&self) -> i32 {
-        unsafe { ffi::AMotionEvent_getPointerId(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn axis_value(&self, axis: Axis) -> f32 {
-        unsafe { ffi::AMotionEvent_getAxisValue(self.event, axis as i32, self.index) }
+        unsafe { ffi::AMotionEvent_getAxisValue(self.event.as_ptr(), axis as i32, self.index) }
     }
 
     #[inline]
     pub fn orientation(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getOrientation(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getOrientation(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn pressure(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getPressure(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getPressure(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn raw_x(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getRawX(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getRawX(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn raw_y(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getRawY(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getRawY(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn size(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getSize(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getSize(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn tool_major(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getToolMajor(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getToolMajor(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn tool_minor(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getToolMinor(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getToolMinor(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn touch_major(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getTouchMajor(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getTouchMajor(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn touch_minor(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getTouchMinor(self.event, self.index) }
+        unsafe { ffi::AMotionEvent_getTouchMinor(self.event.as_ptr(), self.index) }
     }
 }
 
 /// An iterator over the pointers in a `MotionEvent`.
 pub struct PointersIter<'a> {
-    event: *const ffi::AInputEvent,
+    event: NonNull<ffi::AInputEvent>,
     next_index: usize,
     count: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
@@ -649,7 +650,7 @@ impl<'a> ExactSizeIterator for PointersIter<'a> {
 
 /// Represents a view into a past moment of a motion event
 pub struct HistoricalMotionEvent<'a> {
-    event: *const ffi::AInputEvent,
+    event: NonNull<ffi::AInputEvent>,
     history_index: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
@@ -667,7 +668,7 @@ impl<'a> HistoricalMotionEvent<'a> {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_gethistoricaleventtime)
     #[inline]
     pub fn event_time(&self) -> i64 {
-        unsafe { ffi::AMotionEvent_getHistoricalEventTime(self.event, self.history_index) }
+        unsafe { ffi::AMotionEvent_getHistoricalEventTime(self.event.as_ptr(), self.history_index) }
     }
 
     /// An iterator over the pointers of this historical motion event
@@ -677,7 +678,7 @@ impl<'a> HistoricalMotionEvent<'a> {
             event: self.event,
             history_index: self.history_index,
             next_pointer_index: 0,
-            pointer_count: unsafe { ffi::AMotionEvent_getPointerCount(self.event) },
+            pointer_count: unsafe { ffi::AMotionEvent_getPointerCount(self.event.as_ptr()) },
             _marker: std::marker::PhantomData,
         }
     }
@@ -687,7 +688,7 @@ impl<'a> HistoricalMotionEvent<'a> {
 ///
 /// It iterates from oldest to newest.
 pub struct HistoricalMotionEventsIter<'a> {
-    event: *const ffi::AInputEvent,
+    event: NonNull<ffi::AInputEvent>,
     next_history_index: usize,
     history_size: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
@@ -737,7 +738,7 @@ impl<'a> DoubleEndedIterator for HistoricalMotionEventsIter<'a> {
 
 /// A view into a pointer at a historical moment
 pub struct HistoricalPointer<'a> {
-    event: *const ffi::AInputEvent,
+    event: NonNull<ffi::AInputEvent>,
     pointer_index: usize,
     history_index: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
@@ -751,7 +752,7 @@ impl<'a> HistoricalPointer<'a> {
 
     #[inline]
     pub fn pointer_id(&self) -> i32 {
-        unsafe { ffi::AMotionEvent_getPointerId(self.event, self.pointer_index) }
+        unsafe { ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.pointer_index) }
     }
 
     #[inline]
@@ -763,7 +764,7 @@ impl<'a> HistoricalPointer<'a> {
     pub fn axis_value(&self, axis: Axis) -> f32 {
         unsafe {
             ffi::AMotionEvent_getHistoricalAxisValue(
-                self.event,
+                self.event.as_ptr(),
                 axis as i32,
                 self.pointer_index,
                 self.history_index,
@@ -775,7 +776,7 @@ impl<'a> HistoricalPointer<'a> {
     pub fn orientation(&self) -> f32 {
         unsafe {
             ffi::AMotionEvent_getHistoricalOrientation(
-                self.event,
+                self.event.as_ptr(),
                 self.pointer_index,
                 self.history_index,
             )
@@ -786,7 +787,7 @@ impl<'a> HistoricalPointer<'a> {
     pub fn pressure(&self) -> f32 {
         unsafe {
             ffi::AMotionEvent_getHistoricalPressure(
-                self.event,
+                self.event.as_ptr(),
                 self.pointer_index,
                 self.history_index,
             )
@@ -796,35 +797,55 @@ impl<'a> HistoricalPointer<'a> {
     #[inline]
     pub fn raw_x(&self) -> f32 {
         unsafe {
-            ffi::AMotionEvent_getHistoricalRawX(self.event, self.pointer_index, self.history_index)
+            ffi::AMotionEvent_getHistoricalRawX(
+                self.event.as_ptr(),
+                self.pointer_index,
+                self.history_index,
+            )
         }
     }
 
     #[inline]
     pub fn raw_y(&self) -> f32 {
         unsafe {
-            ffi::AMotionEvent_getHistoricalRawY(self.event, self.pointer_index, self.history_index)
+            ffi::AMotionEvent_getHistoricalRawY(
+                self.event.as_ptr(),
+                self.pointer_index,
+                self.history_index,
+            )
         }
     }
 
     #[inline]
     pub fn x(&self) -> f32 {
         unsafe {
-            ffi::AMotionEvent_getHistoricalX(self.event, self.pointer_index, self.history_index)
+            ffi::AMotionEvent_getHistoricalX(
+                self.event.as_ptr(),
+                self.pointer_index,
+                self.history_index,
+            )
         }
     }
 
     #[inline]
     pub fn y(&self) -> f32 {
         unsafe {
-            ffi::AMotionEvent_getHistoricalY(self.event, self.pointer_index, self.history_index)
+            ffi::AMotionEvent_getHistoricalY(
+                self.event.as_ptr(),
+                self.pointer_index,
+                self.history_index,
+            )
         }
     }
 
     #[inline]
     pub fn size(&self) -> f32 {
         unsafe {
-            ffi::AMotionEvent_getHistoricalSize(self.event, self.pointer_index, self.history_index)
+            ffi::AMotionEvent_getHistoricalSize(
+                self.event.as_ptr(),
+                self.pointer_index,
+                self.history_index,
+            )
         }
     }
 
@@ -832,7 +853,7 @@ impl<'a> HistoricalPointer<'a> {
     pub fn tool_major(&self) -> f32 {
         unsafe {
             ffi::AMotionEvent_getHistoricalToolMajor(
-                self.event,
+                self.event.as_ptr(),
                 self.pointer_index,
                 self.history_index,
             )
@@ -843,7 +864,7 @@ impl<'a> HistoricalPointer<'a> {
     pub fn tool_minor(&self) -> f32 {
         unsafe {
             ffi::AMotionEvent_getHistoricalToolMinor(
-                self.event,
+                self.event.as_ptr(),
                 self.pointer_index,
                 self.history_index,
             )
@@ -854,7 +875,7 @@ impl<'a> HistoricalPointer<'a> {
     pub fn touch_major(&self) -> f32 {
         unsafe {
             ffi::AMotionEvent_getHistoricalTouchMajor(
-                self.event,
+                self.event.as_ptr(),
                 self.pointer_index,
                 self.history_index,
             )
@@ -865,7 +886,7 @@ impl<'a> HistoricalPointer<'a> {
     pub fn touch_minor(&self) -> f32 {
         unsafe {
             ffi::AMotionEvent_getHistoricalTouchMinor(
-                self.event,
+                self.event.as_ptr(),
                 self.pointer_index,
                 self.history_index,
             )
@@ -875,7 +896,7 @@ impl<'a> HistoricalPointer<'a> {
 
 /// An iterator over the pointers in a historical motion event
 pub struct HistoricalPointersIter<'a> {
-    event: *const ffi::AInputEvent,
+    event: NonNull<ffi::AInputEvent>,
     history_index: usize,
     next_pointer_index: usize,
     pointer_count: usize,
@@ -917,7 +938,7 @@ impl ExactSizeIterator for HistoricalPointersIter<'_> {
 /// javadoc](https://developer.android.com/reference/android/view/KeyEvent).
 #[derive(Copy, Clone)]
 pub struct KeyEvent {
-    ptr: *mut ffi::AInputEvent,
+    ptr: NonNull<ffi::AInputEvent>,
 }
 
 impl fmt::Debug for KeyEvent {
@@ -1240,13 +1261,13 @@ impl KeyEvent {
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to an
     /// `AInputEvent`, and that that `AInputEvent` is an `AKeyEvent`.
     #[inline]
-    pub unsafe fn from_ptr(ptr: *mut ffi::AInputEvent) -> Self {
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         Self { ptr }
     }
 
     /// Returns a pointer to the native `AInputEvent`
     #[inline]
-    pub fn ptr(&self) -> *mut ffi::AInputEvent {
+    pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr
     }
 
@@ -1256,7 +1277,7 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getaction)
     #[inline]
     pub fn action(&self) -> KeyAction {
-        let action = unsafe { ffi::AKeyEvent_getAction(self.ptr) as u32 };
+        let action = unsafe { ffi::AKeyEvent_getAction(self.ptr.as_ptr()) as u32 };
         action.try_into().unwrap()
     }
 
@@ -1267,7 +1288,7 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getdowntime)
     #[inline]
     pub fn down_time(&self) -> i64 {
-        unsafe { ffi::AKeyEvent_getDownTime(self.ptr) }
+        unsafe { ffi::AKeyEvent_getDownTime(self.ptr.as_ptr()) }
     }
 
     /// Returns the time this event occured.  This is on the scale of
@@ -1277,7 +1298,7 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_geteventtime)
     #[inline]
     pub fn event_time(&self) -> i64 {
-        unsafe { ffi::AKeyEvent_getEventTime(self.ptr) }
+        unsafe { ffi::AKeyEvent_getEventTime(self.ptr.as_ptr()) }
     }
 
     /// Returns the keycode associated with this key event
@@ -1286,7 +1307,7 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getkeycode)
     #[inline]
     pub fn key_code(&self) -> Keycode {
-        let keycode = unsafe { ffi::AKeyEvent_getKeyCode(self.ptr) as u32 };
+        let keycode = unsafe { ffi::AKeyEvent_getKeyCode(self.ptr.as_ptr()) as u32 };
         keycode.try_into().unwrap_or(Keycode::Unknown)
     }
 
@@ -1296,7 +1317,7 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getrepeatcount)
     #[inline]
     pub fn repeat_count(&self) -> i32 {
-        unsafe { ffi::AKeyEvent_getRepeatCount(self.ptr) }
+        unsafe { ffi::AKeyEvent_getRepeatCount(self.ptr.as_ptr()) }
     }
 
     /// Returns the hardware keycode of a key.  This varies from device to device.
@@ -1305,7 +1326,7 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getscancode)
     #[inline]
     pub fn scan_code(&self) -> i32 {
-        unsafe { ffi::AKeyEvent_getScanCode(self.ptr) }
+        unsafe { ffi::AKeyEvent_getScanCode(self.ptr.as_ptr()) }
     }
 }
 
@@ -1368,7 +1389,7 @@ impl KeyEvent {
     /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getflags)
     #[inline]
     pub fn flags(&self) -> KeyEventFlags {
-        unsafe { KeyEventFlags(ffi::AKeyEvent_getFlags(self.ptr) as u32) }
+        unsafe { KeyEventFlags(ffi::AKeyEvent_getFlags(self.ptr.as_ptr()) as u32) }
     }
 
     /// Returns the state of the modifiers during this key event, represented by a bitmask.
@@ -1377,6 +1398,6 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getmetastate)
     #[inline]
     pub fn meta_state(&self) -> MetaState {
-        unsafe { MetaState(ffi::AKeyEvent_getMetaState(self.ptr) as u32) }
+        unsafe { MetaState(ffi::AKeyEvent_getMetaState(self.ptr.as_ptr()) as u32) }
     }
 }
