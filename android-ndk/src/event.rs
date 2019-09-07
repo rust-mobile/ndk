@@ -15,12 +15,12 @@ use std::fmt;
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#ainputevent)
 #[derive(Debug)]
-pub enum AInputEvent {
-    AMotionEvent(AMotionEvent),
-    AKeyEvent(AKeyEvent),
+pub enum InputEvent {
+    MotionEvent(MotionEvent),
+    KeyEvent(KeyEvent),
 }
 
-/// An enum representing the source of an `AInputEvent`.
+/// An enum representing the source of an `InputEvent`.
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-36)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -43,7 +43,7 @@ pub enum Source {
     Any = ffi::AINPUT_SOURCE_ANY,
 }
 
-/// An enum representing the class of an `AInputEvent` source
+/// An enum representing the class of an `InputEvent` source
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-35)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -57,16 +57,16 @@ enum Class {
     Joystick = ffi::AINPUT_SOURCE_CLASS_JOYSTICK,
 }
 
-impl AInputEvent {
-    /// Initialize an `AInputEvent` from a pointer
+impl InputEvent {
+    /// Initialize an `InputEvent` from a pointer
     ///
     /// By calling this function, you assert that the pointer is a valid, non-null pointer to a
     /// native `AInputEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: *mut ffi::AInputEvent) -> Self {
         match ffi::AInputEvent_getType(ptr) as u32 {
-            ffi::AINPUT_EVENT_TYPE_KEY => AInputEvent::AKeyEvent(AKeyEvent::from_ptr(ptr)),
-            ffi::AINPUT_EVENT_TYPE_MOTION => AInputEvent::AMotionEvent(AMotionEvent::from_ptr(ptr)),
+            ffi::AINPUT_EVENT_TYPE_KEY => InputEvent::KeyEvent(KeyEvent::from_ptr(ptr)),
+            ffi::AINPUT_EVENT_TYPE_MOTION => InputEvent::MotionEvent(MotionEvent::from_ptr(ptr)),
             x => panic!("Bad event type received: {}", x),
         }
     }
@@ -75,8 +75,8 @@ impl AInputEvent {
     #[inline]
     pub fn ptr(&self) -> *mut ffi::AInputEvent {
         match self {
-            AInputEvent::AMotionEvent(AMotionEvent { ptr }) => *ptr,
-            AInputEvent::AKeyEvent(AKeyEvent { ptr }) => *ptr,
+            InputEvent::MotionEvent(MotionEvent { ptr }) => *ptr,
+            InputEvent::KeyEvent(KeyEvent { ptr }) => *ptr,
         }
     }
 
@@ -181,13 +181,13 @@ impl MetaState {
 ///
 /// For general discussion of motion events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/MotionEvent).
-pub struct AMotionEvent {
+pub struct MotionEvent {
     ptr: *mut ffi::AInputEvent,
 }
 
-impl fmt::Debug for AMotionEvent {
+impl fmt::Debug for MotionEvent {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "AMotionEvent {{ .. }}")
+        write!(f, "MotionEvent {{ .. }}")
     }
 }
 
@@ -341,11 +341,11 @@ impl MotionEventFlags {
     }
 }
 
-impl AMotionEvent {
-    /// Constructs an AMotionEvent from a pointer to a native `AInputEvent`
+impl MotionEvent {
+    /// Constructs a MotionEvent from a pointer to a native `AInputEvent`
     ///
-    /// By calling this method, you assert that the pointer is a valid, non-null pointer to an
-    /// `AInputEvent`, and that that `AInputEvent` is an `AMotionEvent`.
+    /// By calling this method, you assert that the pointer is a valid, non-null pointer to a
+    /// native `AInputEvent`, and that that `AInputEvent` is an `AMotionEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: *mut ffi::AInputEvent) -> Self {
         Self { ptr }
@@ -547,7 +547,7 @@ impl AMotionEvent {
 pub struct Pointer<'a> {
     event: *const ffi::AInputEvent,
     index: usize,
-    _marker: std::marker::PhantomData<&'a AMotionEvent>,
+    _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
 impl<'a> Pointer<'a> {
@@ -612,12 +612,12 @@ impl<'a> Pointer<'a> {
     }
 }
 
-/// An iterator over the pointers in an `AMotionEvent`.
+/// An iterator over the pointers in a `MotionEvent`.
 pub struct PointersIter<'a> {
     event: *const ffi::AInputEvent,
     next_index: usize,
     count: usize,
-    _marker: std::marker::PhantomData<&'a AMotionEvent>,
+    _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
 impl<'a> Iterator for PointersIter<'a> {
@@ -651,7 +651,7 @@ impl<'a> ExactSizeIterator for PointersIter<'a> {
 pub struct HistoricalMotionEvent<'a> {
     event: *const ffi::AInputEvent,
     history_index: usize,
-    _marker: std::marker::PhantomData<&'a AMotionEvent>,
+    _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
 impl<'a> HistoricalMotionEvent<'a> {
@@ -683,14 +683,14 @@ impl<'a> HistoricalMotionEvent<'a> {
     }
 }
 
-/// An iterator over all the historical moments in an `AMotionEvent`.
+/// An iterator over all the historical moments in a `MotionEvent`.
 ///
 /// It iterates from oldest to newest.
 pub struct HistoricalMotionEventsIter<'a> {
     event: *const ffi::AInputEvent,
     next_history_index: usize,
     history_size: usize,
-    _marker: std::marker::PhantomData<&'a AMotionEvent>,
+    _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
 impl<'a> Iterator for HistoricalMotionEventsIter<'a> {
@@ -740,7 +740,7 @@ pub struct HistoricalPointer<'a> {
     event: *const ffi::AInputEvent,
     pointer_index: usize,
     history_index: usize,
-    _marker: std::marker::PhantomData<&'a AMotionEvent>,
+    _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
 impl<'a> HistoricalPointer<'a> {
@@ -879,7 +879,7 @@ pub struct HistoricalPointersIter<'a> {
     history_index: usize,
     next_pointer_index: usize,
     pointer_count: usize,
-    _marker: std::marker::PhantomData<&'a AMotionEvent>,
+    _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
 impl<'a> Iterator for HistoricalPointersIter<'a> {
@@ -916,13 +916,13 @@ impl ExactSizeIterator for HistoricalPointersIter<'_> {
 /// For general discussion of key events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/KeyEvent).
 #[derive(Copy, Clone)]
-pub struct AKeyEvent {
+pub struct KeyEvent {
     ptr: *mut ffi::AInputEvent,
 }
 
-impl fmt::Debug for AKeyEvent {
+impl fmt::Debug for KeyEvent {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "AKeyEvent {{ .. }}")
+        write!(f, "KeyEvent {{ .. }}")
     }
 }
 
@@ -1234,8 +1234,8 @@ pub enum Keycode {
     ProfileSwitch = ffi::AKEYCODE_PROFILE_SWITCH,
 }
 
-impl AKeyEvent {
-    /// Constructs an AMotionEvent from a pointer to a native `AInputEvent`
+impl KeyEvent {
+    /// Constructs a KeyEvent from a pointer to a native `AInputEvent`
     ///
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to an
     /// `AInputEvent`, and that that `AInputEvent` is an `AKeyEvent`.
@@ -1309,7 +1309,7 @@ impl AKeyEvent {
     }
 }
 
-/// Flags associated with `AKeyEvent`.
+/// Flags associated with `KeyEvent`.
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-28)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -1362,8 +1362,8 @@ impl KeyEventFlags {
     }
 }
 
-impl AKeyEvent {
-    /// Flags associated with `AKeyEvent`.
+impl KeyEvent {
+    /// Flags associated with `KeyEvent`.
     ///
     /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getflags)
     #[inline]
