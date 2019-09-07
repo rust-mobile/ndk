@@ -1,6 +1,6 @@
 [package]
 name = "android-ndk"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
 edition = "2018"
 description = "Safe Rust bindings to the Android NDK"
@@ -18,7 +18,6 @@ include = [
 ]
 
 [features]
-default = []
 rustdoc = ["ffi/rustdoc"]
 
 [package.metadata.docs.rs]
