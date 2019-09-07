@@ -1,0 +1,240 @@
+//! Assets
+//!
+//! See also [the NDK docs](https://developer.android.com/ndk/reference/group/asset)
+
+use std::ffi::{CStr, CString};
+use std::fmt;
+use std::io;
+use std::ptr::NonNull;
+
+/// A native `AAssetManager *`.
+pub struct AssetManager {
+    ptr: NonNull<ffi::AAssetManager>,
+}
+
+impl fmt::Debug for AssetManager {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "AssetManager {{ ... }}")
+    }
+}
+
+impl AssetManager {
+    /// Create an `AssetManager` from a pointer
+    ///
+    /// By calling this function, you assert that the pointer is a valid pointer to a native
+    /// `AAssetManager`.
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AAssetManager>) -> Self {
+        Self { ptr }
+    }
+
+    /// Returns the pointer to the native `AAssetManager`.
+    pub fn ptr(&self) -> NonNull<ffi::AAssetManager> {
+        self.ptr
+    }
+
+    /// Open the asset. Returns `None` if opening the asset fails.
+    ///
+    /// This currently always opens the asset in the streaming mode.
+    pub fn open(&self, filename: &CStr) -> Option<Asset> {
+        unsafe {
+            let ptr = ffi::AAssetManager_open(
+                self.ptr.as_ptr(),
+                filename.as_ptr(),
+                ffi::AASSET_MODE_STREAMING as i32,
+            );
+            Some(Asset::from_ptr(NonNull::new(ptr)?))
+        }
+    }
+
+    /// Open an asset directory. Returns `None` if opening the directory fails.
+    pub fn open_dir(&self, filename: &CStr) -> Option<AssetDir> {
+        unsafe {
+            let ptr = ffi::AAssetManager_openDir(self.ptr.as_ptr(), filename.as_ptr());
+            Some(AssetDir::from_ptr(NonNull::new(ptr)?))
+        }
+    }
+}
+
+/// A native `AAssetDir *`.
+///
+/// ```no_run
+/// #use std::ffi::CString;
+/// #let asset_manager: AssetManager = unimplemented!();
+/// let mut my_dir = asset_manager.open_dir(&CString::new("my_dir"));
+///
+/// // Use it as an iterator
+/// let all_files = my_dir.collect::<Vec<CString>>();
+///
+/// // Reset the iterator
+/// my_dir.rewind();
+///
+/// // Use .next_with() to iterate without allocating `CString`s
+/// while let Some(asset) = my_dir.next_with(|cstr| asset_manager.open(cstr)) {
+///     let text = asset.read_to_string();
+///     // ...
+/// }
+/// ```
+pub struct AssetDir {
+    ptr: NonNull<ffi::AAssetDir>,
+}
+
+impl Drop for AssetDir {
+    fn drop(&mut self) {
+        unsafe { ffi::AAssetDir_close(self.ptr.as_ptr()) }
+    }
+}
+
+impl AssetDir {
+    /// Construct an `AssetDir` from the native `AAssetDir *`.  This gives ownership of the
+    /// `AAssetDir *` to the `AssetDir`, which will handle closing the asset.  Avoid using
+    /// the pointer after calling this function.
+    ///
+    /// By calling this function, you assert that it points to a valid native `AAssetDir`.
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AAssetDir>) -> Self {
+        Self { ptr }
+    }
+
+    /// The corresponding native `AAssetDir *`
+    pub fn ptr(&self) -> NonNull<ffi::AAssetDir> {
+        self.ptr
+    }
+
+    /// Get the next filename, if any, and process it.  Like `.next()`, but performs no additional
+    /// allocation.
+    ///
+    /// The filenames are in the correct format to be passed to `AssetManager::open`
+    pub fn with_next<T>(&mut self, f: impl for<'a> FnOnce(&'a CStr) -> T) -> Option<T> {
+        unsafe {
+            let next_name = ffi::AAssetDir_getNextFileName(self.ptr.as_ptr());
+            if next_name.is_null() {
+                None
+            } else {
+                Some(f(CStr::from_ptr(next_name)))
+            }
+        }
+    }
+
+    /// Reset the iteration state
+    pub fn rewind(&mut self) {
+        unsafe {
+            ffi::AAssetDir_rewind(self.ptr.as_ptr());
+        }
+    }
+}
+
+impl Iterator for AssetDir {
+    type Item = CString;
+
+    fn next(&mut self) -> Option<CString> {
+        self.with_next(|cstr| cstr.to_owned())
+    }
+}
+
+/// A native `AAsset *`, open in the streaming mode
+///
+/// ```no_run
+/// #let asset_manager: AssetManager = unimplemented!();
+/// let asset = asset_manager.open("path/to/asset");
+///
+/// let mut data = vec![];
+/// asset.read_to_end(&mut data);
+/// // ... use data ...
+/// ```
+pub struct Asset {
+    ptr: NonNull<ffi::AAsset>,
+}
+
+impl Drop for Asset {
+    fn drop(&mut self) {
+        unsafe { ffi::AAsset_close(self.ptr.as_ptr()) }
+    }
+}
+
+impl Asset {
+    /// Construct an `Asset` from the native `AAsset *`.  This gives ownership of the `AAsset *` to
+    /// the `Asset`, which will handle closing the asset.  Avoid using the pointer after calling
+    /// this function.
+    ///
+    /// By calling this function, you assert that it points to a valid native `AAsset`, open
+    /// in the streaming mode.
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AAsset>) -> Self {
+        Self { ptr }
+    }
+
+    /// The corresponding native `AAsset *`
+    pub fn ptr(&self) -> NonNull<ffi::AAsset> {
+        self.ptr
+    }
+
+    /// Returns the total length of the asset, in bytes
+    pub fn get_length(&self) -> usize {
+        unsafe { ffi::AAsset_getLength64(self.ptr.as_ptr()) as usize }
+    }
+
+    /// Returns the remaining length of the asset, in bytes
+    pub fn get_remaining_length(&self) -> usize {
+        unsafe { ffi::AAsset_getRemainingLength64(self.ptr.as_ptr()) as usize }
+    }
+
+    /// Reads all data into a buffer and returns it
+    pub fn get_buffer(&mut self) -> io::Result<&[u8]> {
+        unsafe {
+            let buf_ptr = ffi::AAsset_getBuffer(self.ptr.as_ptr());
+            if buf_ptr.is_null() {
+                Err(io::Error::new(
+                    io::ErrorKind::Other,
+                    "Android Asset error creating buffer",
+                ))
+            } else {
+                Ok(std::slice::from_raw_parts(
+                    buf_ptr as *const u8,
+                    self.get_remaining_length(),
+                ))
+            }
+        }
+    }
+
+    //pub fn open_file_descriptor(&self) -> TODO
+}
+
+impl io::Read for Asset {
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+        unsafe {
+            let res = ffi::AAsset_read(self.ptr.as_ptr(), buf.as_mut_ptr() as *mut _, buf.len());
+            if res >= 0 {
+                Ok(res as usize)
+            } else {
+                Err(io::Error::new(
+                    io::ErrorKind::Other,
+                    "Android Asset read error",
+                ))
+            }
+        }
+    }
+}
+
+impl io::Seek for Asset {
+    fn seek(&mut self, seek: io::SeekFrom) -> io::Result<u64> {
+        unsafe {
+            let res = match seek {
+                io::SeekFrom::Start(x) => {
+                    ffi::AAsset_seek64(self.ptr.as_ptr(), x as i64, ffi::SEEK_SET as i32)
+                }
+                io::SeekFrom::Current(x) => {
+                    ffi::AAsset_seek64(self.ptr.as_ptr(), x, ffi::SEEK_CUR as i32)
+                }
+                io::SeekFrom::End(x) => {
+                    ffi::AAsset_seek64(self.ptr.as_ptr(), x, ffi::SEEK_END as i32)
+                }
+            };
+            if res < 0 {
+                Err(io::Error::new(
+                    io::ErrorKind::Other,
+                    "Android Asset seek error",
+                ))
+            } else {
+                Ok(res as u64)
+            }
+        }
+    }
+}
