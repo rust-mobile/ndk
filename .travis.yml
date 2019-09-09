@@ -7,6 +7,10 @@ matrix:
       rust: beta
     - os: linux
       rust: nightly
+addons:
+  apt:
+    packages:
+      - gcc-8-arm-linux-gnueabi
 cache: cargo
 install:
   - rustup component add rustfmt

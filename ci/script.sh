@@ -2,8 +2,8 @@
 
 set -ex
 
-export CC=clang
-export AR=ar
+export CC=arm-linux-gnueabi-gcc-8
+export AR=arm-linux-gnueabi-gcc-ar-8
 
 # Check formatting
 cargo fmt --all -- --check
