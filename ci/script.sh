@@ -2,6 +2,9 @@
 
 set -ex
 
+export CC=clang
+export AR=ar
+
 # Check formatting
 cargo fmt --all -- --check
 
