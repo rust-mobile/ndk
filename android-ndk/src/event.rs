@@ -61,7 +61,7 @@ enum Class {
 impl InputEvent {
     /// Initialize an `InputEvent` from a pointer
     ///
-    /// By calling this function, you assert that the pointer is a valid, non-null pointer to a
+    /// By calling this function, you assert that the pointer is a valid pointer to a
     /// native `AInputEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {

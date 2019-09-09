@@ -7,8 +7,10 @@
 //!  * `Looper`, in the `looper` module
 //!  * `InputQueue`, in the `input_queue` module
 //!  * `AssetManager`, `AssetDir`, and `Asset`, in the `asset` module
+//!  * `NativeActivity`, in the `native_activity` module
 
 pub mod asset;
 pub mod event;
 pub mod input_queue;
 pub mod looper;
+pub mod native_activity;
