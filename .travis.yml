@@ -7,18 +7,11 @@ matrix:
       rust: beta
     - os: linux
       rust: nightly
-addons:
-  apt:
-    packages:
-      - gcc-8-arm-linux-gnueabi
 cache: cargo
-install:
-  - rustup component add rustfmt
-  - rustup target add arm-linux-androideabi
-  - rustup target add armv7-linux-androideabi
-  - rustup target add aarch64-linux-android
-  - rustup target add i686-linux-android
-  - rustup target add x86_64-linux-android
+env:
+  global:
+    - NDK_HOME=$HOME/android-ndk-r20
+install: ci/install.sh
 script: ci/script.sh
 branches:
   only:

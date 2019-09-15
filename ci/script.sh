@@ -2,8 +2,8 @@
 
 set -ex
 
-export CC=arm-linux-gnueabi-gcc-8
-export AR=arm-linux-gnueabi-gcc-ar-8
+export CC=$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang
+export AR=$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
 
 # Check formatting
 cargo fmt --all -- --check
