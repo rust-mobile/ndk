@@ -15,10 +15,11 @@ use std::ptr;
 use std::ptr::NonNull;
 use std::time::Duration;
 
-/// A thread-local `ALooper`.  This contains no real data; just the promise that there is a looper
-/// associated with the current thread.
+/// A thread-local `ALooper`.  This contains a native `ALooper *` and promises that there is a
+/// looper associated with the current thread.
 pub struct ThreadLooper {
     _marker: std::marker::PhantomData<*mut ()>, // Not send or sync
+    foreign: ForeignLooper,
 }
 
 /// The poll result from a `ThreadLooper`.
@@ -39,37 +40,26 @@ pub enum Poll {
 }
 
 #[derive(Debug, Copy, Clone)]
-pub struct PollError;
+pub struct LooperError;
 
-impl fmt::Display for PollError {
+impl fmt::Display for LooperError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Android Looper poll error")
+        write!(f, "Android Looper error")
     }
 }
 
-impl std::error::Error for PollError {}
+impl std::error::Error for LooperError {}
 
 impl ThreadLooper {
     /// Returns the looper associated with the current thread, if any.
     pub fn for_thread() -> Option<Self> {
-        unsafe {
-            if ffi::ALooper_forThread().is_null() {
-                None
-            } else {
-                Some(Self::new_unchecked())
-            }
-        }
-    }
-
-    /// Create a `ThreadLooper` without checking that there is one associated with the current
-    /// thread.
-    pub unsafe fn new_unchecked() -> Self {
-        ThreadLooper {
+        Some(Self {
             _marker: std::marker::PhantomData,
-        }
+            foreign: ForeignLooper::for_thread()?,
+        })
     }
 
-    fn poll_once_ms(&self, ms: i32) -> Result<Poll, PollError> {
+    fn poll_once_ms(&self, ms: i32) -> Result<Poll, LooperError> {
         unsafe {
             let mut fd: RawFd = -1;
             let mut events: i32 = -1;
@@ -78,7 +68,7 @@ impl ThreadLooper {
                 ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
                 ffi::ALOOPER_POLL_CALLBACK => Ok(Poll::Callback),
                 ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
-                ffi::ALOOPER_POLL_ERROR => Err(PollError),
+                ffi::ALOOPER_POLL_ERROR => Err(LooperError),
                 ident if ident >= 0 => Ok(Poll::Event {
                     ident,
                     fd,
@@ -92,7 +82,7 @@ impl ThreadLooper {
 
     /// Polls the looper, blocking on processing an event.
     #[inline]
-    pub fn poll_once(&self) -> Result<Poll, PollError> {
+    pub fn poll_once(&self) -> Result<Poll, LooperError> {
         self.poll_once_ms(-1)
     }
 
@@ -102,7 +92,7 @@ impl ThreadLooper {
     /// It panics if the timeout is larger than expressible as an `i32` of milliseconds (roughly 25
     /// days).
     #[inline]
-    pub fn poll_once_timeout(&self, timeout: Duration) -> Result<Poll, PollError> {
+    pub fn poll_once_timeout(&self, timeout: Duration) -> Result<Poll, LooperError> {
         self.poll_once_ms(
             timeout
                 .as_millis()
@@ -111,7 +101,7 @@ impl ThreadLooper {
         )
     }
 
-    fn poll_all_ms(&self, ms: i32) -> Result<Poll, PollError> {
+    fn poll_all_ms(&self, ms: i32) -> Result<Poll, LooperError> {
         unsafe {
             let mut fd: RawFd = -1;
             let mut events: i32 = -1;
@@ -119,7 +109,7 @@ impl ThreadLooper {
             match ffi::ALooper_pollAll(ms, &mut fd, &mut events, &mut data) {
                 ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
                 ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
-                ffi::ALOOPER_POLL_ERROR => Err(PollError),
+                ffi::ALOOPER_POLL_ERROR => Err(LooperError),
                 ident if ident >= 0 => Ok(Poll::Event {
                     ident,
                     fd,
@@ -135,7 +125,7 @@ impl ThreadLooper {
     ///
     /// This function will never return `Poll::Callback`.
     #[inline]
-    pub fn poll_all(&self) -> Result<Poll, PollError> {
+    pub fn poll_all(&self) -> Result<Poll, LooperError> {
         self.poll_all_ms(-1)
     }
 
@@ -147,13 +137,22 @@ impl ThreadLooper {
     /// It panics if the timeout is larger than expressible as an `i32` of milliseconds (roughly 25
     /// days).
     #[inline]
-    pub fn poll_all_timeout(&self, timeout: Duration) -> Result<Poll, PollError> {
+    pub fn poll_all_timeout(&self, timeout: Duration) -> Result<Poll, LooperError> {
         self.poll_all_ms(
             timeout
                 .as_millis()
                 .try_into()
                 .expect("Supplied timeout is too large"),
         )
+    }
+
+    /// Returns a reference to the `ForeignLooper` that is associated with the current thread.
+    pub fn as_foreign(&self) -> &ForeignLooper {
+        &self.foreign
+    }
+
+    pub fn into_foreign(self) -> ForeignLooper {
+        self.foreign
     }
 }
 
@@ -165,11 +164,26 @@ pub struct ForeignLooper {
 unsafe impl Send for ForeignLooper {}
 unsafe impl Sync for ForeignLooper {}
 
+impl Drop for ForeignLooper {
+    fn drop(&mut self) {
+        unsafe { ffi::ALooper_release(self.ptr.as_ptr()) }
+    }
+}
+
+impl Clone for ForeignLooper {
+    fn clone(&self) -> Self {
+        unsafe {
+            ffi::ALooper_acquire(self.ptr.as_ptr());
+            Self { ptr: self.ptr }
+        }
+    }
+}
+
 impl ForeignLooper {
     /// Returns the looper associated with the current thread, if any.
     #[inline]
     pub fn for_thread() -> Option<Self> {
-        NonNull::new(unsafe { ffi::ALooper_forThread() }).map(|ptr| Self { ptr })
+        NonNull::new(unsafe { ffi::ALooper_forThread() }).map(|ptr| unsafe { Self::from_ptr(ptr) })
     }
 
     /// Construct a `ForeignLooper` object from the given pointer.
@@ -178,10 +192,11 @@ impl ForeignLooper {
     /// NDK `ALooper`.
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::ALooper>) -> Self {
+        ffi::ALooper_acquire(ptr.as_ptr());
         Self { ptr }
     }
 
-    /// Returns a pointer to the NDK `ALooper` object
+    /// Returns a pointer to the NDK `ALooper` object.
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::ALooper> {
         self.ptr
@@ -192,5 +207,51 @@ impl ForeignLooper {
         unsafe { ffi::ALooper_wake(self.ptr.as_ptr()) }
     }
 
-    // TODO addFd, removeFd, maybe acquire/release
+    /// Adds a file descriptor to be polled, without a callback.
+    ///
+    /// See also [the NDK
+    /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
+    // TODO why is this unsafe?
+    pub unsafe fn add_fd(
+        &self,
+        fd: RawFd,
+        ident: i32,
+        event: i32,
+        data: *mut c_void,
+    ) -> Result<(), LooperError> {
+        match ffi::ALooper_addFd(self.ptr.as_ptr(), fd, ident, event, None, data) {
+            1 => Ok(()),
+            -1 => Err(LooperError),
+            _ => unreachable!(),
+        }
+    }
+
+    /// Adds a file descriptor to be polled, with a callback.
+    ///
+    /// The callback takes as an argument the file descriptor, and should return true to continue
+    /// receiving callbacks, or false to have the callback unregistered.
+    ///
+    /// See also [the NDK
+    /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
+    // TODO why is this unsafe?
+    pub unsafe fn add_fd_with_callback(
+        &self,
+        fd: RawFd,
+        ident: i32,
+        event: i32,
+        callback: Box<dyn FnMut(RawFd) -> bool>,
+    ) -> Result<(), LooperError> {
+        extern "C" fn cb_handler(fd: RawFd, _events: i32, data: *mut c_void) -> i32 {
+            unsafe {
+                let cb: &mut Box<dyn FnMut(RawFd) -> bool> = &mut *(data as *mut _);
+                cb(fd) as i32
+            }
+        }
+        let data: *mut c_void = Box::into_raw(Box::new(callback)) as *mut _;
+        match ffi::ALooper_addFd(self.ptr.as_ptr(), fd, ident, event, Some(cb_handler), data) {
+            1 => Ok(()),
+            -1 => Err(LooperError),
+            _ => unreachable!(),
+        }
+    }
 }
