@@ -588,6 +588,16 @@ impl<'a> Pointer<'a> {
     }
 
     #[inline]
+    pub fn x(&self) -> f32 {
+        unsafe { ffi::AMotionEvent_getX(self.event.as_ptr(), self.index) }
+    }
+
+    #[inline]
+    pub fn y(&self) -> f32 {
+        unsafe { ffi::AMotionEvent_getY(self.event.as_ptr(), self.index) }
+    }
+
+    #[inline]
     pub fn size(&self) -> f32 {
         unsafe { ffi::AMotionEvent_getSize(self.event.as_ptr(), self.index) }
     }
