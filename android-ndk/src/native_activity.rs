@@ -73,7 +73,8 @@ impl NativeActivity {
     /// This processe's `JavaVM` object.
     ///
     /// ```no_run
-    ///# let native_activity: NativeActivity = unimplemented!();
+    /// # use android_ndk::native_activity::NativeActivity;
+    /// # let native_activity: NativeActivity = unimplemented!();
     /// let vm = native_activity.vm();
     /// let env = vm.attach_current_thread();
     /// // Do JNI with env ...

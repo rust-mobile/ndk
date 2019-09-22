@@ -58,9 +58,14 @@ impl AssetManager {
 /// A native `AAssetDir *`.
 ///
 /// ```no_run
-/// #use std::ffi::CString;
-/// #let asset_manager: AssetManager = unimplemented!();
-/// let mut my_dir = asset_manager.open_dir(&CString::new("my_dir"));
+/// # use std::ffi::CString;
+/// # use android_ndk::asset::AssetManager;
+/// # let asset_manager: AssetManager = unimplemented!();
+/// use std::io::Read;
+///
+/// let mut my_dir = asset_manager
+///     .open_dir(&CString::new("my_dir").unwrap())
+///     .expect("Could not open directory");
 ///
 /// // Use it as an iterator
 /// let all_files = my_dir.collect::<Vec<CString>>();
@@ -68,9 +73,10 @@ impl AssetManager {
 /// // Reset the iterator
 /// my_dir.rewind();
 ///
-/// // Use .next_with() to iterate without allocating `CString`s
-/// while let Some(asset) = my_dir.next_with(|cstr| asset_manager.open(cstr)) {
-///     let text = asset.read_to_string();
+/// // Use .with_next() to iterate without allocating `CString`s
+/// while let Some(asset) = my_dir.with_next(|cstr| asset_manager.open(cstr).unwrap()) {
+///     let mut text = String::new();
+///     asset.read_to_string(&mut text);
 ///     // ...
 /// }
 /// ```
@@ -133,8 +139,14 @@ impl Iterator for AssetDir {
 /// A native `AAsset *`, open in the streaming mode
 ///
 /// ```no_run
-/// #let asset_manager: AssetManager = unimplemented!();
-/// let asset = asset_manager.open("path/to/asset");
+/// # use std::ffi::CString;
+/// # use android_ndk::asset::AssetManager;
+/// # let asset_manager: AssetManager = unimplemented!();
+/// use std::io::Read;
+///
+/// let asset = asset_manager
+///     .open(&CString::new("path/to/asset").unwrap())
+///     .expect("Could not open asset");
 ///
 /// let mut data = vec![];
 /// asset.read_to_end(&mut data);
