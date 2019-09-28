@@ -11,6 +11,8 @@ cache: cargo
 env:
   global:
     - NDK_HOME=$HOME/android-ndk-r20
+    - CC=$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang
+    - AR=$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
 install: ci/install.sh
 script: ci/script.sh
 branches:
