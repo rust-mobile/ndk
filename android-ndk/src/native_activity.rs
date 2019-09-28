@@ -16,6 +16,10 @@ pub struct NativeActivity {
     ptr: NonNull<ffi::ANativeActivity>,
 }
 
+// It gets shared between threads in android_native_app_glue
+unsafe impl Send for NativeActivity {}
+unsafe impl Sync for NativeActivity {}
+
 impl NativeActivity {
     /// Create a `NativeActivity` from a pointer
     ///

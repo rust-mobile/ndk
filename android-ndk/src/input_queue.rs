@@ -12,6 +12,10 @@ pub struct InputQueue {
     ptr: NonNull<ffi::AInputQueue>,
 }
 
+// It gets shared between threads in android_native_app_glue
+unsafe impl Send for InputQueue {}
+unsafe impl Sync for InputQueue {}
+
 impl fmt::Debug for InputQueue {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "InputQueue {{ .. }}")

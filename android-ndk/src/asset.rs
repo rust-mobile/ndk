@@ -12,6 +12,11 @@ pub struct AssetManager {
     ptr: NonNull<ffi::AAssetManager>,
 }
 
+// AAssetManager is thread safe.
+// See https://developer.android.com/ndk/reference/group/asset#aassetmanager
+unsafe impl Send for AssetManager {}
+unsafe impl Sync for AssetManager {}
+
 impl fmt::Debug for AssetManager {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "AssetManager {{ ... }}")
@@ -84,6 +89,9 @@ pub struct AssetDir {
     ptr: NonNull<ffi::AAssetDir>,
 }
 
+// It's unclear if AAssetDir is thread safe.
+// However, AAsset is not, so there's a good chance that AAssetDir is not either.
+
 impl Drop for AssetDir {
     fn drop(&mut self) {
         unsafe { ffi::AAssetDir_close(self.ptr.as_ptr()) }
@@ -155,6 +163,9 @@ impl Iterator for AssetDir {
 pub struct Asset {
     ptr: NonNull<ffi::AAsset>,
 }
+
+// AAsset is *not* thread safe.
+// See https://developer.android.com/ndk/reference/group/asset#aasset
 
 impl Drop for Asset {
     fn drop(&mut self) {

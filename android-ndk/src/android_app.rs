@@ -18,6 +18,10 @@ pub struct AndroidApp {
     ptr: NonNull<ffi::native_app_glue::android_app>,
 }
 
+// It is used between threads in android_native_app_glue
+unsafe impl Send for AndroidApp {}
+unsafe impl Sync for AndroidApp {}
+
 // TODO: docs
 impl AndroidApp {
     pub unsafe fn from_ptr(ptr: NonNull<ffi::native_app_glue::android_app>) -> Self {
@@ -83,10 +87,26 @@ impl AndroidApp {
         res
     }
 
+    pub fn saved_state(&self) -> Option<&[u8]> {
+        unsafe {
+            let ptr = self.ptr.as_ref().savedState;
+            if ptr.is_null() {
+                None
+            } else {
+                Some(std::slice::from_raw_parts(
+                    ptr as *mut u8,
+                    self.ptr.as_ref().savedStateSize,
+                ))
+            }
+        }
+    }
+
     // TODO: all the other things
 }
 
 // TODO docs
+// Best thing would be to word-for-word copy the docs from android_native_app_glue.h to here,
+// because there's really no good online source for it
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(i8)]
 pub enum Cmd {

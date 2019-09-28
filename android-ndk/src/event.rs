@@ -186,6 +186,8 @@ pub struct MotionEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
 
+// TODO: thread safety?
+
 impl fmt::Debug for MotionEvent {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "MotionEvent {{ .. }}")
@@ -551,6 +553,8 @@ pub struct Pointer<'a> {
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
+// TODO: thread safety?
+
 impl<'a> Pointer<'a> {
     #[inline]
     pub fn pointer_index(&self) -> usize {
@@ -631,6 +635,8 @@ pub struct PointersIter<'a> {
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
+// TODO: thread safety?
+
 impl<'a> Iterator for PointersIter<'a> {
     type Item = Pointer<'a>;
     fn next(&mut self) -> Option<Pointer<'a>> {
@@ -664,6 +670,8 @@ pub struct HistoricalMotionEvent<'a> {
     history_index: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
+
+// TODO: thread safety?
 
 impl<'a> HistoricalMotionEvent<'a> {
     /// Returns the "history index" associated with this historical event.  Older events have smaller indices.
@@ -703,6 +711,8 @@ pub struct HistoricalMotionEventsIter<'a> {
     history_size: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
+
+// TODO: thread safety?
 
 impl<'a> Iterator for HistoricalMotionEventsIter<'a> {
     type Item = HistoricalMotionEvent<'a>;
@@ -753,6 +763,8 @@ pub struct HistoricalPointer<'a> {
     history_index: usize,
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
+
+// TODO: thread safety?
 
 impl<'a> HistoricalPointer<'a> {
     #[inline]
@@ -913,6 +925,8 @@ pub struct HistoricalPointersIter<'a> {
     _marker: std::marker::PhantomData<&'a MotionEvent>,
 }
 
+// TODO: thread safety?
+
 impl<'a> Iterator for HistoricalPointersIter<'a> {
     type Item = HistoricalPointer<'a>;
 
@@ -950,6 +964,8 @@ impl ExactSizeIterator for HistoricalPointersIter<'_> {
 pub struct KeyEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
+
+// TODO: thread safety?
 
 impl fmt::Debug for KeyEvent {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
