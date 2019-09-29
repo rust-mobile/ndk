@@ -36,7 +36,7 @@ impl InputQueue {
         self.ptr
     }
 
-    pub fn get_event(&mut self) -> Option<InputEvent> {
+    pub fn get_event(&self) -> Option<InputEvent> {
         unsafe {
             let mut out_event = ptr::null_mut();
             if ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) < 0 {
@@ -54,12 +54,12 @@ impl InputQueue {
                 0 => Ok(false),
                 1 => Ok(true),
                 x if x < 0 => Err(InputQueueError),
-                _ => unreachable!(),
+                x => unreachable!("AInputQueue_hasEvents returned {}", x),
             }
         }
     }
 
-    pub fn pre_dispatch(&mut self, event: InputEvent) -> Option<InputEvent> {
+    pub fn pre_dispatch(&self, event: InputEvent) -> Option<InputEvent> {
         unsafe {
             if ffi::AInputQueue_preDispatchEvent(self.ptr.as_ptr(), event.ptr().as_ptr()) == 0 {
                 Some(event)
@@ -69,7 +69,7 @@ impl InputQueue {
         }
     }
 
-    pub fn finish_event(&mut self, event: InputEvent, handled: bool) {
+    pub fn finish_event(&self, event: InputEvent, handled: bool) {
         unsafe {
             ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int);
         }
