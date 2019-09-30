@@ -9,7 +9,6 @@
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
-use std::fmt;
 use std::ptr::NonNull;
 
 /// A `const AInputEvent *`
@@ -182,17 +181,12 @@ impl MetaState {
 ///
 /// For general discussion of motion events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/MotionEvent).
+#[derive(Debug)]
 pub struct MotionEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
 
 // TODO: thread safety?
-
-impl fmt::Debug for MotionEvent {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "MotionEvent {{ .. }}")
-    }
-}
 
 /// A motion action.
 ///
@@ -547,6 +541,7 @@ impl MotionEvent {
 }
 
 /// A view into the data of a specific pointer in a motion event.
+#[derive(Debug)]
 pub struct Pointer<'a> {
     event: NonNull<ffi::AInputEvent>,
     index: usize,
@@ -628,6 +623,7 @@ impl<'a> Pointer<'a> {
 }
 
 /// An iterator over the pointers in a `MotionEvent`.
+#[derive(Debug)]
 pub struct PointersIter<'a> {
     event: NonNull<ffi::AInputEvent>,
     next_index: usize,
@@ -665,6 +661,7 @@ impl<'a> ExactSizeIterator for PointersIter<'a> {
 }
 
 /// Represents a view into a past moment of a motion event
+#[derive(Debug)]
 pub struct HistoricalMotionEvent<'a> {
     event: NonNull<ffi::AInputEvent>,
     history_index: usize,
@@ -705,6 +702,7 @@ impl<'a> HistoricalMotionEvent<'a> {
 /// An iterator over all the historical moments in a `MotionEvent`.
 ///
 /// It iterates from oldest to newest.
+#[derive(Debug)]
 pub struct HistoricalMotionEventsIter<'a> {
     event: NonNull<ffi::AInputEvent>,
     next_history_index: usize,
@@ -757,6 +755,7 @@ impl<'a> DoubleEndedIterator for HistoricalMotionEventsIter<'a> {
 }
 
 /// A view into a pointer at a historical moment
+#[derive(Debug)]
 pub struct HistoricalPointer<'a> {
     event: NonNull<ffi::AInputEvent>,
     pointer_index: usize,
@@ -917,6 +916,7 @@ impl<'a> HistoricalPointer<'a> {
 }
 
 /// An iterator over the pointers in a historical motion event
+#[derive(Debug)]
 pub struct HistoricalPointersIter<'a> {
     event: NonNull<ffi::AInputEvent>,
     history_index: usize,
@@ -960,18 +960,12 @@ impl ExactSizeIterator for HistoricalPointersIter<'_> {
 ///
 /// For general discussion of key events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/KeyEvent).
-#[derive(Copy, Clone)]
+#[derive(Debug)]
 pub struct KeyEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
 
 // TODO: thread safety?
-
-impl fmt::Debug for KeyEvent {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "KeyEvent {{ .. }}")
-    }
-}
 
 /// Key actions.
 ///

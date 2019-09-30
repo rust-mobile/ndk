@@ -3,11 +3,11 @@
 //! See also [the NDK docs](https://developer.android.com/ndk/reference/group/asset)
 
 use std::ffi::{CStr, CString};
-use std::fmt;
 use std::io;
 use std::ptr::NonNull;
 
 /// A native `AAssetManager *`.
+#[derive(Debug)]
 pub struct AssetManager {
     ptr: NonNull<ffi::AAssetManager>,
 }
@@ -16,12 +16,6 @@ pub struct AssetManager {
 // See https://developer.android.com/ndk/reference/group/asset#aassetmanager
 unsafe impl Send for AssetManager {}
 unsafe impl Sync for AssetManager {}
-
-impl fmt::Debug for AssetManager {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AssetManager {{ ... }}")
-    }
-}
 
 impl AssetManager {
     /// Create an `AssetManager` from a pointer
@@ -85,6 +79,7 @@ impl AssetManager {
 ///     // ...
 /// }
 /// ```
+#[derive(Debug)]
 pub struct AssetDir {
     ptr: NonNull<ffi::AAssetDir>,
 }
@@ -160,6 +155,7 @@ impl Iterator for AssetDir {
 /// asset.read_to_end(&mut data);
 /// // ... use data ...
 /// ```
+#[derive(Debug)]
 pub struct Asset {
     ptr: NonNull<ffi::AAsset>,
 }

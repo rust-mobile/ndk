@@ -12,6 +12,7 @@ use std::ptr::NonNull;
 ///
 /// This is either provided in `ANativeActivity_onCreate`, or accessible in
 /// `android_native_app_glue`'s android_app.
+#[derive(Debug)]
 pub struct NativeActivity {
     ptr: NonNull<ffi::ANativeActivity>,
 }

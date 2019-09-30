@@ -8,12 +8,14 @@ use crate::input_queue::InputQueue;
 use crate::native_activity::NativeActivity;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
+use std::fmt;
 use std::marker::PhantomData;
 use std::mem::ManuallyDrop;
 use std::ops::Deref;
 use std::ptr::NonNull;
 
 /// A `struct android_app *`.
+#[derive(Debug)]
 pub struct AndroidApp {
     ptr: NonNull<ffi::native_app_glue::android_app>,
 }
@@ -134,6 +136,12 @@ pub enum Cmd {
 pub struct Ref<'a, T> {
     _marker: PhantomData<&'a T>,
     data: ManuallyDrop<T>,
+}
+
+impl<'a, T: fmt::Debug> fmt::Debug for Ref<'a, T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Ref {{ {:?} }}", &*self)
+    }
 }
 
 impl<'a, T> Deref for Ref<'a, T> {

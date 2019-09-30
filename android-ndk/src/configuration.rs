@@ -3,10 +3,13 @@
 //! See also the [NDK docs](https://developer.android.com/ndk/reference/group/configuration) for
 //! `AConfiguration`, as well as the [docs for providing
 //! resources](https://developer.android.com/guide/topics/resources/providing-resources.html),
-//! which explain many of the configuration values.
+//! which explain many of the configuration values.  The [`android.content.res.Configuration`
+//! javadoc](https://developer.android.com/reference/android/content/res/Configuration.html) may
+//! also have useful information.
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
+use std::fmt;
 use std::ptr::NonNull;
 
 /// A native `AConfiguration *`.
@@ -39,6 +42,29 @@ impl PartialEq for Configuration {
     }
 }
 impl Eq for Configuration {}
+
+impl fmt::Debug for Configuration {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("Configuration")
+            .field("mcc", &self.mcc())
+            .field("mnc", &self.mnc())
+            .field("lang", &self.language())
+            .field("country", &self.country())
+            .field("orientation", &self.orientation())
+            .field("touchscreen", &self.touchscreen())
+            .field("density", &self.density())
+            .field("keyboard", &self.keyboard())
+            .field("navigation", &self.navigation())
+            .field("keys_hidden", &self.keys_hidden())
+            .field("nav_hidden", &self.nav_hidden())
+            .field("sdk_version", &self.sdk_version())
+            .field("screen_size", &self.screen_size())
+            .field("screen_long", &self.screen_long())
+            .field("ui_mode_type", &self.ui_mode_type())
+            .field("ui_mode_night", &self.ui_mode_night())
+            .finish()
+    }
+}
 
 impl Configuration {
     /// Construct a `Configuration` from a pointer.
@@ -113,6 +139,15 @@ impl Configuration {
     pub fn keyboard(&self) -> Keyboard {
         unsafe {
             (ffi::AConfiguration_getKeyboard(self.ptr.as_ptr()) as u32)
+                .try_into()
+                .unwrap()
+        }
+    }
+
+    /// Returns keyboard visibility/availability.
+    pub fn keys_hidden(&self) -> KeysHidden {
+        unsafe {
+            (ffi::AConfiguration_getKeysHidden(self.ptr.as_ptr()) as u32)
                 .try_into()
                 .unwrap()
         }

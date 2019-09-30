@@ -1,6 +1,5 @@
 // TODO: mod docs
 
-use std::fmt;
 use std::os::raw::c_int;
 use std::ptr;
 use std::ptr::NonNull;
@@ -8,6 +7,7 @@ use std::ptr::NonNull;
 use crate::event::InputEvent;
 
 // TODO docs
+#[derive(Debug)]
 pub struct InputQueue {
     ptr: NonNull<ffi::AInputQueue>,
 }
@@ -16,12 +16,7 @@ pub struct InputQueue {
 unsafe impl Send for InputQueue {}
 unsafe impl Sync for InputQueue {}
 
-impl fmt::Debug for InputQueue {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "InputQueue {{ .. }}")
-    }
-}
-
+#[derive(Debug)]
 pub struct InputQueueError;
 
 impl InputQueue {

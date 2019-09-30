@@ -17,12 +17,14 @@ use std::time::Duration;
 
 /// A thread-local `ALooper`.  This contains a native `ALooper *` and promises that there is a
 /// looper associated with the current thread.
+#[derive(Debug)]
 pub struct ThreadLooper {
     _marker: std::marker::PhantomData<*mut ()>, // Not send or sync
     foreign: ForeignLooper,
 }
 
 /// The poll result from a `ThreadLooper`.
+#[derive(Debug)]
 pub enum Poll {
     /// This looper was woken using `ForeignLooper::wake`
     Wake,
@@ -157,6 +159,7 @@ impl ThreadLooper {
 }
 
 /// An `ALooper`, not necessarily allociated with the current thread.
+#[derive(Debug)]
 pub struct ForeignLooper {
     ptr: NonNull<ffi::ALooper>,
 }
