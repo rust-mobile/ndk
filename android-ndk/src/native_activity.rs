@@ -70,12 +70,20 @@ impl NativeActivity {
         unsafe { self.ptr.as_ref().instance }
     }
 
-    /// Instance data associated with the activity
-    pub fn instance_mut(&mut self) -> &mut *mut c_void {
-        unsafe { &mut self.ptr.as_mut().instance }
+    /// Set the instance data associated with the activity
+    ///
+    /// This can invalidate assumptions held by `android_native_app_glue`, as well as cause data
+    /// races with concurrent access to the instance data.
+    pub unsafe fn set_instance(&mut self, data: *mut c_void) {
+        // FIXME Does this create undefined behavior by creating a mutable reference to what could
+        // also be accessed immutably at the same time?
+        //
+        // I think that as long as we warn the users to avoid concurrent access, and we pass along
+        // the `unsafe` burden, it's OK.
+        self.ptr.as_mut().instance = data;
     }
 
-    /// This processe's `JavaVM` object.
+    /// This process's `JavaVM` object.
     ///
     /// ```no_run
     /// # use android_ndk::native_activity::NativeActivity;

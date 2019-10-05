@@ -5,7 +5,9 @@
 
 use crate::configuration::Configuration;
 use crate::input_queue::InputQueue;
+use crate::looper::ForeignLooper;
 use crate::native_activity::NativeActivity;
+
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
 use std::fmt;
@@ -34,12 +36,9 @@ impl AndroidApp {
         self.ptr
     }
 
-    pub fn activity(&self) -> Ref<'_, NativeActivity> {
-        unsafe {
-            Ref::new(NativeActivity::from_ptr(
-                NonNull::new(self.ptr.as_ref().activity).unwrap(),
-            ))
-        }
+    // It's OK to not give a Ref<'_, _> because the ANativeActivity * will never change
+    pub fn activity(&self) -> NativeActivity {
+        unsafe { NativeActivity::from_ptr(NonNull::new(self.ptr.as_ref().activity).unwrap()) }
     }
 
     pub fn input_queue(&self) -> Ref<'_, InputQueue> {
@@ -101,6 +100,11 @@ impl AndroidApp {
                 ))
             }
         }
+    }
+
+    // The looper will also never change
+    pub fn looper(&self) -> ForeignLooper {
+        unsafe { ForeignLooper::from_ptr(NonNull::new(self.ptr.as_ref().looper).unwrap()) }
     }
 
     // TODO: all the other things
