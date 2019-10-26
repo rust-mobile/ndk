@@ -14,4 +14,5 @@ provides a safe API over it.
 Other helpful crates for Android:
 
  * [`jni`](https://crates.io/crates/jni), JNI bindings for Rust
- * [`ndk-logger`](https://crates.io/crates/ndk-logger), an Android backend for the `log` crate
+ * [`android_logger`](https://crates.io/crates/android_logger) and [`ndk-logger`](https://crates.io/crates/ndk-logger),
+   Android backends for the `log` crate
