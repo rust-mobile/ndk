@@ -102,6 +102,10 @@ impl AndroidApp {
         }
     }
 
+    pub fn content_rect(&self) -> ffi::ARect {
+        unsafe { self.ptr.as_ref().contentRect }
+    }
+
     // The looper will also never change
     pub fn looper(&self) -> ForeignLooper {
         unsafe { ForeignLooper::from_ptr(NonNull::new(self.ptr.as_ref().looper).unwrap()) }

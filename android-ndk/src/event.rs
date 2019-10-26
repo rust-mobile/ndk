@@ -354,6 +354,25 @@ impl MotionEvent {
         self.ptr
     }
 
+    /// Get the source of the event.
+    ///
+    /// See [the NDK
+    /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
+    #[inline]
+    pub fn source(&self) -> Source {
+        let source = unsafe { ffi::AInputEvent_getSource(self.ptr.as_ptr()) as u32 };
+        source.try_into().unwrap_or(Source::Unknown)
+    }
+
+    /// Get the device id associated with the event.
+    ///
+    /// See [the NDK
+    /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getdeviceid)
+    #[inline]
+    pub fn device_id(&self) -> i32 {
+        unsafe { ffi::AInputEvent_getDeviceId(self.ptr.as_ptr()) }
+    }
+
     /// Returns the motion action associated with this event.
     ///
     /// See [the NDK
@@ -1301,8 +1320,27 @@ impl KeyEvent {
         action.try_into().unwrap()
     }
 
+    /// Get the source of the event.
+    ///
+    /// See [the NDK
+    /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
+    #[inline]
+    pub fn source(&self) -> Source {
+        let source = unsafe { ffi::AInputEvent_getSource(self.ptr.as_ptr()) as u32 };
+        source.try_into().unwrap_or(Source::Unknown)
+    }
+
+    /// Get the device id associated with the event.
+    ///
+    /// See [the NDK
+    /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getdeviceid)
+    #[inline]
+    pub fn device_id(&self) -> i32 {
+        unsafe { ffi::AInputEvent_getDeviceId(self.ptr.as_ptr()) }
+    }
+
     /// Returns the last time the key was pressed.  This is on the scale of
-    /// `java.lang.System.nanoTime()`, which has nanosecond accuracy, but no defined start time.
+    /// `java.lang.System.nanoTime()`, which has nanosecond precision, but no defined start time.
     ///
     /// See [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getdowntime)
@@ -1312,7 +1350,7 @@ impl KeyEvent {
     }
 
     /// Returns the time this event occured.  This is on the scale of
-    /// `java.lang.System.nanoTime()`, which has nanosecond accuracy, but no defined start time.
+    /// `java.lang.System.nanoTime()`, which has nanosecond precision, but no defined start time.
     ///
     /// See [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_geteventtime)
@@ -1358,47 +1396,47 @@ pub struct KeyEventFlags(pub u32);
 
 impl KeyEventFlags {
     #[inline]
-    pub fn cancelled_flag(&self) -> bool {
+    pub fn cancelled(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_CANCELED != 0
     }
     #[inline]
-    pub fn cancelled_long_press_flag(&self) -> bool {
+    pub fn cancelled_long_press(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_CANCELED_LONG_PRESS != 0
     }
     #[inline]
-    pub fn editor_action_flag(&self) -> bool {
+    pub fn editor_action(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_EDITOR_ACTION != 0
     }
     #[inline]
-    pub fn fallback_flag(&self) -> bool {
+    pub fn fallback(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_FALLBACK != 0
     }
     #[inline]
-    pub fn from_system_flag(&self) -> bool {
+    pub fn from_system(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_FROM_SYSTEM != 0
     }
     #[inline]
-    pub fn keep_touch_mode_flag(&self) -> bool {
+    pub fn keep_touch_mode(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_KEEP_TOUCH_MODE != 0
     }
     #[inline]
-    pub fn long_press_flag(&self) -> bool {
+    pub fn long_press(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_LONG_PRESS != 0
     }
     #[inline]
-    pub fn soft_keyboard_flag(&self) -> bool {
+    pub fn soft_keyboard(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_SOFT_KEYBOARD != 0
     }
     #[inline]
-    pub fn tracking_flag(&self) -> bool {
+    pub fn tracking(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_TRACKING != 0
     }
     #[inline]
-    pub fn virtual_hard_key_flag(&self) -> bool {
+    pub fn virtual_hard_key(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY != 0
     }
     #[inline]
-    pub fn woke_here_flag(&self) -> bool {
+    pub fn woke_here(&self) -> bool {
         self.0 & ffi::AKEY_EVENT_FLAG_WOKE_HERE != 0
     }
 }

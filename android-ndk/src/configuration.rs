@@ -14,7 +14,8 @@ use std::ptr::NonNull;
 
 /// A native `AConfiguration *`.
 ///
-/// This stores information about configuration.
+/// This stores information about configuration.  See [the NDK
+/// docs](https://developer.android.com/ndk/reference/group/configuration)
 pub struct Configuration {
     ptr: NonNull<ffi::AConfiguration>,
 }
@@ -390,6 +391,50 @@ pub enum Density {
     XXXHigh = ffi::ACONFIGURATION_DENSITY_XXXHIGH,
     Any = ffi::ACONFIGURATION_DENSITY_ANY,
     None = ffi::ACONFIGURATION_DENSITY_NONE,
+}
+
+impl Density {
+    /// The DPI associated with the density class.
+    /// See [the Android screen density
+    /// docs](https://developer.android.com/training/multiscreen/screendensities#TaskProvideAltBmp)
+    ///
+    /// There are some `Density` values that have no associated DPI; these values return `None`.
+    pub fn approx_dpi(self) -> Option<u32> {
+        match self {
+            Self::Default => Some(160), // Or should it be None?
+            Self::Low => Some(120),
+            Self::Medium => Some(160),
+            Self::High => Some(240),
+            Self::XHigh => Some(320),
+            Self::XXHigh => Some(480),
+            Self::XXXHigh => Some(640),
+            Self::TV => Some(213),
+            Self::Any => None,
+            Self::None => None,
+        }
+    }
+
+    /// The Hi-DPI factor associated with the density class.  This is the factor by which an
+    /// image/resource should be scaled to match its size across devices.  The baseline is a 160dpi
+    /// screen (i.e., Hi-DPI factor = DPI / 160).
+    /// See [the Android screen density
+    /// docs](https://developer.android.com/training/multiscreen/screendensities#TaskProvideAltBmp)
+    ///
+    /// There are some `Density` values that have no associated DPI; these values return `None`.
+    pub fn approx_hidpi_factor(self) -> Option<f64> {
+        match self {
+            Self::Default => Some(1.), // Or should it be None?
+            Self::Low => Some(0.75),
+            Self::Medium => Some(1.),
+            Self::High => Some(1.5),
+            Self::XHigh => Some(2.),
+            Self::XXHigh => Some(3.),
+            Self::XXXHigh => Some(4.),
+            Self::TV => Some(4. / 3.),
+            Self::Any => None,
+            Self::None => None,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
