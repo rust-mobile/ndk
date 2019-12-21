@@ -7,6 +7,7 @@ use crate::configuration::Configuration;
 use crate::input_queue::InputQueue;
 use crate::looper::ForeignLooper;
 use crate::native_activity::NativeActivity;
+use crate::native_window::NativeWindow;
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
@@ -41,12 +42,22 @@ impl AndroidApp {
         unsafe { NativeActivity::from_ptr(NonNull::new(self.ptr.as_ref().activity).unwrap()) }
     }
 
-    pub fn input_queue(&self) -> Ref<'_, InputQueue> {
+    pub fn native_window(&self) -> Option<Ref<'_, NativeWindow>> {
         unsafe {
-            Ref::new(InputQueue::from_ptr(
-                NonNull::new(self.ptr.as_ref().inputQueue).unwrap(),
-            ))
+            if let Some(ptr) = NonNull::new(self.ptr.as_ref().window) {
+                return Some(Ref::new(NativeWindow::from_ptr(ptr)));
+            }
         }
+        None
+    }
+
+    pub fn input_queue(&self) -> Option<Ref<'_, InputQueue>> {
+        unsafe {
+            if let Some(ptr) = NonNull::new(self.ptr.as_ref().inputQueue) {
+                return Some(Ref::new(InputQueue::from_ptr(ptr)));
+            }
+        }
+        None
     }
 
     pub fn config(&self) -> Ref<'_, Configuration> {
