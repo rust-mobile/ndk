@@ -127,12 +127,18 @@ impl Configuration {
         result
     }
 
-    /// Returns the screen density class.
-    pub fn density(&self) -> Density {
-        unsafe {
-            (ffi::AConfiguration_getDensity(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
+    /// Returns the screen density in dpi.
+    ///
+    /// On some devices it can return values outside of the density enum.
+    pub fn density(&self) -> Option<u32> {
+        let density = unsafe {
+            ffi::AConfiguration_getDensity(self.ptr.as_ptr()) as u32
+        };
+        match density {
+            ffi::ACONFIGURATION_DENSITY_DEFAULT => Some(160),
+            ffi::ACONFIGURATION_DENSITY_ANY => None,
+            ffi::ACONFIGURATION_DENSITY_NONE => None,
+            density => Some(density),
         }
     }
 
@@ -399,7 +405,7 @@ impl Density {
     /// docs](https://developer.android.com/training/multiscreen/screendensities#TaskProvideAltBmp)
     ///
     /// There are some `Density` values that have no associated DPI; these values return `None`.
-    pub fn approx_dpi(self) -> Option<u32> {
+    pub fn dpi(self) -> Option<u32> {
         match self {
             Self::Default => Some(160), // Or should it be None?
             Self::Low => Some(120),

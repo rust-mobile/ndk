@@ -21,6 +21,7 @@ pub mod event;
 pub mod input_queue;
 pub mod looper;
 pub mod native_activity;
+pub mod native_window;
 
 #[cfg(feature = "native_app_glue")]
 pub mod android_app;
