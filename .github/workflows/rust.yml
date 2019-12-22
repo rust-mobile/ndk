@@ -31,7 +31,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: $GITHUB_WORKSPACE/android-ndk-r20
-        key: ${{ runner.os }}-ndk-${{ hashFiles('$GITHUB_WORKSPACE/**/CHANGELOG.md') }}
+        key: ${{ runner.os }}-ndk-${{ hashFiles('../android-ndk-r20/**/CHANGELOG.md') }}
 
     - name: Download NDK
       if: steps.cache-ndk.outputs.cache-hit != 'true'
