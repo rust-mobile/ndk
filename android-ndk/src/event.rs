@@ -181,7 +181,7 @@ impl MetaState {
 ///
 /// For general discussion of motion events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/MotionEvent).
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct MotionEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
