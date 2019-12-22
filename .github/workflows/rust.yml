@@ -13,16 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-
-    - name: Cache NDK
-      id: cache-ndk
-      uses: actions/cache@v1
-      with:
-        path: $GITHUB_WORKSPACE/android-ndk-r20
-        key: ${{ runner.os }}-ndk-r20
-
+      
     - name: Download NDK
-      if: steps.cache-ndk.outputs.cache-hit != 'true'
       run: |
         curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
         unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
