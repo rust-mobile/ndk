@@ -4,6 +4,11 @@ on: [push]
 
 jobs:
   build:
+    env: 
+      CC: $NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang
+      AR: $NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
+      NDK_HOME: $GITHUB_WORKSPACE/android-ndk-r20
+
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -20,10 +25,16 @@ jobs:
         target: ${{ matrix.rust-target }}
         override: true
 
+    - name: Cache NDK
+      uses: actions/cache@v1
+      with:
+        path: $GITHUB_WORKSPACE/android-ndk-r20
+        key: ${{ hashFiles('**/CHANGELOG.md') }}
+
     - name: Download NDK
       run: |
         curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
-        unzip android-ndk-r20-linux-x86_64.zip -d $HOME
+        unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
 
     - name: Check formating
       run: cargo fmt --all -- --check
