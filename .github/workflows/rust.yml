@@ -18,7 +18,7 @@ jobs:
       id: cache-ndk
       uses: actions/cache@v1
       with:
-        path: $GITHUB_WORKSPACE/android-ndk-r20
+        path: android-ndk-r20
         key: ${{ runner.os }}-ndk-r20
 
     - name: Download NDK
