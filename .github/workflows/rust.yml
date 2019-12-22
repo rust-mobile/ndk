@@ -4,11 +4,6 @@ on: [push]
 
 jobs:
   build:
-    env: 
-      CC: $NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang
-      AR: $NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
-      NDK_HOME: $GITHUB_WORKSPACE/android-ndk-r20
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -42,8 +37,12 @@ jobs:
     - name: Check formating
       run: cargo fmt --all -- --check
     - name: Check docs
-      run: CC=cc AR=ar cargo test --manifest-path android-ndk/Cargo.toml --doc --target=x86_64-unknown-linux-gnu --features rustdoc
+      run: cargo test --manifest-path android-ndk/Cargo.toml --doc --target=x86_64-unknown-linux-gnu --features rustdoc
     - name: Run tests
       run: cargo test --package android-ndk-sys --lib --target=x86_64-unknown-linux-gnu
     - name: Check compiling on target ${{ matrix.rust-target }}
-      run: cargo check --package android-ndk --target=${{ matrix.rust-target }}
+      run: |
+        export NDK_HOME="$GITHUB_WORKSPACE/android-ndk-r20"
+        export CC="$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang"
+        export AR="$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
+        cargo check --package android-ndk --target=${{ matrix.rust-target }}
