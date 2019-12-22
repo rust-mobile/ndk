@@ -8,9 +8,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rust-target: ['stable', 'nightly']
-        rust-channel: ['arm-linux-androideabi', 'armv7-linux-androideabi', 'aarch64-linux-android', 'i686-linux-android', 'x86_64-linux-android']
-    
+        rust-channel: ['stable', 'nightly']
+        rust-target: ['arm-linux-androideabi', 'armv7-linux-androideabi', 'aarch64-linux-android', 'i686-linux-android', 'x86_64-linux-android']
+
     steps:
     - uses: actions/checkout@v1
     - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target }}
@@ -19,12 +19,12 @@ jobs:
         toolchain: ${{ matrix.rust-channel }}
         target: ${{ matrix.rust-target }}
         override: true
-      
+
     - name: Download NDK
       run: |
         curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
         unzip android-ndk-r20-linux-x86_64.zip -d $HOME
-      
+
     - name: Check formating
       run: cargo fmt --all -- --check
     - name: Check docs
