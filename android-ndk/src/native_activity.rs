@@ -102,7 +102,7 @@ impl NativeActivity {
     /// 'activity' instead of 'clazz', since it's a reference to the NativeActivity instance.
     pub fn activity(&self) -> jni::objects::JObject<'_> {
         unsafe {
-            jni::objects::JObject::from(&self.ptr.as_ref().clazz as *const _ as jni::sys::jobject)
+            jni::objects::JObject::from(self.ptr.as_ref().clazz as *const _ as jni::sys::jobject)
         }
     }
 
