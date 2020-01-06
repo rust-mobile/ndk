@@ -19,7 +19,7 @@ include = [
 
 [features]
 default = ["native_app_glue"]
-rustdoc = ["ffi/rustdoc"]
+rustdoc = ["ffi/rustdoc", "jni", "jni-glue"]
 native_app_glue = []
 
 [package.metadata.docs.rs]
@@ -28,6 +28,14 @@ features = ["rustdoc"]
 [dependencies]
 num_enum = "0.2"
 jni-sys = "0.3.0"
+
+[dependencies.jni]
+version = "0.14.0"
+optional = true
+
+[dependencies.jni-glue]
+version = "0.0.9"
+optional = true
 
 [dependencies.ffi]
 package = "android-ndk-sys"
