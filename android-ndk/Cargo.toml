@@ -27,7 +27,7 @@ features = ["rustdoc"]
 
 [dependencies]
 num_enum = "0.2"
-jni = "0.13.1"
+jni-sys = "0.3.0"
 
 [dependencies.ffi]
 package = "android-ndk-sys"
