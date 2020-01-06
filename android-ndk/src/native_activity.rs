@@ -85,25 +85,36 @@ impl NativeActivity {
 
     /// This process's `JavaVM` object.
     ///
+    /// Usage with [__jni__](https://crates.io/crates/jni) crate:
     /// ```no_run
     /// # use android_ndk::native_activity::NativeActivity;
     /// # let native_activity: NativeActivity = unimplemented!();
-    /// let vm = native_activity.vm();
+    /// let vm_ptr = native_activity.vm();
+    /// let vm = unsafe { jni::JavaVM::from_raw(vm_ptr) }.unwrap();
     /// let env = vm.attach_current_thread();
     /// // Do JNI with env ...
     /// ```
-    pub fn vm(&self) -> jni::JavaVM {
-        unsafe { jni::JavaVM::from_raw(self.ptr.as_ref().vm as *mut _).unwrap() }
+    ///
+    /// Usage with [__jni-glue__](https://crates.io/crates/jni-glue) crate:
+    /// ```no_run
+    /// # use android_ndk::native_activity::NativeActivity;
+    /// # let native_activity: NativeActivity = unimplemented!();
+    /// let vm_ptr = native_activity.vm();
+    /// let vm = unsafe { jni_glue::VM::from_jni_local(&*vm_ptr) };
+    /// vm.with_env(|env| {
+    ///     // Do JNI with env ...
+    /// });
+    /// ```
+    pub fn vm(&self) -> *mut jni_sys::JavaVM {
+        unsafe { self.ptr.as_ref().vm as *mut jni_sys::JavaVM }
     }
 
     /// The `android.app.NativeActivity` instance
     ///
     /// In the JNI, this is named `clazz`; however, as the docs say, "it should really be named
     /// 'activity' instead of 'clazz', since it's a reference to the NativeActivity instance.
-    pub fn activity(&self) -> jni::objects::JObject<'_> {
-        unsafe {
-            jni::objects::JObject::from(self.ptr.as_ref().clazz as *const _ as jni::sys::jobject)
-        }
+    pub fn activity(&self) -> jni_sys::jobject {
+        unsafe { self.ptr.as_ref().clazz as jni_sys::jobject }
     }
 
     /// Path to the directory with the application's OBB files.
