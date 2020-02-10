@@ -18,9 +18,8 @@ include = [
 ]
 
 [features]
-default = ["native_app_glue"]
 rustdoc = ["ffi/rustdoc", "jni", "jni-glue"]
-native_app_glue = []
+native_app_glue = ["ffi/native_app_glue"]
 
 [package.metadata.docs.rs]
 features = ["rustdoc"]
