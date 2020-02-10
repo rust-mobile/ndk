@@ -5,6 +5,7 @@ use std::ptr;
 use std::ptr::NonNull;
 
 use crate::event::InputEvent;
+use crate::looper::ForeignLooper;
 
 // TODO docs
 #[derive(Debug)]
@@ -67,6 +68,24 @@ impl InputQueue {
     pub fn finish_event(&self, event: InputEvent, handled: bool) {
         unsafe {
             ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int);
+        }
+    }
+
+    pub fn attach_looper(&self, looper: &ForeignLooper, id: u32) {
+        unsafe {
+            ffi::AInputQueue_attachLooper(
+                self.ptr.as_ptr(),
+                looper.ptr().as_ptr(),
+                id as _,
+                None,
+                id as _,
+            );
+        }
+    }
+
+    pub fn detach_looper(&self) {
+        unsafe {
+            ffi::AInputQueue_detachLooper(self.ptr.as_ptr());
         }
     }
 }

@@ -7,6 +7,7 @@
 //! javadoc](https://developer.android.com/reference/android/content/res/Configuration.html) may
 //! also have useful information.
 
+use crate::asset::AssetManager;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
 use std::fmt;
@@ -90,6 +91,14 @@ impl Configuration {
     /// still has ownership, and will free it when dropped.
     pub fn ptr(&self) -> NonNull<ffi::AConfiguration> {
         self.ptr
+    }
+
+    pub fn from_asset_manager(am: &AssetManager) -> Self {
+        let config = Self::new();
+        unsafe {
+            ffi::AConfiguration_fromAssetManager(config.ptr().as_mut(), am.ptr().as_mut());
+        }
+        config
     }
 
     /// Create a new `Configuration`, with none of the values set.
