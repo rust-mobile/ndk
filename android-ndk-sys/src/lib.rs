@@ -36,3 +36,7 @@ include!("ffi_i686.rs");
 
 #[cfg(all(any(target_os = "android", test), target_arch = "x86_64"))]
 include!("ffi_x86_64.rs");
+
+#[cfg(target_os = "android")]
+#[link(name = "android")]
+extern "C" {}
