@@ -4,4 +4,5 @@ members = [
     "android-glue",
     "android-ndk-sys",
     "android-ndk",
+    "cargo-apk",
 ]
