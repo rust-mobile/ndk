@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "android-build-tools",
+    "android-examples",
     "android-glue",
     "android-ndk-sys",
     "android-ndk",
