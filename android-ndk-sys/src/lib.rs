@@ -20,13 +20,13 @@ pub mod native_app_glue;
 compile_error!("android-ndk-sys only supports compiling for Android");
 
 #[cfg(any(
-    all(any(target_os = "android", test), target_arch = "arm"),
+    all(
+        any(target_os = "android", test),
+        any(target_arch = "arm", target_arch = "armv7")
+    ),
     feature = "rustdoc"
 ))]
 include!("ffi_arm.rs");
-
-#[cfg(all(any(target_os = "android", test), target_arch = "armv7"))]
-include!("ffi_armv7.rs");
 
 #[cfg(all(any(target_os = "android", test), target_arch = "aarch64"))]
 include!("ffi_aarch64.rs");

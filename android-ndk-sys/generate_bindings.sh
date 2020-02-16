@@ -5,8 +5,6 @@ while read ARCH && read TARGET ; do
 done << EOF
 arm
 arm-linux-androideabi
-armv7
-armv7-linux-androideabi
 aarch64
 aarch64-linux-android
 i686
