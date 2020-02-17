@@ -6,7 +6,7 @@ pub unsafe extern "C" fn ANativeActivity_onCreate(
     saved_state_size: usize,
 ) {
     std::env::set_var("RUST_BACKTRACE", "1");
-    android_glue::init(
+    ndk_glue::init(
         activity as _,
         saved_state as _,
         saved_state_size as _,

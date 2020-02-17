@@ -1,12 +1,12 @@
 [package]
-name = "android-examples"
+name = "ndk-examples"
 version = "0.1.0"
 authors = ["David Craven <david@craven.ch>"]
 edition = "2018"
 publish = false
 
 [target.'cfg(target_os = "android")'.dependencies]
-android-glue = { path = "../android-glue" }
+ndk-glue = { path = "../ndk-glue" }
 
 [[example]]
 name = "hello_world"

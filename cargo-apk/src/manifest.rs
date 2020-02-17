@@ -1,6 +1,6 @@
 use crate::error::Error;
-use android_build_tools::config::Metadata;
-use android_build_tools::target::Target;
+use ndk_build::config::Metadata;
+use ndk_build::target::Target;
 use serde::Deserialize;
 use std::path::Path;
 

@@ -36,9 +36,9 @@ jobs:
 
     - name: Run tests
       run: |
-        cd android-ndk-sys && cargo test --features test && cd ..
-        cd android-ndk && cargo test --features rustdoc --doc && cd ..
-        cargo test -p android-build-tools
+        cd ndk-sys && cargo test --features test && cd ..
+        cd ndk && cargo test --features rustdoc --doc && cd ..
+        cargo test -p ndk-build
         cargo test -p cargo-apk
 
     - name: Install cargo-apk
@@ -50,5 +50,5 @@ jobs:
         export NDK_HOME="$GITHUB_WORKSPACE/android-ndk-r20"
         export CC="$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang"
         export AR="$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
-        cargo check -p android-ndk --target ${{ matrix.rust-target }}
-        cargo apk build -p android-examples --target ${{ matrix.rust-target }} --examples
+        cargo check -p ndk --target ${{ matrix.rust-target }}
+        cargo apk build -p ndk-examples --target ${{ matrix.rust-target }} --examples

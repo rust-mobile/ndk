@@ -1,6 +1,6 @@
 [package]
-name = "android-ndk-sys"
-version = "0.2.1"
+name = "ndk-sys"
+version = "0.1.0"
 authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
 edition = "2018"
 description = "FFI bindings for the Android NDK"

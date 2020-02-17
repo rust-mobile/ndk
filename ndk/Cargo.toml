@@ -1,5 +1,5 @@
 [package]
-name = "android-ndk"
+name = "ndk"
 version = "0.1.0"
 authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
 edition = "2018"
@@ -30,6 +30,5 @@ version = "0.0.10"
 optional = true
 
 [dependencies.ffi]
-package = "android-ndk-sys"
-path = "../android-ndk-sys"
-version = "0.2"
+package = "ndk-sys"
+path = "../ndk-sys"

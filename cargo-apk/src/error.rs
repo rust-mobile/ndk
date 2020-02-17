@@ -1,5 +1,5 @@
-use android_build_tools::error::NdkError;
 use cargo_subcommand::Error as SubcommandError;
+use ndk_build::error::NdkError;
 use std::fmt::{Display, Formatter, Result};
 use std::io::Error as IoError;
 use toml::de::Error as TomlError;

@@ -11,10 +11,10 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
-android-build-tools = { path = "../android-build-tools" }
 cargo-subcommand = "0.4.3"
 env_logger = "0.7.1"
 exitfailure = "0.5.1"
 log = "0.4.8"
+ndk-build = { path = "../ndk-build" }
 serde = "1.0.104"
 toml = "0.5.6"

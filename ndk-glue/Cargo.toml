@@ -1,13 +1,13 @@
 [package]
-name = "android-glue"
+name = "ndk-glue"
 version = "0.1.0"
 authors = ["David Craven <david@craven.ch>"]
 edition = "2018"
 
 [dependencies]
 android_log-sys = "0.1.2"
-android-ndk-sys = { path = "../android-ndk-sys" }
-android-ndk = { path = "../android-ndk" }
+ndk = { path = "../ndk" }
+ndk-sys = { path = "../ndk-sys" }
 lazy_static = "1.4.0"
 libc = "0.2.66"
 log = "0.4.8"

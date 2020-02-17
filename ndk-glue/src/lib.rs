@@ -1,10 +1,10 @@
-use android_ndk::input_queue::InputQueue;
-use android_ndk::looper::ThreadLooper;
-use android_ndk::native_activity::NativeActivity;
-use android_ndk::native_window::NativeWindow;
-use android_ndk_sys::{AInputQueue, ANativeActivity, ANativeWindow, ARect, ALOOPER_EVENT_INPUT};
 use lazy_static::lazy_static;
 use log::Level;
+use ndk::input_queue::InputQueue;
+use ndk::looper::ThreadLooper;
+use ndk::native_activity::NativeActivity;
+use ndk::native_window::NativeWindow;
+use ndk_sys::{AInputQueue, ANativeActivity, ANativeWindow, ARect, ALOOPER_EVENT_INPUT};
 use std::ffi::{CStr, CString};
 use std::fs::File;
 use std::io::{BufRead, BufReader};

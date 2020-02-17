@@ -1,9 +1,9 @@
 # Rust on Android
 
- - Raw FFI bindings to the NDK ![android-ndk-sys-docs][android-ndk-sys-badge]
- - Safe abstraction of the bindings ![android-ndk-docs][android-ndk-badge]
- - Startup code ![android-glue-docs][android-glue-badge]
- - Everything for building apk's ![android-build-tools-docs][android-build-tools-badge]
+ - Raw FFI bindings to the NDK ![ndk-sys-docs][ndk-sys-badge]
+ - Safe abstraction of the bindings ![ndk-docs][ndk-badge]
+ - Startup code ![ndk-glue-docs][ndk-glue-badge]
+ - Everything for building apk's ![ndk-build-docs][ndk-build-badge]
  - Build tool ![cargo-apk-docs][cargo-apk-badge]
 
 ## Hello world
@@ -21,7 +21,7 @@ pub unsafe extern "C" fn ANativeActivity_onCreate(
     saved_state: *mut std::os::raw::c_void,
     saved_state_size: usize,
 ) {
-    android_glue::init(
+    ndk_glue::init(
         activity as _,
         saved_state as _,
         saved_state_size as _,
@@ -40,7 +40,7 @@ cargo apk run
 ```
 
 ## Logging and stdout
-Stdout is redirected to the android log api when using `android-glue`. Any logger that logs to
+Stdout is redirected to the android log api when using `ndk-glue`. Any logger that logs to
 stdout should therefore work.
 
 ## JNI
@@ -54,13 +54,13 @@ TODO shameless plug
 ## Flutter
 TODO shameless plug
 
-[android-ndk-sys-docs]: https://docs.rs/android-ndk-sys
-[android-ndk-sys-badge]: https://docs.rs/android-ndk-sys/badge.svg
-[android-ndk-docs]: https://docs.rs/android-ndk
-[android-ndk-badge]: https://docs.rs/android-ndk/badge.svg
-[android-glue-docs]: https://docs.rs/android-glue
-[android-glue-badge]: https://docs.rs/android-glue/badge.svg
-[android-build-tools-docs]: https://docs.rs/android-build-tools
-[android-build-tools-badge]: https://docs.rs/android-build-tools/badge.svg
+[ndk-sys-docs]: https://docs.rs/ndk-sys
+[ndk-sys-badge]: https://docs.rs/ndk-sys/badge.svg
+[ndk-docs]: https://docs.rs/ndk
+[ndk-badge]: https://docs.rs/ndk/badge.svg
+[ndk-glue-docs]: https://docs.rs/ndk-glue
+[ndk-badge]: https://docs.rs/ndk-glue/badge.svg
+[ndk-build-docs]: https://docs.rs/ndk-build
+[ndk-build-badge]: https://docs.rs/ndk-build/badge.svg
 [cargo-apk-docs]: https://docs.rs/cargo-apk
 [cargo-apk-badge]: https://docs.rs/cargo-apk/badge.svg

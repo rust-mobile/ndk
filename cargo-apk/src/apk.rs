@@ -1,12 +1,12 @@
 use crate::error::Error;
 use crate::manifest::Manifest;
-use android_build_tools::apk::{Apk, ApkConfig};
-use android_build_tools::cargo::{cargo_apk, VersionCode};
-use android_build_tools::config::Config;
-use android_build_tools::error::NdkError;
-use android_build_tools::ndk::Ndk;
-use android_build_tools::target::Target;
 use cargo_subcommand::{Artifact, CrateType, Profile, Subcommand};
+use ndk_build::apk::{Apk, ApkConfig};
+use ndk_build::cargo::{cargo_apk, VersionCode};
+use ndk_build::config::Config;
+use ndk_build::error::NdkError;
+use ndk_build::ndk::Ndk;
+use ndk_build::target::Target;
 use std::path::PathBuf;
 use std::process::Command;
 
