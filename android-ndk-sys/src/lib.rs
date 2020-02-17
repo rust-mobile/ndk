@@ -13,28 +13,25 @@
 // Test setup lints
 #![cfg_attr(test, allow(dead_code))]
 
-#[cfg(feature = "native_app_glue")]
-pub mod native_app_glue;
-
-#[cfg(all(not(target_os = "android"), not(test), not(feature = "rustdoc")))]
+#[cfg(not(any(target_os = "android", feature = "test", feature = "rustdoc")))]
 compile_error!("android-ndk-sys only supports compiling for Android");
 
 #[cfg(any(
     all(
-        any(target_os = "android", test),
+        any(target_os = "android", feature = "test"),
         any(target_arch = "arm", target_arch = "armv7")
     ),
     feature = "rustdoc"
 ))]
 include!("ffi_arm.rs");
 
-#[cfg(all(any(target_os = "android", test), target_arch = "aarch64"))]
+#[cfg(all(any(target_os = "android", feature = "test"), target_arch = "aarch64"))]
 include!("ffi_aarch64.rs");
 
-#[cfg(all(any(target_os = "android", test), target_arch = "x86"))]
+#[cfg(all(any(target_os = "android", feature = "test"), target_arch = "x86"))]
 include!("ffi_i686.rs");
 
-#[cfg(all(any(target_os = "android", test), target_arch = "x86_64"))]
+#[cfg(all(any(target_os = "android", feature = "test"), target_arch = "x86_64"))]
 include!("ffi_x86_64.rs");
 
 #[cfg(target_os = "android")]
