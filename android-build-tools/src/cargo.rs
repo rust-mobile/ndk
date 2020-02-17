@@ -3,10 +3,9 @@ use crate::ndk::Ndk;
 use crate::target::Target;
 use std::process::Command;
 
-pub fn cargo_build(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command, NdkError> {
+pub fn cargo_apk(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command, NdkError> {
     let triple = target.rust_triple();
     let mut cargo = Command::new("cargo");
-    cargo.arg("build");
 
     let clang = ndk.clang(target, sdk_version)?;
     cargo.env(format!("CC_{}", triple), &clang);

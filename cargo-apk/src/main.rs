@@ -22,6 +22,9 @@ fn main() -> Result<(), ExitDisplay<Error>> {
                 return Err(Error::invalid_args().into());
             }
         }
+        "--" => {
+            builder.default()?;
+        }
         "gdb" => {
             if cmd.artifacts().len() == 1 {
                 builder.gdb(&cmd.artifacts()[0])?;
@@ -32,7 +35,7 @@ fn main() -> Result<(), ExitDisplay<Error>> {
         "help" => {
             if let Some(arg) = cmd.args().get(0) {
                 match &**arg {
-                    "build" | "run" => run_cargo(&cmd)?,
+                    "build" | "run" | "test" | "doc" => run_cargo(&cmd)?,
                     "gdb" => print_gdb_help(),
                     _ => print_help(),
                 }

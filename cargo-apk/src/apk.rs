@@ -1,7 +1,7 @@
 use crate::error::Error;
 use crate::manifest::Manifest;
 use android_build_tools::apk::{Apk, ApkConfig};
-use android_build_tools::cargo::{cargo_build, VersionCode};
+use android_build_tools::cargo::{cargo_apk, VersionCode};
 use android_build_tools::config::Config;
 use android_build_tools::error::NdkError;
 use android_build_tools::ndk::Ndk;
@@ -75,7 +75,8 @@ impl<'a> ApkBuilder<'a> {
 
             let target_sdk_version = config.manifest.target_sdk_version;
 
-            let mut cargo = cargo_build(&config.ndk, *target, target_sdk_version)?;
+            let mut cargo = cargo_apk(&config.ndk, *target, target_sdk_version)?;
+            cargo.arg("build");
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(target.rust_triple());
             }
@@ -108,6 +109,23 @@ impl<'a> ApkBuilder<'a> {
             format!("APP_ABI=\"{}\"\nTARGET_OUT=\"\"\n", abi.android_abi()),
         )?;
         Command::new("ndk-gdb").current_dir(target_dir).status()?;
+        Ok(())
+    }
+
+    pub fn default(&self) -> Result<(), Error> {
+        let ndk = Ndk::from_env()?;
+        let target_sdk_version = self
+            .manifest
+            .metadata
+            .target_sdk_version
+            .unwrap_or_else(|| ndk.default_platform());
+        for target in &self.build_targets {
+            let mut cargo = cargo_apk(&ndk, *target, target_sdk_version)?;
+            cargo.args(self.cmd.args());
+            if !cargo.status()?.success() {
+                return Err(NdkError::CmdFailed(cargo).into());
+            }
+        }
         Ok(())
     }
 }

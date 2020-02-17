@@ -20,17 +20,17 @@ pub struct Config {
 
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct Metadata {
-    pub(crate) target_sdk_version: Option<u32>,
-    pub(crate) min_sdk_version: Option<u32>,
-    pub(crate) icon: Option<String>,
-    pub(crate) fullscreen: Option<bool>,
-    pub(crate) opengles_version: Option<(u8, u8)>,
-    pub(crate) feature: Option<Vec<FeatureConfig>>,
-    pub(crate) permission: Option<Vec<PermissionConfig>>,
+    pub target_sdk_version: Option<u32>,
+    pub min_sdk_version: Option<u32>,
+    pub icon: Option<String>,
+    pub fullscreen: Option<bool>,
+    pub opengles_version: Option<(u8, u8)>,
+    pub feature: Option<Vec<FeatureConfig>>,
+    pub permission: Option<Vec<PermissionConfig>>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
-pub(crate) struct FeatureConfig {
+pub struct FeatureConfig {
     name: String,
     required: Option<bool>,
 }
@@ -45,7 +45,7 @@ impl From<FeatureConfig> for Feature {
 }
 
 #[derive(Clone, Debug, Deserialize)]
-pub(crate) struct PermissionConfig {
+pub struct PermissionConfig {
     name: String,
     max_sdk_version: Option<u32>,
 }
