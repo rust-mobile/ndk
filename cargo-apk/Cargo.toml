@@ -11,7 +11,7 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
-cargo-subcommand = "0.4.3"
+cargo-subcommand = "0.4.4"
 env_logger = "0.7.1"
 exitfailure = "0.5.1"
 log = "0.4.8"
