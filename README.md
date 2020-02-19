@@ -7,18 +7,26 @@
  - Build tool ![cargo-apk-docs][cargo-apk-badge]
 
 ## Hello world
-
+`Cargo.toml`
 ```toml
 [lib]
 crate-type = ["lib", "cdylib"]
 ```
 
+`src/lib.rs`
 ```rust
 #[cfg(target_os = "android")]
 ndk_glue::ndk_glue!(main);
 
-fn main() {
+pub fn main() {
     println!("hello world");
+}
+```
+
+`src/main.rs`
+```rust
+fn main() {
+    $crate::main();
 }
 ```
 
