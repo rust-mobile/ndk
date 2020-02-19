@@ -1,7 +1,7 @@
 use lazy_static::lazy_static;
 use log::Level;
 use ndk::input_queue::InputQueue;
-use ndk::looper::ThreadLooper;
+use ndk::looper::{ForeignLooper, ThreadLooper};
 use ndk::native_activity::NativeActivity;
 use ndk::native_window::NativeWindow;
 use ndk_sys::{AInputQueue, ANativeActivity, ANativeWindow, ARect, ALOOPER_EVENT_INPUT};
@@ -59,6 +59,7 @@ lazy_static! {
 }
 
 static mut NATIVE_ACTIVITY: Option<NativeActivity> = None;
+static mut LOOPER: Option<ForeignLooper> = None;
 
 pub fn native_activity() -> &'static NativeActivity {
     unsafe { NATIVE_ACTIVITY.as_ref().unwrap() }
@@ -186,10 +187,11 @@ pub unsafe fn init(
 
     thread::spawn(move || {
         let looper = ThreadLooper::prepare();
-        looper
-            .as_foreign()
+        let foreign = looper.into_foreign();
+        foreign
             .add_fd(PIPE[0], 0, ALOOPER_EVENT_INPUT as _, 0 as _)
             .unwrap();
+        LOOPER = Some(foreign);
         main()
     });
 }
@@ -274,14 +276,19 @@ unsafe extern "C" fn on_input_queue_created(
     activity: *mut ANativeActivity,
     queue: *mut AInputQueue,
 ) {
-    *INPUT_QUEUE.write().unwrap() = Some(InputQueue::from_ptr(NonNull::new(queue).unwrap()));
+    let input_queue = InputQueue::from_ptr(NonNull::new(queue).unwrap());
+    let looper = LOOPER.as_ref().unwrap();
+    input_queue.attach_looper(looper, 1);
+    *INPUT_QUEUE.write().unwrap() = Some(input_queue);
     wake(activity, Event::InputQueueCreated);
 }
 
 unsafe extern "C" fn on_input_queue_destroyed(
     activity: *mut ANativeActivity,
-    _queue: *mut AInputQueue,
+    queue: *mut AInputQueue,
 ) {
+    let input_queue = InputQueue::from_ptr(NonNull::new(queue).unwrap());
+    input_queue.detach_looper();
     *INPUT_QUEUE.write().unwrap() = None;
     wake(activity, Event::InputQueueDestroyed);
 }
