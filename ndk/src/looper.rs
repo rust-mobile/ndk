@@ -53,6 +53,18 @@ impl fmt::Display for LooperError {
 impl std::error::Error for LooperError {}
 
 impl ThreadLooper {
+    /// Prepares a looper for the current thread and returns it
+    pub fn prepare() -> Self {
+        unsafe {
+            let ptr = ffi::ALooper_prepare(ffi::ALOOPER_PREPARE_ALLOW_NON_CALLBACKS as _);
+            let foreign = ForeignLooper::from_ptr(NonNull::new(ptr).expect("looper non null"));
+            Self {
+                _marker: std::marker::PhantomData,
+                foreign,
+            }
+        }
+    }
+
     /// Returns the looper associated with the current thread, if any.
     pub fn for_thread() -> Option<Self> {
         Some(Self {

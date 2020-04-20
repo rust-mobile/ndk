@@ -1,0 +1,20 @@
+[package]
+name = "cargo-apk"
+version = "0.5.0"
+authors = ["David Craven <david@craven.ch>"]
+edition = "2018"
+description = "Helps cargo build apks"
+license = "MIT OR Apache-2.0"
+keywords = ["android", "ndk", "apk"]
+documentation = "https://docs.rs/cargo-apk"
+homepage = "https://github.com/rust-windowing/android-ndk-rs"
+repository = "https://github.com/rust-windowing/android-ndk-rs"
+
+[dependencies]
+cargo-subcommand = "0.4.4"
+env_logger = "0.7.1"
+exitfailure = "0.5.1"
+log = "0.4.8"
+ndk-build = { path = "../ndk-build" }
+serde = "1.0.104"
+toml = "0.5.6"

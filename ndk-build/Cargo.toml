@@ -1,0 +1,16 @@
+[package]
+name = "ndk-build"
+version = "0.1.0"
+authors = ["David Craven <david@craven.ch>"]
+edition = "2018"
+description = "Utilities for building android binaries"
+license = "MIT OR Apache-2.0"
+keywords = ["android", "ndk", "apk"]
+documentation = "https://docs.rs/android-build-tools"
+homepage = "https://github.com/rust-windowing/android-ndk-rs"
+repository = "https://github.com/rust-windowing/android-ndk-rs"
+
+[dependencies]
+dirs = "2.0.2"
+serde = { version = "1.0.104", features = ["derive"] }
+which = "3.1.0"
