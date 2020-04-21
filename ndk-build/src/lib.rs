@@ -3,7 +3,7 @@ macro_rules! bin {
         #[cfg(not(target_os = "windows"))]
         let bin = $bin;
         #[cfg(target_os = "windows")]
-        let bin = format!("{}.exe", $bin);
+        let bin = concat!($bin, ".exe");
         bin
     }};
 }
@@ -13,7 +13,7 @@ macro_rules! bat {
         #[cfg(not(target_os = "windows"))]
         let bat = $bat;
         #[cfg(target_os = "windows")]
-        let bat = format!("{}.bat", $bat);
+        let bat = concat!($bat, ".bat");
         bat
     }};
 }
