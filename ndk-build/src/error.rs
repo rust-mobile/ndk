@@ -15,6 +15,7 @@ pub enum NdkError {
     NoPlatformFound,
     PlatformNotFound(u32),
     UnsupportedTarget,
+    UnsupportedHost(String),
     Io(IoError),
     InvalidSemver,
 }
@@ -42,6 +43,7 @@ impl Display for NdkError {
                 return write!(f, "Platform {} is not installed.", level)
             }
             Self::UnsupportedTarget => "Target is not supported.",
+            Self::UnsupportedHost(host) => return write!(f, "Host {} is not supported.", host),
             Self::Io(error) => return error.fmt(f),
             Self::InvalidSemver => return write!(f, "Invalid semver"),
         };
