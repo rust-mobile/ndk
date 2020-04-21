@@ -136,15 +136,26 @@ impl Ndk {
     }
 
     pub fn toolchain_dir(&self) -> Result<PathBuf, NdkError> {
-        let host_os = std::env::var("HOST").expect("HOST environment variable not set. `cargo build` should've set this, so *something* has gone wrong.");
-        let arch = if host_os.contains("linux") {
+        let host_os = std::env::var("HOST").ok();
+        let host_contains = |s| host_os.as_ref().map(|h| h.contains(s)).unwrap_or(false);
+
+        let arch = if host_contains("linux") {
             "linux-x86_64"
-        } else if host_os.contains("macos") {
+        } else if host_contains("macos") {
             "darwin-x86_64"
-        } else if host_os.contains("windows") {
+        } else if host_contains("windows") {
+            "windows-x86_64"
+        } else if cfg!(target_os = "linux") {
+            "linux-x86_64"
+        } else if cfg!(target_os = "macos") {
+            "darwin-x86_64"
+        } else if cfg!(target_os = "windows") {
             "windows-x86_64"
         } else {
-            return Err(NdkError::UnsupportedHost(host_os));
+            return match host_os {
+                Some(host_os) => Err(NdkError::UnsupportedHost(host_os)),
+                _ => Err(NdkError::UnsupportedTarget),
+            };
         };
 
         let toolchain_dir = self
