@@ -144,7 +144,7 @@ impl Ndk {
         } else if host_os.contains("windows") {
             "windows-x86_64"
         } else {
-            return Err(NdkError::UnsupportedHost(host_os))
+            return Err(NdkError::UnsupportedHost(host_os));
         };
 
         let toolchain_dir = self
