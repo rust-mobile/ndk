@@ -32,3 +32,4 @@ optional = true
 [dependencies.ffi]
 package = "ndk-sys"
 path = "../ndk-sys"
+version = "0.1"

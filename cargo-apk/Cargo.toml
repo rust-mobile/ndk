@@ -15,6 +15,6 @@ cargo-subcommand = "0.4.4"
 env_logger = "0.7.1"
 exitfailure = "0.5.1"
 log = "0.4.8"
-ndk-build = { path = "../ndk-build" }
+ndk-build = { path = "../ndk-build", version = "0.1" }
 serde = "1.0.104"
 toml = "0.5.6"
