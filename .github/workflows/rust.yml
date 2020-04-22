@@ -1,45 +1,79 @@
 name: Rust
 
-on: [push, pull_request]
+on:
+  pull_request:
+    paths:
+      - '**.rs'
+      - '**.toml'
+      - '.github/workflows/rust.yml'
+  push:
+    branches: [master]
+    paths:
+      - '**.rs'
+      - '**.toml'
+      - '.github/workflows/rust.yml'
 
 jobs:
-  build:
+  Check_Formatting:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: stable
+        components: rustfmt
+    - name: Check Formatting
+      run: cargo +stable fmt --all -- --check
+
+  build:
     strategy:
       fail-fast: false
       matrix:
-        rust-channel: ['stable', 'nightly']
+        rust-version: [stable, nightly]
         rust-target: [
-            'armv7-linux-androideabi',
-            'aarch64-linux-android',
-            'i686-linux-android',
-            'x86_64-linux-android',
+          'armv7-linux-androideabi',
+          'aarch64-linux-android',
+          'i686-linux-android',
+          'x86_64-linux-android',
+        ]
+        os: [
+          'windows-latest',
+          'macos-latest',
+          'ubuntu-latest',
         ]
 
+    env:
+      RUST_BACKTRACE: 1
+      CARGO_INCREMENTAL: 0
+      RUSTFLAGS: "-C debuginfo=0"
+
+    runs-on: ${{ matrix.os }}
+
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: Download NDK
+      shell: bash
       run: |
         curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
         unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
 
-    - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target }}
-      uses: actions-rs/toolchain@v1
+    - name: Installing Rust ${{ matrix.rust-version }} w/ ${{ matrix.rust-target }}
+      uses: hecrj/setup-rust-action@v1
       with:
-        toolchain: ${{ matrix.rust-channel }}
-        target: ${{ matrix.rust-target }}
-        override: true
+        rust-version: ${{ matrix.rust-version }}
+        targets: ${{ matrix.rust-target }}
 
-    - name: Check formating
-      run: cargo fmt --all -- --check
+    - name: Build
+      shell: bash
+      run: cargo build --verbose --target ${{ matrix.platform.target }}
 
     - name: Run tests
       run: |
         cd ndk-sys && cargo test --features test && cd ..
         cd ndk && cargo test --features rustdoc --doc && cd ..
-        cargo test -p ndk-build
-        cargo test -p cargo-apk
+        cargo test --verbose -p ndk-build
+        cargo test --verbose -p cargo-apk
 
     - name: Install cargo-apk
       run:

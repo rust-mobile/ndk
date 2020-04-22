@@ -1,0 +1,49 @@
+name: Publish
+
+# on:
+#   push:
+#     branches: [master]
+#     paths:
+#       - "**.toml"
+#       - '.github/workflows/publish.yml'
+on: [pull_request]
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: stable
+        components: rustfmt
+    - name: Download NDK
+      id: download_ndk
+      run: |
+        curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
+        unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
+    - name: Publish ndk-build
+      if: steps.download_ndk.outcome == 'success'
+      run:
+        cd ./ndk-build
+        cargo publish --token ${{ secrets.cratesio_token }} --target armv7-linux-androideabi
+    - name: Publish ndk-sys
+      if: steps.download_ndk.outcome == 'success'
+      run:
+        cd ./ndk-sys
+        cargo publish --token ${{ secrets.cratesio_token }} --target armv7-linux-androideabi
+    - name: Publish ndk
+      if: steps.download_ndk.outcome == 'success'
+      run:
+        cd ./ndk
+        cargo publish --token ${{ secrets.cratesio_token }} --target armv7-linux-androideabi
+    - name: Publish ndk-glue
+      if: steps.download_ndk.outcome == 'success'
+      run:
+        cd ./ndk-glue
+        cargo publish --token ${{ secrets.cratesio_token }} --target armv7-linux-androideabi
+    - name: Publish cargo-apk
+      if: steps.download_ndk.outcome == 'success'
+      run:
+        cd ./cargo-apk
+        cargo publish --token ${{ secrets.cratesio_token }}
