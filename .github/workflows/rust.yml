@@ -66,7 +66,7 @@ jobs:
 
     - name: Build
       shell: bash
-      run: cargo build --verbose --target ${{ matrix.platform.target }}
+      run: cargo build --verbose --target ${{ matrix.rust-target }}
 
     - name: Run tests
       run: |
