@@ -21,7 +21,7 @@ jobs:
       id: download_ndk
       run: |
         curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
-        unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
+        7z e android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
     - name: Publish ndk-build
       if: steps.download_ndk.outcome == 'success'
       run:

@@ -52,11 +52,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Download NDK
+    - name: Download NDK Linux
       shell: bash
+      if: matrix.os == 'ubuntu-latest'
       run: |
         curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
         unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
+
+    - name: Download NDK Windows
+      shell: bash
+      if: matrix.os == 'windows-latest'
+      run: |
+        curl -LO https://dl.google.com/android/repository/android-ndk-r20-windows-x86_64.zip
+        7z android-ndk-r20-windows-x86_64.zip -o $GITHUB_WORKSPACE
 
     - name: Installing Rust ${{ matrix.rust-version }} w/ ${{ matrix.rust-target }}
       uses: hecrj/setup-rust-action@v1
