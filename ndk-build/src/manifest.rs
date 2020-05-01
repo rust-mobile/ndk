@@ -130,7 +130,7 @@ impl Permission {
             .map(|max_sdk_version| format!(r#"android:maxSdkVersion="{}""#, max_sdk_version))
             .unwrap_or_default();
         format!(
-            r#"<uses-permission android:name="{}" {}"#,
+            r#"<uses-permission android:name="{}" {}/>"#,
             &self.name, max_sdk_version,
         )
     }
