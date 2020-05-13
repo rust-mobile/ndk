@@ -170,22 +170,25 @@ impl Ndk {
         Ok(toolchain_dir)
     }
 
-    pub fn clang(&self, target: Target, platform: u32) -> Result<PathBuf, NdkError> {
+    pub fn clang(&self, target: Target, platform: u32) -> Result<(PathBuf, PathBuf), NdkError> {
         #[cfg(target_os = "windows")]
         let ext = ".cmd";
         #[cfg(not(target_os = "windows"))]
         let ext = "";
 
-        let clang = self.toolchain_dir()?.join("bin").join(format!(
-            "{}{}-clang{}",
-            target.ndk_llvm_triple(),
-            platform,
-            ext
-        ));
+        let bin_name = format!("{}{}-clang{}", target.ndk_llvm_triple(), platform, ext);
+
+        let clang = self.toolchain_dir()?.join("bin").join(&bin_name);
         if !clang.exists() {
             return Err(NdkError::PathNotFound(clang));
         }
-        Ok(clang)
+
+        let clang_pp = clang.with_file_name(format!("{}++", &bin_name));
+        if !clang_pp.exists() {
+            return Err(NdkError::PathNotFound(clang_pp));
+        }
+
+        Ok((clang, clang_pp))
     }
 
     pub fn toolchain_bin(&self, bin: &str, target: Target) -> Result<PathBuf, NdkError> {

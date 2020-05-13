@@ -7,8 +7,9 @@ pub fn cargo_apk(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command,
     let triple = target.rust_triple();
     let mut cargo = Command::new("cargo");
 
-    let clang = ndk.clang(target, sdk_version)?;
+    let (clang, clang_pp) = ndk.clang(target, sdk_version)?;
     cargo.env(format!("CC_{}", triple), &clang);
+    cargo.env(format!("CXX_{}", triple), &clang_pp);
     cargo.env(cargo_env_target_cfg("LINKER", triple), &clang);
 
     let ar = ndk.toolchain_bin("ar", target)?;
