@@ -17,9 +17,9 @@ impl<'a> UnalignedApk<'a> {
         let min_sdk_version = self.config().manifest.min_sdk_version;
         let readelf_path = ndk.toolchain_bin("readelf", target)?;
 
-        let android_search_paths = vec![
-            ndk.sysroot_lib_dir(target)?,
-            ndk.sysroot_platform_lib_dir(target, min_sdk_version)?,
+        let android_search_paths = [
+            &*ndk.sysroot_lib_dir(target)?,
+            &*ndk.sysroot_platform_lib_dir(target, min_sdk_version)?,
         ];
 
         let mut provided = HashSet::new();
@@ -33,10 +33,18 @@ impl<'a> UnalignedApk<'a> {
         while let Some(artifact) = artifacts.pop() {
             self.add_lib(&artifact, target)?;
             for need in list_needed_libs(&readelf_path, &artifact)? {
-                if provided.contains(&need) {
+                // c++_shared is available in the NDK but not on-device.
+                // Must be bundled with the apk if used:
+                // https://developer.android.com/ndk/guides/cpp-support#libc
+                let search_paths = if need == "libc++_shared.so" {
+                    &android_search_paths
+                } else if !provided.contains(&need) {
+                    search_paths
+                } else {
                     continue;
-                }
-                if let Some(path) = find_library_path(&search_paths, &need)? {
+                };
+
+                if let Some(path) = find_library_path(search_paths, &need)? {
                     provided.insert(path.file_name().unwrap().to_str().unwrap().to_string());
                     artifacts.push(path);
                 } else {
