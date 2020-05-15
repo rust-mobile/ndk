@@ -582,7 +582,13 @@ impl<'a> Pointer<'a> {
 
     #[inline]
     pub fn axis_value(&self, axis: Axis) -> f32 {
-        unsafe { ffi::AMotionEvent_getAxisValue(self.event.as_ptr(), axis as i32, self.index as ffi::size_t) }
+        unsafe {
+            ffi::AMotionEvent_getAxisValue(
+                self.event.as_ptr(),
+                axis as i32,
+                self.index as ffi::size_t,
+            )
+        }
     }
 
     #[inline]
@@ -702,7 +708,12 @@ impl<'a> HistoricalMotionEvent<'a> {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_gethistoricaleventtime)
     #[inline]
     pub fn event_time(&self) -> i64 {
-        unsafe { ffi::AMotionEvent_getHistoricalEventTime(self.event.as_ptr(), self.history_index as ffi::size_t) }
+        unsafe {
+            ffi::AMotionEvent_getHistoricalEventTime(
+                self.event.as_ptr(),
+                self.history_index as ffi::size_t,
+            )
+        }
     }
 
     /// An iterator over the pointers of this historical motion event
@@ -712,7 +723,9 @@ impl<'a> HistoricalMotionEvent<'a> {
             event: self.event,
             history_index: self.history_index,
             next_pointer_index: 0,
-            pointer_count: unsafe { ffi::AMotionEvent_getPointerCount(self.event.as_ptr()) as usize },
+            pointer_count: unsafe {
+                ffi::AMotionEvent_getPointerCount(self.event.as_ptr()) as usize
+            },
             _marker: std::marker::PhantomData,
         }
     }
@@ -792,7 +805,9 @@ impl<'a> HistoricalPointer<'a> {
 
     #[inline]
     pub fn pointer_id(&self) -> i32 {
-        unsafe { ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.pointer_index as ffi::size_t) }
+        unsafe {
+            ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.pointer_index as ffi::size_t)
+        }
     }
 
     #[inline]

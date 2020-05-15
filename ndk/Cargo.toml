@@ -12,7 +12,7 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [features]
-rustdoc = ["ffi/rustdoc", "jni", "jni-glue"]
+rustdoc = ["ffi/rustdoc", "jni", "jni-glue", "media", "hardware_buffer"]
 media = ["ffi/media"]
 hardware_buffer = ["api-level-26"]
 api-level-24 = []

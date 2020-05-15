@@ -1,10 +1,13 @@
+//! Bindings for the NDK media classes.
+//!
+//! See also [the NDK docs](https://developer.android.com/ndk/reference/group/media)
 #![cfg(feature = "media")]
 
 mod error;
 pub mod image_reader;
 
-use std::{mem::MaybeUninit, ptr::NonNull};
 pub use error::NdkMediaError;
+use std::{mem::MaybeUninit, ptr::NonNull};
 
 pub type Result<T, E = NdkMediaError> = std::result::Result<T, E>;
 

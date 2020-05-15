@@ -82,4 +82,3 @@ impl HardwareBuffer {
         Self { inner: ptr }
     }
 }
-

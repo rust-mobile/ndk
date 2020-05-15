@@ -1,5 +1,5 @@
-use std::fmt;
 use super::Result;
+use std::fmt;
 
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -35,7 +35,10 @@ pub enum NdkMediaError {
 }
 
 impl NdkMediaError {
-    pub(crate) fn from_status<T>(status: ffi::media_status_t, on_success: impl FnOnce() -> T) -> Result<T> {
+    pub(crate) fn from_status<T>(
+        status: ffi::media_status_t,
+        on_success: impl FnOnce() -> T,
+    ) -> Result<T> {
         use NdkMediaError::*;
         Err(match status {
             ffi::media_status_t_AMEDIA_OK => return Ok(on_success()),
