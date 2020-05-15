@@ -19,6 +19,7 @@ pub struct Manifest {
     pub fullscreen: bool,
     pub debuggable: bool,
     pub split: Option<String>,
+    pub application_metadatas: Vec<ApplicationMetadata>,
 }
 
 impl Manifest {
@@ -45,6 +46,11 @@ impl Manifest {
 
         let features: Vec<String> = self.features.iter().map(|f| f.to_string()).collect();
         let permissions: Vec<String> = self.permissions.iter().map(|p| p.to_string()).collect();
+        let application_metadatas: Vec<String> = self
+            .application_metadatas
+            .iter()
+            .map(|f| f.to_string())
+            .collect();
 
         format!(
             r#"<?xml version="1.0" encoding="utf-8"?>
@@ -65,6 +71,7 @@ impl Manifest {
             android:debuggable="{debuggable}"
             {icon}
             {fullscreen}>
+            {application_metadatas}
         <activity
                 android:name="android.app.NativeActivity"
                 android:label="{package_label}"
@@ -88,6 +95,7 @@ impl Manifest {
             target_name = &self.target_name,
             icon = icon,
             fullscreen = fullscreen,
+            application_metadatas = application_metadatas.join("\n"),
             debuggable = self.debuggable,
             features = features.join("\n"),
             permissions = permissions.join("\n"),
@@ -112,6 +120,21 @@ impl Feature {
         format!(
             r#"<uses-feature android:name="{}" android:required="{}"/>"#,
             &self.name, self.required,
+        )
+    }
+}
+
+#[derive(Debug)]
+pub struct ApplicationMetadata {
+    pub name: String,
+    pub value: String,
+}
+
+impl ApplicationMetadata {
+    pub fn to_string(&self) -> String {
+        format!(
+            r#"<meta-data android:name="{}" android:value="{}"/>"#,
+            self.name, self.value
         )
     }
 }

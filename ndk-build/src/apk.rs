@@ -31,6 +31,13 @@ impl ApkConfig {
             .into_iter()
             .map(Into::into)
             .collect();
+        let application_metadatas = metadata
+            .application_metadatas
+            .unwrap_or_default()
+            .into_iter()
+            .map(Into::into)
+            .collect();
+
         let manifest = Manifest {
             package_name: config.package_name,
             package_label: config.package_label,
@@ -46,6 +53,7 @@ impl ApkConfig {
             permissions,
             icon: metadata.icon,
             fullscreen: metadata.fullscreen.unwrap_or(false),
+            application_metadatas,
         };
         Self {
             ndk: config.ndk,
