@@ -31,3 +31,17 @@
 #include <android/trace.h>
 #include <android/versioning.h>
 #include <android/window.h>
+
+#include <aaudio/AAudio.h>
+
+#include <camera/NdkCameraCaptureSession.h>
+#include <camera/NdkCameraManager.h>
+#include <camera/NdkCameraWindowType.h>
+#include <camera/NdkCameraDevice.h>
+#include <camera/NdkCameraMetadata.h>
+#include <camera/NdkCaptureRequest.h>
+#include <camera/NdkCameraError.h>
+#include <camera/NdkCameraMetadataTags.h>
+
+#include <media/NdkImage.h>
+#include <media/NdkImageReader.h>

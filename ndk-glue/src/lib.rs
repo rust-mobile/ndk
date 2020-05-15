@@ -206,7 +206,7 @@ unsafe extern "C" fn on_resume(activity: *mut ANativeActivity) {
 
 unsafe extern "C" fn on_save_instance_state(
     activity: *mut ANativeActivity,
-    _out_size: *mut usize,
+    _out_size: *mut ndk_sys::size_t,
 ) -> *mut raw::c_void {
     // TODO
     wake(activity, Event::SaveInstanceState);
