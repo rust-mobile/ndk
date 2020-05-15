@@ -1,4 +1,4 @@
-use crate::manifest::{Feature, Permission};
+use crate::manifest::{ApplicationMetadata, Feature, Permission};
 use crate::ndk::Ndk;
 use serde::Deserialize;
 use std::path::PathBuf;
@@ -27,6 +27,7 @@ pub struct Metadata {
     pub opengles_version: Option<(u8, u8)>,
     pub feature: Option<Vec<FeatureConfig>>,
     pub permission: Option<Vec<PermissionConfig>>,
+    pub application_metadatas: Option<Vec<ApplicationMetadataConfig>>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
@@ -55,6 +56,21 @@ impl From<PermissionConfig> for Permission {
         Self {
             name: config.name,
             max_sdk_version: config.max_sdk_version,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct ApplicationMetadataConfig {
+    name: String,
+    value: String,
+}
+
+impl From<ApplicationMetadataConfig> for ApplicationMetadata {
+    fn from(config: ApplicationMetadataConfig) -> Self {
+        Self {
+            name: config.name,
+            value: config.value,
         }
     }
 }
