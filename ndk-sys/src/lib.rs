@@ -10,6 +10,7 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(improper_ctypes)]
+#![allow(clippy::all)]
 // Test setup lints
 #![cfg_attr(test, allow(dead_code))]
 
@@ -36,4 +37,8 @@ include!("ffi_x86_64.rs");
 
 #[cfg(target_os = "android")]
 #[link(name = "android")]
+extern "C" {}
+
+#[cfg(all(feature = "media", target_os = "android"))]
+#[link(name = "mediandk")]
 extern "C" {}
