@@ -14,6 +14,7 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 [features]
 rustdoc = []
 test = []
+bitmap = []
 media = []
 
 [package.metadata.docs.rs]

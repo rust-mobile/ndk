@@ -42,3 +42,7 @@ extern "C" {}
 #[cfg(all(feature = "media", target_os = "android"))]
 #[link(name = "mediandk")]
 extern "C" {}
+
+#[cfg(all(feature = "bitmap", target_os = "android"))]
+#[link(name = "jnigraphics")]
+extern "C" {}

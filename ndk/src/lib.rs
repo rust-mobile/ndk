@@ -16,6 +16,7 @@
 #![warn(missing_debug_implementations)]
 
 pub mod asset;
+pub mod bitmap;
 pub mod configuration;
 pub mod event;
 pub mod input_queue;
