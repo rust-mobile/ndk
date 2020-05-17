@@ -13,10 +13,13 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [features]
 rustdoc = ["ffi/rustdoc", "jni", "jni-glue", "media", "hardware_buffer"]
+bitmap = ["ffi/bitmap"]
 media = ["ffi/media"]
 hardware_buffer = ["api-level-26"]
 api-level-24 = []
 api-level-26 = ["api-level-24"]
+api-level-29 = ["api-level-26"]
+api-level-30 = ["api-level-29"]
 
 [package.metadata.docs.rs]
 features = ["rustdoc"]
