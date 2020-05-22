@@ -4,7 +4,14 @@ use super::NdkMediaError;
 use super::{construct, construct_never_null, Result};
 use crate::native_window::NativeWindow;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-use std::{convert::TryInto, ffi::c_void, mem::MaybeUninit, os::unix::io::RawFd, ptr::NonNull};
+use std::{
+    convert::TryInto,
+    ffi::c_void,
+    fmt::{self, Debug, Formatter},
+    mem::MaybeUninit,
+    os::unix::io::RawFd,
+    ptr::NonNull,
+};
 
 #[cfg(feature = "hardware_buffer")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
@@ -42,6 +49,21 @@ pub struct ImageReader {
     image_cb: Option<Box<ImageListener>>,
     #[cfg(feature = "hardware_buffer")]
     buffer_removed_cb: Option<Box<BufferRemovedListener>>,
+}
+
+impl Debug for ImageReader {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        f.debug_struct("ImageReader")
+            .field("inner", &self.inner)
+            .field(
+                "image_cb",
+                match &self.image_cb {
+                    Some(_) => &"Some(_)",
+                    None => &"None",
+                },
+            )
+            .finish()
+    }
 }
 
 impl ImageReader {
