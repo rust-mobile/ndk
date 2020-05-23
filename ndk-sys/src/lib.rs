@@ -46,3 +46,7 @@ extern "C" {}
 #[cfg(all(feature = "bitmap", target_os = "android"))]
 #[link(name = "jnigraphics")]
 extern "C" {}
+
+#[cfg(all(feature = "aaudio", target_os = "android"))]
+#[link(name = "aaudio")]
+extern "C" {}

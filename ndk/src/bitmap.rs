@@ -19,10 +19,7 @@ pub enum BitmapError {
 pub type BitmapResult<T, E = BitmapError> = std::result::Result<T, E>;
 
 impl BitmapError {
-    pub(crate) fn from_status<T>(
-        status: ffi::media_status_t,
-        on_success: impl FnOnce() -> T,
-    ) -> BitmapResult<T> {
+    pub(crate) fn from_status<T>(status: i32, on_success: impl FnOnce() -> T) -> BitmapResult<T> {
         Err(match status {
             ffi::ANDROID_BITMAP_RESULT_SUCCESS => return Ok(on_success()),
             ffi::ANDROID_BITMAP_RESULT_ALLOCATION_FAILED => BitmapError::AllocationFailed,
@@ -54,7 +51,7 @@ pub enum BitmapFormat {
 
 #[derive(Debug)]
 pub struct AndroidBitmap {
-    env: ffi::JNIEnv,
+    env: *mut ffi::JNIEnv,
     inner: ffi::jobject,
 }
 
@@ -63,7 +60,7 @@ impl AndroidBitmap {
     ///
     /// # Safety
     /// By calling this function, you assert that it these are valid pointers to JNI objects.
-    pub unsafe fn from_jni(env: JNIEnv, bitmap: jobject) -> Self {
+    pub unsafe fn from_jni(env: *mut JNIEnv, bitmap: jobject) -> Self {
         Self {
             env: env as _,
             inner: bitmap as _,
@@ -71,30 +68,26 @@ impl AndroidBitmap {
     }
 
     pub fn get_info(&self) -> BitmapResult<AndroidBitmapInfo> {
-        let mut env = self.env;
         let inner =
-            construct(|res| unsafe { ffi::AndroidBitmap_getInfo(&mut env, self.inner, res) })?;
+            construct(|res| unsafe { ffi::AndroidBitmap_getInfo(self.env, self.inner, res) })?;
 
         Ok(AndroidBitmapInfo { inner })
     }
 
     pub fn lock_pixels(&self) -> BitmapResult<*mut std::os::raw::c_void> {
-        let mut env = self.env;
-        construct(|res| unsafe { ffi::AndroidBitmap_lockPixels(&mut env, self.inner, res) })
+        construct(|res| unsafe { ffi::AndroidBitmap_lockPixels(self.env, self.inner, res) })
     }
 
     pub fn unlock_pixels(&self) -> BitmapResult<()> {
-        let mut env = self.env;
-        let status = unsafe { ffi::AndroidBitmap_unlockPixels(&mut env, self.inner) };
+        let status = unsafe { ffi::AndroidBitmap_unlockPixels(self.env, self.inner) };
         BitmapError::from_status(status, || ())
     }
 
     #[cfg(all(feature = "hardware_buffer", feature = "api-level-30"))]
     pub fn get_hardware_buffer(&self) -> BitmapResult<HardwareBuffer> {
-        let mut env = self.env;
         unsafe {
             let result =
-                construct(|res| ffi::AndroidBitmap_getHardwareBuffer(&mut env, self.inner, res))?;
+                construct(|res| ffi::AndroidBitmap_getHardwareBuffer(self.env, self.inner, res))?;
             let non_null = if cfg!(debug_assertions) {
                 NonNull::new(result).expect("result should never be null")
             } else {
