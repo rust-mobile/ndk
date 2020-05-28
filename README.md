@@ -55,7 +55,7 @@ TODO shameless plug
 [ndk-docs]: https://docs.rs/ndk
 [ndk-badge]: https://docs.rs/ndk/badge.svg
 [ndk-glue-docs]: https://docs.rs/ndk-glue
-[ndk-badge]: https://docs.rs/ndk-glue/badge.svg
+[ndk-glue-badge]: https://docs.rs/ndk-glue/badge.svg
 [ndk-build-docs]: https://docs.rs/ndk-build
 [ndk-build-badge]: https://docs.rs/ndk-build/badge.svg
 [cargo-apk-docs]: https://docs.rs/cargo-apk
