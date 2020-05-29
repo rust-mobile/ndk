@@ -12,6 +12,7 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
 cargo-subcommand = "0.4.4"
+dunce = "1.0"
 env_logger = "0.7.1"
 exitfailure = "0.5.1"
 log = "0.4.8"
