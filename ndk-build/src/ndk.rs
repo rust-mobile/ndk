@@ -176,14 +176,15 @@ impl Ndk {
         #[cfg(not(target_os = "windows"))]
         let ext = "";
 
-        let bin_name = format!("{}{}-clang{}", target.ndk_llvm_triple(), platform, ext);
+        let bin_name = format!("{}{}-clang", target.ndk_llvm_triple(), platform);
+        let bin_path = self.toolchain_dir()?.join("bin");
 
-        let clang = self.toolchain_dir()?.join("bin").join(&bin_name);
+        let clang = bin_path.join(format!("{}{}", &bin_name, ext));
         if !clang.exists() {
             return Err(NdkError::PathNotFound(clang));
         }
 
-        let clang_pp = clang.with_file_name(format!("{}++", &bin_name));
+        let clang_pp = bin_path.join(format!("{}++{}", &bin_name, ext));
         if !clang_pp.exists() {
             return Err(NdkError::PathNotFound(clang_pp));
         }
@@ -193,7 +194,7 @@ impl Ndk {
 
     pub fn toolchain_bin(&self, bin: &str, target: Target) -> Result<PathBuf, NdkError> {
         #[cfg(target_os = "windows")]
-        let ext = ".cmd";
+        let ext = ".exe";
         #[cfg(not(target_os = "windows"))]
         let ext = "";
 
