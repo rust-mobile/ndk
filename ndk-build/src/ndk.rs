@@ -101,7 +101,7 @@ impl Ndk {
         if !path.exists() {
             return Err(NdkError::CmdNotFound(tool.to_string()));
         }
-        Ok(Command::new(std::fs::canonicalize(path)?))
+        Ok(Command::new(dunce::canonicalize(path)?))
     }
 
     pub fn platform_tool(&self, tool: &str) -> Result<Command, NdkError> {
@@ -109,7 +109,7 @@ impl Ndk {
         if !path.exists() {
             return Err(NdkError::CmdNotFound(tool.to_string()));
         }
-        Ok(Command::new(std::fs::canonicalize(path)?))
+        Ok(Command::new(dunce::canonicalize(path)?))
     }
 
     pub fn default_platform(&self) -> u32 {

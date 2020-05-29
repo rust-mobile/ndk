@@ -105,7 +105,7 @@ fn find_library_path<S: AsRef<Path>>(
     for path in paths {
         let lib_path = path.join(&library);
         if lib_path.exists() {
-            return Ok(Some(std::fs::canonicalize(lib_path)?));
+            return Ok(Some(dunce::canonicalize(lib_path)?));
         }
     }
     Ok(None)
