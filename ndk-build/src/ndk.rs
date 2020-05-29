@@ -193,7 +193,7 @@ impl Ndk {
 
     pub fn toolchain_bin(&self, bin: &str, target: Target) -> Result<PathBuf, NdkError> {
         #[cfg(target_os = "windows")]
-        let ext = ".cmd";
+        let ext = ".exe";
         #[cfg(not(target_os = "windows"))]
         let ext = "";
 
