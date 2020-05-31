@@ -140,17 +140,17 @@ impl Ndk {
         let host_contains = |s| host_os.as_ref().map(|h| h.contains(s)).unwrap_or(false);
 
         let arch = if host_contains("linux") {
-            "linux-x86_64"
+            "linux"
         } else if host_contains("macos") {
-            "darwin-x86_64"
+            "darwin"
         } else if host_contains("windows") {
-            "windows-x86_64"
+            "windows"
         } else if cfg!(target_os = "linux") {
-            "linux-x86_64"
+            "linux"
         } else if cfg!(target_os = "macos") {
-            "darwin-x86_64"
+            "darwin"
         } else if cfg!(target_os = "windows") {
-            "windows-x86_64"
+            "windows"
         } else {
             return match host_os {
                 Some(host_os) => Err(NdkError::UnsupportedHost(host_os)),
@@ -158,12 +158,15 @@ impl Ndk {
             };
         };
 
-        let toolchain_dir = self
+        let mut toolchain_dir = self
             .ndk_path
             .join("toolchains")
             .join("llvm")
             .join("prebuilt")
-            .join(arch);
+            .join(format!("{}-x86_64", arch));
+        if !toolchain_dir.exists() {
+            toolchain_dir.set_file_name(arch);
+        }
         if !toolchain_dir.exists() {
             return Err(NdkError::PathNotFound(toolchain_dir));
         }
