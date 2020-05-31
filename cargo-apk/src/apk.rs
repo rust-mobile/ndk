@@ -31,7 +31,7 @@ impl<'a> ApkBuilder<'a> {
                 vec![ndk.detect_abi().unwrap_or(Target::Arm64V8a)]
             }
         };
-        let build_dir = dunce::canonicalize(cmd.target_dir())?
+        let build_dir = dunce::simplified(cmd.target_dir())
             .join(cmd.profile())
             .join("apk");
         Ok(Self {
@@ -66,7 +66,7 @@ impl<'a> ApkBuilder<'a> {
 
         for target in &self.build_targets {
             let triple = target.rust_triple();
-            let build_dir = dunce::canonicalize(self.cmd.target_dir())?
+            let build_dir = dunce::simplified(self.cmd.target_dir())
                 .join(target.rust_triple())
                 .join(self.cmd.profile());
             let artifact = build_dir
