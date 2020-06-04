@@ -13,11 +13,11 @@
 crate-type = ["lib", "cdylib"]
 ```
 
+Wraps `main` function using attribute macro `ndk::glue::main`:
+
 `src/lib.rs`
 ```rust
-#[cfg(target_os = "android")]
-ndk_glue::ndk_glue!(main);
-
+#[cfg_attr(target_os = "android", ndk_glue::main(backtrace))]
 pub fn main() {
     println!("hello world");
 }
@@ -38,6 +38,17 @@ cargo apk run
 ## Logging and stdout
 Stdout is redirected to the android log api when using `ndk-glue`. Any logger that logs to
 stdout should therefore work.
+
+### Android logger
+Android logger can be setup using feature "logger" and attribute macro like so:
+
+`src/lib.rs`
+```rust
+#[cfg_attr(target_os = "android", ndk_glue::main(logger(debug, "my-tag")))]
+pub fn main() {
+    println!("hello world");
+}
+```
 
 ## JNI
 TODO: talk more about jni and add some examples

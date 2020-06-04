@@ -14,25 +14,7 @@ use std::ptr::NonNull;
 use std::sync::{RwLock, RwLockReadGuard};
 use std::thread;
 
-#[macro_export]
-macro_rules! ndk_glue {
-    ($main:ident) => {
-        #[no_mangle]
-        unsafe extern "C" fn ANativeActivity_onCreate(
-            activity: *mut std::os::raw::c_void,
-            saved_state: *mut std::os::raw::c_void,
-            saved_state_size: usize,
-        ) {
-            std::env::set_var("RUST_BACKTRACE", "1");
-            $crate::init(
-                activity as _,
-                saved_state as _,
-                saved_state_size as _,
-                $main,
-            );
-        }
-    };
-}
+pub use ndk_macro::main;
 
 pub fn android_log(level: Level, tag: &CStr, msg: &CStr) {
     use android_log_sys::LogPriority;
