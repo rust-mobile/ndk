@@ -1,0 +1,21 @@
+[package]
+name = "ndk-macro"
+version = "0.1.0"
+authors = ["K. <kayo@illumium.org>"]
+edition = "2018"
+description = "Helper macros for android ndk"
+license = "MIT OR Apache-2.0"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+log = "0.4.8"
+proc-macro2 = "1.0.18"
+proc-macro-crate = "0.1.4"
+quote = "1.0.6"
+syn = { version = "1.0.30", features = ["full"] }
+
+[features]
+default = []
+logger = []
