@@ -24,12 +24,14 @@ impl Display for NdkError {
     fn fmt(&self, f: &mut Formatter) -> Result {
         let msg = match self {
             Self::SdkNotFound => {
-                "Please set the path to the Android SDK with either the $ANDROID_SDK_HOME or \
-                 the $ANDROID_HOME environment variable."
+                "Android SDK is not found. \
+                Please set the path to the Android SDK with the $ANDROID_SDK_ROOT \
+                environment variable."
             }
             Self::NdkNotFound => {
-                "Please set the path to the Android NDK with either the $ANDROID_NDK_HOME or \
-                 the $NDK_HOME environment variable."
+                "Android NDK is not found. \
+                Please set the path to the Android NDK with $ANDROID_NDK_ROOT \
+                environment variable."
             }
             Self::PathNotFound(path) => return write!(f, "Path {:?} doesn't exist.", path),
             Self::CmdNotFound(cmd) => return write!(f, "Command {} not found.", cmd),
