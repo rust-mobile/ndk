@@ -62,7 +62,7 @@ impl Ndk {
             .filter(|name| name.starts_with("android-"))
             .filter_map(|name| name[8..].parse::<u32>().ok())
             .filter(|level| {
-                ndk_path
+                sdk_path
                     .join("platforms")
                     .join(format!("android-{}", level))
                     .exists()
