@@ -5,10 +5,9 @@ use crate::parse::MainAttr;
 
 impl MainAttr {
     pub fn expand_backtrace(&self) -> Option<TokenStream> {
-        if self.backtrace_enabled() {
-            Some(quote! { std::env::set_var("RUST_BACKTRACE", "1"); })
-        } else {
-            None
-        }
+        self.backtrace_config().map(|config| {
+            let config: String = config.as_ref().into();
+            quote! { std::env::set_var("RUST_BACKTRACE", #config); }
+        })
     }
 }

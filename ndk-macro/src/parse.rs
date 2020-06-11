@@ -69,7 +69,7 @@ mod test {
         let attr: MainAttr = parse_quote! {};
 
         assert_eq!(attr.props.len(), 0);
-        assert!(!attr.backtrace_enabled());
+        assert_eq!(attr.backtrace_config(), None);
     }
 
     #[should_panic]
@@ -79,19 +79,35 @@ mod test {
     }
 
     #[test]
-    fn single_backtrace_prop() {
+    fn single_backtrace_prop_without_props() {
         let attr: MainAttr = parse_quote! { backtrace };
 
         assert_eq!(attr.props.len(), 1);
-        assert!(attr.backtrace_enabled());
+        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::On));
     }
 
     #[test]
-    fn repeated_backtrace_props() {
+    fn single_backtrace_prop_with_full_prop() {
+        let attr: MainAttr = parse_quote! { backtrace(full) };
+
+        assert_eq!(attr.props.len(), 1);
+        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::Full));
+    }
+
+    #[test]
+    fn repeated_backtrace_props_without_props() {
         let attr: MainAttr = parse_quote! { backtrace, backtrace };
 
         assert_eq!(attr.props.len(), 2);
-        assert!(attr.backtrace_enabled());
+        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::On));
+    }
+
+    #[test]
+    fn repeated_backtrace_props_with_props() {
+        let attr: MainAttr = parse_quote! { backtrace, backtrace(full) };
+
+        assert_eq!(attr.props.len(), 2);
+        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::Full));
     }
 
     #[cfg(feature = "logger")]
@@ -139,7 +155,7 @@ mod test {
             let attr: MainAttr = parse_quote! { logger(error, "my-app"), backtrace };
 
             assert_eq!(attr.props.len(), 2);
-            assert!(attr.backtrace_enabled());
+            assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::On));
 
             let config = attr.logger_config().unwrap();
 
