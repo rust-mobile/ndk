@@ -108,6 +108,31 @@ mod test {
         assert_eq!(actual.to_string(), expected.to_string());
     }
 
+    #[test]
+    fn main_with_backtrace_prop_full() {
+        let attr = parse_quote! { backtrace(full) };
+        let item = parse_quote! { fn main() {} };
+        let actual = main(&attr, &item);
+        let expected = quote! {
+            #[no_mangle]
+            unsafe extern "C" fn ANativeActivity_onCreate(
+                activity: *mut std::os::raw::c_void,
+                saved_state: *mut std::os::raw::c_void,
+                saved_state_size: usize,
+            ) {
+                std::env::set_var("RUST_BACKTRACE", "full");
+                ndk_glue::init(
+                    activity as _,
+                    saved_state as _,
+                    saved_state_size as _,
+                    main,
+                );
+            }
+            fn main() {}
+        };
+        assert_eq!(actual.to_string(), expected.to_string());
+    }
+
     #[cfg(feature = "logger")]
     mod logger {
         use super::*;
