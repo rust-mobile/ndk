@@ -16,6 +16,7 @@ pub struct ApkConfig {
 
 impl ApkConfig {
     pub fn from_config(config: Config, metadata: Metadata) -> Self {
+
         let target_sdk_version = metadata
             .target_sdk_version
             .unwrap_or_else(|| config.ndk.default_platform());
@@ -27,6 +28,12 @@ impl ApkConfig {
             .collect();
         let permissions = metadata
             .permission
+            .unwrap_or_default()
+            .into_iter()
+            .map(Into::into)
+            .collect();
+        let intent_filters = metadata
+            .intent_filter
             .unwrap_or_default()
             .into_iter()
             .map(Into::into)
@@ -51,6 +58,7 @@ impl ApkConfig {
             opengles_version: metadata.opengles_version.unwrap_or((3, 1)),
             features,
             permissions,
+            intent_filters,
             icon: metadata.icon,
             fullscreen: metadata.fullscreen.unwrap_or(false),
             application_metadatas,
