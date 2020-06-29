@@ -16,7 +16,6 @@ pub struct ApkConfig {
 
 impl ApkConfig {
     pub fn from_config(config: Config, metadata: Metadata) -> Self {
-
         let target_sdk_version = metadata
             .target_sdk_version
             .unwrap_or_else(|| config.ndk.default_platform());
