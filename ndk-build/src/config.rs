@@ -1,4 +1,4 @@
-use crate::manifest::{ApplicationMetadata, Feature, Permission, IntentFilter, IntentFilterData};
+use crate::manifest::{ApplicationMetadata, Feature, IntentFilter, IntentFilterData, Permission};
 use crate::ndk::Ndk;
 use serde::Deserialize;
 use std::path::PathBuf;
@@ -89,12 +89,16 @@ impl From<IntentFilterConfig> for IntentFilter {
     fn from(config: IntentFilterConfig) -> Self {
         Self {
             name: config.name,
-            data: config.data.into_iter().map(|d|   IntentFilterData::from(d)).rev().collect(),
+            data: config
+                .data
+                .into_iter()
+                .map(|d| IntentFilterData::from(d))
+                .rev()
+                .collect(),
             categories: config.categories,
         }
     }
 }
-
 
 #[derive(Clone, Debug, Deserialize)]
 pub struct ApplicationMetadataConfig {

@@ -47,7 +47,8 @@ impl Manifest {
 
         let features: Vec<String> = self.features.iter().map(|f| f.to_string()).collect();
         let permissions: Vec<String> = self.permissions.iter().map(|p| p.to_string()).collect();
-        let intent_filters: Vec<String> = self.intent_filters.iter().map(|i| i.to_string()).collect();
+        let intent_filters: Vec<String> =
+            self.intent_filters.iter().map(|i| i.to_string()).collect();
         let application_metadatas: Vec<String> = self
             .application_metadatas
             .iter()
@@ -206,12 +207,12 @@ impl IntentFilter {
         let mut categories = "".to_string();
         for category in &self.categories {
             categories = format!("{}<category android:name=\"{}\"/>", categories, category)
-        };
+        }
 
         let mut data = "".to_string();
         for d in &self.data {
             data = format!("{}{}", data, d.to_string())
-        };
+        }
 
         format!(
             "<intent-filter>
