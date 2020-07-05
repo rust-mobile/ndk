@@ -9,7 +9,7 @@ use std::process::Command;
 pub struct ApkConfig {
     pub ndk: Ndk,
     pub build_dir: PathBuf,
-    pub assets: Option<String>,
+    pub assets: Option<PathBuf>,
     pub res: Option<String>,
     pub manifest: Manifest,
 }
@@ -99,7 +99,7 @@ impl ApkConfig {
         }
 
         if let Some(assets) = &self.assets {
-            aapt.arg("-A").arg(assets);
+            aapt.arg("-A").arg(dunce::simplified(assets));
         }
 
         if !aapt.status()?.success() {
