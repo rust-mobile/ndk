@@ -59,7 +59,7 @@ impl<'a> ApkBuilder<'a> {
             target_name: artifact.name().replace("-", "_"),
             debuggable: *self.cmd.profile() == Profile::Dev,
             assets: self.manifest.assets.as_ref().map(|assets| {
-               self.cmd
+                self.cmd
                     .manifest()
                     .parent()
                     .expect("invalid manifest path")
