@@ -31,6 +31,12 @@ impl ApkConfig {
             .into_iter()
             .map(Into::into)
             .collect();
+        let intent_filters = metadata
+            .intent_filter
+            .unwrap_or_default()
+            .into_iter()
+            .map(Into::into)
+            .collect();
         let application_metadatas = metadata
             .application_metadatas
             .unwrap_or_default()
@@ -51,6 +57,7 @@ impl ApkConfig {
             opengles_version: metadata.opengles_version.unwrap_or((3, 1)),
             features,
             permissions,
+            intent_filters,
             icon: metadata.icon,
             fullscreen: metadata.fullscreen.unwrap_or(false),
             application_metadatas,

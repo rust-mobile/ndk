@@ -1,4 +1,4 @@
-use crate::manifest::{ApplicationMetadata, Feature, Permission};
+use crate::manifest::{ApplicationMetadata, Feature, IntentFilter, IntentFilterData, Permission};
 use crate::ndk::Ndk;
 use serde::Deserialize;
 use std::path::PathBuf;
@@ -27,6 +27,7 @@ pub struct Metadata {
     pub opengles_version: Option<(u8, u8)>,
     pub feature: Option<Vec<FeatureConfig>>,
     pub permission: Option<Vec<PermissionConfig>>,
+    pub intent_filter: Option<Vec<IntentFilterConfig>>,
     pub application_metadatas: Option<Vec<ApplicationMetadataConfig>>,
 }
 
@@ -56,6 +57,45 @@ impl From<PermissionConfig> for Permission {
         Self {
             name: config.name,
             max_sdk_version: config.max_sdk_version,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct IntentFilterConfigData {
+    pub scheme: Option<String>,
+    pub host: Option<String>,
+    pub prefix: Option<String>,
+}
+
+impl From<IntentFilterConfigData> for IntentFilterData {
+    fn from(config: IntentFilterConfigData) -> Self {
+        Self {
+            scheme: config.scheme,
+            host: config.host,
+            prefix: config.prefix,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct IntentFilterConfig {
+    name: String,
+    data: Vec<IntentFilterConfigData>,
+    categories: Vec<String>,
+}
+
+impl From<IntentFilterConfig> for IntentFilter {
+    fn from(config: IntentFilterConfig) -> Self {
+        Self {
+            name: config.name,
+            data: config
+                .data
+                .into_iter()
+                .map(|d| IntentFilterData::from(d))
+                .rev()
+                .collect(),
+            categories: config.categories,
         }
     }
 }

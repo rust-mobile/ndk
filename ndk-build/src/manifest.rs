@@ -15,6 +15,7 @@ pub struct Manifest {
     pub opengles_version: (u8, u8),
     pub features: Vec<Feature>,
     pub permissions: Vec<Permission>,
+    pub intent_filters: Vec<IntentFilter>,
     pub icon: Option<String>,
     pub fullscreen: bool,
     pub debuggable: bool,
@@ -46,6 +47,8 @@ impl Manifest {
 
         let features: Vec<String> = self.features.iter().map(|f| f.to_string()).collect();
         let permissions: Vec<String> = self.permissions.iter().map(|p| p.to_string()).collect();
+        let intent_filters: Vec<String> =
+            self.intent_filters.iter().map(|i| i.to_string()).collect();
         let application_metadatas: Vec<String> = self
             .application_metadatas
             .iter()
@@ -81,6 +84,7 @@ impl Manifest {
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            {intent_filters}
         </activity>
     </application>
 </manifest>"#,
@@ -99,6 +103,7 @@ impl Manifest {
             debuggable = self.debuggable,
             features = features.join("\n"),
             permissions = permissions.join("\n"),
+            intent_filters = intent_filters.join("\n"),
         )
     }
 
@@ -155,6 +160,67 @@ impl Permission {
         format!(
             r#"<uses-permission android:name="{}" {}/>"#,
             &self.name, max_sdk_version,
+        )
+    }
+}
+
+#[derive(Debug)]
+pub struct IntentFilterData {
+    pub scheme: Option<String>,
+    pub host: Option<String>,
+    pub prefix: Option<String>,
+}
+
+impl IntentFilterData {
+    pub fn to_string(&self) -> String {
+        let host = if let Some(host) = self.host.as_ref() {
+            format!(" android:host=\"{}\"", host)
+        } else {
+            "".into()
+        };
+
+        let prefix = if let Some(prefix) = self.prefix.as_ref() {
+            format!(" android:pathPrefix=\"{}\"", prefix)
+        } else {
+            "".into()
+        };
+
+        let scheme = if let Some(scheme) = self.scheme.as_ref() {
+            format!(" android:scheme=\"{}\"", scheme)
+        } else {
+            "".into()
+        };
+
+        format!("<data {} {} {}/>", scheme, &host, &prefix)
+    }
+}
+
+#[derive(Debug)]
+pub struct IntentFilter {
+    pub name: String,
+    pub categories: Vec<String>,
+    pub data: Vec<IntentFilterData>,
+}
+
+impl IntentFilter {
+    pub fn to_string(&self) -> String {
+        let mut categories = "".to_string();
+        for category in &self.categories {
+            categories = format!("{}<category android:name=\"{}\"/>", categories, category)
+        }
+
+        let mut data = "".to_string();
+        for d in &self.data {
+            data = format!("{}{}", data, d.to_string())
+        }
+
+        format!(
+            "<intent-filter>
+            \t{}
+            \t{}
+            \t<action android:name=\"{}\"/>
+            </intent-filter>",
+            &categories, &data, &self.name,
         )
     }
 }
