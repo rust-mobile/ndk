@@ -58,7 +58,13 @@ impl<'a> ApkBuilder<'a> {
             split: None,
             target_name: artifact.name().replace("-", "_"),
             debuggable: *self.cmd.profile() == Profile::Dev,
-            assets: self.manifest.assets.clone(),
+            assets: self.manifest.assets.as_ref().map(|assets| {
+                self.cmd
+                    .manifest()
+                    .parent()
+                    .expect("invalid manifest path")
+                    .join(&assets)
+            }),
             res: self.manifest.res.clone(),
         };
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());

@@ -14,7 +14,7 @@ pub struct Config {
     pub split: Option<String>,
     pub target_name: String,
     pub debuggable: bool,
-    pub assets: Option<String>,
+    pub assets: Option<PathBuf>,
     pub res: Option<String>,
 }
 

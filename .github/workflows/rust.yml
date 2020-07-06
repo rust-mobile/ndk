@@ -17,12 +17,18 @@ jobs:
         ]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: Download NDK
       run: |
         curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
         unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
+
+    - name: Setup java
+      uses: actions/setup-java@v1
+      with:
+        java-package: jre # Runtime new enough for android toolchain
+        java-version: '13'
 
     - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target }}
       uses: actions-rs/toolchain@v1
@@ -31,8 +37,14 @@ jobs:
         target: ${{ matrix.rust-target }}
         override: true
 
-    - name: Check formating
-      run: cargo fmt --all -- --check
+    - name: Install components
+      run: rustup component add --toolchain ${{ matrix.rust-channel }} rustfmt
+
+    - name: Format
+      uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: --all -- --check
 
     - name: Run tests
       run: |

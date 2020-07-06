@@ -58,7 +58,7 @@ impl AssetManager {
 ///
 /// ```no_run
 /// # use std::ffi::CString;
-/// # use android_ndk::asset::AssetManager;
+/// # use ndk::asset::AssetManager;
 /// # let asset_manager: AssetManager = unimplemented!();
 /// use std::io::Read;
 ///
@@ -143,7 +143,7 @@ impl Iterator for AssetDir {
 ///
 /// ```no_run
 /// # use std::ffi::CString;
-/// # use android_ndk::asset::AssetManager;
+/// # use ndk::asset::AssetManager;
 /// # let asset_manager: AssetManager = unimplemented!();
 /// use std::io::Read;
 ///

@@ -87,7 +87,7 @@ impl NativeActivity {
     ///
     /// Usage with [__jni__](https://crates.io/crates/jni) crate:
     /// ```no_run
-    /// # use android_ndk::native_activity::NativeActivity;
+    /// # use ndk::native_activity::NativeActivity;
     /// # let native_activity: NativeActivity = unimplemented!();
     /// let vm_ptr = native_activity.vm();
     /// let vm = unsafe { jni::JavaVM::from_raw(vm_ptr) }.unwrap();
@@ -97,7 +97,7 @@ impl NativeActivity {
     ///
     /// Usage with [__jni-glue__](https://crates.io/crates/jni-glue) crate:
     /// ```no_run
-    /// # use android_ndk::native_activity::NativeActivity;
+    /// # use ndk::native_activity::NativeActivity;
     /// # let native_activity: NativeActivity = unimplemented!();
     /// let vm_ptr = native_activity.vm();
     /// let vm = unsafe { jni_glue::VM::from_jni_local(&*vm_ptr) };
