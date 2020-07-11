@@ -1,12 +1,23 @@
 # Rust on Android
 
- - Raw FFI bindings to the NDK ![ndk-sys-docs][ndk-sys-badge]
- - Safe abstraction of the bindings ![ndk-docs][ndk-badge]
- - Startup code ![ndk-glue-docs][ndk-glue-badge]
- - Everything for building apk's ![ndk-build-docs][ndk-build-badge]
- - Build tool ![cargo-apk-docs][cargo-apk-badge]
+[![Rust](https://github.com/rust-windowing/android-ndk-rs/workflows/Rust/badge.svg)](https://github.com/rust-windowing/android-ndk-rs/actions) ![MIT license](https://img.shields.io/badge/License-MIT-green.svg) ![APACHE2 license](https://img.shields.io/badge/License-APACHE2-green.svg)
+
+Libraries and tools for Rust programming on Android targets:
+
+Name | Description | Badges
+--- | --- | ---
+`ndk-sys` | Raw FFI bindings to the NDK | [![crates.io](https://img.shields.io/crates/v/ndk-sys.svg)](https://crates.io/crates/ndk-sys) [![crates.io](https://docs.rs/ndk-sys/badge.svg)](https://docs.rs/ndk-sys)
+`ndk` | Safe abstraction of the bindings | [![crates.io](https://img.shields.io/crates/v/ndk.svg)](https://crates.io/crates/ndk) [![crates.io](https://docs.rs/ndk/badge.svg)](https://docs.rs/ndk)
+`ndk-glue`| Startup code | [![crates.io](https://img.shields.io/crates/v/ndk-glue.svg)](https://crates.io/crates/ndk-glue) [![crates.io](https://docs.rs/ndk-glue/badge.svg)](https://docs.rs/ndk-glue)
+`ndk-build` | Everything for building apk's | [![crates.io](https://img.shields.io/crates/v/ndk-build.svg)](https://crates.io/crates/ndk-build) [![crates.io](https://docs.rs/ndk-build/badge.svg)](https://docs.rs/ndk-build)
+`cargo-apk` | Build tool | [![crates.io](https://img.shields.io/crates/v/cargo-apk.svg)](https://crates.io/crates/cargo-apk) [![crates.io](https://docs.rs/cargo-apk/badge.svg)](https://docs.rs/cargo-apk)
+
+See [`ndk-examples`](./ndk-examples) for examples using the NDK and the README files of the crates for more details.
 
 ## Hello world
+
+Quick start for setting up a new project with support for Android. For communication with the Android framework in our native Rust application we require a `NativeActivity`. `ndk-glue` will do the necessary initialization when calling `main` but requires a few adjustments:
+
 `Cargo.toml`
 ```toml
 [lib]
@@ -30,14 +41,24 @@ fn main() {
 }
 ```
 
+Install `cargo apk` for building, running and debugging your application:
 ```sh
 cargo install cargo-apk
+```
+
+We can now directly execute our `Hello World` application on a real connected device or an emulator:
+```sh
 cargo apk run
 ```
 
 ## Logging and stdout
 Stdout is redirected to the android log api when using `ndk-glue`. Any logger that logs to
-stdout should therefore work.
+stdout, like `println!`, should therefore work.
+
+Use can filter the output in logcat
+```
+adb logcat RustStdoutStderr:D *:S
+```
 
 ### Android logger
 Android logger can be setup using feature "logger" and attribute macro like so:
@@ -46,7 +67,7 @@ Android logger can be setup using feature "logger" and attribute macro like so:
 ```rust
 #[cfg_attr(target_os = "android", ndk_glue::main(logger(debug, "my-tag")))]
 pub fn main() {
-    println!("hello world");
+    log!("hello world");
 }
 ```
 
@@ -60,14 +81,3 @@ TODO shameless plug
 
 ## Flutter
 TODO shameless plug
-
-[ndk-sys-docs]: https://docs.rs/ndk-sys
-[ndk-sys-badge]: https://docs.rs/ndk-sys/badge.svg
-[ndk-docs]: https://docs.rs/ndk
-[ndk-badge]: https://docs.rs/ndk/badge.svg
-[ndk-glue-docs]: https://docs.rs/ndk-glue
-[ndk-glue-badge]: https://docs.rs/ndk-glue/badge.svg
-[ndk-build-docs]: https://docs.rs/ndk-build
-[ndk-build-badge]: https://docs.rs/ndk-build/badge.svg
-[cargo-apk-docs]: https://docs.rs/cargo-apk
-[cargo-apk-badge]: https://docs.rs/cargo-apk/badge.svg
