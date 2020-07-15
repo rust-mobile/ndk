@@ -1,6 +1,6 @@
 [package]
 name = "ndk-build"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["David Craven <david@craven.ch>"]
 edition = "2018"
 description = "Utilities for building android binaries"

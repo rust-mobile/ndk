@@ -1,6 +1,6 @@
 [package]
 name = "cargo-apk"
-version = "0.5.0"
+version = "0.5.1"
 authors = ["David Craven <david@craven.ch>"]
 edition = "2018"
 description = "Helps cargo build apks"
