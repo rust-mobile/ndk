@@ -1,16 +1,21 @@
 [package]
 name = "ndk-glue"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["David Craven <david@craven.ch>"]
 edition = "2018"
 description = "Startup code for android binaries"
 license = "MIT OR Apache-2.0"
+keywords = ["android", "ndk"]
+readme = "README.md"
+documentation = "https://docs.rs/ndk-glue"
+homepage = "https://github.com/rust-windowing/android-ndk-rs"
+repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
 android_log-sys = "0.1.2"
-ndk = { path = "../ndk", version = "0.1" }
-ndk-sys = { path = "../ndk-sys", version = "0.1" }
-ndk-macro = { path = "../ndk-macro", version = "0.1" }
+ndk = { path = "../ndk", version = "0.1.1" }
+ndk-sys = { path = "../ndk-sys", version = "0.1.1" }
+ndk-macro = { path = "../ndk-macro", version = "0.1.0" }
 lazy_static = "1.4.0"
 libc = "0.2.66"
 log = "0.4.8"

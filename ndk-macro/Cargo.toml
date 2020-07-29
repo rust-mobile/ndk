@@ -5,6 +5,11 @@ authors = ["K. <kayo@illumium.org>"]
 edition = "2018"
 description = "Helper macros for android ndk"
 license = "MIT OR Apache-2.0"
+keywords = ["android", "ndk"]
+readme = "README.md"
+documentation = "https://docs.rs/ndk-macro"
+homepage = "https://github.com/rust-windowing/android-ndk-rs"
+repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [lib]
 proc-macro = true
