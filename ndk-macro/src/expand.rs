@@ -1,8 +1,4 @@
-mod backtrace;
-
-#[cfg(feature = "logger")]
-mod logger;
-
+use core::iter::once;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use syn::ItemFn;
@@ -17,14 +13,17 @@ impl MainAttr {
             crate_name("ndk-glue").expect("No 'ndk-glue' crate found!")
         );
 
-        let preamble = vec![
-            self.expand_backtrace(),
-            #[cfg(feature = "logger")]
-            self.expand_logger(),
-        ]
-        .into_iter()
-        .flatten()
-        .collect::<Vec<_>>();
+        let preamble = {
+            let backtrace = &self.backtrace;
+            once(quote! { #backtrace })
+        };
+
+        #[cfg(feature = "logger")]
+        let preamble = {
+            let logger = &self.logger;
+
+            preamble.chain(once(quote! { #logger }))
+        };
 
         quote! {
             #[no_mangle]
@@ -49,21 +48,15 @@ impl MainAttr {
 
 #[cfg(test)]
 mod test {
-    use proc_macro2::TokenStream;
+    use crate::parse::{BacktraceProp, MainAttr};
     use quote::quote;
-    use syn::{parse_quote, ItemFn};
-
-    use super::MainAttr;
-
-    fn main(attr: &MainAttr, item: &ItemFn) -> TokenStream {
-        attr.expand(item)
-    }
+    use syn::parse_quote;
 
     #[test]
     fn main_without_props() {
-        let attr = parse_quote! {};
+        let attr = MainAttr::default();
         let item = parse_quote! { fn main() {} };
-        let actual = main(&attr, &item);
+        let actual = attr.expand(&item);
         let expected = quote! {
             #[no_mangle]
             unsafe extern "C" fn ANativeActivity_onCreate(
@@ -84,10 +77,13 @@ mod test {
     }
 
     #[test]
-    fn main_with_backtrace_prop() {
-        let attr = parse_quote! { backtrace };
+    fn main_with_backtrace_prop_on() {
+        let attr = MainAttr {
+            backtrace: Some(BacktraceProp::On),
+            ..Default::default()
+        };
         let item = parse_quote! { fn main() {} };
-        let actual = main(&attr, &item);
+        let actual = attr.expand(&item);
         let expected = quote! {
             #[no_mangle]
             unsafe extern "C" fn ANativeActivity_onCreate(
@@ -110,9 +106,12 @@ mod test {
 
     #[test]
     fn main_with_backtrace_prop_full() {
-        let attr = parse_quote! { backtrace(full) };
+        let attr = MainAttr {
+            backtrace: Some(BacktraceProp::Full),
+            ..Default::default()
+        };
         let item = parse_quote! { fn main() {} };
-        let actual = main(&attr, &item);
+        let actual = attr.expand(&item);
         let expected = quote! {
             #[no_mangle]
             unsafe extern "C" fn ANativeActivity_onCreate(
@@ -136,12 +135,16 @@ mod test {
     #[cfg(feature = "logger")]
     mod logger {
         use super::*;
+        use crate::parse::{LogLevel, LoggerProp};
 
         #[test]
         fn main_with_logger_prop_empty() {
-            let attr = parse_quote! { logger };
+            let attr = MainAttr {
+                logger: Some(LoggerProp::default()),
+                ..Default::default()
+            };
             let item = parse_quote! { fn main() {} };
-            let actual = main(&attr, &item);
+            let actual = attr.expand(&item);
             let expected = quote! {
                 #[no_mangle]
                 unsafe extern "C" fn ANativeActivity_onCreate(
@@ -166,9 +169,15 @@ mod test {
 
         #[test]
         fn main_with_logger_prop_with_min_level() {
-            let attr = parse_quote! { logger(debug) };
+            let attr = MainAttr {
+                logger: Some(LoggerProp {
+                    level: Some(LogLevel::Debug),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            };
             let item = parse_quote! { fn main() {} };
-            let actual = main(&attr, &item);
+            let actual = attr.expand(&item);
             let expected = quote! {
                 #[no_mangle]
                 unsafe extern "C" fn ANativeActivity_onCreate(
@@ -194,9 +203,15 @@ mod test {
 
         #[test]
         fn main_with_logger_prop_with_tag() {
-            let attr = parse_quote! { logger("my-tag") };
+            let attr = MainAttr {
+                logger: Some(LoggerProp {
+                    tag: Some("my-tag".into()),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            };
             let item = parse_quote! { fn my_main() {} };
-            let actual = main(&attr, &item);
+            let actual = attr.expand(&item);
             let expected = quote! {
                 #[no_mangle]
                 unsafe extern "C" fn ANativeActivity_onCreate(
@@ -222,9 +237,15 @@ mod test {
 
         #[test]
         fn main_with_logger_prop_with_min_level_and_with_tag() {
-            let attr = parse_quote! { logger(warn, "my-tag") };
+            let attr = MainAttr {
+                logger: Some(LoggerProp {
+                    level: Some(LogLevel::Warn),
+                    tag: Some("my-tag".into()),
+                }),
+                ..Default::default()
+            };
             let item = parse_quote! { fn my_main() {} };
-            let actual = main(&attr, &item);
+            let actual = attr.expand(&item);
             let expected = quote! {
                 #[no_mangle]
                 unsafe extern "C" fn ANativeActivity_onCreate(
@@ -251,9 +272,15 @@ mod test {
 
         #[test]
         fn main_with_backtrace_prop_and_logger_prop() {
-            let attr = parse_quote! { backtrace, logger("my-tag") };
+            let attr = MainAttr {
+                backtrace: Some(BacktraceProp::On),
+                logger: Some(LoggerProp {
+                    tag: Some("my-tag".into()),
+                    ..Default::default()
+                }),
+            };
             let item = parse_quote! { fn main() {} };
-            let actual = main(&attr, &item);
+            let actual = attr.expand(&item);
             let expected = quote! {
                 #[no_mangle]
                 unsafe extern "C" fn ANativeActivity_onCreate(
