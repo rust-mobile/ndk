@@ -28,7 +28,7 @@ Wraps `main` function using attribute macro `ndk::glue::main`:
 
 `src/lib.rs`
 ```rust
-#[cfg_attr(target_os = "android", ndk_glue::main(backtrace))]
+#[cfg_attr(target_os = "android", ndk_glue::main(backtrace = "on"))]
 pub fn main() {
     println!("hello world");
 }
@@ -65,7 +65,7 @@ Android logger can be setup using feature "logger" and attribute macro like so:
 
 `src/lib.rs`
 ```rust
-#[cfg_attr(target_os = "android", ndk_glue::main(logger(debug, "my-tag")))]
+#[cfg_attr(target_os = "android", ndk_glue::main(logger(level = "debug", tag = "my-tag")))]
 pub fn main() {
     log!("hello world");
 }

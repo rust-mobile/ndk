@@ -6,7 +6,7 @@ This macro is re-exported in `ndk-glue`. Typically, it's not needed to depend on
 
 ## Usage
 ```Rust
-#[cfg_attr(target_os = "android", ndk_glue::main(backtrace))]
+#[cfg_attr(target_os = "android", ndk_glue::main(backtrace = "on"))]
 pub fn main() {
     println!("hello world");
 }
@@ -14,5 +14,7 @@ pub fn main() {
 
 The attribute macro supports optional input attributes:
 
-- `backtrace`: Enables backtraces by setting the `RUST_BACKTRACE` env var
-- `logger(debug, "my-tag")`: Configures android logger with the passed configuration, requires the `logger` feature.
+- `backtrace = "on|full"`: Enables backtraces by setting the `RUST_BACKTRACE` env var
+- `logger(...props)`: Configures android logger with the passed configuration, requires the `logger` feature.
+  - `level = "error|warn|info|debug|trace"`: Changes log level for logger
+  - `tag = "my-tag"`: Assigns tag to logger
