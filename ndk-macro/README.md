@@ -15,6 +15,9 @@ pub fn main() {
 The attribute macro supports optional input attributes:
 
 - `backtrace = "on|full"`: Enables backtraces by setting the `RUST_BACKTRACE` env var
-- `logger(...props)`: Configures android logger with the passed configuration, requires the `logger` feature.
+- `ndk_glue = "path::to::ndk_glue"`: Overrides default path to __ndk_glue__ crate
+- `logger(...props)`: Configures android logger with the passed configuration (requires the `logger` feature):
   - `level = "error|warn|info|debug|trace"`: Changes log level for logger
   - `tag = "my-tag"`: Assigns tag to logger
+  - `android_logger = "path::to::android_logger"`: Overrides default path to __android_logger__ crate
+  - `log = "path::to::log"`: Overrides default path to __log__ crate

@@ -71,6 +71,19 @@ pub fn main() {
 }
 ```
 
+## Overriding crate paths
+The macro `ndk_glue::main` tries to determine crate names from current _Cargo.toml_.
+In cases when it is not possible the default crate names will be used.
+You can override this names with specific paths like so:
+```rust
+#[ndk_glue::main(
+  ndk_glue = "path::to::ndk_glue",
+  logger(android_logger = "path::to::android_logger",
+         log = "path::to::log")
+)]
+fn main() {}
+```
+
 ## JNI
 TODO: talk more about jni and add some examples
 
