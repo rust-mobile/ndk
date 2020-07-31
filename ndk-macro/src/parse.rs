@@ -1,6 +1,4 @@
 use darling::FromMeta;
-use proc_macro2::TokenStream;
-use quote::{quote, ToTokens};
 use syn::Path;
 
 #[cfg(feature = "logger")]
@@ -29,28 +27,9 @@ impl Default for BacktraceProp {
     }
 }
 
-impl ToTokens for BacktraceProp {
-    fn to_tokens(&self, tokens: &mut TokenStream) {
-        use BacktraceProp::*;
-
-        let prop = match self {
-            On => Some(quote! { "1" }),
-            Full => Some(quote! { "full" }),
-        };
-
-        tokens.extend(quote! {
-            std::env::set_var("RUST_BACKTRACE", #prop);
-        });
-    }
-}
-
 #[cfg(feature = "logger")]
 mod logger {
-    use crate::helper::crate_path;
-    use darling::FromMeta;
-    use proc_macro2::TokenStream;
-    use quote::{quote, ToTokens};
-    use syn::Path;
+    use super::*;
 
     #[derive(FromMeta, PartialEq, Eq, Default, Debug, Clone)]
     #[darling(default)]
@@ -67,34 +46,6 @@ mod logger {
         pub log: Option<Path>,
     }
 
-    impl ToTokens for LoggerProp {
-        fn to_tokens(&self, tokens: &mut TokenStream) {
-            let android_logger_crate = crate_path("android_logger", &self.android_logger);
-            let mut withs = Vec::new();
-
-            if let Some(tag) = &self.tag {
-                withs.push(quote! { with_tag(#tag) });
-            }
-            if let Some(level) = &self.level {
-                let log_crate = crate_path("log", &self.log);
-
-                withs.push(quote! { with_min_level(#log_crate::Level::#level) });
-            }
-            if let Some(filter) = &self.filter {
-                withs.push(quote! {
-                    with_filter(#android_logger_crate::FilterBuilder::new().parse(#filter).build())
-                });
-            }
-
-            tokens.extend(quote! {
-                #android_logger_crate::init_once(
-                    #android_logger_crate::Config::default()
-                    #(.#withs)*
-                );
-            });
-        }
-    }
-
     #[derive(FromMeta, PartialEq, Eq, Debug, Clone, Copy)]
     #[darling(default)]
     pub enum LogLevel {
@@ -108,20 +59,6 @@ mod logger {
     impl Default for LogLevel {
         fn default() -> Self {
             LogLevel::Error
-        }
-    }
-
-    impl ToTokens for LogLevel {
-        fn to_tokens(&self, tokens: &mut TokenStream) {
-            use LogLevel::*;
-
-            tokens.extend(match self {
-                Error => quote! { Error },
-                Warn => quote! { Warn },
-                Info => quote! { Info },
-                Debug => quote! { Debug },
-                Trace => quote! { Trace },
-            });
         }
     }
 }
