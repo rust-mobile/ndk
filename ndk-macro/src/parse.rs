@@ -59,6 +59,8 @@ mod logger {
         pub level: Option<LogLevel>,
         // Tag name for logger
         pub tag: Option<String>,
+        // Filtering rules
+        pub filter: Option<String>,
         // Path to `android_logger` to override
         pub android_logger: Option<Path>,
         // Path to `log` crate to override
@@ -77,6 +79,11 @@ mod logger {
                 let log_crate = crate_path("log", &self.log);
 
                 withs.push(quote! { with_min_level(#log_crate::Level::#level) });
+            }
+            if let Some(filter) = &self.filter {
+                withs.push(quote! {
+                    with_filter(#android_logger_crate::FilterBuilder::new().parse(#filter).build())
+                });
             }
 
             tokens.extend(quote! {
@@ -193,7 +200,7 @@ mod test {
             };
             let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            let logger = attr.logger.as_ref().unwrap();
+            let logger = attr.logger.unwrap();
 
             assert_eq!(logger.level, Some(LogLevel::Debug));
             assert_eq!(logger.tag, None);
@@ -206,10 +213,23 @@ mod test {
             };
             let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            let logger = attr.logger.as_ref().unwrap();
+            let logger = attr.logger.unwrap();
 
             assert_eq!(logger.level, None);
-            assert_eq!(logger.tag.as_ref().unwrap(), "my-tag");
+            assert_eq!(logger.tag.unwrap(), "my-tag");
+        }
+
+        #[test]
+        fn logger_with_filter() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(filter = "debug,hello::world=trace")
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
+
+            let logger = attr.logger.unwrap();
+
+            assert_eq!(logger.level, None);
+            assert_eq!(logger.filter.unwrap(), "debug,hello::world=trace");
         }
 
         #[test]
@@ -219,10 +239,10 @@ mod test {
             };
             let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            let logger = attr.logger.as_ref().unwrap();
+            let logger = attr.logger.unwrap();
 
             assert_eq!(logger.level, Some(LogLevel::Error));
-            assert_eq!(logger.tag.as_ref().unwrap(), "my-app");
+            assert_eq!(logger.tag.unwrap(), "my-app");
         }
 
         #[test]
@@ -235,10 +255,10 @@ mod test {
 
             assert_eq!(attr.backtrace, Some(BacktraceProp::On));
 
-            let logger = attr.logger.as_ref().unwrap();
+            let logger = attr.logger.unwrap();
 
             assert_eq!(logger.level, Some(LogLevel::Warn));
-            assert_eq!(logger.tag.as_ref().unwrap(), "my-app");
+            assert_eq!(logger.tag.unwrap(), "my-app");
         }
 
         #[test]

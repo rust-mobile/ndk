@@ -260,6 +260,40 @@ mod test {
         }
 
         #[test]
+        fn main_with_logger_with_filter() {
+            let attr = MainAttr {
+                logger: Some(LoggerProp {
+                    filter: Some("debug,hellow::world=trace".into()),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            };
+            let item = parse_quote! { fn my_main() {} };
+            let actual = attr.expand(&item);
+            let expected = quote! {
+                #[no_mangle]
+                unsafe extern "C" fn ANativeActivity_onCreate(
+                    activity: *mut std::os::raw::c_void,
+                    saved_state: *mut std::os::raw::c_void,
+                    saved_state_size: usize,
+                ) {
+                    android_logger::init_once(
+                        android_logger::Config::default()
+                            .with_filter(android_logger::FilterBuilder::new().parse("debug,hellow::world=trace").build())
+                    );
+                    ndk_glue::init(
+                        activity as _,
+                        saved_state as _,
+                        saved_state_size as _,
+                        my_main,
+                    );
+                }
+                fn my_main() {}
+            };
+            assert_eq!(actual.to_string(), expected.to_string());
+        }
+
+        #[test]
         fn main_with_logger_with_min_level_and_with_tag() {
             let attr = MainAttr {
                 logger: Some(LoggerProp {
