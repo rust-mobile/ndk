@@ -82,15 +82,13 @@ pub struct Counter {
 }
 
 #[cfg(feature = "api-level-29")]
-impl  Counter {
+impl Counter {
     pub fn new(name: &str) -> Result<Self, NulError> {
         let name = CString::new(name)?;
-        Ok(Self {
-            name,
-        })
+        Ok(Self { name })
     }
 
     pub fn set_value(&self, value: i64) {
-        unsafe  { ffi::ATrace_setCounter(self.name.as_ptr(), value) }
+        unsafe { ffi::ATrace_setCounter(self.name.as_ptr(), value) }
     }
 }
