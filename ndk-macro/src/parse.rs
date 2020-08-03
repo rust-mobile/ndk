@@ -1,60 +1,64 @@
-mod backtrace;
+use darling::FromMeta;
+use syn::Path;
 
 #[cfg(feature = "logger")]
-mod logger;
+pub use logger::{LogLevel, LoggerProp};
 
-use syn::{
-    parse::{Parse, ParseStream},
-    punctuated::Punctuated,
-    Result, Token,
-};
-
-use backtrace::*;
-
-#[cfg(feature = "logger")]
-use logger::*;
-
+#[derive(Default, FromMeta, Debug)]
+#[darling(default)]
 pub struct MainAttr {
-    props: Punctuated<MainProp, Token![,]>,
+    pub backtrace: Option<BacktraceProp>,
+    // Path to `ndk_glue` to override
+    pub ndk_glue: Option<Path>,
+    #[cfg(feature = "logger")]
+    pub logger: Option<LoggerProp>,
 }
 
-impl Parse for MainAttr {
-    fn parse(input: ParseStream) -> Result<Self> {
-        Ok(Self {
-            props: Punctuated::parse_terminated(input)?,
-        })
+#[derive(FromMeta, PartialEq, Eq, Debug, Clone, Copy)]
+#[darling(default)]
+pub enum BacktraceProp {
+    On,
+    Full,
+}
+
+impl Default for BacktraceProp {
+    fn default() -> Self {
+        BacktraceProp::On
     }
 }
 
-pub enum MainProp {
-    Backtrace(MainPropBacktrace),
+#[cfg(feature = "logger")]
+mod logger {
+    use super::*;
 
-    #[cfg(feature = "logger")]
-    Logger(MainPropLogger),
-}
+    #[derive(FromMeta, PartialEq, Eq, Default, Debug, Clone)]
+    #[darling(default)]
+    pub struct LoggerProp {
+        // Minimum log level
+        pub level: Option<LogLevel>,
+        // Tag name for logger
+        pub tag: Option<String>,
+        // Filtering rules
+        pub filter: Option<String>,
+        // Path to `android_logger` to override
+        pub android_logger: Option<Path>,
+        // Path to `log` crate to override
+        pub log: Option<Path>,
+    }
 
-impl Parse for MainProp {
-    fn parse(input: ParseStream) -> Result<Self> {
-        #[cfg(feature = "logger")]
-        {
-            let lookahead = input.lookahead1();
-            if lookahead.peek(backtrace::keyword::backtrace) {
-                input.parse().map(MainProp::Backtrace)
-            } else if lookahead.peek(logger::keyword::logger) {
-                input.parse().map(MainProp::Logger)
-            } else {
-                Err(lookahead.error())
-            }
-        }
+    #[derive(FromMeta, PartialEq, Eq, Debug, Clone, Copy)]
+    #[darling(default)]
+    pub enum LogLevel {
+        Error,
+        Warn,
+        Info,
+        Debug,
+        Trace,
+    }
 
-        #[cfg(not(feature = "logger"))]
-        {
-            let lookahead = input.lookahead1();
-            if lookahead.peek(backtrace::keyword::backtrace) {
-                input.parse().map(MainProp::Backtrace)
-            } else {
-                Err(lookahead.error())
-            }
+    impl Default for LogLevel {
+        fn default() -> Self {
+            LogLevel::Error
         }
     }
 }
@@ -62,52 +66,64 @@ impl Parse for MainProp {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::AttributeArgs;
     use syn::parse_quote;
 
     #[test]
     fn empty_attr() {
-        let attr: MainAttr = parse_quote! {};
+        let attr: AttributeArgs = parse_quote! {};
+        let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-        assert_eq!(attr.props.len(), 0);
-        assert_eq!(attr.backtrace_config(), None);
+        assert_eq!(attr.backtrace, None);
+        #[cfg(feature = "logger")]
+        assert_eq!(attr.logger, None);
     }
 
     #[should_panic]
     #[test]
     fn invalid_attr() {
-        let _attr: MainAttr = parse_quote! { wrong };
+        let attr: AttributeArgs = parse_quote! {
+            wrong
+        };
+        let _attr: MainAttr = FromMeta::from_list(&attr).unwrap();
     }
 
     #[test]
-    fn single_backtrace_prop_without_props() {
-        let attr: MainAttr = parse_quote! { backtrace };
+    fn backtrace_on() {
+        let attr: AttributeArgs = parse_quote! {
+            backtrace = "on"
+        };
+        let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-        assert_eq!(attr.props.len(), 1);
-        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::On));
+        assert_eq!(attr.backtrace, Some(BacktraceProp::On));
+        #[cfg(feature = "logger")]
+        assert_eq!(attr.logger, None);
     }
 
     #[test]
-    fn single_backtrace_prop_with_full_prop() {
-        let attr: MainAttr = parse_quote! { backtrace(full) };
+    fn backtrace_full() {
+        let attr: AttributeArgs = parse_quote! {
+            backtrace = "full"
+        };
+        let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-        assert_eq!(attr.props.len(), 1);
-        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::Full));
+        assert_eq!(attr.backtrace, Some(BacktraceProp::Full));
+        #[cfg(feature = "logger")]
+        assert_eq!(attr.logger, None);
     }
 
     #[test]
-    fn repeated_backtrace_props_without_props() {
-        let attr: MainAttr = parse_quote! { backtrace, backtrace };
+    fn overriden_ndk_glue() {
+        let attr: AttributeArgs = parse_quote! {
+            ndk_glue = "my::re::exported::ndk_glue"
+        };
+        let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-        assert_eq!(attr.props.len(), 2);
-        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::On));
-    }
+        let expected_path: Path = parse_quote! {
+            my::re::exported::ndk_glue
+        };
 
-    #[test]
-    fn repeated_backtrace_props_with_props() {
-        let attr: MainAttr = parse_quote! { backtrace, backtrace(full) };
-
-        assert_eq!(attr.props.len(), 2);
-        assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::Full));
+        assert_eq!(attr.ndk_glue.unwrap(), expected_path);
     }
 
     #[cfg(feature = "logger")]
@@ -115,77 +131,103 @@ mod test {
         use super::*;
 
         #[test]
-        fn single_log_prop_with_level_prop() {
-            let attr: MainAttr = parse_quote! { logger(debug) };
+        fn logger_with_level() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(level = "debug")
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            assert_eq!(attr.props.len(), 1);
+            let logger = attr.logger.unwrap();
 
-            let config = attr.logger_config().unwrap();
-
-            assert_eq!(config.level, Some(log::Level::Debug));
-            assert_eq!(config.tag, None);
+            assert_eq!(logger.level, Some(LogLevel::Debug));
+            assert_eq!(logger.tag, None);
         }
 
         #[test]
-        fn single_log_prop_with_tag_prop() {
-            let attr: MainAttr = parse_quote! { logger("my-tag") };
+        fn logger_with_tag() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(tag = "my-tag")
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            assert_eq!(attr.props.len(), 1);
+            let logger = attr.logger.unwrap();
 
-            let config = attr.logger_config().unwrap();
-
-            assert_eq!(config.level, None);
-            assert_eq!(config.tag.unwrap(), "my-tag");
+            assert_eq!(logger.level, None);
+            assert_eq!(logger.tag.unwrap(), "my-tag");
         }
 
         #[test]
-        fn single_log_prop_with_level_and_tag_prop() {
-            let attr: MainAttr = parse_quote! { logger(error, "my-app") };
+        fn logger_with_filter() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(filter = "debug,hello::world=trace")
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            assert_eq!(attr.props.len(), 1);
+            let logger = attr.logger.unwrap();
 
-            let config = attr.logger_config().unwrap();
-
-            assert_eq!(config.level, Some(log::Level::Error));
-            assert_eq!(config.tag.unwrap(), "my-app");
+            assert_eq!(logger.level, None);
+            assert_eq!(logger.filter.unwrap(), "debug,hello::world=trace");
         }
 
         #[test]
-        fn single_log_prop_with_level_and_tag_prop_and_backtrace_prop() {
-            let attr: MainAttr = parse_quote! { logger(error, "my-app"), backtrace };
+        fn logger_with_level_and_with_tag() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(level = "error", tag = "my-app")
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            assert_eq!(attr.props.len(), 2);
-            assert_eq!(attr.backtrace_config(), Some(BacktraceConfig::On));
+            let logger = attr.logger.unwrap();
 
-            let config = attr.logger_config().unwrap();
-
-            assert_eq!(config.level, Some(log::Level::Error));
-            assert_eq!(config.tag.unwrap(), "my-app");
+            assert_eq!(logger.level, Some(LogLevel::Error));
+            assert_eq!(logger.tag.unwrap(), "my-app");
         }
 
         #[test]
-        fn multiple_log_props_with_level_and_tag_prop() {
-            let attr: MainAttr = parse_quote! { logger(error), logger("my-app") };
+        fn backtrace_on_and_logger_with_level_and_with_tag() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(level = "warn", tag = "my-app"),
+                backtrace = "on"
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            assert_eq!(attr.props.len(), 2);
+            assert_eq!(attr.backtrace, Some(BacktraceProp::On));
 
-            let config = attr.logger_config().unwrap();
+            let logger = attr.logger.unwrap();
 
-            assert_eq!(config.level, Some(log::Level::Error));
-            assert_eq!(config.tag.unwrap(), "my-app");
+            assert_eq!(logger.level, Some(LogLevel::Warn));
+            assert_eq!(logger.tag.unwrap(), "my-app");
         }
 
         #[test]
-        fn multiple_log_props_with_level_and_tag_prop_with_override() {
-            let attr: MainAttr =
-                parse_quote! { logger(error), logger("my-app"), logger(info, "some-other") };
+        fn overriden_android_logger() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(android_logger = "my::re::exported::android_logger")
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
 
-            assert_eq!(attr.props.len(), 3);
+            let logger = attr.logger.unwrap();
 
-            let config = attr.logger_config().unwrap();
+            let expected_path: Path = parse_quote! {
+                my::re::exported::android_logger
+            };
 
-            assert_eq!(config.level, Some(log::Level::Info));
-            assert_eq!(config.tag.unwrap(), "some-other");
+            assert_eq!(logger.android_logger.unwrap(), expected_path);
+        }
+
+        #[test]
+        fn overriden_log_crate() {
+            let attr: AttributeArgs = parse_quote! {
+                logger(log = "my::re::exported::log")
+            };
+            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
+
+            let logger = attr.logger.unwrap();
+
+            let expected_path: Path = parse_quote! {
+                my::re::exported::log
+            };
+
+            assert_eq!(logger.log.unwrap(), expected_path);
         }
     }
 }

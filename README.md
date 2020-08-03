@@ -28,7 +28,7 @@ Wraps `main` function using attribute macro `ndk::glue::main`:
 
 `src/lib.rs`
 ```rust
-#[cfg_attr(target_os = "android", ndk_glue::main(backtrace))]
+#[cfg_attr(target_os = "android", ndk_glue::main(backtrace = "on"))]
 pub fn main() {
     println!("hello world");
 }
@@ -65,10 +65,23 @@ Android logger can be setup using feature "logger" and attribute macro like so:
 
 `src/lib.rs`
 ```rust
-#[cfg_attr(target_os = "android", ndk_glue::main(logger(debug, "my-tag")))]
+#[cfg_attr(target_os = "android", ndk_glue::main(logger(level = "debug", tag = "my-tag")))]
 pub fn main() {
     log!("hello world");
 }
+```
+
+## Overriding crate paths
+The macro `ndk_glue::main` tries to determine crate names from current _Cargo.toml_.
+In cases when it is not possible the default crate names will be used.
+You can override this names with specific paths like so:
+```rust
+#[ndk_glue::main(
+  ndk_glue = "path::to::ndk_glue",
+  logger(android_logger = "path::to::android_logger",
+         log = "path::to::log")
+)]
+fn main() {}
 ```
 
 ## JNI
