@@ -3,6 +3,7 @@
 //! See also [the NDK docs](https://developer.android.com/ndk/reference/group/tracing)
 #![cfg(feature = "trace")]
 use std::ffi::{CString, NulError};
+use std::marker::PhantomData;
 
 pub fn is_trace_enabled() -> bool {
     unsafe { ffi::ATrace_isEnabled() }
@@ -10,7 +11,8 @@ pub fn is_trace_enabled() -> bool {
 
 #[derive(Debug)]
 pub struct Section {
-    _private: *mut (),
+    // Section is !Sync and !Send
+    _pd: PhantomData<*mut ()>,
 }
 
 impl Section {
@@ -18,9 +20,7 @@ impl Section {
         let section_name = CString::new(name)?;
         unsafe { ffi::ATrace_beginSection(section_name.as_ptr()) };
 
-        Ok(Section {
-            _private: std::ptr::null_mut(),
-        })
+        Ok(Section { _pd: PhantomData })
     }
 
     pub fn end(self) {
@@ -44,11 +44,9 @@ pub struct Cookie(pub i32);
 pub struct AsyncSection {
     section_name: CString,
     cookie: Cookie,
-    _private: *mut (),
+    // AsyncSection is !Sync
+    _pd: PhantomData<&'static ()>,
 }
-
-#[cfg(feature = "api-level-29")]
-unsafe impl Send for AsyncSection {}
 
 #[cfg(feature = "api-level-29")]
 impl AsyncSection {
@@ -59,7 +57,7 @@ impl AsyncSection {
         Ok(AsyncSection {
             section_name,
             cookie,
-            _private: std::ptr::null_mut(),
+            _pd: PhantomData,
         })
     }
 
