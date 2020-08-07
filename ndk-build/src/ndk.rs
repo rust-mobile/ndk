@@ -69,7 +69,7 @@ impl Ndk {
             })
             .collect();
 
-        if platforms.len() < 1 {
+        if platforms.is_empty() {
             return Err(NdkError::NoPlatformFound);
         }
 
@@ -220,7 +220,7 @@ impl Ndk {
 
     pub fn android_dir(&self) -> Result<PathBuf, NdkError> {
         let android_dir = dirs::home_dir()
-            .ok_or(NdkError::PathNotFound(PathBuf::from("$HOME")))?
+            .ok_or_else(|| NdkError::PathNotFound(PathBuf::from("$HOME")))?
             .join(".android");
         std::fs::create_dir_all(&android_dir)?;
         Ok(android_dir)
