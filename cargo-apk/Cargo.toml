@@ -18,4 +18,5 @@ env_logger = "0.7.1"
 log = "0.4.8"
 ndk-build = { path = "../ndk-build", version = "0.1" }
 serde = "1.0.104"
+thiserror = "1.0"
 toml = "0.5.6"
