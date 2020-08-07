@@ -1,7 +1,7 @@
 #![cfg(feature = "api-level-24")]
 
 use super::NdkMediaError;
-use super::{construct, construct_never_null, Result};
+use super::{construct, construct_never_null, error::MediaErrorResult, Result};
 use crate::native_window::NativeWindow;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
@@ -39,10 +39,10 @@ pub enum ImageFormat {
     DEPTH_JPEG = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_DEPTH_JPEG,
 }
 
-pub type ImageListener = Box<dyn FnMut(&ImageReader) -> ()>;
+pub type ImageListener = Box<dyn FnMut(&ImageReader)>;
 
 #[cfg(feature = "hardware_buffer")]
-pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer) -> ()>;
+pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer)>;
 
 pub struct ImageReader {
     inner: NonNull<ffi::AImageReader>,
@@ -186,7 +186,9 @@ impl ImageReader {
 
         match res {
             Ok(inner) => Ok(Some(Image { inner })),
-            Err(NdkMediaError::ImgreaderNoBufferAvailable) => Ok(None),
+            Err(NdkMediaError::ErrorResult(MediaErrorResult::ImgreaderNoBufferAvailable)) => {
+                Ok(None)
+            }
             Err(e) => Err(e),
         }
     }
@@ -214,7 +216,7 @@ impl ImageReader {
             ffi::AImageReader_acquireLatestImage(self.as_ptr(), res)
         });
 
-        if Err(NdkMediaError::ImgreaderNoBufferAvailable) == res {
+        if let Err(NdkMediaError::ErrorResult(MediaErrorResult::ImgreaderNoBufferAvailable)) = res {
             return Ok(None);
         }
 
