@@ -158,10 +158,8 @@ pub unsafe fn init(
             if let Ok(len) = reader.read_line(&mut buffer) {
                 if len == 0 {
                     break;
-                } else {
-                    if let Ok(msg) = CString::new(buffer.clone()) {
-                        android_log(Level::Info, tag, &msg);
-                    }
+                } else if let Ok(msg) = CString::new(buffer.clone()) {
+                    android_log(Level::Info, tag, &msg);
                 }
             }
         }
