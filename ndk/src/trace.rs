@@ -20,7 +20,7 @@ impl Section {
         let section_name = CString::new(name)?;
         unsafe { ffi::ATrace_beginSection(section_name.as_ptr()) };
 
-        Ok(Section { _pd: PhantomData })
+        Ok(Self { _pd: PhantomData })
     }
 
     pub fn end(self) {
