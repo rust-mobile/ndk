@@ -54,7 +54,7 @@ impl AsyncSection {
         let section_name = CString::new(name)?;
         unsafe { ffi::ATrace_beginAsyncSection(section_name.as_ptr(), cookie.0) };
 
-        Ok(AsyncSection {
+        Ok(Self {
             section_name,
             cookie,
             _pd: PhantomData,
