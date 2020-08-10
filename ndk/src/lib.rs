@@ -27,3 +27,4 @@ pub mod native_window;
 pub mod aaudio;
 pub mod hardware_buffer;
 pub mod media;
+pub mod trace;

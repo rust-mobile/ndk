@@ -7,6 +7,7 @@ publish = false
 
 [target.'cfg(target_os = "android")'.dependencies]
 ndk-glue = { path = "../ndk-glue" }
+ndk = { path = "../ndk", features = ["trace"] }
 
 [[example]]
 name = "hello_world"
