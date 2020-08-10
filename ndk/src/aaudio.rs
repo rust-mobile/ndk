@@ -190,7 +190,7 @@ impl AAudioErrorResult {
 pub enum AAudioError {
     #[error("error AAudio result ({0:?})")]
     ErrorResult(AAudioErrorResult),
-    #[error("unknown AAudio result value ({0})")]
+    #[error("unknown AAudio error result ({0})")]
     UnknownResult(i32),
     #[error("unsupported AAudio result value received ({0})")]
     UnsupportedValue(i32),
@@ -229,7 +229,7 @@ impl AAudioError {
 
 pub type Result<T, E = AAudioError> = std::result::Result<T, E>;
 
-fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::camera_status_t) -> Result<T> {
+fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::aaudio_result_t) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
     AAudioError::from_result(status, || unsafe { result.assume_init() })
@@ -272,7 +272,7 @@ impl fmt::Debug for AAudioStreamBuilder {
 
 pub type AudioStreamDataCallback =
     Box<dyn FnMut(&AAudioStream, *mut c_void, i32) -> AAudioCallbackResult>;
-pub type AudioStreamErrorCallback = Box<dyn FnMut(&AAudioStream, AAudioError) -> ()>;
+pub type AudioStreamErrorCallback = Box<dyn FnMut(&AAudioStream, AAudioError)>;
 
 impl AAudioStreamBuilder {
     fn from_ptr(inner: NonNull<ffi::AAudioStreamBuilder>) -> Self {

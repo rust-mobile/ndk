@@ -71,7 +71,7 @@ fn list_needed_libs(readelf_path: &Path, library_path: &Path) -> Result<HashSet<
             let lib = line
                 .split("Shared library: [")
                 .last()
-                .and_then(|line| line.split("]").next());
+                .and_then(|line| line.split(']').next());
             if let Some(lib) = lib {
                 needed.insert(lib.to_string());
             }

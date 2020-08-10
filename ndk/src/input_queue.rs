@@ -38,7 +38,7 @@ impl InputQueue {
             if ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) < 0 {
                 None
             } else {
-                debug_assert!(out_event != ptr::null_mut());
+                debug_assert!(!out_event.is_null());
                 Some(InputEvent::from_ptr(NonNull::new_unchecked(out_event)))
             }
         }

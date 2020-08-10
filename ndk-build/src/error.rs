@@ -1,62 +1,40 @@
-use std::error::Error;
-use std::fmt::{Display, Formatter, Result};
 use std::io::Error as IoError;
 use std::path::PathBuf;
 use std::process::Command;
+use thiserror::Error;
 
-#[derive(Debug)]
+#[derive(Debug, Error)]
 pub enum NdkError {
+    #[error(
+        "Android SDK is not found. \
+    Please set the path to the Android SDK with the $ANDROID_SDK_ROOT \
+    environment variable."
+    )]
     SdkNotFound,
+    #[error(
+        "Android NDK is not found. \
+        Please set the path to the Android NDK with $ANDROID_NDK_ROOT \
+        environment variable."
+    )]
     NdkNotFound,
+    #[error("Path {0:?} doesn't exist.")]
     PathNotFound(PathBuf),
+    #[error("Command {0} not found.")]
     CmdNotFound(String),
-    CmdFailed(Command),
+    #[error("Android SDK has no build tools.")]
     BuildToolsNotFound,
+    #[error("Android SDK has no platforms installed.")]
     NoPlatformFound,
+    #[error("Platform {0} is not installed.")]
     PlatformNotFound(u32),
+    #[error("Target is not supported.")]
     UnsupportedTarget,
+    #[error("Host {0} is not supported.")]
     UnsupportedHost(String),
-    Io(IoError),
+    #[error(transparent)]
+    Io(#[from] IoError),
+    #[error("Invalid semver")]
     InvalidSemver,
-}
-
-impl Display for NdkError {
-    fn fmt(&self, f: &mut Formatter) -> Result {
-        let msg = match self {
-            Self::SdkNotFound => {
-                "Android SDK is not found. \
-                Please set the path to the Android SDK with the $ANDROID_SDK_ROOT \
-                environment variable."
-            }
-            Self::NdkNotFound => {
-                "Android NDK is not found. \
-                Please set the path to the Android NDK with $ANDROID_NDK_ROOT \
-                environment variable."
-            }
-            Self::PathNotFound(path) => return write!(f, "Path {:?} doesn't exist.", path),
-            Self::CmdNotFound(cmd) => return write!(f, "Command {} not found.", cmd),
-            Self::CmdFailed(cmd) => {
-                let cmd = format!("{:?}", cmd).replace('"', "");
-                return write!(f, "Command '{}' had a non-zero exit code.", cmd);
-            }
-            Self::BuildToolsNotFound => "Android SDK has no build tools.",
-            Self::NoPlatformFound => "Android SDK has no platforms installed.",
-            Self::PlatformNotFound(level) => {
-                return write!(f, "Platform {} is not installed.", level)
-            }
-            Self::UnsupportedTarget => "Target is not supported.",
-            Self::UnsupportedHost(host) => return write!(f, "Host {} is not supported.", host),
-            Self::Io(error) => return error.fmt(f),
-            Self::InvalidSemver => return write!(f, "Invalid semver"),
-        };
-        msg.fmt(f)
-    }
-}
-
-impl Error for NdkError {}
-
-impl From<IoError> for NdkError {
-    fn from(error: IoError) -> Self {
-        Self::Io(error)
-    }
+    #[error("Command '{}' had a non-zero exit code.", format!("{:?}", .0).replace('"', ""))]
+    CmdFailed(Command),
 }

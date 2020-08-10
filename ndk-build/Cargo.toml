@@ -14,4 +14,5 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 dirs = "2.0.2"
 dunce = "1.0"
 serde = { version = "1.0.104", features = ["derive"] }
-which = "3.1.0"
+thiserror = "1.0"
+which = "4.0"

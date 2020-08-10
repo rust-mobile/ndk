@@ -92,7 +92,7 @@ impl From<IntentFilterConfig> for IntentFilter {
             data: config
                 .data
                 .into_iter()
-                .map(|d| IntentFilterData::from(d))
+                .map(IntentFilterData::from)
                 .rev()
                 .collect(),
             categories: config.categories,

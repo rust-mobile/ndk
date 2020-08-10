@@ -1,10 +1,9 @@
 use super::Result;
-use std::fmt;
+use thiserror::Error;
 
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub enum NdkMediaError {
-    UnknownStatus,
+pub enum MediaErrorResult {
     CodecErrorInsufficientResource = ffi::media_status_t_AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE,
     CodecErrorReclaimed = ffi::media_status_t_AMEDIACODEC_ERROR_RECLAIMED,
     ErrorUnknown = ffi::media_status_t_AMEDIA_ERROR_UNKNOWN,
@@ -34,13 +33,21 @@ pub enum NdkMediaError {
     ImgreaderImageNotLocked = ffi::media_status_t_AMEDIA_IMGREADER_IMAGE_NOT_LOCKED,
 }
 
+#[derive(Debug, Error)]
+pub enum NdkMediaError {
+    #[error("error Media result ({0:?})")]
+    ErrorResult(MediaErrorResult),
+    #[error("unknown Media error result ({0})")]
+    UnknownResult(i32),
+}
+
 impl NdkMediaError {
     pub(crate) fn from_status<T>(
         status: ffi::media_status_t,
         on_success: impl FnOnce() -> T,
     ) -> Result<T> {
-        use NdkMediaError::*;
-        Err(match status {
+        use MediaErrorResult::*;
+        let result = match status {
             ffi::media_status_t_AMEDIA_OK => return Ok(on_success()),
             ffi::media_status_t_AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE => {
                 CodecErrorInsufficientResource
@@ -71,15 +78,8 @@ impl NdkMediaError {
             ffi::media_status_t_AMEDIA_IMGREADER_CANNOT_LOCK_IMAGE => ImgreaderCannotLockImage,
             ffi::media_status_t_AMEDIA_IMGREADER_CANNOT_UNLOCK_IMAGE => ImgreaderCannotUnlockImage,
             ffi::media_status_t_AMEDIA_IMGREADER_IMAGE_NOT_LOCKED => ImgreaderImageNotLocked,
-            _ => UnknownStatus,
-        })
+            _ => return Err(NdkMediaError::UnknownResult(status)),
+        };
+        Err(NdkMediaError::ErrorResult(result))
     }
 }
-
-impl fmt::Display for NdkMediaError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
-impl std::error::Error for NdkMediaError {}

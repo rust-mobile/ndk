@@ -1,12 +1,11 @@
 use cargo_apk::{ApkBuilder, Error};
 use cargo_subcommand::Subcommand;
-use exitfailure::ExitDisplay;
 use std::process::Command;
 
-fn main() -> Result<(), ExitDisplay<Error>> {
+fn main() -> anyhow::Result<()> {
     env_logger::init();
 
-    let cmd = Subcommand::new("apk", |_, _| Ok(false)).map_err(|e| Error::Subcommand(e))?;
+    let cmd = Subcommand::new("apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
     let builder = ApkBuilder::from_subcommand(&cmd)?;
 
     match cmd.cmd() {
@@ -16,21 +15,15 @@ fn main() -> Result<(), ExitDisplay<Error>> {
             }
         }
         "run" => {
-            if cmd.artifacts().len() == 1 {
-                builder.run(&cmd.artifacts()[0])?;
-            } else {
-                return Err(Error::invalid_args().into());
-            }
+            anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
+            builder.run(&cmd.artifacts()[0])?;
         }
         "--" => {
             builder.default()?;
         }
         "gdb" => {
-            if cmd.artifacts().len() == 1 {
-                builder.gdb(&cmd.artifacts()[0])?;
-            } else {
-                return Err(Error::invalid_args().into());
-            }
+            anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
+            builder.gdb(&cmd.artifacts()[0])?;
         }
         "help" => {
             if let Some(arg) = cmd.args().get(0) {

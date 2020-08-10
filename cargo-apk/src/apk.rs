@@ -24,12 +24,10 @@ impl<'a> ApkBuilder<'a> {
         let manifest = Manifest::parse_from_toml(cmd.manifest())?;
         let build_targets = if let Some(target) = cmd.target() {
             vec![Target::from_rust_triple(target)?]
+        } else if !manifest.build_targets.is_empty() {
+            manifest.build_targets.clone()
         } else {
-            if manifest.build_targets.len() > 0 {
-                manifest.build_targets.clone()
-            } else {
-                vec![ndk.detect_abi().unwrap_or(Target::Arm64V8a)]
-            }
+            vec![ndk.detect_abi().unwrap_or(Target::Arm64V8a)]
         };
         let build_dir = dunce::simplified(cmd.target_dir())
             .join(cmd.profile())

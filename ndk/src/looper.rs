@@ -8,12 +8,12 @@
 //!  * `ForeignLooper`, which has methods for the operations performable with any thread's looper.
 
 use std::convert::TryInto;
-use std::fmt;
 use std::os::raw::c_void;
 use std::os::unix::io::RawFd;
 use std::ptr;
 use std::ptr::NonNull;
 use std::time::Duration;
+use thiserror::Error;
 
 /// A thread-local `ALooper`.  This contains a native `ALooper *` and promises that there is a
 /// looper associated with the current thread.
@@ -41,16 +41,9 @@ pub enum Poll {
     },
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Error)]
+#[error("Android Looper error")]
 pub struct LooperError;
-
-impl fmt::Display for LooperError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Android Looper error")
-    }
-}
-
-impl std::error::Error for LooperError {}
 
 impl ThreadLooper {
     /// Prepares a looper for the current thread and returns it
