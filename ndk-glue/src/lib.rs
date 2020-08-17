@@ -17,20 +17,15 @@ use std::thread;
 pub use ndk_macro::main;
 
 pub fn android_log(level: Level, tag: &CStr, msg: &CStr) {
-    use android_log_sys::LogPriority;
     let prio = match level {
-        Level::Error => LogPriority::ERROR,
-        Level::Warn => LogPriority::WARN,
-        Level::Info => LogPriority::INFO,
-        Level::Debug => LogPriority::DEBUG,
-        Level::Trace => LogPriority::VERBOSE,
+        Level::Error => ndk_sys::android_LogPriority_ANDROID_LOG_ERROR,
+        Level::Warn => ndk_sys::android_LogPriority_ANDROID_LOG_WARN,
+        Level::Info => ndk_sys::android_LogPriority_ANDROID_LOG_INFO,
+        Level::Debug => ndk_sys::android_LogPriority_ANDROID_LOG_DEBUG,
+        Level::Trace => ndk_sys::android_LogPriority_ANDROID_LOG_VERBOSE,
     };
     unsafe {
-        android_log_sys::__android_log_write(
-            prio as _,
-            tag.as_ptr() as *const _,
-            msg.as_ptr() as *const _,
-        );
+        ndk_sys::__android_log_write(prio as raw::c_int, tag.as_ptr(), msg.as_ptr());
     }
 }
 

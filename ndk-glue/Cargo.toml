@@ -12,7 +12,6 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
-android_log-sys = "0.1.2"
 ndk = { path = "../ndk", version = "0.1.1" }
 ndk-sys = { path = "../ndk-sys", version = "0.1.1" }
 ndk-macro = { path = "../ndk-macro", version = "0.1.0" }
