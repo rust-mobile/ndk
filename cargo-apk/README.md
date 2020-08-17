@@ -40,6 +40,10 @@ icon = "@mipmap/ic_launcher"
 # Defaults to false.
 fullscreen = false
 
+# Set the minimum required OpenGL ES version.
+# Defaults to [3, 1]
+opengles_version = [3, 0]
+
 # Adds a uses-feature element to the manifest
 # Supported keys: name, required
 # See https://developer.android.com/guide/topics/manifest/uses-feature-element
@@ -70,4 +74,4 @@ res = "path/to/res_folder"
 assets = "path/to/assets_folder"
 ```
 
-TODO: opengles version, intent filters and application metadatas
+TODO: intent filters and application metadatas
