@@ -44,6 +44,12 @@ fullscreen = false
 # Defaults to [3, 1]
 opengles_version = [3, 0]
 
+# Sets the applications screenOrientation.
+# See https://developer.android.com/guide/topics/manifest/activity-element
+# and look for `a`ndroid:screenOrientation` for possible values
+# Defaults to "unspecified"
+orientation = "sensorLandscape"
+
 # Adds a uses-feature element to the manifest
 # Supported keys: name, required
 # See https://developer.android.com/guide/topics/manifest/uses-feature-element

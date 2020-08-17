@@ -24,6 +24,7 @@ pub struct Metadata {
     pub min_sdk_version: Option<u32>,
     pub icon: Option<String>,
     pub fullscreen: Option<bool>,
+    pub orientation: Option<String>,
     pub opengles_version: Option<(u8, u8)>,
     pub feature: Option<Vec<FeatureConfig>>,
     pub permission: Option<Vec<PermissionConfig>>,
