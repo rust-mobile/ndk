@@ -46,8 +46,9 @@ opengles_version = [3, 0]
 
 # Sets the applications screenOrientation.
 # See https://developer.android.com/guide/topics/manifest/activity-element
-# and look for `a`ndroid:screenOrientation` for possible values
-# Defaults to "unspecified"
+# and look for `android:screenOrientation` for possible values
+# Defaults to "unspecified" which makes the system pick an orientation and
+# doesn't give you help with rotation.
 orientation = "sensorLandscape"
 
 # Adds a uses-feature element to the manifest

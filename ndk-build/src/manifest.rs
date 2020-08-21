@@ -46,11 +46,7 @@ impl Manifest {
             ""
         };
 
-        let orientation = if let Some(orient) = self.orientation.as_ref() {
-            orient
-        } else {
-            "unspecified"
-        };
+        let orientation = self.orientation.as_deref().unwrap_or("unspecified");
 
         let features: Vec<String> = self.features.iter().map(|f| f.to_string()).collect();
         let permissions: Vec<String> = self.permissions.iter().map(|p| p.to_string()).collect();
