@@ -18,6 +18,7 @@ pub struct Manifest {
     pub intent_filters: Vec<IntentFilter>,
     pub icon: Option<String>,
     pub fullscreen: bool,
+    pub orientation: Option<String>,
     pub debuggable: bool,
     pub split: Option<String>,
     pub application_metadatas: Vec<ApplicationMetadata>,
@@ -44,6 +45,8 @@ impl Manifest {
         } else {
             ""
         };
+
+        let orientation = self.orientation.as_deref().unwrap_or("unspecified");
 
         let features: Vec<String> = self.features.iter().map(|f| f.to_string()).collect();
         let permissions: Vec<String> = self.permissions.iter().map(|p| p.to_string()).collect();
@@ -78,6 +81,7 @@ impl Manifest {
         <activity
                 android:name="android.app.NativeActivity"
                 android:label="{package_label}"
+                android:screenOrientation="{orientation}"
                 android:configChanges="orientation|keyboardHidden|screenSize">
             <meta-data android:name="android.app.lib_name" android:value="{target_name}" />
             <intent-filter>
@@ -99,6 +103,7 @@ impl Manifest {
             target_name = &self.target_name,
             icon = icon,
             fullscreen = fullscreen,
+            orientation = orientation,
             application_metadatas = application_metadatas.join("\n"),
             debuggable = self.debuggable,
             features = features.join("\n"),

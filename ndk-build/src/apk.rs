@@ -60,6 +60,7 @@ impl ApkConfig {
             intent_filters,
             icon: metadata.icon,
             fullscreen: metadata.fullscreen.unwrap_or(false),
+            orientation: metadata.orientation,
             application_metadatas,
         };
         Self {
