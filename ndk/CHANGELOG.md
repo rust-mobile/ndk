@@ -7,3 +7,5 @@
 - Added `trace` feature for native tracing
 
 # 0.1.0 (2020-04-22)
+
+- Initial release
