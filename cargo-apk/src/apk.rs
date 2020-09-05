@@ -4,6 +4,7 @@ use cargo_subcommand::{Artifact, CrateType, Profile, Subcommand};
 use ndk_build::apk::{Apk, ApkConfig};
 use ndk_build::cargo::{cargo_apk, VersionCode};
 use ndk_build::config::Config;
+use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
 use ndk_build::ndk::Ndk;
 use ndk_build::target::Target;
@@ -65,13 +66,14 @@ impl<'a> ApkBuilder<'a> {
             }),
             res: self.manifest.res.clone(),
         };
+
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
         let apk = config.create_apk()?;
 
         for target in &self.build_targets {
             let triple = target.rust_triple();
             let build_dir = dunce::simplified(self.cmd.target_dir())
-                .join(target.rust_triple())
+                .join(triple)
                 .join(self.cmd.profile());
             let artifact = build_dir
                 .join(artifact)
@@ -82,14 +84,23 @@ impl<'a> ApkBuilder<'a> {
             let mut cargo = cargo_apk(&config.ndk, *target, target_sdk_version)?;
             cargo.arg("build");
             if self.cmd.target().is_none() {
-                cargo.arg("--target").arg(target.rust_triple());
+                cargo.arg("--target").arg(triple);
             }
             cargo.args(self.cmd.args());
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
             }
 
-            apk.add_lib_recursively(&artifact, *target, &[&build_dir.join("deps")])?;
+            let mut libs_search_paths =
+                get_libs_search_paths(&self.cmd.target_dir(), triple, self.cmd.profile().as_ref())?;
+            libs_search_paths.push(build_dir.join("deps"));
+
+            let libs_search_paths = libs_search_paths
+                .iter()
+                .map(|path| path.as_path())
+                .collect::<Vec<_>>();
+
+            apk.add_lib_recursively(&artifact, *target, libs_search_paths.as_slice())?;
         }
 
         Ok(apk.align()?.sign(config.ndk.debug_key()?)?)
