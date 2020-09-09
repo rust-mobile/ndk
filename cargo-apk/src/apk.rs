@@ -47,7 +47,10 @@ impl<'a> ApkBuilder<'a> {
             Artifact::Root(name) => format!("rust.{}", name.replace("-", "_")),
             Artifact::Example(name) => format!("rust.example.{}", name.replace("-", "_")),
         };
-        let package_label = self.manifest.metadata.apk_label
+        let package_label = self
+            .manifest
+            .metadata
+            .apk_label
             .as_deref()
             .unwrap_or(artifact.name())
             .to_string();
