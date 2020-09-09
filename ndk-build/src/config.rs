@@ -20,6 +20,7 @@ pub struct Config {
 
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct Metadata {
+    pub apk_label: Option<String>,
     pub target_sdk_version: Option<u32>,
     pub min_sdk_version: Option<u32>,
     pub icon: Option<String>,

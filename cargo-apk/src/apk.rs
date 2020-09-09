@@ -47,11 +47,19 @@ impl<'a> ApkBuilder<'a> {
             Artifact::Root(name) => format!("rust.{}", name.replace("-", "_")),
             Artifact::Example(name) => format!("rust.example.{}", name.replace("-", "_")),
         };
+        let package_label = self
+            .manifest
+            .metadata
+            .apk_label
+            .as_deref()
+            .unwrap_or(artifact.name())
+            .to_string();
+
         let config = Config {
             ndk: self.ndk.clone(),
             build_dir: self.build_dir.join(artifact),
             package_name,
-            package_label: artifact.name().to_string(),
+            package_label,
             version_name: self.manifest.version.clone(),
             version_code: VersionCode::from_semver(&self.manifest.version)?.to_code(1),
             split: None,
