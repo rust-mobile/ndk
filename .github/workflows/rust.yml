@@ -3,6 +3,20 @@ name: Rust
 on: [push, pull_request]
 
 jobs:
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Format
+      uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: --all -- --check
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -36,15 +50,6 @@ jobs:
         toolchain: ${{ matrix.rust-channel }}
         target: ${{ matrix.rust-target }}
         override: true
-
-    - name: Install components
-      run: rustup component add --toolchain ${{ matrix.rust-channel }} rustfmt
-
-    - name: Format
-      uses: actions-rs/cargo@v1
-      with:
-        command: fmt
-        args: --all -- --check
 
     - name: Run tests
       run: |
