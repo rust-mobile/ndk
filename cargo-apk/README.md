@@ -26,6 +26,9 @@ cargo install --path .
 Following configuration options are supported by `cargo apk` under `[package.metadata.android]`:
 
 ```toml
+# Name of your APK as shown in the app drawer and in the app switcher
+apk_label = "APK Name"
+
 # The target Android API level.
 target_sdk_version = 29
 min_sdk_version = 26
