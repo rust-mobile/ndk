@@ -8,6 +8,7 @@ on:
 jobs:
   Publish:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       max-parallel: 1 # ensure crate order
       fail-fast: false
@@ -31,4 +32,4 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: publish
-        args: --manifest-path ${{ matrix.crate }}/Cargo.toml --dry-run --target ${{ matrix.rust-target }} --token ${{ secrets.cratesio_token }}
+        args: --manifest-path ${{ matrix.crate }}/Cargo.toml --target ${{ matrix.rust-target }} --token ${{ secrets.cratesio_token }}
