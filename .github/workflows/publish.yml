@@ -1,0 +1,35 @@
+name: Publish
+
+on:
+  push:
+    branches: [master]
+    paths: "**/Cargo.toml"
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      max-parallel: 1 # ensure crate order
+      fail-fast: false
+      matrix:
+        crate: [
+            'ndk-sys',
+            'ndk',
+            'ndk-glue',
+            'ndk-build',
+            'cargo-apk',
+        ]
+        rust-target: [ 'armv7-linux-androideabi' ]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: ${{ matrix.rust-target }}
+        override: true
+    - name: Publish ${{ matrix.crate }}
+      uses: actions-rs/cargo@v1
+      with:
+        command: publish
+        args: --manifest-path ${{ matrix.crate }}/Cargo.toml --target ${{ matrix.rust-target }} --token ${{ secrets.cratesio_token }}
