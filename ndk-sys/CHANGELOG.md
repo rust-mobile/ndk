@@ -1,5 +1,8 @@
 # Unreleased
 
+# 0.2.0 (2020-09-15)
+
+- **Breaking:** `onSaveInstanceState` signature corrected to take `outSize` as a `*mut size_t` instead of `*mut usize`.
 - Add `media` bindings
 - Add `bitmap` and `hardware_buffer` bindings
 - Add `aaudio` bindings

@@ -1,7 +1,7 @@
 [package]
 name = "ndk-build"
-version = "0.1.1"
-authors = ["David Craven <david@craven.ch>"]
+version = "0.1.2"
+authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Utilities for building android binaries"
 license = "MIT OR Apache-2.0"

@@ -1,5 +1,8 @@
 # Unreleased
 
+# 0.2.0 (2020-09-15)
+
+- **Breaking:** Updated to use [ndk-sys 0.2.0](../ndk-sys/CHANGELOG.md#020-2020-09-15)
 - Added `media` bindings
 - Added `bitmap` and `hardware_buffer` bindings
 - Added `aaudio` bindings

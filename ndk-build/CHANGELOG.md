@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.1.2 (2020-09-15)
+
 - `android:label` is configurable.
 - Library search paths are much more intelligent.
 - `android:screenOrientation` is configurable.

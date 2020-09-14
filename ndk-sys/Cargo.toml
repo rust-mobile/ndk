@@ -1,7 +1,7 @@
 [package]
 name = "ndk-sys"
-version = "0.1.0"
-authors = ["Mark Barbone <mark.l.barbone@gmail.com>"]
+version = "0.2.0"
+authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "FFI bindings for the Android NDK"
 license = "MIT OR Apache-2.0"
