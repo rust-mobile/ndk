@@ -12,24 +12,23 @@ jobs:
       max-parallel: 1 # ensure crate order
       fail-fast: false
       matrix:
-        crate: [
-            'ndk-sys',
-            'ndk',
-            'ndk-glue',
-            'ndk-build',
-            'cargo-apk',
-        ]
-        rust-target: [ 'armv7-linux-androideabi' ]
+        crate:
+          - { name: "ndk-sys", target: "armv7-linux-androideabi" }
+          - { name: "ndk", target: "armv7-linux-androideabi" }
+          - { name: "ndk-macro", target: "x86_64-unknown-linux-gnu" }
+          - { name: "ndk-glue", target: "armv7-linux-androideabi" }
+          - { name: "ndk-build", target: "x86_64-unknown-linux-gnu" }
+          - { name: "cargo-apk", target: "x86_64-unknown-linux-gnu" }
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: ${{ matrix.rust-target }}
-        override: true
-    - name: Publish ${{ matrix.crate }}
-      uses: actions-rs/cargo@v1
-      continue-on-error: true
-      with:
-        command: publish
-        args: --manifest-path ${{ matrix.crate }}/Cargo.toml --target ${{ matrix.rust-target }} --token ${{ secrets.cratesio_token }}
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.crate.target }}
+          override: true
+      - name: Publish ${{ matrix.crate.name }}
+        uses: actions-rs/cargo@v1
+        continue-on-error: true
+        with:
+          command: publish
+          args: --manifest-path ${{ matrix.crate.name }}/Cargo.toml --target ${{ matrix.crate.target }} --token ${{ secrets.cratesio_token }}
