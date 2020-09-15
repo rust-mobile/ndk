@@ -2,7 +2,7 @@
 
 # 0.2.0 (2020-09-15)
 
-- **Breaking:** Changed `main` macro attribute syntax
+- **Breaking:** Removed `ndk_glue` macro in favor of new `main` attribute macro.
 
 # 0.1.0 (2020-04-22)
 
