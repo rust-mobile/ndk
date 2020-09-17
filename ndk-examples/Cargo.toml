@@ -8,7 +8,12 @@ publish = false
 [target.'cfg(target_os = "android")'.dependencies]
 ndk-glue = { path = "../ndk-glue" }
 ndk = { path = "../ndk", features = ["trace"] }
+jni = "0.17"
 
 [[example]]
 name = "hello_world"
+crate-type = ["cdylib"]
+
+[[example]]
+name = "jni_audio"
 crate-type = ["cdylib"]

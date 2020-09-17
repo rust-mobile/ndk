@@ -85,7 +85,8 @@ fn main() {}
 ```
 
 ## JNI
-TODO: talk more about jni and add some examples
+Java Native Interface (JNI) allows executing Java code in a VM from native applications.
+`ndk-examples` contains an `jni_audio` example which will print out all output audio devices in the log.
 
 - [`jni`](https://crates.io/crates/jni), JNI bindings for Rust
 
