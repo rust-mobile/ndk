@@ -39,14 +39,18 @@ include!("ffi_x86_64.rs");
 #[link(name = "android")]
 extern "C" {}
 
-#[cfg(all(feature = "media", target_os = "android"))]
-#[link(name = "mediandk")]
+#[cfg(all(feature = "aaudio", target_os = "android"))]
+#[link(name = "aaudio")]
 extern "C" {}
 
 #[cfg(all(feature = "bitmap", target_os = "android"))]
 #[link(name = "jnigraphics")]
 extern "C" {}
 
-#[cfg(all(feature = "aaudio", target_os = "android"))]
-#[link(name = "aaudio")]
+#[cfg(all(feature = "camera", target_os = "android"))]
+#[link(name = "camera2ndk")]
+extern "C" {}
+
+#[cfg(all(feature = "media", target_os = "android"))]
+#[link(name = "mediandk")]
 extern "C" {}

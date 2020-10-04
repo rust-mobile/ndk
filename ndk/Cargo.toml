@@ -14,10 +14,19 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 [features]
 rustdoc = ["ffi/rustdoc", "jni", "jni-glue", "all"]
 
-all = ["aaudio", "bitmap", "hardware_buffer", "media", "trace", "api-level-30"]
+all = [
+    "aaudio",
+    "bitmap",
+    "camera",
+    "hardware_buffer",
+    "media",
+    "trace",
+    "api-level-30",
+]
 
 aaudio = ["ffi/aaudio", "api-level-26"]
 bitmap = ["ffi/bitmap"]
+camera = ["ffi/camera", "api-level-24"]
 hardware_buffer = ["api-level-26"]
 media = ["ffi/media"]
 trace = ["api-level-23"]
@@ -32,8 +41,9 @@ api-level-30 = ["api-level-29"]
 features = ["rustdoc"]
 
 [dependencies]
-num_enum = "0.4.2"
 jni-sys = "0.3.0"
+num_enum = "0.4.2"
+static_assertions = "1.1"
 thiserror = "1.0"
 
 [dependencies.jni]

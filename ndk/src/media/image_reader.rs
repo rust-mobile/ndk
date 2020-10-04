@@ -2,19 +2,19 @@
 
 use super::NdkMediaError;
 use super::{construct, construct_never_null, error::MediaErrorResult, Result};
+#[cfg(feature = "hardware_buffer")]
+use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
 use crate::native_window::NativeWindow;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
+#[cfg(feature = "api-level-26")]
+use std::os::unix::io::RawFd;
 use std::{
     convert::TryInto,
     ffi::c_void,
     fmt::{self, Debug, Formatter},
     mem::MaybeUninit,
-    os::unix::io::RawFd,
     ptr::NonNull,
 };
-
-#[cfg(feature = "hardware_buffer")]
-use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -50,6 +50,8 @@ pub struct ImageReader {
     #[cfg(feature = "hardware_buffer")]
     buffer_removed_cb: Option<Box<BufferRemovedListener>>,
 }
+
+unsafe impl Send for ImageReader {}
 
 impl Debug for ImageReader {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {

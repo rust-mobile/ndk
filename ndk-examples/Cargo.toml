@@ -6,8 +6,9 @@ edition = "2018"
 publish = false
 
 [target.'cfg(target_os = "android")'.dependencies]
+anyhow = "1.0"
 ndk-glue = { path = "../ndk-glue" }
-ndk = { path = "../ndk", features = ["trace"] }
+ndk = { path = "../ndk", features = ["trace", "camera", "media"] }
 jni = "0.17"
 
 [[example]]
@@ -17,3 +18,13 @@ crate-type = ["cdylib"]
 [[example]]
 name = "jni_audio"
 crate-type = ["cdylib"]
+
+[[example]]
+name = "camera"
+crate-type = ["cdylib"]
+
+[[package.metadata.android.permission]]
+name = "android.permission.CAMERA"
+
+[[package.metadata.android.permission]]
+name = "android.permission.WRITE_EXTERNAL_STORAGE"

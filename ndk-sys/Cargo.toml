@@ -16,6 +16,7 @@ rustdoc = []
 test = []
 aaudio = []
 bitmap = []
+camera = []
 media = []
 
 [package.metadata.docs.rs]

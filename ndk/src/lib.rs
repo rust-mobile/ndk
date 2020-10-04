@@ -25,6 +25,7 @@ pub mod native_activity;
 pub mod native_window;
 
 pub mod aaudio;
+pub mod camera;
 pub mod hardware_buffer;
 pub mod media;
 pub mod trace;
