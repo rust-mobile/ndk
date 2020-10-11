@@ -1,7 +1,7 @@
 use static_assertions::assert_eq_size;
 
 use super::{
-    CameraError, CameraErrorStatus, Result, ScalerAvailableRecommendedStreamConfigurations,
+    tags::ScalerAvailableRecommendedStreamConfigurations, CameraError, CameraErrorStatus, Result,
 };
 use std::{
     convert::TryFrom,
@@ -484,24 +484,6 @@ impl RecommendedStreamConfiguration {
 }
 
 #[repr(C)]
-#[derive(Clone, Debug)]
-pub struct ColorSpaceTransform {
-    pub elements: [Rational; 3 * 3],
-}
-
-assert_eq_size!([Rational; 3 * 3], ColorSpaceTransform);
-
-impl<'a> FromEntryData<'a> for &'a ColorSpaceTransform {
-    fn from_entry_data(entry: ConstEntry<'a>) -> Result<Self> {
-        let slice = <&[Rational; 3 * 3]>::from_entry_data(entry)?;
-
-        let result = unsafe { &*(slice as *const [Rational; 9] as *const ColorSpaceTransform) };
-
-        Ok(result)
-    }
-}
-
-#[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct RggbChannelVector {
     pub red: f32,
@@ -532,9 +514,85 @@ pub struct Point {
 
 slice_ref_from_entry!(Point, [i32; 2]);
 
+/// A 4-element vector of integers corresponding to a 2x2 pattern of color channel offsets used
+/// for the black level offsets of each color channel.
+/// For a camera device with MONOCHROME capability, all 4 elements of the pattern will have the same value.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
-pub struct MeteringRegion {
+pub struct BlackLevelPattern {
+    pub offsets: [i32; 4],
+}
+
+impl BlackLevelPattern {
+    /// Return the color channel offset for a given index into the array of raw pixel values.
+    pub fn get_offset_for_index(&self, column: usize, row: usize) -> i32 {
+        self.offsets[((row & 1) << 1) | (column & 1)]
+    }
+}
+
+impl<'a> FromEntryData<'a> for BlackLevelPattern {
+    fn from_entry_data(entry: ConstEntry<'a>) -> Result<Self> {
+        let data = <&[i32; 4]>::from_entry_data(entry)?;
+
+        Ok(BlackLevelPattern { offsets: *data })
+    }
+}
+
+/// Describes a 3x3 matrix of `Rational` values in row-major order.
+///
+/// This matrix maps a transform from one color space to another.
+/// For the particular color space source and target, see the appropriate camera metadata documentation for the key that provides this value.
+#[repr(C)]
+#[derive(Clone, Debug)]
+pub struct ColorSpaceTransform {
+    pub elements: [Rational; Self::COUNT],
+}
+
+impl ColorSpaceTransform {
+    const COLUMNS: usize = 3;
+    const ROWS: usize = 3;
+    const COUNT: usize = Self::ROWS * Self::COLUMNS;
+
+    /// Get an element of this matrix by its row and column.
+    ///
+    /// The rows must be within the range [0, 3), and the column must be within the range [0, 3).
+    pub fn get_element(&self, column: usize, row: usize) -> Rational {
+        self.elements[row * Self::COLUMNS + column]
+    }
+}
+
+assert_eq_size!([Rational; ColorSpaceTransform::COUNT], ColorSpaceTransform);
+
+impl<'a> FromEntryData<'a> for &'a ColorSpaceTransform {
+    fn from_entry_data(entry: ConstEntry<'a>) -> Result<Self> {
+        let slice = <&[Rational; 3 * 3]>::from_entry_data(entry)?;
+
+        let result = unsafe { &*(slice as *const [Rational; 9] as *const ColorSpaceTransform) };
+
+        Ok(result)
+    }
+}
+
+impl ToEntryData for ColorSpaceTransform {
+    type EntryType = Rational;
+
+    fn as_entry_data(&self, set: impl FnOnce(&[Self::EntryType])) {
+        let slice = unsafe { &*(self as *const ColorSpaceTransform as *const [Rational; 9]) };
+        set(slice);
+    }
+}
+
+/// Represents a rectangle with an additional weight component.
+///
+/// The rectangle is defined to be inclusive of the specified coordinates.
+/// When used with a `CaptureRequest`, the coordinate system is based on the active pixel array.
+///
+/// The weight must range from `WEIGHT_MIN` to `WEIGHT_MAX` inclusively,
+/// and represents a weight for every pixel in the area. This means that a large metering area with the same weight as a smaller area will have more effect in the metering result.
+/// Metering areas can partially overlap and the camera device will add the weights in the overlap rectangle.
+#[repr(C)]
+#[derive(Copy, Clone, Debug, PartialEq)]
+pub struct MeteringRectangle {
     pub xmin: i32,
     pub ymin: i32,
     pub xmax: i32,
@@ -542,9 +600,27 @@ pub struct MeteringRegion {
     pub weight: i32,
 }
 
-slice_ref_from_entry!(MeteringRegion, [i32; 5]);
+impl MeteringRectangle {
+    /// Weights set to this value will cause the camera device to ignore this rectangle.
+    /// If all metering rectangles are weighed with 0, the camera device will choose its own metering rectangles.
+    pub const WEIGHT_DONT_CARE: i32 = 0;
+    /// The minimum value of valid metering weight.
+    pub const WEIGHT_MIN: i32 = 0;
+    /// The maximum value of valid metering weight.
+    pub const WEIGHT_MAX: i32 = 1000;
 
-impl ToEntryData for [MeteringRegion] {
+    pub fn width(&self) -> i32 {
+        self.xmax - self.xmin
+    }
+
+    pub fn height(&self) -> i32 {
+        self.ymax - self.ymin
+    }
+}
+
+slice_ref_from_entry!(MeteringRectangle, [i32; 5]);
+
+impl ToEntryData for [MeteringRectangle] {
     type EntryType = i32;
 
     fn as_entry_data(&self, set: impl FnOnce(&[Self::EntryType])) {

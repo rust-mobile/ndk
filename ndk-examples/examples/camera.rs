@@ -1,7 +1,13 @@
 use ndk::{
-    camera::{metadata::*, *},
-    media::image_reader::ImageFormat,
-    media::image_reader::ImageReader,
+    camera::{
+        metadata::{ColorSpaceTransform, MeteringRectangle, Size, StreamConfiguration},
+        tags::{FlashMode, LensFacing, MetadataTag},
+        CameraCaptureFailure, CameraCaptureSession, CameraDevice, CameraDeviceError,
+        CameraDeviceStateCallbacks, CameraId, CameraManager, CameraMetadata, CameraOutputTarget,
+        CaptureCallbacks, CaptureRequest, CaptureSequenceId, CaptureSessionOutput,
+        CaptureSessionOutputContainer, CaptureSessionStateCallbacks, RequestTemplate,
+    },
+    media::image_reader::{ImageFormat, ImageReader},
     native_window::NativeWindow,
 };
 use ndk_glue::native_window;
@@ -74,7 +80,7 @@ fn get_camera_config(manager: &CameraManager) -> anyhow::Result<CameraConfig> {
     let mut selected_camera: Option<CameraId> = None;
 
     for camera_id in manager.iter_cameras()? {
-        let meta = manager.get_metadata(&camera_id)?;
+        let meta = manager.get_camera_characteristics(&camera_id)?;
 
         let facing: LensFacing = meta.get(MetadataTag::LENS_FACING)?;
         println!("camera {:?} facing {:?}", camera_id, facing);
@@ -161,7 +167,7 @@ impl CameraState {
 
         let quarter_width = self.size.width / 4;
         let quarter_height = self.size.height / 4;
-        let region = MeteringRegion {
+        let region = MeteringRectangle {
             xmin: quarter_width,
             ymin: quarter_height,
             xmax: quarter_width * 3,

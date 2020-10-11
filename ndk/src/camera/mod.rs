@@ -1,7 +1,10 @@
+//! Bindings for the NDK camera classes.
+//!
+//! See also [the NDK docs](https://developer.android.com/ndk/reference/group/camera)
 #![cfg(feature = "camera")]
 
 pub mod metadata;
-mod tags;
+pub mod tags;
 
 use crate::native_window::NativeWindow;
 use jni_sys::{jobject, JNIEnv};
@@ -16,7 +19,7 @@ use std::{
     os::raw::{c_char, c_int, c_void},
     ptr::NonNull,
 };
-pub use tags::*;
+use tags::MetadataTag;
 use thiserror::Error;
 
 #[derive(Debug)]
@@ -132,6 +135,9 @@ pub trait CameraDeviceStateCallbacks: Send {
     fn on_error(&self, device: &CameraDevice, error: CameraDeviceError);
 }
 
+/// Provides access to the camera service.
+///
+/// A CameraManager instance is responsible for detecting, characterizing, and connecting to `CameraDevice`s.
 pub struct CameraManager {
     inner: NonNull<ffi::ACameraManager>,
     availability_callback: Option<Box<Box<dyn CameraAvailabilityCallbacks>>>,
@@ -175,7 +181,7 @@ impl Default for CameraManager {
     }
 }
 
-/// Convert a callback pointer into the Rust wrapper type, which won't call drop()
+/// Convert a callback pointer into the Rust wrapper type, which won't call `drop()`
 macro_rules! cb_tmp {
     ($Type:ty, $var:expr) => {
         ::std::mem::ManuallyDrop::new(<$Type>::from_ptr(::std::ptr::NonNull::new_unchecked($var)));
@@ -202,7 +208,7 @@ impl CameraManager {
         })
     }
 
-    pub fn get_metadata(&self, id: &CameraId) -> Result<CameraMetadata> {
+    pub fn get_camera_characteristics(&self, id: &CameraId) -> Result<CameraMetadata> {
         let metadata = construct_never_null(|ptr| unsafe {
             ffi::ACameraManager_getCameraCharacteristics(self.as_ptr(), id.0.as_ptr(), ptr)
         })?;
@@ -437,6 +443,8 @@ impl Display for CameraId {
     }
 }
 
+/// provides access to read-only camera metadata like camera characteristics (via `CameraManager::get_camera_characteristics`)
+/// or capture results (via `CaptureCallbacks::on_capture_completed`).
 #[derive(Debug)]
 pub struct CameraMetadata {
     inner: NonNull<ffi::ACameraMetadata>,
@@ -536,6 +544,8 @@ impl std::ops::Drop for CameraMetadata {
     }
 }
 
+/// Provides access to a camera device.
+/// Obtained through a `CameraManager` instance.
 pub struct CameraDevice {
     inner: NonNull<ffi::ACameraDevice>,
     callbacks: Option<Box<Box<dyn CameraDeviceStateCallbacks>>>,
@@ -561,11 +571,42 @@ impl Debug for CameraDevice {
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 pub enum RequestTemplate {
+    /// Create a request suitable for a camera preview window. Specifically, this
+    /// means that high frame rate is given priority over the highest-quality
+    /// post-processing. These requests would normally be used with the
+    /// `CameraCaptureSession::set_repeating_request` method.
+    /// This template is guaranteed to be supported on all camera devices.
     Preview = ffi::ACameraDevice_request_template_TEMPLATE_PREVIEW,
+    /// Create a request suitable for still image capture. Specifically, this
+    /// means prioritizing image quality over frame rate. These requests would
+    /// commonly be used with the `CameraCaptureSession::capture` method.
+    /// This template is guaranteed to be supported on all camera devices.
     StilCapture = ffi::ACameraDevice_request_template_TEMPLATE_STILL_CAPTURE,
+    /// Create a request suitable for video recording. Specifically, this means
+    /// that a stable frame rate is used, and post-processing is set for
+    /// recording quality. These requests would commonly be used with the
+    /// `CameraCaptureSession::set_repeating_request` method.
+    /// This template is guaranteed to be supported on all camera devices.
     Record = ffi::ACameraDevice_request_template_TEMPLATE_RECORD,
+    /// Create a request suitable for still image capture while recording
+    /// video. Specifically, this means maximizing image quality without
+    /// disrupting the ongoing recording. These requests would commonly be used
+    /// with the `CameraCaptureSession::capture` method while a request based on
+    /// `Record` is is in use with `CameraCaptureSession::set_repeating_request`.
+    /// This template is guaranteed to be supported on all camera devices.
     VideoSnapshot = ffi::ACameraDevice_request_template_TEMPLATE_VIDEO_SNAPSHOT,
+    /// Create a request suitable for zero shutter lag still capture. This means
+    /// means maximizing image quality without compromising preview frame rate.
+    /// AE/AWB/AF should be on auto mode.
     ZeroShutterLag = ffi::ACameraDevice_request_template_TEMPLATE_ZERO_SHUTTER_LAG,
+    /// A basic template for direct application control of capture
+    /// parameters. All automatic control is disabled (auto-exposure, auto-white
+    /// balance, auto-focus), and post-processing parameters are set to preview
+    /// quality. The manual capture parameters (exposure, sensitivity, and so on)
+    /// are set to reasonable defaults, but should be overriden by the
+    /// application depending on the intended use case.
+    /// This template is guaranteed to be supported on camera devices that support the
+    /// `RequestAvailableCapabilities::MANUAL_SENSOR` capability.
     Manual = ffi::ACameraDevice_request_template_TEMPLATE_MANUAL,
 }
 
@@ -660,6 +701,8 @@ impl Drop for CameraDevice {
     }
 }
 
+/// A CaptureSessionOutputContainer holds a collection of `CaptureSessionOutput`s
+/// to add to a `CaptureSession`.
 #[derive(Debug)]
 pub struct CaptureSessionOutputContainer {
     inner: NonNull<ffi::ACaptureSessionOutputContainer>,
@@ -696,6 +739,7 @@ impl Drop for CaptureSessionOutputContainer {
     }
 }
 
+/// A CaptureSessionOutput is used to add an output `NativeWindow` to a `CaptureSessionOutputContainer`.
 #[derive(Debug)]
 pub struct CaptureSessionOutput {
     inner: NonNull<ffi::ACaptureSessionOutput>,
@@ -753,6 +797,7 @@ impl Drop for CaptureSessionOutput {
     }
 }
 
+/// A CameraCaptureSession manages frame captures of a camera device.
 #[derive(Debug, PartialEq, Eq)]
 pub struct CameraCaptureSession {
     inner: NonNull<ffi::ACameraCaptureSession>,
@@ -1025,6 +1070,12 @@ impl Drop for CameraCaptureSession {
     }
 }
 
+/// CaptureRequest is an opaque type that contains settings and output targets needed to capture a single image from camera device.
+///
+/// CaptureRequest contains the configuration for the capture hardware (sensor, lens, flash),
+/// the processing pipeline, the control algorithms, and the output buffers. Also
+/// contains the list of target `NativeWindow`s to send image data to for this
+/// capture.
 #[derive(Debug)]
 pub struct CaptureRequest<UserContext = ()> {
     // assumed to contain ONLY the native pointer!

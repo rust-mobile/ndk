@@ -3,6 +3,8 @@
 use super::metadata::CameraEnum;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
+/// A metadata tag is the key used for reading or writing camera parameters.
+/// Use the associated constants for predefined tags.
 #[repr(C)]
 #[derive(Debug, Eq, Clone, Copy, PartialEq)]
 pub struct MetadataTag(pub ffi::acamera_metadata_tag);
