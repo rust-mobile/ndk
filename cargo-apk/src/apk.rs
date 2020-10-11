@@ -72,7 +72,16 @@ impl<'a> ApkBuilder<'a> {
                     .expect("invalid manifest path")
                     .join(&assets)
             }),
-            res: self.manifest.res.clone(),
+            res: self.manifest.res.as_ref().map(|res| {
+                self.cmd
+                    .manifest()
+                    .parent()
+                    .expect("invalid manifest path")
+                    .join(&res)
+                    .to_str()
+                    .unwrap()
+                    .to_owned()
+            }),
         };
 
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
