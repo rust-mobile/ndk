@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fix `res` folder resolve.
+
 # 0.5.2 (2020-09-15)
 
 - Updated to use [ndk-build 0.1.2](../ndk-build/CHANGELOG.md#012-2020-09-15)
