@@ -12,11 +12,15 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [features]
-rustdoc = []
 test = []
 aaudio = []
 bitmap = []
 media = []
 
 [package.metadata.docs.rs]
-features = ["rustdoc"]
+targets = [
+    "aarch64-linux-android",
+    "armv7-linux-androideabi",
+    "i686-linux-android",
+    "x86_64-linux-android",
+]

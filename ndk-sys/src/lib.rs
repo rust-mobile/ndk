@@ -14,16 +14,15 @@
 // Test setup lints
 #![cfg_attr(test, allow(dead_code))]
 
-#[cfg(not(any(target_os = "android", feature = "test", feature = "rustdoc")))]
+#[cfg(not(any(target_os = "android", feature = "test")))]
 compile_error!("android-ndk-sys only supports compiling for Android");
 
-#[cfg(any(
+#[cfg(
     all(
         any(target_os = "android", feature = "test"),
         any(target_arch = "arm", target_arch = "armv7")
-    ),
-    feature = "rustdoc"
-))]
+    )
+)]
 include!("ffi_arm.rs");
 
 #[cfg(all(any(target_os = "android", feature = "test"), target_arch = "aarch64"))]

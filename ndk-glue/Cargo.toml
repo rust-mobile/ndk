@@ -23,3 +23,11 @@ android_logger = { version = "0.8.6", optional = true }
 [features]
 default = []
 logger = ["android_logger", "ndk-macro/logger"]
+
+[package.metadata.docs.rs]
+targets = [
+    "aarch64-linux-android",
+    "armv7-linux-androideabi",
+    "i686-linux-android",
+    "x86_64-linux-android",
+]
