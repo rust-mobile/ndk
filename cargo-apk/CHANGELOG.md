@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.5.3 (2020-10-15)
+
 - Fix `res` folder resolve.
 
 # 0.5.2 (2020-09-15)
