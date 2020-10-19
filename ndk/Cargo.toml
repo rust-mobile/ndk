@@ -1,6 +1,6 @@
 [package]
 name = "ndk"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Safe Rust bindings to the Android NDK"
@@ -12,8 +12,6 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [features]
-rustdoc = ["ffi/rustdoc", "jni", "jni-glue", "all"]
-
 all = ["aaudio", "bitmap", "hardware_buffer", "media", "trace", "api-level-30"]
 
 aaudio = ["ffi/aaudio", "api-level-26"]
@@ -27,9 +25,6 @@ api-level-24 = ["api-level-23"]
 api-level-26 = ["api-level-24"]
 api-level-29 = ["api-level-26"]
 api-level-30 = ["api-level-29"]
-
-[package.metadata.docs.rs]
-features = ["rustdoc"]
 
 [dependencies]
 num_enum = "0.4.2"
@@ -47,4 +42,13 @@ optional = true
 [dependencies.ffi]
 package = "ndk-sys"
 path = "../ndk-sys"
-version = "0.2.0"
+version = "0.2.1"
+
+[package.metadata.docs.rs]
+features = ["jni", "jni-glue", "all"]
+targets = [
+    "aarch64-linux-android",
+    "armv7-linux-androideabi",
+    "i686-linux-android",
+    "x86_64-linux-android",
+]
