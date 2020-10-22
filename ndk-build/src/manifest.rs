@@ -22,6 +22,7 @@ pub struct Manifest {
     pub debuggable: bool,
     pub split: Option<String>,
     pub application_metadatas: Vec<ApplicationMetadata>,
+    pub activity_metadatas: Vec<ActivityMetadata>,
 }
 
 impl Manifest {
@@ -57,6 +58,11 @@ impl Manifest {
             .iter()
             .map(|f| f.to_string())
             .collect();
+        let activity_metadatas: Vec<String> = self
+            .activity_metadatas
+            .iter()
+            .map(|f| f.to_string())
+            .collect();
 
         format!(
             r#"<?xml version="1.0" encoding="utf-8"?>
@@ -84,6 +90,7 @@ impl Manifest {
                 android:screenOrientation="{orientation}"
                 android:configChanges="orientation|keyboardHidden|screenSize">
             <meta-data android:name="android.app.lib_name" android:value="{target_name}" />
+            {activity_metadatas}
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -105,6 +112,7 @@ impl Manifest {
             fullscreen = fullscreen,
             orientation = orientation,
             application_metadatas = application_metadatas.join("\n"),
+            activity_metadatas = activity_metadatas.join("\n"),
             debuggable = self.debuggable,
             features = features.join("\n"),
             permissions = permissions.join("\n"),
@@ -141,6 +149,21 @@ pub struct ApplicationMetadata {
 }
 
 impl ApplicationMetadata {
+    pub fn to_string(&self) -> String {
+        format!(
+            r#"<meta-data android:name="{}" android:value="{}"/>"#,
+            self.name, self.value
+        )
+    }
+}
+
+#[derive(Debug)]
+pub struct ActivityMetadata {
+    pub name: String,
+    pub value: String,
+}
+
+impl ActivityMetadata {
     pub fn to_string(&self) -> String {
         format!(
             r#"<meta-data android:name="{}" android:value="{}"/>"#,
