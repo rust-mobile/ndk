@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added support for activity metadata entries.
+
 # 0.5.3 (2020-10-15)
 
 - Fix `res` folder resolve.

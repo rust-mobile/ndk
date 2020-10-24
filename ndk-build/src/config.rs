@@ -1,4 +1,6 @@
-use crate::manifest::{ApplicationMetadata, Feature, IntentFilter, IntentFilterData, Permission};
+use crate::manifest::{
+    ActivityMetadata, ApplicationMetadata, Feature, IntentFilter, IntentFilterData, Permission,
+};
 use crate::ndk::Ndk;
 use serde::Deserialize;
 use std::path::PathBuf;
@@ -31,6 +33,7 @@ pub struct Metadata {
     pub permission: Option<Vec<PermissionConfig>>,
     pub intent_filter: Option<Vec<IntentFilterConfig>>,
     pub application_metadatas: Option<Vec<ApplicationMetadataConfig>>,
+    pub activity_metadatas: Option<Vec<ActivityMetadataConfig>>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
@@ -110,6 +113,21 @@ pub struct ApplicationMetadataConfig {
 
 impl From<ApplicationMetadataConfig> for ApplicationMetadata {
     fn from(config: ApplicationMetadataConfig) -> Self {
+        Self {
+            name: config.name,
+            value: config.value,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct ActivityMetadataConfig {
+    name: String,
+    value: String,
+}
+
+impl From<ActivityMetadataConfig> for ActivityMetadata {
+    fn from(config: ActivityMetadataConfig) -> Self {
         Self {
             name: config.name,
             value: config.value,

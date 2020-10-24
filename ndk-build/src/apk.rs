@@ -43,6 +43,12 @@ impl ApkConfig {
             .into_iter()
             .map(Into::into)
             .collect();
+        let activity_metadatas = metadata
+            .activity_metadatas
+            .unwrap_or_default()
+            .into_iter()
+            .map(Into::into)
+            .collect();
 
         let manifest = Manifest {
             package_name: config.package_name,
@@ -62,6 +68,7 @@ impl ApkConfig {
             fullscreen: metadata.fullscreen.unwrap_or(false),
             orientation: metadata.orientation,
             application_metadatas,
+            activity_metadatas,
         };
         Self {
             ndk: config.ndk,
