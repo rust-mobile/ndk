@@ -82,6 +82,20 @@ res = "path/to/res_folder"
 # Path to the folder containing your application's assets.
 # If not specified, assets will not be included in the APK
 assets = "path/to/assets_folder"
+
+# Adds application metadata to the manifest
+# Note that there can be several application_metadatas entries
+# this will add: <meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only"/>
+[[package.metadata.android.application_metadatas]]
+name = "com.samsung.android.vr.application.mode"
+value = "vr_only"
+
+# Adds activity metadata to the manifest
+# Note that there can be several activity_metadatas entries
+# this will add: <meta-data android:name="com.oculus.vr.focusaware" android:value="true"/>
+[[package.metadata.android.activity_metadatas]]
+name = "com.oculus.vr.focusaware"
+value = "true"
 ```
 
-TODO: intent filters and application metadatas
+TODO: intent filters
