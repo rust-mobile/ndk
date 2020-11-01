@@ -1,6 +1,9 @@
 # Unreleased
 
+# 0.5.4 (2020-11-01)
+
 - Added support for activity metadata entries.
+- Fix glob member resolution in workspaces.
 
 # 0.5.3 (2020-10-15)
 
