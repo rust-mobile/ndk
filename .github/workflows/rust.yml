@@ -73,6 +73,10 @@ jobs:
       run:
         cargo test -p ndk-build
 
+    - name: Test ndk-macro
+      run:
+        cargo test -p ndk-macro
+
     - name: Test cargo-apk
       run:
         cargo test -p cargo-apk
