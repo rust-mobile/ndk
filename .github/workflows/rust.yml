@@ -59,12 +59,29 @@ jobs:
         target: ${{ matrix.rust-target }}
         override: true
 
-    - name: Run tests
-      run: |
-        cd ndk-sys && cargo test --features test && cd ..
-        cd ndk && cargo test --features rustdoc --doc && cd ..
-        cargo test -p ndk-build
-        cargo test -p cargo-apk
+    - name: Test ndk-sys
+      run:
+        cargo test -p ndk-sys --all-features
+
+    - name: Test ndk
+      run:
+        cargo test -p ndk --all-features
+
+    - name: Test ndk-build
+      run:
+        cargo test -p ndk-build --all-features
+
+    - name: Test ndk-glue
+      run:
+        cargo test -p ndk-glue --all-features
+
+    - name: Test ndk-macro
+      run:
+        cargo test -p ndk-macro --all-features
+
+    - name: Test cargo-apk
+      run:
+        cargo test -p cargo-apk --all-features
 
     - name: Install cargo-apk
       run:
