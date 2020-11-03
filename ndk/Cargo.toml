@@ -26,7 +26,7 @@ api-level-26 = ["api-level-24"]
 api-level-29 = ["api-level-26"]
 api-level-30 = ["api-level-29"]
 
-test = ["ffi/test", "jni", "jni-glue"]
+test = ["ffi/test", "jni", "jni-glue", "all"]
 
 [dependencies]
 num_enum = "0.4.2"

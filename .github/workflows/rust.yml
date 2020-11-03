@@ -60,26 +60,24 @@ jobs:
         override: true
 
     - name: Test ndk-sys
-      working-directory: ndk-sys
       run:
-        cargo test --features test
+        cargo test -p ndk-sys --all-features
 
     - name: Test ndk
-      working-directory: ndk
       run:
-        cargo test --features test
+        cargo test -p ndk --all-features
 
     - name: Test ndk-build
       run:
-        cargo test -p ndk-build
+        cargo test -p ndk-build --all-features
 
     - name: Test ndk-macro
       run:
-        cargo test -p ndk-macro
+        cargo test -p ndk-macro --all-features
 
     - name: Test cargo-apk
       run:
-        cargo test -p cargo-apk
+        cargo test -p cargo-apk --all-features
 
     - name: Install cargo-apk
       run:
