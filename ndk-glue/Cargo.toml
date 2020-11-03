@@ -22,6 +22,7 @@ android_logger = { version = "0.8.6", optional = true }
 
 [features]
 default = []
+test = ["ndk/test", "ndk-sys/test"]
 logger = ["android_logger", "ndk-macro/logger"]
 
 [package.metadata.docs.rs]
