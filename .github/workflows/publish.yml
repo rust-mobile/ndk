@@ -7,6 +7,7 @@ on:
 
 jobs:
   Publish:
+    if: github.repository_owner == 'rust-windowing'
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1 # ensure crate order
