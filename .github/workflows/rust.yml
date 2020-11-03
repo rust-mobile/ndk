@@ -65,9 +65,8 @@ jobs:
         cargo test --features test
 
     - name: Test ndk
-      working-directory: ndk
       run:
-        cargo test --features rustdoc --doc
+        cargo test -p ndk --doc
 
     - name: Test ndk-build
       run:
