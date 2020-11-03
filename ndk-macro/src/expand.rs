@@ -27,10 +27,10 @@ impl ToTokens for BacktraceProp {
 mod logger {
     use super::*;
     use crate::parse::{LogLevel, LoggerProp};
+    use syn::Path;
 
-    impl ToTokens for LoggerProp {
-        fn to_tokens(&self, tokens: &mut TokenStream) {
-            let android_logger_crate = crate_path("android_logger", &self.android_logger);
+    impl LoggerProp {
+        pub(crate) fn expand(&self, glue_crate: &Path) -> TokenStream {
             let mut withs = Vec::new();
 
             if let Some(tag) = &self.tag {
@@ -43,16 +43,16 @@ mod logger {
             }
             if let Some(filter) = &self.filter {
                 withs.push(quote! {
-                    with_filter(#android_logger_crate::FilterBuilder::new().parse(#filter).build())
+                    with_filter(#glue_crate::android_logger::FilterBuilder::new().parse(#filter).build())
                 });
             }
 
-            tokens.extend(quote! {
-                #android_logger_crate::init_once(
-                    #android_logger_crate::Config::default()
+            quote! {
+                #glue_crate::android_logger::init_once(
+                    #glue_crate::android_logger::Config::default()
                     #(.#withs)*
                 );
-            });
+            }
         }
     }
 
@@ -82,11 +82,12 @@ impl MainAttr {
         };
 
         #[cfg(feature = "logger")]
-        let preamble = {
-            let logger = &self.logger;
-
-            preamble.chain(once(quote! { #logger }))
-        };
+        let preamble = preamble.chain(
+            self.logger
+                .as_ref()
+                .map(|l| l.expand(&glue_crate))
+                .into_iter(),
+        );
 
         quote! {
             #[no_mangle]
@@ -196,7 +197,7 @@ mod test {
     }
 
     #[test]
-    fn main_with_overriden_ndk_glue() {
+    fn main_with_overridden_ndk_glue() {
         let attr = MainAttr {
             ndk_glue: Some(parse_quote! { my::re::exported::ndk_glue }),
             ..Default::default()
@@ -242,8 +243,8 @@ mod test {
                     saved_state: *mut std::os::raw::c_void,
                     saved_state_size: usize,
                 ) {
-                    android_logger::init_once(
-                        android_logger::Config::default()
+                    ndk_glue::android_logger::init_once(
+                        ndk_glue::android_logger::Config::default()
                     );
                     ndk_glue::init(
                         activity as _,
@@ -275,8 +276,8 @@ mod test {
                     saved_state: *mut std::os::raw::c_void,
                     saved_state_size: usize,
                 ) {
-                    android_logger::init_once(
-                        android_logger::Config::default()
+                    ndk_glue::android_logger::init_once(
+                        ndk_glue::android_logger::Config::default()
                             .with_min_level(log::Level::Debug)
                     );
                     ndk_glue::init(
@@ -309,8 +310,8 @@ mod test {
                     saved_state: *mut std::os::raw::c_void,
                     saved_state_size: usize,
                 ) {
-                    android_logger::init_once(
-                        android_logger::Config::default()
+                    ndk_glue::android_logger::init_once(
+                        ndk_glue::android_logger::Config::default()
                             .with_tag("my-tag")
                     );
                     ndk_glue::init(
@@ -343,9 +344,9 @@ mod test {
                     saved_state: *mut std::os::raw::c_void,
                     saved_state_size: usize,
                 ) {
-                    android_logger::init_once(
-                        android_logger::Config::default()
-                            .with_filter(android_logger::FilterBuilder::new().parse("debug,hellow::world=trace").build())
+                    ndk_glue::android_logger::init_once(
+                        ndk_glue::android_logger::Config::default()
+                            .with_filter(ndk_glue::android_logger::FilterBuilder::new().parse("debug,hellow::world=trace").build())
                     );
                     ndk_glue::init(
                         activity as _,
@@ -378,8 +379,8 @@ mod test {
                     saved_state: *mut std::os::raw::c_void,
                     saved_state_size: usize,
                 ) {
-                    android_logger::init_once(
-                        android_logger::Config::default()
+                    ndk_glue::android_logger::init_once(
+                        ndk_glue::android_logger::Config::default()
                             .with_tag("my-tag")
                             .with_min_level(log::Level::Warn)
                     );
@@ -415,8 +416,8 @@ mod test {
                     saved_state_size: usize,
                 ) {
                     std::env::set_var("RUST_BACKTRACE", "1");
-                    android_logger::init_once(
-                        android_logger::Config::default()
+                    ndk_glue::android_logger::init_once(
+                        ndk_glue::android_logger::Config::default()
                             .with_tag("my-tag")
                     );
                     ndk_glue::init(
@@ -432,12 +433,13 @@ mod test {
         }
 
         #[test]
-        fn main_with_logger_with_overriden_android_logger() {
+        fn main_with_logger_with_overridden_ndk_glue_and_filter() {
             let attr = MainAttr {
                 logger: Some(LoggerProp {
-                    android_logger: Some(parse_quote! { my::re::exported::android_logger }),
+                    filter: Some("debug,hellow::world=trace".into()),
                     ..Default::default()
                 }),
+                ndk_glue: Some(parse_quote! { my::re::exported::ndk_glue }),
                 ..Default::default()
             };
             let item = parse_quote! { fn main() {} };
@@ -449,10 +451,11 @@ mod test {
                     saved_state: *mut std::os::raw::c_void,
                     saved_state_size: usize,
                 ) {
-                    my::re::exported::android_logger::init_once(
-                        my::re::exported::android_logger::Config::default()
+                    my::re::exported::ndk_glue::android_logger::init_once(
+                        my::re::exported::ndk_glue::android_logger::Config::default()
+                            .with_filter(my::re::exported::ndk_glue::android_logger::FilterBuilder::new().parse("debug,hellow::world=trace").build())
                     );
-                    ndk_glue::init(
+                    my::re::exported::ndk_glue::init(
                         activity as _,
                         saved_state as _,
                         saved_state_size as _,
@@ -465,7 +468,7 @@ mod test {
         }
 
         #[test]
-        fn main_with_logger_with_log_level_and_with_overriden_log() {
+        fn main_with_logger_with_log_level_and_with_overridden_log() {
             let attr = MainAttr {
                 logger: Some(LoggerProp {
                     level: Some(LogLevel::Trace),
@@ -483,8 +486,8 @@ mod test {
                     saved_state: *mut std::os::raw::c_void,
                     saved_state_size: usize,
                 ) {
-                    android_logger::init_once(
-                        android_logger::Config::default()
+                    ndk_glue::android_logger::init_once(
+                        ndk_glue::android_logger::Config::default()
                             .with_min_level(my::re::exported::log::Level::Trace)
                     );
                     ndk_glue::init(

@@ -46,9 +46,9 @@ fn crate_name(name: &str) -> Result<String> {
     Ok(name.replace('-', "_"))
 }
 
-pub fn crate_path(name: &str, overriden_path: &Option<Path>) -> Path {
-    // try to use overriden crate path
-    overriden_path.clone().unwrap_or_else(|| {
+pub fn crate_path(name: &str, overridden_path: &Option<Path>) -> Path {
+    // try to use overridden crate path
+    overridden_path.clone().unwrap_or_else(|| {
         // the binding to hold string from `crate_name` fn
         let mut detected_name = None;
         Ident::new(
