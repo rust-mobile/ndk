@@ -16,6 +16,8 @@ use std::thread;
 
 #[cfg(feature = "logger")]
 pub use android_logger;
+#[cfg(feature = "logger")]
+pub use log;
 
 pub use ndk_macro::main;
 

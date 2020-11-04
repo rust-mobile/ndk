@@ -20,4 +20,3 @@ The attribute macro supports optional input attributes:
   - `level = "error|warn|info|debug|trace"`: Changes log level for logger
   - `tag = "my-tag"`: Assigns tag to logger
   - `filter = "filtering-rules"`: Changes default filtering rules
-  - `log = "path::to::log"`: Overrides default path to __log__ crate

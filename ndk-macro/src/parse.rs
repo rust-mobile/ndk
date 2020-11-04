@@ -40,8 +40,6 @@ mod logger {
         pub tag: Option<String>,
         // Filtering rules
         pub filter: Option<String>,
-        // Path to `log` crate to override
-        pub log: Option<Path>,
     }
 
     #[derive(FromMeta, PartialEq, Eq, Debug, Clone, Copy)]
@@ -194,22 +192,6 @@ mod test {
 
             assert_eq!(logger.level, Some(LogLevel::Warn));
             assert_eq!(logger.tag.unwrap(), "my-app");
-        }
-
-        #[test]
-        fn overridden_log_crate() {
-            let attr: AttributeArgs = parse_quote! {
-                logger(log = "my::re::exported::log")
-            };
-            let attr: MainAttr = FromMeta::from_list(&attr).unwrap();
-
-            let logger = attr.logger.unwrap();
-
-            let expected_path: Path = parse_quote! {
-                my::re::exported::log
-            };
-
-            assert_eq!(logger.log.unwrap(), expected_path);
         }
     }
 }

@@ -78,7 +78,6 @@ You can override this names with specific paths like so:
 ```rust
 #[ndk_glue::main(
   ndk_glue = "path::to::ndk_glue",
-  logger(log = "path::to::log")
 )]
 fn main() {}
 ```
