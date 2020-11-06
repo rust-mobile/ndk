@@ -18,17 +18,22 @@ jobs:
         args: --all -- --check
 
   build:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        os:  [ubuntu-latest]
         rust-channel: ['stable', 'nightly']
-        rust-target: [
-            'armv7-linux-androideabi',
-            'aarch64-linux-android',
-            'i686-linux-android',
-            'x86_64-linux-android',
-        ]
+        rust-target:
+          - 'armv7-linux-androideabi'
+          - 'aarch64-linux-android'
+          - 'i686-linux-android'
+          - 'x86_64-linux-android'
+        include:
+          - os: windows-latest
+            rust-channel: 'stable'
+            rust-target: 'aarch64-linux-android'
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v2
@@ -40,11 +45,13 @@ jobs:
         target: ${{ matrix.rust-target }}
         override: true
 
-    - name: Test ndk-sys
+    - if: runner.os != 'Windows'
+      name: Test ndk-sys
       run:
         cargo test -p ndk-sys --all-features
 
-    - name: Test ndk
+    - if: runner.os != 'Windows'
+      name: Test ndk
       run:
         cargo test -p ndk --all-features
 
@@ -52,11 +59,13 @@ jobs:
       run:
         cargo test -p ndk-build --all-features
 
-    - name: Test ndk-glue
+    - if: runner.os != 'Windows'
+      name: Test ndk-glue
       run:
         cargo test -p ndk-glue --all-features
 
-    - name: Test ndk-macro
+    - if: runner.os != 'Windows'
+      name: Test ndk-macro
       run:
         cargo test -p ndk-macro --all-features
 
