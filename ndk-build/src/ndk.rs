@@ -17,7 +17,7 @@ impl Ndk {
             let mut sdk_path = std::env::var("ANDROID_HOME").ok();
             if sdk_path.is_some() {
                 println!(
-                    "Warning: You use environment variable ANDROID_HOME that is deprecated.\
+                    "Warning: You use environment variable ANDROID_HOME that is deprecated. \
                  Please, remove it and use ANDROID_SDK_ROOT instead. Now ANDROID_HOME is used"
                 );
             }
