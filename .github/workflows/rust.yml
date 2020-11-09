@@ -18,39 +18,25 @@ jobs:
         args: --all -- --check
 
   build:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        os:  [ubuntu-latest]
         rust-channel: ['stable', 'nightly']
-        rust-target: [
-            'armv7-linux-androideabi',
-            'aarch64-linux-android',
-            'i686-linux-android',
-            'x86_64-linux-android',
-        ]
+        rust-target:
+          - 'armv7-linux-androideabi'
+          - 'aarch64-linux-android'
+          - 'i686-linux-android'
+          - 'x86_64-linux-android'
+        include:
+          - os: windows-latest
+            rust-channel: 'stable'
+            rust-target: 'aarch64-linux-android'
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Cache NDK
-      id: cache-ndk
-      uses: actions/cache@v2
-      with:
-        path: android-ndk-r20
-        key: android-ndk-r20-${{ runner.os }}
-
-    - name: Download NDK
-      if: steps.cache-ndk.outputs.cache-hit != 'true'
-      run: |
-        curl -LO https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip
-        unzip android-ndk-r20-linux-x86_64.zip -d $GITHUB_WORKSPACE
-
-    - name: Setup java
-      uses: actions/setup-java@v1
-      with:
-        java-package: jre # Runtime new enough for android toolchain
-        java-version: '13'
 
     - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target }}
       uses: actions-rs/toolchain@v1
@@ -59,11 +45,13 @@ jobs:
         target: ${{ matrix.rust-target }}
         override: true
 
-    - name: Test ndk-sys
+    - if: runner.os != 'Windows'
+      name: Test ndk-sys
       run:
         cargo test -p ndk-sys --all-features
 
-    - name: Test ndk
+    - if: runner.os != 'Windows'
+      name: Test ndk
       run:
         cargo test -p ndk --all-features
 
@@ -71,11 +59,13 @@ jobs:
       run:
         cargo test -p ndk-build --all-features
 
-    - name: Test ndk-glue
+    - if: runner.os != 'Windows'
+      name: Test ndk-glue
       run:
         cargo test -p ndk-glue --all-features
 
-    - name: Test ndk-macro
+    - if: runner.os != 'Windows'
+      name: Test ndk-macro
       run:
         cargo test -p ndk-macro --all-features
 
@@ -87,10 +77,24 @@ jobs:
       run:
         cargo install --path cargo-apk
 
+    - if: runner.os == 'Windows'
+      name: Create symlink to Android SDK/NDK without spaces
+      run: |
+        $oldAndroidPath = $env:ANDROID_HOME
+        $sdk_root = "C:\Android"
+        New-Item -Path $sdk_root -ItemType SymbolicLink -Value $oldAndroidPath
+
+        echo "ANDROID_SDK_ROOT=$sdk_root" >> $env:GITHUB_ENV
+        echo "ANDROID_NDK_ROOT=$sdk_root\ndk-bundle" >> $env:GITHUB_ENV
+
+        # Update legacy path for ndk-build:
+        echo "ANDROID_HOME=$sdk_root" >> $env:GITHUB_ENV
+
+        # Unset legacy paths:
+        echo "ANDROID_NDK_HOME=" >> $env:GITHUB_ENV
+        echo "ANDROID_NDK_PATH=" >> $env:GITHUB_ENV
+
     - name: Check compiling on target ${{ matrix.rust-target }}
       run: |
-        export NDK_HOME="$GITHUB_WORKSPACE/android-ndk-r20"
-        export CC="$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/clang"
-        export AR="$NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar"
         cargo check -p ndk --target ${{ matrix.rust-target }}
         cargo apk build -p ndk-examples --target ${{ matrix.rust-target }} --examples
