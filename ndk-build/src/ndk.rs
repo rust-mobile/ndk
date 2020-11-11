@@ -59,8 +59,10 @@ impl Ndk {
             .filter_map(|path| path.ok())
             .filter(|path| path.path().is_dir())
             .filter_map(|path| path.file_name().into_string().ok())
-            .filter(|name| name.starts_with("android-"))
-            .filter_map(|name| name[8..].parse::<u32>().ok())
+            .filter_map(|name| {
+                name.strip_prefix("android-")
+                    .and_then(|api| api.parse::<u32>().ok())
+            })
             .filter(|level| {
                 ndk_path
                     .join("platforms")

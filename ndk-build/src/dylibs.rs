@@ -22,11 +22,11 @@ pub fn get_libs_search_paths(
             };
             for line in BufReader::new(File::open(output_file)?).lines() {
                 let line = line?;
-                if line.starts_with("cargo:rustc-link-search=") {
-                    let mut pie = line.split("=");
-                    let (kind, path) = match (pie.next(), pie.next(), pie.next()) {
-                        (Some(_), Some(kind), Some(path)) => (kind, path),
-                        (Some(_), Some(path), None) => ("all", path),
+                if let Some(link_search) = line.strip_prefix("cargo:rustc-link-search=") {
+                    let mut pie = link_search.split('=');
+                    let (kind, path) = match (pie.next(), pie.next()) {
+                        (Some(kind), Some(path)) => (kind, path),
+                        (Some(path), None) => ("all", path),
                         _ => unreachable!(),
                     };
                     match kind {
