@@ -29,11 +29,11 @@ impl Ndk {
         };
 
         let ndk_path = {
-            let mut ndk_path = std::env::var("ANDROID_NDK_ROOT").ok();
-
-            if ndk_path.is_none() {
-                ndk_path = std::env::var("NDK_HOME").ok();
-            }
+            let ndk_path = std::env::var("ANDROID_NDK_ROOT")
+                .ok()
+                .or_else(|| std::env::var("ANDROID_NDK_PATH").ok())
+                .or_else(|| std::env::var("ANDROID_NDK_HOME").ok())
+                .or_else(|| std::env::var("NDK_HOME").ok());
 
             // default ndk installation path
             if ndk_path.is_none() && sdk_path.join("ndk-bundle").exists() {
