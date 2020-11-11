@@ -63,12 +63,6 @@ impl Ndk {
                 name.strip_prefix("android-")
                     .and_then(|api| api.parse::<u32>().ok())
             })
-            .filter(|level| {
-                ndk_path
-                    .join("platforms")
-                    .join(format!("android-{}", level))
-                    .exists()
-            })
             .collect();
 
         if platforms.is_empty() {
