@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.1.3 (2020-11-21)
+# 0.5.5 (2020-11-21)
 
 - Updated to use [ndk-build 0.1.3](../ndk-build/CHANGELOG.md#012-2020-11-21)
 
