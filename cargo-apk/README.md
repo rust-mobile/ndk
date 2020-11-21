@@ -43,6 +43,11 @@ icon = "@mipmap/ic_launcher"
 # Defaults to false.
 fullscreen = false
 
+# Set the instruction of how the activity should be launched
+# See https://developer.android.com/guide/topics/manifest/activity-element#lmode
+# Defaults to standard.
+launch_mode = "standard"
+
 # Set the minimum required OpenGL ES version.
 # Defaults to [3, 1]
 opengles_version = [3, 0]

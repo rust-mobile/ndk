@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.1.3 (2020-11-21)
+
+- `android:launchMode` is configurable.
+
 # 0.1.2 (2020-09-15)
 
 - `android:label` is configurable.

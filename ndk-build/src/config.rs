@@ -28,6 +28,7 @@ pub struct Metadata {
     pub icon: Option<String>,
     pub fullscreen: Option<bool>,
     pub orientation: Option<String>,
+    pub launch_mode: Option<String>,
     pub opengles_version: Option<(u8, u8)>,
     pub feature: Option<Vec<FeatureConfig>>,
     pub permission: Option<Vec<PermissionConfig>>,

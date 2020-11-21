@@ -19,6 +19,7 @@ pub struct Manifest {
     pub icon: Option<String>,
     pub fullscreen: bool,
     pub orientation: Option<String>,
+    pub launch_mode: Option<String>,
     pub debuggable: bool,
     pub split: Option<String>,
     pub application_metadatas: Vec<ApplicationMetadata>,
@@ -48,6 +49,7 @@ impl Manifest {
         };
 
         let orientation = self.orientation.as_deref().unwrap_or("unspecified");
+        let launch_mode = self.launch_mode.as_deref().unwrap_or("standard");
 
         let features: Vec<String> = self.features.iter().map(|f| f.to_string()).collect();
         let permissions: Vec<String> = self.permissions.iter().map(|p| p.to_string()).collect();
@@ -88,6 +90,7 @@ impl Manifest {
                 android:name="android.app.NativeActivity"
                 android:label="{package_label}"
                 android:screenOrientation="{orientation}"
+                android:launchMode="{launch_mode}"
                 android:configChanges="orientation|keyboardHidden|screenSize">
             <meta-data android:name="android.app.lib_name" android:value="{target_name}" />
             {activity_metadatas}
@@ -111,6 +114,7 @@ impl Manifest {
             icon = icon,
             fullscreen = fullscreen,
             orientation = orientation,
+            launch_mode = launch_mode,
             application_metadatas = application_metadatas.join("\n"),
             activity_metadatas = activity_metadatas.join("\n"),
             debuggable = self.debuggable,

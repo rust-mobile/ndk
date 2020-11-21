@@ -67,6 +67,7 @@ impl ApkConfig {
             icon: metadata.icon,
             fullscreen: metadata.fullscreen.unwrap_or(false),
             orientation: metadata.orientation,
+            launch_mode: metadata.launch_mode,
             application_metadatas,
             activity_metadatas,
         };
