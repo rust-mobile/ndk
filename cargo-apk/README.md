@@ -43,7 +43,7 @@ icon = "@mipmap/ic_launcher"
 # Defaults to false.
 fullscreen = false
 
-# Set the instruction of how the activity hsould be launched
+# Set the instruction of how the activity should be launched
 # See https://developer.android.com/guide/topics/manifest/activity-element#lmode
 # Defaults to standard.
 launch_mode = "standard"
