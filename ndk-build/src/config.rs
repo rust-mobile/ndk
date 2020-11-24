@@ -17,7 +17,7 @@ pub struct Config {
     pub target_name: String,
     pub debuggable: bool,
     pub assets: Option<PathBuf>,
-    pub res: Option<String>,
+    pub res: Option<PathBuf>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]

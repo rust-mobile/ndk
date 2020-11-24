@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.1.4 (2020-11-25)
+
+- Fixed UNC path handling on Windows for resource folder
+
 # 0.1.3 (2020-11-21)
 
 - `android:launchMode` is configurable.
