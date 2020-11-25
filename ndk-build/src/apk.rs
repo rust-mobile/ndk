@@ -10,7 +10,7 @@ pub struct ApkConfig {
     pub ndk: Ndk,
     pub build_dir: PathBuf,
     pub assets: Option<PathBuf>,
-    pub res: Option<String>,
+    pub res: Option<PathBuf>,
     pub manifest: Manifest,
 }
 
@@ -115,7 +115,7 @@ impl ApkConfig {
         }
 
         if let Some(assets) = &self.assets {
-            aapt.arg("-A").arg(dunce::simplified(assets));
+            aapt.arg("-A").arg(assets);
         }
 
         if !aapt.status()?.success() {

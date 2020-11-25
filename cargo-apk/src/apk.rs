@@ -66,21 +66,26 @@ impl<'a> ApkBuilder<'a> {
             target_name: artifact.name().replace("-", "_"),
             debuggable: *self.cmd.profile() == Profile::Dev,
             assets: self.manifest.assets.as_ref().map(|assets| {
-                self.cmd
-                    .manifest()
-                    .parent()
-                    .expect("invalid manifest path")
-                    .join(&assets)
+                dunce::simplified(
+                    &self
+                        .cmd
+                        .manifest()
+                        .parent()
+                        .expect("invalid manifest path")
+                        .join(&assets),
+                )
+                .to_owned()
             }),
             res: self.manifest.res.as_ref().map(|res| {
-                self.cmd
-                    .manifest()
-                    .parent()
-                    .expect("invalid manifest path")
-                    .join(&res)
-                    .to_str()
-                    .unwrap()
-                    .to_owned()
+                dunce::simplified(
+                    &self
+                        .cmd
+                        .manifest()
+                        .parent()
+                        .expect("invalid manifest path")
+                        .join(&res),
+                )
+                .to_owned()
             }),
         };
 
