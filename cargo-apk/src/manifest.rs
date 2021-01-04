@@ -1,15 +1,15 @@
 use crate::error::Error;
-use ndk_build::config::Metadata;
+use ndk_build::manifest::AndroidManifest;
 use ndk_build::target::Target;
 use serde::Deserialize;
 use std::path::Path;
 
 pub struct Manifest {
     pub version: String,
-    pub metadata: Metadata,
+    pub android_manifest: AndroidManifest,
     pub build_targets: Vec<Target>,
     pub assets: Option<String>,
-    pub res: Option<String>,
+    pub resources: Option<String>,
 }
 
 impl Manifest {
@@ -24,10 +24,10 @@ impl Manifest {
             .unwrap_or_default();
         Ok(Self {
             version: toml.package.version,
-            metadata: metadata.metadata,
+            android_manifest: metadata.android_manifest,
             build_targets: metadata.build_targets.unwrap_or_default(),
             assets: metadata.assets,
-            res: metadata.res,
+            resources: metadata.resources,
         })
     }
 }
@@ -51,8 +51,8 @@ struct PackageMetadata {
 #[derive(Clone, Debug, Default, Deserialize)]
 struct AndroidMetadata {
     #[serde(flatten)]
-    metadata: Metadata,
+    android_manifest: AndroidManifest,
     build_targets: Option<Vec<Target>>,
     assets: Option<String>,
-    res: Option<String>,
+    resources: Option<String>,
 }

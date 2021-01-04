@@ -1,5 +1,7 @@
 # Unreleased
 
+- Refactored `Manifest` into a proper (de)serialization struct
+
 # 0.1.4 (2020-11-25)
 
 - On Windows, fixed UNC path handling for resource folder

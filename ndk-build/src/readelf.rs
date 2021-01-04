@@ -14,7 +14,7 @@ impl<'a> UnalignedApk<'a> {
         search_paths: &[&Path],
     ) -> Result<(), NdkError> {
         let ndk = &self.config().ndk;
-        let min_sdk_version = self.config().manifest.min_sdk_version;
+        let min_sdk_version = self.config().manifest.sdk.min_sdk_version.unwrap();
         let readelf_path = ndk.toolchain_bin("readelf", target)?;
 
         let android_search_paths = [
