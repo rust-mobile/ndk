@@ -44,7 +44,7 @@ impl AndroidManifest {
 }
 
 // See https://developer.android.com/guide/topics/manifest/application-element
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Application {
     #[serde(rename(serialize = "android:debuggable"))]
     pub debuggable: Option<bool>,
@@ -52,7 +52,6 @@ pub struct Application {
     #[serde(serialize_with = "serialize_fullscreen")]
     pub fullscreen: Option<bool>,
     #[serde(rename(serialize = "android:hasCode"))]
-    #[serde(default = "default_has_code")]
     pub has_code: Option<bool>,
     #[serde(rename(serialize = "android:icon"))]
     pub icon: Option<String>,
@@ -64,20 +63,6 @@ pub struct Application {
     pub meta_datas: Option<Vec<MetaData>>,
     #[serde(default)]
     pub activity: Activity,
-}
-
-impl Default for Application {
-    fn default() -> Self {
-        Self {
-            debuggable: None,
-            has_code: default_has_code(),
-            icon: None,
-            label: "".to_string(),
-            fullscreen: None,
-            meta_datas: None,
-            activity: Activity::default(),
-        }
-    }
 }
 
 fn serialize_fullscreen<S>(v: &Option<bool>, serializer: S) -> Result<S::Ok, S::Error>
@@ -93,17 +78,15 @@ where
 }
 
 // See https://developer.android.com/guide/topics/manifest/activity-element
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Activity {
     #[serde(rename(serialize = "android:configChanges"))]
-    #[serde(default = "default_config_changes")]
     pub config_changes: Option<String>,
     #[serde(rename(serialize = "android:label"))]
     pub label: Option<String>,
     #[serde(rename(serialize = "android:launchMode"))]
     pub launch_mode: Option<String>,
     #[serde(rename(serialize = "android:name"))]
-    #[serde(default = "default_activity_name")]
     #[serde(skip_deserializing)]
     pub name: Option<String>,
     #[serde(rename(serialize = "android:screenOrientation"))]
@@ -115,20 +98,6 @@ pub struct Activity {
     #[serde(rename(serialize = "intent-filter", deserialize = "intent_filter"))]
     #[serde(default)]
     pub intent_filters: Vec<IntentFilter>,
-}
-
-impl Default for Activity {
-    fn default() -> Self {
-        Self {
-            name: default_activity_name(),
-            label: None,
-            orientation: None,
-            launch_mode: None,
-            config_changes: default_config_changes(),
-            meta_datas: Vec::new(),
-            intent_filters: Vec::new(),
-        }
-    }
 }
 
 // See https://developer.android.com/guide/topics/manifest/intent-filter-element
@@ -282,16 +251,4 @@ impl Default for Sdk {
 // https://developer.android.com/guide/topics/manifest/manifest-element
 fn default_android_namespace() -> String {
     "http://schemas.android.com/apk/res/android".to_string()
-}
-
-fn default_has_code() -> Option<bool> {
-    Some(false)
-}
-
-fn default_config_changes() -> Option<String> {
-    Some("orientation|keyboardHidden|screenSize".to_string())
-}
-
-fn default_activity_name() -> Option<String> {
-    Some("android.app.NativeActivity".to_string())
 }

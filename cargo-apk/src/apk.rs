@@ -62,6 +62,7 @@ impl<'a> ApkBuilder<'a> {
             .application
             .debuggable
             .or(Some(*self.cmd.profile() == Profile::Dev));
+        manifest.application.has_code = Some(false);
         if manifest.application.label.is_empty() {
             manifest.application.label = artifact.name().to_string();
         }
@@ -76,6 +77,9 @@ impl<'a> ApkBuilder<'a> {
                 opengles_version: Some((3, 1)),
             });
         }
+        manifest.application.activity.config_changes =
+            Some("orientation|keyboardHidden|screenSize".to_string());
+        manifest.application.activity.name = Some("android.app.NativeActivity".to_string());
         manifest.application.activity.meta_datas.push(MetaData {
             name: "android.app.lib_name".to_string(),
             value: artifact.name().replace("-", "_"),
