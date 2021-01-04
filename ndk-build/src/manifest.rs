@@ -2,6 +2,7 @@ use crate::error::NdkError;
 use serde::{Deserialize, Serialize, Serializer};
 use std::{fs::File, io::Write, path::Path};
 
+// See https://developer.android.com/guide/topics/manifest/manifest-element
 #[serde(rename(serialize = "manifest"))]
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct AndroidManifest {
@@ -42,6 +43,7 @@ impl AndroidManifest {
     }
 }
 
+// See https://developer.android.com/guide/topics/manifest/application-element
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Application {
     #[serde(rename(serialize = "android:debuggable"))]
@@ -90,6 +92,7 @@ where
     }
 }
 
+// See https://developer.android.com/guide/topics/manifest/activity-element
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Activity {
     #[serde(rename(serialize = "android:configChanges"))]
@@ -128,6 +131,7 @@ impl Default for Activity {
     }
 }
 
+// See https://developer.android.com/guide/topics/manifest/intent-filter-element
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IntentFilter {
     // Serialize as struct for proper xml format
@@ -187,6 +191,7 @@ where
     }
 }
 
+// See https://developer.android.com/guide/topics/manifest/data-element
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IntentFilterData {
     #[serde(rename(serialize = "android:scheme"))]
@@ -205,6 +210,7 @@ pub struct IntentFilterData {
     pub mime_type: Option<String>,
 }
 
+// See https://developer.android.com/guide/topics/manifest/meta-data-element
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct MetaData {
     #[serde(rename(serialize = "android:name"))]
@@ -213,6 +219,7 @@ pub struct MetaData {
     pub value: String,
 }
 
+// https://developer.android.com/guide/topics/manifest/uses-feature-element
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Feature {
     #[serde(rename(serialize = "android:name"))]
@@ -240,6 +247,7 @@ where
     }
 }
 
+// See https://developer.android.com/guide/topics/manifest/uses-permission-element
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Permission {
     #[serde(rename(serialize = "android:name"))]
@@ -248,6 +256,7 @@ pub struct Permission {
     pub max_sdk_version: Option<u32>,
 }
 
+// https://developer.android.com/guide/topics/manifest/uses-sdk-element
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Sdk {
     #[serde(rename(serialize = "android:minSdkVersion"))]
