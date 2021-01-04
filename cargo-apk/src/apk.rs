@@ -50,6 +50,7 @@ impl<'a> ApkBuilder<'a> {
 
         // Set default Android manifest values
         let mut manifest = self.manifest.android_manifest.clone();
+        manifest.android_namespace = "http://schemas.android.com/apk/res/android".to_string();
         manifest.package_name = package_name;
         manifest.version_name = self.manifest.version.clone();
         manifest.version_code = VersionCode::from_semver(&self.manifest.version)?.to_code(1);

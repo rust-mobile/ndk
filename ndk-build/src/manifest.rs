@@ -8,7 +8,6 @@ use std::{fs::File, io::Write, path::Path};
 pub struct AndroidManifest {
     #[serde(skip_deserializing)]
     #[serde(rename(serialize = "xmlns:android"))]
-    #[serde(default = "default_android_namespace")]
     pub android_namespace: String,
     #[serde(skip_deserializing)]
     #[serde(rename(serialize = "package"))]
@@ -244,11 +243,4 @@ impl Default for Sdk {
             max_sdk_version: None,
         }
     }
-}
-
-// Manifest namespace attribute should always be set to this value.
-//
-// https://developer.android.com/guide/topics/manifest/manifest-element
-fn default_android_namespace() -> String {
-    "http://schemas.android.com/apk/res/android".to_string()
 }
