@@ -1,4 +1,4 @@
-//! A wrapper around the NDK's `AInputEvent.`
+//! A wrapper around the NDK's `AInputEvent`.
 //!
 //! Most of these operations directly wrap functions in the NDK.  Documentation for all NDK
 //! functions in this module can be found
@@ -11,7 +11,7 @@ use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
 use std::ptr::NonNull;
 
-/// A `const AInputEvent *`
+/// A [`*const AInputEvent`](ffi::AInputEvent)
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#ainputevent)
 #[derive(Debug)]
@@ -20,7 +20,7 @@ pub enum InputEvent {
     KeyEvent(KeyEvent),
 }
 
-/// An enum representing the source of an `InputEvent`.
+/// An enum representing the source of an [`InputEvent`].
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-36)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -43,7 +43,7 @@ pub enum Source {
     Any = ffi::AINPUT_SOURCE_ANY,
 }
 
-/// An enum representing the class of an `InputEvent` source
+/// An enum representing the class of an [`InputEvent`] source
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-35)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -58,10 +58,10 @@ enum Class {
 }
 
 impl InputEvent {
-    /// Initialize an `InputEvent` from a pointer
+    /// Initialize an [`InputEvent`] from a pointer
     ///
     /// By calling this function, you assert that the pointer is a valid pointer to a
-    /// native `AInputEvent`.
+    /// native [`AInputEvent`](ffi::AInputEvent).
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         match ffi::AInputEvent_getType(ptr.as_ptr()) as u32 {
@@ -71,7 +71,7 @@ impl InputEvent {
         }
     }
 
-    /// Returns a pointer to the native `AInputEvent`.
+    /// Returns a pointer to the native [`AInputEvent`](ffi::AInputEvent).
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         match self {
@@ -325,7 +325,7 @@ impl EdgeFlags {
     }
 }
 
-/// Flags associated with a motion event.
+/// Flags associated with this [`MotionEvent`].
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-30)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -339,16 +339,17 @@ impl MotionEventFlags {
 }
 
 impl MotionEvent {
-    /// Constructs a MotionEvent from a pointer to a native `AInputEvent`
+    /// Constructs a MotionEvent from a pointer to a native [`AInputEvent`](ffi::AInputEvent)
     ///
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to a
-    /// native `AInputEvent`, and that that `AInputEvent` is an `AMotionEvent`.
+    /// native [`AInputEvent`](ffi::AInputEvent) and that that [`AInputEvent`](ffi::AInputEvent)
+    /// is an `AMotionEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         Self { ptr }
     }
 
-    /// Returns a pointer to the native `AInputEvent`
+    /// Returns a pointer to the native [`AInputEvent`](ffi::AInputEvent)
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr
@@ -373,7 +374,7 @@ impl MotionEvent {
         unsafe { ffi::AInputEvent_getDeviceId(self.ptr.as_ptr()) }
     }
 
-    /// Returns the motion action associated with this event.
+    /// Returns the motion action associated with the event.
     ///
     /// See [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getaction)
@@ -390,8 +391,9 @@ impl MotionEvent {
     /// Pointer indices can change per motion event.  For an identifier that stays the same, see
     /// [`Pointer::pointer_id()`].
     ///
-    /// This only has a meaning when the action is one of `Up`, `Down`, `PointerUp`, or
-    /// `PointerDown`.
+    /// This only has a meaning when the [action](Self::action) is one of [`Up`](MotionAction::Up),
+    /// [`Down`](MotionAction::Down), [`PointerUp`](MotionAction::PointerUp),
+    /// or [`PointerDown`](MotionAction::PointerDown).
     #[inline]
     pub fn pointer_index(&self) -> usize {
         let action = unsafe { ffi::AMotionEvent_getAction(self.ptr.as_ptr()) as u32 };
@@ -434,7 +436,7 @@ impl MotionEvent {
 
     /// The pointer at a given pointer index. Panics if the pointer index is out of bounds.
     ///
-    /// If you need to loop over all the pointers, prefer the `.pointers()` method.
+    /// If you need to loop over all the pointers, prefer the [`pointers()`](Self::pointers) method.
     #[inline]
     pub fn pointer_at_index(&self, index: usize) -> Pointer<'_> {
         if index >= self.pointer_count() {
@@ -647,7 +649,7 @@ impl<'a> Pointer<'a> {
     }
 }
 
-/// An iterator over the pointers in a `MotionEvent`.
+/// An iterator over the pointers in a [`MotionEvent`].
 #[derive(Debug)]
 pub struct PointersIter<'a> {
     event: NonNull<ffi::AInputEvent>,
@@ -731,7 +733,7 @@ impl<'a> HistoricalMotionEvent<'a> {
     }
 }
 
-/// An iterator over all the historical moments in a `MotionEvent`.
+/// An iterator over all the historical moments in a [`MotionEvent`].
 ///
 /// It iterates from oldest to newest.
 #[derive(Debug)]
@@ -1310,16 +1312,16 @@ pub enum Keycode {
 }
 
 impl KeyEvent {
-    /// Constructs a KeyEvent from a pointer to a native `AInputEvent`
+    /// Constructs a KeyEvent from a pointer to a native [`AInputEvent`](ffi::AInputEvent)
     ///
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to an
-    /// `AInputEvent`, and that that `AInputEvent` is an `AKeyEvent`.
+    /// [`AInputEvent`](ffi::AInputEvent), and that that [`AInputEvent`](ffi::AInputEvent) is an `AKeyEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         Self { ptr }
     }
 
-    /// Returns a pointer to the native `AInputEvent`
+    /// Returns a pointer to the native [`AInputEvent`](ffi::AInputEvent)
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr
@@ -1403,7 +1405,7 @@ impl KeyEvent {
     }
 }
 
-/// Flags associated with `KeyEvent`.
+/// Flags associated with [`KeyEvent`].
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-28)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -1457,7 +1459,7 @@ impl KeyEventFlags {
 }
 
 impl KeyEvent {
-    /// Flags associated with `KeyEvent`.
+    /// Flags associated with this [`KeyEvent`].
     ///
     /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getflags)
     #[inline]
