@@ -388,7 +388,7 @@ impl MotionEvent {
     /// Returns the pointer index of an `Up` or `Down` event.
     ///
     /// Pointer indices can change per motion event.  For an identifier that stays the same, see
-    /// [`pointer_id`](method.pointer_id.html).
+    /// [`Pointer::pointer_id()`].
     ///
     /// This only has a meaning when the action is one of `Up`, `Down`, `PointerUp`, or
     /// `PointerDown`.
