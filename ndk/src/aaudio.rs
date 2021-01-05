@@ -686,7 +686,6 @@ impl AAudioStreamBuilder {
     }
 
     /// Set the requested data callback buffer size in frames.
-    /// See [`set_callbacks`].
     ///
     /// The default, if you do not call this function, is unspecified.
     ///
@@ -707,8 +706,6 @@ impl AAudioStreamBuilder {
     /// Available since API level 26.
     ///
     /// * `num_frames` - the desired buffer size in frames or 0 for unspecified
-    ///
-    /// [`set_callbacks`]: AAudioStreamBuilder::set_callbacks
     pub fn frames_per_data_callback(self, num_frames: i32) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setFramesPerDataCallback(self.as_ptr(), num_frames) };
         self
