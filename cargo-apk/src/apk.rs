@@ -5,7 +5,7 @@ use ndk_build::apk::{Apk, ApkConfig};
 use ndk_build::cargo::{cargo_apk, VersionCode};
 use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
-use ndk_build::manifest::{Feature, IntentFilter, MetaData};
+use ndk_build::manifest::MetaData;
 use ndk_build::ndk::Ndk;
 use ndk_build::target::Target;
 use std::path::PathBuf;
@@ -50,10 +50,9 @@ impl<'a> ApkBuilder<'a> {
 
         // Set default Android manifest values
         let mut manifest = self.manifest.android_manifest.clone();
-        manifest.android_namespace = "http://schemas.android.com/apk/res/android".to_string();
-        manifest.package_name = package_name;
-        manifest.version_name = self.manifest.version.clone();
-        manifest.version_code = VersionCode::from_semver(&self.manifest.version)?.to_code(1);
+        manifest.package = package_name;
+        manifest.version_name = Some(self.manifest.version.clone());
+        manifest.version_code = Some(VersionCode::from_semver(&self.manifest.version)?.to_code(1));
 
         manifest.sdk.target_sdk_version = manifest
             .sdk
@@ -67,46 +66,15 @@ impl<'a> ApkBuilder<'a> {
         if manifest.application.label.is_empty() {
             manifest.application.label = artifact.name().to_string();
         }
-        if manifest
-            .features
-            .iter()
-            .all(|f| f.opengles_version.is_none())
-        {
-            manifest.features.push(Feature {
-                name: None,
-                required: Some(true),
-                opengles_version: Some((3, 1)),
-            });
-        }
-        manifest.application.activity.config_changes =
-            Some("orientation|keyboardHidden|screenSize".to_string());
-        manifest.application.activity.name = Some("android.app.NativeActivity".to_string());
-        manifest.application.activity.meta_datas.push(MetaData {
+        let default_meta_data = MetaData {
             name: "android.app.lib_name".to_string(),
             value: artifact.name().replace("-", "_"),
-        });
-        if !manifest
-            .application
-            .activity
-            .intent_filters
-            .iter()
-            .any(|f| {
-                f.actions
-                    .iter()
-                    .any(|action| action == "android.intent.action.MAIN")
-            })
-        {
-            manifest
-                .application
-                .activity
-                .intent_filters
-                .push(IntentFilter {
-                    actions: vec!["android.intent.action.MAIN".to_string()],
-                    categories: Some(vec!["android.intent.category.LAUNCHER".to_string()]),
-                    data: None,
-                });
-        }
-
+        };
+        if let Some(meta_datas) = &mut manifest.application.activity.meta_datas {
+            meta_datas.push(default_meta_data);
+        } else {
+            manifest.application.activity.meta_datas = Some(vec![default_meta_data]);
+        };
         let assets = self.manifest.assets.as_ref().map(|assets| {
             dunce::simplified(
                 &self

@@ -34,6 +34,11 @@ impl ApkConfig {
         std::fs::create_dir_all(&self.build_dir)?;
         self.manifest.write_to(&self.build_dir)?;
 
+        let target_sdk_version = self
+            .manifest
+            .sdk
+            .target_sdk_version
+            .unwrap_or(self.ndk.default_platform());
         let mut aapt = self.build_tool(bin!("aapt"))?;
         aapt.arg("package")
             .arg("-f")
@@ -42,10 +47,7 @@ impl ApkConfig {
             .arg("-M")
             .arg("AndroidManifest.xml")
             .arg("-I")
-            .arg(
-                self.ndk
-                    .android_jar(self.manifest.sdk.target_sdk_version.unwrap())?,
-            );
+            .arg(self.ndk.android_jar(target_sdk_version)?);
 
         if let Some(res) = &self.resources {
             aapt.arg("-S").arg(res);
@@ -137,7 +139,7 @@ impl Apk {
         let ndk = config.ndk.clone();
         Self {
             path: config.apk(),
-            package_name: config.manifest.package_name.clone(),
+            package_name: config.manifest.package.clone(),
             ndk,
         }
     }

@@ -32,7 +32,7 @@ build_targets = [ "armv7-linux-androideabi", "aarch64-linux-android", "i686-linu
 
 # Path to your application's resources folder.
 # If not specified, resources will not be included in the APK.
-resources = "path/to/resource_folder"
+resources = "path/to/resources_folder"
 
 # Path to the folder containing your application's assets.
 # If not specified, assets will not be included in the APK.
@@ -40,7 +40,7 @@ assets = "path/to/assets_folder"
 
 # See https://developer.android.com/guide/topics/manifest/uses-sdk-element
 #
-# Defaults to a `min_sdk_version` of 23 and `target_sdk_version` is based on ndk's default platform.
+# Defaults to a `min_sdk_version` of 23 and `target_sdk_version` is based on the ndk's default platform.
 [package.metadata.android.sdk]
 min_sdk_version = 16
 target_sdk_version = 29
@@ -55,7 +55,7 @@ required = true
 
 # If no `opengles_version` is specified in any feature, belows feature is added as a default 
 # `opengles_version` feature.
-[package.metadata.android.feature]
+[[package.metadata.android.feature]]
 opengles_version = [3, 1]
 required = true
 
@@ -75,17 +75,10 @@ max_sdk_version = 18
 # Defaults to false.
 debuggable = false
 
-# If set to true, makes the app run in full-screen, by adding the following 
-# XML attribute to the manifest's <application> tag :
-#     android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen
+# See https://developer.android.com/guide/topics/manifest/application-element#theme
 #
-# Defaults to false.
-fullscreen = false
-
-# See https://developer.android.com/guide/topics/manifest/application-element#code
-#
-# Defaults to false.
-has_code = false
+# Example shows setting the theme of an application to fullscreen.
+theme = "@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
 
 # Virtual path your application's icon for any mipmap level.
 # If not specified, an icon will not be included in the APK.
@@ -119,7 +112,7 @@ label = "Activity Name"
 
 # See https://developer.android.com/guide/topics/manifest/activity-element#lmode
 #
-# Defaults to "standard.
+# Defaults to "standard".
 launch_mode = "singleTop"
 
 # See https://developer.android.com/guide/topics/manifest/activity-element#screen
