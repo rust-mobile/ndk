@@ -1073,7 +1073,7 @@ impl AAudioStream {
         let value = unsafe { ffi::AAudioStream_getSessionId(self.as_ptr()) };
         match value {
             ffi::AAUDIO_SESSION_ID_NONE => SessionId::None,
-            allocated => SessionId::Allocated(NonZeroI32::new(value).unwrap()),
+            allocated => SessionId::Allocated(NonZeroI32::new(allocated).unwrap()),
         }
     }
 
