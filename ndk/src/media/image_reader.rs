@@ -195,7 +195,7 @@ impl ImageReader {
 
     /// # Safety
     /// If the returned file descriptor is not `None`, it must be awaited before attempting to access the Image returned.
-    /// https://developer.android.com/ndk/reference/group/media#aimagereader_acquirenextimageasync
+    /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirenextimageasync>
     #[cfg(feature = "api-level-26")]
     pub unsafe fn acquire_next_image_async(&self) -> Result<(Image, Option<RawFd>)> {
         let mut fence = MaybeUninit::uninit();
@@ -225,7 +225,7 @@ impl ImageReader {
 
     /// # Safety
     /// If the returned file descriptor is not `None`, it must be awaited before attempting to access the Image returned.
-    /// https://developer.android.com/ndk/reference/group/media#aimagereader_acquirelatestimageasync
+    /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirelatestimageasync>
     #[cfg(feature = "api-level-26")]
     pub fn acquire_latest_image_async(&self) -> Result<(Image, Option<RawFd>)> {
         let mut fence = MaybeUninit::uninit();

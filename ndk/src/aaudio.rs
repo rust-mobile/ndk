@@ -92,7 +92,7 @@ pub enum AAudioFormat {
     /// Values outside that range may be clipped.
     ///
     /// See also 'floatData' at
-    /// https://developer.android.com/reference/android/media/AudioTrack#write(float[],%20int,%20int,%20int)
+    /// <https://developer.android.com/reference/android/media/AudioTrack#write(float[],%20int,%20int,%20int)>
     PCM_Float = ffi::AAUDIO_FORMAT_PCM_FLOAT,
     /// This format uses the i16 data type.
     /// The maximum range of the data is -32768 to 32767.
