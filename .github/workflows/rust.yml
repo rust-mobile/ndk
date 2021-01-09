@@ -98,3 +98,9 @@ jobs:
       run: |
         cargo check -p ndk --target ${{ matrix.rust-target }} --all-features
         cargo apk build -p ndk-examples --target ${{ matrix.rust-target }} --examples
+
+    - name: Check NDK docs for ${{ matrix.rust-target }}
+      env:
+        RUSTDOCFLAGS: -Dwarnings
+      run:
+        cargo doc -p ndk --target ${{ matrix.rust-target }} --all-features
