@@ -96,5 +96,5 @@ jobs:
 
     - name: Check compiling on target ${{ matrix.rust-target }}
       run: |
-        cargo check -p ndk --target ${{ matrix.rust-target }}
+        cargo check -p ndk --target ${{ matrix.rust-target }} --all-features
         cargo apk build -p ndk-examples --target ${{ matrix.rust-target }} --examples
