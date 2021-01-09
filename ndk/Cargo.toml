@@ -22,8 +22,11 @@ trace = ["api-level-23"]
 
 api-level-23 = []
 api-level-24 = ["api-level-23"]
-api-level-26 = ["api-level-24"]
-api-level-29 = ["api-level-26"]
+api-level-25 = ["api-level-24"]
+api-level-26 = ["api-level-25"]
+api-level-27 = ["api-level-26"]
+api-level-28 = ["api-level-27"]
+api-level-29 = ["api-level-28"]
 api-level-30 = ["api-level-29"]
 
 test = ["ffi/test", "jni", "jni-glue", "all"]
