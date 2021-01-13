@@ -1,5 +1,12 @@
 # Unreleased
 
+- **Breaking** Looper `ident` not passed in `data` pointer anymore.
+  `attach_looper` now only sets the `ident` field when attaching an
+  `InputQueue` to a `ForeignLooper`.
+  If you are relying on `Poll::Event::data` to tell event fd and
+  input queue apart, please use `Poll::Event::ident` and the new
+  constants introduced in `ndk-glue`!
+
 # 0.2.1 (2020-10-15)
 
 - Fix documentation build on docs.rs
