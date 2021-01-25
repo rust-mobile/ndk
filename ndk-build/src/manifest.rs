@@ -159,6 +159,12 @@ fn serialize_intents<S>(
 where
     S: Serializer,
 {
+    let main_intent_filter = IntentFilter {
+        actions: vec!["android.intent.action.MAIN".to_string()],
+        categories: Some(vec!["android.intent.category.LAUNCHER".to_string()]),
+        data: None,
+    };
+
     // Check if `intent_filters` contains a `MAIN` action if not, add a default filter.
     match intent_filters {
         Some(filters) => {
@@ -167,16 +173,12 @@ where
                 .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
             {
                 let mut filters = filters.clone();
-                filters.push(IntentFilter {
-                    actions: vec!["android.intent.action.MAIN".to_string()],
-                    categories: Some(vec!["android.intent.category.LAUNCHER".to_string()]),
-                    data: None,
-                });
+                filters.push(main_intent_filter);
                 return serializer.serialize_some(&filters);
             }
             serializer.serialize_some(filters)
         }
-        None => serializer.serialize_none(),
+        None => serializer.serialize_some(&vec![main_intent_filter]),
     }
 }
 
