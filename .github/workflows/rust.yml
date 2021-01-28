@@ -77,27 +77,11 @@ jobs:
       run:
         cargo install --path cargo-apk
 
-    - if: runner.os == 'Windows'
-      name: Create symlink to Android SDK/NDK without spaces
-      run: |
-        $oldAndroidPath = $env:ANDROID_HOME
-        $sdk_root = "C:\Android"
-        New-Item -Path $sdk_root -ItemType SymbolicLink -Value $oldAndroidPath
+    - name: Cargo check for target ${{ matrix.rust-target }}
+      run: cargo check -p ndk --target ${{ matrix.rust-target }} --all-features
 
-        echo "ANDROID_SDK_ROOT=$sdk_root" >> $env:GITHUB_ENV
-        echo "ANDROID_NDK_ROOT=$sdk_root\ndk-bundle" >> $env:GITHUB_ENV
-
-        # Update legacy path for ndk-build:
-        echo "ANDROID_HOME=$sdk_root" >> $env:GITHUB_ENV
-
-        # Unset legacy paths:
-        echo "ANDROID_NDK_HOME=" >> $env:GITHUB_ENV
-        echo "ANDROID_NDK_PATH=" >> $env:GITHUB_ENV
-
-    - name: Check compiling on target ${{ matrix.rust-target }}
-      run: |
-        cargo check -p ndk --target ${{ matrix.rust-target }} --all-features
-        cargo apk build -p ndk-examples --target ${{ matrix.rust-target }} --examples
+    - name: Cargo apk build for target ${{ matrix.rust-target }}
+      run: cargo apk build -p ndk-examples --target ${{ matrix.rust-target }} --examples
 
     - name: Check NDK docs for ${{ matrix.rust-target }}
       env:
