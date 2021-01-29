@@ -32,7 +32,7 @@ api-level-30 = ["api-level-29"]
 test = ["ffi/test", "jni", "jni-glue", "all"]
 
 [dependencies]
-num_enum = "0.4.2"
+num_enum = "0.5.1"
 jni-sys = "0.3.0"
 thiserror = "1.0"
 
