@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.3.0 (2021-01-30)
+
 - **Breaking** Looper `ident` not passed in `data` pointer anymore.
   If you are relying on `Poll::Event::data` to tell event fd and
   input queue apart, please use `Poll::Event::ident` and the new

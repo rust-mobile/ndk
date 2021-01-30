@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.3.0 (2021-01-30)
+
 - **Breaking** Looper `ident` not passed in `data` pointer anymore.
   `attach_looper` now only sets the `ident` field when attaching an
   `InputQueue` to a `ForeignLooper`.
