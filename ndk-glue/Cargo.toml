@@ -19,6 +19,7 @@ lazy_static = "1.4.0"
 libc = "0.2.84"
 log = "0.4.14"
 android_logger = { version = "0.9.2", optional = true }
+crossbeam-queue = "0.3"
 
 [features]
 default = []

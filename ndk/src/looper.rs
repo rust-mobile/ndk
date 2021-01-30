@@ -262,4 +262,16 @@ impl ForeignLooper {
             _ => unreachable!(),
         }
     }
+
+    pub unsafe fn remove_fd(
+        &self,
+        fd: RawFd
+    ) -> Result<bool, LooperError> {
+        match ffi::ALooper_removeFd(self.ptr.as_ptr(), fd) {
+            1 => Ok(true),
+            0 => Ok(false),
+            -1 => Err(LooperError),
+            _ => unreachable!(),
+        }
+    }
 }
