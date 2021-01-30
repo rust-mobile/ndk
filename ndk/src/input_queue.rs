@@ -71,14 +71,14 @@ impl InputQueue {
         }
     }
 
-    pub fn attach_looper(&self, looper: &ForeignLooper, id: u32) {
+    pub fn attach_looper(&self, looper: &ForeignLooper, id: i32) {
         unsafe {
             ffi::AInputQueue_attachLooper(
                 self.ptr.as_ptr(),
                 looper.ptr().as_ptr(),
-                id as _,
+                id,
                 None,
-                id as _,
+                std::ptr::null_mut(),
             );
         }
     }

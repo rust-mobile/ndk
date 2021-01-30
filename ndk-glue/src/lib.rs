@@ -16,6 +16,18 @@ use std::thread;
 
 pub use ndk_macro::main;
 
+/// `ndk-glue` macros register the reading end of an event pipe with the
+/// main [`ThreadLooper`] under this `ident`.
+/// When returned from [`ThreadLooper::poll_*`](ThreadLooper::poll_once)
+/// an event can be retrieved from [`poll_events()`].
+pub const NDK_GLUE_LOOPER_EVENT_PIPE_IDENT: i32 = 0;
+
+/// The [`InputQueue`] received from Android is registered with the main
+/// [`ThreadLooper`] under this `ident`.
+/// When returned from [`ThreadLooper::poll_*`](ThreadLooper::poll_once)
+/// an event can be retrieved from [`input_queue()`].
+pub const NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT: i32 = 1;
+
 pub fn android_log(level: Level, tag: &CStr, msg: &CStr) {
     let prio = match level {
         Level::Error => ndk_sys::android_LogPriority_ANDROID_LOG_ERROR,
@@ -164,7 +176,12 @@ pub unsafe fn init(
         let looper = ThreadLooper::prepare();
         let foreign = looper.into_foreign();
         foreign
-            .add_fd(PIPE[0], 0, ALOOPER_EVENT_INPUT as _, 0 as _)
+            .add_fd(
+                PIPE[0],
+                NDK_GLUE_LOOPER_EVENT_PIPE_IDENT,
+                ALOOPER_EVENT_INPUT as _,
+                std::ptr::null_mut(),
+            )
             .unwrap();
         LOOPER = Some(foreign);
         main()
@@ -253,7 +270,7 @@ unsafe extern "C" fn on_input_queue_created(
 ) {
     let input_queue = InputQueue::from_ptr(NonNull::new(queue).unwrap());
     let looper = LOOPER.as_ref().unwrap();
-    input_queue.attach_looper(looper, 1);
+    input_queue.attach_looper(looper, NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT);
     *INPUT_QUEUE.write().unwrap() = Some(input_queue);
     wake(activity, Event::InputQueueCreated);
 }
