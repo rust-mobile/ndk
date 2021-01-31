@@ -11,8 +11,8 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
-dirs = "2.0.2"
-dunce = "1.0"
-serde = { version = "1.0.104", features = ["derive"] }
-thiserror = "1.0"
-which = "4.0"
+dirs = "3.0.1"
+dunce = "1.0.1"
+serde = { version = "1.0.123", features = ["derive"] }
+thiserror = "1.0.23"
+which = "4.0.2"

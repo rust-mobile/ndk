@@ -32,12 +32,12 @@ api-level-30 = ["api-level-29"]
 test = ["ffi/test", "jni", "jni-glue", "all"]
 
 [dependencies]
-num_enum = "0.5"
+num_enum = "0.5.1"
 jni-sys = "0.3.0"
-thiserror = "1.0"
+thiserror = "1.0.23"
 
 [dependencies.jni]
-version = "0.14.0"
+version = "0.18.0"
 optional = true
 
 [dependencies.jni-glue]
