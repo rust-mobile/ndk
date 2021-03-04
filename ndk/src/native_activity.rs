@@ -112,7 +112,7 @@ impl NativeActivity {
     /// The `android.app.NativeActivity` instance
     ///
     /// In the JNI, this is named `clazz`; however, as the docs say, "it should really be named
-    /// 'activity' instead of 'clazz', since it's a reference to the NativeActivity instance.
+    /// 'activity' instead of 'clazz', since it's a reference to the NativeActivity instance".
     pub fn activity(&self) -> jni_sys::jobject {
         unsafe { self.ptr.as_ref().clazz as jni_sys::jobject }
     }
