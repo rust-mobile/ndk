@@ -8,7 +8,7 @@ publish = false
 [target.'cfg(target_os = "android")'.dependencies]
 ndk-glue = { path = "../ndk-glue" }
 ndk = { path = "../ndk", features = ["trace"] }
-jni = "0.17"
+jni = "0.18.0"
 
 [[example]]
 name = "hello_world"

@@ -4,8 +4,8 @@ use std::process::Command;
 
 fn main() -> anyhow::Result<()> {
     env_logger::init();
-
-    let cmd = Subcommand::new("apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
+    let args = std::env::args();
+    let cmd = Subcommand::new(args, "apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
     let builder = ApkBuilder::from_subcommand(&cmd)?;
 
     match cmd.cmd() {

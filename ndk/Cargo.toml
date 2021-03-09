@@ -1,6 +1,6 @@
 [package]
 name = "ndk"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Safe Rust bindings to the Android NDK"
@@ -22,19 +22,22 @@ trace = ["api-level-23"]
 
 api-level-23 = []
 api-level-24 = ["api-level-23"]
-api-level-26 = ["api-level-24"]
-api-level-29 = ["api-level-26"]
+api-level-25 = ["api-level-24"]
+api-level-26 = ["api-level-25"]
+api-level-27 = ["api-level-26"]
+api-level-28 = ["api-level-27"]
+api-level-29 = ["api-level-28"]
 api-level-30 = ["api-level-29"]
 
 test = ["ffi/test", "jni", "jni-glue", "all"]
 
 [dependencies]
-num_enum = "0.4.2"
+num_enum = "0.5.1"
 jni-sys = "0.3.0"
-thiserror = "1.0"
+thiserror = "1.0.23"
 
 [dependencies.jni]
-version = "0.14.0"
+version = "0.18.0"
 optional = true
 
 [dependencies.jni-glue]
