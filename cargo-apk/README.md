@@ -47,25 +47,19 @@ target_sdk_version = 29
 max_sdk_version = 29
 
 # See https://developer.android.com/guide/topics/manifest/uses-feature-element
-# 
-# Note: there can be multiple .feature entries.
-[[package.metadata.android.feature]]
+#
+# Note: there can be multiple .uses_feature entries.
+[[package.metadata.android.uses_feature]]
 name = "android.hardware.vulkan.level"
 required = true
-
-# If no `opengles_version` is specified in any feature, belows feature is added as a default 
-# `opengles_version` feature.
-[[package.metadata.android.feature]]
-opengles_version = [3, 1]
-required = true
+version = 1
 
 # See https://developer.android.com/guide/topics/manifest/uses-permission-element
 #
-# Note: there can be multiple .permission entries.
-[[package.metadata.android.permission]]
+# Note: there can be multiple .uses_permission entries.
+[[package.metadata.android.uses_permission]]
 name = "android.permission.WRITE_EXTERNAL_STORAGE"
 max_sdk_version = 18
-
 
 # See https://developer.android.com/guide/topics/manifest/application-element
 [package.metadata.android.application]
@@ -91,9 +85,9 @@ label = "Application Name"
 
 # See https://developer.android.com/guide/topics/manifest/meta-data-element
 #
-# Note: there can be several .metadata entries.
+# Note: there can be several .meta_data entries.
 # Note: the `resource` attribute is currently not supported.
-[[package.metadata.android.application.metadata]]
+[[package.metadata.android.application.meta_data]]
 name = "com.samsung.android.vr.application.mode"
 value = "vr_only"
 
@@ -122,9 +116,9 @@ orientation = "landscape"
 
 # See https://developer.android.com/guide/topics/manifest/meta-data-element
 #
-# Note: there can be several .metadata entries.
+# Note: there can be several .meta_data entries.
 # Note: the `resource` attribute is currently not supported.
-[[package.metadata.android.application.activity.metadata]]
+[[package.metadata.android.application.activity.meta_data]]
 name = "com.oculus.vr.focusaware"
 value = "true"
 

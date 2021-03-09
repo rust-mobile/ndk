@@ -8,7 +8,7 @@ use std::{fs::File, io::Write, path::Path};
 pub struct AndroidManifest {
     #[serde(rename(serialize = "xmlns:android"))]
     #[serde(default = "default_namespace")]
-    pub android: String,
+    ns_android: String,
     #[serde(rename(serialize = "package"))]
     #[serde(default)]
     pub package: String,
@@ -20,12 +20,13 @@ pub struct AndroidManifest {
     #[serde(rename(serialize = "uses-sdk"))]
     #[serde(default)]
     pub sdk: Sdk,
-    /// If no `opengles_version` exists in any feature, a default one of 3.1 is serialized.
-    #[serde(serialize_with = "serialize_features")]
-    #[serde(rename(serialize = "uses-feature", deserialize = "feature"))]
-    pub features: Option<Vec<Feature>>,
-    #[serde(rename(serialize = "uses-permission", deserialize = "permission"))]
-    pub permissions: Option<Vec<Permission>>,
+
+    #[serde(rename(serialize = "uses-feature"))]
+    #[serde(default)]
+    pub uses_feature: Vec<Feature>,
+    #[serde(rename(serialize = "uses-permission"))]
+    #[serde(default)]
+    pub uses_permission: Vec<Permission>,
 
     #[serde(default)]
     pub application: Application,
@@ -34,37 +35,15 @@ pub struct AndroidManifest {
 impl Default for AndroidManifest {
     fn default() -> Self {
         Self {
-            android: default_namespace(),
+            ns_android: default_namespace(),
             package: Default::default(),
-            version_code: None,
-            version_name: None,
+            version_code: Default::default(),
+            version_name: Default::default(),
             sdk: Default::default(),
-            features: None,
-            permissions: None,
+            uses_feature: Default::default(),
+            uses_permission: Default::default(),
             application: Default::default(),
         }
-    }
-}
-
-fn serialize_features<S>(features: &Option<Vec<Feature>>, serializer: S) -> Result<S::Ok, S::Error>
-where
-    S: Serializer,
-{
-    // Check if features contains an `opengles_version` if not, add a default feature.
-    match features {
-        Some(features) => {
-            if features.iter().all(|f| f.opengles_version.is_none()) {
-                let mut f = features.clone();
-                f.push(Feature {
-                    name: None,
-                    required: Some(true),
-                    opengles_version: Some((3, 1)),
-                });
-                return serializer.serialize_some(&f);
-            }
-            serializer.serialize_some(features)
-        }
-        None => serializer.serialize_none(),
     }
 }
 
@@ -79,39 +58,26 @@ impl AndroidManifest {
 }
 
 /// See https://developer.android.com/guide/topics/manifest/application-element
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Application {
     #[serde(rename(serialize = "android:debuggable"))]
     pub debuggable: Option<bool>,
     #[serde(rename(serialize = "android:theme"))]
     pub theme: Option<String>,
     #[serde(rename(serialize = "android:hasCode"))]
-    #[serde(default = "default_has_code")]
-    pub has_code: Option<bool>,
+    #[serde(default)]
+    pub has_code: bool,
     #[serde(rename(serialize = "android:icon"))]
     pub icon: Option<String>,
     #[serde(rename(serialize = "android:label"))]
     #[serde(default)]
     pub label: String,
 
-    #[serde(rename(serialize = "meta-data", deserialize = "metadata"))]
-    pub meta_datas: Option<Vec<MetaData>>,
+    #[serde(rename(serialize = "meta-data"))]
+    #[serde(default)]
+    pub meta_data: Vec<MetaData>,
     #[serde(default)]
     pub activity: Activity,
-}
-
-impl Default for Application {
-    fn default() -> Self {
-        Self {
-            debuggable: None,
-            theme: None,
-            has_code: default_has_code(),
-            icon: None,
-            label: Default::default(),
-            meta_datas: None,
-            activity: Default::default(),
-        }
-    }
 }
 
 /// See https://developer.android.com/guide/topics/manifest/activity-element
@@ -126,16 +92,18 @@ pub struct Activity {
     pub launch_mode: Option<String>,
     #[serde(rename(serialize = "android:name"))]
     #[serde(default = "default_activity_name")]
-    pub name: Option<String>,
+    pub name: String,
     #[serde(rename(serialize = "android:screenOrientation"))]
     pub orientation: Option<String>,
 
-    #[serde(rename(serialize = "meta-data", deserialize = "metadata"))]
-    pub meta_datas: Option<Vec<MetaData>>,
+    #[serde(rename(serialize = "meta-data"))]
+    #[serde(default)]
+    pub meta_data: Vec<MetaData>,
     /// If no `MAIN` action exists in any intent filter, a default `MAIN` filter is serialized.
     #[serde(serialize_with = "serialize_intents")]
-    #[serde(rename(serialize = "intent-filter", deserialize = "intent_filter"))]
-    pub intent_filters: Option<Vec<IntentFilter>>,
+    #[serde(rename(serialize = "intent-filter"))]
+    #[serde(default)]
+    pub intent_filter: Vec<IntentFilter>,
 }
 
 impl Default for Activity {
@@ -146,54 +114,55 @@ impl Default for Activity {
             launch_mode: None,
             name: default_activity_name(),
             orientation: None,
-            meta_datas: None,
-            intent_filters: None,
+            meta_data: Default::default(),
+            intent_filter: Default::default(),
         }
     }
 }
 
 fn serialize_intents<S>(
-    intent_filters: &Option<Vec<IntentFilter>>,
+    intent_filters: &Vec<IntentFilter>,
     serializer: S,
 ) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
-    let main_intent_filter = IntentFilter {
-        actions: vec!["android.intent.action.MAIN".to_string()],
-        categories: Some(vec!["android.intent.category.LAUNCHER".to_string()]),
-        data: None,
-    };
+    use serde::ser::SerializeSeq;
 
-    // Check if `intent_filters` contains a `MAIN` action if not, add a default filter.
-    match intent_filters {
-        Some(filters) => {
-            if filters
-                .iter()
-                .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
-            {
-                let mut filters = filters.clone();
-                filters.push(main_intent_filter);
-                return serializer.serialize_some(&filters);
-            }
-            serializer.serialize_some(filters)
-        }
-        None => serializer.serialize_some(&vec![main_intent_filter]),
+    let mut seq = serializer.serialize_seq(None)?;
+    for intent_filter in intent_filters {
+        seq.serialize_element(intent_filter)?;
     }
+
+    // Check if `intent_filters` contains a `MAIN` action. If not, add a default filter.
+    if intent_filters
+        .iter()
+        .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
+    {
+        seq.serialize_element(&IntentFilter {
+            actions: vec!["android.intent.action.MAIN".to_string()],
+            categories: vec!["android.intent.category.LAUNCHER".to_string()],
+            data: Vec::new(),
+        })?;
+    }
+    seq.end()
 }
 
 /// See https://developer.android.com/guide/topics/manifest/intent-filter-element
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IntentFilter {
-    /// Serialize as struct for proper xml formatting
+    /// Serialize rapped in `<action android:name="..." />`
     #[serde(serialize_with = "serialize_actions")]
     #[serde(rename(serialize = "action"))]
+    #[serde(default)]
     pub actions: Vec<String>,
     /// Serialize as vector of structs for proper xml formatting
     #[serde(serialize_with = "serialize_catergories")]
     #[serde(rename(serialize = "category"))]
-    pub categories: Option<Vec<String>>,
-    pub data: Option<Vec<IntentFilterData>>,
+    #[serde(default)]
+    pub categories: Vec<String>,
+    #[serde(default)]
+    pub data: Vec<IntentFilterData>,
 }
 
 fn serialize_actions<S>(actions: &Vec<String>, serializer: S) -> Result<S::Ok, S::Error>
@@ -216,30 +185,30 @@ where
     seq.end()
 }
 
-fn serialize_catergories<S>(
-    categories: &Option<Vec<String>>,
-    serializer: S,
-) -> Result<S::Ok, S::Error>
+fn serialize_catergories<S>(categories: &Vec<String>, serializer: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
-    match categories {
-        Some(categories) => {
-            #[derive(Serialize)]
-            struct Category {
-                #[serde(rename = "android:name")]
-                pub name: String,
-            }
-            let mut c = Vec::new();
-            for category in categories {
-                c.push(Category {
-                    name: category.clone(),
-                });
-            }
-            serializer.serialize_some(&c)
-        }
-        None => serializer.serialize_none(),
+    use serde::ser::SerializeSeq;
+
+    #[derive(Serialize)]
+    struct Category {
+        #[serde(rename = "android:name")]
+        pub name: String,
     }
+
+    let mut c = Vec::new();
+    for category in categories {
+        c.push(Category {
+            name: category.clone(),
+        });
+    }
+
+    let mut seq = serializer.serialize_seq(Some(c.len()))?;
+    for category in &c {
+        seq.serialize_element(category)?;
+    }
+    seq.end()
 }
 
 /// See https://developer.android.com/guide/topics/manifest/data-element
@@ -277,6 +246,11 @@ pub struct Feature {
     pub name: Option<String>,
     #[serde(rename(serialize = "android:required"))]
     pub required: Option<bool>,
+    /// When `name` is FEATURE_VULKAN_HARDWARE_COMPUTE, see: https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_COMPUTE
+    /// When `name` is FEATURE_VULKAN_HARDWARE_LEVEL, see: https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL
+    /// When `name` is FEATURE_VULKAN_HARDWARE_VERSION, see: https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION
+    #[serde(rename(serialize = "android:version"))]
+    pub version: Option<u32>,
     #[serde(rename(serialize = "android:glEsVersion"))]
     #[serde(serialize_with = "serialize_opengles_version")]
     pub opengles_version: Option<(u8, u8)>,
@@ -332,12 +306,8 @@ fn default_namespace() -> String {
     "http://schemas.android.com/apk/res/android".to_string()
 }
 
-fn default_has_code() -> Option<bool> {
-    Some(false)
-}
-
-fn default_activity_name() -> Option<String> {
-    Some("android.app.NativeActivity".to_string())
+fn default_activity_name() -> String {
+    "android.app.NativeActivity".to_string()
 }
 
 fn default_config_changes() -> Option<String> {

@@ -50,19 +50,33 @@ impl<'a> ApkBuilder<'a> {
 
         // Set default Android manifest values
         let mut manifest = self.manifest.android_manifest.clone();
-        manifest.package = package_name;
-        manifest.version_name = Some(self.manifest.version.clone());
-        manifest.version_code = Some(VersionCode::from_semver(&self.manifest.version)?.to_code(1));
 
-        manifest.sdk.target_sdk_version = manifest
+        assert!(manifest.package.is_empty());
+        manifest.package = package_name;
+        if manifest
+            .version_name
+            .replace(self.manifest.version.clone())
+            .is_some()
+        {
+            panic!("version_name should not be set in TOML");
+        }
+
+        if manifest
+            .version_code
+            .replace(VersionCode::from_semver(&self.manifest.version)?.to_code(1))
+            .is_some()
+        {
+            panic!("version_code should not be set in TOML");
+        }
+
+        manifest
             .sdk
             .target_sdk_version
-            .or(Some(self.ndk.default_platform()));
-        manifest.application.debuggable = manifest
+            .get_or_insert(self.ndk.default_platform());
+        manifest
             .application
             .debuggable
-            .or(Some(*self.cmd.profile() == Profile::Dev));
-        manifest.application.has_code = Some(false);
+            .get_or_insert(*self.cmd.profile() == Profile::Dev);
         if manifest.application.label.is_empty() {
             manifest.application.label = artifact.name().to_string();
         }
@@ -70,11 +84,12 @@ impl<'a> ApkBuilder<'a> {
             name: "android.app.lib_name".to_string(),
             value: artifact.name().replace("-", "_"),
         };
-        if let Some(meta_datas) = &mut manifest.application.activity.meta_datas {
-            meta_datas.push(default_meta_data);
-        } else {
-            manifest.application.activity.meta_datas = Some(vec![default_meta_data]);
-        };
+        manifest
+            .application
+            .activity
+            .meta_data
+            .push(default_meta_data);
+
         let assets = self.manifest.assets.as_ref().map(|assets| {
             dunce::simplified(
                 &self

@@ -25,7 +25,7 @@ impl Manifest {
         Ok(Self {
             version: toml.package.version,
             android_manifest: metadata.android_manifest,
-            build_targets: metadata.build_targets.unwrap_or_default(),
+            build_targets: metadata.build_targets,
             assets: metadata.assets,
             resources: metadata.resources,
         })
@@ -52,7 +52,8 @@ struct PackageMetadata {
 struct AndroidMetadata {
     #[serde(flatten)]
     android_manifest: AndroidManifest,
-    build_targets: Option<Vec<Target>>,
+    #[serde(default)]
+    build_targets: Vec<Target>,
     assets: Option<String>,
     resources: Option<String>,
 }
