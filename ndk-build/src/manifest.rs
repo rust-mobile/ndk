@@ -50,9 +50,7 @@ impl Default for AndroidManifest {
 impl AndroidManifest {
     pub fn write_to(&self, dir: &Path) -> Result<(), NdkError> {
         let mut file = File::create(dir.join("AndroidManifest.xml"))?;
-        let serialized = quick_xml::se::to_string(&self).unwrap();
-        writeln!(file, r#"<?xml version="1.0" encoding="utf-8"?>"#)?;
-        writeln!(file, "{}", serialized)?;
+        quick_xml::se::to_writer(file, &self)?;
         Ok(())
     }
 }
