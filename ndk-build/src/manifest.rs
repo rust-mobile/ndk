@@ -242,12 +242,12 @@ pub struct Feature {
     /// The `version` field is used for Vulkan specific hardware features. `version`
     /// indicates different requirements based on the `name` field as desribed below:
     ///
-    /// - name: "android.hardware.vulkan.compute", `version` indicates which level of 
+    /// - name: "android.hardware.vulkan.compute", `version` indicates which level of
     /// optional compute features the app requires beyond the Vulkan 1.0 requirements.
     ///
     /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_COMPUTE>
     ///
-    /// - name "android.hardware.vulkan.level", `version` indicates which level of 
+    /// - name "android.hardware.vulkan.level", `version` indicates which level of
     /// optional hardware features the app requires.
     ///
     /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL>
