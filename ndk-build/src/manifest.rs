@@ -1,6 +1,6 @@
 use crate::error::NdkError;
 use serde::{Deserialize, Serialize, Serializer};
-use std::{fs::File, io::Write, path::Path};
+use std::{fs::File, path::Path};
 
 /// See https://developer.android.com/guide/topics/manifest/manifest-element
 #[serde(rename = "manifest")]
@@ -49,7 +49,7 @@ impl Default for AndroidManifest {
 
 impl AndroidManifest {
     pub fn write_to(&self, dir: &Path) -> Result<(), NdkError> {
-        let mut file = File::create(dir.join("AndroidManifest.xml"))?;
+        let file = File::create(dir.join("AndroidManifest.xml"))?;
         quick_xml::se::to_writer(file, &self)?;
         Ok(())
     }
@@ -149,7 +149,7 @@ where
 /// See https://developer.android.com/guide/topics/manifest/intent-filter-element
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IntentFilter {
-    /// Serialize rapped in `<action android:name="..." />`
+    /// Serialize strings wrapped in `<action android:name="..." />`
     #[serde(serialize_with = "serialize_actions")]
     #[serde(rename(serialize = "action"))]
     #[serde(default)]
@@ -195,16 +195,11 @@ where
         pub name: String,
     }
 
-    let mut c = Vec::new();
+    let mut seq = serializer.serialize_seq(Some(categories.len()))?;
     for category in categories {
-        c.push(Category {
+        seq.serialize_element(&Category {
             name: category.clone(),
-        });
-    }
-
-    let mut seq = serializer.serialize_seq(Some(c.len()))?;
-    for category in &c {
-        seq.serialize_element(category)?;
+        })?;
     }
     seq.end()
 }
@@ -244,9 +239,23 @@ pub struct Feature {
     pub name: Option<String>,
     #[serde(rename(serialize = "android:required"))]
     pub required: Option<bool>,
-    /// When `name` is FEATURE_VULKAN_HARDWARE_COMPUTE, see: https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_COMPUTE
-    /// When `name` is FEATURE_VULKAN_HARDWARE_LEVEL, see: https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL
-    /// When `name` is FEATURE_VULKAN_HARDWARE_VERSION, see: https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION
+    /// The `version` field is used for Vulkan specific hardware features. `version`
+    /// indicates different requirements based on the `name` field as desribed below:
+    ///
+    /// - name: "android.hardware.vulkan.compute", `version` indicates which level of 
+    /// optional compute features the app requires beyond the Vulkan 1.0 requirements.
+    ///
+    /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_COMPUTE>
+    ///
+    /// - name "android.hardware.vulkan.level", `version` indicates which level of 
+    /// optional hardware features the app requires.
+    ///
+    /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL>
+    ///
+    /// - name "android.hardware.vulkan.compute", `version` indicates the minimum version
+    /// of Vulkan API support the app requires.
+    ///
+    /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION>
     #[serde(rename(serialize = "android:version"))]
     pub version: Option<u32>,
     #[serde(rename(serialize = "android:glEsVersion"))]
