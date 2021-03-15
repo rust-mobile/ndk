@@ -73,6 +73,13 @@ jobs:
       run:
         cargo test -p cargo-apk --all-features
 
+    - if: runner.os != 'Windows'
+      name: Document all crates
+      env:
+        RUSTDOCFLAGS: -Dwarnings
+      run:
+        cargo doc --all --all-features
+
     - name: Install cargo-apk
       run:
         cargo install --path cargo-apk
