@@ -2,7 +2,7 @@ use crate::error::NdkError;
 use serde::{Deserialize, Serialize, Serializer};
 use std::{fs::File, path::Path};
 
-/// See https://developer.android.com/guide/topics/manifest/manifest-element
+/// Android [manifest element](https://developer.android.com/guide/topics/manifest/manifest-element), containing an [`Application`] element.
 #[serde(rename = "manifest")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct AndroidManifest {
@@ -55,7 +55,7 @@ impl AndroidManifest {
     }
 }
 
-/// See https://developer.android.com/guide/topics/manifest/application-element
+/// Android [application element](https://developer.android.com/guide/topics/manifest/application-element), containing an [`Activity`] element.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Application {
     #[serde(rename(serialize = "android:debuggable"))]
@@ -78,7 +78,7 @@ pub struct Application {
     pub activity: Activity,
 }
 
-/// See https://developer.android.com/guide/topics/manifest/activity-element
+/// Android [activity element](https://developer.android.com/guide/topics/manifest/activity-element).
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Activity {
     #[serde(rename(serialize = "android:configChanges"))]
@@ -140,13 +140,13 @@ where
         seq.serialize_element(&IntentFilter {
             actions: vec!["android.intent.action.MAIN".to_string()],
             categories: vec!["android.intent.category.LAUNCHER".to_string()],
-            data: Vec::new(),
+            data: vec![],
         })?;
     }
     seq.end()
 }
 
-/// See https://developer.android.com/guide/topics/manifest/intent-filter-element
+/// Android [intent filter element](https://developer.android.com/guide/topics/manifest/intent-filter-element).
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IntentFilter {
     /// Serialize strings wrapped in `<action android:name="..." />`
@@ -204,7 +204,7 @@ where
     seq.end()
 }
 
-/// See https://developer.android.com/guide/topics/manifest/data-element
+/// Android [intent filter data element](https://developer.android.com/guide/topics/manifest/data-element).
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IntentFilterData {
     #[serde(rename(serialize = "android:scheme"))]
@@ -223,7 +223,7 @@ pub struct IntentFilterData {
     pub mime_type: Option<String>,
 }
 
-/// See https://developer.android.com/guide/topics/manifest/meta-data-element
+/// Android [meta-data element](https://developer.android.com/guide/topics/manifest/meta-data-element).
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct MetaData {
     #[serde(rename(serialize = "android:name"))]
@@ -232,30 +232,23 @@ pub struct MetaData {
     pub value: String,
 }
 
-/// https://developer.android.com/guide/topics/manifest/uses-feature-element
+/// Android [uses-feature element](https://developer.android.com/guide/topics/manifest/uses-feature-element).
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Feature {
     #[serde(rename(serialize = "android:name"))]
     pub name: Option<String>,
     #[serde(rename(serialize = "android:required"))]
     pub required: Option<bool>,
-    /// The `version` field is used for Vulkan specific hardware features. `version`
-    /// indicates different requirements based on the `name` field as desribed below:
+    /// The `version` field is currently used for the following features:
     ///
-    /// - name: "android.hardware.vulkan.compute", `version` indicates which level of
-    /// optional compute features the app requires beyond the Vulkan 1.0 requirements.
+    /// - `name="android.hardware.vulkan.compute"`: The minimum level of compute features required. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_COMPUTE)
+    ///   for available levels and the respective Vulkan features required/provided.
     ///
-    /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_COMPUTE>
+    /// - `name="android.hardware.vulkan.level"`: The minimum Vulkan requirements. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL)
+    ///   for available levels and the respective Vulkan features required/provided.
     ///
-    /// - name "android.hardware.vulkan.level", `version` indicates which level of
-    /// optional hardware features the app requires.
-    ///
-    /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL>
-    ///
-    /// - name "android.hardware.vulkan.compute", `version` indicates the minimum version
-    /// of Vulkan API support the app requires.
-    ///
-    /// More detail: <https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION>
+    /// - `name="android.hardware.vulkan.version"`: The minimum version of the Vulkan API required. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION)
+    ///    for available levels and the respective Vulkan features required/provided.
     #[serde(rename(serialize = "android:version"))]
     pub version: Option<u32>,
     #[serde(rename(serialize = "android:glEsVersion"))]
@@ -279,7 +272,7 @@ where
     }
 }
 
-/// See https://developer.android.com/guide/topics/manifest/uses-permission-element
+/// Android [uses-permission element](https://developer.android.com/guide/topics/manifest/uses-permission-element).
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Permission {
     #[serde(rename(serialize = "android:name"))]
@@ -288,7 +281,7 @@ pub struct Permission {
     pub max_sdk_version: Option<u32>,
 }
 
-/// https://developer.android.com/guide/topics/manifest/uses-sdk-element
+/// Android [uses-sdk element](https://developer.android.com/guide/topics/manifest/uses-sdk-element).
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Sdk {
     #[serde(rename(serialize = "android:minSdkVersion"))]
