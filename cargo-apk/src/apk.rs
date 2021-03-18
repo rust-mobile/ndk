@@ -22,7 +22,7 @@ pub struct ApkBuilder<'a> {
 impl<'a> ApkBuilder<'a> {
     pub fn from_subcommand(cmd: &'a Subcommand) -> Result<Self, Error> {
         let ndk = Ndk::from_env()?;
-        let manifest = Manifest::parse_from_toml(cmd.manifest())?;
+        let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
         let build_targets = if let Some(target) = cmd.target() {
             vec![Target::from_rust_triple(target)?]
         } else if !manifest.build_targets.is_empty() {
@@ -33,6 +33,50 @@ impl<'a> ApkBuilder<'a> {
         let build_dir = dunce::simplified(cmd.target_dir())
             .join(cmd.profile())
             .join("apk");
+
+        // Set default Android manifest values
+        assert!(manifest.android_manifest.package.is_empty());
+
+        if manifest
+            .android_manifest
+            .version_name
+            .replace(manifest.version.clone())
+            .is_some()
+        {
+            panic!("version_name should not be set in TOML");
+        }
+
+        if manifest
+            .android_manifest
+            .version_code
+            .replace(VersionCode::from_semver(&manifest.version)?.to_code(1))
+            .is_some()
+        {
+            panic!("version_code should not be set in TOML");
+        }
+
+        manifest
+            .android_manifest
+            .sdk
+            .target_sdk_version
+            .get_or_insert(ndk.default_platform());
+
+        manifest
+            .android_manifest
+            .application
+            .debuggable
+            .get_or_insert(*cmd.profile() == Profile::Dev);
+
+        manifest
+            .android_manifest
+            .application
+            .activity
+            .meta_data
+            .push(MetaData {
+                name: "android.app.lib_name".to_string(),
+                value: cmd.artifacts()[0].name().replace("-", "_"),
+            });
+
         Ok(Self {
             cmd,
             ndk,
@@ -48,47 +92,12 @@ impl<'a> ApkBuilder<'a> {
             Artifact::Example(name) => format!("rust.example.{}", name.replace("-", "_")),
         };
 
-        // Set default Android manifest values
+        // Set artifact specific manifest default values.
         let mut manifest = self.manifest.android_manifest.clone();
-
-        assert!(manifest.package.is_empty());
         manifest.package = package_name;
-        if manifest
-            .version_name
-            .replace(self.manifest.version.clone())
-            .is_some()
-        {
-            panic!("version_name should not be set in TOML");
-        }
-
-        if manifest
-            .version_code
-            .replace(VersionCode::from_semver(&self.manifest.version)?.to_code(1))
-            .is_some()
-        {
-            panic!("version_code should not be set in TOML");
-        }
-
-        manifest
-            .sdk
-            .target_sdk_version
-            .get_or_insert(self.ndk.default_platform());
-        manifest
-            .application
-            .debuggable
-            .get_or_insert(*self.cmd.profile() == Profile::Dev);
         if manifest.application.label.is_empty() {
             manifest.application.label = artifact.name().to_string();
         }
-        let default_meta_data = MetaData {
-            name: "android.app.lib_name".to_string(),
-            value: artifact.name().replace("-", "_"),
-        };
-        manifest
-            .application
-            .activity
-            .meta_data
-            .push(default_meta_data);
 
         let assets = self.manifest.assets.as_ref().map(|assets| {
             dunce::simplified(

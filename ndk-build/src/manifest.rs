@@ -247,7 +247,7 @@ pub struct Feature {
     /// - `name="android.hardware.vulkan.level"`: The minimum Vulkan requirements. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL)
     ///   for available levels and the respective Vulkan features required/provided.
     ///
-    /// - `name="android.hardware.vulkan.version"`: The minimum version of the Vulkan API required. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION)
+    /// - `name="android.hardware.vulkan.version"`: Represents the value of Vulkan's `VkPhysicalDeviceProperties::apiVersion`. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION)
     ///    for available levels and the respective Vulkan features required/provided.
     #[serde(rename(serialize = "android:version"))]
     pub version: Option<u32>,
