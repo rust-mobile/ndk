@@ -11,7 +11,7 @@ use std::io::{BufRead, BufReader};
 use std::os::raw;
 use std::os::unix::prelude::*;
 use std::ptr::NonNull;
-use std::sync::{RwLock, RwLockReadGuard};
+use std::sync::{Arc, Condvar, Mutex, RwLock, RwLockReadGuard};
 use std::thread;
 
 pub use ndk_macro::main;
@@ -45,10 +45,10 @@ lazy_static! {
     static ref NATIVE_WINDOW: RwLock<Option<NativeWindow>> = Default::default();
     static ref INPUT_QUEUE: RwLock<Option<InputQueue>> = Default::default();
     static ref CONTENT_RECT: RwLock<Rect> = Default::default();
+    static ref LOOPER: Mutex<Option<ForeignLooper>> = Default::default();
 }
 
 static mut NATIVE_ACTIVITY: Option<NativeActivity> = None;
-static mut LOOPER: Option<ForeignLooper> = None;
 
 pub fn native_activity() -> &'static NativeActivity {
     unsafe { NATIVE_ACTIVITY.as_ref().unwrap() }
@@ -172,6 +172,9 @@ pub unsafe fn init(
         }
     });
 
+    let looper_ready = Arc::new(Condvar::new());
+    let signal_looper_ready = looper_ready.clone();
+
     thread::spawn(move || {
         let looper = ThreadLooper::prepare();
         let foreign = looper.into_foreign();
@@ -183,9 +186,24 @@ pub unsafe fn init(
                 std::ptr::null_mut(),
             )
             .unwrap();
-        LOOPER = Some(foreign);
+
+        {
+            let mut locked_looper = LOOPER.lock().unwrap();
+            *locked_looper = Some(foreign);
+            signal_looper_ready.notify_one();
+        }
+
         main()
     });
+
+    // Don't return from this function (`ANativeActivity_onCreate`) until the thread
+    // has created its `ThreadLooper` and assigned it to the static `LOOPER`
+    // variable. It will be used from `on_input_queue_created` as soon as this
+    // function returns.
+    let locked_looper = LOOPER.lock().unwrap();
+    let _mutex_guard = looper_ready
+        .wait_while(locked_looper, |looper| looper.is_none())
+        .unwrap();
 }
 
 unsafe extern "C" fn on_start(activity: *mut ANativeActivity) {
@@ -269,7 +287,10 @@ unsafe extern "C" fn on_input_queue_created(
     queue: *mut AInputQueue,
 ) {
     let input_queue = InputQueue::from_ptr(NonNull::new(queue).unwrap());
-    let looper = LOOPER.as_ref().unwrap();
+    let locked_looper = LOOPER.lock().unwrap();
+    // The looper should always be `Some` after `fn init()` returns, unless
+    // future code cleans it up and sets it back to `None` again.
+    let looper = locked_looper.as_ref().expect("Looper does not exist");
     input_queue.attach_looper(looper, NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT);
     *INPUT_QUEUE.write().unwrap() = Some(input_queue);
     wake(activity, Event::InputQueueCreated);
