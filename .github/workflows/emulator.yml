@@ -1,0 +1,25 @@
+name: Android Emulator
+
+on: [push, pull_request]
+
+jobs:
+  android_emulator:
+      runs-on: macos-10.15
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          arch: x86_64
+          # the `googleapis` emulator target is considerably slower on CI.
+          target: default
+          profile: Nexus 5X
+          script: bash ./.github/workflows/android_test.sh
+      - uses: actions/upload-artifact@master
+        if: ${{ always() }}
+        with:
+          name: log
+          path: |
+            ~/logcat.log
