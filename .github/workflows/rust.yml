@@ -64,7 +64,7 @@ jobs:
         rust-channel: ['stable', 'nightly']
 
     runs-on: ${{ matrix.os }}
-    name: Host-side tests and docs
+    name: Host-side tests
 
     steps:
     - uses: actions/checkout@v2
@@ -98,6 +98,25 @@ jobs:
     - name: Test cargo-apk
       run:
         cargo test -p cargo-apk --all-features
+
+  docs:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:  [ubuntu-latest]
+        rust-channel: ['stable', 'nightly']
+
+    runs-on: ${{ matrix.os }}
+    name: Build-test docs
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Installing Rust ${{ matrix.rust-channel }}
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: ${{ matrix.rust-channel }}
+        override: true
 
     - name: Document all crates
       env:
