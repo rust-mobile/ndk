@@ -3,8 +3,8 @@ use serde::{Deserialize, Serialize, Serializer};
 use std::{fs::File, path::Path};
 
 /// Android [manifest element](https://developer.android.com/guide/topics/manifest/manifest-element), containing an [`Application`] element.
-#[serde(rename = "manifest")]
 #[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename = "manifest")]
 pub struct AndroidManifest {
     #[serde(rename(serialize = "xmlns:android"))]
     #[serde(default = "default_namespace")]
@@ -172,7 +172,7 @@ where
     struct Action {
         #[serde(rename = "android:name")]
         name: String,
-    };
+    }
     let mut seq = serializer.serialize_seq(Some(actions.len()))?;
     for action in actions {
         seq.serialize_element(&Action {
