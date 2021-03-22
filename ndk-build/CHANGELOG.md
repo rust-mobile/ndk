@@ -1,7 +1,7 @@
 # Unreleased
 
-- Breaking, refactored `Manifest` into a proper (de)serialization struct. `Manifest` now closely matches [`an android manifest file`](https://developer.android.com/guide/topics/manifest/manifest-element).
-- Breaking, removed `Config` in favor of using the new `Manifest` struct directly. Instead of using `Config::from_config` to create a `Manifest`, now you instantiate `Manifest` directly using, almost all, the same values.
+- **Breaking:** refactored `Manifest` into a proper (de)serialization struct. `Manifest` now closely matches [`an android manifest file`](https://developer.android.com/guide/topics/manifest/manifest-element).
+- **Breaking:** removed `Config` in favor of using the new `Manifest` struct directly. Instead of using `Config::from_config` to create a `Manifest`, now you instantiate `Manifest` directly using, almost all, the same values.
 
 # 0.1.4 (2020-11-25)
 

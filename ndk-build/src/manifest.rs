@@ -9,7 +9,6 @@ pub struct AndroidManifest {
     #[serde(rename(serialize = "xmlns:android"))]
     #[serde(default = "default_namespace")]
     ns_android: String,
-    #[serde(rename(serialize = "package"))]
     #[serde(default)]
     pub package: String,
     #[serde(rename(serialize = "android:versionCode"))]
