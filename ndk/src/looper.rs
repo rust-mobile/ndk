@@ -163,7 +163,7 @@ impl ThreadLooper {
     }
 }
 
-/// An `ALooper`, not necessarily allociated with the current thread.
+/// An `ALooper`, not necessarily allocated with the current thread.
 #[derive(Debug)]
 pub struct ForeignLooper {
     ptr: NonNull<ffi::ALooper>,
