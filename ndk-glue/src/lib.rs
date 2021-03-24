@@ -278,8 +278,8 @@ unsafe extern "C" fn on_window_destroyed(
     activity: *mut ANativeActivity,
     _window: *mut ANativeWindow,
 ) {
-    *NATIVE_WINDOW.write().unwrap() = None;
     wake(activity, Event::WindowDestroyed);
+    *NATIVE_WINDOW.write().unwrap() = None;
 }
 
 unsafe extern "C" fn on_input_queue_created(
@@ -300,10 +300,12 @@ unsafe extern "C" fn on_input_queue_destroyed(
     activity: *mut ANativeActivity,
     queue: *mut AInputQueue,
 ) {
+    wake(activity, Event::InputQueueDestroyed);
+    let mut input_queue_guard = INPUT_QUEUE.write().unwrap();
+    assert_eq!(input_queue_guard.as_ref().unwrap().ptr().as_ptr(), queue);
     let input_queue = InputQueue::from_ptr(NonNull::new(queue).unwrap());
     input_queue.detach_looper();
-    *INPUT_QUEUE.write().unwrap() = None;
-    wake(activity, Event::InputQueueDestroyed);
+    *input_queue_guard = None;
 }
 
 unsafe extern "C" fn on_content_rect_changed(activity: *mut ANativeActivity, rect: *const ARect) {
