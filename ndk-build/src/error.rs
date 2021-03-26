@@ -17,6 +17,12 @@ pub enum NdkError {
         environment variable."
     )]
     NdkNotFound,
+    #[error("GNU toolchain binary `{gnu_bin}` nor LLVM toolchain binary `{llvm_bin}` found in `{toolchain_path:?}`.")]
+    ToolchainBinaryNotFound {
+        toolchain_path: PathBuf,
+        gnu_bin: String,
+        llvm_bin: String,
+    },
     #[error("Path {0:?} doesn't exist.")]
     PathNotFound(PathBuf),
     #[error("Command {0} not found.")]

@@ -196,22 +196,35 @@ impl Ndk {
         Ok((clang, clang_pp))
     }
 
-    pub fn toolchain_bin(&self, bin: &str, target: Target) -> Result<PathBuf, NdkError> {
+    pub fn toolchain_bin(&self, name: &str, target: Target) -> Result<PathBuf, NdkError> {
         #[cfg(target_os = "windows")]
         let ext = ".exe";
         #[cfg(not(target_os = "windows"))]
         let ext = "";
 
-        let bin = self.toolchain_dir()?.join("bin").join(format!(
-            "{}-{}{}",
-            target.ndk_triple(),
-            bin,
-            ext
-        ));
-        if !bin.exists() {
-            return Err(NdkError::PathNotFound(bin));
+        let toolchain_path = self.toolchain_dir()?.join("bin");
+
+        // Since r21 (https://github.com/android/ndk/wiki/Changelog-r21) LLVM binutils are included _for testing_;
+        // Since r22 (https://github.com/android/ndk/wiki/Changelog-r22) GNU binutils are deprecated in favour of LLVM's;
+        // Since r23 (https://github.com/android/ndk/wiki/Changelog-r23) GNU binutils have been removed.
+        // To maintain stability with the current ndk-build crate release, prefer GNU binutils for
+        // as long as it is provided by the NDK instead of trying to use llvm-* from r21 onwards.
+        let gnu_bin = format!("{}-{}{}", target.ndk_triple(), name, ext);
+        let gnu_path = toolchain_path.join(&gnu_bin);
+        if gnu_path.exists() {
+            Ok(gnu_path)
+        } else {
+            let llvm_bin = format!("llvm-{}{}", name, ext);
+            let llvm_path = toolchain_path.join(&llvm_bin);
+            llvm_path
+                .exists()
+                .then(|| llvm_path)
+                .ok_or_else(|| NdkError::ToolchainBinaryNotFound {
+                    toolchain_path,
+                    gnu_bin,
+                    llvm_bin,
+                })
         }
-        Ok(bin)
     }
 
     pub fn android_dir(&self) -> Result<PathBuf, NdkError> {
