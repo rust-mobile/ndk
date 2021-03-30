@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added support for dynamically loaded libraries.
+
 # 0.1.4 (2020-11-25)
 
 - On Windows, fixed UNC path handling for resource folder
