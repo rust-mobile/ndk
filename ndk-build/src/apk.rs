@@ -158,9 +158,9 @@ impl<'a> UnalignedApk<'a> {
     }
 
     pub fn add_extra_libs(&self, target: Target) -> Result<(), NdkError> {
-        let dir = Path::new("lib").join(target.android_abi());
-        if dir.exists() && dir.is_dir() {
-            for entry in fs::read_dir(dir)? {
+        let abi_dir = Path::new("lib").join(target.android_abi());
+        if abi_dir.is_dir() {
+            for entry in fs::read_dir(abi_dir)? {
                 let entry = entry?;
                 let path = entry.path();
                 if path.extension() == Some(OsStr::new("so")) {
