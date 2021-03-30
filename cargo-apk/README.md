@@ -104,3 +104,7 @@ value = "true"
 ```
 
 TODO: intent filters
+
+## Dynamically loaded libraries
+
+The `build` command scans for extra shared libraries intended to be dynamically loaded with `dlopen`. Files with extension `.so` placed under `lib/${androideabi}` at the root of the local package are added to the apk automatically.

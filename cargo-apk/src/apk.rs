@@ -123,6 +123,7 @@ impl<'a> ApkBuilder<'a> {
                 .collect::<Vec<_>>();
 
             apk.add_lib_recursively(&artifact, *target, libs_search_paths.as_slice())?;
+            apk.add_extra_libs(*target)?;
         }
 
         Ok(apk.align()?.sign(config.ndk.debug_key()?)?)

@@ -3,6 +3,8 @@ use crate::error::NdkError;
 use crate::manifest::Manifest;
 use crate::ndk::{Key, Ndk};
 use crate::target::Target;
+use std::ffi::OsStr;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -151,6 +153,20 @@ impl<'a> UnalignedApk<'a> {
         ));
         if !aapt.status()?.success() {
             return Err(NdkError::CmdFailed(aapt));
+        }
+        Ok(())
+    }
+
+    pub fn add_extra_libs(&self, target: Target) -> Result<(), NdkError> {
+        let dir = Path::new("lib").join(target.android_abi());
+        if dir.exists() && dir.is_dir() {
+            for entry in fs::read_dir(dir)? {
+                let entry = entry?;
+                let path = entry.path();
+                if path.extension() == Some(OsStr::new("so")) {
+                    self.add_lib(&path, target)?;
+                }
+            }
         }
         Ok(())
     }
