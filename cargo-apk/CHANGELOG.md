@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added support for dynamically loaded libraries.
+
 # 0.5.6 (2020-11-25)
 
 - Use `dunce::simplified` when extracting the manifest's assets and resource folder
