@@ -23,24 +23,24 @@ pub enum NdkError {
         gnu_bin: String,
         llvm_bin: String,
     },
-    #[error("Path {0:?} doesn't exist.")]
+    #[error("Path `{0:?}` doesn't exist.")]
     PathNotFound(PathBuf),
-    #[error("Command {0} not found.")]
+    #[error("Command `{0}` not found.")]
     CmdNotFound(String),
     #[error("Android SDK has no build tools.")]
     BuildToolsNotFound,
     #[error("Android SDK has no platforms installed.")]
     NoPlatformFound,
-    #[error("Platform {0} is not installed.")]
+    #[error("Platform `{0}` is not installed.")]
     PlatformNotFound(u32),
     #[error("Target is not supported.")]
     UnsupportedTarget,
-    #[error("Host {0} is not supported.")]
+    #[error("Host `{0}` is not supported.")]
     UnsupportedHost(String),
     #[error(transparent)]
     Io(#[from] IoError),
     #[error("Invalid semver")]
     InvalidSemver,
-    #[error("Command '{}' had a non-zero exit code.", format!("{:?}", .0).replace('"', ""))]
+    #[error("Command `{}` had a non-zero exit code.", format!("{:?}", .0).replace('"', ""))]
     CmdFailed(Command),
 }
