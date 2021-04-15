@@ -1,6 +1,6 @@
 # Unreleased
 
-- Added support for dynamically loaded libraries.
+- Added support for dynamic libraries loaded at runtime.
 
 # 0.5.6 (2020-11-25)
 
