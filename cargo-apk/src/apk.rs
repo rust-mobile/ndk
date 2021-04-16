@@ -97,7 +97,7 @@ impl<'a> ApkBuilder<'a> {
                         .join(&res),
                 )
                 .to_owned()
-            })
+            }),
         };
 
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
