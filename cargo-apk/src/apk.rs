@@ -87,6 +87,17 @@ impl<'a> ApkBuilder<'a> {
                 )
                 .to_owned()
             }),
+            extra_content: self.manifest.extra_content.as_ref().map(|res| {
+                dunce::simplified(
+                    &self
+                        .cmd
+                        .manifest()
+                        .parent()
+                        .expect("invalid manifest path")
+                        .join(&res),
+                )
+                .to_owned()
+            })
         };
 
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
@@ -123,6 +134,10 @@ impl<'a> ApkBuilder<'a> {
                 .collect::<Vec<_>>();
 
             apk.add_lib_recursively(&artifact, *target, libs_search_paths.as_slice())?;
+        }
+
+        if let Some(content_dir) = &config.extra_content {
+            apk.add_content_dir_recursively(content_dir)?;
         }
 
         Ok(apk.align()?.sign(config.ndk.debug_key()?)?)

@@ -25,6 +25,8 @@ pub enum NdkError {
     },
     #[error("Path `{0:?}` doesn't exist.")]
     PathNotFound(PathBuf),
+    #[error("Path `{0:?}` is invalid.")]
+    PathInvalid(PathBuf),
     #[error("Command `{0}` not found.")]
     CmdNotFound(String),
     #[error("Android SDK has no build tools.")]

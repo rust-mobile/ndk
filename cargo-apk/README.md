@@ -88,6 +88,11 @@ res = "path/to/res_folder"
 # If not specified, assets will not be included in the APK
 assets = "path/to/assets_folder"
 
+# Path to a folder containing a hierarchy of extra files to be added at the root of the APK.
+# All files will be added to the APK recursively.
+# If not specified, no extra files will be added to the APK
+extra_content = "path/to/extra_content_folder"
+
 # Adds application metadata to the manifest
 # Note that there can be several application_metadatas entries
 # this will add: <meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only"/>

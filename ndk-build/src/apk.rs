@@ -3,8 +3,11 @@ use crate::error::NdkError;
 use crate::manifest::Manifest;
 use crate::ndk::{Key, Ndk};
 use crate::target::Target;
-use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
 pub struct ApkConfig {
     pub ndk: Ndk,
@@ -12,6 +15,7 @@ pub struct ApkConfig {
     pub assets: Option<PathBuf>,
     pub res: Option<PathBuf>,
     pub manifest: Manifest,
+    pub extra_content: Option<PathBuf>,
 }
 
 impl ApkConfig {
@@ -77,6 +81,7 @@ impl ApkConfig {
             assets: config.assets,
             res: config.res,
             manifest,
+            extra_content: config.extra_content,
         }
     }
 
@@ -153,6 +158,41 @@ impl<'a> UnalignedApk<'a> {
             return Err(NdkError::CmdFailed(aapt));
         }
         Ok(())
+    }
+
+    pub fn add_file(&self, base_path: &Path, path: &Path) -> Result<(), NdkError> {
+        let out = self.0.build_dir.join(path);
+        let out_dir = out.parent().unwrap();
+        std::fs::create_dir_all(&out_dir)?;
+        std::fs::copy(base_path.join(path), out)?;
+
+        let mut aapt = self.0.build_tool(bin!("aapt"))?;
+        aapt.arg("add").arg(self.0.unaligned_apk()).arg(path);
+        if !aapt.status()?.success() {
+            return Err(NdkError::CmdFailed(aapt));
+        }
+        Ok(())
+    }
+
+    fn add_entry(&self, base_path: &Path, path: &Path) -> Result<(), NdkError> {
+        let full_path = base_path.join(path);
+        if full_path.is_dir() {
+            for entry in fs::read_dir(full_path)? {
+                let entry = entry?;
+                let tgt_path = path.join(entry.file_name());
+                self.add_entry(base_path, &tgt_path)?;
+            }
+        } else if full_path.is_file() {
+            self.add_file(base_path, path)?;
+        }
+        Ok(())
+    }
+
+    pub fn add_content_dir_recursively(&self, content_dir: &Path) -> Result<(), NdkError> {
+        if !content_dir.is_dir() {
+            return Err(NdkError::PathInvalid(content_dir.to_path_buf()));
+        }
+        self.add_entry(&content_dir, Path::new(""))
     }
 
     pub fn align(self) -> Result<UnsignedApk<'a>, NdkError> {
