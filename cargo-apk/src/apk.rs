@@ -55,6 +55,8 @@ impl<'a> ApkBuilder<'a> {
             .unwrap_or(artifact.name())
             .to_string();
 
+        let crate_path = self.cmd.manifest().parent().expect("invalid manifest path");
+
         let config = Config {
             ndk: self.ndk.clone(),
             build_dir: self.build_dir.join(artifact),
@@ -65,39 +67,21 @@ impl<'a> ApkBuilder<'a> {
             split: None,
             target_name: artifact.name().replace("-", "_"),
             debuggable: *self.cmd.profile() == Profile::Dev,
-            assets: self.manifest.assets.as_ref().map(|assets| {
-                dunce::simplified(
-                    &self
-                        .cmd
-                        .manifest()
-                        .parent()
-                        .expect("invalid manifest path")
-                        .join(&assets),
-                )
-                .to_owned()
-            }),
-            res: self.manifest.res.as_ref().map(|res| {
-                dunce::simplified(
-                    &self
-                        .cmd
-                        .manifest()
-                        .parent()
-                        .expect("invalid manifest path")
-                        .join(&res),
-                )
-                .to_owned()
-            }),
-            runtime_libs: self.manifest.runtime_libs.as_ref().map(|res| {
-                dunce::simplified(
-                    &self
-                        .cmd
-                        .manifest()
-                        .parent()
-                        .expect("invalid manifest path")
-                        .join(&res),
-                )
-                .to_owned()
-            }),
+            assets: self
+                .manifest
+                .assets
+                .as_ref()
+                .map(|assets| dunce::simplified(&crate_path.join(&assets)).to_owned()),
+            res: self
+                .manifest
+                .res
+                .as_ref()
+                .map(|res| dunce::simplified(&crate_path.join(&res)).to_owned()),
+            runtime_libs: self
+                .manifest
+                .runtime_libs
+                .as_ref()
+                .map(|libs| dunce::simplified(&crate_path.join(&libs)).to_owned()),
         };
 
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
