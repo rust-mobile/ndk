@@ -1,6 +1,6 @@
 # Unreleased
 
-- Added support for dynamic libraries loaded at runtime.
+- Added support for packaging extra dynamic libraries into the apk.
 
 # 0.1.4 (2020-11-25)
 
