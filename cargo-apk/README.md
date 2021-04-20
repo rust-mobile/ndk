@@ -88,6 +88,11 @@ res = "path/to/res_folder"
 # If not specified, assets will not be included in the APK
 assets = "path/to/assets_folder"
 
+# Folder containing extra shared libraries intended to be dynamically loaded at runtime.
+# Files with extension `.so` placed under `libs_folder/${android_abi}` are added to the apk
+# according to the specified build_targets.
+runtime_libs = "path/to/libs_folder"
+
 # Adds application metadata to the manifest
 # Note that there can be several application_metadatas entries
 # this will add: <meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only"/>
@@ -104,7 +109,3 @@ value = "true"
 ```
 
 TODO: intent filters
-
-## Dynamically loaded libraries
-
-The `build` command scans for extra shared libraries intended to be dynamically loaded with `dlopen`. Files with extension `.so` placed under `lib/${android_abi}` at the root of the local package are added to the apk automatically.

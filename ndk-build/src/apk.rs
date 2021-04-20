@@ -13,6 +13,7 @@ pub struct ApkConfig {
     pub build_dir: PathBuf,
     pub assets: Option<PathBuf>,
     pub res: Option<PathBuf>,
+    pub runtime_libs: Option<PathBuf>,
     pub manifest: Manifest,
 }
 
@@ -78,6 +79,7 @@ impl ApkConfig {
             build_dir: config.build_dir,
             assets: config.assets,
             res: config.res,
+            runtime_libs: config.runtime_libs,
             manifest,
         }
     }
@@ -157,14 +159,19 @@ impl<'a> UnalignedApk<'a> {
         Ok(())
     }
 
-    pub fn add_extra_libs(&self, target: Target) -> Result<(), NdkError> {
-        let abi_dir = Path::new("lib").join(target.android_abi());
+    pub fn add_runtime_libs(
+        &self,
+        path: &Path,
+        target: Target,
+        search_paths: &[&Path],
+    ) -> Result<(), NdkError> {
+        let abi_dir = Path::new(path).join(target.android_abi());
         if abi_dir.is_dir() {
             for entry in fs::read_dir(abi_dir)? {
                 let entry = entry?;
                 let path = entry.path();
                 if path.extension() == Some(OsStr::new("so")) {
-                    self.add_lib(&path, target)?;
+                    self.add_lib_recursively(&path, target, search_paths)?;
                 }
             }
         }

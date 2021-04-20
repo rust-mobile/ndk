@@ -10,6 +10,7 @@ pub struct Manifest {
     pub build_targets: Vec<Target>,
     pub assets: Option<String>,
     pub res: Option<String>,
+    pub runtime_libs: Option<String>,
 }
 
 impl Manifest {
@@ -28,6 +29,7 @@ impl Manifest {
             build_targets: metadata.build_targets.unwrap_or_default(),
             assets: metadata.assets,
             res: metadata.res,
+            runtime_libs: metadata.runtime_libs,
         })
     }
 }
@@ -55,4 +57,5 @@ struct AndroidMetadata {
     build_targets: Option<Vec<Target>>,
     assets: Option<String>,
     res: Option<String>,
+    runtime_libs: Option<String>,
 }

@@ -18,6 +18,7 @@ pub struct Config {
     pub debuggable: bool,
     pub assets: Option<PathBuf>,
     pub res: Option<PathBuf>,
+    pub runtime_libs: Option<PathBuf>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]

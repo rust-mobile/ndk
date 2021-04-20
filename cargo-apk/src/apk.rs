@@ -87,6 +87,17 @@ impl<'a> ApkBuilder<'a> {
                 )
                 .to_owned()
             }),
+            runtime_libs: self.manifest.runtime_libs.as_ref().map(|res| {
+                dunce::simplified(
+                    &self
+                        .cmd
+                        .manifest()
+                        .parent()
+                        .expect("invalid manifest path")
+                        .join(&res),
+                )
+                .to_owned()
+            }),
         };
 
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
@@ -123,7 +134,10 @@ impl<'a> ApkBuilder<'a> {
                 .collect::<Vec<_>>();
 
             apk.add_lib_recursively(&artifact, *target, libs_search_paths.as_slice())?;
-            apk.add_extra_libs(*target)?;
+
+            if let Some(runtime_libs) = &config.runtime_libs {
+                apk.add_runtime_libs(runtime_libs, *target, libs_search_paths.as_slice())?;
+            }
         }
 
         Ok(apk.align()?.sign(config.ndk.debug_key()?)?)
