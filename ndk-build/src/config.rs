@@ -35,6 +35,7 @@ pub struct Metadata {
     pub intent_filter: Option<Vec<IntentFilterConfig>>,
     pub application_metadatas: Option<Vec<ApplicationMetadataConfig>>,
     pub activity_metadatas: Option<Vec<ActivityMetadataConfig>>,
+    pub libs: Option<Vec<String>>,
 }
 
 #[derive(Clone, Debug, Deserialize)]

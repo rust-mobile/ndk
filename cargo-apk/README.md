@@ -101,6 +101,10 @@ value = "vr_only"
 [[package.metadata.android.activity_metadatas]]
 name = "com.oculus.vr.focusaware"
 value = "true"
+
+# Bundles additional shared object libraries into the APK.
+# Note that this is not required if Rust already links against this object.
+libs = [ "path/to/lib.so" ]
 ```
 
 TODO: intent filters

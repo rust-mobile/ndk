@@ -8,6 +8,7 @@ use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
 use ndk_build::ndk::Ndk;
 use ndk_build::target::Target;
+use std::path::Path;
 use std::path::PathBuf;
 use std::process::Command;
 
@@ -123,6 +124,14 @@ impl<'a> ApkBuilder<'a> {
                 .collect::<Vec<_>>();
 
             apk.add_lib_recursively(&artifact, *target, libs_search_paths.as_slice())?;
+
+            if let Some(libs) = &self.manifest.metadata.libs {
+                let empty = Vec::new();
+                for lib in libs {
+                    let lib_path = Path::new(lib);
+                    apk.add_lib_recursively(&lib_path, *target, &empty)?;
+                }
+            }
         }
 
         Ok(apk.align()?.sign(config.ndk.debug_key()?)?)
