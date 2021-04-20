@@ -13,7 +13,6 @@ pub struct ApkConfig {
     pub build_dir: PathBuf,
     pub assets: Option<PathBuf>,
     pub res: Option<PathBuf>,
-    pub runtime_libs: Option<PathBuf>,
     pub manifest: Manifest,
 }
 
@@ -79,7 +78,6 @@ impl ApkConfig {
             build_dir: config.build_dir,
             assets: config.assets,
             res: config.res,
-            runtime_libs: config.runtime_libs,
             manifest,
         }
     }

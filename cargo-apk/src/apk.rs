@@ -77,12 +77,13 @@ impl<'a> ApkBuilder<'a> {
                 .res
                 .as_ref()
                 .map(|res| dunce::simplified(&crate_path.join(&res)).to_owned()),
-            runtime_libs: self
-                .manifest
-                .runtime_libs
-                .as_ref()
-                .map(|libs| dunce::simplified(&crate_path.join(&libs)).to_owned()),
         };
+
+        let runtime_libs = self
+            .manifest
+            .runtime_libs
+            .as_ref()
+            .map(|libs| dunce::simplified(&crate_path.join(&libs)).to_owned());
 
         let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
         let apk = config.create_apk()?;
@@ -119,7 +120,7 @@ impl<'a> ApkBuilder<'a> {
 
             apk.add_lib_recursively(&artifact, *target, libs_search_paths.as_slice())?;
 
-            if let Some(runtime_libs) = &config.runtime_libs {
+            if let Some(runtime_libs) = &runtime_libs {
                 apk.add_runtime_libs(runtime_libs, *target, libs_search_paths.as_slice())?;
             }
         }
