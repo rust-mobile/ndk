@@ -1,258 +1,315 @@
 use crate::error::NdkError;
-use std::fs::File;
-use std::io::Write;
-use std::path::Path;
+use serde::{Deserialize, Serialize, Serializer};
+use std::{fs::File, path::Path};
 
-#[derive(Debug)]
-pub struct Manifest {
-    pub package_name: String,
-    pub package_label: String,
-    pub version_name: String,
-    pub version_code: u32,
-    pub target_name: String,
-    pub target_sdk_version: u32,
-    pub min_sdk_version: u32,
-    pub opengles_version: (u8, u8),
-    pub features: Vec<Feature>,
-    pub permissions: Vec<Permission>,
-    pub intent_filters: Vec<IntentFilter>,
-    pub icon: Option<String>,
-    pub fullscreen: bool,
-    pub orientation: Option<String>,
-    pub launch_mode: Option<String>,
-    pub debuggable: bool,
-    pub split: Option<String>,
-    pub application_metadatas: Vec<ApplicationMetadata>,
-    pub activity_metadatas: Vec<ActivityMetadata>,
+/// Android [manifest element](https://developer.android.com/guide/topics/manifest/manifest-element), containing an [`Application`] element.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename = "manifest")]
+pub struct AndroidManifest {
+    #[serde(rename(serialize = "xmlns:android"))]
+    #[serde(default = "default_namespace")]
+    ns_android: String,
+    #[serde(default)]
+    pub package: String,
+    #[serde(rename(serialize = "android:versionCode"))]
+    pub version_code: Option<u32>,
+    #[serde(rename(serialize = "android:versionName"))]
+    pub version_name: Option<String>,
+
+    #[serde(rename(serialize = "uses-sdk"))]
+    #[serde(default)]
+    pub sdk: Sdk,
+
+    #[serde(rename(serialize = "uses-feature"))]
+    #[serde(default)]
+    pub uses_feature: Vec<Feature>,
+    #[serde(rename(serialize = "uses-permission"))]
+    #[serde(default)]
+    pub uses_permission: Vec<Permission>,
+
+    #[serde(default)]
+    pub application: Application,
 }
 
-impl Manifest {
-    pub fn to_string(&self) -> String {
-        let split = if let Some(split) = self.split.as_ref() {
-            format!(r#"split="{}" android:isFeatureSplit="true""#, split)
-        } else {
-            "".to_string()
-        };
-        let (major, minor) = self.opengles_version;
-        let opengles_version = format!("0x{:04}{:04}", major, minor);
-
-        let icon = self
-            .icon
-            .as_ref()
-            .map(|icon| format!(r#"android:icon="{}""#, icon))
-            .unwrap_or_default();
-
-        let fullscreen = if self.fullscreen {
-            r#"android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen""#
-        } else {
-            ""
-        };
-
-        let orientation = self.orientation.as_deref().unwrap_or("unspecified");
-        let launch_mode = self.launch_mode.as_deref().unwrap_or("standard");
-
-        let features: Vec<String> = self.features.iter().map(|f| f.to_string()).collect();
-        let permissions: Vec<String> = self.permissions.iter().map(|p| p.to_string()).collect();
-        let intent_filters: Vec<String> =
-            self.intent_filters.iter().map(|i| i.to_string()).collect();
-        let application_metadatas: Vec<String> = self
-            .application_metadatas
-            .iter()
-            .map(|f| f.to_string())
-            .collect();
-        let activity_metadatas: Vec<String> = self
-            .activity_metadatas
-            .iter()
-            .map(|f| f.to_string())
-            .collect();
-
-        format!(
-            r#"<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="{package_name}"
-        android:versionCode="{version_code}"
-        android:versionName="{version_name}"
-        {split}>
-    <uses-sdk
-        android:targetSdkVersion="{target_sdk_version}"
-        android:minSdkVersion="{min_sdk_version}" />
-    <uses-feature android:glEsVersion="{opengles_version}" android:required="true"></uses-feature>
-    {features}
-    {permissions}
-    <application
-            android:hasCode="false"
-            android:label="{package_label}"
-            android:debuggable="{debuggable}"
-            {icon}
-            {fullscreen}>
-            {application_metadatas}
-        <activity
-                android:name="android.app.NativeActivity"
-                android:label="{package_label}"
-                android:screenOrientation="{orientation}"
-                android:launchMode="{launch_mode}"
-                android:configChanges="orientation|keyboardHidden|screenSize">
-            <meta-data android:name="android.app.lib_name" android:value="{target_name}" />
-            {activity_metadatas}
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            {intent_filters}
-        </activity>
-    </application>
-</manifest>"#,
-            package_name = &self.package_name,
-            package_label = &self.package_label,
-            version_name = &self.version_name,
-            version_code = self.version_code,
-            split = split,
-            target_sdk_version = self.target_sdk_version,
-            min_sdk_version = self.min_sdk_version,
-            opengles_version = opengles_version,
-            target_name = &self.target_name,
-            icon = icon,
-            fullscreen = fullscreen,
-            orientation = orientation,
-            launch_mode = launch_mode,
-            application_metadatas = application_metadatas.join("\n"),
-            activity_metadatas = activity_metadatas.join("\n"),
-            debuggable = self.debuggable,
-            features = features.join("\n"),
-            permissions = permissions.join("\n"),
-            intent_filters = intent_filters.join("\n"),
-        )
+impl Default for AndroidManifest {
+    fn default() -> Self {
+        Self {
+            ns_android: default_namespace(),
+            package: Default::default(),
+            version_code: Default::default(),
+            version_name: Default::default(),
+            sdk: Default::default(),
+            uses_feature: Default::default(),
+            uses_permission: Default::default(),
+            application: Default::default(),
+        }
     }
+}
 
+impl AndroidManifest {
     pub fn write_to(&self, dir: &Path) -> Result<(), NdkError> {
-        let mut file = File::create(dir.join("AndroidManifest.xml"))?;
-        writeln!(file, "{}", self.to_string())?;
+        let file = File::create(dir.join("AndroidManifest.xml"))?;
+        let w = std::io::BufWriter::new(file);
+        quick_xml::se::to_writer(w, &self)?;
         Ok(())
     }
 }
 
-#[derive(Debug)]
-pub struct Feature {
+/// Android [application element](https://developer.android.com/guide/topics/manifest/application-element), containing an [`Activity`] element.
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Application {
+    #[serde(rename(serialize = "android:debuggable"))]
+    pub debuggable: Option<bool>,
+    #[serde(rename(serialize = "android:theme"))]
+    pub theme: Option<String>,
+    #[serde(rename(serialize = "android:hasCode"))]
+    #[serde(default)]
+    pub has_code: bool,
+    #[serde(rename(serialize = "android:icon"))]
+    pub icon: Option<String>,
+    #[serde(rename(serialize = "android:label"))]
+    #[serde(default)]
+    pub label: String,
+
+    #[serde(rename(serialize = "meta-data"))]
+    #[serde(default)]
+    pub meta_data: Vec<MetaData>,
+    #[serde(default)]
+    pub activity: Activity,
+}
+
+/// Android [activity element](https://developer.android.com/guide/topics/manifest/activity-element).
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Activity {
+    #[serde(rename(serialize = "android:configChanges"))]
+    #[serde(default = "default_config_changes")]
+    pub config_changes: Option<String>,
+    #[serde(rename(serialize = "android:label"))]
+    pub label: Option<String>,
+    #[serde(rename(serialize = "android:launchMode"))]
+    pub launch_mode: Option<String>,
+    #[serde(rename(serialize = "android:name"))]
+    #[serde(default = "default_activity_name")]
     pub name: String,
-    pub required: bool,
+    #[serde(rename(serialize = "android:screenOrientation"))]
+    pub orientation: Option<String>,
+
+    #[serde(rename(serialize = "meta-data"))]
+    #[serde(default)]
+    pub meta_data: Vec<MetaData>,
+    /// If no `MAIN` action exists in any intent filter, a default `MAIN` filter is serialized.
+    #[serde(serialize_with = "serialize_intents")]
+    #[serde(rename(serialize = "intent-filter"))]
+    #[serde(default)]
+    pub intent_filter: Vec<IntentFilter>,
 }
 
-impl Feature {
-    pub fn to_string(&self) -> String {
-        format!(
-            r#"<uses-feature android:name="{}" android:required="{}"/>"#,
-            &self.name, self.required,
-        )
+impl Default for Activity {
+    fn default() -> Self {
+        Self {
+            config_changes: default_config_changes(),
+            label: None,
+            launch_mode: None,
+            name: default_activity_name(),
+            orientation: None,
+            meta_data: Default::default(),
+            intent_filter: Default::default(),
+        }
     }
 }
 
-#[derive(Debug)]
-pub struct ApplicationMetadata {
-    pub name: String,
-    pub value: String,
-}
+fn serialize_intents<S>(
+    intent_filters: &Vec<IntentFilter>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    use serde::ser::SerializeSeq;
 
-impl ApplicationMetadata {
-    pub fn to_string(&self) -> String {
-        format!(
-            r#"<meta-data android:name="{}" android:value="{}"/>"#,
-            self.name, self.value
-        )
+    let mut seq = serializer.serialize_seq(None)?;
+    for intent_filter in intent_filters {
+        seq.serialize_element(intent_filter)?;
     }
-}
 
-#[derive(Debug)]
-pub struct ActivityMetadata {
-    pub name: String,
-    pub value: String,
-}
-
-impl ActivityMetadata {
-    pub fn to_string(&self) -> String {
-        format!(
-            r#"<meta-data android:name="{}" android:value="{}"/>"#,
-            self.name, self.value
-        )
+    // Check if `intent_filters` contains a `MAIN` action. If not, add a default filter.
+    if intent_filters
+        .iter()
+        .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
+    {
+        seq.serialize_element(&IntentFilter {
+            actions: vec!["android.intent.action.MAIN".to_string()],
+            categories: vec!["android.intent.category.LAUNCHER".to_string()],
+            data: vec![],
+        })?;
     }
+    seq.end()
 }
 
-#[derive(Debug)]
-pub struct Permission {
-    pub name: String,
-    pub max_sdk_version: Option<u32>,
-}
-
-impl Permission {
-    pub fn to_string(&self) -> String {
-        let max_sdk_version = self
-            .max_sdk_version
-            .as_ref()
-            .map(|max_sdk_version| format!(r#"android:maxSdkVersion="{}""#, max_sdk_version))
-            .unwrap_or_default();
-        format!(
-            r#"<uses-permission android:name="{}" {}/>"#,
-            &self.name, max_sdk_version,
-        )
-    }
-}
-
-#[derive(Debug)]
-pub struct IntentFilterData {
-    pub scheme: Option<String>,
-    pub host: Option<String>,
-    pub prefix: Option<String>,
-}
-
-impl IntentFilterData {
-    pub fn to_string(&self) -> String {
-        let host = if let Some(host) = self.host.as_ref() {
-            format!(" android:host=\"{}\"", host)
-        } else {
-            "".into()
-        };
-
-        let prefix = if let Some(prefix) = self.prefix.as_ref() {
-            format!(" android:pathPrefix=\"{}\"", prefix)
-        } else {
-            "".into()
-        };
-
-        let scheme = if let Some(scheme) = self.scheme.as_ref() {
-            format!(" android:scheme=\"{}\"", scheme)
-        } else {
-            "".into()
-        };
-
-        format!("<data {} {} {}/>", scheme, &host, &prefix)
-    }
-}
-
-#[derive(Debug)]
+/// Android [intent filter element](https://developer.android.com/guide/topics/manifest/intent-filter-element).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct IntentFilter {
-    pub name: String,
+    /// Serialize strings wrapped in `<action android:name="..." />`
+    #[serde(serialize_with = "serialize_actions")]
+    #[serde(rename(serialize = "action"))]
+    #[serde(default)]
+    pub actions: Vec<String>,
+    /// Serialize as vector of structs for proper xml formatting
+    #[serde(serialize_with = "serialize_catergories")]
+    #[serde(rename(serialize = "category"))]
+    #[serde(default)]
     pub categories: Vec<String>,
+    #[serde(default)]
     pub data: Vec<IntentFilterData>,
 }
 
-impl IntentFilter {
-    pub fn to_string(&self) -> String {
-        let mut categories = "".to_string();
-        for category in &self.categories {
-            categories = format!("{}<category android:name=\"{}\"/>", categories, category)
-        }
+fn serialize_actions<S>(actions: &Vec<String>, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    use serde::ser::SerializeSeq;
 
-        let mut data = "".to_string();
-        for d in &self.data {
-            data = format!("{}{}", data, d.to_string())
-        }
-
-        format!(
-            "<intent-filter>
-            \t{}
-            \t{}
-            \t<action android:name=\"{}\"/>
-            </intent-filter>",
-            &categories, &data, &self.name,
-        )
+    #[derive(Serialize)]
+    struct Action {
+        #[serde(rename = "android:name")]
+        name: String,
     }
+    let mut seq = serializer.serialize_seq(Some(actions.len()))?;
+    for action in actions {
+        seq.serialize_element(&Action {
+            name: action.clone(),
+        })?;
+    }
+    seq.end()
+}
+
+fn serialize_catergories<S>(categories: &Vec<String>, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    use serde::ser::SerializeSeq;
+
+    #[derive(Serialize)]
+    struct Category {
+        #[serde(rename = "android:name")]
+        pub name: String,
+    }
+
+    let mut seq = serializer.serialize_seq(Some(categories.len()))?;
+    for category in categories {
+        seq.serialize_element(&Category {
+            name: category.clone(),
+        })?;
+    }
+    seq.end()
+}
+
+/// Android [intent filter data element](https://developer.android.com/guide/topics/manifest/data-element).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct IntentFilterData {
+    #[serde(rename(serialize = "android:scheme"))]
+    pub scheme: Option<String>,
+    #[serde(rename(serialize = "android:host"))]
+    pub host: Option<String>,
+    #[serde(rename(serialize = "android:port"))]
+    pub port: Option<String>,
+    #[serde(rename(serialize = "android:path"))]
+    pub path: Option<String>,
+    #[serde(rename(serialize = "android:pathPattern"))]
+    pub path_pattern: Option<String>,
+    #[serde(rename(serialize = "android:pathPrefix"))]
+    pub path_prefix: Option<String>,
+    #[serde(rename(serialize = "android:mimeType"))]
+    pub mime_type: Option<String>,
+}
+
+/// Android [meta-data element](https://developer.android.com/guide/topics/manifest/meta-data-element).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct MetaData {
+    #[serde(rename(serialize = "android:name"))]
+    pub name: String,
+    #[serde(rename(serialize = "android:value"))]
+    pub value: String,
+}
+
+/// Android [uses-feature element](https://developer.android.com/guide/topics/manifest/uses-feature-element).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Feature {
+    #[serde(rename(serialize = "android:name"))]
+    pub name: Option<String>,
+    #[serde(rename(serialize = "android:required"))]
+    pub required: Option<bool>,
+    /// The `version` field is currently used for the following features:
+    ///
+    /// - `name="android.hardware.vulkan.compute"`: The minimum level of compute features required. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_COMPUTE)
+    ///   for available levels and the respective Vulkan features required/provided.
+    ///
+    /// - `name="android.hardware.vulkan.level"`: The minimum Vulkan requirements. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_LEVEL)
+    ///   for available levels and the respective Vulkan features required/provided.
+    ///
+    /// - `name="android.hardware.vulkan.version"`: Represents the value of Vulkan's `VkPhysicalDeviceProperties::apiVersion`. See the [Android documentation](https://developer.android.com/reference/android/content/pm/PackageManager#FEATURE_VULKAN_HARDWARE_VERSION)
+    ///    for available levels and the respective Vulkan features required/provided.
+    #[serde(rename(serialize = "android:version"))]
+    pub version: Option<u32>,
+    #[serde(rename(serialize = "android:glEsVersion"))]
+    #[serde(serialize_with = "serialize_opengles_version")]
+    pub opengles_version: Option<(u8, u8)>,
+}
+
+fn serialize_opengles_version<S>(
+    version: &Option<(u8, u8)>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    match version {
+        Some(version) => {
+            let opengles_version = format!("0x{:04}{:04}", version.0, version.1);
+            serializer.serialize_some(&opengles_version)
+        }
+        None => serializer.serialize_none(),
+    }
+}
+
+/// Android [uses-permission element](https://developer.android.com/guide/topics/manifest/uses-permission-element).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Permission {
+    #[serde(rename(serialize = "android:name"))]
+    pub name: String,
+    #[serde(rename(serialize = "android:maxSdkVersion"))]
+    pub max_sdk_version: Option<u32>,
+}
+
+/// Android [uses-sdk element](https://developer.android.com/guide/topics/manifest/uses-sdk-element).
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct Sdk {
+    #[serde(rename(serialize = "android:minSdkVersion"))]
+    pub min_sdk_version: Option<u32>,
+    #[serde(rename(serialize = "android:targetSdkVersion"))]
+    pub target_sdk_version: Option<u32>,
+    #[serde(rename(serialize = "android:maxSdkVersion"))]
+    pub max_sdk_version: Option<u32>,
+}
+
+impl Default for Sdk {
+    fn default() -> Self {
+        Self {
+            min_sdk_version: Some(23),
+            target_sdk_version: None,
+            max_sdk_version: None,
+        }
+    }
+}
+
+fn default_namespace() -> String {
+    "http://schemas.android.com/apk/res/android".to_string()
+}
+
+fn default_activity_name() -> String {
+    "android.app.NativeActivity".to_string()
+}
+
+fn default_config_changes() -> Option<String> {
+    Some("orientation|keyboardHidden|screenSize".to_string())
 }

@@ -1,5 +1,7 @@
 # Unreleased
 
+- **Breaking:** uses `ndk-build`'s new (de)serialized `Manifest` struct to properly serialize a toml's `[package.metadata.android]` to an `AndroidManifest.xml`. The `[package.metadata.android]` now closely resembles the structure of [an android manifest file](https://developer.android.com/guide/topics/manifest/manifest-element). See [README](README.md) for an example of the new `[package.metadata.android]` structure and all manifest attributes that are currently supported.
+
 # 0.5.6 (2020-11-25)
 
 - Use `dunce::simplified` when extracting the manifest's assets and resource folder

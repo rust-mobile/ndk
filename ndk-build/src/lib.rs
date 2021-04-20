@@ -20,7 +20,6 @@ macro_rules! bat {
 
 pub mod apk;
 pub mod cargo;
-pub mod config;
 pub mod dylibs;
 pub mod error;
 pub mod manifest;

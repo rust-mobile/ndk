@@ -1,6 +1,5 @@
-use crate::config::{Config, Metadata};
 use crate::error::NdkError;
-use crate::manifest::Manifest;
+use crate::manifest::AndroidManifest;
 use crate::ndk::{Key, Ndk};
 use crate::target::Target;
 use std::path::{Path, PathBuf};
@@ -10,76 +9,11 @@ pub struct ApkConfig {
     pub ndk: Ndk,
     pub build_dir: PathBuf,
     pub assets: Option<PathBuf>,
-    pub res: Option<PathBuf>,
-    pub manifest: Manifest,
+    pub resources: Option<PathBuf>,
+    pub manifest: AndroidManifest,
 }
 
 impl ApkConfig {
-    pub fn from_config(config: Config, metadata: Metadata) -> Self {
-        let target_sdk_version = metadata
-            .target_sdk_version
-            .unwrap_or_else(|| config.ndk.default_platform());
-        let features = metadata
-            .feature
-            .unwrap_or_default()
-            .into_iter()
-            .map(Into::into)
-            .collect();
-        let permissions = metadata
-            .permission
-            .unwrap_or_default()
-            .into_iter()
-            .map(Into::into)
-            .collect();
-        let intent_filters = metadata
-            .intent_filter
-            .unwrap_or_default()
-            .into_iter()
-            .map(Into::into)
-            .collect();
-        let application_metadatas = metadata
-            .application_metadatas
-            .unwrap_or_default()
-            .into_iter()
-            .map(Into::into)
-            .collect();
-        let activity_metadatas = metadata
-            .activity_metadatas
-            .unwrap_or_default()
-            .into_iter()
-            .map(Into::into)
-            .collect();
-
-        let manifest = Manifest {
-            package_name: config.package_name,
-            package_label: config.package_label,
-            version_name: config.version_name,
-            version_code: config.version_code,
-            split: config.split,
-            target_name: config.target_name,
-            debuggable: config.debuggable,
-            target_sdk_version,
-            min_sdk_version: metadata.min_sdk_version.unwrap_or(23),
-            opengles_version: metadata.opengles_version.unwrap_or((3, 1)),
-            features,
-            permissions,
-            intent_filters,
-            icon: metadata.icon,
-            fullscreen: metadata.fullscreen.unwrap_or(false),
-            orientation: metadata.orientation,
-            launch_mode: metadata.launch_mode,
-            application_metadatas,
-            activity_metadatas,
-        };
-        Self {
-            ndk: config.ndk,
-            build_dir: config.build_dir,
-            assets: config.assets,
-            res: config.res,
-            manifest,
-        }
-    }
-
     fn build_tool(&self, tool: &'static str) -> Result<Command, NdkError> {
         let mut cmd = self.ndk.build_tool(tool)?;
         cmd.current_dir(&self.build_dir);
@@ -88,18 +22,23 @@ impl ApkConfig {
 
     fn unaligned_apk(&self) -> PathBuf {
         self.build_dir
-            .join(format!("{}-unaligned.apk", self.manifest.package_label))
+            .join(format!("{}-unaligned.apk", self.manifest.application.label))
     }
 
     fn apk(&self) -> PathBuf {
         self.build_dir
-            .join(format!("{}.apk", self.manifest.package_label))
+            .join(format!("{}.apk", self.manifest.application.label))
     }
 
     pub fn create_apk(&self) -> Result<UnalignedApk, NdkError> {
         std::fs::create_dir_all(&self.build_dir)?;
         self.manifest.write_to(&self.build_dir)?;
 
+        let target_sdk_version = self
+            .manifest
+            .sdk
+            .target_sdk_version
+            .unwrap_or(self.ndk.default_platform());
         let mut aapt = self.build_tool(bin!("aapt"))?;
         aapt.arg("package")
             .arg("-f")
@@ -108,9 +47,9 @@ impl ApkConfig {
             .arg("-M")
             .arg("AndroidManifest.xml")
             .arg("-I")
-            .arg(self.ndk.android_jar(self.manifest.target_sdk_version)?);
+            .arg(self.ndk.android_jar(target_sdk_version)?);
 
-        if let Some(res) = &self.res {
+        if let Some(res) = &self.resources {
             aapt.arg("-S").arg(res);
         }
 
@@ -200,7 +139,7 @@ impl Apk {
         let ndk = config.ndk.clone();
         Self {
             path: config.apk(),
-            package_name: config.manifest.package_name.clone(),
+            package_name: config.manifest.package.clone(),
             ndk,
         }
     }

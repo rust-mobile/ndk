@@ -3,9 +3,9 @@ use crate::manifest::Manifest;
 use cargo_subcommand::{Artifact, CrateType, Profile, Subcommand};
 use ndk_build::apk::{Apk, ApkConfig};
 use ndk_build::cargo::{cargo_apk, VersionCode};
-use ndk_build::config::Config;
 use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
+use ndk_build::manifest::MetaData;
 use ndk_build::ndk::Ndk;
 use ndk_build::target::Target;
 use std::path::PathBuf;
@@ -22,7 +22,7 @@ pub struct ApkBuilder<'a> {
 impl<'a> ApkBuilder<'a> {
     pub fn from_subcommand(cmd: &'a Subcommand) -> Result<Self, Error> {
         let ndk = Ndk::from_env()?;
-        let manifest = Manifest::parse_from_toml(cmd.manifest())?;
+        let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
         let build_targets = if let Some(target) = cmd.target() {
             vec![Target::from_rust_triple(target)?]
         } else if !manifest.build_targets.is_empty() {
@@ -33,6 +33,50 @@ impl<'a> ApkBuilder<'a> {
         let build_dir = dunce::simplified(cmd.target_dir())
             .join(cmd.profile())
             .join("apk");
+
+        // Set default Android manifest values
+        assert!(manifest.android_manifest.package.is_empty());
+
+        if manifest
+            .android_manifest
+            .version_name
+            .replace(manifest.version.clone())
+            .is_some()
+        {
+            panic!("version_name should not be set in TOML");
+        }
+
+        if manifest
+            .android_manifest
+            .version_code
+            .replace(VersionCode::from_semver(&manifest.version)?.to_code(1))
+            .is_some()
+        {
+            panic!("version_code should not be set in TOML");
+        }
+
+        manifest
+            .android_manifest
+            .sdk
+            .target_sdk_version
+            .get_or_insert(ndk.default_platform());
+
+        manifest
+            .android_manifest
+            .application
+            .debuggable
+            .get_or_insert(*cmd.profile() == Profile::Dev);
+
+        manifest
+            .android_manifest
+            .application
+            .activity
+            .meta_data
+            .push(MetaData {
+                name: "android.app.lib_name".to_string(),
+                value: cmd.artifacts()[0].name().replace("-", "_"),
+            });
+
         Ok(Self {
             cmd,
             ndk,
@@ -47,49 +91,44 @@ impl<'a> ApkBuilder<'a> {
             Artifact::Root(name) => format!("rust.{}", name.replace("-", "_")),
             Artifact::Example(name) => format!("rust.example.{}", name.replace("-", "_")),
         };
-        let package_label = self
-            .manifest
-            .metadata
-            .apk_label
-            .as_deref()
-            .unwrap_or(artifact.name())
-            .to_string();
 
-        let config = Config {
+        // Set artifact specific manifest default values.
+        let mut manifest = self.manifest.android_manifest.clone();
+        manifest.package = package_name;
+        if manifest.application.label.is_empty() {
+            manifest.application.label = artifact.name().to_string();
+        }
+
+        let assets = self.manifest.assets.as_ref().map(|assets| {
+            dunce::simplified(
+                &self
+                    .cmd
+                    .manifest()
+                    .parent()
+                    .expect("invalid manifest path")
+                    .join(&assets),
+            )
+            .to_owned()
+        });
+        let resources = self.manifest.resources.as_ref().map(|res| {
+            dunce::simplified(
+                &self
+                    .cmd
+                    .manifest()
+                    .parent()
+                    .expect("invalid manifest path")
+                    .join(&res),
+            )
+            .to_owned()
+        });
+
+        let config = ApkConfig {
             ndk: self.ndk.clone(),
             build_dir: self.build_dir.join(artifact),
-            package_name,
-            package_label,
-            version_name: self.manifest.version.clone(),
-            version_code: VersionCode::from_semver(&self.manifest.version)?.to_code(1),
-            split: None,
-            target_name: artifact.name().replace("-", "_"),
-            debuggable: *self.cmd.profile() == Profile::Dev,
-            assets: self.manifest.assets.as_ref().map(|assets| {
-                dunce::simplified(
-                    &self
-                        .cmd
-                        .manifest()
-                        .parent()
-                        .expect("invalid manifest path")
-                        .join(&assets),
-                )
-                .to_owned()
-            }),
-            res: self.manifest.res.as_ref().map(|res| {
-                dunce::simplified(
-                    &self
-                        .cmd
-                        .manifest()
-                        .parent()
-                        .expect("invalid manifest path")
-                        .join(&res),
-                )
-                .to_owned()
-            }),
+            assets,
+            resources,
+            manifest,
         };
-
-        let config = ApkConfig::from_config(config, self.manifest.metadata.clone());
         let apk = config.create_apk()?;
 
         for target in &self.build_targets {
@@ -101,7 +140,7 @@ impl<'a> ApkBuilder<'a> {
                 .join(artifact)
                 .join(artifact.file_name(CrateType::Cdylib, &triple));
 
-            let target_sdk_version = config.manifest.target_sdk_version;
+            let target_sdk_version = config.manifest.sdk.target_sdk_version.unwrap();
 
             let mut cargo = cargo_apk(&config.ndk, *target, target_sdk_version)?;
             cargo.arg("build");
@@ -153,7 +192,8 @@ impl<'a> ApkBuilder<'a> {
         let ndk = Ndk::from_env()?;
         let target_sdk_version = self
             .manifest
-            .metadata
+            .android_manifest
+            .sdk
             .target_sdk_version
             .unwrap_or_else(|| ndk.default_platform());
         for target in &self.build_targets {
