@@ -70,6 +70,9 @@ pub struct Application {
     #[serde(rename(serialize = "android:label"))]
     #[serde(default)]
     pub label: String,
+    #[serde(rename(serialize = "android:name"))]
+    #[serde(default)]
+    pub name: String,
 
     #[serde(rename(serialize = "meta-data"))]
     #[serde(default)]

@@ -22,12 +22,12 @@ impl ApkConfig {
 
     fn unaligned_apk(&self) -> PathBuf {
         self.build_dir
-            .join(format!("{}-unaligned.apk", self.manifest.application.label))
+            .join(format!("{}-unaligned.apk", self.manifest.application.name))
     }
 
     fn apk(&self) -> PathBuf {
         self.build_dir
-            .join(format!("{}.apk", self.manifest.application.label))
+            .join(format!("{}.apk", self.manifest.application.name))
     }
 
     pub fn create_apk(&self) -> Result<UnalignedApk, NdkError> {

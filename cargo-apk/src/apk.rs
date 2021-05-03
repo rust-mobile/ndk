@@ -98,6 +98,9 @@ impl<'a> ApkBuilder<'a> {
         if manifest.application.label.is_empty() {
             manifest.application.label = artifact.name().to_string();
         }
+        if manifest.application.name.is_empty() {
+            manifest.application.name = artifact.name().to_string();
+        }
 
         let assets = self.manifest.assets.as_ref().map(|assets| {
             dunce::simplified(
