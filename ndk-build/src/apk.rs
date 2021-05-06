@@ -102,7 +102,7 @@ impl<'a> UnalignedApk<'a> {
         target: Target,
         search_paths: &[&Path],
     ) -> Result<(), NdkError> {
-        let abi_dir = Path::new(path).join(target.android_abi());
+        let abi_dir = path.join(target.android_abi());
         if abi_dir.is_dir() {
             for entry in fs::read_dir(abi_dir)? {
                 let entry = entry?;

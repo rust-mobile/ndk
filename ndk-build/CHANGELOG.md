@@ -1,7 +1,7 @@
 # Unreleased
 
 - New `ApkConfig` field `apk_name` is now used for APK file naming, instead of the application label.
-- Added support for packaging extra dynamic libraries into the apk.
+- Added `add_runtime_libs` function for including extra dynamic libraries in the APK.
 
 # 0.2.0 (2021-04-20)
 
