@@ -1,4 +1,4 @@
-# 0.6.0 (2021-05-06)
+# Unreleased (2021-05-06)
 
 - Added support for android string resource id in application label.
 - Added `apk_name` field to android metadata for APK file naming (fall back to artifact name).
