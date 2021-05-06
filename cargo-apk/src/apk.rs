@@ -108,7 +108,7 @@ impl<'a> ApkBuilder<'a> {
                     .expect("invalid manifest path")
                     .join(&assets),
             )
-                .to_owned()
+            .to_owned()
         });
         let resources = self.manifest.resources.as_ref().map(|res| {
             dunce::simplified(
@@ -119,11 +119,13 @@ impl<'a> ApkBuilder<'a> {
                     .expect("invalid manifest path")
                     .join(&res),
             )
-                .to_owned()
+            .to_owned()
         });
-        let apk_name = self.manifest.apk_name.clone().unwrap_or_else(|| {
-            artifact.name().to_string()
-        });
+        let apk_name = self
+            .manifest
+            .apk_name
+            .clone()
+            .unwrap_or_else(|| artifact.name().to_string());
 
         let config = ApkConfig {
             ndk: self.ndk.clone(),

@@ -1,3 +1,7 @@
+# 0.2.0 (2021-05-06)
+
+- New `ApkConfig` field `apk_name` is now used for APK file naming.
+
 # 0.2.0 (2021-04-20)
 
 - **Breaking:** refactored `Manifest` into a proper (de)serialization struct. `Manifest` now closely matches [`an android manifest file`](https://developer.android.com/guide/topics/manifest/manifest-element).

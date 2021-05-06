@@ -27,8 +27,7 @@ impl ApkConfig {
     }
 
     fn apk(&self) -> PathBuf {
-        self.build_dir
-            .join(format!("{}.apk", self.apk_name))
+        self.build_dir.join(format!("{}.apk", self.apk_name))
     }
 
     pub fn create_apk(&self) -> Result<UnalignedApk, NdkError> {
