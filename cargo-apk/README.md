@@ -38,6 +38,10 @@ resources = "path/to/resources_folder"
 # If not specified, assets will not be included in the APK.
 assets = "path/to/assets_folder"
 
+# Name for final APK file.
+# Defaults to package name.
+apk_name = "myapp"
+
 # See https://developer.android.com/guide/topics/manifest/uses-sdk-element
 #
 # Defaults to a `min_sdk_version` of 23 and `target_sdk_version` is based on the ndk's default platform.

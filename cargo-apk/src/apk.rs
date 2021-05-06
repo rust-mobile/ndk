@@ -116,10 +116,16 @@ impl<'a> ApkBuilder<'a> {
             .runtime_libs
             .as_ref()
             .map(|libs| dunce::simplified(&crate_path.join(&libs)).to_owned());
+        let apk_name = self
+            .manifest
+            .apk_name
+            .clone()
+            .unwrap_or_else(|| artifact.name().to_string());
 
         let config = ApkConfig {
             ndk: self.ndk.clone(),
             build_dir: self.build_dir.join(artifact),
+            apk_name,
             assets,
             resources,
             manifest,
