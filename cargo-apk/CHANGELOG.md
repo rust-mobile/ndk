@@ -1,7 +1,7 @@
-# Unreleased (2021-05-06)
+# Unreleased
 
-- Added support for android string resource id in application label.
-- Added `apk_name` field to android metadata for APK file naming (fall back to artifact name).
+- Added `apk_name` field to android metadata for APK file naming (defaults to Rust library name if unspecified).
+  The application label is now no longer used for this purpose, and can contain a string resource ID from now on.
 
 # 0.6.0 (2021-04-20)
 

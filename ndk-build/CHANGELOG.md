@@ -1,7 +1,6 @@
-# Unreleased (2021-05-06)
+# Unreleased
 
-- New `ApkConfig` field `apk_name` is now used for APK file naming.
-- Application label is no longer used as APK file name.
+- New `ApkConfig` field `apk_name` is now used for APK file naming, instead of the application label.
 
 # 0.2.0 (2021-04-20)
 
