@@ -6,6 +6,7 @@ use std::path::Path;
 
 pub struct Manifest {
     pub version: String,
+    pub apk_name: Option<String>,
     pub android_manifest: AndroidManifest,
     pub build_targets: Vec<Target>,
     pub assets: Option<String>,
@@ -24,6 +25,7 @@ impl Manifest {
             .unwrap_or_default();
         Ok(Self {
             version: toml.package.version,
+            apk_name: metadata.apk_name,
             android_manifest: metadata.android_manifest,
             build_targets: metadata.build_targets,
             assets: metadata.assets,
@@ -50,6 +52,7 @@ struct PackageMetadata {
 
 #[derive(Clone, Debug, Default, Deserialize)]
 struct AndroidMetadata {
+    apk_name: Option<String>,
     #[serde(flatten)]
     android_manifest: AndroidManifest,
     #[serde(default)]

@@ -121,10 +121,16 @@ impl<'a> ApkBuilder<'a> {
             )
             .to_owned()
         });
+        let apk_name = self
+            .manifest
+            .apk_name
+            .clone()
+            .unwrap_or_else(|| artifact.name().to_string());
 
         let config = ApkConfig {
             ndk: self.ndk.clone(),
             build_dir: self.build_dir.join(artifact),
+            apk_name,
             assets,
             resources,
             manifest,

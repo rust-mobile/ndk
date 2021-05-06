@@ -8,6 +8,7 @@ use std::process::Command;
 pub struct ApkConfig {
     pub ndk: Ndk,
     pub build_dir: PathBuf,
+    pub apk_name: String,
     pub assets: Option<PathBuf>,
     pub resources: Option<PathBuf>,
     pub manifest: AndroidManifest,
@@ -22,12 +23,11 @@ impl ApkConfig {
 
     fn unaligned_apk(&self) -> PathBuf {
         self.build_dir
-            .join(format!("{}-unaligned.apk", self.manifest.application.label))
+            .join(format!("{}-unaligned.apk", self.apk_name))
     }
 
     fn apk(&self) -> PathBuf {
-        self.build_dir
-            .join(format!("{}.apk", self.manifest.application.label))
+        self.build_dir.join(format!("{}.apk", self.apk_name))
     }
 
     pub fn create_apk(&self) -> Result<UnalignedApk, NdkError> {

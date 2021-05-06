@@ -1,3 +1,8 @@
+# Unreleased
+
+- Added `apk_name` field to android metadata for APK file naming (defaults to Rust library name if unspecified).
+  The application label is now no longer used for this purpose, and can contain a string resource ID from now on.
+
 # 0.6.0 (2021-04-20)
 
 - **Breaking:** uses `ndk-build`'s new (de)serialized `Manifest` struct to properly serialize a toml's `[package.metadata.android]` to an `AndroidManifest.xml`. The `[package.metadata.android]` now closely resembles the structure of [an android manifest file](https://developer.android.com/guide/topics/manifest/manifest-element). See [README](README.md) for an example of the new `[package.metadata.android]` structure and all manifest attributes that are currently supported.
