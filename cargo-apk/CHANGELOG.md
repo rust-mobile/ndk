@@ -1,5 +1,8 @@
 # Unreleased
 
+- Added `cargo apk check`. Useful for compile-testing crates that contain C/C++ dependencies or
+  target specific conditional compilation.
+
 - Added `apk_name` field to android metadata for APK file naming (defaults to Rust library name if unspecified).
   The application label is now no longer used for this purpose, and can contain a string resource ID from now on.
 
