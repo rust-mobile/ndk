@@ -86,6 +86,28 @@ impl<'a> ApkBuilder<'a> {
         })
     }
 
+    pub fn check(&self) -> Result<(), Error> {
+        for target in &self.build_targets {
+            let triple = target.rust_triple();
+            let target_sdk_version = self
+                .manifest
+                .android_manifest
+                .sdk
+                .target_sdk_version
+                .unwrap();
+            let mut cargo = cargo_apk(&self.ndk, *target, target_sdk_version)?;
+            cargo.arg("check");
+            if self.cmd.target().is_none() {
+                cargo.arg("--target").arg(triple);
+            }
+            cargo.args(self.cmd.args());
+            if !cargo.status()?.success() {
+                return Err(NdkError::CmdFailed(cargo).into());
+            }
+        }
+        Ok(())
+    }
+
     pub fn build(&self, artifact: &Artifact) -> Result<Apk, Error> {
         let package_name = match artifact {
             Artifact::Root(name) => format!("rust.{}", name.replace("-", "_")),
