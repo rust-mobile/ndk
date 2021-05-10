@@ -2,7 +2,7 @@ use crate::error::Error;
 use crate::manifest::Manifest;
 use cargo_subcommand::{Artifact, CrateType, Profile, Subcommand};
 use ndk_build::apk::{Apk, ApkConfig};
-use ndk_build::cargo::{cargo_apk, VersionCode};
+use ndk_build::cargo::{cargo_ndk, VersionCode};
 use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
 use ndk_build::manifest::MetaData;
@@ -86,6 +86,28 @@ impl<'a> ApkBuilder<'a> {
         })
     }
 
+    pub fn check(&self) -> Result<(), Error> {
+        for target in &self.build_targets {
+            let triple = target.rust_triple();
+            let target_sdk_version = self
+                .manifest
+                .android_manifest
+                .sdk
+                .target_sdk_version
+                .unwrap();
+            let mut cargo = cargo_ndk(&self.ndk, *target, target_sdk_version)?;
+            cargo.arg("check");
+            if self.cmd.target().is_none() {
+                cargo.arg("--target").arg(triple);
+            }
+            cargo.args(self.cmd.args());
+            if !cargo.status()?.success() {
+                return Err(NdkError::CmdFailed(cargo).into());
+            }
+        }
+        Ok(())
+    }
+
     pub fn build(&self, artifact: &Artifact) -> Result<Apk, Error> {
         let package_name = match artifact {
             Artifact::Root(name) => format!("rust.{}", name.replace("-", "_")),
@@ -148,7 +170,7 @@ impl<'a> ApkBuilder<'a> {
 
             let target_sdk_version = config.manifest.sdk.target_sdk_version.unwrap();
 
-            let mut cargo = cargo_apk(&config.ndk, *target, target_sdk_version)?;
+            let mut cargo = cargo_ndk(&config.ndk, *target, target_sdk_version)?;
             cargo.arg("build");
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
@@ -203,7 +225,7 @@ impl<'a> ApkBuilder<'a> {
             .target_sdk_version
             .unwrap_or_else(|| ndk.default_platform());
         for target in &self.build_targets {
-            let mut cargo = cargo_apk(&ndk, *target, target_sdk_version)?;
+            let mut cargo = cargo_ndk(&ndk, *target, target_sdk_version)?;
             cargo.args(self.cmd.args());
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());

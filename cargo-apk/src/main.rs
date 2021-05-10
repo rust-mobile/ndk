@@ -9,6 +9,7 @@ fn main() -> anyhow::Result<()> {
     let builder = ApkBuilder::from_subcommand(&cmd)?;
 
     match cmd.cmd() {
+        "check" => builder.check()?,
         "build" => {
             for artifact in cmd.artifacts() {
                 builder.build(artifact)?;
@@ -59,7 +60,8 @@ USAGE:
     cargo apk [SUBCOMMAND]
 
 SUBCOMMAND:
-    build   Compiles the current package
+    check   Checks that the current packege builds without creating an apk
+    build   Compiles the current package and creates an apk
     run     Run a binary or example of the local package
     gdb     Start a gdb session attached to an adb device with symbols loaded
 "#
