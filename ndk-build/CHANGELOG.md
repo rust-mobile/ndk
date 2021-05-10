@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.3.0 (2021-05-10)
+
 - New `ApkConfig` field `apk_name` is now used for APK file naming, instead of the application label.
 - Renamed `cargo_apk` utility to `cargo_ndk`.
 
