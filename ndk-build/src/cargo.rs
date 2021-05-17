@@ -3,7 +3,7 @@ use crate::ndk::Ndk;
 use crate::target::Target;
 use std::process::Command;
 
-pub fn cargo_apk(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command, NdkError> {
+pub fn cargo_ndk(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command, NdkError> {
     let triple = target.rust_triple();
     let mut cargo = Command::new("cargo");
 
