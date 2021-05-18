@@ -103,13 +103,11 @@ impl<'a> UnalignedApk<'a> {
         search_paths: &[&Path],
     ) -> Result<(), NdkError> {
         let abi_dir = path.join(target.android_abi());
-        if abi_dir.is_dir() {
-            for entry in fs::read_dir(abi_dir)? {
-                let entry = entry?;
-                let path = entry.path();
-                if path.extension() == Some(OsStr::new("so")) {
-                    self.add_lib_recursively(&path, target, search_paths)?;
-                }
+        for entry in fs::read_dir(abi_dir)? {
+            let entry = entry?;
+            let path = entry.path();
+            if path.extension() == Some(OsStr::new("so")) {
+                self.add_lib_recursively(&path, target, search_paths)?;
             }
         }
         Ok(())
