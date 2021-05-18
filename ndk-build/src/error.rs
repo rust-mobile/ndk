@@ -39,6 +39,8 @@ pub enum NdkError {
     UnsupportedHost(String),
     #[error(transparent)]
     Io(#[from] IoError),
+    #[error("{0:?}: `{1}`")]
+    IoPathError(#[source] IoError, PathBuf),
     #[error("Invalid semver")]
     InvalidSemver,
     #[error("Command `{}` had a non-zero exit code.", format!("{:?}", .0).replace('"', ""))]
