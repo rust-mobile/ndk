@@ -88,7 +88,7 @@ icon = "@mipmap/ic_launcher"
 label = "Application Name"
 
 # Folder containing extra shared libraries intended to be dynamically loaded at runtime.
-# Files with extension `.so` placed under `libs_folder/${android_abi}` are added to the apk
+# Files matching `libs_folder/${android_abi}/*.so` are added to the apk
 # according to the specified build_targets.
 runtime_libs = "path/to/libs_folder"
 
