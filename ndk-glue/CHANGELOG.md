@@ -1,5 +1,7 @@
 # Unreleased
 
+- Reexport `android_logger` and `log` from the crate root for `ndk-macro` to use.
+
 # 0.3.0 (2021-01-30)
 
 - **Breaking** Looper `ident` not passed in `data` pointer anymore.
