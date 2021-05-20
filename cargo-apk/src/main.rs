@@ -9,13 +9,13 @@ fn main() -> anyhow::Result<()> {
     let builder = ApkBuilder::from_subcommand(&cmd)?;
 
     match cmd.cmd() {
-        "check" => builder.check()?,
-        "build" => {
+        "check" | "c" => builder.check()?,
+        "build" | "b" => {
             for artifact in cmd.artifacts() {
                 builder.build(artifact)?;
             }
         }
-        "run" => {
+        "run" | "r" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
             builder.run(&cmd.artifacts()[0])?;
         }
@@ -29,7 +29,9 @@ fn main() -> anyhow::Result<()> {
         "help" => {
             if let Some(arg) = cmd.args().get(0) {
                 match &**arg {
-                    "build" | "run" | "test" | "doc" => run_cargo(&cmd)?,
+                    "build" | "b" | "check" | "c" | "run" | "r" | "test" | "t" | "doc" => {
+                        run_cargo(&cmd)?
+                    }
                     "gdb" => print_gdb_help(),
                     _ => print_help(),
                 }
@@ -60,10 +62,10 @@ USAGE:
     cargo apk [SUBCOMMAND]
 
 SUBCOMMAND:
-    check   Checks that the current packege builds without creating an apk
-    build   Compiles the current package and creates an apk
-    run     Run a binary or example of the local package
-    gdb     Start a gdb session attached to an adb device with symbols loaded
+    check, c    Checks that the current package builds without creating an apk
+    build, b    Compiles the current package and creates an apk
+    run, r      Run a binary or example of the local package
+    gdb         Start a gdb session attached to an adb device with symbols loaded
 "#
     );
 }
