@@ -42,6 +42,11 @@ assets = "path/to/assets_folder"
 # Defaults to package name.
 apk_name = "myapp"
 
+# Folder containing extra shared libraries intended to be dynamically loaded at runtime.
+# Files matching `libs_folder/${android_abi}/*.so` are added to the apk
+# according to the specified build_targets.
+runtime_libs = "path/to/libs_folder"
+
 # See https://developer.android.com/guide/topics/manifest/uses-sdk-element
 #
 # Defaults to a `min_sdk_version` of 23 and `target_sdk_version` is based on the ndk's default platform.
@@ -86,11 +91,6 @@ icon = "@mipmap/ic_launcher"
 #
 # Defaults to the compiled artifact's name.
 label = "Application Name"
-
-# Folder containing extra shared libraries intended to be dynamically loaded at runtime.
-# Files matching `libs_folder/${android_abi}/*.so` are added to the apk
-# according to the specified build_targets.
-runtime_libs = "path/to/libs_folder"
 
 # See https://developer.android.com/guide/topics/manifest/meta-data-element
 #
