@@ -1,4 +1,4 @@
-# Unreleased
+# 0.4.0 (2021-07-06)
 
 - Added `add_runtime_libs` function for including extra dynamic libraries in the APK.
 
