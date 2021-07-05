@@ -121,28 +121,23 @@ impl<'a> ApkBuilder<'a> {
             manifest.application.label = artifact.name().to_string();
         }
 
-        let assets = self.manifest.assets.as_ref().map(|assets| {
-            dunce::simplified(
-                &self
-                    .cmd
-                    .manifest()
-                    .parent()
-                    .expect("invalid manifest path")
-                    .join(&assets),
-            )
-            .to_owned()
-        });
-        let resources = self.manifest.resources.as_ref().map(|res| {
-            dunce::simplified(
-                &self
-                    .cmd
-                    .manifest()
-                    .parent()
-                    .expect("invalid manifest path")
-                    .join(&res),
-            )
-            .to_owned()
-        });
+        let crate_path = self.cmd.manifest().parent().expect("invalid manifest path");
+
+        let assets = self
+            .manifest
+            .assets
+            .as_ref()
+            .map(|assets| dunce::simplified(&crate_path.join(&assets)).to_owned());
+        let resources = self
+            .manifest
+            .resources
+            .as_ref()
+            .map(|res| dunce::simplified(&crate_path.join(&res)).to_owned());
+        let runtime_libs = self
+            .manifest
+            .runtime_libs
+            .as_ref()
+            .map(|libs| dunce::simplified(&crate_path.join(&libs)).to_owned());
         let apk_name = self
             .manifest
             .apk_name
@@ -190,6 +185,10 @@ impl<'a> ApkBuilder<'a> {
                 .collect::<Vec<_>>();
 
             apk.add_lib_recursively(&artifact, *target, libs_search_paths.as_slice())?;
+
+            if let Some(runtime_libs) = &runtime_libs {
+                apk.add_runtime_libs(runtime_libs, *target, libs_search_paths.as_slice())?;
+            }
         }
 
         Ok(apk.align()?.sign(config.ndk.debug_key()?)?)

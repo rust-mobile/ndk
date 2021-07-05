@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added `runtime_libs` path to android metadata for packaging extra dynamic libraries into the apk.
+
 # 0.7.0 (2021-05-10)
 
 - Added `cargo apk check`. Useful for compile-testing crates that contain C/C++ dependencies or
