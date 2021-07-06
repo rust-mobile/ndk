@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.8.0 (2021-07-06)
+
 - Added `runtime_libs` path to android metadata for packaging extra dynamic libraries into the apk.
 
 # 0.7.0 (2021-05-10)
