@@ -49,16 +49,11 @@ fn crate_name(name: &str) -> Result<String> {
 pub fn crate_path(name: &str, overridden_path: &Option<Path>) -> Path {
     // try to use overridden crate path
     overridden_path.clone().unwrap_or_else(|| {
-        // the binding to hold string from `crate_name` fn
-        let mut detected_name = None;
         Ident::new(
             // try to determine crate name from Cargo.toml
             crate_name(name)
                 .ok()
-                .map(|name| {
-                    detected_name = Some(name);
-                    detected_name.as_ref().unwrap().as_str()
-                })
+                .as_deref()
                 // or use default crate name
                 // (this may cause compilation error when crate is not found)
                 .unwrap_or_else(|| name),
