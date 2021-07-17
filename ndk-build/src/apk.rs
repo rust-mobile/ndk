@@ -85,11 +85,11 @@ impl<'a> UnalignedApk<'a> {
         std::fs::copy(path, out.join(&file_name))?;
 
         let mut aapt = self.0.build_tool(bin!("aapt"))?;
-        aapt.arg("add").arg(self.0.unaligned_apk()).arg(format!(
-            "lib/{}/{}",
-            abi,
-            file_name.to_str().unwrap()
-        ));
+        aapt.arg("add")
+            .arg("-0")
+            .arg("")
+            .arg(self.0.unaligned_apk())
+            .arg(format!("lib/{}/{}", abi, file_name.to_str().unwrap()));
         if !aapt.status()?.success() {
             return Err(NdkError::CmdFailed(aapt));
         }
