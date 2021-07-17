@@ -165,7 +165,10 @@ impl Apk {
 
     pub fn install(&self) -> Result<(), NdkError> {
         let mut adb = self.ndk.platform_tool(bin!("adb"))?;
-        adb.arg("install").arg("-r").arg(&self.path);
+        adb.arg("install")
+            .arg("-r")
+            .arg("--fastdeploy")
+            .arg(&self.path);
         if !adb.status()?.success() {
             return Err(NdkError::CmdFailed(adb));
         }
