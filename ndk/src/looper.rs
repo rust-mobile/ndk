@@ -3,9 +3,9 @@
 //! In Android, `ALooper`s are inherently thread-local.  Due to this, there are two different
 //! `ALooper` interfaces exposed in this module:
 //!
-//!  * `ThreadLooper`, which has methods for the operations performable with a looper in one's own
+//!  * [`ThreadLooper`], which has methods for the operations performable with a looper in one's own
 //!    thread; and
-//!  * `ForeignLooper`, which has methods for the operations performable with any thread's looper.
+//!  * [`ForeignLooper`], which has methods for the operations performable with any thread's looper.
 
 use std::convert::TryInto;
 use std::os::raw::c_void;
@@ -23,14 +23,14 @@ pub struct ThreadLooper {
     foreign: ForeignLooper,
 }
 
-/// The poll result from a `ThreadLooper`.
+/// The poll result from a [`ThreadLooper`].
 #[derive(Debug)]
 pub enum Poll {
-    /// This looper was woken using `ForeignLooper::wake`
+    /// This looper was woken using [`ForeignLooper::wake()`]
     Wake,
-    /// For `ThreadLooper::poll_once*`, an event was received and processed using a callback.
+    /// For [`ThreadLooper::poll_once*()`][ThreadLooper::poll_once()], an event was received and processed using a callback.
     Callback,
-    /// For `ThreadLooper::poll_*_timeout`, the requested timeout was reached before any events.
+    /// For [`ThreadLooper::poll_*_timeout()`][ThreadLooper::poll_once_timeout()], the requested timeout was reached before any events.
     Timeout,
     /// An event was received
     Event {
@@ -96,7 +96,7 @@ impl ThreadLooper {
     /// Polls the looper, blocking on processing an event, but with a timeout.  Give a timeout of 0
     /// to make this non-blocking.
     ///
-    /// It panics if the timeout is larger than expressible as an `i32` of milliseconds (roughly 25
+    /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
     #[inline]
     pub fn poll_once_timeout(&self, timeout: Duration) -> Result<Poll, LooperError> {
@@ -130,7 +130,7 @@ impl ThreadLooper {
 
     /// Repeatedly polls the looper, blocking on processing an event.
     ///
-    /// This function will never return `Poll::Callback`.
+    /// This function will never return [`Poll::Callback`].
     #[inline]
     pub fn poll_all(&self) -> Result<Poll, LooperError> {
         self.poll_all_ms(-1)
@@ -139,9 +139,9 @@ impl ThreadLooper {
     /// Repeatedly polls the looper, blocking on processing an event, but with a timeout. Give a
     /// timeout of 0 to make this non-blocking.
     ///
-    /// This function will never return `Poll::Callback`.
+    /// This function will never return [`Poll::Callback`].
     ///
-    /// It panics if the timeout is larger than expressible as an `i32` of milliseconds (roughly 25
+    /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
     #[inline]
     pub fn poll_all_timeout(&self, timeout: Duration) -> Result<Poll, LooperError> {
@@ -153,7 +153,7 @@ impl ThreadLooper {
         )
     }
 
-    /// Returns a reference to the `ForeignLooper` that is associated with the current thread.
+    /// Returns a reference to the [`ForeignLooper`] that is associated with the current thread.
     pub fn as_foreign(&self) -> &ForeignLooper {
         &self.foreign
     }
@@ -194,7 +194,7 @@ impl ForeignLooper {
         NonNull::new(unsafe { ffi::ALooper_forThread() }).map(|ptr| unsafe { Self::from_ptr(ptr) })
     }
 
-    /// Construct a `ForeignLooper` object from the given pointer.
+    /// Construct a [`ForeignLooper`] object from the given pointer.
     ///
     /// By calling this function, you guarantee that the pointer is a valid, non-null pointer to an
     /// NDK `ALooper`.
@@ -210,7 +210,7 @@ impl ForeignLooper {
         self.ptr
     }
 
-    /// Wakes the looper.  An event of `Poll::Wake` will be sent.
+    /// Wakes the looper.  An event of [`Poll::Wake`] will be sent.
     pub fn wake(&self) {
         unsafe { ffi::ALooper_wake(self.ptr.as_ptr()) }
     }
