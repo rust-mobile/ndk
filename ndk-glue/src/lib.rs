@@ -1,10 +1,10 @@
 use lazy_static::lazy_static;
 use log::Level;
 use ndk::input_queue::InputQueue;
-use ndk::looper::{ForeignLooper, ThreadLooper};
+use ndk::looper::{FdEvent, ForeignLooper, ThreadLooper};
 use ndk::native_activity::NativeActivity;
 use ndk::native_window::NativeWindow;
-use ndk_sys::{AInputQueue, ANativeActivity, ANativeWindow, ARect, ALOOPER_EVENT_INPUT};
+use ndk_sys::{AInputQueue, ANativeActivity, ANativeWindow, ARect};
 use std::ffi::{CStr, CString};
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -187,7 +187,7 @@ pub unsafe fn init(
             .add_fd(
                 PIPE[0],
                 NDK_GLUE_LOOPER_EVENT_PIPE_IDENT,
-                ALOOPER_EVENT_INPUT as _,
+                FdEvent::INPUT,
                 std::ptr::null_mut(),
             )
             .unwrap();

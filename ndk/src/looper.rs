@@ -7,6 +7,7 @@
 //!    thread; and
 //!  * [`ForeignLooper`], which has methods for the operations performable with any thread's looper.
 
+use bitflags::bitflags;
 use std::convert::TryInto;
 use std::os::raw::c_void;
 use std::os::unix::io::RawFd;
@@ -23,6 +24,17 @@ pub struct ThreadLooper {
     foreign: ForeignLooper,
 }
 
+bitflags! {
+    /// Flags for file descriptor events that a looper can monitor.
+    pub struct FdEvent: u32 {
+        const INPUT = ffi::ALOOPER_EVENT_INPUT;
+        const OUTPUT = ffi::ALOOPER_EVENT_OUTPUT;
+        const ERROR = ffi::ALOOPER_EVENT_ERROR;
+        const HANGUP = ffi::ALOOPER_EVENT_HANGUP;
+        const INVALID = ffi::ALOOPER_EVENT_INVALID;
+    }
+}
+
 /// The poll result from a [`ThreadLooper`].
 #[derive(Debug)]
 pub enum Poll {
@@ -36,7 +48,7 @@ pub enum Poll {
     Event {
         ident: i32,
         fd: RawFd,
-        events: i32,
+        events: FdEvent,
         data: *mut c_void,
     },
 }
@@ -67,23 +79,22 @@ impl ThreadLooper {
     }
 
     fn poll_once_ms(&self, ms: i32) -> Result<Poll, LooperError> {
-        unsafe {
-            let mut fd: RawFd = -1;
-            let mut events: i32 = -1;
-            let mut data: *mut c_void = ptr::null_mut();
-            match ffi::ALooper_pollOnce(ms, &mut fd, &mut events, &mut data) {
-                ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
-                ffi::ALOOPER_POLL_CALLBACK => Ok(Poll::Callback),
-                ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
-                ffi::ALOOPER_POLL_ERROR => Err(LooperError),
-                ident if ident >= 0 => Ok(Poll::Event {
-                    ident,
-                    fd,
-                    events,
-                    data,
-                }),
-                _ => unreachable!(),
-            }
+        let mut fd: RawFd = -1;
+        let mut events: i32 = -1;
+        let mut data: *mut c_void = ptr::null_mut();
+        match unsafe { ffi::ALooper_pollOnce(ms, &mut fd, &mut events, &mut data) } {
+            ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
+            ffi::ALOOPER_POLL_CALLBACK => Ok(Poll::Callback),
+            ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
+            ffi::ALOOPER_POLL_ERROR => Err(LooperError),
+            ident if ident >= 0 => Ok(Poll::Event {
+                ident,
+                fd,
+                events: FdEvent::from_bits(events as u32)
+                    .expect("poll event contains unknown bits"),
+                data,
+            }),
+            _ => unreachable!(),
         }
     }
 
@@ -109,22 +120,21 @@ impl ThreadLooper {
     }
 
     fn poll_all_ms(&self, ms: i32) -> Result<Poll, LooperError> {
-        unsafe {
-            let mut fd: RawFd = -1;
-            let mut events: i32 = -1;
-            let mut data: *mut c_void = ptr::null_mut();
-            match ffi::ALooper_pollAll(ms, &mut fd, &mut events, &mut data) {
-                ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
-                ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
-                ffi::ALOOPER_POLL_ERROR => Err(LooperError),
-                ident if ident >= 0 => Ok(Poll::Event {
-                    ident,
-                    fd,
-                    events,
-                    data,
-                }),
-                _ => unreachable!(),
-            }
+        let mut fd: RawFd = -1;
+        let mut events: i32 = -1;
+        let mut data: *mut c_void = ptr::null_mut();
+        match unsafe { ffi::ALooper_pollAll(ms, &mut fd, &mut events, &mut data) } {
+            ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
+            ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
+            ffi::ALOOPER_POLL_ERROR => Err(LooperError),
+            ident if ident >= 0 => Ok(Poll::Event {
+                ident,
+                fd,
+                events: FdEvent::from_bits(events as u32)
+                    .expect("poll event contains unknown bits"),
+                data,
+            }),
+            _ => unreachable!(),
         }
     }
 
@@ -224,10 +234,17 @@ impl ForeignLooper {
         &self,
         fd: RawFd,
         ident: i32,
-        event: i32,
+        events: FdEvent,
         data: *mut c_void,
     ) -> Result<(), LooperError> {
-        match ffi::ALooper_addFd(self.ptr.as_ptr(), fd, ident, event, None, data) {
+        match ffi::ALooper_addFd(
+            self.ptr.as_ptr(),
+            fd,
+            ident,
+            events.bits() as i32,
+            None,
+            data,
+        ) {
             1 => Ok(()),
             -1 => Err(LooperError),
             _ => unreachable!(),
@@ -246,7 +263,7 @@ impl ForeignLooper {
         &self,
         fd: RawFd,
         ident: i32,
-        event: i32,
+        events: FdEvent,
         callback: Box<dyn FnMut(RawFd) -> bool>,
     ) -> Result<(), LooperError> {
         extern "C" fn cb_handler(fd: RawFd, _events: i32, data: *mut c_void) -> i32 {
@@ -256,7 +273,14 @@ impl ForeignLooper {
             }
         }
         let data: *mut c_void = Box::into_raw(Box::new(callback)) as *mut _;
-        match ffi::ALooper_addFd(self.ptr.as_ptr(), fd, ident, event, Some(cb_handler), data) {
+        match ffi::ALooper_addFd(
+            self.ptr.as_ptr(),
+            fd,
+            ident,
+            events.bits() as i32,
+            Some(cb_handler),
+            data,
+        ) {
             1 => Ok(()),
             -1 => Err(LooperError),
             _ => unreachable!(),

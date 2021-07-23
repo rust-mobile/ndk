@@ -1,6 +1,7 @@
 # Unreleased
 
 - Reexport `android_logger` and `log` from the crate root for `ndk-macro` to use.
+- Use new `FdEvents` `bitflags` for looper file descriptor events.
 
 # 0.3.0 (2021-01-30)
 
