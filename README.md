@@ -29,7 +29,7 @@ r20 | 20.1.5948944 | _Deprecated_ | :heavy_check_mark:
 r21 | 21.4.7075529 | LTS | :heavy_check_mark:
 r22 | 22.1.7171670 | Rolling Release | :heavy_check_mark:
 r23 beta 1/2 |  | Beta | :heavy_check_mark:
-r23 beta 3 and beyond |  | Beta | :x: Breaking on https://github.com/rust-windowing/android-ndk-rs/issues/149 :x:
+r23 beta 3 and beyond |  | Beta | :x: Breaking on [#149](https://github.com/rust-windowing/android-ndk-rs/issues/149) :x:
 
 ## Hello world
 
