@@ -1,5 +1,7 @@
 # Unreleased
 
+- **Breaking** Model looper file descriptor events integer as `bitflags`.
+
 # 0.3.0 (2021-01-30)
 
 - **Breaking** Looper `ident` not passed in `data` pointer anymore.
