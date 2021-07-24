@@ -1,5 +1,7 @@
 # Unreleased
 
+- Regenerate against NDK r23 (#178)
+
 # 0.2.1 (2020-10-15)
 
 - Fix documentation build on docs.rs
