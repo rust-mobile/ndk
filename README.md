@@ -1,4 +1,5 @@
-# Rust on Android
+Rust on Android
+=
 
 [![Rust](https://github.com/rust-windowing/android-ndk-rs/workflows/Rust/badge.svg)](https://github.com/rust-windowing/android-ndk-rs/actions) ![MIT license](https://img.shields.io/badge/License-MIT-green.svg) ![APACHE2 license](https://img.shields.io/badge/License-APACHE2-green.svg)
 
@@ -13,6 +14,22 @@ Name | Description | Badges
 `cargo-apk` | Build tool | [![crates.io](https://img.shields.io/crates/v/cargo-apk.svg)](https://crates.io/crates/cargo-apk) [![crates.io](https://docs.rs/cargo-apk/badge.svg)](https://docs.rs/cargo-apk)
 
 See [`ndk-examples`](./ndk-examples) for examples using the NDK and the README files of the crates for more details.
+
+## Supported NDK versions
+
+`android-ndk-rs` aims to support at least the `LTS` and `Rolling Release` branches of the NDK, as described on [their wiki](https://github.com/android/ndk/wiki#supported-downloads). Additionally the `Beta Release` might be supported to prepare for an upcoming release.
+
+As of writing (2021-07-24) the following NDKs are tested:
+
+Branch | Version | Status | Working
+-|-|:-:|:-:
+r18 | 18.1.5063045 | _Deprecated_ | :x:
+r19 | 19.2.5345600 | _Deprecated_ | :heavy_check_mark:
+r20 | 20.1.5948944 | _Deprecated_ | :heavy_check_mark:
+r21 | 21.4.7075529 | LTS | :heavy_check_mark:
+r22 | 22.1.7171670 | Rolling Release | :heavy_check_mark:
+r23 beta 1/2 |  | Beta | :heavy_check_mark:
+r23 beta 3 and beyond |  | Beta | :x: Breaking on https://github.com/rust-windowing/android-ndk-rs/issues/149 :x:
 
 ## Hello world
 
