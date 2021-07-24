@@ -154,6 +154,5 @@ fn main() {
     }
 
     // Stop the activity
-    #[allow(deprecated)]
-    ndk_glue::native_activity().finish()
+    ndk_glue::native_activity().unwrap().finish()
 }

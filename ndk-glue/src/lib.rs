@@ -51,21 +51,20 @@ pub fn android_log(level: Level, tag: &CStr, msg: &CStr) {
     }
 }
 
+static NATIVE_ACTIVITY: Lazy<RwLock<Option<NativeActivity>>> = Lazy::new(Default::default);
 static NATIVE_WINDOW: Lazy<RwLock<Option<NativeWindow>>> = Lazy::new(Default::default);
 static INPUT_QUEUE: Lazy<RwLock<Option<InputQueue>>> = Lazy::new(Default::default);
 static CONTENT_RECT: Lazy<RwLock<Rect>> = Lazy::new(Default::default);
 static LOOPER: Lazy<Mutex<Option<ForeignLooper>>> = Lazy::new(Default::default);
 
-static mut NATIVE_ACTIVITY: Option<NativeActivity> = None;
-
 /// This function accesses a `static` variable internally and must only be used if you are sure
-/// there is exactly one version of `ndk_glue` in your dependency tree.
+/// there is exactly one version of [`ndk_glue`][crate] in your dependency tree.
 ///
 /// If you need access to the `JavaVM` through [`NativeActivity::vm()`] or Activity `Context`
 /// through [`NativeActivity::activity()`], please use the [`ndk_context`] crate and its
 /// [`ndk_context::android_context()`] getter to acquire the `JavaVM` and `Context` instead.
-pub fn native_activity() -> &'static NativeActivity {
-    unsafe { NATIVE_ACTIVITY.as_ref().unwrap() }
+pub fn native_activity() -> Option<LockReadGuard<NativeActivity>> {
+    LockReadGuard::from_wrapped_option(NATIVE_ACTIVITY.read())
 }
 
 pub struct LockReadGuard<T: ?Sized + 'static>(MappedRwLockReadGuard<'static, T>);
@@ -182,6 +181,11 @@ pub enum Event {
     SaveInstanceState,
     Pause,
     Stop,
+    /// The native activity will be stopped and destroyed after this event.
+    /// Due to the async nature of these events, make sure to hold on to the
+    /// lock received from [`native_activity()`] _beforehand_ if you wish to use
+    /// it during handling of [`Event::Destroy`]. The lock should be released to
+    /// allow `onDestroy` to return.
     Destroy,
     ConfigChanged,
     LowMemory,
@@ -249,7 +253,7 @@ pub unsafe fn init(
 
     let activity = NativeActivity::from_ptr(activity);
     ndk_context::initialize_android_context(activity.vm().cast(), activity.activity().cast());
-    NATIVE_ACTIVITY.replace(activity);
+    NATIVE_ACTIVITY.write().replace(activity);
 
     let mut logpipe: [RawFd; 2] = Default::default();
     libc::pipe(logpipe.as_mut_ptr());
@@ -334,6 +338,9 @@ unsafe extern "C" fn on_stop(activity: *mut ANativeActivity) {
 unsafe extern "C" fn on_destroy(activity: *mut ANativeActivity) {
     wake(activity, Event::Destroy);
     ndk_context::release_android_context();
+    let mut native_activity_guard = NATIVE_ACTIVITY.write();
+    let native_activity = native_activity_guard.take().unwrap();
+    assert_eq!(native_activity.ptr().as_ptr(), activity);
 }
 
 unsafe extern "C" fn on_configuration_changed(activity: *mut ANativeActivity) {
@@ -407,10 +414,9 @@ unsafe extern "C" fn on_input_queue_destroyed(
 ) {
     wake(activity, Event::InputQueueDestroyed);
     let mut input_queue_guard = INPUT_QUEUE.write();
-    assert_eq!(input_queue_guard.as_ref().unwrap().ptr().as_ptr(), queue);
-    let input_queue = InputQueue::from_ptr(NonNull::new(queue).unwrap());
+    let input_queue = input_queue_guard.take().unwrap();
+    assert_eq!(input_queue.ptr().as_ptr(), queue);
     input_queue.detach_looper();
-    input_queue_guard.take();
 }
 
 unsafe extern "C" fn on_content_rect_changed(activity: *mut ANativeActivity, rect: *const ARect) {
