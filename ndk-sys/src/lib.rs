@@ -11,6 +11,10 @@
 #![allow(non_snake_case)]
 #![allow(improper_ctypes)]
 #![allow(clippy::all)]
+// Temporarily allow UB nullptr dereference in bindgen layout tests until fixed upstream:
+// https://github.com/rust-lang/rust-bindgen/pull/2055
+// https://github.com/rust-lang/rust-bindgen/pull/2064
+#![allow(deref_nullptr)]
 // Test setup lints
 #![cfg_attr(test, allow(dead_code))]
 

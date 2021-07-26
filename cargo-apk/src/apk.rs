@@ -161,7 +161,7 @@ impl<'a> ApkBuilder<'a> {
                 .join(self.cmd.profile());
             let artifact = build_dir
                 .join(artifact)
-                .join(artifact.file_name(CrateType::Cdylib, &triple));
+                .join(artifact.file_name(CrateType::Cdylib, triple));
 
             let target_sdk_version = config.manifest.sdk.target_sdk_version.unwrap();
 
@@ -176,7 +176,7 @@ impl<'a> ApkBuilder<'a> {
             }
 
             let mut libs_search_paths =
-                get_libs_search_paths(&self.cmd.target_dir(), triple, self.cmd.profile().as_ref())?;
+                get_libs_search_paths(self.cmd.target_dir(), triple, self.cmd.profile().as_ref())?;
             libs_search_paths.push(build_dir.join("deps"));
 
             let libs_search_paths = libs_search_paths

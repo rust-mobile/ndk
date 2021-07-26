@@ -373,7 +373,7 @@ fn enum_return_value<T: TryFrom<u32>>(return_value: i32) -> Result<T> {
     u32::try_from(return_value)
         .ok()
         .and_then(|value| T::try_from(value).ok())
-        .ok_or_else(|| AAudioError::UnsupportedValue(return_value))
+        .ok_or(AAudioError::UnsupportedValue(return_value))
 }
 
 pub struct AAudioStreamBuilder {
