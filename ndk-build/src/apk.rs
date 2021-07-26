@@ -79,17 +79,13 @@ impl<'a> UnalignedApk<'a> {
             return Err(NdkError::PathNotFound(path.into()));
         }
         let abi = target.android_abi();
-        let file_name = path.file_name().unwrap();
-        let out = self.0.build_dir.join("lib").join(abi);
-        std::fs::create_dir_all(&out)?;
-        std::fs::copy(path, out.join(&file_name))?;
+        let lib_path = Path::new("lib").join(abi).join(path.file_name().unwrap());
+        let out = self.0.build_dir.join(&lib_path);
+        std::fs::create_dir_all(out.parent().unwrap())?;
+        std::fs::copy(path, out)?;
 
         let mut aapt = self.0.build_tool(bin!("aapt"))?;
-        aapt.arg("add").arg(self.0.unaligned_apk()).arg(format!(
-            "lib/{}/{}",
-            abi,
-            file_name.to_str().unwrap()
-        ));
+        aapt.arg("add").arg(self.0.unaligned_apk()).arg(&lib_path);
         if !aapt.status()?.success() {
             return Err(NdkError::CmdFailed(aapt));
         }
