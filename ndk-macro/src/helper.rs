@@ -1,5 +1,6 @@
 use core::ops::Deref;
 use proc_macro2::{Ident, Span};
+use proc_macro_crate::FoundCrate;
 use syn::{
     parse::{Parse, ParseStream, Result},
     Path, Token,
@@ -42,8 +43,8 @@ impl Parse for AttributeArgs {
 use proc_macro_crate::crate_name;
 
 #[cfg(test)]
-fn crate_name(name: &str) -> Result<String> {
-    Ok(name.replace('-', "_"))
+fn crate_name(name: &str) -> Result<FoundCrate> {
+    Ok(FoundCrate::Name(name.replace('-', "_")))
 }
 
 pub fn crate_path(name: &str, overridden_path: &Option<Path>) -> Path {
@@ -53,7 +54,11 @@ pub fn crate_path(name: &str, overridden_path: &Option<Path>) -> Path {
             // try to determine crate name from Cargo.toml
             crate_name(name)
                 .ok()
-                .as_deref()
+                .as_ref()
+                .map(|name| match name {
+                    FoundCrate::Itself => "ndk_macro",
+                    FoundCrate::Name(n) => n.as_str(),
+                })
                 // or use default crate name
                 // (this may cause compilation error when crate is not found)
                 .unwrap_or_else(|| name),
