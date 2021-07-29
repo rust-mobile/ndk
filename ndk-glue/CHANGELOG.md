@@ -1,5 +1,13 @@
 # Unreleased
 
+# 0.3.1 (2021-07-29)
+
+- Looper is now created before returning from `ANativeActivity_onCreate`, solving
+  race conditions in `onInputQueueCreated`.
+- Event pipe and looper are now notified of removal _before_ destroying `NativeWindow`
+  and `InputQueue`. This allows applications to unlock their read-locks of these instances
+  first (which they are supposed to hold on to during use) instead of deadlocking in
+  Android callbacks.
 - Reexport `android_logger` and `log` from the crate root for `ndk-macro` to use.
 - Use new `FdEvents` `bitflags` for looper file descriptor events.
 
