@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.4.0 (2021-08-02)
+
 - **Breaking** Model looper file descriptor events integer as `bitflags`.
 
 # 0.3.0 (2021-01-30)

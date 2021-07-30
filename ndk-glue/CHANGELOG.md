@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.3.1 (2021-07-29)
+# 0.4.0 (2021-08-02)
 
 - Looper is now created before returning from `ANativeActivity_onCreate`, solving
   race conditions in `onInputQueueCreated`.
@@ -10,6 +10,8 @@
   Android callbacks.
 - Reexport `android_logger` and `log` from the crate root for `ndk-macro` to use.
 - Use new `FdEvents` `bitflags` for looper file descriptor events.
+- Update to `ndk` 0.4.0.
+  This minor dependency bump causes a minor bump for `ndk-glue` too.
 
 # 0.3.0 (2021-01-30)
 
