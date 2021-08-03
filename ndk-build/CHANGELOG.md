@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.4.1 (2021-08-02)
+
+- Only the highest platform supported by the NDK is now selected as default platform.
+
 # 0.4.0 (2021-07-06)
 
 - Added `add_runtime_libs` function for including extra dynamic libraries in the APK.
