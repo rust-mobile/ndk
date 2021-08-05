@@ -79,13 +79,17 @@ impl<'a> UnalignedApk<'a> {
             return Err(NdkError::PathNotFound(path.into()));
         }
         let abi = target.android_abi();
-        let lib_path = Path::new("lib").join(abi).join(path.file_name().unwrap());
-        let out = self.0.build_dir.join(&lib_path);
+        let file_name = path.file_name().unwrap().to_str().unwrap();
+
+        // aapt requires UNIX convention for the library path.
+        // Otherwise, it results in a runtime error when loading the NativeActivity .so library.
+        let lib_path_unix = format!("lib/{}/{}", abi, file_name);
+        let out = self.0.build_dir.join(&lib_path_unix);
         std::fs::create_dir_all(out.parent().unwrap())?;
         std::fs::copy(path, out)?;
 
         let mut aapt = self.0.build_tool(bin!("aapt"))?;
-        aapt.arg("add").arg(self.0.unaligned_apk()).arg(&lib_path);
+        aapt.arg("add").arg(self.0.unaligned_apk()).arg(lib_path_unix);
         if !aapt.status()?.success() {
             return Err(NdkError::CmdFailed(aapt));
         }

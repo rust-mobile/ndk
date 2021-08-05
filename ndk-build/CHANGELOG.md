@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fix NativeActivity library path on non-UNIX systems, which resulted in runtime crashes on startup.
+
 # 0.4.1 (2021-08-02)
 
 - Only the highest platform supported by the NDK is now selected as default platform.

@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fix NativeActivity library path on non-UNIX systems, which resulted in runtime crashes on startup.
+
 # 0.8.0 (2021-07-06)
 
 - Added `runtime_libs` path to android metadata for packaging extra dynamic libraries into the apk.
