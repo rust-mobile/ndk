@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.4.2 (2021-08-05)
+# 0.4.2 (2021-08-06)
 
 - Pass UNIX path separators to `aapt` on non-UNIX systems, ensuring the resulting separator is compatible with the target device instead of the host platform.
 
