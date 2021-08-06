@@ -2,10 +2,14 @@
 
 set -e
 
-rustup target install x86_64-linux-android
-cargo install --path "$GITHUB_WORKSPACE/cargo-apk" --force
-cd "$GITHUB_WORKSPACE/ndk-examples"
-cargo apk run --example hello_world --target x86_64-linux-android
+# TODO: This doesn't test `cargo apk run` functionality anymore!
+# rustup target install x86_64-linux-android
+# cargo install --path "$GITHUB_WORKSPACE/cargo-apk" --force
+# cd "$GITHUB_WORKSPACE/ndk-examples"
+# cargo apk run --example hello_world --target x86_64-linux-android
+
+adb install -r "$1"
+adb shell am start -a android.intent.action.MAIN -n "$2/android.app.NativeActivity"
 
 sleep 30s
 
