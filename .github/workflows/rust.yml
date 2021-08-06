@@ -110,7 +110,7 @@ jobs:
         # the `googleapis` emulator target is considerably slower on CI.
         target: default
         profile: Nexus 5X
-        script: bash ./.github/workflows/android_test.sh ${{ steps.download.outputs.download-path }}/hello_world.apk rust.example.hello_world
+        script: bash ./.github/workflows/android_test.sh ${{ steps.download.outputs.download-path }}/hello_world.apk
     - name: Upload emulator logs
       uses: actions/upload-artifact@v2
       if: ${{ always() }}

@@ -9,11 +9,11 @@ set -e
 # cargo apk run --example hello_world --target x86_64-linux-android
 
 adb install -r "$1"
-adb shell am start -a android.intent.action.MAIN -n "$2/android.app.NativeActivity"
+adb shell am start -a android.intent.action.MAIN -n "rust.example.hello_world/android.app.NativeActivity"
 
 sleep 30s
 
-adb logcat *:E hello-world:V -d > ~/logcat.log
+adb logcat *:E hello-world:V -d | tee ~/logcat.log
 
 if grep 'hello world' ~/logcat.log;
 then
