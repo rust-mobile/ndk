@@ -84,8 +84,15 @@ impl<'a> UnalignedApk<'a> {
         std::fs::create_dir_all(out.parent().unwrap())?;
         std::fs::copy(path, out)?;
 
+        // Pass UNIX path separators to `aapt` on non-UNIX systems, ensuring the resulting separator
+        // is compatible with the target device instead of the host platform.
+        // Otherwise, it results in a runtime error when loading the NativeActivity `.so` library.
+        let lib_path_unix = lib_path.to_str().unwrap().replace("\\", "/");
+
         let mut aapt = self.0.build_tool(bin!("aapt"))?;
-        aapt.arg("add").arg(self.0.unaligned_apk()).arg(&lib_path);
+        aapt.arg("add")
+            .arg(self.0.unaligned_apk())
+            .arg(lib_path_unix);
         if !aapt.status()?.success() {
             return Err(NdkError::CmdFailed(aapt));
         }

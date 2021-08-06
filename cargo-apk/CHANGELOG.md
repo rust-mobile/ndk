@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.8.1 (2021-08-06)
+
+- Updated to use [ndk-build 0.4.2](../ndk-build/CHANGELOG.md#042-2021-08-06)
+
 # 0.8.0 (2021-07-06)
 
 - Added `runtime_libs` path to android metadata for packaging extra dynamic libraries into the apk.
