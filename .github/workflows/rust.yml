@@ -93,16 +93,22 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        source_os: [ubuntu-latest, windows-latest]
+        source_os: [ubuntu-latest, windows-latest, local]
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - uses: actions/download-artifact@v2
-      id: download
       name: Download hello_world APK
+      if: ${{ matrix.source_os != 'local' }}
+      id: download
       with:
         name: hello_world_${{ matrix.source_os }}_x86_64-linux-android
-    - name: Build and start hello_world example
+    - name: Install `cargo-apk` and add `x86_64-linux-android` target
+      if: ${{ matrix.source_os == 'local' }}
+      run: |
+        cargo install --path cargo-apk
+        rustup target add x86_64-linux-android
+    - name: Start hello_world example
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
@@ -110,7 +116,7 @@ jobs:
         # the `googleapis` emulator target is considerably slower on CI.
         target: default
         profile: Nexus 5X
-        script: bash ./.github/workflows/android_test.sh ${{ steps.download.outputs.download-path }}/hello_world.apk
+        script: ./.github/workflows/android_test.sh "${{ steps.download.outputs.download-path }}"
     - name: Upload emulator logs
       uses: actions/upload-artifact@v2
       if: ${{ always() }}

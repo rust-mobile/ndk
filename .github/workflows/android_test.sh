@@ -1,15 +1,15 @@
 #!/bin/bash
 
-set -e
+set -ex
 
-# TODO: This doesn't test `cargo apk run` functionality anymore!
-# rustup target install x86_64-linux-android
-# cargo install --path "$GITHUB_WORKSPACE/cargo-apk" --force
-# cd "$GITHUB_WORKSPACE/ndk-examples"
-# cargo apk run --example hello_world --target x86_64-linux-android
 
-adb install -r "$1"
-adb shell am start -a android.intent.action.MAIN -n "rust.example.hello_world/android.app.NativeActivity"
+if [ -z "$1" ];
+then
+    cargo apk run -p ndk-examples --target x86_64-linux-android --example hello_world
+else
+    adb install -r "$1/hello_world.apk"
+    adb shell am start -a android.intent.action.MAIN -n "rust.example.hello_world/android.app.NativeActivity"
+fi
 
 sleep 30s
 
