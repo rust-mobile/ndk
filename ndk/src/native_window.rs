@@ -10,6 +10,8 @@ unsafe impl Send for NativeWindow {}
 unsafe impl Sync for NativeWindow {}
 
 impl NativeWindow {
+    /// # Safety
+    /// `ptr` must be a valid pointer to an Android `ANativeWindow`.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::ANativeWindow>) -> Self {
         Self { ptr }
     }

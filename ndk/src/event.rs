@@ -60,6 +60,7 @@ enum Class {
 impl InputEvent {
     /// Initialize an [`InputEvent`] from a pointer
     ///
+    /// # Safety
     /// By calling this function, you assert that the pointer is a valid pointer to a
     /// native [`AInputEvent`](ffi::AInputEvent).
     #[inline]
@@ -341,6 +342,7 @@ impl MotionEventFlags {
 impl MotionEvent {
     /// Constructs a MotionEvent from a pointer to a native [`AInputEvent`](ffi::AInputEvent)
     ///
+    /// # Safety
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to a
     /// native [`AInputEvent`](ffi::AInputEvent) and that that [`AInputEvent`](ffi::AInputEvent)
     /// is an `AMotionEvent`.
@@ -1314,6 +1316,7 @@ pub enum Keycode {
 impl KeyEvent {
     /// Constructs a KeyEvent from a pointer to a native [`AInputEvent`](ffi::AInputEvent)
     ///
+    /// # Safety
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to an
     /// [`AInputEvent`](ffi::AInputEvent), and that that [`AInputEvent`](ffi::AInputEvent) is an `AKeyEvent`.
     #[inline]

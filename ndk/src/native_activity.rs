@@ -24,6 +24,7 @@ unsafe impl Sync for NativeActivity {}
 impl NativeActivity {
     /// Create a `NativeActivity` from a pointer
     ///
+    /// # Safety
     /// By calling this function, you assert that it is a valid pointer to a native
     /// `ANativeActivity`.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::ANativeActivity>) -> Self {
@@ -72,6 +73,7 @@ impl NativeActivity {
 
     /// Set the instance data associated with the activity
     ///
+    /// # Safety
     /// This can invalidate assumptions held by `android_native_app_glue`, as well as cause data
     /// races with concurrent access to the instance data.
     pub unsafe fn set_instance(&mut self, data: *mut c_void) {
@@ -119,6 +121,7 @@ impl NativeActivity {
 
     /// Path to the directory with the application's OBB files.
     ///
+    /// # Safety
     /// Only available as of Honeycomb (Android 3.0+, API level 11+)
     pub unsafe fn obb_path(&self) -> &CStr {
         CStr::from_ptr(self.ptr.as_ref().obbPath)

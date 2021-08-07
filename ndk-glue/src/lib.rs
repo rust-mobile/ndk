@@ -128,6 +128,9 @@ pub enum Event {
     ContentRectChanged,
 }
 
+/// # Safety
+/// `activity` must either be null (resulting in a safe panic)
+/// or a pointer to a valid Android `ANativeActivity`.
 pub unsafe fn init(
     activity: *mut ANativeActivity,
     _saved_state: *mut u8,

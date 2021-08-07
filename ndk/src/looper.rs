@@ -206,6 +206,7 @@ impl ForeignLooper {
 
     /// Construct a [`ForeignLooper`] object from the given pointer.
     ///
+    /// # Safety
     /// By calling this function, you guarantee that the pointer is a valid, non-null pointer to an
     /// NDK `ALooper`.
     #[inline]
@@ -229,22 +230,27 @@ impl ForeignLooper {
     ///
     /// See also [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
-    // TODO why is this unsafe?
-    pub unsafe fn add_fd(
+
+    // `ALooper_addFd won't dereference `data`; it will only pass it on to the event.
+    // Optionally dereferencing it there already enforces `unsafe` context.
+    #[allow(clippy::not_unsafe_ptr_arg_deref)]
+    pub fn add_fd(
         &self,
         fd: RawFd,
         ident: i32,
         events: FdEvent,
         data: *mut c_void,
     ) -> Result<(), LooperError> {
-        match ffi::ALooper_addFd(
-            self.ptr.as_ptr(),
-            fd,
-            ident,
-            events.bits() as i32,
-            None,
-            data,
-        ) {
+        match unsafe {
+            ffi::ALooper_addFd(
+                self.ptr.as_ptr(),
+                fd,
+                ident,
+                events.bits() as i32,
+                None,
+                data,
+            )
+        } {
             1 => Ok(()),
             -1 => Err(LooperError),
             _ => unreachable!(),
@@ -258,8 +264,7 @@ impl ForeignLooper {
     ///
     /// See also [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
-    // TODO why is this unsafe?
-    pub unsafe fn add_fd_with_callback(
+    pub fn add_fd_with_callback(
         &self,
         fd: RawFd,
         ident: i32,
@@ -273,14 +278,16 @@ impl ForeignLooper {
             }
         }
         let data: *mut c_void = Box::into_raw(Box::new(callback)) as *mut _;
-        match ffi::ALooper_addFd(
-            self.ptr.as_ptr(),
-            fd,
-            ident,
-            events.bits() as i32,
-            Some(cb_handler),
-            data,
-        ) {
+        match unsafe {
+            ffi::ALooper_addFd(
+                self.ptr.as_ptr(),
+                fd,
+                ident,
+                events.bits() as i32,
+                Some(cb_handler),
+                data,
+            )
+        } {
             1 => Ok(()),
             -1 => Err(LooperError),
             _ => unreachable!(),

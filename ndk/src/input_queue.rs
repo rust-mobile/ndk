@@ -23,6 +23,7 @@ pub struct InputQueueError;
 impl InputQueue {
     /// Construct an `InputQueue` from the native pointer.
     ///
+    /// # Safety
     /// By calling this function, you assert that the pointer is a valid pointer to an NDK `AInputQueue`.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputQueue>) -> Self {
         Self { ptr }
