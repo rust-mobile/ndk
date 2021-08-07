@@ -20,6 +20,7 @@ unsafe impl Sync for AssetManager {}
 impl AssetManager {
     /// Create an `AssetManager` from a pointer
     ///
+    /// # Safety
     /// By calling this function, you assert that the pointer is a valid pointer to a native
     /// `AAssetManager`.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AAssetManager>) -> Self {
@@ -98,6 +99,7 @@ impl AssetDir {
     /// `AAssetDir *` to the `AssetDir`, which will handle closing the asset.  Avoid using
     /// the pointer after calling this function.
     ///
+    /// # Safety
     /// By calling this function, you assert that it points to a valid native `AAssetDir`.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AAssetDir>) -> Self {
         Self { ptr }
@@ -174,6 +176,7 @@ impl Asset {
     /// the `Asset`, which will handle closing the asset.  Avoid using the pointer after calling
     /// this function.
     ///
+    /// # Safety
     /// By calling this function, you assert that it points to a valid native `AAsset`, open
     /// in the streaming mode.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AAsset>) -> Self {

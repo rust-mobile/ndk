@@ -71,6 +71,7 @@ impl fmt::Debug for Configuration {
 impl Configuration {
     /// Construct a `Configuration` from a pointer.
     ///
+    /// # Safety
     /// By calling this function, you assert that it is a valid pointer to a native
     /// `AConfiguration`, and give ownership of it to the `Configuration` instance.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AConfiguration>) -> Self {
@@ -81,6 +82,10 @@ impl Configuration {
     /// the pointer.
     ///
     /// This is useful if you have a pointer, but not ownership of it.
+    ///
+    /// # Safety
+    /// By calling this function, you assert that it is a valid pointer to a native
+    /// `AConfiguration`.
     pub unsafe fn clone_from_ptr(ptr: NonNull<ffi::AConfiguration>) -> Self {
         let conf = Self::new();
         ffi::AConfiguration_copy(conf.ptr.as_ptr(), ptr.as_ptr());

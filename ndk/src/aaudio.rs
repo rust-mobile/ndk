@@ -1182,6 +1182,9 @@ impl AAudioStream {
     /// * `buffer` - The slice with the samples.
     /// * `num_frames` - Number of frames to read. Only complete frames will be written.
     /// * `timeout_nanoseconds` - Maximum number of nanoseconds to wait for completion.
+    ///
+    /// # Safety
+    /// `buffer` must be a valid pointer to at least `num_frames` samples.
     pub unsafe fn read(
         &self,
         buffer: *mut c_void,
@@ -1314,6 +1317,9 @@ impl AAudioStream {
     /// * `buffer` - The address of the first sample.
     /// * `num_frames` - Number of frames to write. Only complete frames will be written.
     /// * `timeout_nanoseconds` - Maximum number of nanoseconds to wait for completion.
+    ///
+    /// # Safety
+    /// `buffer` must be a valid pointer to at least `num_frames` samples.
     pub unsafe fn write(
         &self,
         buffer: *const c_void,
