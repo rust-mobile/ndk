@@ -9,6 +9,7 @@
 
 use bitflags::bitflags;
 use std::convert::TryInto;
+use std::mem::ManuallyDrop;
 use std::os::raw::c_void;
 use std::os::unix::io::RawFd;
 use std::ptr;
@@ -264,27 +265,35 @@ impl ForeignLooper {
     ///
     /// See also [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
-    pub fn add_fd_with_callback(
+    pub fn add_fd_with_callback<F: FnMut(RawFd) -> bool>(
         &self,
         fd: RawFd,
         ident: i32,
         events: FdEvent,
-        callback: Box<dyn FnMut(RawFd) -> bool>,
+        callback: Box<F>,
     ) -> Result<(), LooperError> {
-        extern "C" fn cb_handler(fd: RawFd, _events: i32, data: *mut c_void) -> i32 {
+        extern "C" fn cb_handler<F: FnMut(RawFd) -> bool>(
+            fd: RawFd,
+            _events: i32,
+            data: *mut c_void,
+        ) -> i32 {
             unsafe {
-                let cb: &mut Box<dyn FnMut(RawFd) -> bool> = &mut *(data as *mut _);
-                cb(fd) as i32
+                let mut cb = ManuallyDrop::new(Box::<F>::from_raw(data as *mut _));
+                let keep_registered = cb(fd);
+                if !keep_registered {
+                    ManuallyDrop::into_inner(cb);
+                }
+                keep_registered as i32
             }
         }
-        let data: *mut c_void = Box::into_raw(Box::new(callback)) as *mut _;
+        let data = Box::into_raw(callback) as *mut _;
         match unsafe {
             ffi::ALooper_addFd(
                 self.ptr.as_ptr(),
                 fd,
                 ident,
                 events.bits() as i32,
-                Some(cb_handler),
+                Some(cb_handler::<F>),
                 data,
             )
         } {
