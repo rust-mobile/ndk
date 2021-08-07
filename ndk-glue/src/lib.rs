@@ -122,8 +122,16 @@ pub enum Event {
     WindowCreated,
     WindowResized,
     WindowRedrawNeeded,
+    /// If the window is in use by ie. a graphics API, make sure the lock from
+    /// [`native_window()`] is held on to until after freeing those resources.
+    ///
+    /// After receiving this [`Event`] `ndk_glue` will block until that read-lock
+    /// is released before returning to Android and allowing it to free up the window.
     WindowDestroyed,
     InputQueueCreated,
+    /// After receiving this [`Event`] `ndk_glue` will block until the read-lock from
+    /// [`input_queue()`] is released before returning to Android and allowing it to
+    /// free up the input queue.
     InputQueueDestroyed,
     ContentRectChanged,
 }
@@ -284,10 +292,12 @@ unsafe extern "C" fn on_window_redraw_needed(
 
 unsafe extern "C" fn on_window_destroyed(
     activity: *mut ANativeActivity,
-    _window: *mut ANativeWindow,
+    window: *mut ANativeWindow,
 ) {
     wake(activity, Event::WindowDestroyed);
-    *NATIVE_WINDOW.write().unwrap() = None;
+    let mut native_window_guard = NATIVE_WINDOW.write().unwrap();
+    assert_eq!(native_window_guard.as_ref().unwrap().ptr().as_ptr(), window);
+    *native_window_guard = None;
 }
 
 unsafe extern "C" fn on_input_queue_created(
