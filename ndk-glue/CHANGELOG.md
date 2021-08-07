@@ -1,5 +1,7 @@
 # Unreleased
 
+- Document when to lock and unlock the window/input queue when certain events are received.
+
 # 0.4.0 (2021-08-02)
 
 - Looper is now created before returning from `ANativeActivity_onCreate`, solving
