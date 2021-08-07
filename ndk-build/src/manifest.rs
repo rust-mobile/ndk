@@ -118,10 +118,7 @@ impl Default for Activity {
     }
 }
 
-fn serialize_intents<S>(
-    intent_filters: &Vec<IntentFilter>,
-    serializer: S,
-) -> Result<S::Ok, S::Error>
+fn serialize_intents<S>(intent_filters: &[IntentFilter], serializer: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
@@ -163,7 +160,7 @@ pub struct IntentFilter {
     pub data: Vec<IntentFilterData>,
 }
 
-fn serialize_actions<S>(actions: &Vec<String>, serializer: S) -> Result<S::Ok, S::Error>
+fn serialize_actions<S>(actions: &[String], serializer: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
@@ -183,7 +180,7 @@ where
     seq.end()
 }
 
-fn serialize_catergories<S>(categories: &Vec<String>, serializer: S) -> Result<S::Ok, S::Error>
+fn serialize_catergories<S>(categories: &[String], serializer: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {

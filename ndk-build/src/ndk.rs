@@ -234,7 +234,7 @@ impl Ndk {
             llvm_path
                 .exists()
                 .then(|| llvm_path)
-                .ok_or_else(|| NdkError::ToolchainBinaryNotFound {
+                .ok_or(NdkError::ToolchainBinaryNotFound {
                     toolchain_path,
                     gnu_bin,
                     llvm_bin,

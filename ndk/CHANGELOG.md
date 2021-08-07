@@ -2,11 +2,11 @@
 
 # 0.4.0 (2021-08-02)
 
-- **Breaking** Model looper file descriptor events integer as `bitflags`.
+- **Breaking:** Model looper file descriptor events integer as `bitflags`.
 
 # 0.3.0 (2021-01-30)
 
-- **Breaking** Looper `ident` not passed in `data` pointer anymore.
+- **Breaking:** Looper `ident` not passed in `data` pointer anymore.
   `attach_looper` now only sets the `ident` field when attaching an
   `InputQueue` to a `ForeignLooper`.
   If you are relying on `Poll::Event::data` to tell event fd and

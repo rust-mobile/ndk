@@ -17,6 +17,25 @@ jobs:
         command: fmt
         args: --all -- --check
 
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+        target: aarch64-linux-android
+    - name: Clippy
+      uses: actions-rs/cargo@v1
+      with:
+        command: clippy
+        # Use one of our supported targets to lint all crates including
+        # the target-specific `ndk` in one go.
+        # This assumes our host-tools (cargo-apk and dependencies)
+        # also compile cleanly under this target.
+        args: --all --all-targets --all-features --target aarch64-linux-android -- -Dwarnings
+
   build:
     strategy:
       fail-fast: false
