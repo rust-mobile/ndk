@@ -9,6 +9,7 @@
 
 use bitflags::bitflags;
 use std::convert::TryInto;
+use std::mem::ManuallyDrop;
 use std::os::raw::c_void;
 use std::os::unix::io::RawFd;
 use std::ptr;
@@ -273,8 +274,14 @@ impl ForeignLooper {
     ) -> Result<(), LooperError> {
         extern "C" fn cb_handler(fd: RawFd, _events: i32, data: *mut c_void) -> i32 {
             unsafe {
-                let cb: &mut Box<dyn FnMut(RawFd) -> bool> = &mut *(data as *mut _);
-                cb(fd) as i32
+                let mut cb = ManuallyDrop::new(Box::<Box<dyn FnMut(RawFd) -> bool>>::from_raw(
+                    data as *mut _,
+                ));
+                let keep_registered = cb(fd);
+                if !keep_registered {
+                    let _ = ManuallyDrop::into_inner(cb);
+                }
+                keep_registered as i32
             }
         }
         let data: *mut c_void = Box::into_raw(Box::new(callback)) as *mut _;
