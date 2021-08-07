@@ -8,6 +8,8 @@ use log::info;
 use ndk::event::{InputEvent, Keycode};
 use ndk::looper::{FdEvent, Poll, ThreadLooper};
 
+const U32_SIZE: usize = std::mem::size_of::<u32>();
+
 #[cfg_attr(
     target_os = "android",
     ndk_glue::main(backtrace = "on", logger(level = "debug"))
@@ -21,35 +23,56 @@ fn main() {
     // First free number after ndk_glue::NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT. This might be fragile.
     const CUSTOM_EVENT_IDENT: i32 = ndk_glue::NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT + 1;
 
+    fn create_pipe() -> [RawFd; 2] {
+        let mut ends = MaybeUninit::<[RawFd; 2]>::uninit();
+        assert_eq!(unsafe { libc::pipe(ends.as_mut_ptr().cast()) }, 0);
+        unsafe { ends.assume_init() }
+    }
+
     // Create a Unix pipe to send custom events to the Looper. ndk-glue uses a similar mechanism to deliver
     // ANativeActivityCallbacks asynchronously to the Looper through NDK_GLUE_LOOPER_EVENT_PIPE_IDENT.
-    let mut custom_event_pipe = MaybeUninit::<[RawFd; 2]>::uninit();
-    assert_eq!(
-        unsafe { libc::pipe(custom_event_pipe.as_mut_ptr().cast()) },
-        0
-    );
-    let custom_event_pipe = unsafe { custom_event_pipe.assume_init() };
-    unsafe {
-        // Attach the reading end of the pipe to the looper, so that it wakes up
-        // whenever data is available for reading (FdEvent::INPUT)
-        looper.as_foreign().add_fd(
+    let custom_event_pipe = create_pipe();
+    let custom_callback_pipe = create_pipe();
+
+    // Attach the reading end of the pipe to the looper, so that it wakes up
+    // whenever data is available for reading (FdEvent::INPUT)
+    looper
+        .as_foreign()
+        .add_fd(
             custom_event_pipe[0],
             CUSTOM_EVENT_IDENT,
             FdEvent::INPUT,
             std::ptr::null_mut(),
         )
-    }
-    .expect("Failed to add file descriptor to Looper");
+        .expect("Failed to add file descriptor to Looper");
+
+    // Attach the reading end of a pipe to a callback, too
+    looper
+        .as_foreign()
+        .add_fd_with_callback(custom_callback_pipe[0], FdEvent::INPUT, |fd| {
+            let mut recv = !0u32;
+            assert_eq!(
+                unsafe { libc::read(fd, &mut recv as *mut _ as *mut _, U32_SIZE) } as usize,
+                U32_SIZE
+            );
+            info!("Read custom event from pipe, in callback: {}", recv);
+            // Detach this handler by returning `false` once the count reaches 5
+            recv < 5
+        })
+        .expect("Failed to add file descriptor to Looper");
 
     std::thread::spawn(move || {
         // Send a "custom event" to the looper every second
         for i in 0.. {
+            let i_addr = &i as *const _ as *const _;
             std::thread::sleep(Duration::from_secs(1));
-            const U32_SIZE: usize = std::mem::size_of::<u32>();
             assert_eq!(
-                unsafe { libc::write(custom_event_pipe[1], &i as *const _ as *const _, U32_SIZE) }
-                    as usize,
-                U32_SIZE
+                unsafe { libc::write(custom_event_pipe[1], i_addr, U32_SIZE) },
+                U32_SIZE as isize
+            );
+            assert_eq!(
+                unsafe { libc::write(custom_callback_pipe[1], i_addr, U32_SIZE,) },
+                U32_SIZE as isize
             );
         }
     });
@@ -117,7 +140,6 @@ fn main() {
                         // Expect to receive 32-bit numbers to describe events,
                         // as sent by the thread above
                         let mut recv = !0u32;
-                        const U32_SIZE: usize = std::mem::size_of::<u32>();
                         assert_eq!(
                             unsafe { libc::read(fd, &mut recv as *mut _ as *mut _, U32_SIZE) }
                                 as usize,
