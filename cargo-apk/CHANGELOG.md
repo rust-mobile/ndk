@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fixed the library name in case of multiple build artifacts in the Android manifest.
+
 # 0.8.1 (2021-08-06)
 
 - Updated to use [ndk-build 0.4.2](../ndk-build/CHANGELOG.md#042-2021-08-06)
