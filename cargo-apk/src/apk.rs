@@ -67,16 +67,6 @@ impl<'a> ApkBuilder<'a> {
             .debuggable
             .get_or_insert(*cmd.profile() == Profile::Dev);
 
-        manifest
-            .android_manifest
-            .application
-            .activity
-            .meta_data
-            .push(MetaData {
-                name: "android.app.lib_name".to_string(),
-                value: cmd.artifacts()[0].name().replace("-", "_"),
-            });
-
         Ok(Self {
             cmd,
             ndk,
@@ -120,6 +110,11 @@ impl<'a> ApkBuilder<'a> {
         if manifest.application.label.is_empty() {
             manifest.application.label = artifact.name().to_string();
         }
+
+        manifest.application.activity.meta_data.push(MetaData {
+            name: "android.app.lib_name".to_string(),
+            value: artifact.name().replace("-", "_"),
+        });
 
         let crate_path = self.cmd.manifest().parent().expect("invalid manifest path");
 
