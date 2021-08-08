@@ -51,6 +51,9 @@ jobs:
           - os: windows-latest
             rust-channel: 'stable'
             rust-target: 'aarch64-linux-android'
+          - os: windows-latest
+            rust-channel: 'stable'
+            rust-target: 'x86_64-linux-android'
 
     runs-on: ${{ matrix.os }}
     name: Build apk
@@ -74,6 +77,52 @@ jobs:
 
     - name: Cargo apk build for target ${{ matrix.rust-target }}
       run: cargo apk build -p ndk-examples --target ${{ matrix.rust-target }} --examples
+
+    - uses: actions/upload-artifact@v2
+      # Only need this for CI, unless users are interested in downloading
+      # a ready-made app that does nothing but printing "hello world".
+      if: ${{ matrix.rust-target == 'x86_64-linux-android' }}
+      name: Upload hello_world apk
+      with:
+        name: hello_world_${{ matrix.os }}_${{ matrix.rust-target }}
+        path: ./target/debug/apk/examples/hello_world.apk
+
+  android_emulator:
+    name: hello_world example on emulator
+    needs: build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        source_os: [ubuntu-latest, windows-latest, local]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      name: Download hello_world APK
+      if: ${{ matrix.source_os != 'local' }}
+      id: download
+      with:
+        name: hello_world_${{ matrix.source_os }}_x86_64-linux-android
+    - name: Install `cargo-apk` and add `x86_64-linux-android` target
+      if: ${{ matrix.source_os == 'local' }}
+      run: |
+        cargo install --path cargo-apk
+        rustup target add x86_64-linux-android
+    - name: Start hello_world example
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        arch: x86_64
+        # the `googleapis` emulator target is considerably slower on CI.
+        target: default
+        profile: Nexus 5X
+        script: ./.github/workflows/android_test.sh "${{ steps.download.outputs.download-path }}"
+    - name: Upload emulator logs
+      uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: log
+        path: ~/logcat.log
 
   build-host:
     strategy:
