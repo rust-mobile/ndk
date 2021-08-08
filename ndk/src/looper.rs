@@ -268,7 +268,6 @@ impl ForeignLooper {
     pub fn add_fd_with_callback<F: FnMut(RawFd) -> bool>(
         &self,
         fd: RawFd,
-        ident: i32,
         events: FdEvent,
         callback: Box<F>,
     ) -> Result<(), LooperError> {
@@ -291,7 +290,7 @@ impl ForeignLooper {
             ffi::ALooper_addFd(
                 self.ptr.as_ptr(),
                 fd,
-                ident,
+                ffi::ALOOPER_POLL_CALLBACK,
                 events.bits() as i32,
                 Some(cb_handler::<F>),
                 data,
