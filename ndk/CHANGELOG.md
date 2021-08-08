@@ -2,6 +2,7 @@
 
 - **Breaking:** Replace `add_fd_with_callback` `ident` with constant value `ALOOPER_POLL_CALLBACK`,
   as per https://developer.android.com/ndk/reference/group/looper#alooper_addfd.
+- **Breaking:** Accept unboxed closure in `add_fd_with_callback`.
 
 # 0.4.0 (2021-08-02)
 
