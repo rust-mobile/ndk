@@ -269,7 +269,7 @@ impl ForeignLooper {
         &self,
         fd: RawFd,
         events: FdEvent,
-        callback: Box<F>,
+        callback: F,
     ) -> Result<(), LooperError> {
         extern "C" fn cb_handler<F: FnMut(RawFd) -> bool>(
             fd: RawFd,
@@ -285,7 +285,7 @@ impl ForeignLooper {
                 keep_registered as i32
             }
         }
-        let data = Box::into_raw(callback) as *mut _;
+        let data = Box::into_raw(Box::new(callback)) as *mut _;
         match unsafe {
             ffi::ALooper_addFd(
                 self.ptr.as_ptr(),
