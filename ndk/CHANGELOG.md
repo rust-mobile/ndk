@@ -4,6 +4,7 @@
   as per https://developer.android.com/ndk/reference/group/looper#alooper_addfd.
 - **Breaking:** Accept unboxed closure in `add_fd_with_callback`.
 - ndk/aaudio: Replace "Added in" comments with missing `#[cfg(feature)]`
+- ndk/aaudio: Add missing `fn get_allowed_capture_policy()`
 
 # 0.4.0 (2021-08-02)
 

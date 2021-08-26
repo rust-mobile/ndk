@@ -914,6 +914,13 @@ impl AAudioStream {
         self.inner.as_ptr()
     }
 
+    /// Returns the policy that determines whether the audio may or
+    /// may not be captured by other apps or the system.
+    #[cfg(feature = "api-level-29")]
+    pub fn get_allowed_capture_policy(self) -> Result<AAudioAllowedCapturePolicy> {
+        enum_return_value(unsafe { ffi::AAudioStream_getAllowedCapturePolicy(self.as_ptr()) })
+    }
+
     /// Query maximum buffer capacity in frames.
     ///
     /// Available since API level 26.
