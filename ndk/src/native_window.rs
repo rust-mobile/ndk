@@ -1,7 +1,7 @@
-//! Bindings for `ANativeWindow`
+//! Bindings for [`ffi::ANativeWindow`]
 use std::ptr::NonNull;
 
-#[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct NativeWindow {
     ptr: NonNull<ffi::ANativeWindow>,
 }
@@ -9,11 +9,37 @@ pub struct NativeWindow {
 unsafe impl Send for NativeWindow {}
 unsafe impl Sync for NativeWindow {}
 
+impl Drop for NativeWindow {
+    fn drop(&mut self) {
+        unsafe { ffi::ANativeWindow_release(self.ptr.as_ptr()) }
+    }
+}
+
+impl Clone for NativeWindow {
+    fn clone(&self) -> Self {
+        unsafe {
+            ffi::ANativeWindow_acquire(self.ptr.as_ptr());
+            Self { ptr: self.ptr }
+        }
+    }
+}
+
 impl NativeWindow {
+    /// Assumes ownership of `ptr`
+    ///
     /// # Safety
-    /// `ptr` must be a valid pointer to an Android `ANativeWindow`.
+    /// `ptr` must be a valid pointer to an Android [`ffi::ANativeWindow`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::ANativeWindow>) -> Self {
         Self { ptr }
+    }
+
+    /// Acquires ownership of `ptr`
+    ///
+    /// # Safety
+    /// `ptr` must be a valid pointer to an Android [`ffi::ANativeWindow`].
+    pub unsafe fn clone_from_ptr(ptr: NonNull<ffi::ANativeWindow>) -> Self {
+        ffi::ANativeWindow_acquire(ptr.as_ptr());
+        Self::from_ptr(ptr)
     }
 
     pub fn ptr(&self) -> NonNull<ffi::ANativeWindow> {

@@ -167,7 +167,7 @@ pub unsafe fn init(
 
     let activity = NativeActivity::from_ptr(activity);
     ndk_context::initialize_android_context(activity.vm().cast(), activity.activity().cast());
-    NATIVE_ACTIVITY = Some(activity);
+    NATIVE_ACTIVITY.replace(activity);
 
     let mut logpipe: [RawFd; 2] = Default::default();
     libc::pipe(logpipe.as_mut_ptr());
@@ -207,7 +207,7 @@ pub unsafe fn init(
 
         {
             let mut locked_looper = LOOPER.lock().unwrap();
-            *locked_looper = Some(foreign);
+            locked_looper.replace(foreign);
             signal_looper_ready.notify_one();
         }
 
@@ -275,7 +275,10 @@ unsafe extern "C" fn on_window_focus_changed(
 }
 
 unsafe extern "C" fn on_window_created(activity: *mut ANativeActivity, window: *mut ANativeWindow) {
-    *NATIVE_WINDOW.write().unwrap() = Some(NativeWindow::from_ptr(NonNull::new(window).unwrap()));
+    NATIVE_WINDOW
+        .write()
+        .unwrap()
+        .replace(NativeWindow::clone_from_ptr(NonNull::new(window).unwrap()));
     wake(activity, Event::WindowCreated);
 }
 
@@ -300,7 +303,7 @@ unsafe extern "C" fn on_window_destroyed(
     wake(activity, Event::WindowDestroyed);
     let mut native_window_guard = NATIVE_WINDOW.write().unwrap();
     assert_eq!(native_window_guard.as_ref().unwrap().ptr().as_ptr(), window);
-    *native_window_guard = None;
+    native_window_guard.take();
 }
 
 unsafe extern "C" fn on_input_queue_created(
@@ -313,7 +316,7 @@ unsafe extern "C" fn on_input_queue_created(
     // future code cleans it up and sets it back to `None` again.
     let looper = locked_looper.as_ref().expect("Looper does not exist");
     input_queue.attach_looper(looper, NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT);
-    *INPUT_QUEUE.write().unwrap() = Some(input_queue);
+    INPUT_QUEUE.write().unwrap().replace(input_queue);
     wake(activity, Event::InputQueueCreated);
 }
 
@@ -326,7 +329,7 @@ unsafe extern "C" fn on_input_queue_destroyed(
     assert_eq!(input_queue_guard.as_ref().unwrap().ptr().as_ptr(), queue);
     let input_queue = InputQueue::from_ptr(NonNull::new(queue).unwrap());
     input_queue.detach_looper();
-    *input_queue_guard = None;
+    input_queue_guard.take();
 }
 
 unsafe extern "C" fn on_content_rect_changed(activity: *mut ANativeActivity, rect: *const ARect) {
