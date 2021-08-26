@@ -5,6 +5,7 @@
 - **Breaking:** Accept unboxed closure in `add_fd_with_callback`.
 - ndk/aaudio: Replace "Added in" comments with missing `#[cfg(feature)]`
 - ndk/aaudio: Add missing `fn get_allowed_capture_policy()`
+- ndk/configuration: Add missing `api-level-30` feature to `fn screen_round()`
 
 # 0.4.0 (2021-08-02)
 

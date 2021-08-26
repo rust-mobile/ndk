@@ -264,6 +264,7 @@ impl Configuration {
         }
     }
 
+    #[cfg(feature = "api-level-30")]
     pub fn screen_round(&self) -> ScreenRound {
         unsafe {
             (ffi::AConfiguration_getScreenRound(self.ptr.as_ptr()) as u32)
