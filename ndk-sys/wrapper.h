@@ -45,3 +45,10 @@
 
 #include <media/NdkImage.h>
 #include <media/NdkImageReader.h>
+#include <media/NdkMediaCodec.h> 
+#include <media/NdkMediaCrypto.h> 
+#include <media/NdkMediaDrm.h> 
+#include <media/NdkMediaError.h> 
+#include <media/NdkMediaExtractor.h> 
+#include <media/NdkMediaFormat.h> 
+#include <media/NdkMediaMuxer.h>
