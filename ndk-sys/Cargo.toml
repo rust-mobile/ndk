@@ -16,7 +16,7 @@ jni-sys = "0.3.0"
 
 [features]
 test = []
-aaudio = []
+audio = []
 bitmap = []
 media = []
 
