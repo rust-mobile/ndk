@@ -182,11 +182,3 @@ impl NativeActivity {
         unsafe { ffi::ANativeActivity_setWindowFormat(self.ptr.as_ptr(), format.into()) }
     }*/
 }
-
-/*#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
-pub enum WindowFormat {
-    Rgb565 = ffi::ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGB_565,
-    Rgba8888 = ffi::ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGBA_8888,
-    Rgbx8888 = ffi::ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGBX_8888,
-}*/

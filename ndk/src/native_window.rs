@@ -1,9 +1,11 @@
 //! Bindings for [`ffi::ANativeWindow`]
 
+pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
 use raw_window_handle::{AndroidNdkHandle, HasRawWindowHandle, RawWindowHandle};
-use std::{ffi::c_void, ptr::NonNull};
+use std::{convert::TryFrom, ffi::c_void, ptr::NonNull};
 
+/// <https://developer.android.com/ndk/reference/group/a-native-window>
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct NativeWindow {
     ptr: NonNull<ffi::ANativeWindow>,
@@ -20,10 +22,8 @@ impl Drop for NativeWindow {
 
 impl Clone for NativeWindow {
     fn clone(&self) -> Self {
-        unsafe {
-            ffi::ANativeWindow_acquire(self.ptr.as_ptr());
-            Self { ptr: self.ptr }
-        }
+        unsafe { ffi::ANativeWindow_acquire(self.ptr.as_ptr()) }
+        Self { ptr: self.ptr }
     }
 }
 
@@ -63,6 +63,39 @@ impl NativeWindow {
 
     pub fn width(&self) -> i32 {
         unsafe { ffi::ANativeWindow_getWidth(self.ptr.as_ptr()) }
+    }
+
+    /// Return the current pixel format ([`HardwareBufferFormat`]) of the window surface.
+    pub fn format(&self) -> HardwareBufferFormat {
+        let value = unsafe { ffi::ANativeWindow_getFormat(self.ptr.as_ptr()) };
+        let value = u32::try_from(value).unwrap();
+        HardwareBufferFormat::try_from(value).unwrap()
+    }
+
+    /// Change the format and size of the window buffers.
+    ///
+    /// The width and height control the number of pixels in the buffers, not the dimensions of the
+    /// window on screen. If these are different than the window's physical size, then its buffer
+    /// will be scaled to match that size when compositing it to the screen. The width and height
+    /// must be either both zero or both non-zero.
+    ///
+    /// For all of these parameters, if `0` or [`None`] is supplied then the window's base value
+    /// will come back in force.
+    pub fn set_buffers_geometry(
+        &self,
+        width: i32,
+        height: i32,
+        format: Option<HardwareBufferFormat>,
+    ) -> Result<(), i32> {
+        let format: u32 = format.map_or(0, |f| f.into());
+        let r = unsafe {
+            ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format as i32)
+        };
+        if r == 0 {
+            Ok(())
+        } else {
+            Err(r)
+        }
     }
 
     /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
