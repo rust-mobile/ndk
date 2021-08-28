@@ -20,8 +20,7 @@ use thiserror::Error;
 ///
 /// Note that these match the equivalent values in android.media.AudioAttributes
 /// in the Android Java API.
-///
-/// Added in API level 29.
+#[cfg(feature = "api-level-29")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 pub enum AAudioAllowedCapturePolicy {
@@ -58,8 +57,7 @@ pub enum AAudioAllowedCapturePolicy {
 ///
 /// Note that these match the equivalent values in android.media.AudioAttributes
 /// in the Android Java API.
-///
-/// Added in API level 28.
+#[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 pub enum AAudioContentType {
@@ -106,8 +104,7 @@ pub enum AAudioFormat {
 /// configuration.
 ///
 /// Note that these match the equivalent values in MediaRecorder.AudioSource in the Android Java API.
-///
-/// Added in API level 28.
+#[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 pub enum AAudioInputPreset {
@@ -126,7 +123,7 @@ pub enum AAudioInputPreset {
     /// Use this preset for capturing audio meant to be processed in real time
     /// and played back for live performance (e.g karaoke).
     /// The capture path will minimize latency and coupling with playback path.
-    /// Available since API level 29.
+    #[cfg(feature = "api-level-29")]
     VoicePerformance = ffi::AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE,
 }
 
@@ -162,8 +159,7 @@ pub enum AAudioSharingMode {
 ///
 /// Note that these match the equivalent values in android.media.AudioAttributes
 /// in the Android Java API.
-///
-/// Added in API level 28.
+#[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 pub enum AAudioUsage {
@@ -916,6 +912,13 @@ impl fmt::Debug for AAudioStream {
 impl AAudioStream {
     fn as_ptr(&self) -> *mut ffi::AAudioStream {
         self.inner.as_ptr()
+    }
+
+    /// Returns the policy that determines whether the audio may or
+    /// may not be captured by other apps or the system.
+    #[cfg(feature = "api-level-29")]
+    pub fn get_allowed_capture_policy(self) -> Result<AAudioAllowedCapturePolicy> {
+        enum_return_value(unsafe { ffi::AAudioStream_getAllowedCapturePolicy(self.as_ptr()) })
     }
 
     /// Query maximum buffer capacity in frames.
