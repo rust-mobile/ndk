@@ -1,6 +1,8 @@
 # Unreleased
 
 - Fixed the library name in case of multiple build artifacts in the Android manifest.
+- Work around missing `libgcc` on NDK r23 beta 3 and above, by providing linker script that "redirects" to `libunwind`.
+  See https://github.com/rust-windowing/android-ndk-rs/issues/149 and https://github.com/rust-lang/rust/pull/85806 for more details.
 
 # 0.8.1 (2021-08-06)
 

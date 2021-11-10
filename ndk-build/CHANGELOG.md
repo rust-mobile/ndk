@@ -1,5 +1,7 @@
 # Unreleased
 
+- Provide NDK `build_tag` version from `source.properties` in the NDK root.
+
 # 0.4.2 (2021-08-06)
 
 - Pass UNIX path separators to `aapt` on non-UNIX systems, ensuring the resulting separator is compatible with the target device instead of the host platform.
