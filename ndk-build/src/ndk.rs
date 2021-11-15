@@ -9,6 +9,7 @@ pub struct Ndk {
     sdk_path: PathBuf,
     ndk_path: PathBuf,
     build_tools_version: String,
+    build_tag: u32,
     platforms: Vec<u32>,
 }
 
@@ -54,6 +55,31 @@ impl Ndk {
             .max()
             .ok_or(NdkError::BuildToolsNotFound)?;
 
+        let build_tag = std::fs::read_to_string(ndk_path.join("source.properties"))
+            .expect("Failed to read source.properties");
+
+        let build_tag = build_tag
+            .split('\n')
+            .find_map(|line| {
+                let (key, value) = line
+                    .split_once('=')
+                    .expect("Failed to parse `key = value` from source.properties");
+                if key.trim() == "Pkg.Revision" {
+                    // AOSP writes a constantly-incrementing build version to the patch field.
+                    // This number is incrementing across NDK releases.
+                    let mut parts = value.trim().split('.');
+                    let _major = parts.next().unwrap();
+                    let _minor = parts.next().unwrap();
+                    let patch = parts.next().unwrap();
+                    // Can have an optional `XXX-beta1`
+                    let patch = patch.split_once('-').map_or(patch, |(patch, _beta)| patch);
+                    Some(patch.parse().expect("Failed to parse patch field"))
+                } else {
+                    None
+                }
+            })
+            .expect("No `Pkg.Revision` in source.properties");
+
         let ndk_platforms = std::fs::read_to_string(ndk_path.join("build/core/platforms.mk"))?;
         let ndk_platforms = ndk_platforms
             .split('\n')
@@ -88,6 +114,7 @@ impl Ndk {
             sdk_path,
             ndk_path,
             build_tools_version,
+            build_tag,
             platforms,
         })
     }
@@ -102,6 +129,10 @@ impl Ndk {
 
     pub fn build_tools_version(&self) -> &str {
         &self.build_tools_version
+    }
+
+    pub fn build_tag(&self) -> u32 {
+        self.build_tag
     }
 
     pub fn platforms(&self) -> &[u32] {

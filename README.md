@@ -26,10 +26,13 @@ Branch | Version | Status | Working
 r18 | 18.1.5063045 | _Deprecated_ | :x:
 r19 | 19.2.5345600 | _Deprecated_ | :heavy_check_mark:
 r20 | 20.1.5948944 | _Deprecated_ | :heavy_check_mark:
-r21 | 21.4.7075529 | LTS | :heavy_check_mark:
-r22 | 22.1.7171670 | Rolling Release | :heavy_check_mark:
-r23 beta 1/2 |  | Beta | :heavy_check_mark:
-r23 beta 3 and beyond |  | Beta | :x: Breaking on [#149](https://github.com/rust-windowing/android-ndk-rs/issues/149) :x:
+r21 | 21.4.7075529 | _Deprecated_ | :heavy_check_mark:
+r22 | 22.1.7171670 | _Deprecated_ | :heavy_check_mark:
+r23 | beta 1/2 | _Deprecated_ | :heavy_check_mark:
+r23 | 23.0.7272597-beta3 | _Deprecated_ | :heavy_check_mark: Workaround in [#189](https://github.com/rust-windowing/android-ndk-rs/pull/189)
+r23 | 23.1.7779620 | LTS | :heavy_check_mark: Workaround in [#189](https://github.com/rust-windowing/android-ndk-rs/pull/189)
+r24 | 24.0.7856742-beta1 | Rolling Release | :heavy_check_mark: Workaround in [#189](https://github.com/rust-windowing/android-ndk-rs/pull/189)
+
 
 ## Hello world
 

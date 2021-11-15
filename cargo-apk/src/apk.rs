@@ -161,11 +161,32 @@ impl<'a> ApkBuilder<'a> {
             let target_sdk_version = config.manifest.sdk.target_sdk_version.unwrap();
 
             let mut cargo = cargo_ndk(&config.ndk, *target, target_sdk_version)?;
-            cargo.arg("build");
+            cargo.arg("rustc");
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
             }
             cargo.args(self.cmd.args());
+
+            // Workaround for https://github.com/rust-windowing/android-ndk-rs/issues/149:
+            // Rust (1.56 as of writing) still requires libgcc during linking, but this does
+            // not ship with the NDK anymore since NDK r23 beta 3.
+            // See https://github.com/rust-lang/rust/pull/85806 for a discussion on why libgcc
+            // is still required even after replacing it with libunwind in the source.
+            // XXX: Add an upper-bound on the Rust version whenever this is not necessary anymore.
+            if self.ndk.build_tag() > 7272597 {
+                if !self.cmd.args().contains(&"--".to_owned()) {
+                    cargo.arg("--");
+                }
+                let cargo_apk_link_dir = self
+                    .cmd
+                    .target_dir()
+                    .join("cargo-apk-temp-extra-link-libraries");
+                std::fs::create_dir_all(&cargo_apk_link_dir)?;
+                std::fs::write(cargo_apk_link_dir.join("libgcc.a"), "INPUT(-lunwind)")
+                    .expect("Failed to write");
+                cargo.arg("-L").arg(cargo_apk_link_dir);
+            }
+
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
             }
