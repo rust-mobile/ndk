@@ -1,5 +1,4 @@
-Rust on Android
-=
+# Rust on Android
 
 [![Rust](https://github.com/rust-windowing/android-ndk-rs/workflows/Rust/badge.svg)](https://github.com/rust-windowing/android-ndk-rs/actions) ![MIT license](https://img.shields.io/badge/License-MIT-green.svg) ![APACHE2 license](https://img.shields.io/badge/License-APACHE2-green.svg)
 
@@ -11,7 +10,7 @@ Name | Description | Badges
 `ndk` | Safe abstraction of the bindings | [![crates.io](https://img.shields.io/crates/v/ndk.svg)](https://crates.io/crates/ndk) [![crates.io](https://docs.rs/ndk/badge.svg)](https://docs.rs/ndk)
 `ndk-glue`| Startup code | [![crates.io](https://img.shields.io/crates/v/ndk-glue.svg)](https://crates.io/crates/ndk-glue) [![crates.io](https://docs.rs/ndk-glue/badge.svg)](https://docs.rs/ndk-glue)
 `ndk-build` | Everything for building apk's | [![crates.io](https://img.shields.io/crates/v/ndk-build.svg)](https://crates.io/crates/ndk-build) [![crates.io](https://docs.rs/ndk-build/badge.svg)](https://docs.rs/ndk-build)
-`cargo-apk` | Build tool | [![crates.io](https://img.shields.io/crates/v/cargo-apk.svg)](https://crates.io/crates/cargo-apk) [![crates.io](https://docs.rs/cargo-apk/badge.svg)](https://docs.rs/cargo-apk)
+`cargo-apk` | Build tool | [![crates.io](https://img.shields.io/crates/v/cargo-apk.svg)](https://crates.io/crates/cargo-apk) [![crates.io](https://docs.rs/cargo-apk/badge.svg)](https://docs.rs/cargo-apk) [README.md](./cargo-apk)
 
 See [`ndk-examples`](./ndk-examples) for examples using the NDK and the README files of the crates for more details.
 
@@ -90,6 +89,9 @@ pub fn main() {
     log!("hello world");
 }
 ```
+
+## Permissions and features
+See ['cargo-apk README.md'](./cargo-apk) for how to set up permissions, features and other things that go into `AndroidManifest.xml`.
 
 ## Overriding crate paths
 The macro `ndk_glue::main` tries to determine crate names from current _Cargo.toml_.
