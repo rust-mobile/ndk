@@ -5,13 +5,13 @@ Tool for creating Android packages.
 ## Installation
 
 From crates.io:
-```
-cargo install cargo-apk
+```console
+$ cargo install cargo-apk
 ```
 
 From source:
-```
-cargo install --path .
+```console
+$ cargo install --path .
 ```
 
 ## Commands
