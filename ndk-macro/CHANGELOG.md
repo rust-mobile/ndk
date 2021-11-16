@@ -1,6 +1,8 @@
 # Unreleased
 
-- Removed `android_logger` and `log` crate path overrides from macro input attributes in favour of using the reexports from `ndk-glue`.
+# 0.3.0 (2021-11-16)
+
+- **Breaking:** Removed `android_logger` and `log` crate path overrides from macro input attributes in favour of using the reexports from `ndk-glue`.
   Applications no longer have to provide these crates in scope of the `ndk_glue::main` macro when logging is enabled.
 
 # 0.2.0 (2020-09-15)
