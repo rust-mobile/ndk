@@ -1,5 +1,8 @@
 # Unreleased
 
+- Use `min_sdk_version` to select compiler target instead of `target_sdk_version` ([#197](https://github.com/rust-windowing/android-ndk-rs/pull/197)).
+  See https://developer.android.com/ndk/guides/sdk-versions#minsdkversion for more details.
+
 # 0.8.2 (2021-11-22)
 
 - Fixed the library name in case of multiple build artifacts in the Android manifest.
