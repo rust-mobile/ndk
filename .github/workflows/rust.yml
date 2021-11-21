@@ -94,31 +94,66 @@ jobs:
     strategy:
       matrix:
         source_os: [ubuntu-latest, windows-latest, local]
+    env:
+      api-level: 29
+      emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+      arch: x86_64
+      # the `googleapis` emulator target is considerably slower on CI.
+      target: default
+      profile: Nexus 6
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
     - uses: actions/download-artifact@v2
       name: Download hello_world APK
       if: ${{ matrix.source_os != 'local' }}
       id: download
       with:
         name: hello_world_${{ matrix.source_os }}_x86_64-linux-android
+
     - name: Install `cargo-apk` and add `x86_64-linux-android` target
       if: ${{ matrix.source_os == 'local' }}
       run: |
         cargo install --path cargo-apk
         rustup target add x86_64-linux-android
+
+    - name: AVD cache
+      uses: actions/cache@v2
+      id: avd-cache
+      with:
+        path: |
+          ~/.android/avd/*
+          ~/.android/adb*
+        # Bump the trailing number when making changes to the emulator setup below
+        key: avd-${{ env.api-level }}-1
+
+    - name: create AVD and generate snapshot for caching
+      if: steps.avd-cache.outputs.cache-hit != 'true'
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ env.api-level }}
+        arch: ${{ env.arch }}
+        target: ${{ env.target }}
+        profile: ${{ env.profile }}
+        emulator-options: ${{ env.emulator-options }}
+        disable-animations: true
+        force-avd-creation: false
+        script: echo "Generated AVD snapshot for caching."
+
     - name: Start hello_world example
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 29
-        arch: x86_64
-        # the `googleapis` emulator target is considerably slower on CI.
-        target: default
-        profile: Nexus 6
-        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        api-level: ${{ env.api-level }}
+        arch: ${{ env.arch }}
+        target: ${{ env.target }}
+        profile: ${{ env.profile }}
+        emulator-options: -no-snapshot-save ${{ env.emulator-options }}
         disable-animations: true
+        force-avd-creation: false
         script: ./.github/workflows/android_test.sh "${{ steps.download.outputs.download-path }}"
+
     - name: Upload emulator logs
       uses: actions/upload-artifact@v2
       if: ${{ always() }}
