@@ -108,6 +108,27 @@ jobs:
       run: |
         cargo install --path cargo-apk
         rustup target add x86_64-linux-android
+    - name: AVD cache
+      uses: actions/cache@v2
+      id: avd-cache
+      with:
+        path: |
+          ~/.android/avd/*
+          ~/.android/adb*
+        # One cache for 3 apk files
+        key: avd-emul
+    - name: create AVD and generate snapshot for caching
+      if: steps.avd-cache.outputs.cache-hit != 'true'
+      uses: reactivecircus/android-emulator-runner@v2.19.1
+      with:
+        api-level: 29
+        arch: x86_64
+        profile: Nexus 6
+        target: default
+        force-avd-creation: true
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        disable-animations: false
+        script: echo "Generated AVD snapshot for caching."
     - name: Start hello_world example
       uses: reactivecircus/android-emulator-runner@v2
       with:
@@ -115,7 +136,9 @@ jobs:
         arch: x86_64
         # the `googleapis` emulator target is considerably slower on CI.
         target: default
-        profile: Nexus 5X
+        profile: Nexus 6
+        disable-animations: true
+        emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
         script: ./.github/workflows/android_test.sh "${{ steps.download.outputs.download-path }}"
     - name: Upload emulator logs
       uses: actions/upload-artifact@v2
