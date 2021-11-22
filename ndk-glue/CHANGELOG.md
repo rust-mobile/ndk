@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.5.0 (2021-11-16)
+# 0.5.0 (2021-11-22)
 
 - Document when to lock and unlock the window/input queue when certain events are received.
 - **Breaking:** Update to `ndk 0.5.0` and `ndk-macros 0.3.0`.

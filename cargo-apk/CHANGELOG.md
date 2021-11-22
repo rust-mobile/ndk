@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.8.2 (2021-11-16)
+# 0.8.2 (2021-11-22)
 
 - Fixed the library name in case of multiple build artifacts in the Android manifest.
 - Work around missing `libgcc` on NDK r23 beta 3 and above, by providing linker script that "redirects" to `libunwind`.

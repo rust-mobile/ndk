@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.2.2 (2021-11-16)
+# 0.2.2 (2021-11-22)
 
 - Regenerate against NDK r23 (#178)
 

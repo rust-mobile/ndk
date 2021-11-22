@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.4.3 (2021-11-16)
+# 0.4.3 (2021-11-22)
 
 - Provide NDK `build_tag` version from `source.properties` in the NDK root.
 
