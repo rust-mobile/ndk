@@ -49,10 +49,10 @@ runtime_libs = "path/to/libs_folder"
 
 # See https://developer.android.com/guide/topics/manifest/uses-sdk-element
 #
-# Defaults to a `min_sdk_version` of 23 and `target_sdk_version` is based on the ndk's default platform.
+# Defaults to a `min_sdk_version` of 23 and `target_sdk_version` of 30 (or lower if the detected NDK doesn't support this).
 [package.metadata.android.sdk]
-min_sdk_version = 16
-target_sdk_version = 29
+min_sdk_version = 23
+target_sdk_version = 30
 max_sdk_version = 29
 
 # See https://developer.android.com/guide/topics/manifest/uses-feature-element

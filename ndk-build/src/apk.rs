@@ -40,7 +40,7 @@ impl ApkConfig {
             .manifest
             .sdk
             .target_sdk_version
-            .unwrap_or_else(|| self.ndk.default_platform());
+            .unwrap_or_else(|| self.ndk.default_target_platform());
         let mut aapt = self.build_tool(bin!("aapt"))?;
         aapt.arg("package")
             .arg("-f")
