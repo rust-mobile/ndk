@@ -115,7 +115,9 @@ jobs:
         arch: x86_64
         # the `googleapis` emulator target is considerably slower on CI.
         target: default
-        profile: Nexus 5X
+        profile: Nexus 6
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        disable-animations: true
         script: ./.github/workflows/android_test.sh "${{ steps.download.outputs.download-path }}"
     - name: Upload emulator logs
       uses: actions/upload-artifact@v2
