@@ -79,13 +79,7 @@ impl<'a> ApkBuilder<'a> {
     pub fn check(&self) -> Result<(), Error> {
         for target in &self.build_targets {
             let triple = target.rust_triple();
-            let target_sdk_version = self
-                .manifest
-                .android_manifest
-                .sdk
-                .target_sdk_version
-                .unwrap();
-            let mut cargo = cargo_ndk(&self.ndk, *target, target_sdk_version)?;
+            let mut cargo = cargo_ndk(&self.ndk, *target, self.min_sdk_version())?;
             cargo.arg("check");
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
@@ -158,9 +152,7 @@ impl<'a> ApkBuilder<'a> {
                 .join(artifact)
                 .join(artifact.file_name(CrateType::Cdylib, triple));
 
-            let target_sdk_version = config.manifest.sdk.target_sdk_version.unwrap();
-
-            let mut cargo = cargo_ndk(&config.ndk, *target, target_sdk_version)?;
+            let mut cargo = cargo_ndk(&config.ndk, *target, self.min_sdk_version())?;
             cargo.arg("rustc");
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
@@ -233,19 +225,27 @@ impl<'a> ApkBuilder<'a> {
 
     pub fn default(&self) -> Result<(), Error> {
         let ndk = Ndk::from_env()?;
-        let target_sdk_version = self
-            .manifest
-            .android_manifest
-            .sdk
-            .target_sdk_version
-            .unwrap_or_else(|| ndk.default_platform());
         for target in &self.build_targets {
-            let mut cargo = cargo_ndk(&ndk, *target, target_sdk_version)?;
+            let mut cargo = cargo_ndk(&ndk, *target, self.min_sdk_version())?;
             cargo.args(self.cmd.args());
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
             }
         }
         Ok(())
+    }
+
+    /// Returns `minSdkVersion` for use in compiler target selection:
+    /// <https://developer.android.com/ndk/guides/sdk-versions#minsdkversion>
+    ///
+    /// Has a lower bound of `23` to retain backwards compatibility with
+    /// the previous default.
+    fn min_sdk_version(&self) -> u32 {
+        self.manifest
+            .android_manifest
+            .sdk
+            .min_sdk_version
+            .unwrap_or(23)
+            .max(23)
     }
 }
