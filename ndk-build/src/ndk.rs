@@ -159,8 +159,16 @@ impl Ndk {
         Ok(Command::new(dunce::canonicalize(path)?))
     }
 
-    pub fn default_platform(&self) -> u32 {
+    pub fn highest_supported_platform(&self) -> u32 {
         self.platforms().iter().max().cloned().unwrap()
+    }
+
+    /// Returns platform `30` as currently [required by Google Play], or lower
+    /// when the detected SDK does not support it yet.
+    ///
+    /// [required by Google Play]: https://developer.android.com/distribute/best-practices/develop/target-sdk
+    pub fn default_target_platform(&self) -> u32 {
+        self.highest_supported_platform().min(30)
     }
 
     pub fn platform_dir(&self, platform: u32) -> Result<PathBuf, NdkError> {

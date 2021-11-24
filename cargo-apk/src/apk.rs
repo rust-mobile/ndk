@@ -59,13 +59,13 @@ impl<'a> ApkBuilder<'a> {
             .android_manifest
             .sdk
             .target_sdk_version
-            .get_or_insert(ndk.default_platform());
+            .get_or_insert_with(|| ndk.default_target_platform());
 
         manifest
             .android_manifest
             .application
             .debuggable
-            .get_or_insert(*cmd.profile() == Profile::Dev);
+            .get_or_insert_with(|| *cmd.profile() == Profile::Dev);
 
         Ok(Self {
             cmd,
