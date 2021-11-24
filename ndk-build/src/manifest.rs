@@ -93,6 +93,8 @@ pub struct Activity {
     pub name: String,
     #[serde(rename(serialize = "android:screenOrientation"))]
     pub orientation: Option<String>,
+    #[serde(rename(serialize = "android:exported"))]
+    pub exported: Option<bool>,
 
     #[serde(rename(serialize = "meta-data"))]
     #[serde(default)]
@@ -111,6 +113,7 @@ impl Default for Activity {
             launch_mode: None,
             name: default_activity_name(),
             orientation: None,
+            exported: None,
             meta_data: Default::default(),
             intent_filters: Default::default(),
         }
