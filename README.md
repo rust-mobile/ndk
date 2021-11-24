@@ -62,13 +62,13 @@ fn main() {
 ```
 
 Install `cargo apk` for building, running and debugging your application:
-```sh
-cargo install cargo-apk
+```console
+$ cargo install cargo-apk
 ```
 
 We can now directly execute our `Hello World` application on a real connected device or an emulator:
-```sh
-cargo apk run
+```console
+$ cargo apk run
 ```
 
 ## Logging and stdout
@@ -76,8 +76,8 @@ Stdout is redirected to the android log api when using `ndk-glue`. Any logger th
 stdout, like `println!`, should therefore work.
 
 Use can filter the output in logcat
-```
-adb logcat RustStdoutStderr:D *:S
+```console
+$ adb logcat RustStdoutStderr:D *:S
 ```
 
 ### Android logger
