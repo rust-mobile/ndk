@@ -18,6 +18,8 @@
 // Test setup lints
 #![cfg_attr(test, allow(dead_code))]
 
+use jni_sys::*;
+
 #[cfg(not(any(target_os = "android", feature = "test")))]
 compile_error!("android-ndk-sys only supports compiling for Android");
 

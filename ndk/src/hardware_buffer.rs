@@ -150,18 +150,15 @@ impl HardwareBuffer {
     /// # Safety
     /// By calling this function, you assert that it these are valid pointers to JNI objects.
     pub unsafe fn from_jni(env: *mut JNIEnv, hardware_buffer: jobject) -> Self {
-        let ptr =
-            ffi::AHardwareBuffer_fromHardwareBuffer(env as *mut ffi::JNIEnv, hardware_buffer as _);
+        let ptr = ffi::AHardwareBuffer_fromHardwareBuffer(env, hardware_buffer);
 
         Self::from_ptr(NonNull::new_unchecked(ptr))
     }
 
-    pub fn to_jni(&self, env: *mut JNIEnv) -> jobject {
-        let ptr = unsafe {
-            ffi::AHardwareBuffer_toHardwareBuffer(env as *mut ffi::JNIEnv, self.as_ptr())
-        };
-
-        ptr as jobject
+    /// # Safety
+    /// By calling this function, you assert that `env` is a valid pointer to a [`JNIEnv`].
+    pub unsafe fn to_jni(&self, env: *mut JNIEnv) -> jobject {
+        ffi::AHardwareBuffer_toHardwareBuffer(env, self.as_ptr())
     }
 
     pub fn describe(&self) -> HardwareBufferDesc {

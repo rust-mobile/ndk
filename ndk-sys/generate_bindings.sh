@@ -1,7 +1,13 @@
 #!/bin/sh
 
 while read ARCH && read TARGET ; do
-    bindgen wrapper.h -o src/ffi_$ARCH.rs -- --sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/linux-x86_64/sysroot/ --target=$TARGET
+    bindgen wrapper.h -o src/ffi_$ARCH.rs \
+        --blocklist-item 'JNI\w+' \
+        --blocklist-item 'C?_?JNIEnv' \
+        --blocklist-item '_?JavaVM' \
+        --blocklist-item '_?j\w+' \
+        -- \
+        --sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/linux-x86_64/sysroot/ --target=$TARGET
 done << EOF
 arm
 arm-linux-androideabi

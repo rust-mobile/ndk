@@ -1,5 +1,7 @@
 # Unreleased
 
+- **Breaking:** Upgrade to `ndk-sys 0.3.0` and migrate to `jni-sys` types that it now directly uses in its bindings.
+
 # 0.5.0 (2021-11-22)
 
 - **Breaking:** Replace `add_fd_with_callback` `ident` with constant value `ALOOPER_POLL_CALLBACK`,
