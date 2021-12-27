@@ -131,7 +131,7 @@ impl HardwareBuffer {
         Self { inner: ptr }
     }
 
-    fn as_ptr(&self) -> *mut ffi::AHardwareBuffer {
+    pub fn as_ptr(&self) -> *mut ffi::AHardwareBuffer {
         self.inner.as_ptr()
     }
 
