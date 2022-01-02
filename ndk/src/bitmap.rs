@@ -60,20 +60,17 @@ pub use temp_allow_deprecated::*;
 
 #[derive(Debug)]
 pub struct AndroidBitmap {
-    env: *mut ffi::JNIEnv,
-    inner: ffi::jobject,
+    env: *mut JNIEnv,
+    inner: jobject,
 }
 
 impl AndroidBitmap {
-    /// Create an `AndroidBitmap` from JNI pointers
+    /// Create an [`AndroidBitmap`] from JNI pointers
     ///
     /// # Safety
-    /// By calling this function, you assert that it these are valid pointers to JNI objects.
+    /// By calling this function, you assert that these are valid pointers to JNI objects.
     pub unsafe fn from_jni(env: *mut JNIEnv, bitmap: jobject) -> Self {
-        Self {
-            env: env as _,
-            inner: bitmap as _,
-        }
+        Self { env, inner: bitmap }
     }
 
     pub fn get_info(&self) -> BitmapResult<AndroidBitmapInfo> {

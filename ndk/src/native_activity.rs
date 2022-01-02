@@ -108,7 +108,7 @@ impl NativeActivity {
     /// });
     /// ```
     pub fn vm(&self) -> *mut jni_sys::JavaVM {
-        unsafe { self.ptr.as_ref().vm as *mut jni_sys::JavaVM }
+        unsafe { self.ptr.as_ref().vm }
     }
 
     /// The `android.app.NativeActivity` instance
@@ -116,7 +116,7 @@ impl NativeActivity {
     /// In the JNI, this is named `clazz`; however, as the docs say, "it should really be named
     /// 'activity' instead of 'clazz', since it's a reference to the NativeActivity instance".
     pub fn activity(&self) -> jni_sys::jobject {
-        unsafe { self.ptr.as_ref().clazz as jni_sys::jobject }
+        unsafe { self.ptr.as_ref().clazz }
     }
 
     /// Path to the directory with the application's OBB files.
