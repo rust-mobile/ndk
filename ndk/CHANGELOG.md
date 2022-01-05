@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.6.0 (2022-01-05)
+
 - **Breaking:** Upgrade to `ndk-sys 0.3.0` and migrate to `jni-sys` types that it now directly uses in its bindings.
 
 # 0.5.0 (2021-11-22)

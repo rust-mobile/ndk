@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.6.0 (2022-01-05)
+
+- **Breaking:** Update to `ndk-sys 0.3.0` and `ndk 0.6.0`.
+
 # 0.5.0 (2021-11-22)
 
 - Document when to lock and unlock the window/input queue when certain events are received.
