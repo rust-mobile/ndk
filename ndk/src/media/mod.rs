@@ -5,6 +5,7 @@
 
 mod error;
 pub mod image_reader;
+pub mod media_codec;
 
 pub use error::NdkMediaError;
 use std::{mem::MaybeUninit, ptr::NonNull};

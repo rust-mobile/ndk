@@ -1,6 +1,7 @@
 # Unreleased
 
-- ndk/media/image_reader: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan.
+- ndk/hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan.
+- Added `media/media_codec` bindings
 
 # 0.6.0 (2022-01-05)
 
