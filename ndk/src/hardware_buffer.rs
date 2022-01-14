@@ -131,7 +131,12 @@ impl HardwareBuffer {
         Self { inner: ptr }
     }
 
-    fn as_ptr(&self) -> *mut ffi::AHardwareBuffer {
+    /// Returns the underlying [`ffi::AHardwareBuffer`] pointer
+    ///
+    /// The pointer can be used to import this hardware buffer into a Vulkan memory object using [`VK_ANDROID_external_memory_android_hardware_buffer`].
+    ///
+    /// [`VK_ANDROID_external_memory_android_hardware_buffer`]: https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html
+    pub fn as_ptr(&self) -> *mut ffi::AHardwareBuffer {
         self.inner.as_ptr()
     }
 
