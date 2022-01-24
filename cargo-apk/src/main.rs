@@ -39,6 +39,9 @@ fn main() -> anyhow::Result<()> {
                 print_help();
             }
         }
+        "version" => {
+            println!("{} {}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"));
+        }
         _ => print_help(),
     }
 
@@ -66,6 +69,7 @@ SUBCOMMAND:
     build, b    Compiles the current package and creates an apk
     run, r      Run a binary or example of the local package
     gdb         Start a gdb session attached to an adb device with symbols loaded
+    version     Print the version of cargo-apk
 "#
     );
 }
