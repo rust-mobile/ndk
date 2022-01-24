@@ -1,3 +1,5 @@
+#![warn(trivial_casts)]
+
 use super::{construct, construct_never_null, NdkMediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
@@ -445,11 +447,8 @@ impl InputBuffer<'_> {
     pub fn get_mut(&mut self) -> &mut [u8] {
         unsafe {
             let mut out_size = 0;
-            let buffer_ptr = ffi::AMediaCodec_getInputBuffer(
-                self.codec.as_ptr(),
-                self.index,
-                &mut out_size,
-            );
+            let buffer_ptr =
+                ffi::AMediaCodec_getInputBuffer(self.codec.as_ptr(), self.index, &mut out_size);
             slice::from_raw_parts_mut(buffer_ptr, out_size as usize)
         }
     }
@@ -466,12 +465,12 @@ impl OutputBuffer<'_> {
     pub fn get_buffer(&self) -> &[u8] {
         unsafe {
             let mut _out_size = 0;
-            let buffer_ptr = ffi::AMediaCodec_getOutputBuffer(
-                self.codec.as_ptr(),
-                self.index,
-                &mut _out_size,
-            );
-            slice::from_raw_parts(buffer_ptr.add(self.info.offset as usize), self.info.size as usize)
+            let buffer_ptr =
+                ffi::AMediaCodec_getOutputBuffer(self.codec.as_ptr(), self.index, &mut _out_size);
+            slice::from_raw_parts(
+                buffer_ptr.add(self.info.offset as usize),
+                self.info.size as usize,
+            )
         }
     }
 
