@@ -48,50 +48,47 @@ impl MediaFormat {
     pub fn get_i32(&self, key: &str) -> Option<i32> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
-        unsafe { ffi::AMediaFormat_getInt32(self.as_ptr(), name.as_ptr(), &mut out as _) }
-            .then(|| out)
+        unsafe { ffi::AMediaFormat_getInt32(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
     }
 
     pub fn get_i64(&self, key: &str) -> Option<i64> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
-        unsafe { ffi::AMediaFormat_getInt64(self.as_ptr(), name.as_ptr(), &mut out as _) }
-            .then(|| out)
+        unsafe { ffi::AMediaFormat_getInt64(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
     }
 
     pub fn get_f32(&self, key: &str) -> Option<f32> {
         let name = CString::new(key).unwrap();
         let mut out = 0.0;
-        unsafe { ffi::AMediaFormat_getFloat(self.as_ptr(), name.as_ptr(), &mut out as _) }
-            .then(|| out)
+        unsafe { ffi::AMediaFormat_getFloat(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
     }
 
     pub fn get_usize(&self, key: &str) -> Option<usize> {
         let name = CString::new(key).unwrap();
-        let mut out: ffi::size_t = 0;
-        unsafe { ffi::AMediaFormat_getSize(self.as_ptr(), name.as_ptr(), &mut out as _) }
-            .then(|| out as _)
+        let mut out = 0;
+        unsafe { ffi::AMediaFormat_getSize(self.as_ptr(), name.as_ptr(), &mut out) }
+            .then(|| out as usize)
     }
 
     pub fn get_buffer(&self, key: &str) -> Option<&[u8]> {
         let name = CString::new(key).unwrap();
-        let mut out_buffer: *mut c_void = ptr::null_mut();
-        let mut out_size: ffi::size_t = 0;
+        let mut out_buffer = ptr::null_mut();
+        let mut out_size = 0;
         unsafe {
             ffi::AMediaFormat_getBuffer(
                 self.as_ptr(),
                 name.as_ptr(),
-                &mut out_buffer as _,
-                &mut out_size as _,
+                &mut out_buffer,
+                &mut out_size,
             )
         }
-        .then(|| unsafe { slice::from_raw_parts(out_buffer as _, out_size as _) })
+        .then(|| unsafe { slice::from_raw_parts(out_buffer as *mut u8, out_size as usize) })
     }
 
     pub fn get_str(&self, key: &str) -> Option<&str> {
         let name = CString::new(key).unwrap();
-        let mut out: *const c_char = ptr::null();
-        unsafe { ffi::AMediaFormat_getString(self.as_ptr(), name.as_ptr(), &mut out as _) }
+        let mut out = ptr::null();
+        unsafe { ffi::AMediaFormat_getString(self.as_ptr(), name.as_ptr(), &mut out) }
             .then(|| unsafe { CStr::from_ptr(out).to_str().unwrap() })
     }
 
@@ -122,8 +119,8 @@ impl MediaFormat {
             ffi::AMediaFormat_setBuffer(
                 self.as_ptr(),
                 name.as_ptr(),
-                value.as_ptr() as _,
-                value.len() as _,
+                value.as_ptr() as *const c_void,
+                value.len() as ffi::size_t,
             )
         };
     }
@@ -132,8 +129,7 @@ impl MediaFormat {
     pub fn get_f64(&self, key: &str) -> Option<f64> {
         let name = CString::new(key).unwrap();
         let mut out = 0.0;
-        unsafe { ffi::AMediaFormat_getDouble(self.as_ptr(), name.as_ptr(), &mut out as _) }
-            .then(|| out)
+        unsafe { ffi::AMediaFormat_getDouble(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
     }
 
     /// Returns (left, top, right, bottom)
@@ -148,10 +144,10 @@ impl MediaFormat {
             ffi::AMediaFormat_getRect(
                 self.as_ptr(),
                 name.as_ptr(),
-                &mut left as _,
-                &mut top as _,
-                &mut right as _,
-                &mut bottom as _,
+                &mut left,
+                &mut top,
+                &mut right,
+                &mut bottom,
             )
         }
         .then(|| (left, top, right, bottom))
@@ -174,7 +170,7 @@ impl MediaFormat {
     #[cfg(feature = "api-level-28")]
     pub fn set_usize(&self, key: &str, value: usize) {
         let name = CString::new(key).unwrap();
-        unsafe { ffi::AMediaFormat_setSize(self.as_ptr(), name.as_ptr(), value as _) };
+        unsafe { ffi::AMediaFormat_setSize(self.as_ptr(), name.as_ptr(), value as ffi::size_t) };
     }
 }
 
@@ -273,15 +269,15 @@ impl MediaCodec {
             )
         };
 
-        if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as _ {
+        if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as ffi::ssize_t {
             Ok(None)
         } else if result >= 0 {
             Ok(Some(InputBuffer {
                 codec: self,
-                index: result as _,
+                index: result as ffi::size_t,
             }))
         } else {
-            NdkMediaError::from_status(result as _, || None)
+            NdkMediaError::from_status(result as ffi::media_status_t, || None)
         }
     }
 
@@ -292,7 +288,7 @@ impl MediaCodec {
         let result = unsafe {
             ffi::AMediaCodec_dequeueOutputBuffer(
                 self.as_ptr(),
-                &mut info as _,
+                &mut info,
                 timeout
                     .as_micros()
                     .try_into()
@@ -300,16 +296,16 @@ impl MediaCodec {
             )
         };
 
-        if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as _ {
+        if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as ffi::ssize_t {
             Ok(None)
         } else if result >= 0 {
             Ok(Some(OutputBuffer {
                 codec: self,
-                index: result as _,
+                index: result as ffi::size_t,
                 info,
             }))
         } else {
-            NdkMediaError::from_status(result as _, || None)
+            NdkMediaError::from_status(result as ffi::media_status_t, || None)
         }
     }
 
@@ -364,9 +360,9 @@ impl MediaCodec {
         let status = unsafe {
             ffi::AMediaCodec_queueInputBuffer(
                 self.as_ptr(),
-                buffer.index as _,
-                offset as _,
-                size as _,
+                buffer.index as ffi::size_t,
+                offset as ffi::off_t,
+                size as ffi::size_t,
                 time,
                 flags,
             )
@@ -376,7 +372,7 @@ impl MediaCodec {
 
     pub fn release_output_buffer(&self, buffer: OutputBuffer, render: bool) -> Result<()> {
         let status = unsafe {
-            ffi::AMediaCodec_releaseOutputBuffer(self.as_ptr(), buffer.index as _, render)
+            ffi::AMediaCodec_releaseOutputBuffer(self.as_ptr(), buffer.index as ffi::size_t, render)
         };
         NdkMediaError::from_status(status, || ())
     }
@@ -389,7 +385,7 @@ impl MediaCodec {
         let status = unsafe {
             ffi::AMediaCodec_releaseOutputBufferAtTime(
                 self.as_ptr(),
-                buffer.index as _,
+                buffer.index as ffi::size_t,
                 timestamp_ns,
             )
         };
@@ -442,19 +438,19 @@ impl Drop for MediaCodec {
 #[derive(Debug)]
 pub struct InputBuffer<'a> {
     codec: &'a MediaCodec,
-    index: usize,
+    index: ffi::size_t,
 }
 
 impl InputBuffer<'_> {
     pub fn get_mut(&mut self) -> &mut [u8] {
         unsafe {
-            let mut out_size: ffi::size_t = 0;
+            let mut out_size = 0;
             let buffer_ptr = ffi::AMediaCodec_getInputBuffer(
                 self.codec.as_ptr(),
-                self.index as _,
-                &mut out_size as _,
+                self.index,
+                &mut out_size,
             );
-            slice::from_raw_parts_mut(buffer_ptr, out_size as _)
+            slice::from_raw_parts_mut(buffer_ptr, out_size as usize)
         }
     }
 }
@@ -469,13 +465,13 @@ pub struct OutputBuffer<'a> {
 impl OutputBuffer<'_> {
     pub fn get_buffer(&self) -> &[u8] {
         unsafe {
-            let mut _out_size: ffi::size_t = 0;
+            let mut _out_size = 0;
             let buffer_ptr = ffi::AMediaCodec_getOutputBuffer(
                 self.codec.as_ptr(),
-                self.index as _,
-                &mut _out_size as _,
+                self.index,
+                &mut _out_size,
             );
-            slice::from_raw_parts(buffer_ptr.add(self.info.offset as _), self.info.size as _)
+            slice::from_raw_parts(buffer_ptr.add(self.info.offset as usize), self.info.size as usize)
         }
     }
 
@@ -483,7 +479,7 @@ impl OutputBuffer<'_> {
     pub fn get_format(&self) -> MediaFormat {
         unsafe {
             let inner = construct_never_null(|res| {
-                *res = ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index as _);
+                *res = ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index);
                 0
             })
             .unwrap();
