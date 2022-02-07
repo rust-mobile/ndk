@@ -165,6 +165,10 @@ pub unsafe fn init(
     callbacks.onLowMemory = Some(on_low_memory);
 
     let activity = NativeActivity::from_ptr(activity);
+    ndk_context::initialize_android_context(
+        activity.vm() as *mut std::ffi::c_void,
+        activity.activity() as *mut std::ffi::c_void,
+    );
     NATIVE_ACTIVITY = Some(activity);
 
     let mut logpipe: [RawFd; 2] = Default::default();
