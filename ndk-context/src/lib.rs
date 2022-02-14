@@ -80,8 +80,9 @@ pub fn android_context() -> AndroidContext {
 /// The pointers must be valid and this function must be called exactly once before `main` is
 /// called.
 pub unsafe fn initialize_android_context(java_vm: *mut c_void, context_jobject: *mut c_void) {
-    ANDROID_CONTEXT = Some(AndroidContext {
+    let previous = ANDROID_CONTEXT.replace(AndroidContext {
         java_vm,
         context_jobject,
     });
+    debug_assert!(previous.is_none());
 }
