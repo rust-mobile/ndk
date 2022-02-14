@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.6.1 (2022-02-14)
+
+- Initializes `ndk-context`.
+
 # 0.6.0 (2022-01-05)
 
 - **Breaking:** Update to `ndk-sys 0.3.0` and `ndk 0.6.0`.
