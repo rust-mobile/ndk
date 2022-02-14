@@ -72,12 +72,13 @@ pub fn android_context() -> AndroidContext {
     unsafe { ANDROID_CONTEXT.expect("android context was initialized") }
 }
 
-/// Initializes the [`AndroidContext`]. [`AndroidContext`] is initialized by `ndk-glue` before
-/// main is called.
+/// Initializes the [`AndroidContext`]. [`AndroidContext`] is initialized by [__ndk-glue__](https://crates.io/crates/ndk-glue)
+/// before main is called.
 ///
 /// # Safety
 ///
-/// The pointers need to be valid.
+/// The pointers must be valid and this function must be called exactly once before `main` is
+/// called.
 pub unsafe fn initialize_android_context(java_vm: *mut c_void, context_jobject: *mut c_void) {
     ANDROID_CONTEXT = Some(AndroidContext {
         java_vm,
