@@ -17,7 +17,7 @@ fn enumerate_audio_devices() -> Result<(), Box<dyn std::error::Error>> {
 
     let audio_manager = env
         .call_method(
-            ctx.context() as jni::sys::jobject,
+            ctx.context().cast(),
             "getSystemService",
             // JNI type signature needs to be derived from the Java API
             // (ArgTys)ResultTy
