@@ -69,7 +69,7 @@ impl AndroidContext {
 
 /// Main entry point to this crate. Returns an [`AndroidContext`].
 pub fn android_context() -> AndroidContext {
-    unsafe { ANDROID_CONTEXT.expect("android context was initialized") }
+    unsafe { ANDROID_CONTEXT.expect("android context was not initialized") }
 }
 
 /// Initializes the [`AndroidContext`]. [`AndroidContext`] is initialized by [__ndk-glue__](https://crates.io/crates/ndk-glue)
