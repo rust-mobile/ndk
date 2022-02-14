@@ -8,6 +8,7 @@ Name | Description | Badges
 --- | --- | ---
 [`ndk-sys`](./ndk-sys) | Raw FFI bindings to the NDK | [![crates.io](https://img.shields.io/crates/v/ndk-sys.svg)](https://crates.io/crates/ndk-sys) [![crates.io](https://docs.rs/ndk-sys/badge.svg)](https://docs.rs/ndk-sys)
 [`ndk`](./ndk) | Safe abstraction of the bindings | [![crates.io](https://img.shields.io/crates/v/ndk.svg)](https://crates.io/crates/ndk) [![crates.io](https://docs.rs/ndk/badge.svg)](https://docs.rs/ndk)
+[`ndk-context`](./ndk-context) | Runtime API | [![crates.io](https://img.shields.io/crates/v/ndk-context.svg)](https://crates.io/crates/ndk-context)
 [`ndk-glue`](./ndk-glue) | Startup code | [![crates.io](https://img.shields.io/crates/v/ndk-glue.svg)](https://crates.io/crates/ndk-glue) [![crates.io](https://docs.rs/ndk-glue/badge.svg)](https://docs.rs/ndk-glue)
 [`ndk-build`](./ndk-build) | Everything for building apk's | [![crates.io](https://img.shields.io/crates/v/ndk-build.svg)](https://crates.io/crates/ndk-build) [![crates.io](https://docs.rs/ndk-build/badge.svg)](https://docs.rs/ndk-build)
 [`cargo-apk`](./cargo-apk) | Build tool | [![crates.io](https://img.shields.io/crates/v/cargo-apk.svg)](https://crates.io/crates/cargo-apk) [![crates.io](https://docs.rs/cargo-apk/badge.svg)](https://docs.rs/cargo-apk)
@@ -105,7 +106,8 @@ fn main() {}
 ```
 
 ## JNI
-Java Native Interface (JNI) allows executing Java code in a VM from native applications.
-`ndk-examples` contains an `jni_audio` example which will print out all output audio devices in the log.
+Java Native Interface (JNI) allows executing Java code in a VM from native applications. To access
+the JNI use the `AndroidContext` from the `ndk-context` crate. `ndk-examples` contains a `jni_audio`
+example which will print out all output audio devices in the log.
 
 - [`jni`](https://crates.io/crates/jni), JNI bindings for Rust
