@@ -84,5 +84,5 @@ pub unsafe fn initialize_android_context(java_vm: *mut c_void, context_jobject: 
         java_vm,
         context_jobject,
     });
-    debug_assert!(previous.is_none());
+    assert!(previous.is_none());
 }
