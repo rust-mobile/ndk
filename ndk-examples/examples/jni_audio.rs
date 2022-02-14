@@ -8,7 +8,7 @@ const GET_DEVICES_OUTPUTS: jni::sys::jint = 2;
 fn enumerate_audio_devices() -> Result<(), Box<dyn std::error::Error>> {
     // Create a VM for executing Java calls
     let ctx = ndk_context::android_context();
-    let vm = unsafe { jni::JavaVM::from_raw(ctx.vm() as *mut jni::sys::JavaVM) }?;
+    let vm = unsafe { jni::JavaVM::from_raw(ctx.vm().cast()) }?;
     let env = vm.attach_current_thread()?;
 
     // Query the global Audio Service
