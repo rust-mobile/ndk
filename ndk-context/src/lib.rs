@@ -73,7 +73,7 @@ pub fn android_context() -> AndroidContext {
 }
 
 /// Initializes the [`AndroidContext`]. [`AndroidContext`] is initialized by [__ndk-glue__](https://crates.io/crates/ndk-glue)
-/// before main is called.
+/// before `main` is called.
 ///
 /// # Safety
 ///
