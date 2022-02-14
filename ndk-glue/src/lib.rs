@@ -166,8 +166,8 @@ pub unsafe fn init(
 
     let activity = NativeActivity::from_ptr(activity);
     ndk_context::initialize_android_context(
-        activity.vm() as *mut std::ffi::c_void,
-        activity.activity() as *mut std::ffi::c_void,
+        activity.vm().cast(),
+        activity.activity().cast(),
     );
     NATIVE_ACTIVITY = Some(activity);
 

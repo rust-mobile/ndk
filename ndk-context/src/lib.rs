@@ -5,7 +5,7 @@
 //!
 //! ```no_run
 //! let ctx = ndk_context::android_context();
-//! let vm = unsafe { jni::JavaVM::from_raw(ctx.vm() as *mut jni::sys::JavaVM) }?;
+//! let vm = unsafe { jni::JavaVM::from_raw(ctx.vm().cast()) }?;
 //! let env = vm.attach_current_thread();
 //! let class_ctx = env.find_class("android/content/Context")?;
 //! let audio_service = env.get_static_field(class_ctx, "AUDIO_SERVICE", "Ljava/lang/String;")?;
@@ -36,7 +36,7 @@ impl AndroidContext {
     /// Usage with [__jni__](https://crates.io/crates/jni) crate:
     /// ```no_run
     /// let ctx = ndk_context::android_context();
-    /// let vm = unsafe { jni::JavaVM::from_raw(ctx.vm() as *mut jni::sys::JavaVM) }?;
+    /// let vm = unsafe { jni::JavaVM::from_raw(ctx.vm().cast()) }?;
     /// let env = vm.attach_current_thread();
     /// ```
     pub fn vm(self) -> *mut c_void {
@@ -49,7 +49,7 @@ impl AndroidContext {
     /// Usage with [__jni__](https://crates.io/crates/jni) crate:
     /// ```no_run
     /// let ctx = ndk_context::android_context();
-    /// let vm = unsafe { jni::JavaVM::from_raw(ctx.vm() as *mut jni::sys::JavaVM) }?;
+    /// let vm = unsafe { jni::JavaVM::from_raw(ctx.vm().cast()) }?;
     /// let env = vm.attach_current_thread();
     /// let class_ctx = env.find_class("android/content/Context")?;
     /// let audio_service = env.get_static_field(class_ctx, "AUDIO_SERVICE", "Ljava/lang/String;")?;
