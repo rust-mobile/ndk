@@ -1,6 +1,6 @@
 [package]
 name = "ndk-glue"
-version = "0.6.0"
+version = "0.6.1"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Startup code for android binaries"
