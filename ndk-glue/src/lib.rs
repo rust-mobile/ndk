@@ -55,7 +55,6 @@ lazy_static! {
 
 static mut NATIVE_ACTIVITY: Option<NativeActivity> = None;
 
-#[deprecated]
 pub fn native_activity() -> &'static NativeActivity {
     unsafe { NATIVE_ACTIVITY.as_ref().unwrap() }
 }
