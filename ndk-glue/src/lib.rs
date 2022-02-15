@@ -55,6 +55,10 @@ lazy_static! {
 
 static mut NATIVE_ACTIVITY: Option<NativeActivity> = None;
 
+// Intentionally omitting this deprecation warning to not suddenly break peoples' CI builds
+// with a deprecation warning: especially since we don't have the full solution yet for applications
+// like winit that do need access to these globals.
+// #[deprecated = "Use `ndk_context::android_context().vm()` instead."]
 pub fn native_activity() -> &'static NativeActivity {
     unsafe { NATIVE_ACTIVITY.as_ref().unwrap() }
 }
@@ -165,6 +169,7 @@ pub unsafe fn init(
     callbacks.onLowMemory = Some(on_low_memory);
 
     let activity = NativeActivity::from_ptr(activity);
+    ndk_context::initialize_android_context(activity.vm().cast(), activity.activity().cast());
     NATIVE_ACTIVITY = Some(activity);
 
     let mut logpipe: [RawFd; 2] = Default::default();
