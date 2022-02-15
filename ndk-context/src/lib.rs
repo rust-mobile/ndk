@@ -1,6 +1,6 @@
-//! Provides a stable api to rust crates for interfacing with the android platform. It is
+//! Provides a stable api to rust crates for interfacing with the Android platform. It is
 //! initialized by the runtime, usually [__ndk-glue__](https://crates.io/crates/ndk-glue),
-//! but could also be initialized by java or kotlin code when embedding in an existing android
+//! but could also be initialized by Java or Kotlin code when embedding in an existing Android
 //! project.
 //!
 //! ```no_run
@@ -22,7 +22,7 @@ use std::ffi::c_void;
 
 static mut ANDROID_CONTEXT: Option<AndroidContext> = None;
 
-/// [`AndroidContext`] provides the pointers required to interface with the jni on android
+/// [`AndroidContext`] provides the pointers required to interface with the jni on Android
 /// platforms.
 #[derive(Clone, Copy, Debug)]
 pub struct AndroidContext {
