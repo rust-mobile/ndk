@@ -52,16 +52,13 @@ pub fn crate_path(name: &str, overridden_path: &Option<Path>) -> Path {
     overridden_path.clone().unwrap_or_else(|| {
         Ident::new(
             // try to determine crate name from Cargo.toml
-            crate_name(name)
-                .ok()
+            match crate_name(name)
                 .as_ref()
-                .map(|name| match name {
-                    FoundCrate::Itself => "ndk_macro",
-                    FoundCrate::Name(n) => n.as_str(),
-                })
-                // or use default crate name
-                // (this may cause compilation error when crate is not found)
-                .unwrap_or_else(|| name),
+                .expect("Crate not found in `Cargo.toml`")
+            {
+                FoundCrate::Itself => "ndk_macro",
+                FoundCrate::Name(n) => n.as_str(),
+            },
             Span::call_site(),
         )
         .into()
