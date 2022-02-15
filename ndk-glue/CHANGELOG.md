@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.5.1 (2022-02-15)
+
+- Initialize `ndk-context` for cross-version access to the Java `VM` and Android `Context`.
+
 # 0.5.0 (2021-11-16)
 
 - Document when to lock and unlock the window/input queue when certain events are received.
