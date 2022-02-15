@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.4.1 (2022-02-15)
+
+- Initialize `ndk-context` for cross-version access to the Java `VM` and Android `Context`.
+
 # 0.4.0 (2021-08-02)
 
 - Looper is now created before returning from `ANativeActivity_onCreate`, solving

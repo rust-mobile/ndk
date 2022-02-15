@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [master]
+    branches: [master, '*-stable']
     paths: "**/Cargo.toml"
 
 jobs:
