@@ -3,6 +3,7 @@
 - Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
   for more consistent interaction with Android backwards compatibility handling and its increasingly strict usage rules:
   https://developer.android.com/distribute/best-practices/develop/target-sdk
+- **Breaking:** `Ndk` now requires a struct implementing `Env` to read environment variables from.
 
 # 0.4.3 (2021-11-22)
 

@@ -1,22 +1,25 @@
+use crate::cargo::Env;
 use crate::error::NdkError;
 use crate::target::Target;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::sync::Arc;
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone)]
 pub struct Ndk {
     sdk_path: PathBuf,
     ndk_path: PathBuf,
     build_tools_version: String,
     build_tag: u32,
     platforms: Vec<u32>,
+    env: Arc<dyn Env>,
 }
 
 impl Ndk {
-    pub fn from_env() -> Result<Self, NdkError> {
+    pub fn from_env(env: Arc<dyn Env>) -> Result<Self, NdkError> {
         let sdk_path = {
-            let mut sdk_path = std::env::var("ANDROID_HOME").ok();
+            let mut sdk_path = env.var("ANDROID_HOME").ok();
             if sdk_path.is_some() {
                 println!(
                     "Warning: You use environment variable ANDROID_HOME that is deprecated. \
@@ -24,24 +27,25 @@ impl Ndk {
                 );
             }
             if sdk_path.is_none() {
-                sdk_path = std::env::var("ANDROID_SDK_ROOT").ok();
+                sdk_path = env.var("ANDROID_SDK_ROOT").ok();
             }
 
-            PathBuf::from(sdk_path.ok_or(NdkError::SdkNotFound)?)
+            PathBuf::from(sdk_path.ok_or(NdkError::SdkNotFound)?.as_ref())
         };
 
         let ndk_path = {
-            let ndk_path = std::env::var("ANDROID_NDK_ROOT")
+            let ndk_path = env
+                .var("ANDROID_NDK_ROOT")
                 .ok()
-                .or_else(|| std::env::var("ANDROID_NDK_PATH").ok())
-                .or_else(|| std::env::var("ANDROID_NDK_HOME").ok())
-                .or_else(|| std::env::var("NDK_HOME").ok());
+                .or_else(|| env.var("ANDROID_NDK_PATH").ok())
+                .or_else(|| env.var("ANDROID_NDK_HOME").ok())
+                .or_else(|| env.var("NDK_HOME").ok());
 
             // default ndk installation path
             if ndk_path.is_none() && sdk_path.join("ndk-bundle").exists() {
                 sdk_path.join("ndk-bundle")
             } else {
-                PathBuf::from(ndk_path.ok_or(NdkError::NdkNotFound)?)
+                PathBuf::from(ndk_path.ok_or(NdkError::NdkNotFound)?.as_ref())
             }
         };
 
@@ -116,6 +120,7 @@ impl Ndk {
             build_tools_version,
             build_tag,
             platforms,
+            env,
         })
     }
 
@@ -191,7 +196,7 @@ impl Ndk {
     }
 
     pub fn toolchain_dir(&self) -> Result<PathBuf, NdkError> {
-        let host_os = std::env::var("HOST").ok();
+        let host_os = self.env.var("HOST").ok();
         let host_contains = |s| host_os.as_ref().map(|h| h.contains(s)).unwrap_or(false);
 
         let arch = if host_contains("linux") {
@@ -208,7 +213,7 @@ impl Ndk {
             "windows"
         } else {
             return match host_os {
-                Some(host_os) => Err(NdkError::UnsupportedHost(host_os)),
+                Some(host_os) => Err(NdkError::UnsupportedHost(host_os.into())),
                 _ => Err(NdkError::UnsupportedTarget),
             };
         };
@@ -293,8 +298,10 @@ impl Ndk {
         if let Ok(keytool) = which::which(bin!("keytool")) {
             return Ok(Command::new(keytool));
         }
-        if let Ok(java) = std::env::var("JAVA_HOME") {
-            let keytool = PathBuf::from(java).join("bin").join(bin!("keytool"));
+        if let Ok(java) = self.env.var("JAVA_HOME") {
+            let keytool = PathBuf::from(java.as_ref())
+                .join("bin")
+                .join(bin!("keytool"));
             if keytool.exists() {
                 return Ok(Command::new(keytool));
             }
@@ -396,12 +403,23 @@ pub struct Key {
 
 #[cfg(test)]
 mod tests {
+    use std::{
+        borrow::Cow,
+        env::{self, VarError},
+    };
+
     use super::*;
 
     #[test]
     #[ignore]
     fn test_detect() {
-        let ndk = Ndk::from_env().unwrap();
+        struct GlobalEnv;
+        impl Env for GlobalEnv {
+            fn var(&self, key: &str) -> Result<Cow<'_, str>, VarError> {
+                env::var(key).map(|s| s.into())
+            }
+        }
+        let ndk = Ndk::from_env(Arc::new(GlobalEnv)).unwrap();
         assert_eq!(ndk.build_tools_version(), "29.0.2");
         assert_eq!(ndk.platforms(), &[29, 28]);
     }

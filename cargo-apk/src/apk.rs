@@ -1,15 +1,18 @@
 use crate::error::Error;
 use crate::manifest::Manifest;
-use cargo_subcommand::{Artifact, CrateType, Profile, Subcommand};
+use cargo_subcommand::{Artifact, CrateType, EnvError, LocalizedConfig, Profile, Subcommand};
 use ndk_build::apk::{Apk, ApkConfig};
-use ndk_build::cargo::{cargo_ndk, VersionCode};
+use ndk_build::cargo::{cargo_ndk, Env, VersionCode};
 use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
 use ndk_build::manifest::MetaData;
 use ndk_build::ndk::Ndk;
 use ndk_build::target::Target;
+use std::borrow::Cow;
+use std::env::{self, VarError};
 use std::path::PathBuf;
 use std::process::Command;
+use std::sync::Arc;
 
 pub struct ApkBuilder<'a> {
     cmd: &'a Subcommand,
@@ -19,9 +22,28 @@ pub struct ApkBuilder<'a> {
     build_targets: Vec<Target>,
 }
 
+struct ConfigEnv(Option<LocalizedConfig>);
+impl Env for ConfigEnv {
+    fn var(&self, key: &str) -> Result<Cow<'_, str>, VarError> {
+        match &self.0 {
+            Some(config) => config
+                .resolve_env(key)
+                // IO error is currently only returned when path canonicalization fails
+                .map_err(|e| match e {
+                    EnvError::Var(e) => e,
+                    // The trait only handles `VarError`, unwrap any other type here
+                    e => {
+                        panic!("Failed to resolve environment variable `{}`: {}", key, e)
+                    }
+                }),
+            None => env::var(key).map(|s| s.into()),
+        }
+    }
+}
+
 impl<'a> ApkBuilder<'a> {
     pub fn from_subcommand(cmd: &'a Subcommand) -> Result<Self, Error> {
-        let ndk = Ndk::from_env()?;
+        let ndk = Ndk::from_env(Arc::new(ConfigEnv(cmd.config().cloned())))?;
         let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
         let build_targets = if let Some(target) = cmd.target() {
             vec![Target::from_rust_triple(target)?]
@@ -224,7 +246,7 @@ impl<'a> ApkBuilder<'a> {
     }
 
     pub fn default(&self) -> Result<(), Error> {
-        let ndk = Ndk::from_env()?;
+        let ndk = Ndk::from_env(Arc::new(ConfigEnv(None)))?;
         for target in &self.build_targets {
             let mut cargo = cargo_ndk(&ndk, *target, self.min_sdk_version())?;
             cargo.args(self.cmd.args());

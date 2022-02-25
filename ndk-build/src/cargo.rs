@@ -1,7 +1,13 @@
 use crate::error::NdkError;
 use crate::ndk::Ndk;
 use crate::target::Target;
+use std::borrow::Cow;
+use std::env::VarError;
 use std::process::Command;
+
+pub trait Env {
+    fn var(&self, key: &str) -> Result<Cow<'_, str>, VarError>;
+}
 
 pub fn cargo_ndk(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command, NdkError> {
     let triple = target.rust_triple();
