@@ -87,7 +87,7 @@ impl<'a> UnalignedApk<'a> {
         // Pass UNIX path separators to `aapt` on non-UNIX systems, ensuring the resulting separator
         // is compatible with the target device instead of the host platform.
         // Otherwise, it results in a runtime error when loading the NativeActivity `.so` library.
-        let lib_path_unix = lib_path.to_str().unwrap().replace("\\", "/");
+        let lib_path_unix = lib_path.to_str().unwrap().replace('\\', "/");
 
         let mut aapt = self.0.build_tool(bin!("aapt"))?;
         aapt.arg("add")
