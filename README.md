@@ -77,7 +77,7 @@ stdout, like `println!`, should therefore work.
 
 Use can filter the output in logcat
 ```console
-$ adb logcat RustStdoutStderr:D *:S
+$ adb logcat RustStdoutStderr:D '*:S'
 ```
 
 ### Android logger
