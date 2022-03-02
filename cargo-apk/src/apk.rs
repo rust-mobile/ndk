@@ -94,8 +94,8 @@ impl<'a> ApkBuilder<'a> {
 
     pub fn build(&self, artifact: &Artifact) -> Result<Apk, Error> {
         let package_name = match artifact {
-            Artifact::Root(name) => format!("rust.{}", name.replace("-", "_")),
-            Artifact::Example(name) => format!("rust.example.{}", name.replace("-", "_")),
+            Artifact::Root(name) => format!("rust.{}", name.replace('-', "_")),
+            Artifact::Example(name) => format!("rust.example.{}", name.replace('-', "_")),
         };
 
         // Set artifact specific manifest default values.
@@ -107,7 +107,7 @@ impl<'a> ApkBuilder<'a> {
 
         manifest.application.activity.meta_data.push(MetaData {
             name: "android.app.lib_name".to_string(),
-            value: artifact.name().replace("-", "_"),
+            value: artifact.name().replace('-', "_"),
         });
 
         let crate_path = self.cmd.manifest().parent().expect("invalid manifest path");
