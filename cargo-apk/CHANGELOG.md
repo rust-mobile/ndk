@@ -5,6 +5,7 @@
 - Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
   for more consistent interaction with Android backwards compatibility handling and its increasingly strict usage rules:
   https://developer.android.com/distribute/best-practices/develop/target-sdk
+- Allow manifest `package` property to be provided in `Cargo.toml` ([#236](https://github.com/rust-windowing/android-ndk-rs/pull/236)).
 
 # 0.8.2 (2021-11-22)
 

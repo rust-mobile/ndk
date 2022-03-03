@@ -27,6 +27,9 @@ Following configuration options are supported by `cargo apk` under `[package.met
 
 ```toml
 [package.metadata.android]
+# Specifies the package property of the manifest.
+package = "com.foo.bar"
+
 # Specifies the array of targets to build for.
 build_targets = [ "armv7-linux-androideabi", "aarch64-linux-android", "i686-linux-android", "x86_64-linux-android" ]
 
