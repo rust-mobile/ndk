@@ -84,7 +84,7 @@ impl<'a> ApkBuilder<'a> {
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
             }
-            cargo.args(self.cmd.args());
+            self.cmd.args().apply(&mut cargo);
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
             }
@@ -145,19 +145,15 @@ impl<'a> ApkBuilder<'a> {
 
         for target in &self.build_targets {
             let triple = target.rust_triple();
-            let build_dir = dunce::simplified(self.cmd.target_dir())
-                .join(triple)
-                .join(self.cmd.profile());
-            let artifact = build_dir
-                .join(artifact)
-                .join(artifact.file_name(CrateType::Cdylib, triple));
+            let build_dir = self.cmd.build_dir(Some(triple));
+            let artifact = self.cmd.artifact(artifact, Some(triple), CrateType::Cdylib);
 
             let mut cargo = cargo_ndk(&config.ndk, *target, self.min_sdk_version())?;
             cargo.arg("rustc");
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
             }
-            cargo.args(self.cmd.args());
+            self.cmd.args().apply(&mut cargo);
 
             // Workaround for https://github.com/rust-windowing/android-ndk-rs/issues/149:
             // Rust (1.56 as of writing) still requires libgcc during linking, but this does
@@ -166,9 +162,7 @@ impl<'a> ApkBuilder<'a> {
             // is still required even after replacing it with libunwind in the source.
             // XXX: Add an upper-bound on the Rust version whenever this is not necessary anymore.
             if self.ndk.build_tag() > 7272597 {
-                if !self.cmd.args().contains(&"--".to_owned()) {
-                    cargo.arg("--");
-                }
+                cargo.arg("--");
                 let cargo_apk_link_dir = self
                     .cmd
                     .target_dir()
@@ -223,11 +217,12 @@ impl<'a> ApkBuilder<'a> {
         Ok(())
     }
 
-    pub fn default(&self) -> Result<(), Error> {
+    pub fn default(&self, task: &str) -> Result<(), Error> {
         let ndk = Ndk::from_env()?;
         for target in &self.build_targets {
             let mut cargo = cargo_ndk(&ndk, *target, self.min_sdk_version())?;
-            cargo.args(self.cmd.args());
+            cargo.arg(task);
+            self.cmd.args().apply(&mut cargo);
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
             }

@@ -1,82 +1,75 @@
 use cargo_apk::{ApkBuilder, Error};
-use cargo_subcommand::Subcommand;
-use std::process::Command;
+use cargo_subcommand::{Args, Subcommand};
+use clap::Parser;
+
+#[derive(Parser)]
+struct Cmd {
+    #[clap(subcommand)]
+    apk: ApkCmd,
+}
+
+#[derive(clap::Subcommand)]
+enum ApkCmd {
+    /// Helps cargo build apk's for android
+    Apk {
+        #[clap(subcommand)]
+        cmd: ApkSubCmd,
+    },
+}
+
+#[derive(clap::Subcommand)]
+enum ApkSubCmd {
+    /// Checks that the current package builds without creating an apk
+    Check {
+        #[clap(flatten)]
+        args: Args,
+    },
+    /// Compiles the current package and creates an apk
+    Build {
+        #[clap(flatten)]
+        args: Args,
+    },
+    /// Run a binary or example of the local package
+    Run {
+        #[clap(flatten)]
+        args: Args,
+    },
+    /// Start a gdb session attached to an adb device with symbols loaded
+    Gdb {
+        #[clap(flatten)]
+        args: Args,
+    },
+}
 
 fn main() -> anyhow::Result<()> {
     env_logger::init();
-    let args = std::env::args();
-    let cmd = Subcommand::new(args, "apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
-    let builder = ApkBuilder::from_subcommand(&cmd)?;
-
-    match cmd.cmd() {
-        "check" | "c" => builder.check()?,
-        "build" | "b" => {
+    let cmd = Cmd::parse();
+    let ApkCmd::Apk { cmd } = cmd.apk;
+    match cmd {
+        ApkSubCmd::Check { args } => {
+            let cmd = Subcommand::new(args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd)?;
+            builder.check()?;
+        }
+        ApkSubCmd::Build { args } => {
+            let cmd = Subcommand::new(args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd)?;
             for artifact in cmd.artifacts() {
                 builder.build(artifact)?;
             }
         }
-        "run" | "r" => {
+        ApkSubCmd::Run { args } => {
+            let cmd = Subcommand::new(args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd)?;
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
             builder.run(&cmd.artifacts()[0])?;
         }
-        "--" => {
-            builder.default()?;
-        }
-        "gdb" => {
+        ApkSubCmd::Gdb { args } => {
+            let cmd = Subcommand::new(args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd)?;
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
             builder.gdb(&cmd.artifacts()[0])?;
         }
-        "help" => {
-            if let Some(arg) = cmd.args().get(0) {
-                match &**arg {
-                    "build" | "b" | "check" | "c" | "run" | "r" | "test" | "t" | "doc" => {
-                        run_cargo(&cmd)?
-                    }
-                    "gdb" => print_gdb_help(),
-                    _ => print_help(),
-                }
-            } else {
-                print_help();
-            }
-        }
-        _ => print_help(),
     }
-
     Ok(())
-}
-
-fn run_cargo(cmd: &Subcommand) -> Result<(), Error> {
-    Command::new("cargo")
-        .arg(cmd.cmd())
-        .args(cmd.args())
-        .status()?;
-    Ok(())
-}
-
-fn print_help() {
-    println!(
-        r#"cargo-apk
-Helps cargo build apk's for android
-
-USAGE:
-    cargo apk [SUBCOMMAND]
-
-SUBCOMMAND:
-    check, c    Checks that the current package builds without creating an apk
-    build, b    Compiles the current package and creates an apk
-    run, r      Run a binary or example of the local package
-    gdb         Start a gdb session attached to an adb device with symbols loaded
-"#
-    );
-}
-
-fn print_gdb_help() {
-    println!(
-        r#"cargo-apk gdb
-Start a gdb session attached to an adb device with symbols loaded
-
-USAGE:
-    cargo apk gdb
-"#
-    );
 }
