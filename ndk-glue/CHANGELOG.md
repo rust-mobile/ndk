@@ -1,13 +1,25 @@
 # Unreleased
 
+# 0.6.1 (2022-02-14)
+
+- Initialize `ndk-context` for cross-version access to the Java `VM` and Android `Context`.
+
 # 0.6.0 (2022-01-05)
 
 - **Breaking:** Update to `ndk-sys 0.3.0` and `ndk 0.6.0`.
+
+# 0.5.1 (2022-02-15)
+
+- Initialize `ndk-context` for cross-version access to the Java `VM` and Android `Context`.
 
 # 0.5.0 (2021-11-22)
 
 - Document when to lock and unlock the window/input queue when certain events are received.
 - **Breaking:** Update to `ndk 0.5.0` and `ndk-macros 0.3.0`.
+
+# 0.4.1 (2022-02-15)
+
+- Initialize `ndk-context` for cross-version access to the Java `VM` and Android `Context`.
 
 # 0.4.0 (2021-08-02)
 

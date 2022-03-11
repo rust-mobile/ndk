@@ -17,6 +17,7 @@ jobs:
           - { name: "ndk-sys", target: "armv7-linux-androideabi" }
           - { name: "ndk", target: "armv7-linux-androideabi" }
           - { name: "ndk-macro", target: "x86_64-unknown-linux-gnu" }
+          - { name: "ndk-context", target: "armv7-linux-androideabi" }
           - { name: "ndk-glue", target: "armv7-linux-androideabi" }
           - { name: "ndk-build", target: "x86_64-unknown-linux-gnu" }
           - { name: "cargo-apk", target: "x86_64-unknown-linux-gnu" }

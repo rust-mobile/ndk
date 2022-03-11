@@ -35,8 +35,6 @@ impl<'a> ApkBuilder<'a> {
             .join("apk");
 
         // Set default Android manifest values
-        assert!(manifest.android_manifest.package.is_empty());
-
         if manifest
             .android_manifest
             .version_name
@@ -93,21 +91,23 @@ impl<'a> ApkBuilder<'a> {
     }
 
     pub fn build(&self, artifact: &Artifact) -> Result<Apk, Error> {
-        let package_name = match artifact {
-            Artifact::Root(name) => format!("rust.{}", name.replace("-", "_")),
-            Artifact::Example(name) => format!("rust.example.{}", name.replace("-", "_")),
-        };
-
         // Set artifact specific manifest default values.
         let mut manifest = self.manifest.android_manifest.clone();
-        manifest.package = package_name;
+
+        if manifest.package.is_empty() {
+            manifest.package = match artifact {
+                Artifact::Root(name) => format!("rust.{}", name.replace('-', "_")),
+                Artifact::Example(name) => format!("rust.example.{}", name.replace('-', "_")),
+            };
+        }
+
         if manifest.application.label.is_empty() {
             manifest.application.label = artifact.name().to_string();
         }
 
         manifest.application.activity.meta_data.push(MetaData {
             name: "android.app.lib_name".to_string(),
-            value: artifact.name().replace("-", "_"),
+            value: artifact.name().replace('-', "_"),
         });
 
         let crate_path = self.cmd.manifest().parent().expect("invalid manifest path");
