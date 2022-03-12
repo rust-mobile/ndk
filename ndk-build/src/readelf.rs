@@ -31,7 +31,9 @@ impl<'a> UnalignedApk<'a> {
         let mut provided = HashSet::new();
         for path in &android_search_paths {
             for lib in list_libs(path)? {
-                provided.insert(lib);
+                if lib != "libc++_shared.so" {
+                    provided.insert(lib);
+                }
             }
         }
 
