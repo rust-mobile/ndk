@@ -51,8 +51,9 @@ impl<'a> UnalignedApk<'a> {
                 };
 
                 if let Some(path) = find_library_path(search_paths, &need)? {
-                    provided.insert(path.file_name().unwrap().to_str().unwrap().to_string());
-                    artifacts.push(path);
+                    if provided.insert(path.file_name().unwrap().to_str().unwrap().to_string()) {
+                        artifacts.push(path);
+                    }
                 } else {
                     eprintln!("Shared library \"{}\" not found.", need);
                 }
