@@ -9,6 +9,7 @@ publish = false
 jni = "0.18.0"
 libc = "0.2"
 log = "0.4.14"
+android-sys = { path = "../android-sys" }
 ndk = { path = "../ndk", features = ["trace"] }
 ndk-context = { path = "../ndk-context" }
 ndk-glue = { path = "../ndk-glue", features = ["logger"] }

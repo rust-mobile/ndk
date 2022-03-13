@@ -1,5 +1,8 @@
 [workspace]
 members = [
+    "android-sys",
+    "cargo-apk",
+    "jni-bindgen",
     "ndk",
     "ndk-context",
     "ndk-macro",
@@ -7,5 +10,4 @@ members = [
     "ndk-examples",
     "ndk-glue",
     "ndk-sys",
-    "cargo-apk",
 ]

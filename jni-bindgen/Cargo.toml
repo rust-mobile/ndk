@@ -1,0 +1,16 @@
+[package]
+name = "jni-bindgen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.56"
+cafebabe = "0.5.0"
+heck = "0.4.0"
+jni = "0.19.0"
+proc-macro2 = "1.0.36"
+quote = "1.0.15"
+zip = "0.5.13"
+
+[dev-dependencies]
+ndk-build = { path = "../ndk-build" }

@@ -1,0 +1,13 @@
+[package]
+name = "android-sys"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+anyhow = "1.0.56"
+jni-bindgen = { path = "../jni-bindgen" }
+ndk-build = { path = "../ndk-build" }
+
+[dependencies]
+jni = "0.19.0"
+ndk-context = "0.1.0"
