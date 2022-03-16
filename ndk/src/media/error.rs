@@ -42,13 +42,10 @@ pub enum NdkMediaError {
 }
 
 impl NdkMediaError {
-    pub(crate) fn from_status<T>(
-        status: ffi::media_status_t,
-        on_success: impl FnOnce() -> T,
-    ) -> Result<T> {
+    pub(crate) fn from_status(status: ffi::media_status_t) -> Result<()> {
         use MediaErrorResult::*;
         let result = match status {
-            ffi::media_status_t_AMEDIA_OK => return Ok(on_success()),
+            ffi::media_status_t_AMEDIA_OK => return Ok(()),
             ffi::media_status_t_AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE => {
                 CodecErrorInsufficientResource
             }

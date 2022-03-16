@@ -15,7 +15,7 @@ pub type Result<T, E = NdkMediaError> = std::result::Result<T, E>;
 fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::camera_status_t) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
-    NdkMediaError::from_status(status, || unsafe { result.assume_init() })
+    NdkMediaError::from_status(status).map(|()| unsafe { result.assume_init() })
 }
 
 fn construct_never_null<T>(

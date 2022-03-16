@@ -124,7 +124,7 @@ impl ImageReader {
             onImageAvailable: Some(on_image_available),
         };
         let status = unsafe { ffi::AImageReader_setImageListener(self.as_ptr(), &mut listener) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     #[cfg(feature = "hardware_buffer")]
@@ -152,7 +152,7 @@ impl ImageReader {
         };
         let status =
             unsafe { ffi::AImageReader_setBufferRemovedListener(self.as_ptr(), &mut listener) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     pub fn get_window(&self) -> Result<NativeWindow> {
@@ -272,7 +272,7 @@ impl Image {
             )
         };
 
-        NdkMediaError::from_status(status, || unsafe {
+        NdkMediaError::from_status(status).map(|()| unsafe {
             std::slice::from_raw_parts(result_ptr.assume_init(), result_len.assume_init() as _)
         })
     }
