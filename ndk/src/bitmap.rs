@@ -19,9 +19,9 @@ pub enum BitmapError {
 pub type BitmapResult<T, E = BitmapError> = std::result::Result<T, E>;
 
 impl BitmapError {
-    pub(crate) fn from_status<T>(status: i32, on_success: impl FnOnce() -> T) -> BitmapResult<T> {
+    pub(crate) fn from_status(status: i32) -> BitmapResult<()> {
         Err(match status {
-            ffi::ANDROID_BITMAP_RESULT_SUCCESS => return Ok(on_success()),
+            ffi::ANDROID_BITMAP_RESULT_SUCCESS => return Ok(()),
             ffi::ANDROID_BITMAP_RESULT_ALLOCATION_FAILED => BitmapError::AllocationFailed,
             ffi::ANDROID_BITMAP_RESULT_BAD_PARAMETER => BitmapError::BadParameter,
             ffi::ANDROID_BITMAP_RESULT_JNI_EXCEPTION => BitmapError::JniException,
@@ -33,7 +33,7 @@ impl BitmapError {
 fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> BitmapResult<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
-    BitmapError::from_status(status, || unsafe { result.assume_init() })
+    BitmapError::from_status(status).map(|()| unsafe { result.assume_init() })
 }
 
 // IntoPrimitive, TryFromPrimitive use the deprecated `RGBA_4444` member below,
@@ -86,7 +86,7 @@ impl AndroidBitmap {
 
     pub fn unlock_pixels(&self) -> BitmapResult<()> {
         let status = unsafe { ffi::AndroidBitmap_unlockPixels(self.env, self.inner) };
-        BitmapError::from_status(status, || ())
+        BitmapError::from_status(status)
     }
 
     #[cfg(all(feature = "hardware_buffer", feature = "api-level-30"))]

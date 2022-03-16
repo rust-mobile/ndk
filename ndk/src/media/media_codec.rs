@@ -177,7 +177,7 @@ impl MediaFormat {
 impl Drop for MediaFormat {
     fn drop(&mut self) {
         let status = unsafe { ffi::AMediaFormat_delete(self.as_ptr()) };
-        NdkMediaError::from_status(status, || ()).unwrap();
+        NdkMediaError::from_status(status).unwrap();
     }
 }
 
@@ -235,7 +235,7 @@ impl MediaCodec {
                 },
             )
         };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
@@ -277,7 +277,7 @@ impl MediaCodec {
                 index: result as ffi::size_t,
             }))
         } else {
-            NdkMediaError::from_status(result as ffi::media_status_t, || None)
+            NdkMediaError::from_status(result as ffi::media_status_t).map(|()| None)
         }
     }
 
@@ -305,13 +305,13 @@ impl MediaCodec {
                 info,
             }))
         } else {
-            NdkMediaError::from_status(result as ffi::media_status_t, || None)
+            NdkMediaError::from_status(result as ffi::media_status_t).map(|()| None)
         }
     }
 
     pub fn flush(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_flush(self.as_ptr()) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-28")]
@@ -367,14 +367,14 @@ impl MediaCodec {
                 flags,
             )
         };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     pub fn release_output_buffer(&self, buffer: OutputBuffer, render: bool) -> Result<()> {
         let status = unsafe {
             ffi::AMediaCodec_releaseOutputBuffer(self.as_ptr(), buffer.index as ffi::size_t, render)
         };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     pub fn release_output_buffer_at_time(
@@ -389,49 +389,49 @@ impl MediaCodec {
                 timestamp_ns,
             )
         };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
     pub fn set_input_surface(&self, surface: NativeWindow) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_setInputSurface(self.as_ptr(), surface.ptr().as_ptr()) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     pub fn set_output_surface(&self, surface: NativeWindow) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_setOutputSurface(self.as_ptr(), surface.ptr().as_ptr()) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
     pub fn set_parameters(&self, params: MediaFormat) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_setParameters(self.as_ptr(), params.as_ptr()) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
     pub fn set_signal_end_of_input_stream(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_signalEndOfInputStream(self.as_ptr()) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     pub fn start(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_start(self.as_ptr()) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     pub fn stop(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_stop(self.as_ptr()) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 }
 
 impl Drop for MediaCodec {
     fn drop(&mut self) {
         let status = unsafe { ffi::AMediaCodec_delete(self.as_ptr()) };
-        NdkMediaError::from_status(status, || ()).unwrap();
+        NdkMediaError::from_status(status).unwrap();
     }
 }
 
