@@ -1,10 +1,9 @@
-use super::{construct, construct_never_null, NdkMediaError, Result};
+use super::{construct_never_null, NdkMediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
     convert::TryInto,
     ffi::{CStr, CString},
     fmt::Display,
-    os::raw::c_char,
     ptr::{self, NonNull},
     slice,
     time::Duration,
@@ -339,9 +338,9 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-28")]
     pub fn name(&self) -> Result<String> {
+        use super::construct;
         unsafe {
-            let name_ptr =
-                construct(|name: *mut *mut c_char| ffi::AMediaCodec_getName(self.as_ptr(), name))?;
+            let name_ptr = construct(|name| ffi::AMediaCodec_getName(self.as_ptr(), name))?;
             let name = CStr::from_ptr(name_ptr).to_str().unwrap().to_owned();
             ffi::AMediaCodec_releaseName(self.as_ptr(), name_ptr);
 

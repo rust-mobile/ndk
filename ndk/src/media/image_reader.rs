@@ -9,9 +9,11 @@ use std::{
     ffi::c_void,
     fmt::{self, Debug, Formatter},
     mem::MaybeUninit,
-    os::unix::io::RawFd,
     ptr::NonNull,
 };
+
+#[cfg(feature = "api-level-26")]
+use std::os::unix::io::RawFd;
 
 #[cfg(feature = "hardware_buffer")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
