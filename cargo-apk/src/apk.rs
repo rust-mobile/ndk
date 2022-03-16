@@ -53,7 +53,7 @@ impl<'a> ApkBuilder<'a> {
             panic!("version_code should not be set in TOML");
         }
 
-        manifest
+        let target_sdk_version = *manifest
             .android_manifest
             .sdk
             .target_sdk_version
@@ -78,6 +78,13 @@ impl<'a> ApkBuilder<'a> {
                 categories: vec!["android.intent.category.LAUNCHER".to_string()],
                 data: vec![],
             });
+        }
+
+        // Export the sole Rust activity on Android S and up, if the user didn't explicitly do so.
+        // Without this, apps won't start on S+.
+        // https://developer.android.com/about/versions/12/behavior-changes-12#exported
+        if target_sdk_version >= 31 {
+            activity.exported.get_or_insert(true);
         }
 
         Ok(Self {
