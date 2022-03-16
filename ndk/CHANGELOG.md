@@ -2,7 +2,7 @@
 
 - ndk/hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan.
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`)
-- Added `media/media_codec` bindings
+- Add `MediaCodec` and `MediaFormat` bindings ([#216](https://github.com/rust-windowing/android-ndk-rs/pull/216))
 
 # 0.6.0 (2022-01-05)
 

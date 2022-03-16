@@ -2,7 +2,7 @@ use super::{construct, construct_never_null, NdkMediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
     convert::TryInto,
-    ffi::{c_void, CStr, CString},
+    ffi::{CStr, CString},
     fmt::Display,
     os::raw::c_char,
     ptr::{self, NonNull},
@@ -45,32 +45,32 @@ impl MediaFormat {
         }
     }
 
-    pub fn get_i32(&self, key: &str) -> Option<i32> {
+    pub fn i32(&self, key: &str) -> Option<i32> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
         unsafe { ffi::AMediaFormat_getInt32(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
     }
 
-    pub fn get_i64(&self, key: &str) -> Option<i64> {
+    pub fn i64(&self, key: &str) -> Option<i64> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
         unsafe { ffi::AMediaFormat_getInt64(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
     }
 
-    pub fn get_f32(&self, key: &str) -> Option<f32> {
+    pub fn f32(&self, key: &str) -> Option<f32> {
         let name = CString::new(key).unwrap();
         let mut out = 0.0;
         unsafe { ffi::AMediaFormat_getFloat(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
     }
 
-    pub fn get_usize(&self, key: &str) -> Option<usize> {
+    pub fn usize(&self, key: &str) -> Option<usize> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
         unsafe { ffi::AMediaFormat_getSize(self.as_ptr(), name.as_ptr(), &mut out) }
             .then(|| out as usize)
     }
 
-    pub fn get_buffer(&self, key: &str) -> Option<&[u8]> {
+    pub fn buffer(&self, key: &str) -> Option<&[u8]> {
         let name = CString::new(key).unwrap();
         let mut out_buffer = ptr::null_mut();
         let mut out_size = 0;
@@ -82,10 +82,10 @@ impl MediaFormat {
                 &mut out_size,
             )
         }
-        .then(|| unsafe { slice::from_raw_parts(out_buffer as *mut u8, out_size as usize) })
+        .then(|| unsafe { slice::from_raw_parts(out_buffer.cast(), out_size as usize) })
     }
 
-    pub fn get_str(&self, key: &str) -> Option<&str> {
+    pub fn str(&self, key: &str) -> Option<&str> {
         let name = CString::new(key).unwrap();
         let mut out = ptr::null();
         unsafe { ffi::AMediaFormat_getString(self.as_ptr(), name.as_ptr(), &mut out) }
@@ -119,14 +119,14 @@ impl MediaFormat {
             ffi::AMediaFormat_setBuffer(
                 self.as_ptr(),
                 name.as_ptr(),
-                value.as_ptr() as *const c_void,
+                value.as_ptr().cast(),
                 value.len() as ffi::size_t,
             )
         };
     }
 
     #[cfg(feature = "api-level-28")]
-    pub fn get_f64(&self, key: &str) -> Option<f64> {
+    pub fn f64(&self, key: &str) -> Option<f64> {
         let name = CString::new(key).unwrap();
         let mut out = 0.0;
         unsafe { ffi::AMediaFormat_getDouble(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
@@ -134,7 +134,7 @@ impl MediaFormat {
 
     /// Returns (left, top, right, bottom)
     #[cfg(feature = "api-level-28")]
-    pub fn get_rect(&self, key: &str) -> Option<(i32, i32, i32, i32)> {
+    pub fn rect(&self, key: &str) -> Option<(i32, i32, i32, i32)> {
         let name = CString::new(key).unwrap();
         let mut left = 0;
         let mut top = 0;
@@ -257,7 +257,7 @@ impl MediaCodec {
         }
     }
 
-    // Returns `None` if timeout is reached.
+    /// Returns [`None`] if timeout is reached.
     pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<Option<InputBuffer>> {
         let result = unsafe {
             ffi::AMediaCodec_dequeueInputBuffer(
@@ -281,7 +281,7 @@ impl MediaCodec {
         }
     }
 
-    // Returns `None` if timeout is reached.
+    /// Returns [`None`] if timeout is reached.
     pub fn dequeue_output_buffer(&self, timeout: Duration) -> Result<Option<OutputBuffer>> {
         let mut info: ffi::AMediaCodecBufferInfo = unsafe { std::mem::zeroed() };
 
@@ -315,7 +315,7 @@ impl MediaCodec {
     }
 
     #[cfg(feature = "api-level-28")]
-    pub fn get_input_format(&self) -> MediaFormat {
+    pub fn input_format(&self) -> MediaFormat {
         unsafe {
             let inner = construct_never_null(|res| {
                 *res = ffi::AMediaCodec_getInputFormat(self.as_ptr());
@@ -326,7 +326,7 @@ impl MediaCodec {
         }
     }
 
-    pub fn get_output_format(&self) -> MediaFormat {
+    pub fn output_format(&self) -> MediaFormat {
         unsafe {
             let inner = construct_never_null(|res| {
                 *res = ffi::AMediaCodec_getOutputFormat(self.as_ptr());
@@ -338,7 +338,7 @@ impl MediaCodec {
     }
 
     #[cfg(feature = "api-level-28")]
-    pub fn get_name(&self) -> Result<String> {
+    pub fn name(&self) -> Result<String> {
         unsafe {
             let name_ptr =
                 construct(|name: *mut *mut c_char| ffi::AMediaCodec_getName(self.as_ptr(), name))?;
@@ -442,7 +442,7 @@ pub struct InputBuffer<'a> {
 }
 
 impl InputBuffer<'_> {
-    pub fn get_mut(&mut self) -> &mut [u8] {
+    pub fn buffer_mut(&mut self) -> &mut [u8] {
         unsafe {
             let mut out_size = 0;
             let buffer_ptr =
@@ -460,7 +460,7 @@ pub struct OutputBuffer<'a> {
 }
 
 impl OutputBuffer<'_> {
-    pub fn get_buffer(&self) -> &[u8] {
+    pub fn buffer(&self) -> &[u8] {
         unsafe {
             let mut _out_size = 0;
             let buffer_ptr =
@@ -473,7 +473,7 @@ impl OutputBuffer<'_> {
     }
 
     #[cfg(feature = "api-level-28")]
-    pub fn get_format(&self) -> MediaFormat {
+    pub fn format(&self) -> MediaFormat {
         unsafe {
             let inner = construct_never_null(|res| {
                 *res = ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index);
