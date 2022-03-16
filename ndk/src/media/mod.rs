@@ -12,14 +12,14 @@ use std::{mem::MaybeUninit, ptr::NonNull};
 
 pub type Result<T, E = NdkMediaError> = std::result::Result<T, E>;
 
-fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::camera_status_t) -> Result<T> {
+fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::media_status_t) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
     NdkMediaError::from_status(status).map(|()| unsafe { result.assume_init() })
 }
 
 fn construct_never_null<T>(
-    with_ptr: impl FnOnce(*mut *mut T) -> ffi::camera_status_t,
+    with_ptr: impl FnOnce(*mut *mut T) -> ffi::media_status_t,
 ) -> Result<NonNull<T>> {
     let result = construct(with_ptr)?;
     let non_null = if cfg!(debug_assertions) {

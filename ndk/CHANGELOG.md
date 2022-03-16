@@ -2,11 +2,12 @@
 
 - ndk/hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan.
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`)
-- Add `MediaCodec` and `MediaFormat` bindings ([#216](https://github.com/rust-windowing/android-ndk-rs/pull/216))
+- Add `MediaCodec` and `MediaFormat` bindings. (#216)
+- **Breaking:** Upgrade to [`ndk-sys 0.4.0`](../ndk-sys/CHANGELOG.md#040-TODO-YET-UNRELEASED) and use new `enum` newtype wrappers. (#245)
 
 # 0.6.0 (2022-01-05)
 
-- **Breaking:** Upgrade to `ndk-sys 0.3.0` and migrate to `jni-sys` types that it now directly uses in its bindings.
+- **Breaking:** Upgrade to [`ndk-sys 0.3.0`](../ndk-sys/CHANGELOG.md#030-2022-01-05) and migrate to `jni-sys` types that it now directly uses in its bindings.
 
 # 0.5.0 (2021-11-22)
 
