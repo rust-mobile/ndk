@@ -13,7 +13,7 @@
     feature = "native_app_glue",
     doc = "  * `native_app_glue`'s `AndroidApp`, in the `android_app` module"
 )]
-#![warn(missing_debug_implementations)]
+#![warn(missing_debug_implementations, trivial_casts)]
 
 pub mod asset;
 pub mod bitmap;

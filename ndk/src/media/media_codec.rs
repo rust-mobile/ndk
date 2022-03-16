@@ -1,5 +1,3 @@
-#![warn(trivial_casts)]
-
 use super::{construct, construct_never_null, NdkMediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
