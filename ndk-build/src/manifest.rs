@@ -98,10 +98,9 @@ pub struct Activity {
     #[serde(default)]
     pub meta_data: Vec<MetaData>,
     /// If no `MAIN` action exists in any intent filter, a default `MAIN` filter is serialized.
-    #[serde(serialize_with = "serialize_intents")]
     #[serde(rename(serialize = "intent-filter"))]
     #[serde(default)]
-    pub intent_filter: Vec<IntentFilter>,
+    pub intent_filters: Vec<IntentFilter>,
 }
 
 impl Default for Activity {
@@ -113,34 +112,9 @@ impl Default for Activity {
             name: default_activity_name(),
             orientation: None,
             meta_data: Default::default(),
-            intent_filter: Default::default(),
+            intent_filters: Default::default(),
         }
     }
-}
-
-fn serialize_intents<S>(intent_filters: &[IntentFilter], serializer: S) -> Result<S::Ok, S::Error>
-where
-    S: Serializer,
-{
-    use serde::ser::SerializeSeq;
-
-    let mut seq = serializer.serialize_seq(None)?;
-    for intent_filter in intent_filters {
-        seq.serialize_element(intent_filter)?;
-    }
-
-    // Check if `intent_filters` contains a `MAIN` action. If not, add a default filter.
-    if intent_filters
-        .iter()
-        .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
-    {
-        seq.serialize_element(&IntentFilter {
-            actions: vec!["android.intent.action.MAIN".to_string()],
-            categories: vec!["android.intent.category.LAUNCHER".to_string()],
-            data: vec![],
-        })?;
-    }
-    seq.end()
 }
 
 /// Android [intent filter element](https://developer.android.com/guide/topics/manifest/intent-filter-element).

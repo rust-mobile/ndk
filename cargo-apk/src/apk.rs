@@ -5,7 +5,7 @@ use ndk_build::apk::{Apk, ApkConfig};
 use ndk_build::cargo::{cargo_ndk, VersionCode};
 use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
-use ndk_build::manifest::MetaData;
+use ndk_build::manifest::{IntentFilter, MetaData};
 use ndk_build::ndk::Ndk;
 use ndk_build::target::Target;
 use std::path::PathBuf;
@@ -64,6 +64,21 @@ impl<'a> ApkBuilder<'a> {
             .application
             .debuggable
             .get_or_insert_with(|| *cmd.profile() == Profile::Dev);
+
+        let activity = &mut manifest.android_manifest.application.activity;
+
+        // Add a default `MAIN` action to launch the activity, if the user didn't supply it by hand.
+        if activity
+            .intent_filters
+            .iter()
+            .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
+        {
+            activity.intent_filters.push(IntentFilter {
+                actions: vec!["android.intent.action.MAIN".to_string()],
+                categories: vec!["android.intent.category.LAUNCHER".to_string()],
+                data: vec![],
+            });
+        }
 
         Ok(Self {
             cmd,
