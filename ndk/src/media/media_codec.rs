@@ -10,7 +10,7 @@ use std::{
     time::Duration,
 };
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum MediaCodecDirection {
     Decoder,
     Encoder,
@@ -228,7 +228,7 @@ impl MediaCodec {
                 format.as_ptr(),
                 surface.ptr().as_ptr(),
                 ptr::null_mut(),
-                if matches!(direction, MediaCodecDirection::Encoder) {
+                if direction == MediaCodecDirection::Encoder {
                     1
                 } else {
                     0
