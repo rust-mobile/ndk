@@ -126,6 +126,11 @@ launch_mode = "singleTop"
 # Defaults to "unspecified".
 orientation = "landscape"
 
+# See https://developer.android.com/guide/topics/manifest/activity-element#exported
+#
+# Unset by default, or "true" when targeting Android >= 31 (S and up).
+exported = "true"
+
 # See https://developer.android.com/guide/topics/manifest/meta-data-element
 #
 # Note: there can be several .meta_data entries.
