@@ -28,11 +28,10 @@ impl<'a> UnalignedApk<'a> {
             &*ndk.sysroot_platform_lib_dir(target, min_sdk_version)?,
         ];
 
-        let mut provided = HashSet::new();
         for path in &android_search_paths {
             for lib in list_libs(path)? {
                 if lib != "libc++_shared.so" {
-                    provided.insert(lib);
+                    self.provided().borrow_mut().insert(lib);
                 }
             }
         }
@@ -46,14 +45,18 @@ impl<'a> UnalignedApk<'a> {
                 // https://developer.android.com/ndk/guides/cpp-support#libc
                 let search_paths = if need == "libc++_shared.so" {
                     &android_search_paths
-                } else if !provided.contains(&need) {
+                } else if !self.provided().borrow_mut().contains(&need) {
                     search_paths
                 } else {
                     continue;
                 };
 
                 if let Some(path) = find_library_path(search_paths, &need)? {
-                    if provided.insert(path.file_name().unwrap().to_str().unwrap().to_string()) {
+                    if self
+                        .provided()
+                        .borrow_mut()
+                        .insert(path.file_name().unwrap().to_str().unwrap().to_string())
+                    {
                         artifacts.push(path);
                     }
                 } else {
