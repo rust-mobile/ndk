@@ -1,4 +1,4 @@
-use super::{construct_never_null, NdkMediaError, Result};
+use super::{construct_never_null, get_never_null, NdkMediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
     convert::TryInto,
@@ -40,7 +40,7 @@ impl MediaFormat {
 
     pub fn new() -> Self {
         Self {
-            inner: unsafe { NonNull::new(ffi::AMediaFormat_new()).unwrap() },
+            inner: NonNull::new(unsafe { ffi::AMediaFormat_new() }).unwrap(),
         }
     }
 
@@ -88,7 +88,7 @@ impl MediaFormat {
         let name = CString::new(key).unwrap();
         let mut out = ptr::null();
         unsafe { ffi::AMediaFormat_getString(self.as_ptr(), name.as_ptr(), &mut out) }
-            .then(|| unsafe { CStr::from_ptr(out).to_str().unwrap() })
+            .then(|| unsafe { CStr::from_ptr(out) }.to_str().unwrap())
     }
 
     pub fn set_i32(&self, key: &str, value: i32) {
@@ -193,25 +193,25 @@ impl MediaCodec {
     pub fn from_codec_name(name: &str) -> Option<Self> {
         let c_string = CString::new(name).unwrap();
         Some(Self {
-            inner: unsafe { NonNull::new(ffi::AMediaCodec_createCodecByName(c_string.as_ptr()))? },
+            inner: NonNull::new(unsafe { ffi::AMediaCodec_createCodecByName(c_string.as_ptr()) })?,
         })
     }
 
     pub fn from_decoder_type(mime_type: &str) -> Option<Self> {
         let c_string = CString::new(mime_type).unwrap();
         Some(Self {
-            inner: unsafe {
-                NonNull::new(ffi::AMediaCodec_createDecoderByType(c_string.as_ptr()))?
-            },
+            inner: NonNull::new(unsafe {
+                ffi::AMediaCodec_createDecoderByType(c_string.as_ptr())
+            })?,
         })
     }
 
     pub fn from_encoder_type(mime_type: &str) -> Option<Self> {
         let c_string = CString::new(mime_type).unwrap();
         Some(Self {
-            inner: unsafe {
-                NonNull::new(ffi::AMediaCodec_createEncoderByType(c_string.as_ptr()))?
-            },
+            inner: NonNull::new(unsafe {
+                ffi::AMediaCodec_createEncoderByType(c_string.as_ptr())
+            })?,
         })
     }
 
@@ -315,25 +315,13 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-28")]
     pub fn input_format(&self) -> MediaFormat {
-        unsafe {
-            let inner = construct_never_null(|res| {
-                *res = ffi::AMediaCodec_getInputFormat(self.as_ptr());
-                0
-            })
-            .unwrap();
-            MediaFormat { inner }
-        }
+        let inner = get_never_null(|| unsafe { ffi::AMediaCodec_getInputFormat(self.as_ptr()) });
+        MediaFormat { inner }
     }
 
     pub fn output_format(&self) -> MediaFormat {
-        unsafe {
-            let inner = construct_never_null(|res| {
-                *res = ffi::AMediaCodec_getOutputFormat(self.as_ptr());
-                0
-            })
-            .unwrap();
-            MediaFormat { inner }
-        }
+        let inner = get_never_null(|| unsafe { ffi::AMediaCodec_getOutputFormat(self.as_ptr()) });
+        MediaFormat { inner }
     }
 
     #[cfg(feature = "api-level-28")]
@@ -473,14 +461,10 @@ impl OutputBuffer<'_> {
 
     #[cfg(feature = "api-level-28")]
     pub fn format(&self) -> MediaFormat {
-        unsafe {
-            let inner = construct_never_null(|res| {
-                *res = ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index);
-                0
-            })
-            .unwrap();
-            MediaFormat { inner }
-        }
+        let inner = get_never_null(|| unsafe {
+            ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index)
+        });
+        MediaFormat { inner }
     }
 
     pub fn flags(&self) -> u32 {

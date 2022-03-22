@@ -29,3 +29,12 @@ fn construct_never_null<T>(
     };
     Ok(non_null)
 }
+
+fn get_never_null<T>(get_ptr: impl FnOnce() -> *mut T) -> NonNull<T> {
+    let result = get_ptr();
+    if cfg!(debug_assertions) {
+        NonNull::new(result).expect("result should never be null")
+    } else {
+        unsafe { NonNull::new_unchecked(result) }
+    }
+}
