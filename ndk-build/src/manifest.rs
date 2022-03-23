@@ -11,6 +11,8 @@ pub struct AndroidManifest {
     ns_android: String,
     #[serde(default)]
     pub package: String,
+    #[serde(rename(serialize = "android:sharedUserId"))]
+    pub shared_user_id: Option<String>,
     #[serde(rename(serialize = "android:versionCode"))]
     pub version_code: Option<u32>,
     #[serde(rename(serialize = "android:versionName"))]
@@ -36,6 +38,7 @@ impl Default for AndroidManifest {
         Self {
             ns_android: default_namespace(),
             package: Default::default(),
+            shared_user_id: Default::default(),
             version_code: Default::default(),
             version_name: Default::default(),
             sdk: Default::default(),

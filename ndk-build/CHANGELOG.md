@@ -6,6 +6,7 @@
 - Remove default insertion of `MAIN` intent filter through a custom serialization function, this is better filled in by
   the default setup in `cargo-apk`. ([#241](https://github.com/rust-windowing/android-ndk-rs/pull/241))
 - Add `android:exported` attribute to the manifest's `Activity` element. ([#242](https://github.com/rust-windowing/android-ndk-rs/pull/242))
+- Add `android:sharedUserId` attribute to the manifest's top-level `manifest` element. ([#252](https://github.com/rust-windowing/android-ndk-rs/pull/252))
 
 # 0.4.3 (2021-11-22)
 
