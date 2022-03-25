@@ -9,6 +9,7 @@
 - Add `MAIN` intent filter in `from_subcommand` instead of relying on a custom serialization function in `ndk-build`. ([#241](https://github.com/rust-windowing/android-ndk-rs/pull/241))
 - Export the sole `NativeActivity` (through `android:exported="true"`) to allow it to be started by default if targeting Android S or higher. ([#242](https://github.com/rust-windowing/android-ndk-rs/pull/242))
 - `cargo-apk` version can now be queried through `cargo apk version`
+- Environment variables from `.cargo/config.toml`'s `[env]` section are now propagated to the process environment. ([#249](https://github.com/rust-windowing/android-ndk-rs/pull/249))
 
 # 0.8.2 (2021-11-22)
 

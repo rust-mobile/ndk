@@ -12,7 +12,7 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
 anyhow = "1.0.38"
-cargo-subcommand = "0.5.0"
+cargo-subcommand = "0.7.0"
 dunce = "1.0.1"
 env_logger = "0.8.2"
 log = "0.4.14"
