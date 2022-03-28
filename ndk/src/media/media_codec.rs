@@ -1,4 +1,4 @@
-use super::{construct_never_null, get_never_null, NdkMediaError, Result};
+use super::{get_unlikely_to_be_null, NdkMediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
     convert::TryInto,
@@ -239,6 +239,7 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-26")]
     pub fn create_input_surface(&self) -> Result<NativeWindow> {
+        use super::construct_never_null;
         unsafe {
             let ptr = construct_never_null(|res| {
                 ffi::AMediaCodec_createInputSurface(self.as_ptr(), res)
@@ -249,6 +250,7 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-26")]
     pub fn create_persistent_input_surface() -> Result<NativeWindow> {
+        use super::construct_never_null;
         unsafe {
             let ptr =
                 construct_never_null(|res| ffi::AMediaCodec_createPersistentInputSurface(res))?;
@@ -315,12 +317,14 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-28")]
     pub fn input_format(&self) -> MediaFormat {
-        let inner = get_never_null(|| unsafe { ffi::AMediaCodec_getInputFormat(self.as_ptr()) });
+        let inner =
+            get_unlikely_to_be_null(|| unsafe { ffi::AMediaCodec_getInputFormat(self.as_ptr()) });
         MediaFormat { inner }
     }
 
     pub fn output_format(&self) -> MediaFormat {
-        let inner = get_never_null(|| unsafe { ffi::AMediaCodec_getOutputFormat(self.as_ptr()) });
+        let inner =
+            get_unlikely_to_be_null(|| unsafe { ffi::AMediaCodec_getOutputFormat(self.as_ptr()) });
         MediaFormat { inner }
     }
 
@@ -434,6 +438,7 @@ impl InputBuffer<'_> {
             let mut out_size = 0;
             let buffer_ptr =
                 ffi::AMediaCodec_getInputBuffer(self.codec.as_ptr(), self.index, &mut out_size);
+            assert!(!buffer_ptr.is_null());
             slice::from_raw_parts_mut(buffer_ptr, out_size as usize)
         }
     }
@@ -452,6 +457,7 @@ impl OutputBuffer<'_> {
             let mut _out_size = 0;
             let buffer_ptr =
                 ffi::AMediaCodec_getOutputBuffer(self.codec.as_ptr(), self.index, &mut _out_size);
+            assert!(!buffer_ptr.is_null());
             slice::from_raw_parts(
                 buffer_ptr.add(self.info.offset as usize),
                 self.info.size as usize,
@@ -461,7 +467,7 @@ impl OutputBuffer<'_> {
 
     #[cfg(feature = "api-level-28")]
     pub fn format(&self) -> MediaFormat {
-        let inner = get_never_null(|| unsafe {
+        let inner = get_unlikely_to_be_null(|| unsafe {
             ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index)
         });
         MediaFormat { inner }
