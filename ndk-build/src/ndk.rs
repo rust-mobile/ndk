@@ -127,10 +127,6 @@ impl Ndk {
         &self.ndk_path
     }
 
-    pub fn ndk_gdb(&self) -> PathBuf {
-        self.ndk_path.join(cmd!("ndk-gdb"))
-    }
-
     pub fn build_tools_version(&self) -> &str {
         &self.build_tools_version
     }
@@ -194,11 +190,11 @@ impl Ndk {
         Ok(android_jar)
     }
 
-    pub fn toolchain_dir(&self) -> Result<PathBuf, NdkError> {
+    fn host_arch() -> Result<&'static str, NdkError> {
         let host_os = std::env::var("HOST").ok();
         let host_contains = |s| host_os.as_ref().map(|h| h.contains(s)).unwrap_or(false);
 
-        let arch = if host_contains("linux") {
+        Ok(if host_contains("linux") {
             "linux"
         } else if host_contains("macos") {
             "darwin"
@@ -215,8 +211,11 @@ impl Ndk {
                 Some(host_os) => Err(NdkError::UnsupportedHost(host_os)),
                 _ => Err(NdkError::UnsupportedTarget),
             };
-        };
+        })
+    }
 
+    pub fn toolchain_dir(&self) -> Result<PathBuf, NdkError> {
+        let arch = Self::host_arch()?;
         let mut toolchain_dir = self
             .ndk_path
             .join("toolchains")
@@ -284,6 +283,41 @@ impl Ndk {
                     llvm_bin,
                 })
         }
+    }
+
+    pub fn prebuilt_dir(&self) -> Result<PathBuf, NdkError> {
+        let arch = Self::host_arch()?;
+        let prebuilt_dir = self
+            .ndk_path
+            .join("prebuilt")
+            .join(format!("{}-x86_64", arch));
+        if !prebuilt_dir.exists() {
+            Err(NdkError::PathNotFound(prebuilt_dir))
+        } else {
+            Ok(prebuilt_dir)
+        }
+    }
+
+    pub fn ndk_gdb(
+        &self,
+        launch_dir: impl AsRef<Path>,
+        device_serial: Option<&str>,
+    ) -> Result<(), NdkError> {
+        let abi = self.detect_abi(device_serial)?;
+        let jni_dir = launch_dir.as_ref().join("jni");
+        std::fs::create_dir_all(&jni_dir)?;
+        std::fs::write(
+            jni_dir.join("Android.mk"),
+            format!("APP_ABI=\"{}\"\nTARGET_OUT=\"\"\n", abi.android_abi()),
+        )?;
+        let mut ndk_gdb = Command::new(self.prebuilt_dir()?.join("bin").join(cmd!("ndk-gdb")));
+
+        if let Some(device_serial) = &device_serial {
+            ndk_gdb.arg("-s").arg(device_serial);
+        }
+
+        ndk_gdb.current_dir(launch_dir).status()?;
+        Ok(())
     }
 
     pub fn android_dir(&self) -> Result<PathBuf, NdkError> {
