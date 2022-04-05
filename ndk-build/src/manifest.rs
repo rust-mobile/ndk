@@ -30,6 +30,9 @@ pub struct AndroidManifest {
     pub uses_permission: Vec<Permission>,
 
     #[serde(default)]
+    pub queries: Vec<Query>,
+
+    #[serde(default)]
     pub application: Application,
 }
 
@@ -44,6 +47,7 @@ impl Default for AndroidManifest {
             sdk: Default::default(),
             uses_feature: Default::default(),
             uses_permission: Default::default(),
+            queries: Default::default(),
             application: Default::default(),
         }
     }
@@ -256,6 +260,39 @@ pub struct Permission {
     pub name: String,
     #[serde(rename(serialize = "android:maxSdkVersion"))]
     pub max_sdk_version: Option<u32>,
+}
+
+/// Android [package element](https://developer.android.com/guide/topics/manifest/queries-element#package).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Package {
+    #[serde(rename(serialize = "android:name"))]
+    pub name: String,
+}
+
+/// Android [provider element](https://developer.android.com/guide/topics/manifest/queries-element#provider).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct QueryProvider {
+    #[serde(rename(serialize = "android:authorities"))]
+    pub authorities: String,
+
+     // The specs say only `authorities` attribute is the only one needed for providers contained in `queries`
+     // however aapt throws errors requireing a `android:name` attribute, nd-build should be using appt2?
+    #[serde(rename(serialize = "android:name"))]
+    pub name: String,
+}
+
+/// Android [queries element](https://developer.android.com/guide/topics/manifest/queries-element)
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Query {
+    #[serde(default)]
+    pub package : Vec<Package>,
+    
+    #[serde(rename(serialize = "intent"))]
+    #[serde(default)]
+    pub intent: Vec<IntentFilter>,
+
+    #[serde(default)]
+    pub provider : Vec<QueryProvider>
 }
 
 /// Android [uses-sdk element](https://developer.android.com/guide/topics/manifest/uses-sdk-element).
