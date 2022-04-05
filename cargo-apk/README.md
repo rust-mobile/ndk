@@ -73,6 +73,25 @@ version = 1
 name = "android.permission.WRITE_EXTERNAL_STORAGE"
 max_sdk_version = 18
 
+# See https://developer.android.com/guide/topics/manifest/uses-permission-element
+#
+# Note: there can be multiple .uses_permission entries.
+[[package.metadata.android.uses_permission]]
+name = "org.khronos.openxr.permission.OPENXR"
+
+# See https://developer.android.com/guide/topics/manifest/uses-permission-element
+#
+# Note: there can be multiple .uses_permission entries.
+[[package.metadata.android.uses_permission]]
+name = "org.khronos.openxr.permission.OPENXR_SYSTEM"
+
+# See https://developer.android.com/guide/topics/manifest/queries-element
+#
+# Note: `name` attribute is not required for queries-provider however this is a workaround for aapt throwing errors about missing `android:name` attributes.
+[[package.metadata.android.queries.provider]]
+authorities = "org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker"
+name = "org.khronos.openxr"
+
 # See https://developer.android.com/guide/topics/manifest/application-element
 [package.metadata.android.application]
 

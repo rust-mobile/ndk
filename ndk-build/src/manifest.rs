@@ -30,7 +30,7 @@ pub struct AndroidManifest {
     pub uses_permission: Vec<Permission>,
 
     #[serde(default)]
-    pub queries: Vec<Query>,
+    pub queries: Option<Queries>,
 
     #[serde(default)]
     pub application: Application,
@@ -275,22 +275,20 @@ pub struct QueryProvider {
     #[serde(rename(serialize = "android:authorities"))]
     pub authorities: String,
 
-    // The specs say only `authorities` attribute is the only one needed for providers contained in `queries`
-    // however aapt throws errors requireing a `android:name` attribute, nd-build should be using appt2?
+    // The specs say only an `authorities` attribute is required for providers contained in a `queries` element
+    // however aapt throws errors requiring an `android:name` attribute,
+    // This is possibly due to ndk-build using aapt instead of aapt2?
     #[serde(rename(serialize = "android:name"))]
     pub name: String,
 }
 
-/// Android [queries element](https://developer.android.com/guide/topics/manifest/queries-element)
+/// Android [queries element](https://developer.android.com/guide/topics/manifest/queries-element).
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
-pub struct Query {
+pub struct Queries {
     #[serde(default)]
     pub package: Vec<Package>,
-
-    #[serde(rename(serialize = "intent"))]
     #[serde(default)]
     pub intent: Vec<IntentFilter>,
-
     #[serde(default)]
     pub provider: Vec<QueryProvider>,
 }
