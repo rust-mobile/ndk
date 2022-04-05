@@ -275,8 +275,8 @@ pub struct QueryProvider {
     #[serde(rename(serialize = "android:authorities"))]
     pub authorities: String,
 
-     // The specs say only `authorities` attribute is the only one needed for providers contained in `queries`
-     // however aapt throws errors requireing a `android:name` attribute, nd-build should be using appt2?
+    // The specs say only `authorities` attribute is the only one needed for providers contained in `queries`
+    // however aapt throws errors requireing a `android:name` attribute, nd-build should be using appt2?
     #[serde(rename(serialize = "android:name"))]
     pub name: String,
 }
@@ -285,14 +285,14 @@ pub struct QueryProvider {
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Query {
     #[serde(default)]
-    pub package : Vec<Package>,
-    
+    pub package: Vec<Package>,
+
     #[serde(rename(serialize = "intent"))]
     #[serde(default)]
     pub intent: Vec<IntentFilter>,
 
     #[serde(default)]
-    pub provider : Vec<QueryProvider>
+    pub provider: Vec<QueryProvider>,
 }
 
 /// Android [uses-sdk element](https://developer.android.com/guide/topics/manifest/uses-sdk-element).
