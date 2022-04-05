@@ -281,7 +281,7 @@ pub struct QueryProvider {
     pub name: String,
 }
 
-/// Android [queries element](https://developer.android.com/guide/topics/manifest/queries-element)
+/// Android [queries element](https://developer.android.com/guide/topics/manifest/queries-element).
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Query {
     #[serde(default)]
