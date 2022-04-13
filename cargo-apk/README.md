@@ -73,24 +73,24 @@ version = 1
 name = "android.permission.WRITE_EXTERNAL_STORAGE"
 max_sdk_version = 18
 
-# See https://developer.android.com/guide/topics/manifest/uses-permission-element
-#
-# Note: there can be multiple .uses_permission entries.
-[[package.metadata.android.uses_permission]]
-name = "org.khronos.openxr.permission.OPENXR"
-
-# See https://developer.android.com/guide/topics/manifest/uses-permission-element
-#
-# Note: there can be multiple .uses_permission entries.
-[[package.metadata.android.uses_permission]]
-name = "org.khronos.openxr.permission.OPENXR_SYSTEM"
-
-# See https://developer.android.com/guide/topics/manifest/queries-element
-#
-# Note: `name` attribute is not required for queries-provider however this is a workaround for aapt throwing errors about missing `android:name` attributes.
+# See https://developer.android.com/guide/topics/manifest/queries-element#provider
 [[package.metadata.android.queries.provider]]
 authorities = "org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker"
+# Note: `name` attribute is not required for queries-provider however this is a workaround for aapt throwing errors about missing `android:name` attributes.
 name = "org.khronos.openxr"
+
+# See https://developer.android.com/guide/topics/manifest/queries-element#intent
+[[package.metadata.android.queries.intent]]
+actions = ["android.intent.action.SEND"]
+
+# See https://developer.android.com/guide/topics/manifest/queries-element#intent
+# Note: there can be several .data entries.
+[[package.metadata.android.queries.intent.data]]
+mime_type = "image/jpeg"
+
+# See https://developer.android.com/guide/topics/manifest/queries-element#package
+[[package.metadata.android.queries.package]]
+name = "org.freedesktop.monado.openxr_runtime.in_process"
 
 # See https://developer.android.com/guide/topics/manifest/application-element
 [package.metadata.android.application]
