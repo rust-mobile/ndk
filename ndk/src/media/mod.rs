@@ -30,11 +30,12 @@ fn construct_never_null<T>(
     Ok(non_null)
 }
 
-fn get_never_null<T>(get_ptr: impl FnOnce() -> *mut T) -> NonNull<T> {
+/// Function is not expected to ever return `null`, but this
+/// cannot be validated through the Android documentation.
+///
+/// As such this function always asserts on `null` values,
+/// even when `cfg!(debug_assertions)` is disabled.
+fn get_unlikely_to_be_null<T>(get_ptr: impl FnOnce() -> *mut T) -> NonNull<T> {
     let result = get_ptr();
-    if cfg!(debug_assertions) {
-        NonNull::new(result).expect("result should never be null")
-    } else {
-        unsafe { NonNull::new_unchecked(result) }
-    }
+    NonNull::new(result).expect("result should never be null")
 }
