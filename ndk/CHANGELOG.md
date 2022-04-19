@@ -4,6 +4,7 @@
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`)
 - Add `MediaCodec` and `MediaFormat` bindings. (#216)
 - **Breaking:** Upgrade to [`ndk-sys 0.4.0`](../ndk-sys/CHANGELOG.md#040-TODO-YET-UNRELEASED) and use new `enum` newtype wrappers. (#245)
+- ndk/native_window: Use `release`/`acquire` for `Drop` and `Clone` respectively. (#207)
 
 # 0.6.0 (2022-01-05)
 

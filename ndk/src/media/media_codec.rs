@@ -384,13 +384,13 @@ impl MediaCodec {
     }
 
     #[cfg(feature = "api-level-26")]
-    pub fn set_input_surface(&self, surface: NativeWindow) -> Result<()> {
+    pub fn set_input_surface(&self, surface: &NativeWindow) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_setInputSurface(self.as_ptr(), surface.ptr().as_ptr()) };
         NdkMediaError::from_status(status)
     }
 
-    pub fn set_output_surface(&self, surface: NativeWindow) -> Result<()> {
+    pub fn set_output_surface(&self, surface: &NativeWindow) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_setOutputSurface(self.as_ptr(), surface.ptr().as_ptr()) };
         NdkMediaError::from_status(status)
