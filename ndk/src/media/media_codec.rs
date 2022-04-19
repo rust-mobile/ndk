@@ -278,7 +278,7 @@ impl MediaCodec {
                 index: result as ffi::size_t,
             }))
         } else {
-            NdkMediaError::from_status(result as ffi::media_status_t).map(|()| None)
+            NdkMediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
         }
     }
 
@@ -306,7 +306,7 @@ impl MediaCodec {
                 info,
             }))
         } else {
-            NdkMediaError::from_status(result as ffi::media_status_t).map(|()| None)
+            NdkMediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
         }
     }
 
