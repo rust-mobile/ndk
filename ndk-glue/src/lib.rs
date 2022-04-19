@@ -251,6 +251,7 @@ unsafe extern "C" fn on_stop(activity: *mut ANativeActivity) {
 
 unsafe extern "C" fn on_destroy(activity: *mut ANativeActivity) {
     wake(activity, Event::Destroy);
+    ndk_context::release_android_context();
 }
 
 unsafe extern "C" fn on_configuration_changed(activity: *mut ANativeActivity) {
