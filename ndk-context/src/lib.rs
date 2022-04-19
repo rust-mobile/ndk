@@ -86,3 +86,15 @@ pub unsafe fn initialize_android_context(java_vm: *mut c_void, context_jobject: 
     });
     assert!(previous.is_none());
 }
+
+/// Removes the [`AndroidContext`]. It is released by [__ndk-glue__](https://crates.io/crates/ndk-glue)
+/// when the activity is finished and destroyed.
+///
+/// # Safety
+///
+/// This function must only be called after [`initialize_android_context()`],
+/// when the activity is subsequently destroyed according to Android.
+pub unsafe fn release_android_context() {
+    let previous = ANDROID_CONTEXT.take();
+    assert!(previous.is_some());
+}

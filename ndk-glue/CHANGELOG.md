@@ -1,5 +1,7 @@
 # Unreleased
 
+- Call `ndk_context::release_android_context()` function to remove `AndroidContext` when activity is destroyed. (#263)
+
 # 0.6.1 (2022-02-14)
 
 - Initialize `ndk-context` for cross-version access to the Java `VM` and Android `Context`.
