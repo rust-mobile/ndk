@@ -1,6 +1,6 @@
 [package]
 name = "ndk-context"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["The Rust Windowing contributors"]
 edition = "2021"
 description = "Handles for accessing Android APIs"
