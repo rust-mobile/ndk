@@ -1,6 +1,6 @@
 [package]
 name = "ndk-glue"
-version = "0.5.1"
+version = "0.5.2"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Startup code for android binaries"
@@ -13,7 +13,7 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
 ndk = { path = "../ndk", version = "0.5.0" }
-ndk-context = "0.1.0"
+ndk-context = "0.1.1"
 ndk-macro = { path = "../ndk-macro", version = "0.3.0" }
 ndk-sys = { path = "../ndk-sys", version = "0.2.2" }
 lazy_static = "1.4.0"
