@@ -55,11 +55,13 @@ impl SurfaceTexture {
         }
     }
 
-    pub fn get_transform_matrix(&self, matrix: &mut [f32; 16]) {
-        unsafe { ffi::ASurfaceTexture_getTransformMatrix(self.ptr.as_ptr(), matrix.as_mut_ptr()) };
+    pub fn get_transform_matrix(&self) -> [f32; 16] {
+        let mut r = [0f32; 16];
+        unsafe { ffi::ASurfaceTexture_getTransformMatrix(self.ptr.as_ptr(), r.as_mut_ptr()) };
+        r
     }
 
-    pub fn get_timestamp(&self) -> i64 {
+    pub fn timestamp(&self) -> i64 {
         unsafe { ffi::ASurfaceTexture_getTimestamp(self.ptr.as_ptr()) }
     }
 
