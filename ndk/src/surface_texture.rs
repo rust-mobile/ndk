@@ -10,7 +10,6 @@ pub struct SurfaceTexture {
 }
 
 unsafe impl Send for SurfaceTexture {}
-unsafe impl Sync for SurfaceTexture {}
 
 impl Drop for SurfaceTexture {
     fn drop(&mut self) {
