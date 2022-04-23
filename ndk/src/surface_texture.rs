@@ -65,6 +65,15 @@ impl SurfaceTexture {
         unsafe { ffi::ASurfaceTexture_getTimestamp(self.ptr.as_ptr()) }
     }
 
+    pub fn update_tex_image(&self) -> Result<(), i32> {
+        let r = unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) };
+        if r == 0 {
+            Ok(())
+        } else {
+            Err(r)
+        }
+    }
+
     pub fn from_surface_texture(env: *mut JNIEnv, surface_texture: jobject) -> Option<Self> {
         let a_surface_texture_ptr =
             unsafe { ffi::ASurfaceTexture_fromSurfaceTexture(env, surface_texture) };
