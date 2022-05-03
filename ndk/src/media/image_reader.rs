@@ -22,23 +22,23 @@ use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 pub enum ImageFormat {
-    RGBA_8888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGBA_8888,
-    RGBX_8888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGBX_8888,
-    RGB_888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGB_888,
-    RGB_565 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGB_565,
-    RGBA_FP16 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGBA_FP16,
-    YUV_420_888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_YUV_420_888,
-    JPEG = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_JPEG,
-    RAW16 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW16,
-    RAW_PRIVATE = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW_PRIVATE,
-    RAW10 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW10,
-    RAW12 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW12,
-    DEPTH16 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_DEPTH16,
-    DEPTH_POINT_CLOUD = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_DEPTH_POINT_CLOUD,
-    PRIVATE = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_PRIVATE,
-    Y8 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_Y8,
-    HEIC = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_HEIC,
-    DEPTH_JPEG = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_DEPTH_JPEG,
+    RGBA_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_8888.0,
+    RGBX_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBX_8888.0,
+    RGB_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_888.0,
+    RGB_565 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_565.0,
+    RGBA_FP16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_FP16.0,
+    YUV_420_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_YUV_420_888.0,
+    JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_JPEG.0,
+    RAW16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW16.0,
+    RAW_PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW_PRIVATE.0,
+    RAW10 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW10.0,
+    RAW12 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW12.0,
+    DEPTH16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH16.0,
+    DEPTH_POINT_CLOUD = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_POINT_CLOUD.0,
+    PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_PRIVATE.0,
+    Y8 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_Y8.0,
+    HEIC = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_HEIC.0,
+    DEPTH_JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_JPEG.0,
 }
 
 pub type ImageListener = Box<dyn FnMut(&ImageReader)>;
@@ -174,7 +174,7 @@ impl ImageReader {
 
     pub fn get_format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImageReader_getFormat(self.as_ptr(), res) })?;
-        Ok((format as ffi::AIMAGE_FORMATS).try_into().unwrap())
+        Ok((format as u32).try_into().unwrap())
     }
 
     pub fn get_max_images(&self) -> Result<i32> {
@@ -301,7 +301,7 @@ impl Image {
 
     pub fn get_format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImage_getFormat(self.as_ptr(), res) })?;
-        Ok((format as ffi::AIMAGE_FORMATS).try_into().unwrap())
+        Ok((format as u32).try_into().unwrap())
     }
 
     pub fn get_timestamp(&self) -> Result<i64> {
