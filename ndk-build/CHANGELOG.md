@@ -1,9 +1,11 @@
 # Unreleased
 
-- Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
+# 0.5.0 (2022-05-07)
+
+- **Breaking:** Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
   for more consistent interaction with Android backwards compatibility handling and its increasingly strict usage rules:
   https://developer.android.com/distribute/best-practices/develop/target-sdk
-- Remove default insertion of `MAIN` intent filter through a custom serialization function, this is better filled in by
+- **Breaking:** Remove default insertion of `MAIN` intent filter through a custom serialization function, this is better filled in by
   the default setup in `cargo-apk`. ([#241](https://github.com/rust-windowing/android-ndk-rs/pull/241))
 - Add `android:exported` attribute to the manifest's `Activity` element. ([#242](https://github.com/rust-windowing/android-ndk-rs/pull/242))
 - Add `android:sharedUserId` attribute to the manifest's top-level `manifest` element. ([#252](https://github.com/rust-windowing/android-ndk-rs/pull/252))

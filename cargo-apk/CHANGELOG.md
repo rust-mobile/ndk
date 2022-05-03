@@ -1,8 +1,10 @@
 # Unreleased
 
-- Use `min_sdk_version` to select compiler target instead of `target_sdk_version`. ([#197](https://github.com/rust-windowing/android-ndk-rs/pull/197))
+# 0.9.0 (2022-05-07)
+
+- **Breaking:** Use `min_sdk_version` to select compiler target instead of `target_sdk_version`. ([#197](https://github.com/rust-windowing/android-ndk-rs/pull/197))
   See https://developer.android.com/ndk/guides/sdk-versions#minsdkversion for more details.
-- Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
+- **Breaking:** Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
   for more consistent interaction with Android backwards compatibility handling and its increasingly strict usage rules:
   https://developer.android.com/distribute/best-practices/develop/target-sdk
   ([#203](https://github.com/rust-windowing/android-ndk-rs/pull/203))
