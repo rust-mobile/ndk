@@ -76,8 +76,9 @@ max_sdk_version = 18
 # See https://developer.android.com/guide/topics/manifest/queries-element#provider
 [[package.metadata.android.queries.provider]]
 authorities = "org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker"
-# Note: The `name` attribute is not required for a queries provider, this is
-# a workaround for aapt throwing errors about missing `android:name` attribute.
+# Note: The `name` attribute is normally not required for a queries provider, but is non-optional
+# as a workaround for aapt throwing errors about missing `android:name` attribute.
+# This will be made optional if/when cargo-apk migrates to aapt2.
 name = "org.khronos.openxr"
 
 # See https://developer.android.com/guide/topics/manifest/queries-element#intent
