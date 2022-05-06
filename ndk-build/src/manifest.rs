@@ -276,7 +276,7 @@ pub struct QueryProvider {
     pub authorities: String,
 
     // The specs say only an `authorities` attribute is required for providers contained in a `queries` element
-    // however this is required for aapt support and should be dropped if/when cargo-apk migrates to aapt2
+    // however this is required for aapt support and should be made optional if/when cargo-apk migrates to aapt2
     #[serde(rename(serialize = "android:name"))]
     pub name: String,
 }
