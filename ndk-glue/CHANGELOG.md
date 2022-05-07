@@ -10,7 +10,7 @@
 
 # 0.6.0 (2022-01-05)
 
-- **Breaking:** Update to `ndk-sys 0.3.0` and `ndk 0.6.0`.
+- **Breaking:** Update to `ndk-sys 0.3.0` and `ndk 0.6.0`. (#214)
 
 # 0.5.2 (2022-04-19)
 

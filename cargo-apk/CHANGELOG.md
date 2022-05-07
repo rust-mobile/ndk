@@ -1,14 +1,17 @@
 # Unreleased
 
-- Use `min_sdk_version` to select compiler target instead of `target_sdk_version`. ([#197](https://github.com/rust-windowing/android-ndk-rs/pull/197))
+# 0.9.0 (2022-05-07)
+
+- **Breaking:** Use `min_sdk_version` to select compiler target instead of `target_sdk_version`. ([#197](https://github.com/rust-windowing/android-ndk-rs/pull/197))
   See https://developer.android.com/ndk/guides/sdk-versions#minsdkversion for more details.
-- Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
+- **Breaking:** Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
   for more consistent interaction with Android backwards compatibility handling and its increasingly strict usage rules:
   https://developer.android.com/distribute/best-practices/develop/target-sdk
+  ([#203](https://github.com/rust-windowing/android-ndk-rs/pull/203))
 - Allow manifest `package` property to be provided in `Cargo.toml`. ([#236](https://github.com/rust-windowing/android-ndk-rs/pull/236))
 - Add `MAIN` intent filter in `from_subcommand` instead of relying on a custom serialization function in `ndk-build`. ([#241](https://github.com/rust-windowing/android-ndk-rs/pull/241))
 - Export the sole `NativeActivity` (through `android:exported="true"`) to allow it to be started by default if targeting Android S or higher. ([#242](https://github.com/rust-windowing/android-ndk-rs/pull/242))
-- `cargo-apk` version can now be queried through `cargo apk version`
+- `cargo-apk` version can now be queried through `cargo apk version`. ([#218](https://github.com/rust-windowing/android-ndk-rs/pull/218))
 - Environment variables from `.cargo/config.toml`'s `[env]` section are now propagated to the process environment. ([#249](https://github.com/rust-windowing/android-ndk-rs/pull/249))
 
 # 0.8.2 (2021-11-22)
