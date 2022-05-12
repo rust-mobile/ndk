@@ -1,5 +1,7 @@
 # Unreleased
 
+- Reimplement NDK r23 `-lgcc` workaround using `RUSTFLAGS`, to apply to transitive `cdylib` compilations (#270)
+
 # 0.9.0 (2022-05-07)
 
 - **Breaking:** Use `min_sdk_version` to select compiler target instead of `target_sdk_version`. ([#197](https://github.com/rust-windowing/android-ndk-rs/pull/197))
