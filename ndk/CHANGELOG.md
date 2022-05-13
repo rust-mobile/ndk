@@ -1,11 +1,12 @@
 # Unreleased
 
-- hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan.
+- hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan. (#213)
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`)
 - Add `MediaCodec` and `MediaFormat` bindings. (#216)
 - **Breaking:** Upgrade to [`ndk-sys 0.4.0`](../ndk-sys/CHANGELOG.md#040-TODO-YET-UNRELEASED) and use new `enum` newtype wrappers. (#245)
 - native_window: Use `release`/`acquire` for `Drop` and `Clone` respectively. (#207)
 - **Breaking:** audio: Rename from `aaudio` to `audio` and drop `A` prefix. (#273)
+- Implement `HasRawWindowHandle` directly on `NativeWindow` (#274)
 
 # 0.6.0 (2022-01-05)
 

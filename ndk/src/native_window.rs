@@ -1,7 +1,8 @@
 //! Bindings for [`ffi::ANativeWindow`]
 
 use jni_sys::{jobject, JNIEnv};
-use std::ptr::NonNull;
+use raw_window_handle::{AndroidNdkHandle, HasRawWindowHandle, RawWindowHandle};
+use std::{ffi::c_void, ptr::NonNull};
 
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct NativeWindow {
@@ -23,6 +24,14 @@ impl Clone for NativeWindow {
             ffi::ANativeWindow_acquire(self.ptr.as_ptr());
             Self { ptr: self.ptr }
         }
+    }
+}
+
+unsafe impl HasRawWindowHandle for NativeWindow {
+    fn raw_window_handle(&self) -> RawWindowHandle {
+        let mut handle = AndroidNdkHandle::empty();
+        handle.a_native_window = self.ptr.as_ptr() as *mut c_void;
+        RawWindowHandle::AndroidNdk(handle)
     }
 }
 
