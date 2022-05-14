@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.9.1 (2022-05-12)
+
 - Reimplement NDK r23 `-lgcc` workaround using `RUSTFLAGS`, to apply to transitive `cdylib` compilations (#270)
 
 # 0.9.0 (2022-05-07)

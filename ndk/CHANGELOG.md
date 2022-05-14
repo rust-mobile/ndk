@@ -1,10 +1,10 @@
 # Unreleased
 
-- ndk/hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan.
+- hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan.
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`)
 - Add `MediaCodec` and `MediaFormat` bindings. (#216)
 - **Breaking:** Upgrade to [`ndk-sys 0.4.0`](../ndk-sys/CHANGELOG.md#040-TODO-YET-UNRELEASED) and use new `enum` newtype wrappers. (#245)
-- ndk/native_window: Use `release`/`acquire` for `Drop` and `Clone` respectively. (#207)
+- native_window: Use `release`/`acquire` for `Drop` and `Clone` respectively. (#207)
 
 # 0.6.0 (2022-01-05)
 
@@ -15,9 +15,9 @@
 - **Breaking:** Replace `add_fd_with_callback` `ident` with constant value `ALOOPER_POLL_CALLBACK`,
   as per https://developer.android.com/ndk/reference/group/looper#alooper_addfd.
 - **Breaking:** Accept unboxed closure in `add_fd_with_callback`.
-- ndk/aaudio: Replace "Added in" comments with missing `#[cfg(feature)]`
-- ndk/aaudio: Add missing `fn get_allowed_capture_policy()`
-- ndk/configuration: Add missing `api-level-30` feature to `fn screen_round()`
+- aaudio: Replace "Added in" comments with missing `#[cfg(feature)]`.
+- aaudio: Add missing `fn get_allowed_capture_policy()`.
+- configuration: Add missing `api-level-30` feature to `fn screen_round()`.
 
 # 0.4.0 (2021-08-02)
 
