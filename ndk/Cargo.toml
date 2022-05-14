@@ -12,9 +12,9 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [features]
-all = ["aaudio", "bitmap", "hardware_buffer", "media", "trace", "api-level-30"]
+all = ["audio", "bitmap", "hardware_buffer", "media", "trace", "api-level-30"]
 
-aaudio = ["ffi/aaudio", "api-level-26"]
+audio = ["ffi/audio", "api-level-26"]
 bitmap = ["ffi/bitmap"]
 hardware_buffer = ["api-level-26"]
 media = ["ffi/media"]
