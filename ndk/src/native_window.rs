@@ -1,4 +1,6 @@
 //! Bindings for [`ffi::ANativeWindow`]
+
+use jni_sys::{jobject, JNIEnv};
 use std::ptr::NonNull;
 
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -45,14 +47,35 @@ impl NativeWindow {
     pub fn ptr(&self) -> NonNull<ffi::ANativeWindow> {
         self.ptr
     }
-}
 
-impl NativeWindow {
     pub fn height(&self) -> i32 {
         unsafe { ffi::ANativeWindow_getHeight(self.ptr.as_ptr()) }
     }
 
     pub fn width(&self) -> i32 {
         unsafe { ffi::ANativeWindow_getWidth(self.ptr.as_ptr()) }
+    }
+
+    /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
+    ///
+    /// # Safety
+    /// By calling this function, you assert that `env` is a valid pointer to a [`JNIEnv`] and
+    /// `surface` is a valid pointer to an [`android.view.Surface`].
+    ///
+    /// [`android.view.Surface`]: https://developer.android.com/reference/android/view/Surface
+    pub unsafe fn from_surface(env: *mut JNIEnv, surface: jobject) -> Option<Self> {
+        let ptr = ffi::ANativeWindow_fromSurface(env, surface);
+        Some(Self::from_ptr(NonNull::new(ptr)?))
+    }
+
+    /// Return a JNI [`android.view.Surface`] pointer derived from this [`NativeWindow`].
+    ///
+    /// # Safety
+    /// By calling this function, you assert that `env` is a valid pointer to a [`JNIEnv`].
+    ///
+    /// [`android.view.Surface`]: https://developer.android.com/reference/android/view/Surface
+    #[cfg(feature = "api-level-26")]
+    pub unsafe fn to_surface(&self, env: *mut JNIEnv) -> jobject {
+        ffi::ANativeWindow_toSurface(env, self.ptr().as_ptr())
     }
 }
