@@ -11,7 +11,7 @@ pub struct SurfaceTexture {
 
 unsafe impl Send for SurfaceTexture {}
 
-struct PosixError(pub i32);
+pub struct PosixError(pub i32);
 
 impl Drop for SurfaceTexture {
     fn drop(&mut self) {
