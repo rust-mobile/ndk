@@ -11,6 +11,8 @@ pub struct SurfaceTexture {
 
 unsafe impl Send for SurfaceTexture {}
 
+struct PosixError(pub i32);
+
 impl Drop for SurfaceTexture {
     fn drop(&mut self) {
         unsafe { ffi::ASurfaceTexture_release(self.ptr.as_ptr()) }
@@ -36,12 +38,12 @@ impl SurfaceTexture {
         Some(unsafe { NativeWindow::from_ptr(n) })
     }
 
-    pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<(), i32> {
+    pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<(), PosixError> {
         let r = unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) };
         if r == 0 {
             Ok(())
         } else {
-            Err(r)
+            Err(PosixError(r))
         }
     }
 
