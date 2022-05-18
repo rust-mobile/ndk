@@ -50,6 +50,6 @@ extern "C" {}
 #[link(name = "jnigraphics")]
 extern "C" {}
 
-#[cfg(all(feature = "aaudio", target_os = "android"))]
+#[cfg(all(feature = "audio", target_os = "android"))]
 #[link(name = "aaudio")]
 extern "C" {}

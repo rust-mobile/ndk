@@ -2,7 +2,7 @@
 //!
 //! See also [the NDK docs](https://developer.android.com/ndk/guides/audio/aaudio/aaudio)
 //! and [the NDK API reference](https://developer.android.com/ndk/reference/group/audio)
-#![cfg(feature = "aaudio")]
+#![cfg(feature = "audio")]
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
@@ -23,10 +23,10 @@ use thiserror::Error;
 #[cfg(feature = "api-level-29")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioAllowedCapturePolicy {
+pub enum AudioAllowedCapturePolicy {
     /// Indicates that the audio may be captured by any app.
     ///
-    /// For privacy, the following [usages](AAudioUsage) can not be recorded:
+    /// For privacy, the following [usages][AudioUsage] can not be recorded:
     /// `VoiceCommunication*`, `Notification*`, `Assistance*` and `Assistant`.
     ///
     /// On Android Q, this means only `Media` and `Game` may be captured.
@@ -60,7 +60,7 @@ pub enum AAudioAllowedCapturePolicy {
 #[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioContentType {
+pub enum AudioContentType {
     /// Use this for spoken voice, audio books, etcetera.
     Speech = ffi::AAUDIO_CONTENT_TYPE_SPEECH,
     /// Use this for pre-recorded or live music.
@@ -74,7 +74,7 @@ pub enum AAudioContentType {
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioDirection {
+pub enum AudioDirection {
     /// Audio data will travel out of the device, for example through a speaker.
     Input = ffi::AAUDIO_DIRECTION_INPUT,
     /// Audio data will travel into the device, for example from a microphone.
@@ -84,7 +84,7 @@ pub enum AAudioDirection {
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
-pub enum AAudioFormat {
+pub enum AudioFormat {
     /// This format uses the float data type.
     /// The nominal range of the data is [-1.0f32, 1.0f32).
     /// Values outside that range may be clipped.
@@ -107,7 +107,7 @@ pub enum AAudioFormat {
 #[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioInputPreset {
+pub enum AudioInputPreset {
     /// Use this preset when other presets do not apply.
     Generic = ffi::AAUDIO_INPUT_PRESET_GENERIC,
     /// Use this preset when recording video.
@@ -129,7 +129,7 @@ pub enum AAudioInputPreset {
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioPerformanceMode {
+pub enum AudioPerformanceMode {
     /// No particular performance needs. Default.
     None = ffi::AAUDIO_PERFORMANCE_MODE_NONE,
     /// Extending battery life is more important than low latency.
@@ -143,7 +143,7 @@ pub enum AAudioPerformanceMode {
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioSharingMode {
+pub enum AudioSharingMode {
     /// This will be the only stream using a particular source or sink.
     /// This mode will provide the lowest possible latency.
     /// You should close Exclusive streams immediately when you are not using them.
@@ -162,7 +162,7 @@ pub enum AAudioSharingMode {
 #[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioUsage {
+pub enum AudioUsage {
     /// Use this for streaming media, music performance, video, podcasts, etcetera.
     Media = ffi::AAUDIO_USAGE_MEDIA,
     /// Use this for voice over IP, telephony, etcetera.
@@ -204,7 +204,7 @@ pub enum AAudioUsage {
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-pub enum AAudioStreamState {
+pub enum AudioStreamState {
     Uninitialized = ffi::AAUDIO_STREAM_STATE_UNINITIALIZED,
     Unknown = ffi::AAUDIO_STREAM_STATE_UNKNOWN,
     Open = ffi::AAUDIO_STREAM_STATE_OPEN,
@@ -221,7 +221,7 @@ pub enum AAudioStreamState {
     Disconnected = ffi::AAUDIO_STREAM_STATE_DISCONNECTED,
 }
 
-impl AAudioStreamState {
+impl AudioStreamState {
     pub fn to_text(self) -> Cow<'static, str> {
         let ptr = unsafe {
             CStr::from_ptr(ffi::AAudio_convertStreamStateToText(
@@ -254,19 +254,19 @@ pub enum Clockid {
 /// Value returned the data callback function.
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub enum AAudioCallbackResult {
+pub enum AudioCallbackResult {
     /// Continue calling the callback.
     Continue = ffi::AAUDIO_CALLBACK_RESULT_CONTINUE,
     /// Stop calling the callback.
     ///
-    /// The application will still need to call [`AAudioStream::request_pause()`]
-    /// or [`AAudioStream::request_stop()`].
+    /// The application will still need to call [`AudioStream::request_pause()`]
+    /// or [`AudioStream::request_stop()`].
     Stop = ffi::AAUDIO_CALLBACK_RESULT_STOP,
 }
 
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub enum AAudioErrorResult {
+pub enum AudioErrorResult {
     Base = ffi::AAUDIO_ERROR_BASE,
     /// The audio device was disconnected. This could occur, for example, when headphones
     /// are plugged in or unplugged. The stream cannot be used after the device is disconnected.
@@ -305,7 +305,7 @@ pub enum AAudioErrorResult {
     InvalidRate = ffi::AAUDIO_ERROR_INVALID_RATE,
 }
 
-impl AAudioErrorResult {
+impl AudioErrorResult {
     pub fn to_text(self) -> Cow<'static, str> {
         let ptr = unsafe {
             CStr::from_ptr(ffi::AAudio_convertStreamStateToText(
@@ -317,21 +317,21 @@ impl AAudioErrorResult {
 }
 
 #[derive(Debug, Error)]
-pub enum AAudioError {
-    #[error("error AAudio result ({0:?})")]
-    ErrorResult(AAudioErrorResult),
+pub enum AudioError {
+    #[error("error Audio result ({0:?})")]
+    ErrorResult(AudioErrorResult),
     #[error("unknown AAudio error result ({0})")]
     UnknownResult(i32),
     #[error("unsupported AAudio result value received ({0})")]
     UnsupportedValue(i32),
 }
 
-impl AAudioError {
+impl AudioError {
     pub(crate) fn from_result<T>(
         result: ffi::aaudio_result_t,
         on_success: impl FnOnce() -> T,
     ) -> Result<T> {
-        use AAudioErrorResult::*;
+        use AudioErrorResult::*;
         let result = match result {
             value if value >= 0 => return Ok(on_success()),
             ffi::AAUDIO_ERROR_BASE => Base,
@@ -351,34 +351,34 @@ impl AAudioError {
             ffi::AAUDIO_ERROR_OUT_OF_RANGE => OutOfRange,
             ffi::AAUDIO_ERROR_NO_SERVICE => NoService,
             ffi::AAUDIO_ERROR_INVALID_RATE => InvalidRate,
-            _ => return Err(AAudioError::UnknownResult(result)),
+            _ => return Err(AudioError::UnknownResult(result)),
         };
-        Err(AAudioError::ErrorResult(result))
+        Err(AudioError::ErrorResult(result))
     }
 }
 
-pub type Result<T, E = AAudioError> = std::result::Result<T, E>;
+pub type Result<T, E = AudioError> = std::result::Result<T, E>;
 
 fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::aaudio_result_t) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
-    AAudioError::from_result(status, || unsafe { result.assume_init() })
+    AudioError::from_result(status, || unsafe { result.assume_init() })
 }
 
 fn enum_return_value<T: TryFrom<u32>>(return_value: i32) -> Result<T> {
     u32::try_from(return_value)
         .ok()
         .and_then(|value| T::try_from(value).ok())
-        .ok_or(AAudioError::UnsupportedValue(return_value))
+        .ok_or(AudioError::UnsupportedValue(return_value))
 }
 
-pub struct AAudioStreamBuilder {
+pub struct AudioStreamBuilder {
     inner: NonNull<ffi::AAudioStreamBuilder>,
     data_callback: Option<AudioStreamDataCallback>,
     error_callback: Option<AudioStreamErrorCallback>,
 }
 
-impl fmt::Debug for AAudioStreamBuilder {
+impl fmt::Debug for AudioStreamBuilder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("AAudioStreamBuilder")
             .field("inner", &self.inner)
@@ -401,10 +401,10 @@ impl fmt::Debug for AAudioStreamBuilder {
 }
 
 pub type AudioStreamDataCallback =
-    Box<dyn FnMut(&AAudioStream, *mut c_void, i32) -> AAudioCallbackResult>;
-pub type AudioStreamErrorCallback = Box<dyn FnMut(&AAudioStream, AAudioError)>;
+    Box<dyn FnMut(&AudioStream, *mut c_void, i32) -> AudioCallbackResult>;
+pub type AudioStreamErrorCallback = Box<dyn FnMut(&AudioStream, AudioError)>;
 
-impl AAudioStreamBuilder {
+impl AudioStreamBuilder {
     fn from_ptr(inner: NonNull<ffi::AAudioStreamBuilder>) -> Self {
         Self {
             inner,
@@ -426,7 +426,7 @@ impl AAudioStreamBuilder {
 
     /// Specify whether this stream audio may or may not be captured by other apps or the system.
     ///
-    /// The default is [`AAudioAllowedCapturePolicy::AllowCaptureByAll`].
+    /// The default is [`AudioAllowedCapturePolicy::AllowCaptureByAll`].
     ///
     /// Note that an application can also set its global policy, in which case the most restrictive
     /// policy is always applied. See android.media.AudioAttributes#setAllowedCapturePolicy(int)
@@ -437,7 +437,7 @@ impl AAudioStreamBuilder {
     ///
     /// * `policy` - the desired level of opt-out from being captured.
     #[cfg(feature = "api-level-29")]
-    pub fn allowed_capture_policy(self, capture_policy: AAudioAllowedCapturePolicy) -> Self {
+    pub fn allowed_capture_policy(self, capture_policy: AudioAllowedCapturePolicy) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setAllowedCapturePolicy(
                 self.as_ptr(),
@@ -488,15 +488,15 @@ impl AAudioStreamBuilder {
     /// behavior of the stream.
     /// This could, for example, affect whether a stream is paused when a notification occurs.
     ///
-    /// The default, if you do not call this function, is [`AAudioContentType::Music`].
+    /// The default, if you do not call this function, is [`AudioContentType::Music`].
     ///
     /// Available since API level 28.
     ///
     /// # Arguments
     ///
-    /// * `content_type` - the type of audio data, eg. [`AAudioContentType::Speech`]
+    /// * `content_type` - the type of audio data, eg. [`AudioContentType::Speech`]
     #[cfg(feature = "api-level-28")]
-    pub fn content_type(self, content_type: AAudioContentType) -> Self {
+    pub fn content_type(self, content_type: AudioContentType) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setContentType(
                 self.as_ptr(),
@@ -510,16 +510,16 @@ impl AAudioStreamBuilder {
     ///
     /// Note that when using data callback, the audio data will be passed in or out
     /// of the function as an argument.
-    /// So you cannot call [`AAudioStream::write()`] or [`AAudioStream::read()`]
+    /// So you cannot call [`AudioStream::write()`] or [`AudioStream::read()`]
     /// on the same stream that has an active data callback.
     ///
-    /// The data callback function will start being called after [`AAudioStream::request_start()`]
+    /// The data callback function will start being called after [`AudioStream::request_start()`]
     /// is called.
-    /// It will stop being called after [`AAudioStream::request_pause()`] or
-    /// [`AAudioStream::request_stop()`] is called.
+    /// It will stop being called after [`AudioStream::request_pause()`] or
+    /// [`AudioStream::request_stop()`] is called.
     ///
     /// The `data_callback` function will be called on a real-time thread owned by AAudio.
-    /// Note that numFrames can vary unless [`AAudioStreamBuilder::frames_per_data_callback()`]
+    /// Note that numFrames can vary unless [`AudioStreamBuilder::frames_per_data_callback()`]
     /// is called.
     ///
     /// Also note that this callback function should be considered a "real-time" function.
@@ -533,8 +533,8 @@ impl AAudioStreamBuilder {
     /// * use any mutexes or other synchronization primitives
     /// * sleep
     /// * stop or close the stream
-    /// * [`AAudioStream::read()`]
-    /// * [`AAudioStream::write()`]
+    /// * [`AudioStream::read()`]
+    /// * [`AudioStream::write()`]
     ///
     /// If you need to move data, eg. MIDI commands, in or out of the callback function then
     /// we recommend the use of non-blocking techniques such as an atomic FIFO.
@@ -554,7 +554,7 @@ impl AAudioStreamBuilder {
             num_frames: i32,
         ) -> ffi::aaudio_data_callback_result_t {
             let callback = user_data as *mut AudioStreamDataCallback;
-            let stream = AAudioStream {
+            let stream = AudioStream {
                 inner: NonNull::new_unchecked(stream),
                 data_callback: None,
                 error_callback: None,
@@ -593,14 +593,14 @@ impl AAudioStreamBuilder {
 
     /// Request the direction for a stream.
     ///
-    /// The default, if you do not call this function, is [`Output`](AAudioDirection::Output).
+    /// The default, if you do not call this function, is [`Output`][AudioDirection::Output].
     ///
     /// Available since API level 26.
     ///
     /// # Arguments
     ///
-    /// * `direction` - [`Output`](AAudioDirection::Output) or [`Input`](AAudioDirection::Input)
-    pub fn direction(self, direction: AAudioDirection) -> Self {
+    /// * `direction` - [`Output`][AudioDirection::Output] or [`Input`][AudioDirection::Input]
+    pub fn direction(self, direction: AudioDirection) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setDirection(
                 self.as_ptr(),
@@ -638,12 +638,12 @@ impl AAudioStreamBuilder {
             error: ffi::aaudio_result_t,
         ) {
             let callback = user_data as *mut AudioStreamErrorCallback;
-            let stream = AAudioStream {
+            let stream = AudioStream {
                 inner: NonNull::new_unchecked(stream),
                 data_callback: None,
                 error_callback: None,
             };
-            let err = AAudioError::from_result(error, || ()).unwrap_err();
+            let err = AudioError::from_result(error, || ()).unwrap_err();
             (*callback)(&stream, err);
             std::mem::forget(stream);
         }
@@ -661,7 +661,7 @@ impl AAudioStreamBuilder {
 
     /// Request a sample data format, for example `Format::I16`.
     ///
-    /// The default, if you do not call this function, is [`Unspecified`](AAudioFormat::Unspecified).
+    /// The default, if you do not call this function, is [`Unspecified`][AudioFormat::Unspecified].
     /// An optimal value will then be chosen when the stream is opened.
     /// After opening a stream with an unspecified value, the application must
     /// query for the actual value, which may vary by device.
@@ -674,7 +674,7 @@ impl AAudioStreamBuilder {
     /// # Arguments
     ///
     /// * `format` - the sample data format.
-    pub fn format(self, format: AAudioFormat) -> Self {
+    pub fn format(self, format: AudioFormat) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setFormat(self.as_ptr(), format as ffi::aaudio_format_t)
         };
@@ -688,7 +688,7 @@ impl AAudioStreamBuilder {
     /// The default, if you do not call this function, is unspecified.
     ///
     /// For the lowest possible latency, do not call this function. AAudio will then
-    /// call the [`data_callback`](Self::data_callback) function with whatever size is optimal.
+    /// call the [`data_callback`][Self::data_callback] function with whatever size is optimal.
     /// That size may vary from one callback to another.
     ///
     /// Only use this function if the application requires a specific number of frames for processing.
@@ -716,7 +716,7 @@ impl AAudioStreamBuilder {
     /// This could, for example, affect which microphones are used and how the
     /// recorded data is processed.
     ///
-    /// The default, if you do not call this function, is [`VoiceRecognition`](AAudioInputPreset::VoiceRecognition)
+    /// The default, if you do not call this function, is [`VoiceRecognition`][AudioInputPreset::VoiceRecognition]
     /// which is the preset with the lowest latency on many platforms.
     ///
     /// Available since API level 28.
@@ -725,7 +725,7 @@ impl AAudioStreamBuilder {
     ///
     /// * `input_preset` - the desired configuration for recording
     #[cfg(feature = "api-level-28")]
-    pub fn input_preset(self, input_preset: AAudioInputPreset) -> Self {
+    pub fn input_preset(self, input_preset: AudioInputPreset) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setInputPreset(
                 self.as_ptr(),
@@ -742,7 +742,7 @@ impl AAudioStreamBuilder {
     /// The default, if you do not call this function, is None.
     ///
     /// You may not get the mode you requested.
-    /// You can call [`AAudioStream::get_performance_mode()`]
+    /// You can call [`AudioStream::get_performance_mode()`]
     /// to find out the final mode for the stream.
     ///
     /// Available since API level 26.
@@ -750,7 +750,7 @@ impl AAudioStreamBuilder {
     /// # Arguments
     ///
     /// * `mode` - the desired performance mode, eg. LowLatency
-    pub fn performance_mode(self, mode: AAudioPerformanceMode) -> Self {
+    pub fn performance_mode(self, mode: AudioPerformanceMode) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setPerformanceMode(
                 self.as_ptr(),
@@ -792,7 +792,7 @@ impl AAudioStreamBuilder {
     ///
     /// If set to [`Option::None`] then a session ID will be allocated when the stream is opened.
     ///
-    /// The allocated session ID can be obtained by calling [`AAudioStream::get_session_id()`]
+    /// The allocated session ID can be obtained by calling [`AudioStream::get_session_id()`]
     /// and then used with this function when opening another stream.
     /// This allows effects to be shared between streams.
     ///
@@ -823,7 +823,7 @@ impl AAudioStreamBuilder {
 
     /// Request a mode for sharing the device.
     ///
-    /// The default, if you do not call this function, is [`AAudioSharingMode::Shared`].
+    /// The default, if you do not call this function, is [`AudioSharingMode::Shared`].
     ///
     /// The requested sharing mode may not be available.
     /// The application can query for the actual mode after the stream is opened.
@@ -832,8 +832,8 @@ impl AAudioStreamBuilder {
     ///
     /// # Arguments
     ///
-    /// * `sharing_mode` - [`AAudioSharingMode::Shared`] or [`AAudioSharingMode::Exclusive`]
-    pub fn sharing_mode(self, sharing_mode: AAudioSharingMode) -> Self {
+    /// * `sharing_mode` - [`AudioSharingMode::Shared`] or [`AudioSharingMode::Exclusive`]
+    pub fn sharing_mode(self, sharing_mode: AudioSharingMode) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setSharingMode(
                 self.as_ptr(),
@@ -849,23 +849,23 @@ impl AAudioStreamBuilder {
     /// behavior of the stream.
     /// This could, for example, affect how volume and focus is handled for the stream.
     ///
-    /// The default, if you do not call this function, is [`AAudioUsage::Media`].
+    /// The default, if you do not call this function, is [`AudioUsage::Media`].
     ///
     /// Available since API level 28.
     ///
-    /// * `usage` - the desired usage, eg. [`AAudioUsage::Game`]
+    /// * `usage` - the desired usage, eg. [`AudioUsage::Game`]
     #[cfg(feature = "api-level-28")]
-    pub fn usage(self, usage: AAudioUsage) -> Self {
+    pub fn usage(self, usage: AudioUsage) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setUsage(self.as_ptr(), usage as ffi::aaudio_usage_t) };
         self
     }
 
     /// Open a stream based on the options in the AAudioStreamBuilder.
-    pub fn open_stream(mut self) -> Result<AAudioStream> {
+    pub fn open_stream(mut self) -> Result<AudioStream> {
         unsafe {
             let ptr = construct(|res| ffi::AAudioStreamBuilder_openStream(self.as_ptr(), res))?;
 
-            Ok(AAudioStream {
+            Ok(AudioStream {
                 inner: NonNull::new_unchecked(ptr),
                 data_callback: self.data_callback.take(),
                 error_callback: self.error_callback.take(),
@@ -874,20 +874,20 @@ impl AAudioStreamBuilder {
     }
 }
 
-impl Drop for AAudioStreamBuilder {
+impl Drop for AudioStreamBuilder {
     fn drop(&mut self) {
         let status = unsafe { ffi::AAudioStreamBuilder_delete(self.as_ptr()) };
-        AAudioError::from_result(status, || ()).unwrap();
+        AudioError::from_result(status, || ()).unwrap();
     }
 }
 
-pub struct AAudioStream {
+pub struct AudioStream {
     inner: NonNull<ffi::AAudioStream>,
     data_callback: Option<AudioStreamDataCallback>,
     error_callback: Option<AudioStreamErrorCallback>,
 }
 
-impl fmt::Debug for AAudioStream {
+impl fmt::Debug for AudioStream {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("AAudioStream")
             .field("inner", &self.inner)
@@ -909,7 +909,7 @@ impl fmt::Debug for AAudioStream {
     }
 }
 
-impl AAudioStream {
+impl AudioStream {
     fn as_ptr(&self) -> *mut ffi::AAudioStream {
         self.inner.as_ptr()
     }
@@ -917,7 +917,7 @@ impl AAudioStream {
     /// Returns the policy that determines whether the audio may or
     /// may not be captured by other apps or the system.
     #[cfg(feature = "api-level-29")]
-    pub fn get_allowed_capture_policy(self) -> Result<AAudioAllowedCapturePolicy> {
+    pub fn get_allowed_capture_policy(self) -> Result<AudioAllowedCapturePolicy> {
         enum_return_value(unsafe { ffi::AAudioStream_getAllowedCapturePolicy(self.as_ptr()) })
     }
 
@@ -944,7 +944,7 @@ impl AAudioStream {
     }
 
     #[cfg(feature = "api-level-28")]
-    pub fn get_content_type(&self) -> Result<AAudioContentType> {
+    pub fn get_content_type(&self) -> Result<AudioContentType> {
         let value = unsafe { ffi::AAudioStream_getContentType(self.as_ptr()) };
         enum_return_value(value)
     }
@@ -957,7 +957,7 @@ impl AAudioStream {
     }
 
     /// Available since API level 26.
-    pub fn get_direction(&self) -> Result<AAudioDirection> {
+    pub fn get_direction(&self) -> Result<AudioDirection> {
         let value = unsafe { ffi::AAudioStream_getDirection(self.as_ptr()) };
         enum_return_value(value)
     }
@@ -965,9 +965,9 @@ impl AAudioStream {
     /// Returns the actual data format.
     ///
     /// Available since API level 26.
-    pub fn get_format(&self) -> Result<AAudioFormat> {
+    pub fn get_format(&self) -> Result<AudioFormat> {
         let value = unsafe { ffi::AAudioStream_getFormat(self.as_ptr()) };
-        AAudioFormat::try_from(value).map_err(|_| AAudioError::UnsupportedValue(value))
+        AudioFormat::try_from(value).map_err(|_| AudioError::UnsupportedValue(value))
     }
 
     /// Query the number of frames that the application should read or write at
@@ -989,9 +989,9 @@ impl AAudioStream {
     /// the stream is started. This is not normally necessary.
     ///
     /// If a specific size was requested by calling
-    /// [`AAudioStreamBuilder::frames_per_data_callback()`] then this will be the same size.
+    /// [`AudioStreamBuilder::frames_per_data_callback()`] then this will be the same size.
     ///
-    /// If [`AAudioStreamBuilder::frames_per_data_callback()`] was not called then this will
+    /// If [`AudioStreamBuilder::frames_per_data_callback()`] was not called then this will
     /// return the size chosen by AAudio, or 0.
     ///
     /// `None` indicates that the callback buffer size for this stream may vary from one dataProc callback to the next.
@@ -1008,7 +1008,7 @@ impl AAudioStream {
 
     /// Returns the number of frames that have been read since the stream was created.
     /// For an output stream, this will be advanced by the endpoint.
-    /// For an input stream, this will be advanced by the application calling [`read()`](Self::read)
+    /// For an input stream, this will be advanced by the application calling [`read()`][Self::read]
     /// or by a data callback.
     ///
     /// The frame position is monotonically increasing.
@@ -1031,7 +1031,7 @@ impl AAudioStream {
     }
 
     #[cfg(feature = "api-level-28")]
-    pub fn get_input_preset(&self) -> Result<AAudioInputPreset> {
+    pub fn get_input_preset(&self) -> Result<AudioInputPreset> {
         let value = unsafe { ffi::AAudioStream_getInputPreset(self.as_ptr()) };
         enum_return_value(value)
     }
@@ -1039,7 +1039,7 @@ impl AAudioStream {
     /// Get the performance mode used by the stream.
     ///
     /// Available since API level 26.
-    pub fn get_performance_mode(&self) -> Result<AAudioPerformanceMode> {
+    pub fn get_performance_mode(&self) -> Result<AudioPerformanceMode> {
         let value = unsafe { ffi::AAudioStream_getPerformanceMode(self.as_ptr()) };
         enum_return_value(value)
     }
@@ -1060,13 +1060,13 @@ impl AAudioStream {
     /// The session ID can be used to associate a stream with effects processors.
     /// The effects are controlled using the Android AudioEffect Java API.
     ///
-    /// If [`AAudioStreamBuilder::session_id()`] was called with `0`
+    /// If [`AudioStreamBuilder::session_id()`] was called with `0`
     /// then a new session ID should be allocated once when the stream is opened.
     ///
-    /// If [`AAudioStreamBuilder::session_id()`] was called with a previously allocated
+    /// If [`AudioStreamBuilder::session_id()`] was called with a previously allocated
     /// session ID then that value should be returned.
     ///
-    /// If [`AAudioStreamBuilder::session_id()`] was not called then this function should
+    /// If [`AudioStreamBuilder::session_id()`] was not called then this function should
     /// return `-1`.
     ///
     /// The sessionID for a stream should not change once the stream has been opened.
@@ -1084,20 +1084,20 @@ impl AAudioStream {
     /// Provide actual sharing mode.
     ///
     /// Available since API level 26.
-    pub fn get_sharing_mode(&self) -> Result<AAudioSharingMode> {
+    pub fn get_sharing_mode(&self) -> Result<AudioSharingMode> {
         let value = unsafe { ffi::AAudioStream_getSharingMode(self.as_ptr()) };
         enum_return_value(value)
     }
 
-    /// Query the current state of the client, eg. [`Pausing`](AAudioStreamState::Pausing).
+    /// Query the current state of the client, eg. [`Pausing`][AudioStreamState::Pausing].
     ///
     /// This function will immediately return the state without updating the state.
     /// If you want to update the client state based on the server state then
-    /// call [`AAudioStream::wait_for_state_change()`] with currentState
-    /// set to [`Unknown`](AAudioStreamState::Unknown) and a zero timeout.
+    /// call [`AudioStream::wait_for_state_change()`] with currentState
+    /// set to [`Unknown`][AudioStreamState::Unknown] and a zero timeout.
     ///
     /// Available since API level 26.
-    pub fn get_state(&self) -> Result<AAudioStreamState> {
+    pub fn get_state(&self) -> Result<AudioStreamState> {
         let value = unsafe { ffi::AAudioStream_getState(self.as_ptr()) };
         enum_return_value(value)
     }
@@ -1107,12 +1107,12 @@ impl AAudioStream {
     /// It can also be used to align a recorded stream with a playback stream.
     ///
     /// Timestamps are only valid when the stream is in `Started` state.
-    /// [`InvalidState`](AAudioErrorResult::InvalidState) will be returned
+    /// [`InvalidState`][AudioErrorResult::InvalidState] will be returned
     /// if the stream is not started.
-    /// Note that because [`AAudioStream::request_start()`] is asynchronous,
+    /// Note that because [`AudioStream::request_start()`] is asynchronous,
     /// timestamps will not be valid until a short time after calling
-    /// [`AAudioStream::request_start()`].
-    /// So [`InvalidState`](AAudioErrorResult::InvalidState) should not be
+    /// [`AudioStream::request_start()`].
+    /// So [`InvalidState`][AudioErrorResult::InvalidState] should not be
     /// considered a fatal error.
     /// Just try calling again later.
     ///
@@ -1143,7 +1143,7 @@ impl AAudioStream {
     }
 
     #[cfg(feature = "api-level-28")]
-    pub fn get_usage(&self) -> Result<AAudioUsage> {
+    pub fn get_usage(&self) -> Result<AudioUsage> {
         let value = unsafe { ffi::AAudioStream_getUsage(self.as_ptr()) };
         enum_return_value(value)
     }
@@ -1196,74 +1196,74 @@ impl AAudioStream {
     ) -> Result<u32> {
         let result = ffi::AAudioStream_read(self.as_ptr(), buffer, num_frames, timeout_nanoseconds);
 
-        AAudioError::from_result(result, || result as u32)
+        AudioError::from_result(result, || result as u32)
     }
 
     /// Asynchronous request for the stream to flush.
     /// Flushing will discard any pending data.
     /// This call only works if the stream is pausing or paused.
     /// Frame counters are not reset by a flush. They may be advanced.
-    /// After this call the state will be in [`Flushing`](AAudioStreamState::Flushing) or
-    /// [`Flushed`](AAudioStreamState::Flushed).
+    /// After this call the state will be in [`Flushing`][AudioStreamState::Flushing] or
+    /// [`Flushed`][AudioStreamState::Flushed].
     ///
-    /// This will return [`Unimplemented`](AAudioErrorResult::Unimplemented) for input streams.
+    /// This will return [`Unimplemented`][AudioErrorResult::Unimplemented] for input streams.
     ///
     /// Available since API level 26.
     pub fn request_flush(&self) -> Result<()> {
         let result = unsafe { ffi::AAudioStream_requestFlush(self.as_ptr()) };
-        AAudioError::from_result(result, || ())
+        AudioError::from_result(result, || ())
     }
 
     /// Asynchronous request for the stream to pause.
     /// Pausing a stream will freeze the data flow but not flush any buffers.
-    /// Use [`AAudioStream::request_start()`] to resume playback after a pause.
-    /// After this call the state will be in [`Pausing`](AAudioStreamState::Pausing) or
-    /// [`Paused`](AAudioStreamState::Paused).
+    /// Use [`AudioStream::request_start()`] to resume playback after a pause.
+    /// After this call the state will be in [`Pausing`][AudioStreamState::Pausing] or
+    /// [`Paused`][AudioStreamState::Paused].
     ///
-    /// This will return [`Unimplemented`](AAudioErrorResult::Unimplemented) for input streams.
-    /// For input streams use [`AAudioStream::request_stop()`].
+    /// This will return [`Unimplemented`][AudioErrorResult::Unimplemented] for input streams.
+    /// For input streams use [`AudioStream::request_stop()`].
     ///
     /// Available since API level 26.
     pub fn request_pause(&self) -> Result<()> {
         let result = unsafe { ffi::AAudioStream_requestPause(self.as_ptr()) };
-        AAudioError::from_result(result, || ())
+        AudioError::from_result(result, || ())
     }
 
     /// Asynchronously request to start playing the stream. For output streams, one should
     /// write to the stream to fill the buffer before starting.
     /// Otherwise it will underflow.
-    /// After this call the state will be in [`Starting`](AAudioStreamState::Starting) or
-    /// [`Started`](AAudioStreamState::Started).
+    /// After this call the state will be in [`Starting`][AudioStreamState::Starting] or
+    /// [`Started`][AudioStreamState::Started].
     ///
     /// Returns 0 for OK or a negative error.
     ///
     /// Available since API level 26.
     pub fn request_start(&self) -> Result<()> {
         let result = unsafe { ffi::AAudioStream_requestStart(self.as_ptr()) };
-        AAudioError::from_result(result, || ())
+        AudioError::from_result(result, || ())
     }
 
     /// Asynchronous request for the stream to stop.
     /// The stream will stop after all of the data currently buffered has been played.
-    /// After this call the state will be in [`Stopping`](AAudioStreamState::Stopping) or
-    /// [`Stopped`](AAudioStreamState::Stopped).
+    /// After this call the state will be in [`Stopping`][AudioStreamState::Stopping] or
+    /// [`Stopped`][AudioStreamState::Stopped].
     ///
     /// Available since API level 26.
     pub fn request_stop(&self) -> Result<()> {
         let result = unsafe { ffi::AAudioStream_requestStop(self.as_ptr()) };
-        AAudioError::from_result(result, || ())
+        AudioError::from_result(result, || ())
     }
 
     /// This can be used to adjust the latency of the buffer by changing
     /// the threshold where blocking will occur.
-    /// By combining this with [`AAudioStream::get_x_run_count()`], the latency can be tuned
+    /// By combining this with [`AudioStream::get_x_run_count()`], the latency can be tuned
     /// at run-time for each device.
     /// Returns actual buffer size in frames or a negative error.
     ///
-    /// This cannot be set higher than [`AAudioStream::get_buffer_capacity_in_frames()`].
+    /// This cannot be set higher than [`AudioStream::get_buffer_capacity_in_frames()`].
     ///
     /// Note that you will probably not get the exact size you request.
-    /// You can check the return value or call [`AAudioStream::get_buffer_size_in_frames()`]
+    /// You can check the return value or call [`AudioStream::get_buffer_size_in_frames()`]
     /// to see what the actual final size is.
     ///
     /// Available since API level 26.
@@ -1273,7 +1273,7 @@ impl AAudioStream {
     /// * `num_frames` - requested number of frames that can be filled without blocking
     pub fn set_buffer_size_in_frames(&self, num_frames: i32) -> Result<i32> {
         let result = unsafe { ffi::AAudioStream_setBufferSizeInFrames(self.as_ptr(), num_frames) };
-        AAudioError::from_result(result, || result)
+        AudioError::from_result(result, || result)
     }
 
     /// Wait until the current state no longer matches the input state.
@@ -1285,9 +1285,9 @@ impl AAudioStream {
     /// Available since API level 26.
     pub fn wait_for_state_change(
         &self,
-        input_state: AAudioStreamState,
+        input_state: AudioStreamState,
         timeout_nanoseconds: i64,
-    ) -> Result<AAudioStreamState> {
+    ) -> Result<AudioStreamState> {
         let value = construct(|ptr| unsafe {
             ffi::AAudioStream_waitForStateChange(
                 self.as_ptr(),
@@ -1332,13 +1332,13 @@ impl AAudioStream {
         let result =
             ffi::AAudioStream_write(self.as_ptr(), buffer, num_frames, timeout_nanoseconds);
 
-        AAudioError::from_result(result, || result as u32)
+        AudioError::from_result(result, || result as u32)
     }
 }
 
-impl Drop for AAudioStream {
+impl Drop for AudioStream {
     fn drop(&mut self) {
         let status = unsafe { ffi::AAudioStream_close(self.as_ptr()) };
-        AAudioError::from_result(status, || ()).unwrap();
+        AudioError::from_result(status, || ()).unwrap();
     }
 }

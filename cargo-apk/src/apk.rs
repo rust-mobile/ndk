@@ -175,7 +175,7 @@ impl<'a> ApkBuilder<'a> {
                 .join(artifact.file_name(CrateType::Cdylib, triple));
 
             let mut cargo = cargo_ndk(&config.ndk, *target, self.min_sdk_version())?;
-            cargo.arg("rustc");
+            cargo.arg("build");
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
             }
@@ -188,9 +188,6 @@ impl<'a> ApkBuilder<'a> {
             // is still required even after replacing it with libunwind in the source.
             // XXX: Add an upper-bound on the Rust version whenever this is not necessary anymore.
             if self.ndk.build_tag() > 7272597 {
-                if !self.cmd.args().contains(&"--".to_owned()) {
-                    cargo.arg("--");
-                }
                 let cargo_apk_link_dir = self
                     .cmd
                     .target_dir()
@@ -198,7 +195,24 @@ impl<'a> ApkBuilder<'a> {
                 std::fs::create_dir_all(&cargo_apk_link_dir)?;
                 std::fs::write(cargo_apk_link_dir.join("libgcc.a"), "INPUT(-lunwind)")
                     .expect("Failed to write");
-                cargo.arg("-L").arg(cargo_apk_link_dir);
+
+                // cdylibs in transitive dependencies still get built and also need this
+                // workaround linker flag, yet arguments passed to `cargo rustc` are only
+                // forwarded to the final compiler invocation rendering our workaround ineffective.
+                // The cargo page documenting this discrepancy (https://doc.rust-lang.org/cargo/commands/cargo-rustc.html)
+                // suggests to resort to RUSTFLAGS, which are updated below:
+                let mut rustflags = match std::env::var("RUSTFLAGS") {
+                    Ok(val) => val,
+                    Err(std::env::VarError::NotPresent) => "".to_string(),
+                    Err(std::env::VarError::NotUnicode(_)) => {
+                        panic!("RUSTFLAGS environment variable contains non-unicode characters")
+                    }
+                };
+                rustflags += " -L ";
+                rustflags += cargo_apk_link_dir
+                    .to_str()
+                    .expect("Target dir must be valid UTF-8");
+                cargo.env("RUSTFLAGS", rustflags);
             }
 
             if !cargo.status()?.success() {
