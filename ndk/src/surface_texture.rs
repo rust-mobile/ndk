@@ -11,6 +11,7 @@ pub struct SurfaceTexture {
 
 unsafe impl Send for SurfaceTexture {}
 
+#[derive(Debug)]
 pub struct PosixError(pub i32);
 
 impl Drop for SurfaceTexture {
