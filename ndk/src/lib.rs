@@ -15,12 +15,10 @@
 )]
 #![warn(missing_debug_implementations, trivial_casts)]
 
-pub mod aaudio;
 pub mod asset;
 pub mod bitmap;
 pub mod configuration;
 pub mod event;
-pub mod hardware_buffer;
 pub mod input_queue;
 pub mod looper;
 pub mod media;
