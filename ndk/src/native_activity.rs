@@ -3,6 +3,7 @@
 //! See also [the NDK
 //! docs](https://developer.android.com/ndk/reference/struct/a-native-activity.html)
 
+use super::hardware_buffer_format::HardwareBufferFormat;
 use std::{
     ffi::{CStr, OsStr},
     os::{raw::c_void, unix::prelude::OsStrExt},
@@ -14,6 +15,8 @@ use std::{
 ///
 /// This is either provided in `ANativeActivity_onCreate`, or accessible in
 /// `android_native_app_glue`'s android_app.
+///
+/// <https://developer.android.com/ndk/reference/group/native-activity>
 #[derive(Debug)]
 pub struct NativeActivity {
     ptr: NonNull<ffi::ANativeActivity>,
@@ -174,11 +177,13 @@ impl NativeActivity {
         unsafe { ffi::ANativeActivity_hideSoftInput(self.ptr.as_ptr(), flag) }
     }
 
-    /*/// Set the window format. Performs the Java `.getWindow().setFormat()`.
+    /// Change the window format of the given activity.
     ///
-    /// See also [the relevant
-    /// javadoc](https://developer.android.com/reference/android/view/Window#setFormat(int))
-    pub unsafe fn set_window_format(&self, format: WindowFormat) {
-        unsafe { ffi::ANativeActivity_setWindowFormat(self.ptr.as_ptr(), format.into()) }
-    }*/
+    /// Calls [`getWindow().setFormat()`] of the given activity. Note that this method can be called from any thread; it will send a message to the main thread of the process where the Java finish call will take place.
+    ///
+    /// [`getWindow().setFormat()`]: https://developer.android.com/reference/android/view/Window#setFormat(int)
+    pub fn set_window_format(&self, format: HardwareBufferFormat) {
+        let format: u32 = format.into();
+        unsafe { ffi::ANativeActivity_setWindowFormat(self.ptr.as_ptr(), format as i32) }
+    }
 }
