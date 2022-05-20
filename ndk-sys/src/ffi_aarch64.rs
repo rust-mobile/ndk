@@ -2006,15 +2006,25 @@ extern "C" {
 extern "C" {
     pub fn AndroidBitmap_unlockPixels(env: *mut JNIEnv, jbitmap: jobject) -> ::std::os::raw::c_int;
 }
-pub const AndroidBitmapCompressFormat_ANDROID_BITMAP_COMPRESS_FORMAT_JPEG:
-    AndroidBitmapCompressFormat = 0;
-pub const AndroidBitmapCompressFormat_ANDROID_BITMAP_COMPRESS_FORMAT_PNG:
-    AndroidBitmapCompressFormat = 1;
-pub const AndroidBitmapCompressFormat_ANDROID_BITMAP_COMPRESS_FORMAT_WEBP_LOSSY:
-    AndroidBitmapCompressFormat = 3;
-pub const AndroidBitmapCompressFormat_ANDROID_BITMAP_COMPRESS_FORMAT_WEBP_LOSSLESS:
-    AndroidBitmapCompressFormat = 4;
-pub type AndroidBitmapCompressFormat = ::std::os::raw::c_uint;
+impl AndroidBitmapCompressFormat {
+    pub const ANDROID_BITMAP_COMPRESS_FORMAT_JPEG: AndroidBitmapCompressFormat =
+        AndroidBitmapCompressFormat(0);
+}
+impl AndroidBitmapCompressFormat {
+    pub const ANDROID_BITMAP_COMPRESS_FORMAT_PNG: AndroidBitmapCompressFormat =
+        AndroidBitmapCompressFormat(1);
+}
+impl AndroidBitmapCompressFormat {
+    pub const ANDROID_BITMAP_COMPRESS_FORMAT_WEBP_LOSSY: AndroidBitmapCompressFormat =
+        AndroidBitmapCompressFormat(3);
+}
+impl AndroidBitmapCompressFormat {
+    pub const ANDROID_BITMAP_COMPRESS_FORMAT_WEBP_LOSSLESS: AndroidBitmapCompressFormat =
+        AndroidBitmapCompressFormat(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AndroidBitmapCompressFormat(pub ::std::os::raw::c_uint);
 pub type AndroidBitmap_CompressWriteFunc = ::std::option::Option<
     unsafe extern "C" fn(
         userContext: *mut ::std::os::raw::c_void,
@@ -2434,18 +2444,42 @@ extern "C" {
         __base: ::std::os::raw::c_int,
     ) -> uintmax_t;
 }
-pub const ADataSpace_ADATASPACE_UNKNOWN: ADataSpace = 0;
-pub const ADataSpace_ADATASPACE_SCRGB_LINEAR: ADataSpace = 406913024;
-pub const ADataSpace_ADATASPACE_SRGB: ADataSpace = 142671872;
-pub const ADataSpace_ADATASPACE_SCRGB: ADataSpace = 411107328;
-pub const ADataSpace_ADATASPACE_DISPLAY_P3: ADataSpace = 143261696;
-pub const ADataSpace_ADATASPACE_BT2020_PQ: ADataSpace = 163971072;
-pub const ADataSpace_ADATASPACE_ADOBE_RGB: ADataSpace = 151715840;
-pub const ADataSpace_ADATASPACE_BT2020: ADataSpace = 147193856;
-pub const ADataSpace_ADATASPACE_BT709: ADataSpace = 281083904;
-pub const ADataSpace_ADATASPACE_DCI_P3: ADataSpace = 155844608;
-pub const ADataSpace_ADATASPACE_SRGB_LINEAR: ADataSpace = 138477568;
-pub type ADataSpace = ::std::os::raw::c_uint;
+impl ADataSpace {
+    pub const ADATASPACE_UNKNOWN: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const ADATASPACE_SCRGB_LINEAR: ADataSpace = ADataSpace(406913024);
+}
+impl ADataSpace {
+    pub const ADATASPACE_SRGB: ADataSpace = ADataSpace(142671872);
+}
+impl ADataSpace {
+    pub const ADATASPACE_SCRGB: ADataSpace = ADataSpace(411107328);
+}
+impl ADataSpace {
+    pub const ADATASPACE_DISPLAY_P3: ADataSpace = ADataSpace(143261696);
+}
+impl ADataSpace {
+    pub const ADATASPACE_BT2020_PQ: ADataSpace = ADataSpace(163971072);
+}
+impl ADataSpace {
+    pub const ADATASPACE_ADOBE_RGB: ADataSpace = ADataSpace(151715840);
+}
+impl ADataSpace {
+    pub const ADATASPACE_BT2020: ADataSpace = ADataSpace(147193856);
+}
+impl ADataSpace {
+    pub const ADATASPACE_BT709: ADataSpace = ADataSpace(281083904);
+}
+impl ADataSpace {
+    pub const ADATASPACE_DCI_P3: ADataSpace = ADataSpace(155844608);
+}
+impl ADataSpace {
+    pub const ADATASPACE_SRGB_LINEAR: ADataSpace = ADataSpace(138477568);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ADataSpace(pub ::std::os::raw::c_uint);
 pub const ANDROID_DLEXT_RESERVED_ADDRESS: ::std::os::raw::c_uint = 1;
 pub const ANDROID_DLEXT_RESERVED_ADDRESS_HINT: ::std::os::raw::c_uint = 2;
 pub const ANDROID_DLEXT_WRITE_RELRO: ::std::os::raw::c_uint = 4;
@@ -2567,31 +2601,63 @@ extern "C" {
         __info: *const android_dlextinfo,
     ) -> *mut ::std::os::raw::c_void;
 }
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_GENERIC_00: android_fdsan_owner_type =
-    0;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_GENERIC_FF: android_fdsan_owner_type =
-    255;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_FILE: android_fdsan_owner_type = 1;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_DIR: android_fdsan_owner_type = 2;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_UNIQUE_FD: android_fdsan_owner_type = 3;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_SQLITE: android_fdsan_owner_type = 4;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_FILEINPUTSTREAM:
-    android_fdsan_owner_type = 5;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_FILEOUTPUTSTREAM:
-    android_fdsan_owner_type = 6;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_RANDOMACCESSFILE:
-    android_fdsan_owner_type = 7;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_PARCELFILEDESCRIPTOR:
-    android_fdsan_owner_type = 8;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_ART_FDFILE: android_fdsan_owner_type =
-    9;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_DATAGRAMSOCKETIMPL:
-    android_fdsan_owner_type = 10;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_SOCKETIMPL: android_fdsan_owner_type =
-    11;
-pub const android_fdsan_owner_type_ANDROID_FDSAN_OWNER_TYPE_ZIPARCHIVE: android_fdsan_owner_type =
-    12;
-pub type android_fdsan_owner_type = ::std::os::raw::c_uint;
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_GENERIC_00: android_fdsan_owner_type =
+        android_fdsan_owner_type(0);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_GENERIC_FF: android_fdsan_owner_type =
+        android_fdsan_owner_type(255);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_FILE: android_fdsan_owner_type = android_fdsan_owner_type(1);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_DIR: android_fdsan_owner_type = android_fdsan_owner_type(2);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_UNIQUE_FD: android_fdsan_owner_type =
+        android_fdsan_owner_type(3);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_SQLITE: android_fdsan_owner_type =
+        android_fdsan_owner_type(4);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_FILEINPUTSTREAM: android_fdsan_owner_type =
+        android_fdsan_owner_type(5);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_FILEOUTPUTSTREAM: android_fdsan_owner_type =
+        android_fdsan_owner_type(6);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_RANDOMACCESSFILE: android_fdsan_owner_type =
+        android_fdsan_owner_type(7);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_PARCELFILEDESCRIPTOR: android_fdsan_owner_type =
+        android_fdsan_owner_type(8);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_ART_FDFILE: android_fdsan_owner_type =
+        android_fdsan_owner_type(9);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_DATAGRAMSOCKETIMPL: android_fdsan_owner_type =
+        android_fdsan_owner_type(10);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_SOCKETIMPL: android_fdsan_owner_type =
+        android_fdsan_owner_type(11);
+}
+impl android_fdsan_owner_type {
+    pub const ANDROID_FDSAN_OWNER_TYPE_ZIPARCHIVE: android_fdsan_owner_type =
+        android_fdsan_owner_type(12);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct android_fdsan_owner_type(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn android_fdsan_create_owner_tag(type_: android_fdsan_owner_type, tag: u64) -> u64;
 }
@@ -2617,14 +2683,25 @@ extern "C" {
 extern "C" {
     pub fn android_fdsan_get_tag_value(tag: u64) -> u64;
 }
-pub const android_fdsan_error_level_ANDROID_FDSAN_ERROR_LEVEL_DISABLED: android_fdsan_error_level =
-    0;
-pub const android_fdsan_error_level_ANDROID_FDSAN_ERROR_LEVEL_WARN_ONCE: android_fdsan_error_level =
-    1;
-pub const android_fdsan_error_level_ANDROID_FDSAN_ERROR_LEVEL_WARN_ALWAYS:
-    android_fdsan_error_level = 2;
-pub const android_fdsan_error_level_ANDROID_FDSAN_ERROR_LEVEL_FATAL: android_fdsan_error_level = 3;
-pub type android_fdsan_error_level = ::std::os::raw::c_uint;
+impl android_fdsan_error_level {
+    pub const ANDROID_FDSAN_ERROR_LEVEL_DISABLED: android_fdsan_error_level =
+        android_fdsan_error_level(0);
+}
+impl android_fdsan_error_level {
+    pub const ANDROID_FDSAN_ERROR_LEVEL_WARN_ONCE: android_fdsan_error_level =
+        android_fdsan_error_level(1);
+}
+impl android_fdsan_error_level {
+    pub const ANDROID_FDSAN_ERROR_LEVEL_WARN_ALWAYS: android_fdsan_error_level =
+        android_fdsan_error_level(2);
+}
+impl android_fdsan_error_level {
+    pub const ANDROID_FDSAN_ERROR_LEVEL_FATAL: android_fdsan_error_level =
+        android_fdsan_error_level(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct android_fdsan_error_level(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn android_fdsan_get_error_level() -> android_fdsan_error_level;
 }
@@ -2769,83 +2846,161 @@ impl AHardwareBuffer_Format {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AHardwareBuffer_Format(pub ::std::os::raw::c_uint);
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_READ_NEVER:
-    AHardwareBuffer_UsageFlags = 0;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_READ_RARELY:
-    AHardwareBuffer_UsageFlags = 2;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_READ_OFTEN:
-    AHardwareBuffer_UsageFlags = 3;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_READ_MASK:
-    AHardwareBuffer_UsageFlags = 15;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_WRITE_NEVER:
-    AHardwareBuffer_UsageFlags = 0;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_WRITE_RARELY:
-    AHardwareBuffer_UsageFlags = 32;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_WRITE_OFTEN:
-    AHardwareBuffer_UsageFlags = 48;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_CPU_WRITE_MASK:
-    AHardwareBuffer_UsageFlags = 240;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE:
-    AHardwareBuffer_UsageFlags = 256;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_GPU_FRAMEBUFFER:
-    AHardwareBuffer_UsageFlags = 512;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_GPU_COLOR_OUTPUT:
-    AHardwareBuffer_UsageFlags = 512;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_COMPOSER_OVERLAY:
-    AHardwareBuffer_UsageFlags = 2048;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_PROTECTED_CONTENT:
-    AHardwareBuffer_UsageFlags = 16384;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VIDEO_ENCODE:
-    AHardwareBuffer_UsageFlags = 65536;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_SENSOR_DIRECT_DATA:
-    AHardwareBuffer_UsageFlags = 8388608;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_GPU_DATA_BUFFER:
-    AHardwareBuffer_UsageFlags = 16777216;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_GPU_CUBE_MAP:
-    AHardwareBuffer_UsageFlags = 33554432;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE:
-    AHardwareBuffer_UsageFlags = 67108864;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_0: AHardwareBuffer_UsageFlags =
-    268435456;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_1: AHardwareBuffer_UsageFlags =
-    536870912;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_2: AHardwareBuffer_UsageFlags =
-    1073741824;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_3: AHardwareBuffer_UsageFlags =
-    2147483648;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_4: AHardwareBuffer_UsageFlags =
-    281474976710656;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_5: AHardwareBuffer_UsageFlags =
-    562949953421312;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_6: AHardwareBuffer_UsageFlags =
-    1125899906842624;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_7: AHardwareBuffer_UsageFlags =
-    2251799813685248;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_8: AHardwareBuffer_UsageFlags =
-    4503599627370496;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_9: AHardwareBuffer_UsageFlags =
-    9007199254740992;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_10: AHardwareBuffer_UsageFlags =
-    18014398509481984;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_11: AHardwareBuffer_UsageFlags =
-    36028797018963968;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_12: AHardwareBuffer_UsageFlags =
-    72057594037927936;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_13: AHardwareBuffer_UsageFlags =
-    144115188075855872;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_14: AHardwareBuffer_UsageFlags =
-    288230376151711744;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_15: AHardwareBuffer_UsageFlags =
-    576460752303423488;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_16: AHardwareBuffer_UsageFlags =
-    1152921504606846976;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_17: AHardwareBuffer_UsageFlags =
-    2305843009213693952;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_18: AHardwareBuffer_UsageFlags =
-    4611686018427387904;
-pub const AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_19: AHardwareBuffer_UsageFlags =
-    9223372036854775808;
-pub type AHardwareBuffer_UsageFlags = ::std::os::raw::c_ulong;
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_READ_NEVER: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(0);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_READ_RARELY: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(2);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_READ_OFTEN: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(3);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_READ_MASK: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(15);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_WRITE_NEVER: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(0);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_WRITE_RARELY: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(32);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_WRITE_OFTEN: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(48);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_CPU_WRITE_MASK: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(240);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(256);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_GPU_FRAMEBUFFER: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(512);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_GPU_COLOR_OUTPUT: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(512);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_COMPOSER_OVERLAY: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(2048);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_PROTECTED_CONTENT: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(16384);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VIDEO_ENCODE: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(65536);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_SENSOR_DIRECT_DATA: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(8388608);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_GPU_DATA_BUFFER: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(16777216);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_GPU_CUBE_MAP: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(33554432);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(67108864);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_0: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(268435456);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_1: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(536870912);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_2: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(1073741824);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_3: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(2147483648);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_4: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(281474976710656);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_5: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(562949953421312);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_6: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(1125899906842624);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_7: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(2251799813685248);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_8: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(4503599627370496);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_9: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(9007199254740992);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_10: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(18014398509481984);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_11: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(36028797018963968);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_12: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(72057594037927936);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_13: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(144115188075855872);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_14: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(288230376151711744);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_15: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(576460752303423488);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_16: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(1152921504606846976);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_17: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(2305843009213693952);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_18: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(4611686018427387904);
+}
+impl AHardwareBuffer_UsageFlags {
+    pub const AHARDWAREBUFFER_USAGE_VENDOR_19: AHardwareBuffer_UsageFlags =
+        AHardwareBuffer_UsageFlags(9223372036854775808);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AHardwareBuffer_UsageFlags(pub ::std::os::raw::c_ulong);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AHardwareBuffer_Desc {
@@ -3130,10 +3285,18 @@ extern "C" {
         hardwareBuffer: *mut AHardwareBuffer,
     ) -> jobject;
 }
-pub const AHdrMetadataType_HDR10_SMPTE2086: AHdrMetadataType = 1;
-pub const AHdrMetadataType_HDR10_CTA861_3: AHdrMetadataType = 2;
-pub const AHdrMetadataType_HDR10PLUS_SEI: AHdrMetadataType = 3;
-pub type AHdrMetadataType = u32;
+impl AHdrMetadataType {
+    pub const HDR10_SMPTE2086: AHdrMetadataType = AHdrMetadataType(1);
+}
+impl AHdrMetadataType {
+    pub const HDR10_CTA861_3: AHdrMetadataType = AHdrMetadataType(2);
+}
+impl AHdrMetadataType {
+    pub const HDR10PLUS_SEI: AHdrMetadataType = AHdrMetadataType(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AHdrMetadataType(pub u32);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AColor_xy {
@@ -4312,16 +4475,36 @@ extern "C" {
         handled: ::std::os::raw::c_int,
     );
 }
-pub const android_LogPriority_ANDROID_LOG_UNKNOWN: android_LogPriority = 0;
-pub const android_LogPriority_ANDROID_LOG_DEFAULT: android_LogPriority = 1;
-pub const android_LogPriority_ANDROID_LOG_VERBOSE: android_LogPriority = 2;
-pub const android_LogPriority_ANDROID_LOG_DEBUG: android_LogPriority = 3;
-pub const android_LogPriority_ANDROID_LOG_INFO: android_LogPriority = 4;
-pub const android_LogPriority_ANDROID_LOG_WARN: android_LogPriority = 5;
-pub const android_LogPriority_ANDROID_LOG_ERROR: android_LogPriority = 6;
-pub const android_LogPriority_ANDROID_LOG_FATAL: android_LogPriority = 7;
-pub const android_LogPriority_ANDROID_LOG_SILENT: android_LogPriority = 8;
-pub type android_LogPriority = ::std::os::raw::c_uint;
+impl android_LogPriority {
+    pub const ANDROID_LOG_UNKNOWN: android_LogPriority = android_LogPriority(0);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_DEFAULT: android_LogPriority = android_LogPriority(1);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_VERBOSE: android_LogPriority = android_LogPriority(2);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_DEBUG: android_LogPriority = android_LogPriority(3);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_INFO: android_LogPriority = android_LogPriority(4);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_WARN: android_LogPriority = android_LogPriority(5);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_ERROR: android_LogPriority = android_LogPriority(6);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_FATAL: android_LogPriority = android_LogPriority(7);
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_SILENT: android_LogPriority = android_LogPriority(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct android_LogPriority(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn __android_log_write(
         prio: ::std::os::raw::c_int,
@@ -4353,18 +4536,42 @@ extern "C" {
         ...
     );
 }
-pub const log_id_LOG_ID_MIN: log_id = 0;
-pub const log_id_LOG_ID_MAIN: log_id = 0;
-pub const log_id_LOG_ID_RADIO: log_id = 1;
-pub const log_id_LOG_ID_EVENTS: log_id = 2;
-pub const log_id_LOG_ID_SYSTEM: log_id = 3;
-pub const log_id_LOG_ID_CRASH: log_id = 4;
-pub const log_id_LOG_ID_STATS: log_id = 5;
-pub const log_id_LOG_ID_SECURITY: log_id = 6;
-pub const log_id_LOG_ID_KERNEL: log_id = 7;
-pub const log_id_LOG_ID_MAX: log_id = 8;
-pub const log_id_LOG_ID_DEFAULT: log_id = 2147483647;
-pub type log_id = ::std::os::raw::c_uint;
+impl log_id {
+    pub const LOG_ID_MIN: log_id = log_id(0);
+}
+impl log_id {
+    pub const LOG_ID_MAIN: log_id = log_id(0);
+}
+impl log_id {
+    pub const LOG_ID_RADIO: log_id = log_id(1);
+}
+impl log_id {
+    pub const LOG_ID_EVENTS: log_id = log_id(2);
+}
+impl log_id {
+    pub const LOG_ID_SYSTEM: log_id = log_id(3);
+}
+impl log_id {
+    pub const LOG_ID_CRASH: log_id = log_id(4);
+}
+impl log_id {
+    pub const LOG_ID_STATS: log_id = log_id(5);
+}
+impl log_id {
+    pub const LOG_ID_SECURITY: log_id = log_id(6);
+}
+impl log_id {
+    pub const LOG_ID_KERNEL: log_id = log_id(7);
+}
+impl log_id {
+    pub const LOG_ID_MAX: log_id = log_id(8);
+}
+impl log_id {
+    pub const LOG_ID_DEFAULT: log_id = log_id(2147483647);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct log_id(pub ::std::os::raw::c_uint);
 pub use self::log_id as log_id_t;
 extern "C" {
     pub fn __android_log_buf_write(
@@ -6398,11 +6605,21 @@ extern "C" {
         __fp: *mut FILE,
     ) -> ::std::os::raw::c_int;
 }
-pub const HeapTaggingLevel_M_HEAP_TAGGING_LEVEL_NONE: HeapTaggingLevel = 0;
-pub const HeapTaggingLevel_M_HEAP_TAGGING_LEVEL_TBI: HeapTaggingLevel = 1;
-pub const HeapTaggingLevel_M_HEAP_TAGGING_LEVEL_ASYNC: HeapTaggingLevel = 2;
-pub const HeapTaggingLevel_M_HEAP_TAGGING_LEVEL_SYNC: HeapTaggingLevel = 3;
-pub type HeapTaggingLevel = ::std::os::raw::c_uint;
+impl HeapTaggingLevel {
+    pub const M_HEAP_TAGGING_LEVEL_NONE: HeapTaggingLevel = HeapTaggingLevel(0);
+}
+impl HeapTaggingLevel {
+    pub const M_HEAP_TAGGING_LEVEL_TBI: HeapTaggingLevel = HeapTaggingLevel(1);
+}
+impl HeapTaggingLevel {
+    pub const M_HEAP_TAGGING_LEVEL_ASYNC: HeapTaggingLevel = HeapTaggingLevel(2);
+}
+impl HeapTaggingLevel {
+    pub const M_HEAP_TAGGING_LEVEL_SYNC: HeapTaggingLevel = HeapTaggingLevel(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct HeapTaggingLevel(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn mallopt(
         __option: ::std::os::raw::c_int,
@@ -6993,10 +7210,18 @@ extern "C" {
         res: *mut *mut addrinfo,
     ) -> ::std::os::raw::c_int;
 }
-pub const ResNsendFlags_ANDROID_RESOLV_NO_RETRY: ResNsendFlags = 1;
-pub const ResNsendFlags_ANDROID_RESOLV_NO_CACHE_STORE: ResNsendFlags = 2;
-pub const ResNsendFlags_ANDROID_RESOLV_NO_CACHE_LOOKUP: ResNsendFlags = 4;
-pub type ResNsendFlags = u32;
+impl ResNsendFlags {
+    pub const ANDROID_RESOLV_NO_RETRY: ResNsendFlags = ResNsendFlags(1);
+}
+impl ResNsendFlags {
+    pub const ANDROID_RESOLV_NO_CACHE_STORE: ResNsendFlags = ResNsendFlags(2);
+}
+impl ResNsendFlags {
+    pub const ANDROID_RESOLV_NO_CACHE_LOOKUP: ResNsendFlags = ResNsendFlags(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ResNsendFlags(pub u32);
 extern "C" {
     pub fn android_res_nquery(
         network: net_handle_t,
@@ -7025,19 +7250,43 @@ extern "C" {
 extern "C" {
     pub fn android_res_cancel(nsend_fd: ::std::os::raw::c_int);
 }
-pub const ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGBA_8888: ANativeWindow_LegacyFormat = 1;
-pub const ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGBX_8888: ANativeWindow_LegacyFormat = 2;
-pub const ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGB_565: ANativeWindow_LegacyFormat = 4;
-pub type ANativeWindow_LegacyFormat = ::std::os::raw::c_uint;
-pub const ANativeWindowTransform_ANATIVEWINDOW_TRANSFORM_IDENTITY: ANativeWindowTransform = 0;
-pub const ANativeWindowTransform_ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL: ANativeWindowTransform =
-    1;
-pub const ANativeWindowTransform_ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL: ANativeWindowTransform =
-    2;
-pub const ANativeWindowTransform_ANATIVEWINDOW_TRANSFORM_ROTATE_90: ANativeWindowTransform = 4;
-pub const ANativeWindowTransform_ANATIVEWINDOW_TRANSFORM_ROTATE_180: ANativeWindowTransform = 3;
-pub const ANativeWindowTransform_ANATIVEWINDOW_TRANSFORM_ROTATE_270: ANativeWindowTransform = 7;
-pub type ANativeWindowTransform = ::std::os::raw::c_uint;
+impl ANativeWindow_LegacyFormat {
+    pub const WINDOW_FORMAT_RGBA_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(1);
+}
+impl ANativeWindow_LegacyFormat {
+    pub const WINDOW_FORMAT_RGBX_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(2);
+}
+impl ANativeWindow_LegacyFormat {
+    pub const WINDOW_FORMAT_RGB_565: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindow_LegacyFormat(pub ::std::os::raw::c_uint);
+impl ANativeWindowTransform {
+    pub const ANATIVEWINDOW_TRANSFORM_IDENTITY: ANativeWindowTransform = ANativeWindowTransform(0);
+}
+impl ANativeWindowTransform {
+    pub const ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL: ANativeWindowTransform =
+        ANativeWindowTransform(1);
+}
+impl ANativeWindowTransform {
+    pub const ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL: ANativeWindowTransform =
+        ANativeWindowTransform(2);
+}
+impl ANativeWindowTransform {
+    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_90: ANativeWindowTransform = ANativeWindowTransform(4);
+}
+impl ANativeWindowTransform {
+    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_180: ANativeWindowTransform =
+        ANativeWindowTransform(3);
+}
+impl ANativeWindowTransform {
+    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_270: ANativeWindowTransform =
+        ANativeWindowTransform(7);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindowTransform(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ANativeWindow {
@@ -7168,10 +7417,17 @@ extern "C" {
 extern "C" {
     pub fn ANativeWindow_getBuffersDataSpace(window: *mut ANativeWindow) -> i32;
 }
-pub const ANativeWindow_FrameRateCompatibility_ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT:
-    ANativeWindow_FrameRateCompatibility = 0;
-pub const ANativeWindow_FrameRateCompatibility_ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE : ANativeWindow_FrameRateCompatibility = 1 ;
-pub type ANativeWindow_FrameRateCompatibility = ::std::os::raw::c_uint;
+impl ANativeWindow_FrameRateCompatibility {
+    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT: ANativeWindow_FrameRateCompatibility =
+        ANativeWindow_FrameRateCompatibility(0);
+}
+impl ANativeWindow_FrameRateCompatibility {
+    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE:
+        ANativeWindow_FrameRateCompatibility = ANativeWindow_FrameRateCompatibility(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindow_FrameRateCompatibility(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn ANativeWindow_setFrameRate(
         window: *mut ANativeWindow,
@@ -7182,11 +7438,17 @@ extern "C" {
 extern "C" {
     pub fn ANativeWindow_tryAllocateBuffers(window: *mut ANativeWindow);
 }
-pub const ANativeWindow_ChangeFrameRateStrategy_ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS:
-    ANativeWindow_ChangeFrameRateStrategy = 0;
-pub const ANativeWindow_ChangeFrameRateStrategy_ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS:
-    ANativeWindow_ChangeFrameRateStrategy = 1;
-pub type ANativeWindow_ChangeFrameRateStrategy = ::std::os::raw::c_uint;
+impl ANativeWindow_ChangeFrameRateStrategy {
+    pub const ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS:
+        ANativeWindow_ChangeFrameRateStrategy = ANativeWindow_ChangeFrameRateStrategy(0);
+}
+impl ANativeWindow_ChangeFrameRateStrategy {
+    pub const ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS: ANativeWindow_ChangeFrameRateStrategy =
+        ANativeWindow_ChangeFrameRateStrategy(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindow_ChangeFrameRateStrategy(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn ANativeWindow_setFrameRateWithChangeStrategy(
         window: *mut ANativeWindow,
@@ -7625,180 +7887,520 @@ extern "C" {
 extern "C" {
     pub fn ANativeWindow_toSurface(env: *mut JNIEnv, window: *mut ANativeWindow) -> jobject;
 }
-pub const OperandCode_ANEURALNETWORKS_FLOAT32: OperandCode = 0;
-pub const OperandCode_ANEURALNETWORKS_INT32: OperandCode = 1;
-pub const OperandCode_ANEURALNETWORKS_UINT32: OperandCode = 2;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_FLOAT32: OperandCode = 3;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_INT32: OperandCode = 4;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_QUANT8_ASYMM: OperandCode = 5;
-pub const OperandCode_ANEURALNETWORKS_BOOL: OperandCode = 6;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_QUANT16_SYMM: OperandCode = 7;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_FLOAT16: OperandCode = 8;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_BOOL8: OperandCode = 9;
-pub const OperandCode_ANEURALNETWORKS_FLOAT16: OperandCode = 10;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_QUANT8_SYMM_PER_CHANNEL: OperandCode = 11;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_QUANT16_ASYMM: OperandCode = 12;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_QUANT8_SYMM: OperandCode = 13;
-pub const OperandCode_ANEURALNETWORKS_TENSOR_QUANT8_ASYMM_SIGNED: OperandCode = 14;
-pub const OperandCode_ANEURALNETWORKS_MODEL: OperandCode = 15;
-pub type OperandCode = ::std::os::raw::c_uint;
-pub const OperationCode_ANEURALNETWORKS_ADD: OperationCode = 0;
-pub const OperationCode_ANEURALNETWORKS_AVERAGE_POOL_2D: OperationCode = 1;
-pub const OperationCode_ANEURALNETWORKS_CONCATENATION: OperationCode = 2;
-pub const OperationCode_ANEURALNETWORKS_CONV_2D: OperationCode = 3;
-pub const OperationCode_ANEURALNETWORKS_DEPTHWISE_CONV_2D: OperationCode = 4;
-pub const OperationCode_ANEURALNETWORKS_DEPTH_TO_SPACE: OperationCode = 5;
-pub const OperationCode_ANEURALNETWORKS_DEQUANTIZE: OperationCode = 6;
-pub const OperationCode_ANEURALNETWORKS_EMBEDDING_LOOKUP: OperationCode = 7;
-pub const OperationCode_ANEURALNETWORKS_FLOOR: OperationCode = 8;
-pub const OperationCode_ANEURALNETWORKS_FULLY_CONNECTED: OperationCode = 9;
-pub const OperationCode_ANEURALNETWORKS_HASHTABLE_LOOKUP: OperationCode = 10;
-pub const OperationCode_ANEURALNETWORKS_L2_NORMALIZATION: OperationCode = 11;
-pub const OperationCode_ANEURALNETWORKS_L2_POOL_2D: OperationCode = 12;
-pub const OperationCode_ANEURALNETWORKS_LOCAL_RESPONSE_NORMALIZATION: OperationCode = 13;
-pub const OperationCode_ANEURALNETWORKS_LOGISTIC: OperationCode = 14;
-pub const OperationCode_ANEURALNETWORKS_LSH_PROJECTION: OperationCode = 15;
-pub const OperationCode_ANEURALNETWORKS_LSTM: OperationCode = 16;
-pub const OperationCode_ANEURALNETWORKS_MAX_POOL_2D: OperationCode = 17;
-pub const OperationCode_ANEURALNETWORKS_MUL: OperationCode = 18;
-pub const OperationCode_ANEURALNETWORKS_RELU: OperationCode = 19;
-pub const OperationCode_ANEURALNETWORKS_RELU1: OperationCode = 20;
-pub const OperationCode_ANEURALNETWORKS_RELU6: OperationCode = 21;
-pub const OperationCode_ANEURALNETWORKS_RESHAPE: OperationCode = 22;
-pub const OperationCode_ANEURALNETWORKS_RESIZE_BILINEAR: OperationCode = 23;
-pub const OperationCode_ANEURALNETWORKS_RNN: OperationCode = 24;
-pub const OperationCode_ANEURALNETWORKS_SOFTMAX: OperationCode = 25;
-pub const OperationCode_ANEURALNETWORKS_SPACE_TO_DEPTH: OperationCode = 26;
-pub const OperationCode_ANEURALNETWORKS_SVDF: OperationCode = 27;
-pub const OperationCode_ANEURALNETWORKS_TANH: OperationCode = 28;
-pub const OperationCode_ANEURALNETWORKS_BATCH_TO_SPACE_ND: OperationCode = 29;
-pub const OperationCode_ANEURALNETWORKS_DIV: OperationCode = 30;
-pub const OperationCode_ANEURALNETWORKS_MEAN: OperationCode = 31;
-pub const OperationCode_ANEURALNETWORKS_PAD: OperationCode = 32;
-pub const OperationCode_ANEURALNETWORKS_SPACE_TO_BATCH_ND: OperationCode = 33;
-pub const OperationCode_ANEURALNETWORKS_SQUEEZE: OperationCode = 34;
-pub const OperationCode_ANEURALNETWORKS_STRIDED_SLICE: OperationCode = 35;
-pub const OperationCode_ANEURALNETWORKS_SUB: OperationCode = 36;
-pub const OperationCode_ANEURALNETWORKS_TRANSPOSE: OperationCode = 37;
-pub const OperationCode_ANEURALNETWORKS_ABS: OperationCode = 38;
-pub const OperationCode_ANEURALNETWORKS_ARGMAX: OperationCode = 39;
-pub const OperationCode_ANEURALNETWORKS_ARGMIN: OperationCode = 40;
-pub const OperationCode_ANEURALNETWORKS_AXIS_ALIGNED_BBOX_TRANSFORM: OperationCode = 41;
-pub const OperationCode_ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = 42;
-pub const OperationCode_ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_RNN: OperationCode = 43;
-pub const OperationCode_ANEURALNETWORKS_BOX_WITH_NMS_LIMIT: OperationCode = 44;
-pub const OperationCode_ANEURALNETWORKS_CAST: OperationCode = 45;
-pub const OperationCode_ANEURALNETWORKS_CHANNEL_SHUFFLE: OperationCode = 46;
-pub const OperationCode_ANEURALNETWORKS_DETECTION_POSTPROCESSING: OperationCode = 47;
-pub const OperationCode_ANEURALNETWORKS_EQUAL: OperationCode = 48;
-pub const OperationCode_ANEURALNETWORKS_EXP: OperationCode = 49;
-pub const OperationCode_ANEURALNETWORKS_EXPAND_DIMS: OperationCode = 50;
-pub const OperationCode_ANEURALNETWORKS_GATHER: OperationCode = 51;
-pub const OperationCode_ANEURALNETWORKS_GENERATE_PROPOSALS: OperationCode = 52;
-pub const OperationCode_ANEURALNETWORKS_GREATER: OperationCode = 53;
-pub const OperationCode_ANEURALNETWORKS_GREATER_EQUAL: OperationCode = 54;
-pub const OperationCode_ANEURALNETWORKS_GROUPED_CONV_2D: OperationCode = 55;
-pub const OperationCode_ANEURALNETWORKS_HEATMAP_MAX_KEYPOINT: OperationCode = 56;
-pub const OperationCode_ANEURALNETWORKS_INSTANCE_NORMALIZATION: OperationCode = 57;
-pub const OperationCode_ANEURALNETWORKS_LESS: OperationCode = 58;
-pub const OperationCode_ANEURALNETWORKS_LESS_EQUAL: OperationCode = 59;
-pub const OperationCode_ANEURALNETWORKS_LOG: OperationCode = 60;
-pub const OperationCode_ANEURALNETWORKS_LOGICAL_AND: OperationCode = 61;
-pub const OperationCode_ANEURALNETWORKS_LOGICAL_NOT: OperationCode = 62;
-pub const OperationCode_ANEURALNETWORKS_LOGICAL_OR: OperationCode = 63;
-pub const OperationCode_ANEURALNETWORKS_LOG_SOFTMAX: OperationCode = 64;
-pub const OperationCode_ANEURALNETWORKS_MAXIMUM: OperationCode = 65;
-pub const OperationCode_ANEURALNETWORKS_MINIMUM: OperationCode = 66;
-pub const OperationCode_ANEURALNETWORKS_NEG: OperationCode = 67;
-pub const OperationCode_ANEURALNETWORKS_NOT_EQUAL: OperationCode = 68;
-pub const OperationCode_ANEURALNETWORKS_PAD_V2: OperationCode = 69;
-pub const OperationCode_ANEURALNETWORKS_POW: OperationCode = 70;
-pub const OperationCode_ANEURALNETWORKS_PRELU: OperationCode = 71;
-pub const OperationCode_ANEURALNETWORKS_QUANTIZE: OperationCode = 72;
-pub const OperationCode_ANEURALNETWORKS_QUANTIZED_16BIT_LSTM: OperationCode = 73;
-pub const OperationCode_ANEURALNETWORKS_RANDOM_MULTINOMIAL: OperationCode = 74;
-pub const OperationCode_ANEURALNETWORKS_REDUCE_ALL: OperationCode = 75;
-pub const OperationCode_ANEURALNETWORKS_REDUCE_ANY: OperationCode = 76;
-pub const OperationCode_ANEURALNETWORKS_REDUCE_MAX: OperationCode = 77;
-pub const OperationCode_ANEURALNETWORKS_REDUCE_MIN: OperationCode = 78;
-pub const OperationCode_ANEURALNETWORKS_REDUCE_PROD: OperationCode = 79;
-pub const OperationCode_ANEURALNETWORKS_REDUCE_SUM: OperationCode = 80;
-pub const OperationCode_ANEURALNETWORKS_ROI_ALIGN: OperationCode = 81;
-pub const OperationCode_ANEURALNETWORKS_ROI_POOLING: OperationCode = 82;
-pub const OperationCode_ANEURALNETWORKS_RSQRT: OperationCode = 83;
-pub const OperationCode_ANEURALNETWORKS_SELECT: OperationCode = 84;
-pub const OperationCode_ANEURALNETWORKS_SIN: OperationCode = 85;
-pub const OperationCode_ANEURALNETWORKS_SLICE: OperationCode = 86;
-pub const OperationCode_ANEURALNETWORKS_SPLIT: OperationCode = 87;
-pub const OperationCode_ANEURALNETWORKS_SQRT: OperationCode = 88;
-pub const OperationCode_ANEURALNETWORKS_TILE: OperationCode = 89;
-pub const OperationCode_ANEURALNETWORKS_TOPK_V2: OperationCode = 90;
-pub const OperationCode_ANEURALNETWORKS_TRANSPOSE_CONV_2D: OperationCode = 91;
-pub const OperationCode_ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = 92;
-pub const OperationCode_ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_RNN: OperationCode = 93;
-pub const OperationCode_ANEURALNETWORKS_RESIZE_NEAREST_NEIGHBOR: OperationCode = 94;
-pub const OperationCode_ANEURALNETWORKS_QUANTIZED_LSTM: OperationCode = 95;
-pub const OperationCode_ANEURALNETWORKS_IF: OperationCode = 96;
-pub const OperationCode_ANEURALNETWORKS_WHILE: OperationCode = 97;
-pub const OperationCode_ANEURALNETWORKS_ELU: OperationCode = 98;
-pub const OperationCode_ANEURALNETWORKS_HARD_SWISH: OperationCode = 99;
-pub const OperationCode_ANEURALNETWORKS_FILL: OperationCode = 100;
-pub const OperationCode_ANEURALNETWORKS_RANK: OperationCode = 101;
-pub type OperationCode = ::std::os::raw::c_uint;
-pub const FuseCode_ANEURALNETWORKS_FUSED_NONE: FuseCode = 0;
-pub const FuseCode_ANEURALNETWORKS_FUSED_RELU: FuseCode = 1;
-pub const FuseCode_ANEURALNETWORKS_FUSED_RELU1: FuseCode = 2;
-pub const FuseCode_ANEURALNETWORKS_FUSED_RELU6: FuseCode = 3;
-pub type FuseCode = ::std::os::raw::c_uint;
-pub const PaddingCode_ANEURALNETWORKS_PADDING_SAME: PaddingCode = 1;
-pub const PaddingCode_ANEURALNETWORKS_PADDING_VALID: PaddingCode = 2;
-pub type PaddingCode = ::std::os::raw::c_uint;
-pub const PreferenceCode_ANEURALNETWORKS_PREFER_LOW_POWER: PreferenceCode = 0;
-pub const PreferenceCode_ANEURALNETWORKS_PREFER_FAST_SINGLE_ANSWER: PreferenceCode = 1;
-pub const PreferenceCode_ANEURALNETWORKS_PREFER_SUSTAINED_SPEED: PreferenceCode = 2;
-pub type PreferenceCode = ::std::os::raw::c_uint;
-pub const DeviceTypeCode_ANEURALNETWORKS_DEVICE_UNKNOWN: DeviceTypeCode = 0;
-pub const DeviceTypeCode_ANEURALNETWORKS_DEVICE_OTHER: DeviceTypeCode = 1;
-pub const DeviceTypeCode_ANEURALNETWORKS_DEVICE_CPU: DeviceTypeCode = 2;
-pub const DeviceTypeCode_ANEURALNETWORKS_DEVICE_GPU: DeviceTypeCode = 3;
-pub const DeviceTypeCode_ANEURALNETWORKS_DEVICE_ACCELERATOR: DeviceTypeCode = 4;
-pub type DeviceTypeCode = ::std::os::raw::c_uint;
-pub const FeatureLevelCode_ANEURALNETWORKS_FEATURE_LEVEL_1: FeatureLevelCode = 27;
-pub const FeatureLevelCode_ANEURALNETWORKS_FEATURE_LEVEL_2: FeatureLevelCode = 28;
-pub const FeatureLevelCode_ANEURALNETWORKS_FEATURE_LEVEL_3: FeatureLevelCode = 29;
-pub const FeatureLevelCode_ANEURALNETWORKS_FEATURE_LEVEL_4: FeatureLevelCode = 30;
-pub const FeatureLevelCode_ANEURALNETWORKS_FEATURE_LEVEL_5: FeatureLevelCode = 31;
-pub type FeatureLevelCode = ::std::os::raw::c_uint;
-pub const ResultCode_ANEURALNETWORKS_NO_ERROR: ResultCode = 0;
-pub const ResultCode_ANEURALNETWORKS_OUT_OF_MEMORY: ResultCode = 1;
-pub const ResultCode_ANEURALNETWORKS_INCOMPLETE: ResultCode = 2;
-pub const ResultCode_ANEURALNETWORKS_UNEXPECTED_NULL: ResultCode = 3;
-pub const ResultCode_ANEURALNETWORKS_BAD_DATA: ResultCode = 4;
-pub const ResultCode_ANEURALNETWORKS_OP_FAILED: ResultCode = 5;
-pub const ResultCode_ANEURALNETWORKS_BAD_STATE: ResultCode = 6;
-pub const ResultCode_ANEURALNETWORKS_UNMAPPABLE: ResultCode = 7;
-pub const ResultCode_ANEURALNETWORKS_OUTPUT_INSUFFICIENT_SIZE: ResultCode = 8;
-pub const ResultCode_ANEURALNETWORKS_UNAVAILABLE_DEVICE: ResultCode = 9;
-pub const ResultCode_ANEURALNETWORKS_MISSED_DEADLINE_TRANSIENT: ResultCode = 10;
-pub const ResultCode_ANEURALNETWORKS_MISSED_DEADLINE_PERSISTENT: ResultCode = 11;
-pub const ResultCode_ANEURALNETWORKS_RESOURCE_EXHAUSTED_TRANSIENT: ResultCode = 12;
-pub const ResultCode_ANEURALNETWORKS_RESOURCE_EXHAUSTED_PERSISTENT: ResultCode = 13;
-pub const ResultCode_ANEURALNETWORKS_DEAD_OBJECT: ResultCode = 14;
-pub type ResultCode = ::std::os::raw::c_uint;
+impl OperandCode {
+    pub const ANEURALNETWORKS_FLOAT32: OperandCode = OperandCode(0);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_INT32: OperandCode = OperandCode(1);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_UINT32: OperandCode = OperandCode(2);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_FLOAT32: OperandCode = OperandCode(3);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_INT32: OperandCode = OperandCode(4);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_ASYMM: OperandCode = OperandCode(5);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_BOOL: OperandCode = OperandCode(6);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_QUANT16_SYMM: OperandCode = OperandCode(7);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_FLOAT16: OperandCode = OperandCode(8);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_BOOL8: OperandCode = OperandCode(9);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_FLOAT16: OperandCode = OperandCode(10);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_SYMM_PER_CHANNEL: OperandCode = OperandCode(11);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_QUANT16_ASYMM: OperandCode = OperandCode(12);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_SYMM: OperandCode = OperandCode(13);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_ASYMM_SIGNED: OperandCode = OperandCode(14);
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_MODEL: OperandCode = OperandCode(15);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct OperandCode(pub ::std::os::raw::c_uint);
+impl OperationCode {
+    pub const ANEURALNETWORKS_ADD: OperationCode = OperationCode(0);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_AVERAGE_POOL_2D: OperationCode = OperationCode(1);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_CONCATENATION: OperationCode = OperationCode(2);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_CONV_2D: OperationCode = OperationCode(3);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_DEPTHWISE_CONV_2D: OperationCode = OperationCode(4);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_DEPTH_TO_SPACE: OperationCode = OperationCode(5);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_DEQUANTIZE: OperationCode = OperationCode(6);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_EMBEDDING_LOOKUP: OperationCode = OperationCode(7);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_FLOOR: OperationCode = OperationCode(8);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_FULLY_CONNECTED: OperationCode = OperationCode(9);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_HASHTABLE_LOOKUP: OperationCode = OperationCode(10);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_L2_NORMALIZATION: OperationCode = OperationCode(11);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_L2_POOL_2D: OperationCode = OperationCode(12);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LOCAL_RESPONSE_NORMALIZATION: OperationCode = OperationCode(13);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LOGISTIC: OperationCode = OperationCode(14);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LSH_PROJECTION: OperationCode = OperationCode(15);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LSTM: OperationCode = OperationCode(16);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_MAX_POOL_2D: OperationCode = OperationCode(17);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_MUL: OperationCode = OperationCode(18);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RELU: OperationCode = OperationCode(19);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RELU1: OperationCode = OperationCode(20);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RELU6: OperationCode = OperationCode(21);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RESHAPE: OperationCode = OperationCode(22);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RESIZE_BILINEAR: OperationCode = OperationCode(23);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RNN: OperationCode = OperationCode(24);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SOFTMAX: OperationCode = OperationCode(25);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SPACE_TO_DEPTH: OperationCode = OperationCode(26);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SVDF: OperationCode = OperationCode(27);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_TANH: OperationCode = OperationCode(28);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_BATCH_TO_SPACE_ND: OperationCode = OperationCode(29);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_DIV: OperationCode = OperationCode(30);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_MEAN: OperationCode = OperationCode(31);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_PAD: OperationCode = OperationCode(32);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SPACE_TO_BATCH_ND: OperationCode = OperationCode(33);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SQUEEZE: OperationCode = OperationCode(34);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_STRIDED_SLICE: OperationCode = OperationCode(35);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SUB: OperationCode = OperationCode(36);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_TRANSPOSE: OperationCode = OperationCode(37);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_ABS: OperationCode = OperationCode(38);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_ARGMAX: OperationCode = OperationCode(39);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_ARGMIN: OperationCode = OperationCode(40);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_AXIS_ALIGNED_BBOX_TRANSFORM: OperationCode = OperationCode(41);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = OperationCode(42);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_RNN: OperationCode = OperationCode(43);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_BOX_WITH_NMS_LIMIT: OperationCode = OperationCode(44);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_CAST: OperationCode = OperationCode(45);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_CHANNEL_SHUFFLE: OperationCode = OperationCode(46);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_DETECTION_POSTPROCESSING: OperationCode = OperationCode(47);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_EQUAL: OperationCode = OperationCode(48);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_EXP: OperationCode = OperationCode(49);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_EXPAND_DIMS: OperationCode = OperationCode(50);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_GATHER: OperationCode = OperationCode(51);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_GENERATE_PROPOSALS: OperationCode = OperationCode(52);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_GREATER: OperationCode = OperationCode(53);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_GREATER_EQUAL: OperationCode = OperationCode(54);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_GROUPED_CONV_2D: OperationCode = OperationCode(55);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_HEATMAP_MAX_KEYPOINT: OperationCode = OperationCode(56);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_INSTANCE_NORMALIZATION: OperationCode = OperationCode(57);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LESS: OperationCode = OperationCode(58);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LESS_EQUAL: OperationCode = OperationCode(59);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LOG: OperationCode = OperationCode(60);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LOGICAL_AND: OperationCode = OperationCode(61);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LOGICAL_NOT: OperationCode = OperationCode(62);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LOGICAL_OR: OperationCode = OperationCode(63);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_LOG_SOFTMAX: OperationCode = OperationCode(64);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_MAXIMUM: OperationCode = OperationCode(65);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_MINIMUM: OperationCode = OperationCode(66);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_NEG: OperationCode = OperationCode(67);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_NOT_EQUAL: OperationCode = OperationCode(68);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_PAD_V2: OperationCode = OperationCode(69);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_POW: OperationCode = OperationCode(70);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_PRELU: OperationCode = OperationCode(71);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_QUANTIZE: OperationCode = OperationCode(72);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_QUANTIZED_16BIT_LSTM: OperationCode = OperationCode(73);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RANDOM_MULTINOMIAL: OperationCode = OperationCode(74);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_REDUCE_ALL: OperationCode = OperationCode(75);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_REDUCE_ANY: OperationCode = OperationCode(76);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_REDUCE_MAX: OperationCode = OperationCode(77);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_REDUCE_MIN: OperationCode = OperationCode(78);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_REDUCE_PROD: OperationCode = OperationCode(79);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_REDUCE_SUM: OperationCode = OperationCode(80);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_ROI_ALIGN: OperationCode = OperationCode(81);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_ROI_POOLING: OperationCode = OperationCode(82);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RSQRT: OperationCode = OperationCode(83);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SELECT: OperationCode = OperationCode(84);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SIN: OperationCode = OperationCode(85);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SLICE: OperationCode = OperationCode(86);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SPLIT: OperationCode = OperationCode(87);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_SQRT: OperationCode = OperationCode(88);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_TILE: OperationCode = OperationCode(89);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_TOPK_V2: OperationCode = OperationCode(90);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_TRANSPOSE_CONV_2D: OperationCode = OperationCode(91);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = OperationCode(92);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_RNN: OperationCode = OperationCode(93);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RESIZE_NEAREST_NEIGHBOR: OperationCode = OperationCode(94);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_QUANTIZED_LSTM: OperationCode = OperationCode(95);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_IF: OperationCode = OperationCode(96);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_WHILE: OperationCode = OperationCode(97);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_ELU: OperationCode = OperationCode(98);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_HARD_SWISH: OperationCode = OperationCode(99);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_FILL: OperationCode = OperationCode(100);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_RANK: OperationCode = OperationCode(101);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct OperationCode(pub ::std::os::raw::c_uint);
+impl FuseCode {
+    pub const ANEURALNETWORKS_FUSED_NONE: FuseCode = FuseCode(0);
+}
+impl FuseCode {
+    pub const ANEURALNETWORKS_FUSED_RELU: FuseCode = FuseCode(1);
+}
+impl FuseCode {
+    pub const ANEURALNETWORKS_FUSED_RELU1: FuseCode = FuseCode(2);
+}
+impl FuseCode {
+    pub const ANEURALNETWORKS_FUSED_RELU6: FuseCode = FuseCode(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct FuseCode(pub ::std::os::raw::c_uint);
+impl PaddingCode {
+    pub const ANEURALNETWORKS_PADDING_SAME: PaddingCode = PaddingCode(1);
+}
+impl PaddingCode {
+    pub const ANEURALNETWORKS_PADDING_VALID: PaddingCode = PaddingCode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct PaddingCode(pub ::std::os::raw::c_uint);
+impl PreferenceCode {
+    pub const ANEURALNETWORKS_PREFER_LOW_POWER: PreferenceCode = PreferenceCode(0);
+}
+impl PreferenceCode {
+    pub const ANEURALNETWORKS_PREFER_FAST_SINGLE_ANSWER: PreferenceCode = PreferenceCode(1);
+}
+impl PreferenceCode {
+    pub const ANEURALNETWORKS_PREFER_SUSTAINED_SPEED: PreferenceCode = PreferenceCode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct PreferenceCode(pub ::std::os::raw::c_uint);
+impl DeviceTypeCode {
+    pub const ANEURALNETWORKS_DEVICE_UNKNOWN: DeviceTypeCode = DeviceTypeCode(0);
+}
+impl DeviceTypeCode {
+    pub const ANEURALNETWORKS_DEVICE_OTHER: DeviceTypeCode = DeviceTypeCode(1);
+}
+impl DeviceTypeCode {
+    pub const ANEURALNETWORKS_DEVICE_CPU: DeviceTypeCode = DeviceTypeCode(2);
+}
+impl DeviceTypeCode {
+    pub const ANEURALNETWORKS_DEVICE_GPU: DeviceTypeCode = DeviceTypeCode(3);
+}
+impl DeviceTypeCode {
+    pub const ANEURALNETWORKS_DEVICE_ACCELERATOR: DeviceTypeCode = DeviceTypeCode(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct DeviceTypeCode(pub ::std::os::raw::c_uint);
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_1: FeatureLevelCode = FeatureLevelCode(27);
+}
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_2: FeatureLevelCode = FeatureLevelCode(28);
+}
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_3: FeatureLevelCode = FeatureLevelCode(29);
+}
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_4: FeatureLevelCode = FeatureLevelCode(30);
+}
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_5: FeatureLevelCode = FeatureLevelCode(31);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct FeatureLevelCode(pub ::std::os::raw::c_uint);
+impl ResultCode {
+    pub const ANEURALNETWORKS_NO_ERROR: ResultCode = ResultCode(0);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_OUT_OF_MEMORY: ResultCode = ResultCode(1);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_INCOMPLETE: ResultCode = ResultCode(2);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_UNEXPECTED_NULL: ResultCode = ResultCode(3);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_BAD_DATA: ResultCode = ResultCode(4);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_OP_FAILED: ResultCode = ResultCode(5);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_BAD_STATE: ResultCode = ResultCode(6);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_UNMAPPABLE: ResultCode = ResultCode(7);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_OUTPUT_INSUFFICIENT_SIZE: ResultCode = ResultCode(8);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_UNAVAILABLE_DEVICE: ResultCode = ResultCode(9);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_MISSED_DEADLINE_TRANSIENT: ResultCode = ResultCode(10);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_MISSED_DEADLINE_PERSISTENT: ResultCode = ResultCode(11);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_RESOURCE_EXHAUSTED_TRANSIENT: ResultCode = ResultCode(12);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_RESOURCE_EXHAUSTED_PERSISTENT: ResultCode = ResultCode(13);
+}
+impl ResultCode {
+    pub const ANEURALNETWORKS_DEAD_OBJECT: ResultCode = ResultCode(14);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ResultCode(pub ::std::os::raw::c_uint);
 pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: ::std::os::raw::c_uint = 128;
 pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
 pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: ::std::os::raw::c_uint = 32;
 pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
-pub const DurationCode_ANEURALNETWORKS_DURATION_ON_HARDWARE: DurationCode = 0;
-pub const DurationCode_ANEURALNETWORKS_DURATION_IN_DRIVER: DurationCode = 1;
-pub const DurationCode_ANEURALNETWORKS_FENCED_DURATION_ON_HARDWARE: DurationCode = 2;
-pub const DurationCode_ANEURALNETWORKS_FENCED_DURATION_IN_DRIVER: DurationCode = 3;
-pub type DurationCode = ::std::os::raw::c_uint;
-pub const PriorityCode_ANEURALNETWORKS_PRIORITY_LOW: PriorityCode = 90;
-pub const PriorityCode_ANEURALNETWORKS_PRIORITY_MEDIUM: PriorityCode = 100;
-pub const PriorityCode_ANEURALNETWORKS_PRIORITY_HIGH: PriorityCode = 110;
-pub const PriorityCode_ANEURALNETWORKS_PRIORITY_DEFAULT: PriorityCode = 100;
-pub type PriorityCode = ::std::os::raw::c_uint;
+impl DurationCode {
+    pub const ANEURALNETWORKS_DURATION_ON_HARDWARE: DurationCode = DurationCode(0);
+}
+impl DurationCode {
+    pub const ANEURALNETWORKS_DURATION_IN_DRIVER: DurationCode = DurationCode(1);
+}
+impl DurationCode {
+    pub const ANEURALNETWORKS_FENCED_DURATION_ON_HARDWARE: DurationCode = DurationCode(2);
+}
+impl DurationCode {
+    pub const ANEURALNETWORKS_FENCED_DURATION_IN_DRIVER: DurationCode = DurationCode(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct DurationCode(pub ::std::os::raw::c_uint);
+impl PriorityCode {
+    pub const ANEURALNETWORKS_PRIORITY_LOW: PriorityCode = PriorityCode(90);
+}
+impl PriorityCode {
+    pub const ANEURALNETWORKS_PRIORITY_MEDIUM: PriorityCode = PriorityCode(100);
+}
+impl PriorityCode {
+    pub const ANEURALNETWORKS_PRIORITY_HIGH: PriorityCode = PriorityCode(110);
+}
+impl PriorityCode {
+    pub const ANEURALNETWORKS_PRIORITY_DEFAULT: PriorityCode = PriorityCode(100);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct PriorityCode(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ANeuralNetworksMemory {
@@ -14188,954 +14790,2708 @@ impl camera_status_t {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct camera_status_t(pub ::std::os::raw::c_int);
-pub const acamera_metadata_section_ACAMERA_COLOR_CORRECTION: acamera_metadata_section = 0;
-pub const acamera_metadata_section_ACAMERA_CONTROL: acamera_metadata_section = 1;
-pub const acamera_metadata_section_ACAMERA_DEMOSAIC: acamera_metadata_section = 2;
-pub const acamera_metadata_section_ACAMERA_EDGE: acamera_metadata_section = 3;
-pub const acamera_metadata_section_ACAMERA_FLASH: acamera_metadata_section = 4;
-pub const acamera_metadata_section_ACAMERA_FLASH_INFO: acamera_metadata_section = 5;
-pub const acamera_metadata_section_ACAMERA_HOT_PIXEL: acamera_metadata_section = 6;
-pub const acamera_metadata_section_ACAMERA_JPEG: acamera_metadata_section = 7;
-pub const acamera_metadata_section_ACAMERA_LENS: acamera_metadata_section = 8;
-pub const acamera_metadata_section_ACAMERA_LENS_INFO: acamera_metadata_section = 9;
-pub const acamera_metadata_section_ACAMERA_NOISE_REDUCTION: acamera_metadata_section = 10;
-pub const acamera_metadata_section_ACAMERA_QUIRKS: acamera_metadata_section = 11;
-pub const acamera_metadata_section_ACAMERA_REQUEST: acamera_metadata_section = 12;
-pub const acamera_metadata_section_ACAMERA_SCALER: acamera_metadata_section = 13;
-pub const acamera_metadata_section_ACAMERA_SENSOR: acamera_metadata_section = 14;
-pub const acamera_metadata_section_ACAMERA_SENSOR_INFO: acamera_metadata_section = 15;
-pub const acamera_metadata_section_ACAMERA_SHADING: acamera_metadata_section = 16;
-pub const acamera_metadata_section_ACAMERA_STATISTICS: acamera_metadata_section = 17;
-pub const acamera_metadata_section_ACAMERA_STATISTICS_INFO: acamera_metadata_section = 18;
-pub const acamera_metadata_section_ACAMERA_TONEMAP: acamera_metadata_section = 19;
-pub const acamera_metadata_section_ACAMERA_LED: acamera_metadata_section = 20;
-pub const acamera_metadata_section_ACAMERA_INFO: acamera_metadata_section = 21;
-pub const acamera_metadata_section_ACAMERA_BLACK_LEVEL: acamera_metadata_section = 22;
-pub const acamera_metadata_section_ACAMERA_SYNC: acamera_metadata_section = 23;
-pub const acamera_metadata_section_ACAMERA_REPROCESS: acamera_metadata_section = 24;
-pub const acamera_metadata_section_ACAMERA_DEPTH: acamera_metadata_section = 25;
-pub const acamera_metadata_section_ACAMERA_LOGICAL_MULTI_CAMERA: acamera_metadata_section = 26;
-pub const acamera_metadata_section_ACAMERA_DISTORTION_CORRECTION: acamera_metadata_section = 27;
-pub const acamera_metadata_section_ACAMERA_HEIC: acamera_metadata_section = 28;
-pub const acamera_metadata_section_ACAMERA_HEIC_INFO: acamera_metadata_section = 29;
-pub const acamera_metadata_section_ACAMERA_SECTION_COUNT: acamera_metadata_section = 30;
-pub const acamera_metadata_section_ACAMERA_VENDOR: acamera_metadata_section = 32768;
-pub type acamera_metadata_section = ::std::os::raw::c_uint;
+impl acamera_metadata_section {
+    pub const ACAMERA_COLOR_CORRECTION: acamera_metadata_section = acamera_metadata_section(0);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_CONTROL: acamera_metadata_section = acamera_metadata_section(1);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_DEMOSAIC: acamera_metadata_section = acamera_metadata_section(2);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_EDGE: acamera_metadata_section = acamera_metadata_section(3);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_FLASH: acamera_metadata_section = acamera_metadata_section(4);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_FLASH_INFO: acamera_metadata_section = acamera_metadata_section(5);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_HOT_PIXEL: acamera_metadata_section = acamera_metadata_section(6);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_JPEG: acamera_metadata_section = acamera_metadata_section(7);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_LENS: acamera_metadata_section = acamera_metadata_section(8);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_LENS_INFO: acamera_metadata_section = acamera_metadata_section(9);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_NOISE_REDUCTION: acamera_metadata_section = acamera_metadata_section(10);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_QUIRKS: acamera_metadata_section = acamera_metadata_section(11);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_REQUEST: acamera_metadata_section = acamera_metadata_section(12);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SCALER: acamera_metadata_section = acamera_metadata_section(13);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SENSOR: acamera_metadata_section = acamera_metadata_section(14);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SENSOR_INFO: acamera_metadata_section = acamera_metadata_section(15);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SHADING: acamera_metadata_section = acamera_metadata_section(16);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_STATISTICS: acamera_metadata_section = acamera_metadata_section(17);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_STATISTICS_INFO: acamera_metadata_section = acamera_metadata_section(18);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_TONEMAP: acamera_metadata_section = acamera_metadata_section(19);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_LED: acamera_metadata_section = acamera_metadata_section(20);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_INFO: acamera_metadata_section = acamera_metadata_section(21);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_BLACK_LEVEL: acamera_metadata_section = acamera_metadata_section(22);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SYNC: acamera_metadata_section = acamera_metadata_section(23);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_REPROCESS: acamera_metadata_section = acamera_metadata_section(24);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_DEPTH: acamera_metadata_section = acamera_metadata_section(25);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA: acamera_metadata_section = acamera_metadata_section(26);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_DISTORTION_CORRECTION: acamera_metadata_section =
+        acamera_metadata_section(27);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_HEIC: acamera_metadata_section = acamera_metadata_section(28);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_HEIC_INFO: acamera_metadata_section = acamera_metadata_section(29);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(30);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_VENDOR: acamera_metadata_section = acamera_metadata_section(32768);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_section(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_section as acamera_metadata_section_t;
-pub const acamera_metadata_section_start_ACAMERA_COLOR_CORRECTION_START:
-    acamera_metadata_section_start = 0;
-pub const acamera_metadata_section_start_ACAMERA_CONTROL_START: acamera_metadata_section_start =
-    65536;
-pub const acamera_metadata_section_start_ACAMERA_DEMOSAIC_START: acamera_metadata_section_start =
-    131072;
-pub const acamera_metadata_section_start_ACAMERA_EDGE_START: acamera_metadata_section_start =
-    196608;
-pub const acamera_metadata_section_start_ACAMERA_FLASH_START: acamera_metadata_section_start =
-    262144;
-pub const acamera_metadata_section_start_ACAMERA_FLASH_INFO_START: acamera_metadata_section_start =
-    327680;
-pub const acamera_metadata_section_start_ACAMERA_HOT_PIXEL_START: acamera_metadata_section_start =
-    393216;
-pub const acamera_metadata_section_start_ACAMERA_JPEG_START: acamera_metadata_section_start =
-    458752;
-pub const acamera_metadata_section_start_ACAMERA_LENS_START: acamera_metadata_section_start =
-    524288;
-pub const acamera_metadata_section_start_ACAMERA_LENS_INFO_START: acamera_metadata_section_start =
-    589824;
-pub const acamera_metadata_section_start_ACAMERA_NOISE_REDUCTION_START:
-    acamera_metadata_section_start = 655360;
-pub const acamera_metadata_section_start_ACAMERA_QUIRKS_START: acamera_metadata_section_start =
-    720896;
-pub const acamera_metadata_section_start_ACAMERA_REQUEST_START: acamera_metadata_section_start =
-    786432;
-pub const acamera_metadata_section_start_ACAMERA_SCALER_START: acamera_metadata_section_start =
-    851968;
-pub const acamera_metadata_section_start_ACAMERA_SENSOR_START: acamera_metadata_section_start =
-    917504;
-pub const acamera_metadata_section_start_ACAMERA_SENSOR_INFO_START: acamera_metadata_section_start =
-    983040;
-pub const acamera_metadata_section_start_ACAMERA_SHADING_START: acamera_metadata_section_start =
-    1048576;
-pub const acamera_metadata_section_start_ACAMERA_STATISTICS_START: acamera_metadata_section_start =
-    1114112;
-pub const acamera_metadata_section_start_ACAMERA_STATISTICS_INFO_START:
-    acamera_metadata_section_start = 1179648;
-pub const acamera_metadata_section_start_ACAMERA_TONEMAP_START: acamera_metadata_section_start =
-    1245184;
-pub const acamera_metadata_section_start_ACAMERA_LED_START: acamera_metadata_section_start =
-    1310720;
-pub const acamera_metadata_section_start_ACAMERA_INFO_START: acamera_metadata_section_start =
-    1376256;
-pub const acamera_metadata_section_start_ACAMERA_BLACK_LEVEL_START: acamera_metadata_section_start =
-    1441792;
-pub const acamera_metadata_section_start_ACAMERA_SYNC_START: acamera_metadata_section_start =
-    1507328;
-pub const acamera_metadata_section_start_ACAMERA_REPROCESS_START: acamera_metadata_section_start =
-    1572864;
-pub const acamera_metadata_section_start_ACAMERA_DEPTH_START: acamera_metadata_section_start =
-    1638400;
-pub const acamera_metadata_section_start_ACAMERA_LOGICAL_MULTI_CAMERA_START:
-    acamera_metadata_section_start = 1703936;
-pub const acamera_metadata_section_start_ACAMERA_DISTORTION_CORRECTION_START:
-    acamera_metadata_section_start = 1769472;
-pub const acamera_metadata_section_start_ACAMERA_HEIC_START: acamera_metadata_section_start =
-    1835008;
-pub const acamera_metadata_section_start_ACAMERA_HEIC_INFO_START: acamera_metadata_section_start =
-    1900544;
-pub const acamera_metadata_section_start_ACAMERA_VENDOR_START: acamera_metadata_section_start =
-    -2147483648;
-pub type acamera_metadata_section_start = ::std::os::raw::c_int;
+impl acamera_metadata_section_start {
+    pub const ACAMERA_COLOR_CORRECTION_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(0);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_CONTROL_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(65536);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_DEMOSAIC_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(131072);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_EDGE_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(196608);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_FLASH_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(262144);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_FLASH_INFO_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(327680);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_HOT_PIXEL_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(393216);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_JPEG_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(458752);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_LENS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(524288);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_LENS_INFO_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(589824);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_NOISE_REDUCTION_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(655360);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_QUIRKS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(720896);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_REQUEST_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(786432);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_SCALER_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(851968);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_SENSOR_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(917504);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_SENSOR_INFO_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(983040);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_SHADING_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1048576);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_STATISTICS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1114112);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_STATISTICS_INFO_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1179648);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_TONEMAP_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1245184);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_LED_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1310720);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_INFO_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1376256);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_BLACK_LEVEL_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1441792);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_SYNC_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1507328);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_REPROCESS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1572864);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_DEPTH_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1638400);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1703936);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_DISTORTION_CORRECTION_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1769472);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_HEIC_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1835008);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_HEIC_INFO_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1900544);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_VENDOR_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(-2147483648);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_section_start(pub ::std::os::raw::c_int);
 pub use self::acamera_metadata_section_start as acamera_metadata_section_start_t;
-pub const acamera_metadata_tag_ACAMERA_COLOR_CORRECTION_MODE: acamera_metadata_tag = 0;
-pub const acamera_metadata_tag_ACAMERA_COLOR_CORRECTION_TRANSFORM: acamera_metadata_tag = 1;
-pub const acamera_metadata_tag_ACAMERA_COLOR_CORRECTION_GAINS: acamera_metadata_tag = 2;
-pub const acamera_metadata_tag_ACAMERA_COLOR_CORRECTION_ABERRATION_MODE: acamera_metadata_tag = 3;
-pub const acamera_metadata_tag_ACAMERA_COLOR_CORRECTION_AVAILABLE_ABERRATION_MODES:
-    acamera_metadata_tag = 4;
-pub const acamera_metadata_tag_ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = 5;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_ANTIBANDING_MODE: acamera_metadata_tag = 65536;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_EXPOSURE_COMPENSATION: acamera_metadata_tag =
-    65537;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_LOCK: acamera_metadata_tag = 65538;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_MODE: acamera_metadata_tag = 65539;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_REGIONS: acamera_metadata_tag = 65540;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_TARGET_FPS_RANGE: acamera_metadata_tag = 65541;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER: acamera_metadata_tag = 65542;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AF_MODE: acamera_metadata_tag = 65543;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AF_REGIONS: acamera_metadata_tag = 65544;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AF_TRIGGER: acamera_metadata_tag = 65545;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AWB_LOCK: acamera_metadata_tag = 65546;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AWB_MODE: acamera_metadata_tag = 65547;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AWB_REGIONS: acamera_metadata_tag = 65548;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_CAPTURE_INTENT: acamera_metadata_tag = 65549;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_EFFECT_MODE: acamera_metadata_tag = 65550;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_MODE: acamera_metadata_tag = 65551;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_SCENE_MODE: acamera_metadata_tag = 65552;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE: acamera_metadata_tag =
-    65553;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_AVAILABLE_ANTIBANDING_MODES:
-    acamera_metadata_tag = 65554;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_AVAILABLE_MODES: acamera_metadata_tag = 65555;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES:
-    acamera_metadata_tag = 65556;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_COMPENSATION_RANGE: acamera_metadata_tag = 65557;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_COMPENSATION_STEP: acamera_metadata_tag = 65558;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AF_AVAILABLE_MODES: acamera_metadata_tag = 65559;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AVAILABLE_EFFECTS: acamera_metadata_tag = 65560;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AVAILABLE_SCENE_MODES: acamera_metadata_tag = 65561;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AVAILABLE_VIDEO_STABILIZATION_MODES:
-    acamera_metadata_tag = 65562;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AWB_AVAILABLE_MODES: acamera_metadata_tag = 65563;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_MAX_REGIONS: acamera_metadata_tag = 65564;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_STATE: acamera_metadata_tag = 65567;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AF_STATE: acamera_metadata_tag = 65568;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AWB_STATE: acamera_metadata_tag = 65570;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AE_LOCK_AVAILABLE: acamera_metadata_tag = 65572;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AWB_LOCK_AVAILABLE: acamera_metadata_tag = 65573;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AVAILABLE_MODES: acamera_metadata_tag = 65574;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_POST_RAW_SENSITIVITY_BOOST_RANGE:
-    acamera_metadata_tag = 65575;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_POST_RAW_SENSITIVITY_BOOST: acamera_metadata_tag =
-    65576;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_ENABLE_ZSL: acamera_metadata_tag = 65577;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AF_SCENE_CHANGE: acamera_metadata_tag = 65578;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AVAILABLE_EXTENDED_SCENE_MODE_MAX_SIZES:
-    acamera_metadata_tag = 65579;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_AVAILABLE_EXTENDED_SCENE_MODE_ZOOM_RATIO_RANGES:
-    acamera_metadata_tag = 65580;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_EXTENDED_SCENE_MODE: acamera_metadata_tag = 65581;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_ZOOM_RATIO_RANGE: acamera_metadata_tag = 65582;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_ZOOM_RATIO: acamera_metadata_tag = 65583;
-pub const acamera_metadata_tag_ACAMERA_CONTROL_END: acamera_metadata_tag = 65584;
-pub const acamera_metadata_tag_ACAMERA_EDGE_MODE: acamera_metadata_tag = 196608;
-pub const acamera_metadata_tag_ACAMERA_EDGE_AVAILABLE_EDGE_MODES: acamera_metadata_tag = 196610;
-pub const acamera_metadata_tag_ACAMERA_EDGE_END: acamera_metadata_tag = 196611;
-pub const acamera_metadata_tag_ACAMERA_FLASH_MODE: acamera_metadata_tag = 262146;
-pub const acamera_metadata_tag_ACAMERA_FLASH_STATE: acamera_metadata_tag = 262149;
-pub const acamera_metadata_tag_ACAMERA_FLASH_END: acamera_metadata_tag = 262150;
-pub const acamera_metadata_tag_ACAMERA_FLASH_INFO_AVAILABLE: acamera_metadata_tag = 327680;
-pub const acamera_metadata_tag_ACAMERA_FLASH_INFO_END: acamera_metadata_tag = 327681;
-pub const acamera_metadata_tag_ACAMERA_HOT_PIXEL_MODE: acamera_metadata_tag = 393216;
-pub const acamera_metadata_tag_ACAMERA_HOT_PIXEL_AVAILABLE_HOT_PIXEL_MODES: acamera_metadata_tag =
-    393217;
-pub const acamera_metadata_tag_ACAMERA_HOT_PIXEL_END: acamera_metadata_tag = 393218;
-pub const acamera_metadata_tag_ACAMERA_JPEG_GPS_COORDINATES: acamera_metadata_tag = 458752;
-pub const acamera_metadata_tag_ACAMERA_JPEG_GPS_PROCESSING_METHOD: acamera_metadata_tag = 458753;
-pub const acamera_metadata_tag_ACAMERA_JPEG_GPS_TIMESTAMP: acamera_metadata_tag = 458754;
-pub const acamera_metadata_tag_ACAMERA_JPEG_ORIENTATION: acamera_metadata_tag = 458755;
-pub const acamera_metadata_tag_ACAMERA_JPEG_QUALITY: acamera_metadata_tag = 458756;
-pub const acamera_metadata_tag_ACAMERA_JPEG_THUMBNAIL_QUALITY: acamera_metadata_tag = 458757;
-pub const acamera_metadata_tag_ACAMERA_JPEG_THUMBNAIL_SIZE: acamera_metadata_tag = 458758;
-pub const acamera_metadata_tag_ACAMERA_JPEG_AVAILABLE_THUMBNAIL_SIZES: acamera_metadata_tag =
-    458759;
-pub const acamera_metadata_tag_ACAMERA_JPEG_END: acamera_metadata_tag = 458760;
-pub const acamera_metadata_tag_ACAMERA_LENS_APERTURE: acamera_metadata_tag = 524288;
-pub const acamera_metadata_tag_ACAMERA_LENS_FILTER_DENSITY: acamera_metadata_tag = 524289;
-pub const acamera_metadata_tag_ACAMERA_LENS_FOCAL_LENGTH: acamera_metadata_tag = 524290;
-pub const acamera_metadata_tag_ACAMERA_LENS_FOCUS_DISTANCE: acamera_metadata_tag = 524291;
-pub const acamera_metadata_tag_ACAMERA_LENS_OPTICAL_STABILIZATION_MODE: acamera_metadata_tag =
-    524292;
-pub const acamera_metadata_tag_ACAMERA_LENS_FACING: acamera_metadata_tag = 524293;
-pub const acamera_metadata_tag_ACAMERA_LENS_POSE_ROTATION: acamera_metadata_tag = 524294;
-pub const acamera_metadata_tag_ACAMERA_LENS_POSE_TRANSLATION: acamera_metadata_tag = 524295;
-pub const acamera_metadata_tag_ACAMERA_LENS_FOCUS_RANGE: acamera_metadata_tag = 524296;
-pub const acamera_metadata_tag_ACAMERA_LENS_STATE: acamera_metadata_tag = 524297;
-pub const acamera_metadata_tag_ACAMERA_LENS_INTRINSIC_CALIBRATION: acamera_metadata_tag = 524298;
-pub const acamera_metadata_tag_ACAMERA_LENS_RADIAL_DISTORTION: acamera_metadata_tag = 524299;
-pub const acamera_metadata_tag_ACAMERA_LENS_POSE_REFERENCE: acamera_metadata_tag = 524300;
-pub const acamera_metadata_tag_ACAMERA_LENS_DISTORTION: acamera_metadata_tag = 524301;
-pub const acamera_metadata_tag_ACAMERA_LENS_DISTORTION_MAXIMUM_RESOLUTION: acamera_metadata_tag =
-    524302;
-pub const acamera_metadata_tag_ACAMERA_LENS_INTRINSIC_CALIBRATION_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 524303;
-pub const acamera_metadata_tag_ACAMERA_LENS_END: acamera_metadata_tag = 524304;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_AVAILABLE_APERTURES: acamera_metadata_tag = 589824;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_AVAILABLE_FILTER_DENSITIES: acamera_metadata_tag =
-    589825;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_AVAILABLE_FOCAL_LENGTHS: acamera_metadata_tag =
-    589826;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION:
-    acamera_metadata_tag = 589827;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_HYPERFOCAL_DISTANCE: acamera_metadata_tag = 589828;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_MINIMUM_FOCUS_DISTANCE: acamera_metadata_tag =
-    589829;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_SHADING_MAP_SIZE: acamera_metadata_tag = 589830;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION: acamera_metadata_tag =
-    589831;
-pub const acamera_metadata_tag_ACAMERA_LENS_INFO_END: acamera_metadata_tag = 589832;
-pub const acamera_metadata_tag_ACAMERA_NOISE_REDUCTION_MODE: acamera_metadata_tag = 655360;
-pub const acamera_metadata_tag_ACAMERA_NOISE_REDUCTION_AVAILABLE_NOISE_REDUCTION_MODES:
-    acamera_metadata_tag = 655362;
-pub const acamera_metadata_tag_ACAMERA_NOISE_REDUCTION_END: acamera_metadata_tag = 655363;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_MAX_NUM_OUTPUT_STREAMS: acamera_metadata_tag =
-    786438;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_PIPELINE_DEPTH: acamera_metadata_tag = 786441;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_PIPELINE_MAX_DEPTH: acamera_metadata_tag = 786442;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_PARTIAL_RESULT_COUNT: acamera_metadata_tag = 786443;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES: acamera_metadata_tag =
-    786444;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_AVAILABLE_REQUEST_KEYS: acamera_metadata_tag =
-    786445;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_AVAILABLE_RESULT_KEYS: acamera_metadata_tag = 786446;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_AVAILABLE_CHARACTERISTICS_KEYS:
-    acamera_metadata_tag = 786447;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_AVAILABLE_SESSION_KEYS: acamera_metadata_tag =
-    786448;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_AVAILABLE_PHYSICAL_CAMERA_REQUEST_KEYS:
-    acamera_metadata_tag = 786449;
-pub const acamera_metadata_tag_ACAMERA_REQUEST_END: acamera_metadata_tag = 786450;
-pub const acamera_metadata_tag_ACAMERA_SCALER_CROP_REGION: acamera_metadata_tag = 851968;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_MAX_DIGITAL_ZOOM: acamera_metadata_tag =
-    851972;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS:
-    acamera_metadata_tag = 851978;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_MIN_FRAME_DURATIONS: acamera_metadata_tag =
-    851979;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_STALL_DURATIONS: acamera_metadata_tag =
-    851980;
-pub const acamera_metadata_tag_ACAMERA_SCALER_CROPPING_TYPE: acamera_metadata_tag = 851981;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS:
-    acamera_metadata_tag = 851982;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_INPUT_OUTPUT_FORMATS_MAP:
-    acamera_metadata_tag = 851983;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_ROTATE_AND_CROP_MODES:
-    acamera_metadata_tag = 851984;
-pub const acamera_metadata_tag_ACAMERA_SCALER_ROTATE_AND_CROP: acamera_metadata_tag = 851985;
-pub const acamera_metadata_tag_ACAMERA_SCALER_DEFAULT_SECURE_IMAGE_SIZE: acamera_metadata_tag =
-    851986;
-pub const acamera_metadata_tag_ACAMERA_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS : acamera_metadata_tag = 851987 ;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 851988;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 851989;
-pub const acamera_metadata_tag_ACAMERA_SCALER_AVAILABLE_STALL_DURATIONS_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 851990;
-pub const acamera_metadata_tag_ACAMERA_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED:
-    acamera_metadata_tag = 851992;
-pub const acamera_metadata_tag_ACAMERA_SCALER_END: acamera_metadata_tag = 851993;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_EXPOSURE_TIME: acamera_metadata_tag = 917504;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_FRAME_DURATION: acamera_metadata_tag = 917505;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_SENSITIVITY: acamera_metadata_tag = 917506;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1: acamera_metadata_tag = 917507;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_REFERENCE_ILLUMINANT2: acamera_metadata_tag = 917508;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_CALIBRATION_TRANSFORM1: acamera_metadata_tag = 917509;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_CALIBRATION_TRANSFORM2: acamera_metadata_tag = 917510;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_COLOR_TRANSFORM1: acamera_metadata_tag = 917511;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_COLOR_TRANSFORM2: acamera_metadata_tag = 917512;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_FORWARD_MATRIX1: acamera_metadata_tag = 917513;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_FORWARD_MATRIX2: acamera_metadata_tag = 917514;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_BLACK_LEVEL_PATTERN: acamera_metadata_tag = 917516;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_MAX_ANALOG_SENSITIVITY: acamera_metadata_tag = 917517;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_ORIENTATION: acamera_metadata_tag = 917518;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_TIMESTAMP: acamera_metadata_tag = 917520;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_NEUTRAL_COLOR_POINT: acamera_metadata_tag = 917522;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_NOISE_PROFILE: acamera_metadata_tag = 917523;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_GREEN_SPLIT: acamera_metadata_tag = 917526;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_TEST_PATTERN_DATA: acamera_metadata_tag = 917527;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_TEST_PATTERN_MODE: acamera_metadata_tag = 917528;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_AVAILABLE_TEST_PATTERN_MODES: acamera_metadata_tag =
-    917529;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_ROLLING_SHUTTER_SKEW: acamera_metadata_tag = 917530;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_OPTICAL_BLACK_REGIONS: acamera_metadata_tag = 917531;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_DYNAMIC_BLACK_LEVEL: acamera_metadata_tag = 917532;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_DYNAMIC_WHITE_LEVEL: acamera_metadata_tag = 917533;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_PIXEL_MODE: acamera_metadata_tag = 917536;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_RAW_BINNING_FACTOR_USED: acamera_metadata_tag =
-    917537;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_END: acamera_metadata_tag = 917538;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_ACTIVE_ARRAY_SIZE: acamera_metadata_tag = 983040;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_SENSITIVITY_RANGE: acamera_metadata_tag = 983041;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT: acamera_metadata_tag =
-    983042;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_EXPOSURE_TIME_RANGE: acamera_metadata_tag =
-    983043;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_MAX_FRAME_DURATION: acamera_metadata_tag =
-    983044;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_PHYSICAL_SIZE: acamera_metadata_tag = 983045;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_PIXEL_ARRAY_SIZE: acamera_metadata_tag = 983046;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_WHITE_LEVEL: acamera_metadata_tag = 983047;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_TIMESTAMP_SOURCE: acamera_metadata_tag = 983048;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_LENS_SHADING_APPLIED: acamera_metadata_tag =
-    983049;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE:
-    acamera_metadata_tag = 983050;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 983051;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_PIXEL_ARRAY_SIZE_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 983052;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION : acamera_metadata_tag = 983053 ;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_BINNING_FACTOR: acamera_metadata_tag = 983054;
-pub const acamera_metadata_tag_ACAMERA_SENSOR_INFO_END: acamera_metadata_tag = 983055;
-pub const acamera_metadata_tag_ACAMERA_SHADING_MODE: acamera_metadata_tag = 1048576;
-pub const acamera_metadata_tag_ACAMERA_SHADING_AVAILABLE_MODES: acamera_metadata_tag = 1048578;
-pub const acamera_metadata_tag_ACAMERA_SHADING_END: acamera_metadata_tag = 1048579;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_FACE_DETECT_MODE: acamera_metadata_tag = 1114112;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_HOT_PIXEL_MAP_MODE: acamera_metadata_tag =
-    1114115;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_FACE_IDS: acamera_metadata_tag = 1114116;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_FACE_LANDMARKS: acamera_metadata_tag = 1114117;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_FACE_RECTANGLES: acamera_metadata_tag = 1114118;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_FACE_SCORES: acamera_metadata_tag = 1114119;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_LENS_SHADING_MAP: acamera_metadata_tag = 1114123;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_SCENE_FLICKER: acamera_metadata_tag = 1114126;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_HOT_PIXEL_MAP: acamera_metadata_tag = 1114127;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_LENS_SHADING_MAP_MODE: acamera_metadata_tag =
-    1114128;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_OIS_DATA_MODE: acamera_metadata_tag = 1114129;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_OIS_TIMESTAMPS: acamera_metadata_tag = 1114130;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_OIS_X_SHIFTS: acamera_metadata_tag = 1114131;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_OIS_Y_SHIFTS: acamera_metadata_tag = 1114132;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_END: acamera_metadata_tag = 1114133;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_INFO_AVAILABLE_FACE_DETECT_MODES:
-    acamera_metadata_tag = 1179648;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_INFO_MAX_FACE_COUNT: acamera_metadata_tag =
-    1179650;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_INFO_AVAILABLE_HOT_PIXEL_MAP_MODES:
-    acamera_metadata_tag = 1179654;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_INFO_AVAILABLE_LENS_SHADING_MAP_MODES:
-    acamera_metadata_tag = 1179655;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_INFO_AVAILABLE_OIS_DATA_MODES:
-    acamera_metadata_tag = 1179656;
-pub const acamera_metadata_tag_ACAMERA_STATISTICS_INFO_END: acamera_metadata_tag = 1179657;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_CURVE_BLUE: acamera_metadata_tag = 1245184;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_CURVE_GREEN: acamera_metadata_tag = 1245185;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_CURVE_RED: acamera_metadata_tag = 1245186;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_MODE: acamera_metadata_tag = 1245187;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_MAX_CURVE_POINTS: acamera_metadata_tag = 1245188;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_AVAILABLE_TONE_MAP_MODES: acamera_metadata_tag =
-    1245189;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_GAMMA: acamera_metadata_tag = 1245190;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_PRESET_CURVE: acamera_metadata_tag = 1245191;
-pub const acamera_metadata_tag_ACAMERA_TONEMAP_END: acamera_metadata_tag = 1245192;
-pub const acamera_metadata_tag_ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL: acamera_metadata_tag =
-    1376256;
-pub const acamera_metadata_tag_ACAMERA_INFO_VERSION: acamera_metadata_tag = 1376257;
-pub const acamera_metadata_tag_ACAMERA_INFO_END: acamera_metadata_tag = 1376258;
-pub const acamera_metadata_tag_ACAMERA_BLACK_LEVEL_LOCK: acamera_metadata_tag = 1441792;
-pub const acamera_metadata_tag_ACAMERA_BLACK_LEVEL_END: acamera_metadata_tag = 1441793;
-pub const acamera_metadata_tag_ACAMERA_SYNC_FRAME_NUMBER: acamera_metadata_tag = 1507328;
-pub const acamera_metadata_tag_ACAMERA_SYNC_MAX_LATENCY: acamera_metadata_tag = 1507329;
-pub const acamera_metadata_tag_ACAMERA_SYNC_END: acamera_metadata_tag = 1507330;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS:
-    acamera_metadata_tag = 1638401;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DEPTH_MIN_FRAME_DURATIONS:
-    acamera_metadata_tag = 1638402;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DEPTH_STALL_DURATIONS: acamera_metadata_tag =
-    1638403;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_DEPTH_IS_EXCLUSIVE: acamera_metadata_tag = 1638404;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_RECOMMENDED_DEPTH_STREAM_CONFIGURATIONS:
-    acamera_metadata_tag = 1638405;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS:
-    acamera_metadata_tag = 1638406;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS:
-    acamera_metadata_tag = 1638407;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS:
-    acamera_metadata_tag = 1638408;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION : acamera_metadata_tag = 1638409 ;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION : acamera_metadata_tag = 1638410 ;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 1638411;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION : acamera_metadata_tag = 1638412 ;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION : acamera_metadata_tag = 1638413 ;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION : acamera_metadata_tag = 1638414 ;
-pub const acamera_metadata_tag_ACAMERA_DEPTH_END: acamera_metadata_tag = 1638415;
-pub const acamera_metadata_tag_ACAMERA_LOGICAL_MULTI_CAMERA_PHYSICAL_IDS: acamera_metadata_tag =
-    1703936;
-pub const acamera_metadata_tag_ACAMERA_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE: acamera_metadata_tag =
-    1703937;
-pub const acamera_metadata_tag_ACAMERA_LOGICAL_MULTI_CAMERA_ACTIVE_PHYSICAL_ID:
-    acamera_metadata_tag = 1703938;
-pub const acamera_metadata_tag_ACAMERA_LOGICAL_MULTI_CAMERA_END: acamera_metadata_tag = 1703939;
-pub const acamera_metadata_tag_ACAMERA_DISTORTION_CORRECTION_MODE: acamera_metadata_tag = 1769472;
-pub const acamera_metadata_tag_ACAMERA_DISTORTION_CORRECTION_AVAILABLE_MODES: acamera_metadata_tag =
-    1769473;
-pub const acamera_metadata_tag_ACAMERA_DISTORTION_CORRECTION_END: acamera_metadata_tag = 1769474;
-pub const acamera_metadata_tag_ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS:
-    acamera_metadata_tag = 1835008;
-pub const acamera_metadata_tag_ACAMERA_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS:
-    acamera_metadata_tag = 1835009;
-pub const acamera_metadata_tag_ACAMERA_HEIC_AVAILABLE_HEIC_STALL_DURATIONS: acamera_metadata_tag =
-    1835010;
-pub const acamera_metadata_tag_ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION : acamera_metadata_tag = 1835011 ;
-pub const acamera_metadata_tag_ACAMERA_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION : acamera_metadata_tag = 1835012 ;
-pub const acamera_metadata_tag_ACAMERA_HEIC_AVAILABLE_HEIC_STALL_DURATIONS_MAXIMUM_RESOLUTION:
-    acamera_metadata_tag = 1835013;
-pub const acamera_metadata_tag_ACAMERA_HEIC_END: acamera_metadata_tag = 1835014;
-pub type acamera_metadata_tag = ::std::os::raw::c_uint;
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_MODE: acamera_metadata_tag = acamera_metadata_tag(0);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_TRANSFORM: acamera_metadata_tag = acamera_metadata_tag(1);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_GAINS: acamera_metadata_tag = acamera_metadata_tag(2);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_ABERRATION_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(3);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_AVAILABLE_ABERRATION_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(4);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = acamera_metadata_tag(5);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(65536);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_EXPOSURE_COMPENSATION: acamera_metadata_tag =
+        acamera_metadata_tag(65537);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_LOCK: acamera_metadata_tag = acamera_metadata_tag(65538);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_MODE: acamera_metadata_tag = acamera_metadata_tag(65539);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_REGIONS: acamera_metadata_tag = acamera_metadata_tag(65540);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_TARGET_FPS_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(65541);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER: acamera_metadata_tag =
+        acamera_metadata_tag(65542);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AF_MODE: acamera_metadata_tag = acamera_metadata_tag(65543);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AF_REGIONS: acamera_metadata_tag = acamera_metadata_tag(65544);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AF_TRIGGER: acamera_metadata_tag = acamera_metadata_tag(65545);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AWB_LOCK: acamera_metadata_tag = acamera_metadata_tag(65546);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AWB_MODE: acamera_metadata_tag = acamera_metadata_tag(65547);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AWB_REGIONS: acamera_metadata_tag = acamera_metadata_tag(65548);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT: acamera_metadata_tag = acamera_metadata_tag(65549);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_EFFECT_MODE: acamera_metadata_tag = acamera_metadata_tag(65550);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_MODE: acamera_metadata_tag = acamera_metadata_tag(65551);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_SCENE_MODE: acamera_metadata_tag = acamera_metadata_tag(65552);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(65553);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_AVAILABLE_ANTIBANDING_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65554);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_AVAILABLE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65555);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES: acamera_metadata_tag =
+        acamera_metadata_tag(65556);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_COMPENSATION_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(65557);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_COMPENSATION_STEP: acamera_metadata_tag =
+        acamera_metadata_tag(65558);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AF_AVAILABLE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65559);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AVAILABLE_EFFECTS: acamera_metadata_tag = acamera_metadata_tag(65560);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AVAILABLE_SCENE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65561);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AVAILABLE_VIDEO_STABILIZATION_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65562);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AWB_AVAILABLE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65563);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_MAX_REGIONS: acamera_metadata_tag = acamera_metadata_tag(65564);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_STATE: acamera_metadata_tag = acamera_metadata_tag(65567);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AF_STATE: acamera_metadata_tag = acamera_metadata_tag(65568);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AWB_STATE: acamera_metadata_tag = acamera_metadata_tag(65570);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_LOCK_AVAILABLE: acamera_metadata_tag = acamera_metadata_tag(65572);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AWB_LOCK_AVAILABLE: acamera_metadata_tag =
+        acamera_metadata_tag(65573);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AVAILABLE_MODES: acamera_metadata_tag = acamera_metadata_tag(65574);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_POST_RAW_SENSITIVITY_BOOST_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(65575);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_POST_RAW_SENSITIVITY_BOOST: acamera_metadata_tag =
+        acamera_metadata_tag(65576);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_ENABLE_ZSL: acamera_metadata_tag = acamera_metadata_tag(65577);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AF_SCENE_CHANGE: acamera_metadata_tag = acamera_metadata_tag(65578);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AVAILABLE_EXTENDED_SCENE_MODE_MAX_SIZES: acamera_metadata_tag =
+        acamera_metadata_tag(65579);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AVAILABLE_EXTENDED_SCENE_MODE_ZOOM_RATIO_RANGES:
+        acamera_metadata_tag = acamera_metadata_tag(65580);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_EXTENDED_SCENE_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(65581);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_ZOOM_RATIO_RANGE: acamera_metadata_tag = acamera_metadata_tag(65582);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_ZOOM_RATIO: acamera_metadata_tag = acamera_metadata_tag(65583);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_END: acamera_metadata_tag = acamera_metadata_tag(65584);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_EDGE_MODE: acamera_metadata_tag = acamera_metadata_tag(196608);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_EDGE_AVAILABLE_EDGE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(196610);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_EDGE_END: acamera_metadata_tag = acamera_metadata_tag(196611);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_FLASH_MODE: acamera_metadata_tag = acamera_metadata_tag(262146);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_FLASH_STATE: acamera_metadata_tag = acamera_metadata_tag(262149);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_FLASH_END: acamera_metadata_tag = acamera_metadata_tag(262150);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_FLASH_INFO_AVAILABLE: acamera_metadata_tag = acamera_metadata_tag(327680);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_FLASH_INFO_END: acamera_metadata_tag = acamera_metadata_tag(327681);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HOT_PIXEL_MODE: acamera_metadata_tag = acamera_metadata_tag(393216);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HOT_PIXEL_AVAILABLE_HOT_PIXEL_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(393217);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HOT_PIXEL_END: acamera_metadata_tag = acamera_metadata_tag(393218);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_GPS_COORDINATES: acamera_metadata_tag = acamera_metadata_tag(458752);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_GPS_PROCESSING_METHOD: acamera_metadata_tag =
+        acamera_metadata_tag(458753);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_GPS_TIMESTAMP: acamera_metadata_tag = acamera_metadata_tag(458754);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_ORIENTATION: acamera_metadata_tag = acamera_metadata_tag(458755);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_QUALITY: acamera_metadata_tag = acamera_metadata_tag(458756);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_THUMBNAIL_QUALITY: acamera_metadata_tag = acamera_metadata_tag(458757);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_THUMBNAIL_SIZE: acamera_metadata_tag = acamera_metadata_tag(458758);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_AVAILABLE_THUMBNAIL_SIZES: acamera_metadata_tag =
+        acamera_metadata_tag(458759);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_JPEG_END: acamera_metadata_tag = acamera_metadata_tag(458760);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_APERTURE: acamera_metadata_tag = acamera_metadata_tag(524288);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_FILTER_DENSITY: acamera_metadata_tag = acamera_metadata_tag(524289);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_FOCAL_LENGTH: acamera_metadata_tag = acamera_metadata_tag(524290);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_FOCUS_DISTANCE: acamera_metadata_tag = acamera_metadata_tag(524291);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_OPTICAL_STABILIZATION_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(524292);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_FACING: acamera_metadata_tag = acamera_metadata_tag(524293);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_POSE_ROTATION: acamera_metadata_tag = acamera_metadata_tag(524294);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_POSE_TRANSLATION: acamera_metadata_tag = acamera_metadata_tag(524295);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_FOCUS_RANGE: acamera_metadata_tag = acamera_metadata_tag(524296);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_STATE: acamera_metadata_tag = acamera_metadata_tag(524297);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INTRINSIC_CALIBRATION: acamera_metadata_tag =
+        acamera_metadata_tag(524298);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_RADIAL_DISTORTION: acamera_metadata_tag = acamera_metadata_tag(524299);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_POSE_REFERENCE: acamera_metadata_tag = acamera_metadata_tag(524300);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_DISTORTION: acamera_metadata_tag = acamera_metadata_tag(524301);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_DISTORTION_MAXIMUM_RESOLUTION: acamera_metadata_tag =
+        acamera_metadata_tag(524302);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INTRINSIC_CALIBRATION_MAXIMUM_RESOLUTION: acamera_metadata_tag =
+        acamera_metadata_tag(524303);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_END: acamera_metadata_tag = acamera_metadata_tag(524304);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_AVAILABLE_APERTURES: acamera_metadata_tag =
+        acamera_metadata_tag(589824);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_AVAILABLE_FILTER_DENSITIES: acamera_metadata_tag =
+        acamera_metadata_tag(589825);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_AVAILABLE_FOCAL_LENGTHS: acamera_metadata_tag =
+        acamera_metadata_tag(589826);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION: acamera_metadata_tag =
+        acamera_metadata_tag(589827);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_HYPERFOCAL_DISTANCE: acamera_metadata_tag =
+        acamera_metadata_tag(589828);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_MINIMUM_FOCUS_DISTANCE: acamera_metadata_tag =
+        acamera_metadata_tag(589829);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_SHADING_MAP_SIZE: acamera_metadata_tag =
+        acamera_metadata_tag(589830);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION: acamera_metadata_tag =
+        acamera_metadata_tag(589831);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LENS_INFO_END: acamera_metadata_tag = acamera_metadata_tag(589832);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_NOISE_REDUCTION_MODE: acamera_metadata_tag = acamera_metadata_tag(655360);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_NOISE_REDUCTION_AVAILABLE_NOISE_REDUCTION_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(655362);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_NOISE_REDUCTION_END: acamera_metadata_tag = acamera_metadata_tag(655363);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_MAX_NUM_OUTPUT_STREAMS: acamera_metadata_tag =
+        acamera_metadata_tag(786438);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_PIPELINE_DEPTH: acamera_metadata_tag = acamera_metadata_tag(786441);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_PIPELINE_MAX_DEPTH: acamera_metadata_tag =
+        acamera_metadata_tag(786442);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_PARTIAL_RESULT_COUNT: acamera_metadata_tag =
+        acamera_metadata_tag(786443);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES: acamera_metadata_tag =
+        acamera_metadata_tag(786444);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_AVAILABLE_REQUEST_KEYS: acamera_metadata_tag =
+        acamera_metadata_tag(786445);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_AVAILABLE_RESULT_KEYS: acamera_metadata_tag =
+        acamera_metadata_tag(786446);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_AVAILABLE_CHARACTERISTICS_KEYS: acamera_metadata_tag =
+        acamera_metadata_tag(786447);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_AVAILABLE_SESSION_KEYS: acamera_metadata_tag =
+        acamera_metadata_tag(786448);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_AVAILABLE_PHYSICAL_CAMERA_REQUEST_KEYS: acamera_metadata_tag =
+        acamera_metadata_tag(786449);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_END: acamera_metadata_tag = acamera_metadata_tag(786450);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_CROP_REGION: acamera_metadata_tag = acamera_metadata_tag(851968);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_MAX_DIGITAL_ZOOM: acamera_metadata_tag =
+        acamera_metadata_tag(851972);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(851978);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_MIN_FRAME_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(851979);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_STALL_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(851980);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_CROPPING_TYPE: acamera_metadata_tag = acamera_metadata_tag(851981);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(851982);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_INPUT_OUTPUT_FORMATS_MAP: acamera_metadata_tag =
+        acamera_metadata_tag(851983);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_ROTATE_AND_CROP_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(851984);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_ROTATE_AND_CROP: acamera_metadata_tag = acamera_metadata_tag(851985);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_DEFAULT_SECURE_IMAGE_SIZE: acamera_metadata_tag =
+        acamera_metadata_tag(851986);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS:
+        acamera_metadata_tag = acamera_metadata_tag(851987);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(851988);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(851989);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_AVAILABLE_STALL_DURATIONS_MAXIMUM_RESOLUTION: acamera_metadata_tag =
+        acamera_metadata_tag(851990);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED: acamera_metadata_tag =
+        acamera_metadata_tag(851992);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_END: acamera_metadata_tag = acamera_metadata_tag(851993);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_EXPOSURE_TIME: acamera_metadata_tag = acamera_metadata_tag(917504);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_FRAME_DURATION: acamera_metadata_tag = acamera_metadata_tag(917505);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_SENSITIVITY: acamera_metadata_tag = acamera_metadata_tag(917506);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1: acamera_metadata_tag =
+        acamera_metadata_tag(917507);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT2: acamera_metadata_tag =
+        acamera_metadata_tag(917508);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_CALIBRATION_TRANSFORM1: acamera_metadata_tag =
+        acamera_metadata_tag(917509);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_CALIBRATION_TRANSFORM2: acamera_metadata_tag =
+        acamera_metadata_tag(917510);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_COLOR_TRANSFORM1: acamera_metadata_tag = acamera_metadata_tag(917511);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_COLOR_TRANSFORM2: acamera_metadata_tag = acamera_metadata_tag(917512);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_FORWARD_MATRIX1: acamera_metadata_tag = acamera_metadata_tag(917513);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_FORWARD_MATRIX2: acamera_metadata_tag = acamera_metadata_tag(917514);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_BLACK_LEVEL_PATTERN: acamera_metadata_tag =
+        acamera_metadata_tag(917516);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_MAX_ANALOG_SENSITIVITY: acamera_metadata_tag =
+        acamera_metadata_tag(917517);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_ORIENTATION: acamera_metadata_tag = acamera_metadata_tag(917518);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_TIMESTAMP: acamera_metadata_tag = acamera_metadata_tag(917520);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_NEUTRAL_COLOR_POINT: acamera_metadata_tag =
+        acamera_metadata_tag(917522);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_NOISE_PROFILE: acamera_metadata_tag = acamera_metadata_tag(917523);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_GREEN_SPLIT: acamera_metadata_tag = acamera_metadata_tag(917526);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_DATA: acamera_metadata_tag = acamera_metadata_tag(917527);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_MODE: acamera_metadata_tag = acamera_metadata_tag(917528);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_AVAILABLE_TEST_PATTERN_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(917529);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_ROLLING_SHUTTER_SKEW: acamera_metadata_tag =
+        acamera_metadata_tag(917530);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_OPTICAL_BLACK_REGIONS: acamera_metadata_tag =
+        acamera_metadata_tag(917531);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_DYNAMIC_BLACK_LEVEL: acamera_metadata_tag =
+        acamera_metadata_tag(917532);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_DYNAMIC_WHITE_LEVEL: acamera_metadata_tag =
+        acamera_metadata_tag(917533);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_PIXEL_MODE: acamera_metadata_tag = acamera_metadata_tag(917536);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_RAW_BINNING_FACTOR_USED: acamera_metadata_tag =
+        acamera_metadata_tag(917537);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_END: acamera_metadata_tag = acamera_metadata_tag(917538);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_ACTIVE_ARRAY_SIZE: acamera_metadata_tag =
+        acamera_metadata_tag(983040);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_SENSITIVITY_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(983041);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT: acamera_metadata_tag =
+        acamera_metadata_tag(983042);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_EXPOSURE_TIME_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(983043);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_MAX_FRAME_DURATION: acamera_metadata_tag =
+        acamera_metadata_tag(983044);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_PHYSICAL_SIZE: acamera_metadata_tag =
+        acamera_metadata_tag(983045);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_PIXEL_ARRAY_SIZE: acamera_metadata_tag =
+        acamera_metadata_tag(983046);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_WHITE_LEVEL: acamera_metadata_tag = acamera_metadata_tag(983047);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_TIMESTAMP_SOURCE: acamera_metadata_tag =
+        acamera_metadata_tag(983048);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_LENS_SHADING_APPLIED: acamera_metadata_tag =
+        acamera_metadata_tag(983049);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE: acamera_metadata_tag =
+        acamera_metadata_tag(983050);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION: acamera_metadata_tag =
+        acamera_metadata_tag(983051);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_PIXEL_ARRAY_SIZE_MAXIMUM_RESOLUTION: acamera_metadata_tag =
+        acamera_metadata_tag(983052);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(983053);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_BINNING_FACTOR: acamera_metadata_tag =
+        acamera_metadata_tag(983054);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SENSOR_INFO_END: acamera_metadata_tag = acamera_metadata_tag(983055);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SHADING_MODE: acamera_metadata_tag = acamera_metadata_tag(1048576);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SHADING_AVAILABLE_MODES: acamera_metadata_tag = acamera_metadata_tag(1048578);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SHADING_END: acamera_metadata_tag = acamera_metadata_tag(1048579);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_FACE_DETECT_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(1114112);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_HOT_PIXEL_MAP_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(1114115);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_FACE_IDS: acamera_metadata_tag = acamera_metadata_tag(1114116);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_FACE_LANDMARKS: acamera_metadata_tag =
+        acamera_metadata_tag(1114117);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_FACE_RECTANGLES: acamera_metadata_tag =
+        acamera_metadata_tag(1114118);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_FACE_SCORES: acamera_metadata_tag = acamera_metadata_tag(1114119);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_LENS_SHADING_MAP: acamera_metadata_tag =
+        acamera_metadata_tag(1114123);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_SCENE_FLICKER: acamera_metadata_tag =
+        acamera_metadata_tag(1114126);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_HOT_PIXEL_MAP: acamera_metadata_tag =
+        acamera_metadata_tag(1114127);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_LENS_SHADING_MAP_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(1114128);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_OIS_DATA_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(1114129);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_OIS_TIMESTAMPS: acamera_metadata_tag =
+        acamera_metadata_tag(1114130);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_OIS_X_SHIFTS: acamera_metadata_tag = acamera_metadata_tag(1114131);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_OIS_Y_SHIFTS: acamera_metadata_tag = acamera_metadata_tag(1114132);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_END: acamera_metadata_tag = acamera_metadata_tag(1114133);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_INFO_AVAILABLE_FACE_DETECT_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(1179648);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_INFO_MAX_FACE_COUNT: acamera_metadata_tag =
+        acamera_metadata_tag(1179650);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_INFO_AVAILABLE_HOT_PIXEL_MAP_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(1179654);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_INFO_AVAILABLE_LENS_SHADING_MAP_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(1179655);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_INFO_AVAILABLE_OIS_DATA_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(1179656);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_STATISTICS_INFO_END: acamera_metadata_tag = acamera_metadata_tag(1179657);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_CURVE_BLUE: acamera_metadata_tag = acamera_metadata_tag(1245184);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_CURVE_GREEN: acamera_metadata_tag = acamera_metadata_tag(1245185);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_CURVE_RED: acamera_metadata_tag = acamera_metadata_tag(1245186);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_MODE: acamera_metadata_tag = acamera_metadata_tag(1245187);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_MAX_CURVE_POINTS: acamera_metadata_tag =
+        acamera_metadata_tag(1245188);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_AVAILABLE_TONE_MAP_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(1245189);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_GAMMA: acamera_metadata_tag = acamera_metadata_tag(1245190);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_PRESET_CURVE: acamera_metadata_tag = acamera_metadata_tag(1245191);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_TONEMAP_END: acamera_metadata_tag = acamera_metadata_tag(1245192);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL: acamera_metadata_tag =
+        acamera_metadata_tag(1376256);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_INFO_VERSION: acamera_metadata_tag = acamera_metadata_tag(1376257);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_INFO_END: acamera_metadata_tag = acamera_metadata_tag(1376258);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_BLACK_LEVEL_LOCK: acamera_metadata_tag = acamera_metadata_tag(1441792);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_BLACK_LEVEL_END: acamera_metadata_tag = acamera_metadata_tag(1441793);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SYNC_FRAME_NUMBER: acamera_metadata_tag = acamera_metadata_tag(1507328);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SYNC_MAX_LATENCY: acamera_metadata_tag = acamera_metadata_tag(1507329);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SYNC_END: acamera_metadata_tag = acamera_metadata_tag(1507330);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1638401);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_MIN_FRAME_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1638402);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STALL_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1638403);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_DEPTH_IS_EXCLUSIVE: acamera_metadata_tag =
+        acamera_metadata_tag(1638404);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_RECOMMENDED_DEPTH_STREAM_CONFIGURATIONS:
+        acamera_metadata_tag = acamera_metadata_tag(1638405);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1638406);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1638407);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1638408);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1638409);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1638410);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1638411);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1638412);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1638413);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1638414);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DEPTH_END: acamera_metadata_tag = acamera_metadata_tag(1638415);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_PHYSICAL_IDS: acamera_metadata_tag =
+        acamera_metadata_tag(1703936);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE: acamera_metadata_tag =
+        acamera_metadata_tag(1703937);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_ACTIVE_PHYSICAL_ID: acamera_metadata_tag =
+        acamera_metadata_tag(1703938);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_END: acamera_metadata_tag =
+        acamera_metadata_tag(1703939);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DISTORTION_CORRECTION_MODE: acamera_metadata_tag =
+        acamera_metadata_tag(1769472);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DISTORTION_CORRECTION_AVAILABLE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(1769473);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_DISTORTION_CORRECTION_END: acamera_metadata_tag =
+        acamera_metadata_tag(1769474);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835008);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835009);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STALL_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835010);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835011);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835012);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STALL_DURATIONS_MAXIMUM_RESOLUTION: acamera_metadata_tag =
+        acamera_metadata_tag(1835013);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835014);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_tag(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_tag as acamera_metadata_tag_t;
-pub const acamera_metadata_enum_acamera_color_correction_mode_ACAMERA_COLOR_CORRECTION_MODE_TRANSFORM_MATRIX : acamera_metadata_enum_acamera_color_correction_mode = 0 ;
-pub const acamera_metadata_enum_acamera_color_correction_mode_ACAMERA_COLOR_CORRECTION_MODE_FAST:
-    acamera_metadata_enum_acamera_color_correction_mode = 1;
-pub const acamera_metadata_enum_acamera_color_correction_mode_ACAMERA_COLOR_CORRECTION_MODE_HIGH_QUALITY : acamera_metadata_enum_acamera_color_correction_mode = 2 ;
-pub type acamera_metadata_enum_acamera_color_correction_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_color_correction_mode {
+    pub const ACAMERA_COLOR_CORRECTION_MODE_TRANSFORM_MATRIX:
+        acamera_metadata_enum_acamera_color_correction_mode =
+        acamera_metadata_enum_acamera_color_correction_mode(0);
+}
+impl acamera_metadata_enum_acamera_color_correction_mode {
+    pub const ACAMERA_COLOR_CORRECTION_MODE_FAST:
+        acamera_metadata_enum_acamera_color_correction_mode =
+        acamera_metadata_enum_acamera_color_correction_mode(1);
+}
+impl acamera_metadata_enum_acamera_color_correction_mode {
+    pub const ACAMERA_COLOR_CORRECTION_MODE_HIGH_QUALITY:
+        acamera_metadata_enum_acamera_color_correction_mode =
+        acamera_metadata_enum_acamera_color_correction_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_color_correction_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_color_correction_mode as acamera_metadata_enum_android_color_correction_mode_t;
-pub const acamera_metadata_enum_acamera_color_correction_aberration_mode_ACAMERA_COLOR_CORRECTION_ABERRATION_MODE_OFF : acamera_metadata_enum_acamera_color_correction_aberration_mode = 0 ;
-pub const acamera_metadata_enum_acamera_color_correction_aberration_mode_ACAMERA_COLOR_CORRECTION_ABERRATION_MODE_FAST : acamera_metadata_enum_acamera_color_correction_aberration_mode = 1 ;
-pub const acamera_metadata_enum_acamera_color_correction_aberration_mode_ACAMERA_COLOR_CORRECTION_ABERRATION_MODE_HIGH_QUALITY : acamera_metadata_enum_acamera_color_correction_aberration_mode = 2 ;
-pub type acamera_metadata_enum_acamera_color_correction_aberration_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_color_correction_aberration_mode {
+    pub const ACAMERA_COLOR_CORRECTION_ABERRATION_MODE_OFF:
+        acamera_metadata_enum_acamera_color_correction_aberration_mode =
+        acamera_metadata_enum_acamera_color_correction_aberration_mode(0);
+}
+impl acamera_metadata_enum_acamera_color_correction_aberration_mode {
+    pub const ACAMERA_COLOR_CORRECTION_ABERRATION_MODE_FAST:
+        acamera_metadata_enum_acamera_color_correction_aberration_mode =
+        acamera_metadata_enum_acamera_color_correction_aberration_mode(1);
+}
+impl acamera_metadata_enum_acamera_color_correction_aberration_mode {
+    pub const ACAMERA_COLOR_CORRECTION_ABERRATION_MODE_HIGH_QUALITY:
+        acamera_metadata_enum_acamera_color_correction_aberration_mode =
+        acamera_metadata_enum_acamera_color_correction_aberration_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_color_correction_aberration_mode(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_color_correction_aberration_mode as acamera_metadata_enum_android_color_correction_aberration_mode_t;
-pub const acamera_metadata_enum_acamera_control_ae_antibanding_mode_ACAMERA_CONTROL_AE_ANTIBANDING_MODE_OFF : acamera_metadata_enum_acamera_control_ae_antibanding_mode = 0 ;
-pub const acamera_metadata_enum_acamera_control_ae_antibanding_mode_ACAMERA_CONTROL_AE_ANTIBANDING_MODE_50HZ : acamera_metadata_enum_acamera_control_ae_antibanding_mode = 1 ;
-pub const acamera_metadata_enum_acamera_control_ae_antibanding_mode_ACAMERA_CONTROL_AE_ANTIBANDING_MODE_60HZ : acamera_metadata_enum_acamera_control_ae_antibanding_mode = 2 ;
-pub const acamera_metadata_enum_acamera_control_ae_antibanding_mode_ACAMERA_CONTROL_AE_ANTIBANDING_MODE_AUTO : acamera_metadata_enum_acamera_control_ae_antibanding_mode = 3 ;
-pub type acamera_metadata_enum_acamera_control_ae_antibanding_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_ae_antibanding_mode {
+    pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE_OFF:
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode =
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_ae_antibanding_mode {
+    pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE_50HZ:
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode =
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_ae_antibanding_mode {
+    pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE_60HZ:
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode =
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode(2);
+}
+impl acamera_metadata_enum_acamera_control_ae_antibanding_mode {
+    pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE_AUTO:
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode =
+        acamera_metadata_enum_acamera_control_ae_antibanding_mode(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_antibanding_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_antibanding_mode as acamera_metadata_enum_android_control_ae_antibanding_mode_t;
-pub const acamera_metadata_enum_acamera_control_ae_lock_ACAMERA_CONTROL_AE_LOCK_OFF:
-    acamera_metadata_enum_acamera_control_ae_lock = 0;
-pub const acamera_metadata_enum_acamera_control_ae_lock_ACAMERA_CONTROL_AE_LOCK_ON:
-    acamera_metadata_enum_acamera_control_ae_lock = 1;
-pub type acamera_metadata_enum_acamera_control_ae_lock = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_ae_lock {
+    pub const ACAMERA_CONTROL_AE_LOCK_OFF: acamera_metadata_enum_acamera_control_ae_lock =
+        acamera_metadata_enum_acamera_control_ae_lock(0);
+}
+impl acamera_metadata_enum_acamera_control_ae_lock {
+    pub const ACAMERA_CONTROL_AE_LOCK_ON: acamera_metadata_enum_acamera_control_ae_lock =
+        acamera_metadata_enum_acamera_control_ae_lock(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_lock(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_lock as acamera_metadata_enum_android_control_ae_lock_t;
-pub const acamera_metadata_enum_acamera_control_ae_mode_ACAMERA_CONTROL_AE_MODE_OFF:
-    acamera_metadata_enum_acamera_control_ae_mode = 0;
-pub const acamera_metadata_enum_acamera_control_ae_mode_ACAMERA_CONTROL_AE_MODE_ON:
-    acamera_metadata_enum_acamera_control_ae_mode = 1;
-pub const acamera_metadata_enum_acamera_control_ae_mode_ACAMERA_CONTROL_AE_MODE_ON_AUTO_FLASH:
-    acamera_metadata_enum_acamera_control_ae_mode = 2;
-pub const acamera_metadata_enum_acamera_control_ae_mode_ACAMERA_CONTROL_AE_MODE_ON_ALWAYS_FLASH:
-    acamera_metadata_enum_acamera_control_ae_mode = 3;
-pub const acamera_metadata_enum_acamera_control_ae_mode_ACAMERA_CONTROL_AE_MODE_ON_AUTO_FLASH_REDEYE : acamera_metadata_enum_acamera_control_ae_mode = 4 ;
-pub const acamera_metadata_enum_acamera_control_ae_mode_ACAMERA_CONTROL_AE_MODE_ON_EXTERNAL_FLASH : acamera_metadata_enum_acamera_control_ae_mode = 5 ;
-pub type acamera_metadata_enum_acamera_control_ae_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_ae_mode {
+    pub const ACAMERA_CONTROL_AE_MODE_OFF: acamera_metadata_enum_acamera_control_ae_mode =
+        acamera_metadata_enum_acamera_control_ae_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_ae_mode {
+    pub const ACAMERA_CONTROL_AE_MODE_ON: acamera_metadata_enum_acamera_control_ae_mode =
+        acamera_metadata_enum_acamera_control_ae_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_ae_mode {
+    pub const ACAMERA_CONTROL_AE_MODE_ON_AUTO_FLASH: acamera_metadata_enum_acamera_control_ae_mode =
+        acamera_metadata_enum_acamera_control_ae_mode(2);
+}
+impl acamera_metadata_enum_acamera_control_ae_mode {
+    pub const ACAMERA_CONTROL_AE_MODE_ON_ALWAYS_FLASH:
+        acamera_metadata_enum_acamera_control_ae_mode =
+        acamera_metadata_enum_acamera_control_ae_mode(3);
+}
+impl acamera_metadata_enum_acamera_control_ae_mode {
+    pub const ACAMERA_CONTROL_AE_MODE_ON_AUTO_FLASH_REDEYE:
+        acamera_metadata_enum_acamera_control_ae_mode =
+        acamera_metadata_enum_acamera_control_ae_mode(4);
+}
+impl acamera_metadata_enum_acamera_control_ae_mode {
+    pub const ACAMERA_CONTROL_AE_MODE_ON_EXTERNAL_FLASH:
+        acamera_metadata_enum_acamera_control_ae_mode =
+        acamera_metadata_enum_acamera_control_ae_mode(5);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_mode as acamera_metadata_enum_android_control_ae_mode_t;
-pub const acamera_metadata_enum_acamera_control_ae_precapture_trigger_ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER_IDLE : acamera_metadata_enum_acamera_control_ae_precapture_trigger = 0 ;
-pub const acamera_metadata_enum_acamera_control_ae_precapture_trigger_ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER_START : acamera_metadata_enum_acamera_control_ae_precapture_trigger = 1 ;
-pub const acamera_metadata_enum_acamera_control_ae_precapture_trigger_ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER_CANCEL : acamera_metadata_enum_acamera_control_ae_precapture_trigger = 2 ;
-pub type acamera_metadata_enum_acamera_control_ae_precapture_trigger = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_ae_precapture_trigger {
+    pub const ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER_IDLE:
+        acamera_metadata_enum_acamera_control_ae_precapture_trigger =
+        acamera_metadata_enum_acamera_control_ae_precapture_trigger(0);
+}
+impl acamera_metadata_enum_acamera_control_ae_precapture_trigger {
+    pub const ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER_START:
+        acamera_metadata_enum_acamera_control_ae_precapture_trigger =
+        acamera_metadata_enum_acamera_control_ae_precapture_trigger(1);
+}
+impl acamera_metadata_enum_acamera_control_ae_precapture_trigger {
+    pub const ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER_CANCEL:
+        acamera_metadata_enum_acamera_control_ae_precapture_trigger =
+        acamera_metadata_enum_acamera_control_ae_precapture_trigger(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_precapture_trigger(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_precapture_trigger as acamera_metadata_enum_android_control_ae_precapture_trigger_t;
-pub const acamera_metadata_enum_acamera_control_af_mode_ACAMERA_CONTROL_AF_MODE_OFF:
-    acamera_metadata_enum_acamera_control_af_mode = 0;
-pub const acamera_metadata_enum_acamera_control_af_mode_ACAMERA_CONTROL_AF_MODE_AUTO:
-    acamera_metadata_enum_acamera_control_af_mode = 1;
-pub const acamera_metadata_enum_acamera_control_af_mode_ACAMERA_CONTROL_AF_MODE_MACRO:
-    acamera_metadata_enum_acamera_control_af_mode = 2;
-pub const acamera_metadata_enum_acamera_control_af_mode_ACAMERA_CONTROL_AF_MODE_CONTINUOUS_VIDEO:
-    acamera_metadata_enum_acamera_control_af_mode = 3;
-pub const acamera_metadata_enum_acamera_control_af_mode_ACAMERA_CONTROL_AF_MODE_CONTINUOUS_PICTURE : acamera_metadata_enum_acamera_control_af_mode = 4 ;
-pub const acamera_metadata_enum_acamera_control_af_mode_ACAMERA_CONTROL_AF_MODE_EDOF:
-    acamera_metadata_enum_acamera_control_af_mode = 5;
-pub type acamera_metadata_enum_acamera_control_af_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_af_mode {
+    pub const ACAMERA_CONTROL_AF_MODE_OFF: acamera_metadata_enum_acamera_control_af_mode =
+        acamera_metadata_enum_acamera_control_af_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_af_mode {
+    pub const ACAMERA_CONTROL_AF_MODE_AUTO: acamera_metadata_enum_acamera_control_af_mode =
+        acamera_metadata_enum_acamera_control_af_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_af_mode {
+    pub const ACAMERA_CONTROL_AF_MODE_MACRO: acamera_metadata_enum_acamera_control_af_mode =
+        acamera_metadata_enum_acamera_control_af_mode(2);
+}
+impl acamera_metadata_enum_acamera_control_af_mode {
+    pub const ACAMERA_CONTROL_AF_MODE_CONTINUOUS_VIDEO:
+        acamera_metadata_enum_acamera_control_af_mode =
+        acamera_metadata_enum_acamera_control_af_mode(3);
+}
+impl acamera_metadata_enum_acamera_control_af_mode {
+    pub const ACAMERA_CONTROL_AF_MODE_CONTINUOUS_PICTURE:
+        acamera_metadata_enum_acamera_control_af_mode =
+        acamera_metadata_enum_acamera_control_af_mode(4);
+}
+impl acamera_metadata_enum_acamera_control_af_mode {
+    pub const ACAMERA_CONTROL_AF_MODE_EDOF: acamera_metadata_enum_acamera_control_af_mode =
+        acamera_metadata_enum_acamera_control_af_mode(5);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_af_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_mode as acamera_metadata_enum_android_control_af_mode_t;
-pub const acamera_metadata_enum_acamera_control_af_trigger_ACAMERA_CONTROL_AF_TRIGGER_IDLE:
-    acamera_metadata_enum_acamera_control_af_trigger = 0;
-pub const acamera_metadata_enum_acamera_control_af_trigger_ACAMERA_CONTROL_AF_TRIGGER_START:
-    acamera_metadata_enum_acamera_control_af_trigger = 1;
-pub const acamera_metadata_enum_acamera_control_af_trigger_ACAMERA_CONTROL_AF_TRIGGER_CANCEL:
-    acamera_metadata_enum_acamera_control_af_trigger = 2;
-pub type acamera_metadata_enum_acamera_control_af_trigger = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_af_trigger {
+    pub const ACAMERA_CONTROL_AF_TRIGGER_IDLE: acamera_metadata_enum_acamera_control_af_trigger =
+        acamera_metadata_enum_acamera_control_af_trigger(0);
+}
+impl acamera_metadata_enum_acamera_control_af_trigger {
+    pub const ACAMERA_CONTROL_AF_TRIGGER_START: acamera_metadata_enum_acamera_control_af_trigger =
+        acamera_metadata_enum_acamera_control_af_trigger(1);
+}
+impl acamera_metadata_enum_acamera_control_af_trigger {
+    pub const ACAMERA_CONTROL_AF_TRIGGER_CANCEL: acamera_metadata_enum_acamera_control_af_trigger =
+        acamera_metadata_enum_acamera_control_af_trigger(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_af_trigger(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_trigger as acamera_metadata_enum_android_control_af_trigger_t;
-pub const acamera_metadata_enum_acamera_control_awb_lock_ACAMERA_CONTROL_AWB_LOCK_OFF:
-    acamera_metadata_enum_acamera_control_awb_lock = 0;
-pub const acamera_metadata_enum_acamera_control_awb_lock_ACAMERA_CONTROL_AWB_LOCK_ON:
-    acamera_metadata_enum_acamera_control_awb_lock = 1;
-pub type acamera_metadata_enum_acamera_control_awb_lock = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_awb_lock {
+    pub const ACAMERA_CONTROL_AWB_LOCK_OFF: acamera_metadata_enum_acamera_control_awb_lock =
+        acamera_metadata_enum_acamera_control_awb_lock(0);
+}
+impl acamera_metadata_enum_acamera_control_awb_lock {
+    pub const ACAMERA_CONTROL_AWB_LOCK_ON: acamera_metadata_enum_acamera_control_awb_lock =
+        acamera_metadata_enum_acamera_control_awb_lock(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_awb_lock(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_lock as acamera_metadata_enum_android_control_awb_lock_t;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_OFF:
-    acamera_metadata_enum_acamera_control_awb_mode = 0;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_AUTO:
-    acamera_metadata_enum_acamera_control_awb_mode = 1;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_INCANDESCENT:
-    acamera_metadata_enum_acamera_control_awb_mode = 2;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_FLUORESCENT:
-    acamera_metadata_enum_acamera_control_awb_mode = 3;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_WARM_FLUORESCENT : acamera_metadata_enum_acamera_control_awb_mode = 4 ;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_DAYLIGHT:
-    acamera_metadata_enum_acamera_control_awb_mode = 5;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_CLOUDY_DAYLIGHT : acamera_metadata_enum_acamera_control_awb_mode = 6 ;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_TWILIGHT:
-    acamera_metadata_enum_acamera_control_awb_mode = 7;
-pub const acamera_metadata_enum_acamera_control_awb_mode_ACAMERA_CONTROL_AWB_MODE_SHADE:
-    acamera_metadata_enum_acamera_control_awb_mode = 8;
-pub type acamera_metadata_enum_acamera_control_awb_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_OFF: acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_AUTO: acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_INCANDESCENT:
+        acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(2);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_FLUORESCENT: acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(3);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_WARM_FLUORESCENT:
+        acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(4);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_DAYLIGHT: acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(5);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_CLOUDY_DAYLIGHT:
+        acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(6);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_TWILIGHT: acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(7);
+}
+impl acamera_metadata_enum_acamera_control_awb_mode {
+    pub const ACAMERA_CONTROL_AWB_MODE_SHADE: acamera_metadata_enum_acamera_control_awb_mode =
+        acamera_metadata_enum_acamera_control_awb_mode(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_awb_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_mode as acamera_metadata_enum_android_control_awb_mode_t;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_CUSTOM : acamera_metadata_enum_acamera_control_capture_intent = 0 ;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_PREVIEW : acamera_metadata_enum_acamera_control_capture_intent = 1 ;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_STILL_CAPTURE : acamera_metadata_enum_acamera_control_capture_intent = 2 ;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_VIDEO_RECORD : acamera_metadata_enum_acamera_control_capture_intent = 3 ;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_VIDEO_SNAPSHOT : acamera_metadata_enum_acamera_control_capture_intent = 4 ;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_ZERO_SHUTTER_LAG : acamera_metadata_enum_acamera_control_capture_intent = 5 ;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_MANUAL : acamera_metadata_enum_acamera_control_capture_intent = 6 ;
-pub const acamera_metadata_enum_acamera_control_capture_intent_ACAMERA_CONTROL_CAPTURE_INTENT_MOTION_TRACKING : acamera_metadata_enum_acamera_control_capture_intent = 7 ;
-pub type acamera_metadata_enum_acamera_control_capture_intent = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_CUSTOM:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(0);
+}
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_PREVIEW:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(1);
+}
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_STILL_CAPTURE:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(2);
+}
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_VIDEO_RECORD:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(3);
+}
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_VIDEO_SNAPSHOT:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(4);
+}
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_ZERO_SHUTTER_LAG:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(5);
+}
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_MANUAL:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(6);
+}
+impl acamera_metadata_enum_acamera_control_capture_intent {
+    pub const ACAMERA_CONTROL_CAPTURE_INTENT_MOTION_TRACKING:
+        acamera_metadata_enum_acamera_control_capture_intent =
+        acamera_metadata_enum_acamera_control_capture_intent(7);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_capture_intent(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_capture_intent as acamera_metadata_enum_android_control_capture_intent_t;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_OFF:
-    acamera_metadata_enum_acamera_control_effect_mode = 0;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_MONO:
-    acamera_metadata_enum_acamera_control_effect_mode = 1;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_NEGATIVE:
-    acamera_metadata_enum_acamera_control_effect_mode = 2;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_SOLARIZE:
-    acamera_metadata_enum_acamera_control_effect_mode = 3;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_SEPIA:
-    acamera_metadata_enum_acamera_control_effect_mode = 4;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_POSTERIZE : acamera_metadata_enum_acamera_control_effect_mode = 5 ;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_WHITEBOARD : acamera_metadata_enum_acamera_control_effect_mode = 6 ;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_BLACKBOARD : acamera_metadata_enum_acamera_control_effect_mode = 7 ;
-pub const acamera_metadata_enum_acamera_control_effect_mode_ACAMERA_CONTROL_EFFECT_MODE_AQUA:
-    acamera_metadata_enum_acamera_control_effect_mode = 8;
-pub type acamera_metadata_enum_acamera_control_effect_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_OFF: acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_MONO: acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_NEGATIVE:
+        acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(2);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_SOLARIZE:
+        acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(3);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_SEPIA: acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(4);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_POSTERIZE:
+        acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(5);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_WHITEBOARD:
+        acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(6);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_BLACKBOARD:
+        acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(7);
+}
+impl acamera_metadata_enum_acamera_control_effect_mode {
+    pub const ACAMERA_CONTROL_EFFECT_MODE_AQUA: acamera_metadata_enum_acamera_control_effect_mode =
+        acamera_metadata_enum_acamera_control_effect_mode(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_effect_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_effect_mode as acamera_metadata_enum_android_control_effect_mode_t;
-pub const acamera_metadata_enum_acamera_control_mode_ACAMERA_CONTROL_MODE_OFF:
-    acamera_metadata_enum_acamera_control_mode = 0;
-pub const acamera_metadata_enum_acamera_control_mode_ACAMERA_CONTROL_MODE_AUTO:
-    acamera_metadata_enum_acamera_control_mode = 1;
-pub const acamera_metadata_enum_acamera_control_mode_ACAMERA_CONTROL_MODE_USE_SCENE_MODE:
-    acamera_metadata_enum_acamera_control_mode = 2;
-pub const acamera_metadata_enum_acamera_control_mode_ACAMERA_CONTROL_MODE_OFF_KEEP_STATE:
-    acamera_metadata_enum_acamera_control_mode = 3;
-pub const acamera_metadata_enum_acamera_control_mode_ACAMERA_CONTROL_MODE_USE_EXTENDED_SCENE_MODE : acamera_metadata_enum_acamera_control_mode = 4 ;
-pub type acamera_metadata_enum_acamera_control_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_mode {
+    pub const ACAMERA_CONTROL_MODE_OFF: acamera_metadata_enum_acamera_control_mode =
+        acamera_metadata_enum_acamera_control_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_mode {
+    pub const ACAMERA_CONTROL_MODE_AUTO: acamera_metadata_enum_acamera_control_mode =
+        acamera_metadata_enum_acamera_control_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_mode {
+    pub const ACAMERA_CONTROL_MODE_USE_SCENE_MODE: acamera_metadata_enum_acamera_control_mode =
+        acamera_metadata_enum_acamera_control_mode(2);
+}
+impl acamera_metadata_enum_acamera_control_mode {
+    pub const ACAMERA_CONTROL_MODE_OFF_KEEP_STATE: acamera_metadata_enum_acamera_control_mode =
+        acamera_metadata_enum_acamera_control_mode(3);
+}
+impl acamera_metadata_enum_acamera_control_mode {
+    pub const ACAMERA_CONTROL_MODE_USE_EXTENDED_SCENE_MODE:
+        acamera_metadata_enum_acamera_control_mode = acamera_metadata_enum_acamera_control_mode(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_mode as acamera_metadata_enum_android_control_mode_t;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_DISABLED:
-    acamera_metadata_enum_acamera_control_scene_mode = 0;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_FACE_PRIORITY : acamera_metadata_enum_acamera_control_scene_mode = 1 ;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_ACTION:
-    acamera_metadata_enum_acamera_control_scene_mode = 2;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_PORTRAIT:
-    acamera_metadata_enum_acamera_control_scene_mode = 3;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_LANDSCAPE:
-    acamera_metadata_enum_acamera_control_scene_mode = 4;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_NIGHT:
-    acamera_metadata_enum_acamera_control_scene_mode = 5;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_NIGHT_PORTRAIT : acamera_metadata_enum_acamera_control_scene_mode = 6 ;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_THEATRE:
-    acamera_metadata_enum_acamera_control_scene_mode = 7;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_BEACH:
-    acamera_metadata_enum_acamera_control_scene_mode = 8;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_SNOW:
-    acamera_metadata_enum_acamera_control_scene_mode = 9;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_SUNSET:
-    acamera_metadata_enum_acamera_control_scene_mode = 10;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_STEADYPHOTO : acamera_metadata_enum_acamera_control_scene_mode = 11 ;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_FIREWORKS:
-    acamera_metadata_enum_acamera_control_scene_mode = 12;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_SPORTS:
-    acamera_metadata_enum_acamera_control_scene_mode = 13;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_PARTY:
-    acamera_metadata_enum_acamera_control_scene_mode = 14;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_CANDLELIGHT : acamera_metadata_enum_acamera_control_scene_mode = 15 ;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_BARCODE:
-    acamera_metadata_enum_acamera_control_scene_mode = 16;
-pub const acamera_metadata_enum_acamera_control_scene_mode_ACAMERA_CONTROL_SCENE_MODE_HDR:
-    acamera_metadata_enum_acamera_control_scene_mode = 18;
-pub type acamera_metadata_enum_acamera_control_scene_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_DISABLED:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_FACE_PRIORITY:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_ACTION: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(2);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_PORTRAIT:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(3);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_LANDSCAPE:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(4);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_NIGHT: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(5);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_NIGHT_PORTRAIT:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(6);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_THEATRE: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(7);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_BEACH: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(8);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_SNOW: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(9);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_SUNSET: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(10);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_STEADYPHOTO:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(11);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_FIREWORKS:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(12);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_SPORTS: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(13);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_PARTY: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(14);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_CANDLELIGHT:
+        acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(15);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_BARCODE: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(16);
+}
+impl acamera_metadata_enum_acamera_control_scene_mode {
+    pub const ACAMERA_CONTROL_SCENE_MODE_HDR: acamera_metadata_enum_acamera_control_scene_mode =
+        acamera_metadata_enum_acamera_control_scene_mode(18);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_scene_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_scene_mode as acamera_metadata_enum_android_control_scene_mode_t;
-pub const acamera_metadata_enum_acamera_control_video_stabilization_mode_ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE_OFF : acamera_metadata_enum_acamera_control_video_stabilization_mode = 0 ;
-pub const acamera_metadata_enum_acamera_control_video_stabilization_mode_ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE_ON : acamera_metadata_enum_acamera_control_video_stabilization_mode = 1 ;
-pub type acamera_metadata_enum_acamera_control_video_stabilization_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_video_stabilization_mode {
+    pub const ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE_OFF:
+        acamera_metadata_enum_acamera_control_video_stabilization_mode =
+        acamera_metadata_enum_acamera_control_video_stabilization_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_video_stabilization_mode {
+    pub const ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE_ON:
+        acamera_metadata_enum_acamera_control_video_stabilization_mode =
+        acamera_metadata_enum_acamera_control_video_stabilization_mode(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_video_stabilization_mode(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_control_video_stabilization_mode as acamera_metadata_enum_android_control_video_stabilization_mode_t;
-pub const acamera_metadata_enum_acamera_control_ae_state_ACAMERA_CONTROL_AE_STATE_INACTIVE:
-    acamera_metadata_enum_acamera_control_ae_state = 0;
-pub const acamera_metadata_enum_acamera_control_ae_state_ACAMERA_CONTROL_AE_STATE_SEARCHING:
-    acamera_metadata_enum_acamera_control_ae_state = 1;
-pub const acamera_metadata_enum_acamera_control_ae_state_ACAMERA_CONTROL_AE_STATE_CONVERGED:
-    acamera_metadata_enum_acamera_control_ae_state = 2;
-pub const acamera_metadata_enum_acamera_control_ae_state_ACAMERA_CONTROL_AE_STATE_LOCKED:
-    acamera_metadata_enum_acamera_control_ae_state = 3;
-pub const acamera_metadata_enum_acamera_control_ae_state_ACAMERA_CONTROL_AE_STATE_FLASH_REQUIRED:
-    acamera_metadata_enum_acamera_control_ae_state = 4;
-pub const acamera_metadata_enum_acamera_control_ae_state_ACAMERA_CONTROL_AE_STATE_PRECAPTURE:
-    acamera_metadata_enum_acamera_control_ae_state = 5;
-pub type acamera_metadata_enum_acamera_control_ae_state = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_ae_state {
+    pub const ACAMERA_CONTROL_AE_STATE_INACTIVE: acamera_metadata_enum_acamera_control_ae_state =
+        acamera_metadata_enum_acamera_control_ae_state(0);
+}
+impl acamera_metadata_enum_acamera_control_ae_state {
+    pub const ACAMERA_CONTROL_AE_STATE_SEARCHING: acamera_metadata_enum_acamera_control_ae_state =
+        acamera_metadata_enum_acamera_control_ae_state(1);
+}
+impl acamera_metadata_enum_acamera_control_ae_state {
+    pub const ACAMERA_CONTROL_AE_STATE_CONVERGED: acamera_metadata_enum_acamera_control_ae_state =
+        acamera_metadata_enum_acamera_control_ae_state(2);
+}
+impl acamera_metadata_enum_acamera_control_ae_state {
+    pub const ACAMERA_CONTROL_AE_STATE_LOCKED: acamera_metadata_enum_acamera_control_ae_state =
+        acamera_metadata_enum_acamera_control_ae_state(3);
+}
+impl acamera_metadata_enum_acamera_control_ae_state {
+    pub const ACAMERA_CONTROL_AE_STATE_FLASH_REQUIRED:
+        acamera_metadata_enum_acamera_control_ae_state =
+        acamera_metadata_enum_acamera_control_ae_state(4);
+}
+impl acamera_metadata_enum_acamera_control_ae_state {
+    pub const ACAMERA_CONTROL_AE_STATE_PRECAPTURE: acamera_metadata_enum_acamera_control_ae_state =
+        acamera_metadata_enum_acamera_control_ae_state(5);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_state as acamera_metadata_enum_android_control_ae_state_t;
-pub const acamera_metadata_enum_acamera_control_af_state_ACAMERA_CONTROL_AF_STATE_INACTIVE:
-    acamera_metadata_enum_acamera_control_af_state = 0;
-pub const acamera_metadata_enum_acamera_control_af_state_ACAMERA_CONTROL_AF_STATE_PASSIVE_SCAN:
-    acamera_metadata_enum_acamera_control_af_state = 1;
-pub const acamera_metadata_enum_acamera_control_af_state_ACAMERA_CONTROL_AF_STATE_PASSIVE_FOCUSED : acamera_metadata_enum_acamera_control_af_state = 2 ;
-pub const acamera_metadata_enum_acamera_control_af_state_ACAMERA_CONTROL_AF_STATE_ACTIVE_SCAN:
-    acamera_metadata_enum_acamera_control_af_state = 3;
-pub const acamera_metadata_enum_acamera_control_af_state_ACAMERA_CONTROL_AF_STATE_FOCUSED_LOCKED:
-    acamera_metadata_enum_acamera_control_af_state = 4;
-pub const acamera_metadata_enum_acamera_control_af_state_ACAMERA_CONTROL_AF_STATE_NOT_FOCUSED_LOCKED : acamera_metadata_enum_acamera_control_af_state = 5 ;
-pub const acamera_metadata_enum_acamera_control_af_state_ACAMERA_CONTROL_AF_STATE_PASSIVE_UNFOCUSED : acamera_metadata_enum_acamera_control_af_state = 6 ;
-pub type acamera_metadata_enum_acamera_control_af_state = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_af_state {
+    pub const ACAMERA_CONTROL_AF_STATE_INACTIVE: acamera_metadata_enum_acamera_control_af_state =
+        acamera_metadata_enum_acamera_control_af_state(0);
+}
+impl acamera_metadata_enum_acamera_control_af_state {
+    pub const ACAMERA_CONTROL_AF_STATE_PASSIVE_SCAN:
+        acamera_metadata_enum_acamera_control_af_state =
+        acamera_metadata_enum_acamera_control_af_state(1);
+}
+impl acamera_metadata_enum_acamera_control_af_state {
+    pub const ACAMERA_CONTROL_AF_STATE_PASSIVE_FOCUSED:
+        acamera_metadata_enum_acamera_control_af_state =
+        acamera_metadata_enum_acamera_control_af_state(2);
+}
+impl acamera_metadata_enum_acamera_control_af_state {
+    pub const ACAMERA_CONTROL_AF_STATE_ACTIVE_SCAN: acamera_metadata_enum_acamera_control_af_state =
+        acamera_metadata_enum_acamera_control_af_state(3);
+}
+impl acamera_metadata_enum_acamera_control_af_state {
+    pub const ACAMERA_CONTROL_AF_STATE_FOCUSED_LOCKED:
+        acamera_metadata_enum_acamera_control_af_state =
+        acamera_metadata_enum_acamera_control_af_state(4);
+}
+impl acamera_metadata_enum_acamera_control_af_state {
+    pub const ACAMERA_CONTROL_AF_STATE_NOT_FOCUSED_LOCKED:
+        acamera_metadata_enum_acamera_control_af_state =
+        acamera_metadata_enum_acamera_control_af_state(5);
+}
+impl acamera_metadata_enum_acamera_control_af_state {
+    pub const ACAMERA_CONTROL_AF_STATE_PASSIVE_UNFOCUSED:
+        acamera_metadata_enum_acamera_control_af_state =
+        acamera_metadata_enum_acamera_control_af_state(6);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_af_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_state as acamera_metadata_enum_android_control_af_state_t;
-pub const acamera_metadata_enum_acamera_control_awb_state_ACAMERA_CONTROL_AWB_STATE_INACTIVE:
-    acamera_metadata_enum_acamera_control_awb_state = 0;
-pub const acamera_metadata_enum_acamera_control_awb_state_ACAMERA_CONTROL_AWB_STATE_SEARCHING:
-    acamera_metadata_enum_acamera_control_awb_state = 1;
-pub const acamera_metadata_enum_acamera_control_awb_state_ACAMERA_CONTROL_AWB_STATE_CONVERGED:
-    acamera_metadata_enum_acamera_control_awb_state = 2;
-pub const acamera_metadata_enum_acamera_control_awb_state_ACAMERA_CONTROL_AWB_STATE_LOCKED:
-    acamera_metadata_enum_acamera_control_awb_state = 3;
-pub type acamera_metadata_enum_acamera_control_awb_state = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_awb_state {
+    pub const ACAMERA_CONTROL_AWB_STATE_INACTIVE: acamera_metadata_enum_acamera_control_awb_state =
+        acamera_metadata_enum_acamera_control_awb_state(0);
+}
+impl acamera_metadata_enum_acamera_control_awb_state {
+    pub const ACAMERA_CONTROL_AWB_STATE_SEARCHING: acamera_metadata_enum_acamera_control_awb_state =
+        acamera_metadata_enum_acamera_control_awb_state(1);
+}
+impl acamera_metadata_enum_acamera_control_awb_state {
+    pub const ACAMERA_CONTROL_AWB_STATE_CONVERGED: acamera_metadata_enum_acamera_control_awb_state =
+        acamera_metadata_enum_acamera_control_awb_state(2);
+}
+impl acamera_metadata_enum_acamera_control_awb_state {
+    pub const ACAMERA_CONTROL_AWB_STATE_LOCKED: acamera_metadata_enum_acamera_control_awb_state =
+        acamera_metadata_enum_acamera_control_awb_state(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_awb_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_state as acamera_metadata_enum_android_control_awb_state_t;
-pub const acamera_metadata_enum_acamera_control_ae_lock_available_ACAMERA_CONTROL_AE_LOCK_AVAILABLE_FALSE : acamera_metadata_enum_acamera_control_ae_lock_available = 0 ;
-pub const acamera_metadata_enum_acamera_control_ae_lock_available_ACAMERA_CONTROL_AE_LOCK_AVAILABLE_TRUE : acamera_metadata_enum_acamera_control_ae_lock_available = 1 ;
-pub type acamera_metadata_enum_acamera_control_ae_lock_available = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_ae_lock_available {
+    pub const ACAMERA_CONTROL_AE_LOCK_AVAILABLE_FALSE:
+        acamera_metadata_enum_acamera_control_ae_lock_available =
+        acamera_metadata_enum_acamera_control_ae_lock_available(0);
+}
+impl acamera_metadata_enum_acamera_control_ae_lock_available {
+    pub const ACAMERA_CONTROL_AE_LOCK_AVAILABLE_TRUE:
+        acamera_metadata_enum_acamera_control_ae_lock_available =
+        acamera_metadata_enum_acamera_control_ae_lock_available(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_lock_available(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_lock_available as acamera_metadata_enum_android_control_ae_lock_available_t;
-pub const acamera_metadata_enum_acamera_control_awb_lock_available_ACAMERA_CONTROL_AWB_LOCK_AVAILABLE_FALSE : acamera_metadata_enum_acamera_control_awb_lock_available = 0 ;
-pub const acamera_metadata_enum_acamera_control_awb_lock_available_ACAMERA_CONTROL_AWB_LOCK_AVAILABLE_TRUE : acamera_metadata_enum_acamera_control_awb_lock_available = 1 ;
-pub type acamera_metadata_enum_acamera_control_awb_lock_available = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_awb_lock_available {
+    pub const ACAMERA_CONTROL_AWB_LOCK_AVAILABLE_FALSE:
+        acamera_metadata_enum_acamera_control_awb_lock_available =
+        acamera_metadata_enum_acamera_control_awb_lock_available(0);
+}
+impl acamera_metadata_enum_acamera_control_awb_lock_available {
+    pub const ACAMERA_CONTROL_AWB_LOCK_AVAILABLE_TRUE:
+        acamera_metadata_enum_acamera_control_awb_lock_available =
+        acamera_metadata_enum_acamera_control_awb_lock_available(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_awb_lock_available(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_lock_available as acamera_metadata_enum_android_control_awb_lock_available_t;
-pub const acamera_metadata_enum_acamera_control_enable_zsl_ACAMERA_CONTROL_ENABLE_ZSL_FALSE:
-    acamera_metadata_enum_acamera_control_enable_zsl = 0;
-pub const acamera_metadata_enum_acamera_control_enable_zsl_ACAMERA_CONTROL_ENABLE_ZSL_TRUE:
-    acamera_metadata_enum_acamera_control_enable_zsl = 1;
-pub type acamera_metadata_enum_acamera_control_enable_zsl = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_enable_zsl {
+    pub const ACAMERA_CONTROL_ENABLE_ZSL_FALSE: acamera_metadata_enum_acamera_control_enable_zsl =
+        acamera_metadata_enum_acamera_control_enable_zsl(0);
+}
+impl acamera_metadata_enum_acamera_control_enable_zsl {
+    pub const ACAMERA_CONTROL_ENABLE_ZSL_TRUE: acamera_metadata_enum_acamera_control_enable_zsl =
+        acamera_metadata_enum_acamera_control_enable_zsl(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_enable_zsl(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_enable_zsl as acamera_metadata_enum_android_control_enable_zsl_t;
-pub const acamera_metadata_enum_acamera_control_af_scene_change_ACAMERA_CONTROL_AF_SCENE_CHANGE_NOT_DETECTED : acamera_metadata_enum_acamera_control_af_scene_change = 0 ;
-pub const acamera_metadata_enum_acamera_control_af_scene_change_ACAMERA_CONTROL_AF_SCENE_CHANGE_DETECTED : acamera_metadata_enum_acamera_control_af_scene_change = 1 ;
-pub type acamera_metadata_enum_acamera_control_af_scene_change = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_af_scene_change {
+    pub const ACAMERA_CONTROL_AF_SCENE_CHANGE_NOT_DETECTED:
+        acamera_metadata_enum_acamera_control_af_scene_change =
+        acamera_metadata_enum_acamera_control_af_scene_change(0);
+}
+impl acamera_metadata_enum_acamera_control_af_scene_change {
+    pub const ACAMERA_CONTROL_AF_SCENE_CHANGE_DETECTED:
+        acamera_metadata_enum_acamera_control_af_scene_change =
+        acamera_metadata_enum_acamera_control_af_scene_change(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_af_scene_change(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_scene_change as acamera_metadata_enum_android_control_af_scene_change_t;
-pub const acamera_metadata_enum_acamera_control_extended_scene_mode_ACAMERA_CONTROL_EXTENDED_SCENE_MODE_DISABLED : acamera_metadata_enum_acamera_control_extended_scene_mode = 0 ;
-pub const acamera_metadata_enum_acamera_control_extended_scene_mode_ACAMERA_CONTROL_EXTENDED_SCENE_MODE_BOKEH_STILL_CAPTURE : acamera_metadata_enum_acamera_control_extended_scene_mode = 1 ;
-pub const acamera_metadata_enum_acamera_control_extended_scene_mode_ACAMERA_CONTROL_EXTENDED_SCENE_MODE_BOKEH_CONTINUOUS : acamera_metadata_enum_acamera_control_extended_scene_mode = 2 ;
-pub type acamera_metadata_enum_acamera_control_extended_scene_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_control_extended_scene_mode {
+    pub const ACAMERA_CONTROL_EXTENDED_SCENE_MODE_DISABLED:
+        acamera_metadata_enum_acamera_control_extended_scene_mode =
+        acamera_metadata_enum_acamera_control_extended_scene_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_extended_scene_mode {
+    pub const ACAMERA_CONTROL_EXTENDED_SCENE_MODE_BOKEH_STILL_CAPTURE:
+        acamera_metadata_enum_acamera_control_extended_scene_mode =
+        acamera_metadata_enum_acamera_control_extended_scene_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_extended_scene_mode {
+    pub const ACAMERA_CONTROL_EXTENDED_SCENE_MODE_BOKEH_CONTINUOUS:
+        acamera_metadata_enum_acamera_control_extended_scene_mode =
+        acamera_metadata_enum_acamera_control_extended_scene_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_extended_scene_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_extended_scene_mode as acamera_metadata_enum_android_control_extended_scene_mode_t;
-pub const acamera_metadata_enum_acamera_edge_mode_ACAMERA_EDGE_MODE_OFF:
-    acamera_metadata_enum_acamera_edge_mode = 0;
-pub const acamera_metadata_enum_acamera_edge_mode_ACAMERA_EDGE_MODE_FAST:
-    acamera_metadata_enum_acamera_edge_mode = 1;
-pub const acamera_metadata_enum_acamera_edge_mode_ACAMERA_EDGE_MODE_HIGH_QUALITY:
-    acamera_metadata_enum_acamera_edge_mode = 2;
-pub const acamera_metadata_enum_acamera_edge_mode_ACAMERA_EDGE_MODE_ZERO_SHUTTER_LAG:
-    acamera_metadata_enum_acamera_edge_mode = 3;
-pub type acamera_metadata_enum_acamera_edge_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_edge_mode {
+    pub const ACAMERA_EDGE_MODE_OFF: acamera_metadata_enum_acamera_edge_mode =
+        acamera_metadata_enum_acamera_edge_mode(0);
+}
+impl acamera_metadata_enum_acamera_edge_mode {
+    pub const ACAMERA_EDGE_MODE_FAST: acamera_metadata_enum_acamera_edge_mode =
+        acamera_metadata_enum_acamera_edge_mode(1);
+}
+impl acamera_metadata_enum_acamera_edge_mode {
+    pub const ACAMERA_EDGE_MODE_HIGH_QUALITY: acamera_metadata_enum_acamera_edge_mode =
+        acamera_metadata_enum_acamera_edge_mode(2);
+}
+impl acamera_metadata_enum_acamera_edge_mode {
+    pub const ACAMERA_EDGE_MODE_ZERO_SHUTTER_LAG: acamera_metadata_enum_acamera_edge_mode =
+        acamera_metadata_enum_acamera_edge_mode(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_edge_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_edge_mode as acamera_metadata_enum_android_edge_mode_t;
-pub const acamera_metadata_enum_acamera_flash_mode_ACAMERA_FLASH_MODE_OFF:
-    acamera_metadata_enum_acamera_flash_mode = 0;
-pub const acamera_metadata_enum_acamera_flash_mode_ACAMERA_FLASH_MODE_SINGLE:
-    acamera_metadata_enum_acamera_flash_mode = 1;
-pub const acamera_metadata_enum_acamera_flash_mode_ACAMERA_FLASH_MODE_TORCH:
-    acamera_metadata_enum_acamera_flash_mode = 2;
-pub type acamera_metadata_enum_acamera_flash_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_flash_mode {
+    pub const ACAMERA_FLASH_MODE_OFF: acamera_metadata_enum_acamera_flash_mode =
+        acamera_metadata_enum_acamera_flash_mode(0);
+}
+impl acamera_metadata_enum_acamera_flash_mode {
+    pub const ACAMERA_FLASH_MODE_SINGLE: acamera_metadata_enum_acamera_flash_mode =
+        acamera_metadata_enum_acamera_flash_mode(1);
+}
+impl acamera_metadata_enum_acamera_flash_mode {
+    pub const ACAMERA_FLASH_MODE_TORCH: acamera_metadata_enum_acamera_flash_mode =
+        acamera_metadata_enum_acamera_flash_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_flash_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_flash_mode as acamera_metadata_enum_android_flash_mode_t;
-pub const acamera_metadata_enum_acamera_flash_state_ACAMERA_FLASH_STATE_UNAVAILABLE:
-    acamera_metadata_enum_acamera_flash_state = 0;
-pub const acamera_metadata_enum_acamera_flash_state_ACAMERA_FLASH_STATE_CHARGING:
-    acamera_metadata_enum_acamera_flash_state = 1;
-pub const acamera_metadata_enum_acamera_flash_state_ACAMERA_FLASH_STATE_READY:
-    acamera_metadata_enum_acamera_flash_state = 2;
-pub const acamera_metadata_enum_acamera_flash_state_ACAMERA_FLASH_STATE_FIRED:
-    acamera_metadata_enum_acamera_flash_state = 3;
-pub const acamera_metadata_enum_acamera_flash_state_ACAMERA_FLASH_STATE_PARTIAL:
-    acamera_metadata_enum_acamera_flash_state = 4;
-pub type acamera_metadata_enum_acamera_flash_state = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_flash_state {
+    pub const ACAMERA_FLASH_STATE_UNAVAILABLE: acamera_metadata_enum_acamera_flash_state =
+        acamera_metadata_enum_acamera_flash_state(0);
+}
+impl acamera_metadata_enum_acamera_flash_state {
+    pub const ACAMERA_FLASH_STATE_CHARGING: acamera_metadata_enum_acamera_flash_state =
+        acamera_metadata_enum_acamera_flash_state(1);
+}
+impl acamera_metadata_enum_acamera_flash_state {
+    pub const ACAMERA_FLASH_STATE_READY: acamera_metadata_enum_acamera_flash_state =
+        acamera_metadata_enum_acamera_flash_state(2);
+}
+impl acamera_metadata_enum_acamera_flash_state {
+    pub const ACAMERA_FLASH_STATE_FIRED: acamera_metadata_enum_acamera_flash_state =
+        acamera_metadata_enum_acamera_flash_state(3);
+}
+impl acamera_metadata_enum_acamera_flash_state {
+    pub const ACAMERA_FLASH_STATE_PARTIAL: acamera_metadata_enum_acamera_flash_state =
+        acamera_metadata_enum_acamera_flash_state(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_flash_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_flash_state as acamera_metadata_enum_android_flash_state_t;
-pub const acamera_metadata_enum_acamera_flash_info_available_ACAMERA_FLASH_INFO_AVAILABLE_FALSE:
-    acamera_metadata_enum_acamera_flash_info_available = 0;
-pub const acamera_metadata_enum_acamera_flash_info_available_ACAMERA_FLASH_INFO_AVAILABLE_TRUE:
-    acamera_metadata_enum_acamera_flash_info_available = 1;
-pub type acamera_metadata_enum_acamera_flash_info_available = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_flash_info_available {
+    pub const ACAMERA_FLASH_INFO_AVAILABLE_FALSE:
+        acamera_metadata_enum_acamera_flash_info_available =
+        acamera_metadata_enum_acamera_flash_info_available(0);
+}
+impl acamera_metadata_enum_acamera_flash_info_available {
+    pub const ACAMERA_FLASH_INFO_AVAILABLE_TRUE:
+        acamera_metadata_enum_acamera_flash_info_available =
+        acamera_metadata_enum_acamera_flash_info_available(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_flash_info_available(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_flash_info_available as acamera_metadata_enum_android_flash_info_available_t;
-pub const acamera_metadata_enum_acamera_hot_pixel_mode_ACAMERA_HOT_PIXEL_MODE_OFF:
-    acamera_metadata_enum_acamera_hot_pixel_mode = 0;
-pub const acamera_metadata_enum_acamera_hot_pixel_mode_ACAMERA_HOT_PIXEL_MODE_FAST:
-    acamera_metadata_enum_acamera_hot_pixel_mode = 1;
-pub const acamera_metadata_enum_acamera_hot_pixel_mode_ACAMERA_HOT_PIXEL_MODE_HIGH_QUALITY:
-    acamera_metadata_enum_acamera_hot_pixel_mode = 2;
-pub type acamera_metadata_enum_acamera_hot_pixel_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_hot_pixel_mode {
+    pub const ACAMERA_HOT_PIXEL_MODE_OFF: acamera_metadata_enum_acamera_hot_pixel_mode =
+        acamera_metadata_enum_acamera_hot_pixel_mode(0);
+}
+impl acamera_metadata_enum_acamera_hot_pixel_mode {
+    pub const ACAMERA_HOT_PIXEL_MODE_FAST: acamera_metadata_enum_acamera_hot_pixel_mode =
+        acamera_metadata_enum_acamera_hot_pixel_mode(1);
+}
+impl acamera_metadata_enum_acamera_hot_pixel_mode {
+    pub const ACAMERA_HOT_PIXEL_MODE_HIGH_QUALITY: acamera_metadata_enum_acamera_hot_pixel_mode =
+        acamera_metadata_enum_acamera_hot_pixel_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_hot_pixel_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_hot_pixel_mode as acamera_metadata_enum_android_hot_pixel_mode_t;
-pub const acamera_metadata_enum_acamera_lens_optical_stabilization_mode_ACAMERA_LENS_OPTICAL_STABILIZATION_MODE_OFF : acamera_metadata_enum_acamera_lens_optical_stabilization_mode = 0 ;
-pub const acamera_metadata_enum_acamera_lens_optical_stabilization_mode_ACAMERA_LENS_OPTICAL_STABILIZATION_MODE_ON : acamera_metadata_enum_acamera_lens_optical_stabilization_mode = 1 ;
-pub type acamera_metadata_enum_acamera_lens_optical_stabilization_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_lens_optical_stabilization_mode {
+    pub const ACAMERA_LENS_OPTICAL_STABILIZATION_MODE_OFF:
+        acamera_metadata_enum_acamera_lens_optical_stabilization_mode =
+        acamera_metadata_enum_acamera_lens_optical_stabilization_mode(0);
+}
+impl acamera_metadata_enum_acamera_lens_optical_stabilization_mode {
+    pub const ACAMERA_LENS_OPTICAL_STABILIZATION_MODE_ON:
+        acamera_metadata_enum_acamera_lens_optical_stabilization_mode =
+        acamera_metadata_enum_acamera_lens_optical_stabilization_mode(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_lens_optical_stabilization_mode(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_lens_optical_stabilization_mode as acamera_metadata_enum_android_lens_optical_stabilization_mode_t;
-pub const acamera_metadata_enum_acamera_lens_facing_ACAMERA_LENS_FACING_FRONT:
-    acamera_metadata_enum_acamera_lens_facing = 0;
-pub const acamera_metadata_enum_acamera_lens_facing_ACAMERA_LENS_FACING_BACK:
-    acamera_metadata_enum_acamera_lens_facing = 1;
-pub const acamera_metadata_enum_acamera_lens_facing_ACAMERA_LENS_FACING_EXTERNAL:
-    acamera_metadata_enum_acamera_lens_facing = 2;
-pub type acamera_metadata_enum_acamera_lens_facing = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_lens_facing {
+    pub const ACAMERA_LENS_FACING_FRONT: acamera_metadata_enum_acamera_lens_facing =
+        acamera_metadata_enum_acamera_lens_facing(0);
+}
+impl acamera_metadata_enum_acamera_lens_facing {
+    pub const ACAMERA_LENS_FACING_BACK: acamera_metadata_enum_acamera_lens_facing =
+        acamera_metadata_enum_acamera_lens_facing(1);
+}
+impl acamera_metadata_enum_acamera_lens_facing {
+    pub const ACAMERA_LENS_FACING_EXTERNAL: acamera_metadata_enum_acamera_lens_facing =
+        acamera_metadata_enum_acamera_lens_facing(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_lens_facing(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_lens_facing as acamera_metadata_enum_android_lens_facing_t;
-pub const acamera_metadata_enum_acamera_lens_state_ACAMERA_LENS_STATE_STATIONARY:
-    acamera_metadata_enum_acamera_lens_state = 0;
-pub const acamera_metadata_enum_acamera_lens_state_ACAMERA_LENS_STATE_MOVING:
-    acamera_metadata_enum_acamera_lens_state = 1;
-pub type acamera_metadata_enum_acamera_lens_state = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_lens_state {
+    pub const ACAMERA_LENS_STATE_STATIONARY: acamera_metadata_enum_acamera_lens_state =
+        acamera_metadata_enum_acamera_lens_state(0);
+}
+impl acamera_metadata_enum_acamera_lens_state {
+    pub const ACAMERA_LENS_STATE_MOVING: acamera_metadata_enum_acamera_lens_state =
+        acamera_metadata_enum_acamera_lens_state(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_lens_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_lens_state as acamera_metadata_enum_android_lens_state_t;
-pub const acamera_metadata_enum_acamera_lens_pose_reference_ACAMERA_LENS_POSE_REFERENCE_PRIMARY_CAMERA : acamera_metadata_enum_acamera_lens_pose_reference = 0 ;
-pub const acamera_metadata_enum_acamera_lens_pose_reference_ACAMERA_LENS_POSE_REFERENCE_GYROSCOPE : acamera_metadata_enum_acamera_lens_pose_reference = 1 ;
-pub const acamera_metadata_enum_acamera_lens_pose_reference_ACAMERA_LENS_POSE_REFERENCE_UNDEFINED : acamera_metadata_enum_acamera_lens_pose_reference = 2 ;
-pub type acamera_metadata_enum_acamera_lens_pose_reference = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_lens_pose_reference {
+    pub const ACAMERA_LENS_POSE_REFERENCE_PRIMARY_CAMERA:
+        acamera_metadata_enum_acamera_lens_pose_reference =
+        acamera_metadata_enum_acamera_lens_pose_reference(0);
+}
+impl acamera_metadata_enum_acamera_lens_pose_reference {
+    pub const ACAMERA_LENS_POSE_REFERENCE_GYROSCOPE:
+        acamera_metadata_enum_acamera_lens_pose_reference =
+        acamera_metadata_enum_acamera_lens_pose_reference(1);
+}
+impl acamera_metadata_enum_acamera_lens_pose_reference {
+    pub const ACAMERA_LENS_POSE_REFERENCE_UNDEFINED:
+        acamera_metadata_enum_acamera_lens_pose_reference =
+        acamera_metadata_enum_acamera_lens_pose_reference(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_lens_pose_reference(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_lens_pose_reference as acamera_metadata_enum_android_lens_pose_reference_t;
-pub const acamera_metadata_enum_acamera_lens_info_focus_distance_calibration_ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_UNCALIBRATED : acamera_metadata_enum_acamera_lens_info_focus_distance_calibration = 0 ;
-pub const acamera_metadata_enum_acamera_lens_info_focus_distance_calibration_ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_APPROXIMATE : acamera_metadata_enum_acamera_lens_info_focus_distance_calibration = 1 ;
-pub const acamera_metadata_enum_acamera_lens_info_focus_distance_calibration_ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_CALIBRATED : acamera_metadata_enum_acamera_lens_info_focus_distance_calibration = 2 ;
-pub type acamera_metadata_enum_acamera_lens_info_focus_distance_calibration =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_lens_info_focus_distance_calibration {
+    pub const ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_UNCALIBRATED:
+        acamera_metadata_enum_acamera_lens_info_focus_distance_calibration =
+        acamera_metadata_enum_acamera_lens_info_focus_distance_calibration(0);
+}
+impl acamera_metadata_enum_acamera_lens_info_focus_distance_calibration {
+    pub const ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_APPROXIMATE:
+        acamera_metadata_enum_acamera_lens_info_focus_distance_calibration =
+        acamera_metadata_enum_acamera_lens_info_focus_distance_calibration(1);
+}
+impl acamera_metadata_enum_acamera_lens_info_focus_distance_calibration {
+    pub const ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_CALIBRATED:
+        acamera_metadata_enum_acamera_lens_info_focus_distance_calibration =
+        acamera_metadata_enum_acamera_lens_info_focus_distance_calibration(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_lens_info_focus_distance_calibration(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_lens_info_focus_distance_calibration as acamera_metadata_enum_android_lens_info_focus_distance_calibration_t;
-pub const acamera_metadata_enum_acamera_noise_reduction_mode_ACAMERA_NOISE_REDUCTION_MODE_OFF:
-    acamera_metadata_enum_acamera_noise_reduction_mode = 0;
-pub const acamera_metadata_enum_acamera_noise_reduction_mode_ACAMERA_NOISE_REDUCTION_MODE_FAST:
-    acamera_metadata_enum_acamera_noise_reduction_mode = 1;
-pub const acamera_metadata_enum_acamera_noise_reduction_mode_ACAMERA_NOISE_REDUCTION_MODE_HIGH_QUALITY : acamera_metadata_enum_acamera_noise_reduction_mode = 2 ;
-pub const acamera_metadata_enum_acamera_noise_reduction_mode_ACAMERA_NOISE_REDUCTION_MODE_MINIMAL : acamera_metadata_enum_acamera_noise_reduction_mode = 3 ;
-pub const acamera_metadata_enum_acamera_noise_reduction_mode_ACAMERA_NOISE_REDUCTION_MODE_ZERO_SHUTTER_LAG : acamera_metadata_enum_acamera_noise_reduction_mode = 4 ;
-pub type acamera_metadata_enum_acamera_noise_reduction_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_noise_reduction_mode {
+    pub const ACAMERA_NOISE_REDUCTION_MODE_OFF: acamera_metadata_enum_acamera_noise_reduction_mode =
+        acamera_metadata_enum_acamera_noise_reduction_mode(0);
+}
+impl acamera_metadata_enum_acamera_noise_reduction_mode {
+    pub const ACAMERA_NOISE_REDUCTION_MODE_FAST:
+        acamera_metadata_enum_acamera_noise_reduction_mode =
+        acamera_metadata_enum_acamera_noise_reduction_mode(1);
+}
+impl acamera_metadata_enum_acamera_noise_reduction_mode {
+    pub const ACAMERA_NOISE_REDUCTION_MODE_HIGH_QUALITY:
+        acamera_metadata_enum_acamera_noise_reduction_mode =
+        acamera_metadata_enum_acamera_noise_reduction_mode(2);
+}
+impl acamera_metadata_enum_acamera_noise_reduction_mode {
+    pub const ACAMERA_NOISE_REDUCTION_MODE_MINIMAL:
+        acamera_metadata_enum_acamera_noise_reduction_mode =
+        acamera_metadata_enum_acamera_noise_reduction_mode(3);
+}
+impl acamera_metadata_enum_acamera_noise_reduction_mode {
+    pub const ACAMERA_NOISE_REDUCTION_MODE_ZERO_SHUTTER_LAG:
+        acamera_metadata_enum_acamera_noise_reduction_mode =
+        acamera_metadata_enum_acamera_noise_reduction_mode(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_noise_reduction_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_noise_reduction_mode as acamera_metadata_enum_android_noise_reduction_mode_t;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_BACKWARD_COMPATIBLE : acamera_metadata_enum_acamera_request_available_capabilities = 0 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MANUAL_SENSOR : acamera_metadata_enum_acamera_request_available_capabilities = 1 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MANUAL_POST_PROCESSING : acamera_metadata_enum_acamera_request_available_capabilities = 2 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_RAW : acamera_metadata_enum_acamera_request_available_capabilities = 3 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_READ_SENSOR_SETTINGS : acamera_metadata_enum_acamera_request_available_capabilities = 5 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_BURST_CAPTURE : acamera_metadata_enum_acamera_request_available_capabilities = 6 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_DEPTH_OUTPUT : acamera_metadata_enum_acamera_request_available_capabilities = 8 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MOTION_TRACKING : acamera_metadata_enum_acamera_request_available_capabilities = 10 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA : acamera_metadata_enum_acamera_request_available_capabilities = 11 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MONOCHROME : acamera_metadata_enum_acamera_request_available_capabilities = 12 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_SECURE_IMAGE_DATA : acamera_metadata_enum_acamera_request_available_capabilities = 13 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_SYSTEM_CAMERA : acamera_metadata_enum_acamera_request_available_capabilities = 14 ;
-pub const acamera_metadata_enum_acamera_request_available_capabilities_ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_ULTRA_HIGH_RESOLUTION_SENSOR : acamera_metadata_enum_acamera_request_available_capabilities = 16 ;
-pub type acamera_metadata_enum_acamera_request_available_capabilities = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_BACKWARD_COMPATIBLE:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(0);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MANUAL_SENSOR:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(1);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MANUAL_POST_PROCESSING:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(2);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_RAW:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(3);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_READ_SENSOR_SETTINGS:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(5);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_BURST_CAPTURE:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(6);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_DEPTH_OUTPUT:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(8);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MOTION_TRACKING:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(10);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_LOGICAL_MULTI_CAMERA:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(11);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_MONOCHROME:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(12);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_SECURE_IMAGE_DATA:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(13);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_SYSTEM_CAMERA:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(14);
+}
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_ULTRA_HIGH_RESOLUTION_SENSOR:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(16);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_request_available_capabilities(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_request_available_capabilities as acamera_metadata_enum_android_request_available_capabilities_t;
-pub const acamera_metadata_enum_acamera_scaler_available_stream_configurations_ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_OUTPUT : acamera_metadata_enum_acamera_scaler_available_stream_configurations = 0 ;
-pub const acamera_metadata_enum_acamera_scaler_available_stream_configurations_ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_INPUT : acamera_metadata_enum_acamera_scaler_available_stream_configurations = 1 ;
-pub type acamera_metadata_enum_acamera_scaler_available_stream_configurations =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_scaler_available_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations(0);
+}
+impl acamera_metadata_enum_acamera_scaler_available_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_available_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_scaler_available_stream_configurations as acamera_metadata_enum_android_scaler_available_stream_configurations_t;
-pub const acamera_metadata_enum_acamera_scaler_cropping_type_ACAMERA_SCALER_CROPPING_TYPE_CENTER_ONLY : acamera_metadata_enum_acamera_scaler_cropping_type = 0 ;
-pub const acamera_metadata_enum_acamera_scaler_cropping_type_ACAMERA_SCALER_CROPPING_TYPE_FREEFORM : acamera_metadata_enum_acamera_scaler_cropping_type = 1 ;
-pub type acamera_metadata_enum_acamera_scaler_cropping_type = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_scaler_cropping_type {
+    pub const ACAMERA_SCALER_CROPPING_TYPE_CENTER_ONLY:
+        acamera_metadata_enum_acamera_scaler_cropping_type =
+        acamera_metadata_enum_acamera_scaler_cropping_type(0);
+}
+impl acamera_metadata_enum_acamera_scaler_cropping_type {
+    pub const ACAMERA_SCALER_CROPPING_TYPE_FREEFORM:
+        acamera_metadata_enum_acamera_scaler_cropping_type =
+        acamera_metadata_enum_acamera_scaler_cropping_type(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_cropping_type(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_scaler_cropping_type as acamera_metadata_enum_android_scaler_cropping_type_t;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PREVIEW : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 0 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_RECORD : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 1 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VIDEO_SNAPSHOT : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 2 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_SNAPSHOT : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 3 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_ZSL : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 4 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_RAW : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 5 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_LOW_LATENCY_SNAPSHOT : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 6 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 7 ;
-pub const acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations_ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VENDOR_START : acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations = 24 ;
-pub type acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PREVIEW:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(0);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_RECORD:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(1);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VIDEO_SNAPSHOT:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(2);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_SNAPSHOT:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(3);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_ZSL:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(4);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_RAW:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(5);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_LOW_LATENCY_SNAPSHOT:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(6);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(7);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VENDOR_START:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(24);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations as acamera_metadata_enum_android_scaler_available_recommended_stream_configurations_t;
-pub const acamera_metadata_enum_acamera_scaler_rotate_and_crop_ACAMERA_SCALER_ROTATE_AND_CROP_NONE : acamera_metadata_enum_acamera_scaler_rotate_and_crop = 0 ;
-pub const acamera_metadata_enum_acamera_scaler_rotate_and_crop_ACAMERA_SCALER_ROTATE_AND_CROP_90:
-    acamera_metadata_enum_acamera_scaler_rotate_and_crop = 1;
-pub const acamera_metadata_enum_acamera_scaler_rotate_and_crop_ACAMERA_SCALER_ROTATE_AND_CROP_180 : acamera_metadata_enum_acamera_scaler_rotate_and_crop = 2 ;
-pub const acamera_metadata_enum_acamera_scaler_rotate_and_crop_ACAMERA_SCALER_ROTATE_AND_CROP_270 : acamera_metadata_enum_acamera_scaler_rotate_and_crop = 3 ;
-pub const acamera_metadata_enum_acamera_scaler_rotate_and_crop_ACAMERA_SCALER_ROTATE_AND_CROP_AUTO : acamera_metadata_enum_acamera_scaler_rotate_and_crop = 4 ;
-pub type acamera_metadata_enum_acamera_scaler_rotate_and_crop = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_scaler_rotate_and_crop {
+    pub const ACAMERA_SCALER_ROTATE_AND_CROP_NONE:
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop =
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop(0);
+}
+impl acamera_metadata_enum_acamera_scaler_rotate_and_crop {
+    pub const ACAMERA_SCALER_ROTATE_AND_CROP_90:
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop =
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop(1);
+}
+impl acamera_metadata_enum_acamera_scaler_rotate_and_crop {
+    pub const ACAMERA_SCALER_ROTATE_AND_CROP_180:
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop =
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop(2);
+}
+impl acamera_metadata_enum_acamera_scaler_rotate_and_crop {
+    pub const ACAMERA_SCALER_ROTATE_AND_CROP_270:
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop =
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop(3);
+}
+impl acamera_metadata_enum_acamera_scaler_rotate_and_crop {
+    pub const ACAMERA_SCALER_ROTATE_AND_CROP_AUTO:
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop =
+        acamera_metadata_enum_acamera_scaler_rotate_and_crop(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_rotate_and_crop(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_scaler_rotate_and_crop as acamera_metadata_enum_android_scaler_rotate_and_crop_t;
-pub const acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations_ACAMERA_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_OUTPUT : acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations = 0 ;
-pub const acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations_ACAMERA_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_INPUT : acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations = 1 ;
-pub type acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations {
+    pub const ACAMERA_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations(
+            0,
+        );
+}
+impl acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations {
+    pub const ACAMERA_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations(
+            1,
+        );
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations as acamera_metadata_enum_android_scaler_physical_camera_multi_resolution_stream_configurations_t;
-pub const acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution_ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution = 0 ;
-pub const acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution_ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution = 1 ;
-pub type acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution =
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution(0);
+}
+impl acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT:
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution =
+        acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution as acamera_metadata_enum_android_scaler_available_stream_configurations_maximum_resolution_t;
-pub const acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported_ACAMERA_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_FALSE : acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported = 0 ;
-pub const acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported_ACAMERA_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_TRUE : acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported = 1 ;
-pub type acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported {
+    pub const ACAMERA_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_FALSE:
+        acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported =
+        acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported(0);
+}
+impl acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported {
+    pub const ACAMERA_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_TRUE:
+        acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported =
+        acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported as acamera_metadata_enum_android_scaler_multi_resolution_stream_supported_t;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAYLIGHT : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 1 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_FLUORESCENT : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 2 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_TUNGSTEN : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 3 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_FLASH : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 4 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_FINE_WEATHER : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 9 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_CLOUDY_WEATHER : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 10 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_SHADE : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 11 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAYLIGHT_FLUORESCENT : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 12 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAY_WHITE_FLUORESCENT : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 13 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_COOL_WHITE_FLUORESCENT : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 14 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_WHITE_FLUORESCENT : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 15 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_STANDARD_A : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 17 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_STANDARD_B : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 18 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_STANDARD_C : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 19 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D55 : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 20 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D65 : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 21 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D75 : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 22 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D50 : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 23 ;
-pub const acamera_metadata_enum_acamera_sensor_reference_illuminant1_ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_ISO_STUDIO_TUNGSTEN : acamera_metadata_enum_acamera_sensor_reference_illuminant1 = 24 ;
-pub type acamera_metadata_enum_acamera_sensor_reference_illuminant1 = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAYLIGHT:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(1);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_FLUORESCENT:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(2);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_TUNGSTEN:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(3);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_FLASH:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(4);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_FINE_WEATHER:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(9);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_CLOUDY_WEATHER:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(10);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_SHADE:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(11);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAYLIGHT_FLUORESCENT:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(12);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAY_WHITE_FLUORESCENT:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(13);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_COOL_WHITE_FLUORESCENT:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(14);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_WHITE_FLUORESCENT:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(15);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_STANDARD_A:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(17);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_STANDARD_B:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(18);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_STANDARD_C:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(19);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D55:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(20);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D65:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(21);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D75:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(22);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_D50:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(23);
+}
+impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
+    pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_ISO_STUDIO_TUNGSTEN:
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
+        acamera_metadata_enum_acamera_sensor_reference_illuminant1(24);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sensor_reference_illuminant1(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_reference_illuminant1 as acamera_metadata_enum_android_sensor_reference_illuminant1_t;
-pub const acamera_metadata_enum_acamera_sensor_test_pattern_mode_ACAMERA_SENSOR_TEST_PATTERN_MODE_OFF : acamera_metadata_enum_acamera_sensor_test_pattern_mode = 0 ;
-pub const acamera_metadata_enum_acamera_sensor_test_pattern_mode_ACAMERA_SENSOR_TEST_PATTERN_MODE_SOLID_COLOR : acamera_metadata_enum_acamera_sensor_test_pattern_mode = 1 ;
-pub const acamera_metadata_enum_acamera_sensor_test_pattern_mode_ACAMERA_SENSOR_TEST_PATTERN_MODE_COLOR_BARS : acamera_metadata_enum_acamera_sensor_test_pattern_mode = 2 ;
-pub const acamera_metadata_enum_acamera_sensor_test_pattern_mode_ACAMERA_SENSOR_TEST_PATTERN_MODE_COLOR_BARS_FADE_TO_GRAY : acamera_metadata_enum_acamera_sensor_test_pattern_mode = 3 ;
-pub const acamera_metadata_enum_acamera_sensor_test_pattern_mode_ACAMERA_SENSOR_TEST_PATTERN_MODE_PN9 : acamera_metadata_enum_acamera_sensor_test_pattern_mode = 4 ;
-pub const acamera_metadata_enum_acamera_sensor_test_pattern_mode_ACAMERA_SENSOR_TEST_PATTERN_MODE_CUSTOM1 : acamera_metadata_enum_acamera_sensor_test_pattern_mode = 256 ;
-pub type acamera_metadata_enum_acamera_sensor_test_pattern_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_MODE_OFF:
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode =
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode(0);
+}
+impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_MODE_SOLID_COLOR:
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode =
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode(1);
+}
+impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_MODE_COLOR_BARS:
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode =
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode(2);
+}
+impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_MODE_COLOR_BARS_FADE_TO_GRAY:
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode =
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode(3);
+}
+impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_MODE_PN9:
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode =
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode(4);
+}
+impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
+    pub const ACAMERA_SENSOR_TEST_PATTERN_MODE_CUSTOM1:
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode =
+        acamera_metadata_enum_acamera_sensor_test_pattern_mode(256);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sensor_test_pattern_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_test_pattern_mode as acamera_metadata_enum_android_sensor_test_pattern_mode_t;
-pub const acamera_metadata_enum_acamera_sensor_pixel_mode_ACAMERA_SENSOR_PIXEL_MODE_DEFAULT:
-    acamera_metadata_enum_acamera_sensor_pixel_mode = 0;
-pub const acamera_metadata_enum_acamera_sensor_pixel_mode_ACAMERA_SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION : acamera_metadata_enum_acamera_sensor_pixel_mode = 1 ;
-pub type acamera_metadata_enum_acamera_sensor_pixel_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_sensor_pixel_mode {
+    pub const ACAMERA_SENSOR_PIXEL_MODE_DEFAULT: acamera_metadata_enum_acamera_sensor_pixel_mode =
+        acamera_metadata_enum_acamera_sensor_pixel_mode(0);
+}
+impl acamera_metadata_enum_acamera_sensor_pixel_mode {
+    pub const ACAMERA_SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION:
+        acamera_metadata_enum_acamera_sensor_pixel_mode =
+        acamera_metadata_enum_acamera_sensor_pixel_mode(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sensor_pixel_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_pixel_mode as acamera_metadata_enum_android_sensor_pixel_mode_t;
-pub const acamera_metadata_enum_acamera_sensor_raw_binning_factor_used_ACAMERA_SENSOR_RAW_BINNING_FACTOR_USED_TRUE : acamera_metadata_enum_acamera_sensor_raw_binning_factor_used = 0 ;
-pub const acamera_metadata_enum_acamera_sensor_raw_binning_factor_used_ACAMERA_SENSOR_RAW_BINNING_FACTOR_USED_FALSE : acamera_metadata_enum_acamera_sensor_raw_binning_factor_used = 1 ;
-pub type acamera_metadata_enum_acamera_sensor_raw_binning_factor_used = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_sensor_raw_binning_factor_used {
+    pub const ACAMERA_SENSOR_RAW_BINNING_FACTOR_USED_TRUE:
+        acamera_metadata_enum_acamera_sensor_raw_binning_factor_used =
+        acamera_metadata_enum_acamera_sensor_raw_binning_factor_used(0);
+}
+impl acamera_metadata_enum_acamera_sensor_raw_binning_factor_used {
+    pub const ACAMERA_SENSOR_RAW_BINNING_FACTOR_USED_FALSE:
+        acamera_metadata_enum_acamera_sensor_raw_binning_factor_used =
+        acamera_metadata_enum_acamera_sensor_raw_binning_factor_used(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sensor_raw_binning_factor_used(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_raw_binning_factor_used as acamera_metadata_enum_android_sensor_raw_binning_factor_used_t;
-pub const acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_RGGB : acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement = 0 ;
-pub const acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_GRBG : acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement = 1 ;
-pub const acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_GBRG : acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement = 2 ;
-pub const acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_BGGR : acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement = 3 ;
-pub const acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_RGB : acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement = 4 ;
-pub const acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_MONO : acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement = 5 ;
-pub const acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement_ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_NIR : acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement = 6 ;
-pub type acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_RGGB:
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(0);
+}
+impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_GRBG:
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(1);
+}
+impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_GBRG:
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(2);
+}
+impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_BGGR:
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(3);
+}
+impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_RGB:
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(4);
+}
+impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_MONO:
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(5);
+}
+impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
+    pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_NIR:
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement =
+        acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(6);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement as acamera_metadata_enum_android_sensor_info_color_filter_arrangement_t;
-pub const acamera_metadata_enum_acamera_sensor_info_timestamp_source_ACAMERA_SENSOR_INFO_TIMESTAMP_SOURCE_UNKNOWN : acamera_metadata_enum_acamera_sensor_info_timestamp_source = 0 ;
-pub const acamera_metadata_enum_acamera_sensor_info_timestamp_source_ACAMERA_SENSOR_INFO_TIMESTAMP_SOURCE_REALTIME : acamera_metadata_enum_acamera_sensor_info_timestamp_source = 1 ;
-pub type acamera_metadata_enum_acamera_sensor_info_timestamp_source = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_sensor_info_timestamp_source {
+    pub const ACAMERA_SENSOR_INFO_TIMESTAMP_SOURCE_UNKNOWN:
+        acamera_metadata_enum_acamera_sensor_info_timestamp_source =
+        acamera_metadata_enum_acamera_sensor_info_timestamp_source(0);
+}
+impl acamera_metadata_enum_acamera_sensor_info_timestamp_source {
+    pub const ACAMERA_SENSOR_INFO_TIMESTAMP_SOURCE_REALTIME:
+        acamera_metadata_enum_acamera_sensor_info_timestamp_source =
+        acamera_metadata_enum_acamera_sensor_info_timestamp_source(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sensor_info_timestamp_source(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_info_timestamp_source as acamera_metadata_enum_android_sensor_info_timestamp_source_t;
-pub const acamera_metadata_enum_acamera_sensor_info_lens_shading_applied_ACAMERA_SENSOR_INFO_LENS_SHADING_APPLIED_FALSE : acamera_metadata_enum_acamera_sensor_info_lens_shading_applied = 0 ;
-pub const acamera_metadata_enum_acamera_sensor_info_lens_shading_applied_ACAMERA_SENSOR_INFO_LENS_SHADING_APPLIED_TRUE : acamera_metadata_enum_acamera_sensor_info_lens_shading_applied = 1 ;
-pub type acamera_metadata_enum_acamera_sensor_info_lens_shading_applied = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_sensor_info_lens_shading_applied {
+    pub const ACAMERA_SENSOR_INFO_LENS_SHADING_APPLIED_FALSE:
+        acamera_metadata_enum_acamera_sensor_info_lens_shading_applied =
+        acamera_metadata_enum_acamera_sensor_info_lens_shading_applied(0);
+}
+impl acamera_metadata_enum_acamera_sensor_info_lens_shading_applied {
+    pub const ACAMERA_SENSOR_INFO_LENS_SHADING_APPLIED_TRUE:
+        acamera_metadata_enum_acamera_sensor_info_lens_shading_applied =
+        acamera_metadata_enum_acamera_sensor_info_lens_shading_applied(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sensor_info_lens_shading_applied(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_sensor_info_lens_shading_applied as acamera_metadata_enum_android_sensor_info_lens_shading_applied_t;
-pub const acamera_metadata_enum_acamera_shading_mode_ACAMERA_SHADING_MODE_OFF:
-    acamera_metadata_enum_acamera_shading_mode = 0;
-pub const acamera_metadata_enum_acamera_shading_mode_ACAMERA_SHADING_MODE_FAST:
-    acamera_metadata_enum_acamera_shading_mode = 1;
-pub const acamera_metadata_enum_acamera_shading_mode_ACAMERA_SHADING_MODE_HIGH_QUALITY:
-    acamera_metadata_enum_acamera_shading_mode = 2;
-pub type acamera_metadata_enum_acamera_shading_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_shading_mode {
+    pub const ACAMERA_SHADING_MODE_OFF: acamera_metadata_enum_acamera_shading_mode =
+        acamera_metadata_enum_acamera_shading_mode(0);
+}
+impl acamera_metadata_enum_acamera_shading_mode {
+    pub const ACAMERA_SHADING_MODE_FAST: acamera_metadata_enum_acamera_shading_mode =
+        acamera_metadata_enum_acamera_shading_mode(1);
+}
+impl acamera_metadata_enum_acamera_shading_mode {
+    pub const ACAMERA_SHADING_MODE_HIGH_QUALITY: acamera_metadata_enum_acamera_shading_mode =
+        acamera_metadata_enum_acamera_shading_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_shading_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_shading_mode as acamera_metadata_enum_android_shading_mode_t;
-pub const acamera_metadata_enum_acamera_statistics_face_detect_mode_ACAMERA_STATISTICS_FACE_DETECT_MODE_OFF : acamera_metadata_enum_acamera_statistics_face_detect_mode = 0 ;
-pub const acamera_metadata_enum_acamera_statistics_face_detect_mode_ACAMERA_STATISTICS_FACE_DETECT_MODE_SIMPLE : acamera_metadata_enum_acamera_statistics_face_detect_mode = 1 ;
-pub const acamera_metadata_enum_acamera_statistics_face_detect_mode_ACAMERA_STATISTICS_FACE_DETECT_MODE_FULL : acamera_metadata_enum_acamera_statistics_face_detect_mode = 2 ;
-pub type acamera_metadata_enum_acamera_statistics_face_detect_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_statistics_face_detect_mode {
+    pub const ACAMERA_STATISTICS_FACE_DETECT_MODE_OFF:
+        acamera_metadata_enum_acamera_statistics_face_detect_mode =
+        acamera_metadata_enum_acamera_statistics_face_detect_mode(0);
+}
+impl acamera_metadata_enum_acamera_statistics_face_detect_mode {
+    pub const ACAMERA_STATISTICS_FACE_DETECT_MODE_SIMPLE:
+        acamera_metadata_enum_acamera_statistics_face_detect_mode =
+        acamera_metadata_enum_acamera_statistics_face_detect_mode(1);
+}
+impl acamera_metadata_enum_acamera_statistics_face_detect_mode {
+    pub const ACAMERA_STATISTICS_FACE_DETECT_MODE_FULL:
+        acamera_metadata_enum_acamera_statistics_face_detect_mode =
+        acamera_metadata_enum_acamera_statistics_face_detect_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_statistics_face_detect_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_face_detect_mode as acamera_metadata_enum_android_statistics_face_detect_mode_t;
-pub const acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode_ACAMERA_STATISTICS_HOT_PIXEL_MAP_MODE_OFF : acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode = 0 ;
-pub const acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode_ACAMERA_STATISTICS_HOT_PIXEL_MAP_MODE_ON : acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode = 1 ;
-pub type acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode {
+    pub const ACAMERA_STATISTICS_HOT_PIXEL_MAP_MODE_OFF:
+        acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode =
+        acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode(0);
+}
+impl acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode {
+    pub const ACAMERA_STATISTICS_HOT_PIXEL_MAP_MODE_ON:
+        acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode =
+        acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode as acamera_metadata_enum_android_statistics_hot_pixel_map_mode_t;
-pub const acamera_metadata_enum_acamera_statistics_scene_flicker_ACAMERA_STATISTICS_SCENE_FLICKER_NONE : acamera_metadata_enum_acamera_statistics_scene_flicker = 0 ;
-pub const acamera_metadata_enum_acamera_statistics_scene_flicker_ACAMERA_STATISTICS_SCENE_FLICKER_50HZ : acamera_metadata_enum_acamera_statistics_scene_flicker = 1 ;
-pub const acamera_metadata_enum_acamera_statistics_scene_flicker_ACAMERA_STATISTICS_SCENE_FLICKER_60HZ : acamera_metadata_enum_acamera_statistics_scene_flicker = 2 ;
-pub type acamera_metadata_enum_acamera_statistics_scene_flicker = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_statistics_scene_flicker {
+    pub const ACAMERA_STATISTICS_SCENE_FLICKER_NONE:
+        acamera_metadata_enum_acamera_statistics_scene_flicker =
+        acamera_metadata_enum_acamera_statistics_scene_flicker(0);
+}
+impl acamera_metadata_enum_acamera_statistics_scene_flicker {
+    pub const ACAMERA_STATISTICS_SCENE_FLICKER_50HZ:
+        acamera_metadata_enum_acamera_statistics_scene_flicker =
+        acamera_metadata_enum_acamera_statistics_scene_flicker(1);
+}
+impl acamera_metadata_enum_acamera_statistics_scene_flicker {
+    pub const ACAMERA_STATISTICS_SCENE_FLICKER_60HZ:
+        acamera_metadata_enum_acamera_statistics_scene_flicker =
+        acamera_metadata_enum_acamera_statistics_scene_flicker(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_statistics_scene_flicker(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_scene_flicker as acamera_metadata_enum_android_statistics_scene_flicker_t;
-pub const acamera_metadata_enum_acamera_statistics_lens_shading_map_mode_ACAMERA_STATISTICS_LENS_SHADING_MAP_MODE_OFF : acamera_metadata_enum_acamera_statistics_lens_shading_map_mode = 0 ;
-pub const acamera_metadata_enum_acamera_statistics_lens_shading_map_mode_ACAMERA_STATISTICS_LENS_SHADING_MAP_MODE_ON : acamera_metadata_enum_acamera_statistics_lens_shading_map_mode = 1 ;
-pub type acamera_metadata_enum_acamera_statistics_lens_shading_map_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_statistics_lens_shading_map_mode {
+    pub const ACAMERA_STATISTICS_LENS_SHADING_MAP_MODE_OFF:
+        acamera_metadata_enum_acamera_statistics_lens_shading_map_mode =
+        acamera_metadata_enum_acamera_statistics_lens_shading_map_mode(0);
+}
+impl acamera_metadata_enum_acamera_statistics_lens_shading_map_mode {
+    pub const ACAMERA_STATISTICS_LENS_SHADING_MAP_MODE_ON:
+        acamera_metadata_enum_acamera_statistics_lens_shading_map_mode =
+        acamera_metadata_enum_acamera_statistics_lens_shading_map_mode(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_statistics_lens_shading_map_mode(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_statistics_lens_shading_map_mode as acamera_metadata_enum_android_statistics_lens_shading_map_mode_t;
-pub const acamera_metadata_enum_acamera_statistics_ois_data_mode_ACAMERA_STATISTICS_OIS_DATA_MODE_OFF : acamera_metadata_enum_acamera_statistics_ois_data_mode = 0 ;
-pub const acamera_metadata_enum_acamera_statistics_ois_data_mode_ACAMERA_STATISTICS_OIS_DATA_MODE_ON : acamera_metadata_enum_acamera_statistics_ois_data_mode = 1 ;
-pub type acamera_metadata_enum_acamera_statistics_ois_data_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_statistics_ois_data_mode {
+    pub const ACAMERA_STATISTICS_OIS_DATA_MODE_OFF:
+        acamera_metadata_enum_acamera_statistics_ois_data_mode =
+        acamera_metadata_enum_acamera_statistics_ois_data_mode(0);
+}
+impl acamera_metadata_enum_acamera_statistics_ois_data_mode {
+    pub const ACAMERA_STATISTICS_OIS_DATA_MODE_ON:
+        acamera_metadata_enum_acamera_statistics_ois_data_mode =
+        acamera_metadata_enum_acamera_statistics_ois_data_mode(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_statistics_ois_data_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_ois_data_mode as acamera_metadata_enum_android_statistics_ois_data_mode_t;
-pub const acamera_metadata_enum_acamera_tonemap_mode_ACAMERA_TONEMAP_MODE_CONTRAST_CURVE:
-    acamera_metadata_enum_acamera_tonemap_mode = 0;
-pub const acamera_metadata_enum_acamera_tonemap_mode_ACAMERA_TONEMAP_MODE_FAST:
-    acamera_metadata_enum_acamera_tonemap_mode = 1;
-pub const acamera_metadata_enum_acamera_tonemap_mode_ACAMERA_TONEMAP_MODE_HIGH_QUALITY:
-    acamera_metadata_enum_acamera_tonemap_mode = 2;
-pub const acamera_metadata_enum_acamera_tonemap_mode_ACAMERA_TONEMAP_MODE_GAMMA_VALUE:
-    acamera_metadata_enum_acamera_tonemap_mode = 3;
-pub const acamera_metadata_enum_acamera_tonemap_mode_ACAMERA_TONEMAP_MODE_PRESET_CURVE:
-    acamera_metadata_enum_acamera_tonemap_mode = 4;
-pub type acamera_metadata_enum_acamera_tonemap_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_tonemap_mode {
+    pub const ACAMERA_TONEMAP_MODE_CONTRAST_CURVE: acamera_metadata_enum_acamera_tonemap_mode =
+        acamera_metadata_enum_acamera_tonemap_mode(0);
+}
+impl acamera_metadata_enum_acamera_tonemap_mode {
+    pub const ACAMERA_TONEMAP_MODE_FAST: acamera_metadata_enum_acamera_tonemap_mode =
+        acamera_metadata_enum_acamera_tonemap_mode(1);
+}
+impl acamera_metadata_enum_acamera_tonemap_mode {
+    pub const ACAMERA_TONEMAP_MODE_HIGH_QUALITY: acamera_metadata_enum_acamera_tonemap_mode =
+        acamera_metadata_enum_acamera_tonemap_mode(2);
+}
+impl acamera_metadata_enum_acamera_tonemap_mode {
+    pub const ACAMERA_TONEMAP_MODE_GAMMA_VALUE: acamera_metadata_enum_acamera_tonemap_mode =
+        acamera_metadata_enum_acamera_tonemap_mode(3);
+}
+impl acamera_metadata_enum_acamera_tonemap_mode {
+    pub const ACAMERA_TONEMAP_MODE_PRESET_CURVE: acamera_metadata_enum_acamera_tonemap_mode =
+        acamera_metadata_enum_acamera_tonemap_mode(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_tonemap_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_tonemap_mode as acamera_metadata_enum_android_tonemap_mode_t;
-pub const acamera_metadata_enum_acamera_tonemap_preset_curve_ACAMERA_TONEMAP_PRESET_CURVE_SRGB:
-    acamera_metadata_enum_acamera_tonemap_preset_curve = 0;
-pub const acamera_metadata_enum_acamera_tonemap_preset_curve_ACAMERA_TONEMAP_PRESET_CURVE_REC709:
-    acamera_metadata_enum_acamera_tonemap_preset_curve = 1;
-pub type acamera_metadata_enum_acamera_tonemap_preset_curve = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_tonemap_preset_curve {
+    pub const ACAMERA_TONEMAP_PRESET_CURVE_SRGB:
+        acamera_metadata_enum_acamera_tonemap_preset_curve =
+        acamera_metadata_enum_acamera_tonemap_preset_curve(0);
+}
+impl acamera_metadata_enum_acamera_tonemap_preset_curve {
+    pub const ACAMERA_TONEMAP_PRESET_CURVE_REC709:
+        acamera_metadata_enum_acamera_tonemap_preset_curve =
+        acamera_metadata_enum_acamera_tonemap_preset_curve(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_tonemap_preset_curve(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_tonemap_preset_curve as acamera_metadata_enum_android_tonemap_preset_curve_t;
-pub const acamera_metadata_enum_acamera_info_supported_hardware_level_ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED : acamera_metadata_enum_acamera_info_supported_hardware_level = 0 ;
-pub const acamera_metadata_enum_acamera_info_supported_hardware_level_ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_FULL : acamera_metadata_enum_acamera_info_supported_hardware_level = 1 ;
-pub const acamera_metadata_enum_acamera_info_supported_hardware_level_ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY : acamera_metadata_enum_acamera_info_supported_hardware_level = 2 ;
-pub const acamera_metadata_enum_acamera_info_supported_hardware_level_ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_3 : acamera_metadata_enum_acamera_info_supported_hardware_level = 3 ;
-pub const acamera_metadata_enum_acamera_info_supported_hardware_level_ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_EXTERNAL : acamera_metadata_enum_acamera_info_supported_hardware_level = 4 ;
-pub type acamera_metadata_enum_acamera_info_supported_hardware_level = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_info_supported_hardware_level {
+    pub const ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED:
+        acamera_metadata_enum_acamera_info_supported_hardware_level =
+        acamera_metadata_enum_acamera_info_supported_hardware_level(0);
+}
+impl acamera_metadata_enum_acamera_info_supported_hardware_level {
+    pub const ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_FULL:
+        acamera_metadata_enum_acamera_info_supported_hardware_level =
+        acamera_metadata_enum_acamera_info_supported_hardware_level(1);
+}
+impl acamera_metadata_enum_acamera_info_supported_hardware_level {
+    pub const ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY:
+        acamera_metadata_enum_acamera_info_supported_hardware_level =
+        acamera_metadata_enum_acamera_info_supported_hardware_level(2);
+}
+impl acamera_metadata_enum_acamera_info_supported_hardware_level {
+    pub const ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_3:
+        acamera_metadata_enum_acamera_info_supported_hardware_level =
+        acamera_metadata_enum_acamera_info_supported_hardware_level(3);
+}
+impl acamera_metadata_enum_acamera_info_supported_hardware_level {
+    pub const ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_EXTERNAL:
+        acamera_metadata_enum_acamera_info_supported_hardware_level =
+        acamera_metadata_enum_acamera_info_supported_hardware_level(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_info_supported_hardware_level(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_info_supported_hardware_level as acamera_metadata_enum_android_info_supported_hardware_level_t;
-pub const acamera_metadata_enum_acamera_black_level_lock_ACAMERA_BLACK_LEVEL_LOCK_OFF:
-    acamera_metadata_enum_acamera_black_level_lock = 0;
-pub const acamera_metadata_enum_acamera_black_level_lock_ACAMERA_BLACK_LEVEL_LOCK_ON:
-    acamera_metadata_enum_acamera_black_level_lock = 1;
-pub type acamera_metadata_enum_acamera_black_level_lock = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_black_level_lock {
+    pub const ACAMERA_BLACK_LEVEL_LOCK_OFF: acamera_metadata_enum_acamera_black_level_lock =
+        acamera_metadata_enum_acamera_black_level_lock(0);
+}
+impl acamera_metadata_enum_acamera_black_level_lock {
+    pub const ACAMERA_BLACK_LEVEL_LOCK_ON: acamera_metadata_enum_acamera_black_level_lock =
+        acamera_metadata_enum_acamera_black_level_lock(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_black_level_lock(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_black_level_lock as acamera_metadata_enum_android_black_level_lock_t;
-pub const acamera_metadata_enum_acamera_sync_frame_number_ACAMERA_SYNC_FRAME_NUMBER_CONVERGING:
-    acamera_metadata_enum_acamera_sync_frame_number = -1;
-pub const acamera_metadata_enum_acamera_sync_frame_number_ACAMERA_SYNC_FRAME_NUMBER_UNKNOWN:
-    acamera_metadata_enum_acamera_sync_frame_number = -2;
-pub type acamera_metadata_enum_acamera_sync_frame_number = ::std::os::raw::c_int;
+impl acamera_metadata_enum_acamera_sync_frame_number {
+    pub const ACAMERA_SYNC_FRAME_NUMBER_CONVERGING:
+        acamera_metadata_enum_acamera_sync_frame_number =
+        acamera_metadata_enum_acamera_sync_frame_number(-1);
+}
+impl acamera_metadata_enum_acamera_sync_frame_number {
+    pub const ACAMERA_SYNC_FRAME_NUMBER_UNKNOWN: acamera_metadata_enum_acamera_sync_frame_number =
+        acamera_metadata_enum_acamera_sync_frame_number(-2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sync_frame_number(pub ::std::os::raw::c_int);
 pub use self::acamera_metadata_enum_acamera_sync_frame_number as acamera_metadata_enum_android_sync_frame_number_t;
-pub const acamera_metadata_enum_acamera_sync_max_latency_ACAMERA_SYNC_MAX_LATENCY_PER_FRAME_CONTROL : acamera_metadata_enum_acamera_sync_max_latency = 0 ;
-pub const acamera_metadata_enum_acamera_sync_max_latency_ACAMERA_SYNC_MAX_LATENCY_UNKNOWN:
-    acamera_metadata_enum_acamera_sync_max_latency = -1;
-pub type acamera_metadata_enum_acamera_sync_max_latency = ::std::os::raw::c_int;
+impl acamera_metadata_enum_acamera_sync_max_latency {
+    pub const ACAMERA_SYNC_MAX_LATENCY_PER_FRAME_CONTROL:
+        acamera_metadata_enum_acamera_sync_max_latency =
+        acamera_metadata_enum_acamera_sync_max_latency(0);
+}
+impl acamera_metadata_enum_acamera_sync_max_latency {
+    pub const ACAMERA_SYNC_MAX_LATENCY_UNKNOWN: acamera_metadata_enum_acamera_sync_max_latency =
+        acamera_metadata_enum_acamera_sync_max_latency(-1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_sync_max_latency(pub ::std::os::raw::c_int);
 pub use self::acamera_metadata_enum_acamera_sync_max_latency as acamera_metadata_enum_android_sync_max_latency_t;
-pub const acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_OUTPUT : acamera_metadata_enum_acamera_depth_available_depth_stream_configurations = 0 ;
-pub const acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_INPUT : acamera_metadata_enum_acamera_depth_available_depth_stream_configurations = 1 ;
-pub type acamera_metadata_enum_acamera_depth_available_depth_stream_configurations =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations =
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations(0);
+}
+impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations =
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_depth_available_depth_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_depth_available_depth_stream_configurations as acamera_metadata_enum_android_depth_available_depth_stream_configurations_t;
-pub const acamera_metadata_enum_acamera_depth_depth_is_exclusive_ACAMERA_DEPTH_DEPTH_IS_EXCLUSIVE_FALSE : acamera_metadata_enum_acamera_depth_depth_is_exclusive = 0 ;
-pub const acamera_metadata_enum_acamera_depth_depth_is_exclusive_ACAMERA_DEPTH_DEPTH_IS_EXCLUSIVE_TRUE : acamera_metadata_enum_acamera_depth_depth_is_exclusive = 1 ;
-pub type acamera_metadata_enum_acamera_depth_depth_is_exclusive = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_depth_depth_is_exclusive {
+    pub const ACAMERA_DEPTH_DEPTH_IS_EXCLUSIVE_FALSE:
+        acamera_metadata_enum_acamera_depth_depth_is_exclusive =
+        acamera_metadata_enum_acamera_depth_depth_is_exclusive(0);
+}
+impl acamera_metadata_enum_acamera_depth_depth_is_exclusive {
+    pub const ACAMERA_DEPTH_DEPTH_IS_EXCLUSIVE_TRUE:
+        acamera_metadata_enum_acamera_depth_depth_is_exclusive =
+        acamera_metadata_enum_acamera_depth_depth_is_exclusive(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_depth_depth_is_exclusive(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_depth_depth_is_exclusive as acamera_metadata_enum_android_depth_depth_is_exclusive_t;
-pub const acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_OUTPUT : acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations = 0 ;
-pub const acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_INPUT : acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations = 1 ;
-pub type acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations =
+        acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations(0);
+}
+impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations {
+    pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations =
+        acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations as acamera_metadata_enum_android_depth_available_dynamic_depth_stream_configurations_t;
-pub const acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution_ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution = 0 ;
-pub const acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution_ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution = 1 ;
-pub type acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution =
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution(
+            0,
+        );
+}
+impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution {
+    pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT:
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution =
+        acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution(
+            1,
+        );
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution as acamera_metadata_enum_android_depth_available_depth_stream_configurations_maximum_resolution_t;
-pub const acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution = 0 ;
-pub const acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution_ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution = 1 ;
-pub type acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution { pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution (0) ; }
+impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution { pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution (1) ; }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution as acamera_metadata_enum_android_depth_available_dynamic_depth_stream_configurations_maximum_resolution_t;
-pub const acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type_ACAMERA_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE_APPROXIMATE : acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type = 0 ;
-pub const acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type_ACAMERA_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE_CALIBRATED : acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type = 1 ;
-pub type acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE_APPROXIMATE:
+        acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type =
+        acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type(0);
+}
+impl acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE_CALIBRATED:
+        acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type =
+        acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type as acamera_metadata_enum_android_logical_multi_camera_sensor_sync_type_t;
-pub const acamera_metadata_enum_acamera_distortion_correction_mode_ACAMERA_DISTORTION_CORRECTION_MODE_OFF : acamera_metadata_enum_acamera_distortion_correction_mode = 0 ;
-pub const acamera_metadata_enum_acamera_distortion_correction_mode_ACAMERA_DISTORTION_CORRECTION_MODE_FAST : acamera_metadata_enum_acamera_distortion_correction_mode = 1 ;
-pub const acamera_metadata_enum_acamera_distortion_correction_mode_ACAMERA_DISTORTION_CORRECTION_MODE_HIGH_QUALITY : acamera_metadata_enum_acamera_distortion_correction_mode = 2 ;
-pub type acamera_metadata_enum_acamera_distortion_correction_mode = ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_distortion_correction_mode {
+    pub const ACAMERA_DISTORTION_CORRECTION_MODE_OFF:
+        acamera_metadata_enum_acamera_distortion_correction_mode =
+        acamera_metadata_enum_acamera_distortion_correction_mode(0);
+}
+impl acamera_metadata_enum_acamera_distortion_correction_mode {
+    pub const ACAMERA_DISTORTION_CORRECTION_MODE_FAST:
+        acamera_metadata_enum_acamera_distortion_correction_mode =
+        acamera_metadata_enum_acamera_distortion_correction_mode(1);
+}
+impl acamera_metadata_enum_acamera_distortion_correction_mode {
+    pub const ACAMERA_DISTORTION_CORRECTION_MODE_HIGH_QUALITY:
+        acamera_metadata_enum_acamera_distortion_correction_mode =
+        acamera_metadata_enum_acamera_distortion_correction_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_distortion_correction_mode(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_distortion_correction_mode as acamera_metadata_enum_android_distortion_correction_mode_t;
-pub const acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_OUTPUT : acamera_metadata_enum_acamera_heic_available_heic_stream_configurations = 0 ;
-pub const acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_INPUT : acamera_metadata_enum_acamera_heic_available_heic_stream_configurations = 1 ;
-pub type acamera_metadata_enum_acamera_heic_available_heic_stream_configurations =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations(0);
+}
+impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations as acamera_metadata_enum_android_heic_available_heic_stream_configurations_t;
-pub const acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution_ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution = 0 ;
-pub const acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution_ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution = 1 ;
-pub type acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution =
-    ::std::os::raw::c_uint;
+impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution =
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution(
+            0,
+        );
+}
+impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution =
+        acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution(
+            1,
+        );
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution(
+    pub ::std::os::raw::c_uint,
+);
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_stream_configurations_maximum_resolution_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16471,15 +18827,30 @@ extern "C" {
 extern "C" {
     pub fn ACameraDevice_getId(device: *const ACameraDevice) -> *const ::std::os::raw::c_char;
 }
-pub const ACameraDevice_request_template_TEMPLATE_PREVIEW: ACameraDevice_request_template = 1;
-pub const ACameraDevice_request_template_TEMPLATE_STILL_CAPTURE: ACameraDevice_request_template = 2;
-pub const ACameraDevice_request_template_TEMPLATE_RECORD: ACameraDevice_request_template = 3;
-pub const ACameraDevice_request_template_TEMPLATE_VIDEO_SNAPSHOT: ACameraDevice_request_template =
-    4;
-pub const ACameraDevice_request_template_TEMPLATE_ZERO_SHUTTER_LAG: ACameraDevice_request_template =
-    5;
-pub const ACameraDevice_request_template_TEMPLATE_MANUAL: ACameraDevice_request_template = 6;
-pub type ACameraDevice_request_template = ::std::os::raw::c_uint;
+impl ACameraDevice_request_template {
+    pub const TEMPLATE_PREVIEW: ACameraDevice_request_template = ACameraDevice_request_template(1);
+}
+impl ACameraDevice_request_template {
+    pub const TEMPLATE_STILL_CAPTURE: ACameraDevice_request_template =
+        ACameraDevice_request_template(2);
+}
+impl ACameraDevice_request_template {
+    pub const TEMPLATE_RECORD: ACameraDevice_request_template = ACameraDevice_request_template(3);
+}
+impl ACameraDevice_request_template {
+    pub const TEMPLATE_VIDEO_SNAPSHOT: ACameraDevice_request_template =
+        ACameraDevice_request_template(4);
+}
+impl ACameraDevice_request_template {
+    pub const TEMPLATE_ZERO_SHUTTER_LAG: ACameraDevice_request_template =
+        ACameraDevice_request_template(5);
+}
+impl ACameraDevice_request_template {
+    pub const TEMPLATE_MANUAL: ACameraDevice_request_template = ACameraDevice_request_template(6);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ACameraDevice_request_template(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn ACameraDevice_createCaptureRequest(
         device: *const ACameraDevice,
@@ -18117,11 +20488,21 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodecActionCode_isTransient(actionCode: i32) -> bool;
 }
-pub const cryptoinfo_mode_t_AMEDIACODECRYPTOINFO_MODE_CLEAR: cryptoinfo_mode_t = 0;
-pub const cryptoinfo_mode_t_AMEDIACODECRYPTOINFO_MODE_AES_CTR: cryptoinfo_mode_t = 1;
-pub const cryptoinfo_mode_t_AMEDIACODECRYPTOINFO_MODE_AES_WV: cryptoinfo_mode_t = 2;
-pub const cryptoinfo_mode_t_AMEDIACODECRYPTOINFO_MODE_AES_CBC: cryptoinfo_mode_t = 3;
-pub type cryptoinfo_mode_t = ::std::os::raw::c_uint;
+impl cryptoinfo_mode_t {
+    pub const AMEDIACODECRYPTOINFO_MODE_CLEAR: cryptoinfo_mode_t = cryptoinfo_mode_t(0);
+}
+impl cryptoinfo_mode_t {
+    pub const AMEDIACODECRYPTOINFO_MODE_AES_CTR: cryptoinfo_mode_t = cryptoinfo_mode_t(1);
+}
+impl cryptoinfo_mode_t {
+    pub const AMEDIACODECRYPTOINFO_MODE_AES_WV: cryptoinfo_mode_t = cryptoinfo_mode_t(2);
+}
+impl cryptoinfo_mode_t {
+    pub const AMEDIACODECRYPTOINFO_MODE_AES_CBC: cryptoinfo_mode_t = cryptoinfo_mode_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct cryptoinfo_mode_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct cryptoinfo_pattern_t {
@@ -18339,16 +20720,36 @@ pub type AMediaDrmScope = AMediaDrmByteArray;
 pub type AMediaDrmKeySetId = AMediaDrmByteArray;
 pub type AMediaDrmSecureStop = AMediaDrmByteArray;
 pub type AMediaDrmKeyId = AMediaDrmByteArray;
-pub const AMediaDrmEventType_EVENT_PROVISION_REQUIRED: AMediaDrmEventType = 1;
-pub const AMediaDrmEventType_EVENT_KEY_REQUIRED: AMediaDrmEventType = 2;
-pub const AMediaDrmEventType_EVENT_KEY_EXPIRED: AMediaDrmEventType = 3;
-pub const AMediaDrmEventType_EVENT_VENDOR_DEFINED: AMediaDrmEventType = 4;
-pub const AMediaDrmEventType_EVENT_SESSION_RECLAIMED: AMediaDrmEventType = 5;
-pub type AMediaDrmEventType = ::std::os::raw::c_uint;
-pub const AMediaDrmKeyType_KEY_TYPE_STREAMING: AMediaDrmKeyType = 1;
-pub const AMediaDrmKeyType_KEY_TYPE_OFFLINE: AMediaDrmKeyType = 2;
-pub const AMediaDrmKeyType_KEY_TYPE_RELEASE: AMediaDrmKeyType = 3;
-pub type AMediaDrmKeyType = ::std::os::raw::c_uint;
+impl AMediaDrmEventType {
+    pub const EVENT_PROVISION_REQUIRED: AMediaDrmEventType = AMediaDrmEventType(1);
+}
+impl AMediaDrmEventType {
+    pub const EVENT_KEY_REQUIRED: AMediaDrmEventType = AMediaDrmEventType(2);
+}
+impl AMediaDrmEventType {
+    pub const EVENT_KEY_EXPIRED: AMediaDrmEventType = AMediaDrmEventType(3);
+}
+impl AMediaDrmEventType {
+    pub const EVENT_VENDOR_DEFINED: AMediaDrmEventType = AMediaDrmEventType(4);
+}
+impl AMediaDrmEventType {
+    pub const EVENT_SESSION_RECLAIMED: AMediaDrmEventType = AMediaDrmEventType(5);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AMediaDrmEventType(pub ::std::os::raw::c_uint);
+impl AMediaDrmKeyType {
+    pub const KEY_TYPE_STREAMING: AMediaDrmKeyType = AMediaDrmKeyType(1);
+}
+impl AMediaDrmKeyType {
+    pub const KEY_TYPE_OFFLINE: AMediaDrmKeyType = AMediaDrmKeyType(2);
+}
+impl AMediaDrmKeyType {
+    pub const KEY_TYPE_RELEASE: AMediaDrmKeyType = AMediaDrmKeyType(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AMediaDrmKeyType(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AMediaDrmKeyValuePair {
@@ -18389,12 +20790,24 @@ fn bindgen_test_layout_AMediaDrmKeyValuePair() {
     );
 }
 pub type AMediaDrmKeyValue = AMediaDrmKeyValuePair;
-pub const AMediaKeyStatusType_KEY_STATUS_TYPE_USABLE: AMediaKeyStatusType = 0;
-pub const AMediaKeyStatusType_KEY_STATUS_TYPE_EXPIRED: AMediaKeyStatusType = 1;
-pub const AMediaKeyStatusType_KEY_STATUS_TYPE_OUTPUTNOTALLOWED: AMediaKeyStatusType = 2;
-pub const AMediaKeyStatusType_KEY_STATUS_TYPE_STATUSPENDING: AMediaKeyStatusType = 3;
-pub const AMediaKeyStatusType_KEY_STATUS_TYPE_INTERNALERROR: AMediaKeyStatusType = 4;
-pub type AMediaKeyStatusType = ::std::os::raw::c_uint;
+impl AMediaKeyStatusType {
+    pub const KEY_STATUS_TYPE_USABLE: AMediaKeyStatusType = AMediaKeyStatusType(0);
+}
+impl AMediaKeyStatusType {
+    pub const KEY_STATUS_TYPE_EXPIRED: AMediaKeyStatusType = AMediaKeyStatusType(1);
+}
+impl AMediaKeyStatusType {
+    pub const KEY_STATUS_TYPE_OUTPUTNOTALLOWED: AMediaKeyStatusType = AMediaKeyStatusType(2);
+}
+impl AMediaKeyStatusType {
+    pub const KEY_STATUS_TYPE_STATUSPENDING: AMediaKeyStatusType = AMediaKeyStatusType(3);
+}
+impl AMediaKeyStatusType {
+    pub const KEY_STATUS_TYPE_INTERNALERROR: AMediaKeyStatusType = AMediaKeyStatusType(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AMediaKeyStatusType(pub ::std::os::raw::c_uint);
 pub use self::AMediaKeyStatusType as AMediaDrmKeyStatusType;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -18719,10 +21132,18 @@ extern "C" {
 extern "C" {
     pub fn AMediaExtractor_advance(arg1: *mut AMediaExtractor) -> bool;
 }
-pub const SeekMode_AMEDIAEXTRACTOR_SEEK_PREVIOUS_SYNC: SeekMode = 0;
-pub const SeekMode_AMEDIAEXTRACTOR_SEEK_NEXT_SYNC: SeekMode = 1;
-pub const SeekMode_AMEDIAEXTRACTOR_SEEK_CLOSEST_SYNC: SeekMode = 2;
-pub type SeekMode = ::std::os::raw::c_uint;
+impl SeekMode {
+    pub const AMEDIAEXTRACTOR_SEEK_PREVIOUS_SYNC: SeekMode = SeekMode(0);
+}
+impl SeekMode {
+    pub const AMEDIAEXTRACTOR_SEEK_NEXT_SYNC: SeekMode = SeekMode(1);
+}
+impl SeekMode {
+    pub const AMEDIAEXTRACTOR_SEEK_CLOSEST_SYNC: SeekMode = SeekMode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct SeekMode(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn AMediaExtractor_seekTo(
         arg1: *mut AMediaExtractor,
@@ -18850,13 +21271,27 @@ extern "C" {
 pub struct AMediaMuxer {
     _unused: [u8; 0],
 }
-pub const OutputFormat_AMEDIAMUXER_OUTPUT_FORMAT_MPEG_4: OutputFormat = 0;
-pub const OutputFormat_AMEDIAMUXER_OUTPUT_FORMAT_WEBM: OutputFormat = 1;
-pub const OutputFormat_AMEDIAMUXER_OUTPUT_FORMAT_THREE_GPP: OutputFormat = 2;
-pub type OutputFormat = ::std::os::raw::c_uint;
-pub const AppendMode_AMEDIAMUXER_APPEND_IGNORE_LAST_VIDEO_GOP: AppendMode = 0;
-pub const AppendMode_AMEDIAMUXER_APPEND_TO_EXISTING_DATA: AppendMode = 1;
-pub type AppendMode = ::std::os::raw::c_uint;
+impl OutputFormat {
+    pub const AMEDIAMUXER_OUTPUT_FORMAT_MPEG_4: OutputFormat = OutputFormat(0);
+}
+impl OutputFormat {
+    pub const AMEDIAMUXER_OUTPUT_FORMAT_WEBM: OutputFormat = OutputFormat(1);
+}
+impl OutputFormat {
+    pub const AMEDIAMUXER_OUTPUT_FORMAT_THREE_GPP: OutputFormat = OutputFormat(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct OutputFormat(pub ::std::os::raw::c_uint);
+impl AppendMode {
+    pub const AMEDIAMUXER_APPEND_IGNORE_LAST_VIDEO_GOP: AppendMode = AppendMode(0);
+}
+impl AppendMode {
+    pub const AMEDIAMUXER_APPEND_TO_EXISTING_DATA: AppendMode = AppendMode(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AppendMode(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn AMediaMuxer_new(fd: ::std::os::raw::c_int, format: OutputFormat) -> *mut AMediaMuxer;
 }
