@@ -11,6 +11,7 @@
 - **Breaking:** Renamed and moved "`media`" error types and helpers to a new `media_error` module. (#399)
 - **Breaking:** media_codec: Wrap common dequeued-buffer status codes in enum. (#401)
 - **Breaking:** media_codec: Return `MaybeUninit` bytes in `buffer_mut()`. (#403)
+- native_window: Add `lock()` to blit raw pixel data. (#404)
 - hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 
 # 0.7.0 (2022-07-24)

@@ -16,6 +16,7 @@ pub enum HardwareBufferFormat {
     R8G8B8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM.0,
     /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGB_565`].
     R5G6B5_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R5G6B5_UNORM.0,
+    #[cfg(feature = "api-level-26")]
     R16G16B16A16_FLOAT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R16G16B16A16_FLOAT.0,
     #[cfg(feature = "api-level-26")]
     R10G10B10A2_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R10G10B10A2_UNORM.0,
@@ -39,4 +40,41 @@ pub enum HardwareBufferFormat {
     YCbCr_P010 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_YCbCr_P010.0,
     #[cfg(feature = "api-level-26")]
     R8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8_UNORM.0,
+}
+
+impl HardwareBufferFormat {
+    /// Returns [`None`] when there is no immediate byte size available for this format, for
+    /// example on planar buffer formats.
+    pub fn bytes_per_pixel(self) -> Option<usize> {
+        Some(match self {
+            Self::R8G8B8A8_UNORM | Self::R8G8B8X8_UNORM => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::R8G8B8_UNORM => 3,
+            Self::R5G6B5_UNORM => 2,
+            #[cfg(feature = "api-level-26")]
+            Self::R16G16B16A16_FLOAT => 8,
+            #[cfg(feature = "api-level-26")]
+            Self::R10G10B10A2_UNORM => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::BLOB => 1,
+            #[cfg(feature = "api-level-26")]
+            Self::D16_UNORM => 2,
+            #[cfg(feature = "api-level-26")]
+            Self::D24_UNORM => 3,
+            #[cfg(feature = "api-level-26")]
+            Self::D24_UNORM_S8_UINT => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::D32_FLOAT => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::D32_FLOAT_S8_UINT => 5,
+            #[cfg(feature = "api-level-26")]
+            Self::S8_UINT => 1,
+            #[cfg(feature = "api-level-26")]
+            Self::Y8Cb8Cr8_420 => 3,
+            #[cfg(feature = "api-level-26")]
+            Self::YCbCr_P010 => return None,
+            #[cfg(feature = "api-level-26")]
+            Self::R8_UNORM => 1,
+        })
+    }
 }

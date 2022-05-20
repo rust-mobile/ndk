@@ -67,11 +67,11 @@ unsafe impl Send for NativeActivity {}
 unsafe impl Sync for NativeActivity {}
 
 impl NativeActivity {
-    /// Create a `NativeActivity` from a pointer
+    /// Create a [`NativeActivity`] from a pointer
     ///
     /// # Safety
     /// By calling this function, you assert that it is a valid pointer to a native
-    /// `ANativeActivity`.
+    /// [`ffi::ANativeActivity`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::ANativeActivity>) -> Self {
         Self { ptr }
     }
