@@ -1,7 +1,6 @@
 //! Bindings for [`ffi::ASurfaceTexture`]
 use crate::native_window::NativeWindow;
-use jni_sys::jobject;
-use jni_sys::JNIEnv;
+use jni_sys::{jobject, JNIEnv};
 use std::ptr::NonNull;
 use thiserror::Error;
 
