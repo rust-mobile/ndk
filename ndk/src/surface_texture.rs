@@ -1,5 +1,7 @@
 //! Bindings for [`ffi::ASurfaceTexture`]
+#[cfg(feature = "api-level-28")]
 use crate::native_window::NativeWindow;
+#[cfg(feature = "api-level-28")]
 use jni_sys::{jobject, JNIEnv};
 use std::ptr::NonNull;
 use thiserror::Error;
