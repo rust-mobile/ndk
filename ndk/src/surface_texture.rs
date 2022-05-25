@@ -1,3 +1,4 @@
+#![cfg(feature = "api-level-28")]
 //! Bindings for [`ffi::ASurfaceTexture`]
 use crate::native_window::NativeWindow;
 use jni_sys::{jobject, JNIEnv};
