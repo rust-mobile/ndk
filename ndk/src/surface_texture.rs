@@ -1,7 +1,5 @@
 //! Bindings for [`ffi::ASurfaceTexture`]
-#[cfg(feature = "api-level-28")]
 use crate::native_window::NativeWindow;
-#[cfg(feature = "api-level-28")]
 use jni_sys::{jobject, JNIEnv};
 use std::ptr::NonNull;
 use thiserror::Error;
@@ -37,7 +35,6 @@ impl SurfaceTexture {
         Self { ptr }
     }
 
-    #[cfg(feature = "api-level-28")]
     /// # Safety
     ///
     /// This function should be called with a healthy JVM pointer and with a non-null surface texture,
@@ -53,7 +50,6 @@ impl SurfaceTexture {
         self.ptr
     }
 
-    #[cfg(feature = "api-level-28")]
     /// Returns a reference to an ANativeWindow (i.e. the Producer)
     /// for this SurfaceTexture. This is equivalent to Java's:
     /// Surface sur = new Surface(surfaceTexture);
@@ -63,7 +59,6 @@ impl SurfaceTexture {
         Some(unsafe { NativeWindow::from_ptr(n) })
     }
 
-    #[cfg(feature = "api-level-28")]
     /// Attach the SurfaceTexture to the OpenGL ES context that is current on the calling thread.
     pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<(), PosixError> {
         let r = unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) };
@@ -74,7 +69,6 @@ impl SurfaceTexture {
         }
     }
 
-    #[cfg(feature = "api-level-28")]
     /// Detach the SurfaceTexture from the OpenGL ES context that owns the OpenGL ES texture object.
     pub fn detach_from_gl_context(&self) -> Result<(), PosixError> {
         let r = unsafe { ffi::ASurfaceTexture_detachFromGLContext(self.ptr.as_ptr()) };
@@ -85,7 +79,6 @@ impl SurfaceTexture {
         }
     }
 
-    #[cfg(feature = "api-level-28")]
     /// Retrieve the 4x4 texture coordinate transform matrix associated with the texture image set by the most recent call to updateTexImage.
     pub fn get_transform_matrix(&self) -> [f32; 16] {
         let mut r = [0f32; 16];
@@ -93,13 +86,11 @@ impl SurfaceTexture {
         r
     }
 
-    #[cfg(feature = "api-level-28")]
     /// Retrieve the timestamp associated with the texture image set by the most recent call to updateTexImage.
     pub fn timestamp(&self) -> i64 {
         unsafe { ffi::ASurfaceTexture_getTimestamp(self.ptr.as_ptr()) }
     }
 
-    #[cfg(feature = "api-level-28")]
     /// Update the texture image to the most recent frame from the image stream.
     pub fn update_tex_image(&self) -> Result<(), PosixError> {
         let r = unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) };

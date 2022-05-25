@@ -26,5 +26,6 @@ pub mod looper;
 pub mod media;
 pub mod native_activity;
 pub mod native_window;
+#[cfg(feature = "api-level-28")]
 pub mod surface_texture;
 pub mod trace;
