@@ -3,10 +3,12 @@
 //! See also [the NDK
 //! docs](https://developer.android.com/ndk/reference/struct/a-native-activity.html)
 
-//use num_enum::{IntoPrimitive, TryFromPrimitive};
-use std::ffi::CStr;
-use std::os::raw::c_void;
-use std::ptr::NonNull;
+use std::{
+    ffi::{CStr, OsStr},
+    os::{raw::c_void, unix::prelude::OsStrExt},
+    path::Path,
+    ptr::NonNull,
+};
 
 /// An `ANativeActivity *`
 ///
@@ -40,7 +42,7 @@ impl NativeActivity {
 /// Methods that relate to fields of the struct itself
 ///
 /// The relevant NDK docs can be found
-/// [here.](https://developer.android.com/ndk/reference/struct/a-native-activity)
+/// [here](https://developer.android.com/ndk/reference/struct/a-native-activity).
 impl NativeActivity {
     /// The platform's SDK version code
     pub fn sdk_version(&self) -> i32 {
@@ -48,13 +50,15 @@ impl NativeActivity {
     }
 
     /// Path to this application's internal data directory
-    pub fn internal_data_path(&self) -> &CStr {
-        unsafe { CStr::from_ptr(self.ptr.as_ref().internalDataPath) }
+    pub fn internal_data_path(&self) -> &Path {
+        OsStr::from_bytes(unsafe { CStr::from_ptr(self.ptr.as_ref().internalDataPath) }.to_bytes())
+            .as_ref()
     }
 
     /// Path to this application's external (removable, mountable) data directory
-    pub fn external_data_path(&self) -> &CStr {
-        unsafe { CStr::from_ptr(self.ptr.as_ref().externalDataPath) }
+    pub fn external_data_path(&self) -> &Path {
+        OsStr::from_bytes(unsafe { CStr::from_ptr(self.ptr.as_ref().externalDataPath) }.to_bytes())
+            .as_ref()
     }
 
     /// This app's asset manager, which can be used to access assets from the `.apk` file.
@@ -123,15 +127,15 @@ impl NativeActivity {
     ///
     /// # Safety
     /// Only available as of Honeycomb (Android 3.0+, API level 11+)
-    pub unsafe fn obb_path(&self) -> &CStr {
-        CStr::from_ptr(self.ptr.as_ref().obbPath)
+    pub unsafe fn obb_path(&self) -> &Path {
+        OsStr::from_bytes(CStr::from_ptr(self.ptr.as_ref().obbPath).to_bytes()).as_ref()
     }
 }
 
 /// Methods that relate to `ANativeActivity_*` functions.
 ///
 /// The relevant NDK docs can be found
-/// [here.](https://developer.android.com/ndk/reference/group/native-activity)
+/// [here](https://developer.android.com/ndk/reference/group/native-activity).
 impl NativeActivity {
     /// Sends a destroy event to the activity and stops it.
     pub fn finish(&self) {
