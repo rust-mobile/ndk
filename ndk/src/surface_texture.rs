@@ -51,9 +51,12 @@ impl SurfaceTexture {
         self.ptr
     }
 
-    /// Returns a reference to an ANativeWindow (i.e. the Producer)
-    /// for this SurfaceTexture. This is equivalent to Java's:
+    /// Returns a reference to a [`NativeWindow`] (i.e. the Producer) for this [`SurfaceTexture`].
+    ///
+    /// This is equivalent to Java's:
+    /// ```java
     /// Surface sur = new Surface(surfaceTexture);
+    /// ```
     pub fn acquire_native_window(&mut self) -> Option<NativeWindow> {
         let native_window = unsafe { ffi::ASurfaceTexture_acquireANativeWindow(self.ptr.as_ptr()) };
         let n = NonNull::new(native_window)?;
