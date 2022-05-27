@@ -63,7 +63,7 @@ impl SurfaceTexture {
         Some(unsafe { NativeWindow::from_ptr(n) })
     }
 
-    /// Attach the SurfaceTexture to the OpenGL ES context that is current on the calling thread.
+    /// Attach the [`SurfaceTexture`] to the OpenGL ES context that is current on the calling thread.
     pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<(), PosixError> {
         let r = unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) };
         if r == 0 {
