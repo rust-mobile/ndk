@@ -90,7 +90,7 @@ impl SurfaceTexture {
         r
     }
 
-    /// Retrieve the timestamp associated with the texture image set by the most recent call to updateTexImage.
+    /// Retrieve the timestamp associated with the texture image set by the most recent call to [`update_tex_image()`][Self::update_tex_image()].
     pub fn timestamp(&self) -> i64 {
         unsafe { ffi::ASurfaceTexture_getTimestamp(self.ptr.as_ptr()) }
     }
