@@ -3,7 +3,7 @@
 use crate::native_window::NativeWindow;
 use jni_sys::{jobject, JNIEnv};
 use std::ptr::NonNull;
-use thiserror::Error;
+use super::posix::PosixError;
 
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct SurfaceTexture {
@@ -11,15 +11,6 @@ pub struct SurfaceTexture {
 }
 
 unsafe impl Send for SurfaceTexture {}
-
-#[derive(Debug, Error)]
-pub struct PosixError(pub i32);
-
-impl std::fmt::Display for PosixError {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "Posix Error: {}", self.0)
-    }
-}
 
 impl Drop for SurfaceTexture {
     fn drop(&mut self) {
