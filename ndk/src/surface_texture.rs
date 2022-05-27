@@ -46,7 +46,7 @@ impl SurfaceTexture {
         Some(SurfaceTexture::from_ptr(s))
     }
 
-    /// Returns native internal pointer
+    /// Returns a pointer to the native [`ASurfaceTexture`](ffi::ASurfaceTexture).
     pub fn ptr(&self) -> NonNull<ffi::ASurfaceTexture> {
         self.ptr
     }
