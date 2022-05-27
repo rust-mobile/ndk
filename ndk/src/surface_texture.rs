@@ -73,7 +73,7 @@ impl SurfaceTexture {
         }
     }
 
-    /// Detach the SurfaceTexture from the OpenGL ES context that owns the OpenGL ES texture object.
+    /// Detach the [`SurfaceTexture`] from the OpenGL ES context that owns the OpenGL ES texture object.
     pub fn detach_from_gl_context(&self) -> Result<(), PosixError> {
         let r = unsafe { ffi::ASurfaceTexture_detachFromGLContext(self.ptr.as_ptr()) };
         if r == 0 {
