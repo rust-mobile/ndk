@@ -63,7 +63,7 @@ impl SurfaceTexture {
     /// Attach the [`SurfaceTexture`] to the OpenGL ES context that is current on the calling thread.
     /// A new OpenGL ES texture object is created and populated with the SurfaceTexture image frame
     /// that was current at the time of the last call to ASurfaceTexture_detachFromGLContext.
-    /// This new texture is bound to the [`GL_TEXTURE_EXTERNAL_OES`] texture target.
+    /// This new texture is bound to the GL_TEXTURE_EXTERNAL_OES texture target.
     /// This can be used to access the [`SurfaceTexture`] image contents from multiple OpenGL ES contexts.
     /// Note, however, that the image contents are only accessible from one OpenGL ES context at a time.
     pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<(), PosixError> {
@@ -79,7 +79,7 @@ impl SurfaceTexture {
     /// This call must be made with the OpenGL ES context current on the calling thread. The OpenGL
     /// ES texture object will be deleted as a result of this call. After calling this method all
     /// calls to [`update_tex_image()`][Self::update_tex_image()] will fail until a successful call to
-    /// [`attach_gl_context()`][Self::attach_gl_context()] is made.
+    /// [`attach_to_gl_context()`][Self::attach_to_gl_context()] is made.
     /// This can be used to access the [`SurfaceTexture`] image contents from multiple OpenGL ES contexts.
     /// Note, however, that the image contents are only accessible from one OpenGL ES context at a time.
     pub fn detach_from_gl_context(&self) -> Result<(), PosixError> {
