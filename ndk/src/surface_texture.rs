@@ -1,5 +1,6 @@
-#![cfg(feature = "api-level-28")]
 //! Bindings for [`ffi::ASurfaceTexture`]
+#![cfg(feature = "api-level-28")]
+
 use super::posix::PosixError;
 use crate::native_window::NativeWindow;
 use jni_sys::{jobject, JNIEnv};
