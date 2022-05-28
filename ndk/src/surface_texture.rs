@@ -88,6 +88,8 @@ impl SurfaceTexture {
     }
 
     /// Update the texture image to the most recent frame from the image stream.
+    ///
+    /// This may only be called while the OpenGL ES context that owns the texture is current on the calling thread. It will implicitly bind its texture to the `GL_TEXTURE_EXTERNAL_OES` texture target.
     pub fn update_tex_image(&self) -> Result<(), PosixError> {
         let r = unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) };
         if r == 0 {
