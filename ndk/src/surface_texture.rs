@@ -1,9 +1,9 @@
 #![cfg(feature = "api-level-28")]
 //! Bindings for [`ffi::ASurfaceTexture`]
+use super::posix::PosixError;
 use crate::native_window::NativeWindow;
 use jni_sys::{jobject, JNIEnv};
 use std::ptr::NonNull;
-use super::posix::PosixError;
 
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct SurfaceTexture {
