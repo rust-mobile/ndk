@@ -4,12 +4,52 @@
 //! docs](https://developer.android.com/ndk/reference/struct/a-native-activity.html)
 
 use super::hardware_buffer_format::HardwareBufferFormat;
+use bitflags::bitflags;
 use std::{
     ffi::{CStr, OsStr},
     os::{raw::c_void, unix::prelude::OsStrExt},
     path::Path,
     ptr::NonNull,
 };
+
+bitflags! {
+    /// Window flags, as per the Java API at [`android.view.WindowManager.LayoutParams`].
+    ///
+    /// <https://developer.android.com/ndk/reference/group/native-activity#group___native_activity_1ga2f1398dba5e4a5616b83437528bdb28e>
+    ///
+    /// [`android.view.WindowManager.LayoutParams`]: https://developer.android.com/reference/android/view/WindowManager.LayoutParams
+    pub struct WindowFlags: u32 {
+        const ALLOW_LOCK_WHILE_SCREEN_ON = ffi::AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
+        const DIM_BEHIND = ffi::AWINDOW_FLAG_DIM_BEHIND;
+        #[deprecated = "Deprecated. Blurring is no longer supported."]
+        const BLUR_BEHIND = ffi::AWINDOW_FLAG_BLUR_BEHIND;
+        const NOT_FOCUSABLE = ffi::AWINDOW_FLAG_NOT_FOCUSABLE;
+        const NOT_TOUCHABLE = ffi::AWINDOW_FLAG_NOT_TOUCHABLE;
+        const NOT_TOUCH_MODAL = ffi::AWINDOW_FLAG_NOT_TOUCH_MODAL;
+        #[deprecated = "This constant was deprecated in API level 20. This flag has no effect."]
+        const TOUCHABLE_WHEN_WAKING = ffi::AWINDOW_FLAG_TOUCHABLE_WHEN_WAKING;
+        const KEEP_SCREEN_ON = ffi::AWINDOW_FLAG_KEEP_SCREEN_ON;
+        const LAYOUT_IN_SCREEN = ffi::AWINDOW_FLAG_LAYOUT_IN_SCREEN;
+        const LAYOUT_NO_LIMITS = ffi::AWINDOW_FLAG_LAYOUT_NO_LIMITS;
+        const FULLSCREEN = ffi::AWINDOW_FLAG_FULLSCREEN;
+        #[cfg_attr(feature = "api-level-30", deprecated = "This constant was deprecated in API level 30. This value became API \"by accident\", and shouldn't be used by 3rd party applications.")]
+        const FORCE_NOT_FULLSCREEN = ffi::AWINDOW_FLAG_FORCE_NOT_FULLSCREEN;
+        #[deprecated = "This constant was deprecated in API level 17. This flag is no longer used."]
+        const DITHER = ffi::AWINDOW_FLAG_DITHER;
+        const SECURE = ffi::AWINDOW_FLAG_SECURE;
+        const SCALED = ffi::AWINDOW_FLAG_SCALED;
+        const IGNORE_CHEEK_PRESSES = ffi::AWINDOW_FLAG_IGNORE_CHEEK_PRESSES;
+        const LAYOUT_INSET_DECOR = ffi::AWINDOW_FLAG_LAYOUT_INSET_DECOR;
+        const ALT_FOCUSABLE_IM = ffi::AWINDOW_FLAG_ALT_FOCUSABLE_IM;
+        const WATCH_OUTSIDE_TOUCH = ffi::AWINDOW_FLAG_WATCH_OUTSIDE_TOUCH;
+        const SHOW_WHEN_LOCKED = ffi::AWINDOW_FLAG_SHOW_WHEN_LOCKED;
+        const SHOW_WALLPAPER = ffi::AWINDOW_FLAG_SHOW_WALLPAPER;
+        const TURN_SCREEN_ON = ffi::AWINDOW_FLAG_TURN_SCREEN_ON;
+        #[cfg_attr(feature = "api-level-26", deprecated = "This constant was deprecated in API level 26. Use `SHOW_WHEN_LOCKED` instead.")]
+        const DISMISS_KEYGUARD = ffi::AWINDOW_FLAG_DISMISS_KEYGUARD;
+        const ATTACHED_IN_DECOR = 0x40000000;
+    }
+}
 
 /// An `ANativeActivity *`
 ///
@@ -179,11 +219,31 @@ impl NativeActivity {
 
     /// Change the window format of the given activity.
     ///
-    /// Calls [`getWindow().setFormat()`] of the given activity. Note that this method can be called from any thread; it will send a message to the main thread of the process where the Java finish call will take place.
+    /// Calls [`getWindow().setFormat()`] of the given activity. Note that this method can be
+    /// called from any thread; it will send a message to the main thread of the process where the
+    /// Java finish call will take place.
     ///
     /// [`getWindow().setFormat()`]: https://developer.android.com/reference/android/view/Window#setFormat(int)
     pub fn set_window_format(&self, format: HardwareBufferFormat) {
         let format: u32 = format.into();
         unsafe { ffi::ANativeActivity_setWindowFormat(self.ptr.as_ptr(), format as i32) }
+    }
+
+    /// Change the window flags of the given activity.
+    ///
+    /// Calls [`getWindow().setFlags()`] of the given activity.
+    ///
+    /// Note that this method can be called from any thread; it will send a message to the main
+    /// thread of the process where the Java finish call will take place.
+    ///
+    /// [`getWindow().setFlags()`]: https://developer.android.com/reference/android/view/Window#setFlags(int,%20int)
+    pub fn set_window_flags(&self, add_flags: WindowFlags, remove_flags: WindowFlags) {
+        unsafe {
+            ffi::ANativeActivity_setWindowFlags(
+                self.ptr.as_ptr(),
+                add_flags.bits(),
+                remove_flags.bits(),
+            )
+        }
     }
 }

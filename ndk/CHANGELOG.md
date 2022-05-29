@@ -10,6 +10,7 @@
 - **Breaking:** native_activity: Replace `CStr` return types with `Path`. (#279)
 - native_window: Add `format()` getter and `set_buffers_geometry()` setter. (#276)
 - native_activity: Add `set_window_format()` setter. (#277)
+- native_activity: Add `set_window_flags()` to change window behavior. (#278)
 
 # 0.6.0 (2022-01-05)
 
