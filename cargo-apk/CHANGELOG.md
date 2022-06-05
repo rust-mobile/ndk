@@ -1,6 +1,7 @@
 # Unreleased
 
-- Move NDK r23 `-lgcc` workaround to `ndk-build::cargo::cargo_ndk`, to also apply to our `cargo apk --` invocations. ([#286](https://github.com/rust-windowing/android-ndk-rs/pull/286))
+- Move NDK r23 `-lgcc` workaround to `ndk_build::cargo::cargo_ndk()`, to also apply to our `cargo apk --` invocations. ([#286](https://github.com/rust-windowing/android-ndk-rs/pull/286))
+- Disable `aapt` compression for the [(default) `dev` profile](https://doc.rust-lang.org/cargo/reference/profiles.html). ([#283](https://github.com/rust-windowing/android-ndk-rs/pull/283))
 
 # 0.9.1 (2022-05-12)
 
