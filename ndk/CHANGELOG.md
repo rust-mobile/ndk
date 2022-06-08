@@ -6,7 +6,11 @@
 - **Breaking:** Upgrade to [`ndk-sys 0.4.0`](../ndk-sys/CHANGELOG.md#040-TODO-YET-UNRELEASED) and use new `enum` newtype wrappers. (#245)
 - native_window: Use `release`/`acquire` for `Drop` and `Clone` respectively. (#207)
 - **Breaking:** audio: Rename from `aaudio` to `audio` and drop `A` prefix. (#273)
-- Implement `HasRawWindowHandle` directly on `NativeWindow` (#274)
+- Implement `HasRawWindowHandle` directly on `NativeWindow`. (#274)
+- **Breaking:** native_activity: Replace `CStr` return types with `Path`. (#279)
+- native_window: Add `format()` getter and `set_buffers_geometry()` setter. (#276)
+- native_activity: Add `set_window_format()` setter. (#277)
+- native_activity: Add `set_window_flags()` to change window behavior. (#278)
 
 # 0.6.0 (2022-01-05)
 

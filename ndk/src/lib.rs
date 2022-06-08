@@ -21,6 +21,7 @@ pub mod bitmap;
 pub mod configuration;
 pub mod event;
 pub mod hardware_buffer;
+pub mod hardware_buffer_format;
 pub mod input_queue;
 pub mod looper;
 pub mod media;
