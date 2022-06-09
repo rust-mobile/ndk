@@ -12,6 +12,7 @@
 - native_activity: Add `set_window_format()` setter. (#277)
 - native_activity: Add `set_window_flags()` to change window behavior. (#278)
 - Add `SurfaceTexture` bindings. (#267)
+- Improve library and structure documentation, linking back to the NDK docs more rigorously. (#290)
 
 # 0.6.0 (2022-01-05)
 

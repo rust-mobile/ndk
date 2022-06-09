@@ -1,3 +1,7 @@
+//! Bindings for [`AImageReader`] and [`AImage`]
+//!
+//! [`AImageReader`]: https://developer.android.com/ndk/reference/group/media#aimagereader
+//! [`AImage`]: https://developer.android.com/ndk/reference/group/media#aimage
 #![cfg(feature = "api-level-24")]
 
 use super::NdkMediaError;
@@ -46,6 +50,9 @@ pub type ImageListener = Box<dyn FnMut(&ImageReader)>;
 #[cfg(feature = "hardware_buffer")]
 pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer)>;
 
+/// A native [`AImageReader *`]
+///
+/// [`AImageReader *`]: https://developer.android.com/ndk/reference/group/media#aimagereader
 pub struct ImageReader {
     inner: NonNull<ffi::AImageReader>,
     image_cb: Option<Box<ImageListener>>,
@@ -250,6 +257,9 @@ impl Drop for ImageReader {
     }
 }
 
+/// A native [`AImage *`]
+///
+/// [`AImage *`]: https://developer.android.com/ndk/reference/group/media#aimage
 #[derive(Debug)]
 pub struct Image {
     inner: NonNull<ffi::AImage>,

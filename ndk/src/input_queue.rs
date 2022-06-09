@@ -1,4 +1,6 @@
-// TODO: mod docs
+//! Bindings for [`AInputQueue`]
+//!
+//! [`AInputQueue`]: https://developer.android.com/ndk/reference/group/input#ainputqueue
 
 use std::os::raw::c_int;
 use std::ptr;
@@ -7,13 +9,17 @@ use std::ptr::NonNull;
 use crate::event::InputEvent;
 use crate::looper::ForeignLooper;
 
-// TODO docs
+/// A native [`AInputQueue *`]
+///
+/// An input queue is the facility through which you retrieve input events.
+///
+/// [`AInputQueue *`]: https://developer.android.com/ndk/reference/group/input#ainputqueue
 #[derive(Debug)]
 pub struct InputQueue {
     ptr: NonNull<ffi::AInputQueue>,
 }
 
-// It gets shared between threads in android_native_app_glue
+// It gets shared between threads in `ndk-glue`
 unsafe impl Send for InputQueue {}
 unsafe impl Sync for InputQueue {}
 
@@ -21,10 +27,10 @@ unsafe impl Sync for InputQueue {}
 pub struct InputQueueError;
 
 impl InputQueue {
-    /// Construct an `InputQueue` from the native pointer.
+    /// Construct an [`InputQueue`] from the native pointer.
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to an NDK `AInputQueue`.
+    /// By calling this function, you assert that the pointer is a valid pointer to an NDK [`ffi::AInputQueue`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputQueue>) -> Self {
         Self { ptr }
     }
@@ -68,7 +74,7 @@ impl InputQueue {
 
     pub fn finish_event(&self, event: InputEvent, handled: bool) {
         unsafe {
-            ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int);
+            ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int)
         }
     }
 
@@ -80,13 +86,11 @@ impl InputQueue {
                 id,
                 None,
                 std::ptr::null_mut(),
-            );
+            )
         }
     }
 
     pub fn detach_looper(&self) {
-        unsafe {
-            ffi::AInputQueue_detachLooper(self.ptr.as_ptr());
-        }
+        unsafe { ffi::AInputQueue_detachLooper(self.ptr.as_ptr()) }
     }
 }

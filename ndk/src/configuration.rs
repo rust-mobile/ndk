@@ -1,11 +1,13 @@
-//! Bindings for `AConfiguration`.
+//! Bindings for [`AConfiguration`]
 //!
 //! See also the [NDK docs](https://developer.android.com/ndk/reference/group/configuration) for
-//! `AConfiguration`, as well as the [docs for providing
+//! [`AConfiguration`], as well as the [docs for providing
 //! resources](https://developer.android.com/guide/topics/resources/providing-resources.html),
 //! which explain many of the configuration values.  The [`android.content.res.Configuration`
 //! javadoc](https://developer.android.com/reference/android/content/res/Configuration.html) may
 //! also have useful information.
+//!
+//! [`AConfiguration`]: https://developer.android.com/ndk/reference/group/configuration#aconfiguration
 
 use crate::asset::AssetManager;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
@@ -13,10 +15,11 @@ use std::convert::TryInto;
 use std::fmt;
 use std::ptr::NonNull;
 
-/// A native `AConfiguration *`.
+/// A native [`AConfiguration *`]
 ///
-/// This stores information about configuration.  See [the NDK
-/// docs](https://developer.android.com/ndk/reference/group/configuration)
+/// [`Configuration`] is an opaque type used to get and set various subsystem configurations.
+///
+/// [`AConfiguration *`]: https://developer.android.com/ndk/reference/group/configuration#aconfiguration
 pub struct Configuration {
     ptr: NonNull<ffi::AConfiguration>,
 }
@@ -325,7 +328,7 @@ impl Configuration {
     }
 }
 
-/// A bitfield representing the differences between two `Configuration`s
+/// A bitfield representing the differences between two [`Configuration`]s
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct DiffResult(pub u32);
 
