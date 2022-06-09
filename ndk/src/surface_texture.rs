@@ -1,7 +1,9 @@
-//! Bindings for [`ffi::ASurfaceTexture`]
+//! Bindings for [`ASurfaceTexture`]
 //!
 //! See <https://source.android.com/devices/graphics/arch-st> for an architectural overview of
 //! [`SurfaceTexture`] internals.
+//!
+//! [`ASurfaceTexture`]: https://developer.android.com/ndk/reference/group/surface-texture
 #![cfg(feature = "api-level-28")]
 
 use super::posix::PosixError;
@@ -9,7 +11,9 @@ use crate::native_window::NativeWindow;
 use jni_sys::{jobject, JNIEnv};
 use std::{convert::TryInto, ptr::NonNull, time::Duration};
 
-/// <https://developer.android.com/ndk/reference/group/surface-texture>
+/// An opaque type to manage [`android.graphics.SurfaceTexture`] from native code
+///
+/// [`android.graphics.SurfaceTexture`]: https://developer.android.com/reference/android/graphics/SurfaceTexture
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct SurfaceTexture {
     ptr: NonNull<ffi::ASurfaceTexture>,
@@ -32,7 +36,7 @@ impl SurfaceTexture {
         Self { ptr }
     }
 
-    /// Get a reference to the native [`SurfaceTexture`] from the corresponding java object.
+    /// Get a reference to the native [`SurfaceTexture`] from the corresponding Java object.
     ///
     /// # Safety
     ///
@@ -139,7 +143,7 @@ impl SurfaceTexture {
     /// invocations. It is mostly useful for determining time offsets between subsequent frames.
     ///
     /// For EGL/Vulkan producers, this timestamp is the desired present time set with the
-    /// `EGL_ANDROID_presentation_time` or `VK_GOOGLE_display_timing` extensions.
+    /// [`EGL_ANDROID_presentation_time`] or [`VK_GOOGLE_display_timing`] extensions.
     ///
     /// [`MediaPlayer`]: https://developer.android.com/reference/android/media/MediaPlayer
     /// [`EGL_ANDROID_presentation_time`]: https://www.khronos.org/registry/EGL/extensions/ANDROID/EGL_ANDROID_presentation_time.txt
