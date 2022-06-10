@@ -167,6 +167,7 @@ impl<'a> ApkBuilder<'a> {
             assets,
             resources,
             manifest,
+            disable_aapt_compression: self.cmd.profile() == &Profile::Dev,
         };
         let apk = config.create_apk()?;
 

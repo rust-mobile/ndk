@@ -14,6 +14,7 @@ pub struct ApkConfig {
     pub assets: Option<PathBuf>,
     pub resources: Option<PathBuf>,
     pub manifest: AndroidManifest,
+    pub disable_aapt_compression: bool,
 }
 
 impl ApkConfig {
@@ -50,6 +51,10 @@ impl ApkConfig {
             .arg("AndroidManifest.xml")
             .arg("-I")
             .arg(self.ndk.android_jar(target_sdk_version)?);
+
+        if self.disable_aapt_compression {
+            aapt.arg("-0").arg("");
+        }
 
         if let Some(res) = &self.resources {
             aapt.arg("-S").arg(res);
@@ -90,9 +95,14 @@ impl<'a> UnalignedApk<'a> {
         let lib_path_unix = lib_path.to_str().unwrap().replace('\\', "/");
 
         let mut aapt = self.0.build_tool(bin!("aapt"))?;
-        aapt.arg("add")
-            .arg(self.0.unaligned_apk())
-            .arg(lib_path_unix);
+        aapt.arg("add");
+
+        if self.0.disable_aapt_compression {
+            aapt.arg("-0").arg("");
+        }
+
+        aapt.arg(self.0.unaligned_apk()).arg(lib_path_unix);
+
         if !aapt.status()?.success() {
             return Err(NdkError::CmdFailed(aapt));
         }
