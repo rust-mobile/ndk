@@ -98,7 +98,6 @@ impl<'a> ApkBuilder<'a> {
 
     pub fn check(&self) -> Result<(), Error> {
         for target in &self.build_targets {
-            let triple = target.rust_triple();
             let mut cargo = cargo_ndk(
                 &self.ndk,
                 *target,
@@ -107,6 +106,7 @@ impl<'a> ApkBuilder<'a> {
             )?;
             cargo.arg("check");
             if self.cmd.target().is_none() {
+                let triple = target.rust_triple();
                 cargo.arg("--target").arg(triple);
             }
             cargo.args(self.cmd.args());
@@ -247,6 +247,12 @@ impl<'a> ApkBuilder<'a> {
                 self.cmd.target_dir(),
             )?;
             cargo.args(self.cmd.args());
+
+            if self.cmd.target().is_none() {
+                let triple = target.rust_triple();
+                cargo.arg("--target").arg(triple);
+            }
+
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
             }
