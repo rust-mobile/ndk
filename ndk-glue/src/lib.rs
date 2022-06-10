@@ -1,10 +1,10 @@
-use lazy_static::lazy_static;
 use log::Level;
 use ndk::input_queue::InputQueue;
 use ndk::looper::{FdEvent, ForeignLooper, ThreadLooper};
 use ndk::native_activity::NativeActivity;
 use ndk::native_window::NativeWindow;
 use ndk_sys::{AInputQueue, ANativeActivity, ANativeWindow, ARect};
+use once_cell::sync::Lazy;
 use std::ffi::{CStr, CString};
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -46,12 +46,10 @@ pub fn android_log(level: Level, tag: &CStr, msg: &CStr) {
     }
 }
 
-lazy_static! {
-    static ref NATIVE_WINDOW: RwLock<Option<NativeWindow>> = Default::default();
-    static ref INPUT_QUEUE: RwLock<Option<InputQueue>> = Default::default();
-    static ref CONTENT_RECT: RwLock<Rect> = Default::default();
-    static ref LOOPER: Mutex<Option<ForeignLooper>> = Default::default();
-}
+static NATIVE_WINDOW: Lazy<RwLock<Option<NativeWindow>>> = Lazy::new(Default::default);
+static INPUT_QUEUE: Lazy<RwLock<Option<InputQueue>>> = Lazy::new(Default::default);
+static CONTENT_RECT: Lazy<RwLock<Rect>> = Lazy::new(Default::default);
+static LOOPER: Lazy<Mutex<Option<ForeignLooper>>> = Lazy::new(Default::default);
 
 static mut NATIVE_ACTIVITY: Option<NativeActivity> = None;
 
@@ -72,13 +70,11 @@ pub fn content_rect() -> Rect {
     CONTENT_RECT.read().unwrap().clone()
 }
 
-lazy_static! {
-    static ref PIPE: [RawFd; 2] = {
-        let mut pipe: [RawFd; 2] = Default::default();
-        unsafe { libc::pipe(pipe.as_mut_ptr()) };
-        pipe
-    };
-}
+static PIPE: Lazy<[RawFd; 2]> = Lazy::new(|| {
+    let mut pipe: [RawFd; 2] = Default::default();
+    unsafe { libc::pipe(pipe.as_mut_ptr()) };
+    pipe
+});
 
 pub fn poll_events() -> Option<Event> {
     unsafe {
