@@ -1,9 +1,15 @@
 use crate::error::NdkError;
 use crate::ndk::Ndk;
 use crate::target::Target;
+use std::path::Path;
 use std::process::Command;
 
-pub fn cargo_ndk(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command, NdkError> {
+pub fn cargo_ndk(
+    ndk: &Ndk,
+    target: Target,
+    sdk_version: u32,
+    target_dir: impl AsRef<Path>,
+) -> Result<Command, NdkError> {
     let triple = target.rust_triple();
     let mut cargo = Command::new("cargo");
 
@@ -15,6 +21,39 @@ pub fn cargo_ndk(ndk: &Ndk, target: Target, sdk_version: u32) -> Result<Command,
     let ar = ndk.toolchain_bin("ar", target)?;
     cargo.env(format!("AR_{}", triple), &ar);
     cargo.env(cargo_env_target_cfg("AR", triple), &ar);
+
+    // Workaround for https://github.com/rust-windowing/android-ndk-rs/issues/149:
+    // Rust (1.56 as of writing) still requires libgcc during linking, but this does
+    // not ship with the NDK anymore since NDK r23 beta 3.
+    // See https://github.com/rust-lang/rust/pull/85806 for a discussion on why libgcc
+    // is still required even after replacing it with libunwind in the source.
+    // XXX: Add an upper-bound on the Rust version whenever this is not necessary anymore.
+    if ndk.build_tag() > 7272597 {
+        let cargo_apk_link_dir = target_dir
+            .as_ref()
+            .join("cargo-apk-temp-extra-link-libraries");
+        std::fs::create_dir_all(&cargo_apk_link_dir)?;
+        std::fs::write(cargo_apk_link_dir.join("libgcc.a"), "INPUT(-lunwind)")
+            .expect("Failed to write");
+
+        // cdylibs in transitive dependencies still get built and also need this
+        // workaround linker flag, yet arguments passed to `cargo rustc` are only
+        // forwarded to the final compiler invocation rendering our workaround ineffective.
+        // The cargo page documenting this discrepancy (https://doc.rust-lang.org/cargo/commands/cargo-rustc.html)
+        // suggests to resort to RUSTFLAGS, which are updated below:
+        let mut rustflags = match std::env::var("RUSTFLAGS") {
+            Ok(val) => val,
+            Err(std::env::VarError::NotPresent) => "".to_string(),
+            Err(std::env::VarError::NotUnicode(_)) => {
+                panic!("RUSTFLAGS environment variable contains non-unicode characters")
+            }
+        };
+        rustflags += " -L ";
+        rustflags += cargo_apk_link_dir
+            .to_str()
+            .expect("Target dir must be valid UTF-8");
+        cargo.env("RUSTFLAGS", rustflags);
+    }
 
     Ok(cargo)
 }
