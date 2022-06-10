@@ -1,5 +1,7 @@
 # Unreleased
 
+- **Breaking:** Provide NDK r23 `-lgcc` workaround in `cargo_ndk` function, now requiring `target_dir` as argument. ([#286](https://github.com/rust-windowing/android-ndk-rs/pull/286))
+
 # 0.5.0 (2022-05-07)
 
 - **Breaking:** Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)

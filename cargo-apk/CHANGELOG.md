@@ -1,5 +1,7 @@
 # Unreleased
 
+- Move NDK r23 `-lgcc` workaround to `ndk-build::cargo::cargo_ndk`, to also apply to our `cargo apk --` invocations. ([#286](https://github.com/rust-windowing/android-ndk-rs/pull/286))
+
 # 0.9.1 (2022-05-12)
 
 - Reimplement NDK r23 `-lgcc` workaround using `RUSTFLAGS`, to apply to transitive `cdylib` compilations (#270)
