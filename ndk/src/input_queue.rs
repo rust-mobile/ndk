@@ -2,11 +2,13 @@
 //!
 //! [`AInputQueue`]: https://developer.android.com/ndk/reference/group/input#ainputqueue
 
+use std::io::{Error, Result};
 use std::os::raw::c_int;
-use std::ptr;
-use std::ptr::NonNull;
+use std::ptr::{self, NonNull};
 
 use crate::event::InputEvent;
+#[cfg(doc)]
+use crate::event::KeyEvent;
 use crate::looper::ForeignLooper;
 
 /// A native [`AInputQueue *`]
@@ -23,9 +25,6 @@ pub struct InputQueue {
 unsafe impl Send for InputQueue {}
 unsafe impl Sync for InputQueue {}
 
-#[derive(Debug)]
-pub struct InputQueueError;
-
 impl InputQueue {
     /// Construct an [`InputQueue`] from the native pointer.
     ///
@@ -39,45 +38,65 @@ impl InputQueue {
         self.ptr
     }
 
-    pub fn get_event(&self) -> Option<InputEvent> {
-        unsafe {
-            let mut out_event = ptr::null_mut();
-            if ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) < 0 {
-                None
-            } else {
+    /// Returns the next available [`InputEvent`] from the queue.
+    ///
+    /// Returns [`None`] if no event is available.
+    pub fn get_event(&self) -> Result<Option<InputEvent>> {
+        let mut out_event = ptr::null_mut();
+        match unsafe { ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) } {
+            0 => {
                 debug_assert!(!out_event.is_null());
-                Some(InputEvent::from_ptr(NonNull::new_unchecked(out_event)))
+                Ok(Some(unsafe {
+                    InputEvent::from_ptr(NonNull::new_unchecked(out_event))
+                }))
             }
+            r if r < 0 => match Error::from_raw_os_error(-r) {
+                e if e.kind() == std::io::ErrorKind::WouldBlock => Ok(None),
+                e => Err(e),
+            },
+            r => unreachable!("AInputQueue_getEvent returned positive integer {}", r),
         }
     }
 
-    pub fn has_events(&self) -> Result<bool, InputQueueError> {
-        unsafe {
-            match ffi::AInputQueue_hasEvents(self.ptr.as_ptr()) {
-                0 => Ok(false),
-                1 => Ok(true),
-                x if x < 0 => Err(InputQueueError),
-                x => unreachable!("AInputQueue_hasEvents returned {}", x),
-            }
+    /// Returns [`true`] if there are one or more events available in the input queue.
+    pub fn has_events(&self) -> Result<bool> {
+        match unsafe { ffi::AInputQueue_hasEvents(self.ptr.as_ptr()) } {
+            0 => Ok(false),
+            1 => Ok(true),
+            r if r < 0 => Err(Error::from_raw_os_error(-r)),
+            r => unreachable!("AInputQueue_hasEvents returned non-boolean {}", r),
         }
     }
 
+    /// Sends the key for standard pre-dispatching that is, possibly deliver it to the current IME
+    /// to be consumed before the app.
+    ///
+    /// Returns [`Some`] if it was not pre-dispatched, meaning you can process it right now. If
+    /// [`None`] is returned, you must abandon the current event processing and allow the event to
+    /// appear again in the event queue (if it does not get consumed during pre-dispatching).
+    ///
+    /// Also returns [`None`] if `event` is not a [`KeyEvent`].
     pub fn pre_dispatch(&self, event: InputEvent) -> Option<InputEvent> {
-        unsafe {
-            if ffi::AInputQueue_preDispatchEvent(self.ptr.as_ptr(), event.ptr().as_ptr()) == 0 {
-                Some(event)
-            } else {
-                None
-            }
+        match unsafe { ffi::AInputQueue_preDispatchEvent(self.ptr.as_ptr(), event.ptr().as_ptr()) }
+        {
+            0 => Some(event),
+            1 => None,
+            r => unreachable!("AInputQueue_preDispatchEvent returned non-boolean {}", r),
         }
     }
 
+    /// Report that dispatching has finished with the given [`InputEvent`].
+    ///
+    /// This must be called after receiving an event with [`InputQueue::get_event()`].
     pub fn finish_event(&self, event: InputEvent, handled: bool) {
         unsafe {
             ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int)
         }
     }
 
+    /// Add this input queue to a [`ForeignLooper`] for processing.
+    ///
+    /// See [`ForeignLooper::add_fd()`] for information on the `ident`, `callback`, and `data` params.
     pub fn attach_looper(&self, looper: &ForeignLooper, id: i32) {
         unsafe {
             ffi::AInputQueue_attachLooper(
@@ -90,6 +109,7 @@ impl InputQueue {
         }
     }
 
+    /// Remove this input queue from the [`ForeignLooper`] it is currently attached to.
     pub fn detach_looper(&self) {
         unsafe { ffi::AInputQueue_detachLooper(self.ptr.as_ptr()) }
     }

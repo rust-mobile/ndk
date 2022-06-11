@@ -118,7 +118,7 @@ fn main() {
                         let input_queue = input_queue.as_ref().expect("Input queue not attached");
                         assert!(input_queue.has_events().unwrap());
                         // Consume as many events as possible
-                        while let Some(event) = input_queue.get_event() {
+                        while let Some(event) = input_queue.get_event().unwrap() {
                             // Pass the event by a possible IME (Input Method Editor, ie. an open keyboard) first
                             if let Some(event) = input_queue.pre_dispatch(event) {
                                 info!("Input event {:?}", event);

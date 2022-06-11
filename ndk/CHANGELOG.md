@@ -13,6 +13,7 @@
 - native_activity: Add `set_window_flags()` to change window behavior. (#278)
 - Add `SurfaceTexture` bindings. (#267)
 - Improve library and structure documentation, linking back to the NDK docs more rigorously. (#290)
+- **Breaking:** input_queue: `InputQueue::{get_event,has_events}()` now return a `Result` with `std::io::Error`; `InputQueueError` has been removed. (#292)
 
 # 0.6.0 (2022-01-05)
 
