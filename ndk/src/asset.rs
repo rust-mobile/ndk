@@ -1,12 +1,16 @@
-//! Assets
+//! Bindings for [`AAsset`], [`AAssetDir`] and [`AAssetManager`]
 //!
-//! See also [the NDK docs](https://developer.android.com/ndk/reference/group/asset)
+//! [`AAsset`]: https://developer.android.com/ndk/reference/group/asset#aasset
+//! [`AAssetDir`]: https://developer.android.com/ndk/reference/group/asset#aassetdir
+//! [`AAssetManager`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
 
 use std::ffi::{CStr, CString};
 use std::io;
 use std::ptr::NonNull;
 
-/// A native `AAssetManager *`.
+/// A native [`AAssetManager *`]
+///
+/// [`AAssetManager *`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
 #[derive(Debug)]
 pub struct AssetManager {
     ptr: NonNull<ffi::AAssetManager>,
@@ -55,7 +59,7 @@ impl AssetManager {
     }
 }
 
-/// A native `AAssetDir *`.
+/// A native [`AAssetDir *`]
 ///
 /// ```no_run
 /// # use std::ffi::CString;
@@ -80,6 +84,8 @@ impl AssetManager {
 ///     // ...
 /// }
 /// ```
+///
+/// [`AAssetDir *`]: https://developer.android.com/ndk/reference/group/asset#aassetdir
 #[derive(Debug)]
 pub struct AssetDir {
     ptr: NonNull<ffi::AAssetDir>,
@@ -141,7 +147,7 @@ impl Iterator for AssetDir {
     }
 }
 
-/// A native `AAsset *`, open in the streaming mode
+/// A native [`AAsset *`], opened in streaming mode
 ///
 /// ```no_run
 /// # use std::ffi::CString;
@@ -157,6 +163,8 @@ impl Iterator for AssetDir {
 /// asset.read_to_end(&mut data);
 /// // ... use data ...
 /// ```
+///
+/// [`AAsset *`]: https://developer.android.com/ndk/reference/group/asset#aasset
 #[derive(Debug)]
 pub struct Asset {
     ptr: NonNull<ffi::AAsset>,

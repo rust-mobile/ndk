@@ -1,3 +1,6 @@
+//! Bindings for [`AHardwareBuffer_Format`]
+//!
+//! [`AHardwareBuffer_Format`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer_format
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
 #[repr(u32)]

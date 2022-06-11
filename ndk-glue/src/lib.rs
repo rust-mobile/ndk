@@ -23,13 +23,13 @@ pub use ndk_macro::main;
 
 /// `ndk-glue` macros register the reading end of an event pipe with the
 /// main [`ThreadLooper`] under this `ident`.
-/// When returned from [`ThreadLooper::poll_*`](ThreadLooper::poll_once)
+/// When returned from [`ThreadLooper::poll_*`][ThreadLooper::poll_once]
 /// an event can be retrieved from [`poll_events()`].
 pub const NDK_GLUE_LOOPER_EVENT_PIPE_IDENT: i32 = 0;
 
 /// The [`InputQueue`] received from Android is registered with the main
 /// [`ThreadLooper`] under this `ident`.
-/// When returned from [`ThreadLooper::poll_*`](ThreadLooper::poll_once)
+/// When returned from [`ThreadLooper::poll_*`][ThreadLooper::poll_once]
 /// an event can be retrieved from [`input_queue()`].
 pub const NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT: i32 = 1;
 

@@ -1,7 +1,11 @@
-//! Bindings for the NDK AAudio Android audio API.
+//! Bindings for [`AAudioStream`] and [`AAudioStreamBuilder`]
 //!
-//! See also [the NDK docs](https://developer.android.com/ndk/guides/audio/aaudio/aaudio)
-//! and [the NDK API reference](https://developer.android.com/ndk/reference/group/audio)
+//! See [the NDK guide](https://developer.android.com/ndk/guides/audio/aaudio/aaudio) for
+//! design and usage instructions, and [the NDK reference](https://developer.android.com/ndk/reference/group/audio)
+//! for an API overview.
+//!
+//! [`AAudioStream`]: https://developer.android.com/ndk/reference/group/audio#aaudiostream
+//! [`AAudioStreamBuilder`]: https://developer.android.com/ndk/reference/group/audio#aaudiostreambuilder
 #![cfg(feature = "audio")]
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
@@ -18,33 +22,40 @@ use thiserror::Error;
 
 /// Specifying if audio may or may not be captured by other apps or the system.
 ///
-/// Note that these match the equivalent values in android.media.AudioAttributes
+/// Note that these match the equivalent values in [`android.media.AudioAttributes`]
 /// in the Android Java API.
+///
+/// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-29")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 pub enum AudioAllowedCapturePolicy {
     /// Indicates that the audio may be captured by any app.
     ///
-    /// For privacy, the following [usages][AudioUsage] can not be recorded:
-    /// `VoiceCommunication*`, `Notification*`, `Assistance*` and `Assistant`.
+    /// For privacy, the following [usages][AudioUsage] can not be recorded: `VoiceCommunication*`,
+    /// `Notification*`, `Assistance*` and [`Assistant`][AudioUsage::Assistant].
     ///
-    /// On Android Q, this means only `Media` and `Game` may be captured.
+    /// On Android Q, this means only [`Media`][AudioUsage::Media] and [`Game`][AudioUsage::Game] may be captured.
     ///
-    /// See android.media.AudioAttributes#ALLOW_CAPTURE_BY_ALL.
+    /// See [`MediaProjection`] and [`AudioStreamBuilder::allowed_capture_policy()`].
+    ///
+    /// [`MediaProjection`]: https://developer.android.com/reference/android/media/projection/MediaProjection
     AllowCaptureByAll = ffi::AAUDIO_ALLOW_CAPTURE_BY_ALL,
     /// Indicates that the audio may only be captured by system apps.
     ///
-    /// System apps can capture for many purposes like accessibility, user guidance...
-    /// but have strong restriction. See
-    /// android.media.AudioAttributes#ALLOW_CAPTURE_BY_SYSTEM for what the system apps
-    /// can do with the capture audio.
+    /// System apps can capture for many purposes like accessibility, live captions, user
+    /// guidance... but abide to the following restrictions:
+    /// - the audio cannot leave the device;
+    /// - the audio cannot be passed to a third party app;
+    /// - the audio cannot be recorded at a higher quality than 16kHz 16bit mono.
+    ///
+    /// See [`AudioStreamBuilder::allowed_capture_policy()`].
     AllowCaptureBySystem = ffi::AAUDIO_ALLOW_CAPTURE_BY_SYSTEM,
     /// Indicates that the audio may not be recorded by any app, even if it is a system app.
     ///
-    /// It is encouraged to use `AllowCaptureBySystem` instead of this value as system apps
-    /// provide significant and useful features for the user (eg. accessibility).
-    /// See android.media.AudioAttributes#ALLOW_CAPTURE_BY_NONE.
+    /// It is encouraged to use [`AllowCaptureBySystem`][Self::AllowCaptureBySystem] instead of
+    /// this value as system apps provide significant and useful features for the user (such as
+    /// live captioning and accessibility).
     AllowCaptureByNone = ffi::AAUDIO_ALLOW_CAPTURE_BY_NONE,
 }
 
@@ -55,8 +66,10 @@ pub enum AudioAllowedCapturePolicy {
 /// an audio book application) this information might be used by the audio framework to
 /// enforce audio focus.
 ///
-/// Note that these match the equivalent values in android.media.AudioAttributes
+/// Note that these match the equivalent values in [`android.media.AudioAttributes`]
 /// in the Android Java API.
+///
+/// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -157,8 +170,10 @@ pub enum AudioSharingMode {
 /// This information is used by certain platforms or routing policies
 /// to make more refined volume or routing decisions.
 ///
-/// Note that these match the equivalent values in android.media.AudioAttributes
+/// Note that these match the equivalent values in [`android.media.AudioAttributes`]
 /// in the Android Java API.
+///
+/// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-28")]
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -372,6 +387,9 @@ fn enum_return_value<T: TryFrom<u32>>(return_value: i32) -> Result<T> {
         .ok_or(AudioError::UnsupportedValue(return_value))
 }
 
+/// A native [`AAudioStreamBuilder *`]
+///
+/// [`AAudioStreamBuilder *`]: https://developer.android.com/ndk/reference/group/audio#aaudiostreambuilder
 pub struct AudioStreamBuilder {
     inner: NonNull<ffi::AAudioStreamBuilder>,
     data_callback: Option<AudioStreamDataCallback>,
@@ -429,13 +447,15 @@ impl AudioStreamBuilder {
     /// The default is [`AudioAllowedCapturePolicy::AllowCaptureByAll`].
     ///
     /// Note that an application can also set its global policy, in which case the most restrictive
-    /// policy is always applied. See android.media.AudioAttributes#setAllowedCapturePolicy(int)
+    /// policy is always applied. See [`android.media.AudioAttributes#setAllowedCapturePolicy(int)`].
     ///
     /// Available since API level 29.
     ///
     /// # Arguments
     ///
     /// * `policy` - the desired level of opt-out from being captured.
+    ///
+    /// [`android.media.AudioAttributes#setAllowedCapturePolicy(int)`]: https://developer.android.com/reference/android/media/AudioAttributes.Builder#setAllowedCapturePolicy(int)
     #[cfg(feature = "api-level-29")]
     pub fn allowed_capture_policy(self, capture_policy: AudioAllowedCapturePolicy) -> Self {
         unsafe {
@@ -881,6 +901,9 @@ impl Drop for AudioStreamBuilder {
     }
 }
 
+/// A native [`AAudioStream *`]
+///
+/// [`AAudioStream *`]: https://developer.android.com/ndk/reference/group/audio#aaudiostream
 pub struct AudioStream {
     inner: NonNull<ffi::AAudioStream>,
     data_callback: Option<AudioStreamDataCallback>,
@@ -1303,11 +1326,11 @@ impl AudioStream {
     /// Returns the number of frames actually written or a negative error.
     ///
     /// The call will wait until the write is complete or until it runs out of time.
-    /// If timeoutNanos is zero then this call will not wait.
+    /// If `timeout_nanoseconds` is zero then this call will not wait.
     ///
-    /// Note that timeoutNanoseconds is a relative duration in wall clock time.
+    /// Note that `timeout_nanoseconds` is a relative duration in wall clock time.
     /// Time will not stop if the thread is asleep.
-    /// So it will be implemented using CLOCK_BOOTTIME.
+    /// So it will be implemented using `CLOCK_BOOTTIME`.
     ///
     /// This call is "strong non-blocking" unless it has to wait for room in the buffer.
     ///

@@ -1,3 +1,7 @@
+//! Bindings for [`AHardwareBuffer`]
+//!
+//! [`AHardwareBuffer`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer
+
 #![cfg(feature = "hardware_buffer")]
 
 pub use super::hardware_buffer_format::HardwareBufferFormat;
@@ -97,6 +101,9 @@ fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> Result<T, HardwareBuffe
     }
 }
 
+/// A native [`AHardwareBuffer *`]
+///
+/// [`AHardwareBuffer *`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer
 #[derive(Debug)]
 pub struct HardwareBuffer {
     inner: NonNull<ffi::AHardwareBuffer>,
@@ -107,7 +114,7 @@ impl HardwareBuffer {
     ///
     /// # Safety
     /// By calling this function, you assert that it is a valid pointer to
-    /// an NDK `AHardwareBuffer`.
+    /// an NDK [`ffi::AHardwareBuffer`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AHardwareBuffer>) -> Self {
         Self { inner: ptr }
     }
@@ -131,7 +138,7 @@ impl HardwareBuffer {
         }
     }
 
-    /// Create a `HardwareBuffer` from JNI pointers
+    /// Create a [`HardwareBuffer`] from JNI pointers
     ///
     /// # Safety
     /// By calling this function, you assert that it these are valid pointers to JNI objects.
@@ -257,7 +264,7 @@ impl HardwareBuffer {
     }
 
     /// Returns a fence file descriptor that will become signalled when unlocking is completed,
-    /// or `None` if unlocking is already finished.
+    /// or [`None`] if unlocking is already finished.
     pub fn unlock_async(&self) -> Result<Option<RawFd>> {
         let fence = construct(|res| unsafe { ffi::AHardwareBuffer_unlock(self.as_ptr(), res) })?;
         Ok(match fence {
@@ -296,8 +303,8 @@ impl HardwareBuffer {
     }
 }
 
-/// A `HardwareBuffer` with an owned reference, the reference is released when dropped.
-/// It behaves much like a strong `Rc` reference.
+/// A [`HardwareBuffer`] with an owned reference, the reference is released when dropped.
+/// It behaves much like a strong [`std::rc::Rc`] reference.
 #[derive(Debug)]
 pub struct HardwareBufferRef {
     inner: HardwareBuffer,

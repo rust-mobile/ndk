@@ -1,7 +1,6 @@
-//! Bindings for `ANativeActivity`
+//! Bindings for [`ANativeActivity`]
 //!
-//! See also [the NDK
-//! docs](https://developer.android.com/ndk/reference/struct/a-native-activity.html)
+//! [`ANativeActivity`]: https://developer.android.com/ndk/reference/group/native-activity#anativeactivity
 
 use super::hardware_buffer_format::HardwareBufferFormat;
 use bitflags::bitflags;
@@ -51,18 +50,18 @@ bitflags! {
     }
 }
 
-/// An `ANativeActivity *`
+/// A native [`ANativeActivity *`]
 ///
-/// This is either provided in `ANativeActivity_onCreate`, or accessible in
-/// `android_native_app_glue`'s android_app.
+/// This is either provided in [`ffi::ANativeActivity_onCreate()`], or accessible through
+/// `ndk_glue::native_activity()`.
 ///
-/// <https://developer.android.com/ndk/reference/group/native-activity>
+/// [`ANativeActivity *`]: https://developer.android.com/ndk/reference/struct/a-native-activity
 #[derive(Debug)]
 pub struct NativeActivity {
     ptr: NonNull<ffi::ANativeActivity>,
 }
 
-// It gets shared between threads in android_native_app_glue
+// It gets shared between threads in `ndk-glue`
 unsafe impl Send for NativeActivity {}
 unsafe impl Sync for NativeActivity {}
 
@@ -121,7 +120,7 @@ impl NativeActivity {
     /// Set the instance data associated with the activity
     ///
     /// # Safety
-    /// This can invalidate assumptions held by `android_native_app_glue`, as well as cause data
+    /// This can invalidate assumptions held by `ndk-glue`, as well as cause data
     /// races with concurrent access to the instance data.
     pub unsafe fn set_instance(&mut self, data: *mut c_void) {
         // FIXME Does this create undefined behavior by creating a mutable reference to what could

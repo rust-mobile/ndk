@@ -1,11 +1,19 @@
-//! Bindings for [`ffi::ANativeWindow`]
+//! Bindings for [`ANativeWindow`]
+//!
+//! [`ANativeWindow`]: https://developer.android.com/ndk/reference/group/a-native-window#anativewindow
 
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
 use raw_window_handle::{AndroidNdkHandle, HasRawWindowHandle, RawWindowHandle};
 use std::{convert::TryFrom, ffi::c_void, ptr::NonNull};
 
-/// <https://developer.android.com/ndk/reference/group/a-native-window>
+// [`NativeWindow`] represents the producer end of an image queue
+///
+/// It is the C counterpart of the [`android.view.Surface`] object in Java, and can be converted
+/// both ways. Depending on the consumer, images submitted to [`NativeWindow`] can be shown on the
+/// display or sent to other consumers, such as video encoders.
+///
+/// [`android.view.Surface`]: https://developer.android.com/reference/android/view/Surface
 #[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct NativeWindow {
     ptr: NonNull<ffi::ANativeWindow>,
