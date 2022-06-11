@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.6.0 (2022-06-11)
+
 - **Breaking:** Provide NDK r23 `-lgcc` workaround in `cargo_ndk()` function, now requiring `target_dir` as argument. ([#286](https://github.com/rust-windowing/android-ndk-rs/pull/286))
 - **Breaking:** Add `disable_aapt_compression` field to `ApkConfig` to disable `aapt` compression. ([#283](https://github.com/rust-windowing/android-ndk-rs/pull/283))
 

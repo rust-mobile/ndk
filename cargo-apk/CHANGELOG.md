@@ -1,12 +1,14 @@
 # Unreleased
 
+# 0.9.2 (2022-06-11)
+
 - Move NDK r23 `-lgcc` workaround to `ndk_build::cargo::cargo_ndk()`, to also apply to our `cargo apk --` invocations. ([#286](https://github.com/rust-windowing/android-ndk-rs/pull/286))
 - Disable `aapt` compression for the [(default) `dev` profile](https://doc.rust-lang.org/cargo/reference/profiles.html). ([#283](https://github.com/rust-windowing/android-ndk-rs/pull/283))
 - Append `--target` to blanket `cargo apk --` calls when not provided by the user. ([#287](https://github.com/rust-windowing/android-ndk-rs/pull/287))
 
 # 0.9.1 (2022-05-12)
 
-- Reimplement NDK r23 `-lgcc` workaround using `RUSTFLAGS`, to apply to transitive `cdylib` compilations (#270)
+- Reimplement NDK r23 `-lgcc` workaround using `RUSTFLAGS`, to apply to transitive `cdylib` compilations. (#270)
 
 # 0.9.0 (2022-05-07)
 
