@@ -53,6 +53,7 @@ version = "0.3.0"
 
 [package.metadata.docs.rs]
 features = ["jni", "jni-glue", "all"]
+rustdoc-args = ["--cfg", "docsrs"]
 targets = [
     "aarch64-linux-android",
     "armv7-linux-androideabi",

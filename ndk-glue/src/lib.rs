@@ -1,3 +1,5 @@
+#![cfg_attr(docsrs, feature(doc_cfg, doc_auto_cfg))]
+
 use log::Level;
 use ndk::input_queue::InputQueue;
 use ndk::looper::{FdEvent, ForeignLooper, ThreadLooper};

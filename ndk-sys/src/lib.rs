@@ -14,6 +14,7 @@
 #![allow(deref_nullptr)]
 // Test setup lints
 #![cfg_attr(test, allow(dead_code))]
+#![cfg_attr(docsrs, feature(doc_cfg, doc_auto_cfg))]
 
 use jni_sys::*;
 

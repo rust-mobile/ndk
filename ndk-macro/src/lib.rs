@@ -1,3 +1,5 @@
+#![cfg_attr(docsrs, feature(doc_cfg, doc_auto_cfg))]
+
 use darling::FromMeta;
 use proc_macro::TokenStream;
 use syn::{parse_macro_input, ItemFn};
