@@ -6,10 +6,14 @@
 //! [`ASurfaceTexture`]: https://developer.android.com/ndk/reference/group/surface-texture
 #![cfg(feature = "api-level-28")]
 
-use super::posix::PosixError;
 use crate::native_window::NativeWindow;
 use jni_sys::{jobject, JNIEnv};
-use std::{convert::TryInto, ptr::NonNull, time::Duration};
+use std::{
+    convert::TryInto,
+    io::{Error, Result},
+    ptr::NonNull,
+    time::Duration,
+};
 
 /// An opaque type to manage [`android.graphics.SurfaceTexture`] from native code
 ///
@@ -83,12 +87,14 @@ impl SurfaceTexture {
     /// This can be used to access the [`SurfaceTexture`] image contents from multiple OpenGL ES
     /// contexts. Note, however, that the image contents are only accessible from one OpenGL ES
     /// context at a time.
-    pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<(), PosixError> {
-        let r = unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) };
-        if r == 0 {
-            Ok(())
-        } else {
-            Err(PosixError(r))
+    pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<()> {
+        match unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) } {
+            0 => Ok(()),
+            r if r < 0 => Err(Error::from_raw_os_error(-r)),
+            r => unreachable!(
+                "ASurfaceTexture_attachToGLContext returned positive integer {}",
+                r
+            ),
         }
     }
 
@@ -103,12 +109,14 @@ impl SurfaceTexture {
     /// This can be used to access the [`SurfaceTexture`] image contents from multiple OpenGL ES
     /// contexts. Note, however, that the image contents are only accessible from one OpenGL ES
     /// context at a time.
-    pub fn detach_from_gl_context(&self) -> Result<(), PosixError> {
-        let r = unsafe { ffi::ASurfaceTexture_detachFromGLContext(self.ptr.as_ptr()) };
-        if r == 0 {
-            Ok(())
-        } else {
-            Err(PosixError(r))
+    pub fn detach_from_gl_context(&self) -> Result<()> {
+        match unsafe { ffi::ASurfaceTexture_detachFromGLContext(self.ptr.as_ptr()) } {
+            0 => Ok(()),
+            r if r < 0 => Err(Error::from_raw_os_error(-r)),
+            r => unreachable!(
+                "ASurfaceTexture_detachFromGLContext returned positive integer {}",
+                r
+            ),
         }
     }
 
@@ -161,12 +169,14 @@ impl SurfaceTexture {
     /// This may only be called while the OpenGL ES context that owns the texture is current on the
     /// calling thread. It will implicitly bind its texture to the `GL_TEXTURE_EXTERNAL_OES`
     /// texture target.
-    pub fn update_tex_image(&self) -> Result<(), PosixError> {
-        let r = unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) };
-        if r == 0 {
-            Ok(())
-        } else {
-            Err(PosixError(r))
+    pub fn update_tex_image(&self) -> Result<()> {
+        match unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) } {
+            0 => Ok(()),
+            r if r < 0 => Err(Error::from_raw_os_error(-r)),
+            r => unreachable!(
+                "ASurfaceTexture_updateTexImage returned positive integer {}",
+                r
+            ),
         }
     }
 }
