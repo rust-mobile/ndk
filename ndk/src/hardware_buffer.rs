@@ -4,11 +4,13 @@
 
 #![cfg(feature = "hardware_buffer")]
 
+use crate::utils::status_to_io_result;
+
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
 use std::{
-    convert::TryInto, mem::MaybeUninit, ops::Deref, os::raw::c_void, os::unix::io::RawFd,
-    ptr::NonNull,
+    convert::TryInto, io::Result, mem::MaybeUninit, ops::Deref, os::raw::c_void,
+    os::unix::io::RawFd, ptr::NonNull,
 };
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -84,21 +86,12 @@ impl HardwareBufferUsage {
         Self(ffi::AHardwareBuffer_UsageFlags_AHARDWAREBUFFER_USAGE_VENDOR_19);
 }
 
-#[derive(Copy, Clone, Debug, Ord, PartialOrd, Eq, PartialEq)]
-pub struct HardwareBufferError(pub i32);
-
-pub type Result<T, E = HardwareBufferError> = std::result::Result<T, E>;
-
 pub type Rect = ffi::ARect;
 
-fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> Result<T, HardwareBufferError> {
+fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
-    if status == 0 {
-        Ok(unsafe { result.assume_init() })
-    } else {
-        Err(HardwareBufferError(status))
-    }
+    status_to_io_result(status, unsafe { result.assume_init() })
 }
 
 /// A native [`AHardwareBuffer *`]
@@ -141,7 +134,7 @@ impl HardwareBuffer {
     /// Create a [`HardwareBuffer`] from JNI pointers
     ///
     /// # Safety
-    /// By calling this function, you assert that it these are valid pointers to JNI objects.
+    /// By calling this function, you assert that these are valid pointers to JNI objects.
     pub unsafe fn from_jni(env: *mut JNIEnv, hardware_buffer: jobject) -> Self {
         let ptr = ffi::AHardwareBuffer_fromHardwareBuffer(env, hardware_buffer);
 
@@ -219,17 +212,13 @@ impl HardwareBuffer {
                 bytes_per_stride.as_mut_ptr(),
             )
         };
-        if status == 0 {
-            Ok(unsafe {
-                LockedPlaneInfo {
-                    virtual_address: virtual_address.assume_init(),
-                    bytes_per_pixel: bytes_per_pixel.assume_init() as u32,
-                    bytes_per_stride: bytes_per_stride.assume_init() as u32,
-                }
-            })
-        } else {
-            Err(HardwareBufferError(status))
-        }
+        status_to_io_result(status, ()).map(|()| unsafe {
+            LockedPlaneInfo {
+                virtual_address: virtual_address.assume_init(),
+                bytes_per_pixel: bytes_per_pixel.assume_init() as u32,
+                bytes_per_stride: bytes_per_stride.assume_init() as u32,
+            }
+        })
     }
 
     #[cfg(feature = "api-level-29")]
@@ -256,11 +245,7 @@ impl HardwareBuffer {
 
     pub fn unlock(&self) -> Result<()> {
         let status = unsafe { ffi::AHardwareBuffer_unlock(self.as_ptr(), std::ptr::null_mut()) };
-        if status == 0 {
-            Ok(())
-        } else {
-            Err(HardwareBufferError(status))
-        }
+        status_to_io_result(status, ())
     }
 
     /// Returns a fence file descriptor that will become signalled when unlocking is completed,
@@ -283,14 +268,9 @@ impl HardwareBuffer {
     }
 
     pub fn send_handle_to_unix_socket(&self, socket_fd: RawFd) -> Result<()> {
-        unsafe {
-            let status = ffi::AHardwareBuffer_sendHandleToUnixSocket(self.as_ptr(), socket_fd);
-            if status == 0 {
-                Ok(())
-            } else {
-                Err(HardwareBufferError(status))
-            }
-        }
+        let status =
+            unsafe { ffi::AHardwareBuffer_sendHandleToUnixSocket(self.as_ptr(), socket_fd) };
+        status_to_io_result(status, ())
     }
 
     pub fn acquire(&self) -> HardwareBufferRef {

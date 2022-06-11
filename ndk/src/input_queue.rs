@@ -2,7 +2,7 @@
 //!
 //! [`AInputQueue`]: https://developer.android.com/ndk/reference/group/input#ainputqueue
 
-use std::io::{Error, Result};
+use std::io::Result;
 use std::os::raw::c_int;
 use std::ptr::{self, NonNull};
 
@@ -10,6 +10,7 @@ use crate::event::InputEvent;
 #[cfg(doc)]
 use crate::event::KeyEvent;
 use crate::looper::ForeignLooper;
+use crate::utils::status_to_io_result;
 
 /// A native [`AInputQueue *`]
 ///
@@ -43,18 +44,16 @@ impl InputQueue {
     /// Returns [`None`] if no event is available.
     pub fn get_event(&self) -> Result<Option<InputEvent>> {
         let mut out_event = ptr::null_mut();
-        match unsafe { ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) } {
-            0 => {
+        let status = unsafe { ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) };
+        match status_to_io_result(status, ()) {
+            Ok(()) => {
                 debug_assert!(!out_event.is_null());
                 Ok(Some(unsafe {
                     InputEvent::from_ptr(NonNull::new_unchecked(out_event))
                 }))
             }
-            r if r < 0 => match Error::from_raw_os_error(-r) {
-                e if e.kind() == std::io::ErrorKind::WouldBlock => Ok(None),
-                e => Err(e),
-            },
-            r => unreachable!("AInputQueue_getEvent returned positive integer {}", r),
+            Err(e) if e.kind() == std::io::ErrorKind::WouldBlock => Ok(None),
+            Err(e) => Err(e),
         }
     }
 
