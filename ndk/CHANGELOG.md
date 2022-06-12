@@ -16,6 +16,7 @@
 - **Breaking:** input_queue: `get_event()` now returns a `Result` with `std::io::Error`; `InputQueueError` has been removed. (#292)
 - **Breaking:** input_queue: `has_events()` now returns a `bool` directly without being wrapped in `Result`. (#294)
 - **Breaking:** hardware_buffer: `HardwareBufferError` has been removed and replaced with `std::io::Error` in return types. (#295)
+- Fixed `HardwareBuffer` leak on buffers returned from `AndroidBitmap::get_hardware_buffer()`. (#296)
 - **Breaking:** Update `jni` crate (used in public API) from `0.18` to `0.19`. (#300)
 
 # 0.6.0 (2022-01-05)
