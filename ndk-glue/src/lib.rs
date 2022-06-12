@@ -53,19 +53,30 @@ static LOOPER: Lazy<Mutex<Option<ForeignLooper>>> = Lazy::new(Default::default);
 
 static mut NATIVE_ACTIVITY: Option<NativeActivity> = None;
 
-#[deprecated = "Use `ndk_context::android_context().vm()` instead."]
+/// This function accesses a `static` variable internally and must only be used if you are sure
+/// there is exactly one version of `ndk_glue` in your dependency tree.
+///
+/// If you need access to the `JavaVM` through [`NativeActivity::vm()`] or Activity `Context`
+/// through [`NativeActivity::activity()`], please use the [`ndk_context`] crate and its
+/// [`ndk_context::android_context()`] getter to acquire the `JavaVM` and `Context` instead.
 pub fn native_activity() -> &'static NativeActivity {
     unsafe { NATIVE_ACTIVITY.as_ref().unwrap() }
 }
 
+/// This function accesses a `static` variable internally and must only be used if you are sure
+/// there is exactly one version of `ndk_glue` in your dependency tree.
 pub fn native_window() -> RwLockReadGuard<'static, Option<NativeWindow>> {
     NATIVE_WINDOW.read().unwrap()
 }
 
+/// This function accesses a `static` variable internally and must only be used if you are sure
+/// there is exactly one version of `ndk_glue` in your dependency tree.
 pub fn input_queue() -> RwLockReadGuard<'static, Option<InputQueue>> {
     INPUT_QUEUE.read().unwrap()
 }
 
+/// This function accesses a `static` variable internally and must only be used if you are sure
+/// there is exactly one version of `ndk_glue` in your dependency tree.
 pub fn content_rect() -> Rect {
     CONTENT_RECT.read().unwrap().clone()
 }
