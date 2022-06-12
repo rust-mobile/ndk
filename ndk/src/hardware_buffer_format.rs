@@ -3,6 +3,7 @@
 //! [`AHardwareBuffer_Format`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer_format
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
+/// Buffer pixel formats.
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
