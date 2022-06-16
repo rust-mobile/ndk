@@ -1,5 +1,7 @@
 # Unreleased
 
+- Allow NDK r23 `-lgcc` workaround to work for target directories containing spaces. ([#298](https://github.com/rust-windowing/android-ndk-rs/pull/298))
+
 # 0.6.0 (2022-06-11)
 
 - **Breaking:** Provide NDK r23 `-lgcc` workaround in `cargo_ndk()` function, now requiring `target_dir` as argument. ([#286](https://github.com/rust-windowing/android-ndk-rs/pull/286))
