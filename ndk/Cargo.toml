@@ -39,7 +39,7 @@ raw-window-handle = "0.4"
 thiserror = "1.0.23"
 
 [dependencies.jni]
-version = "0.18.0"
+version = "0.19"
 optional = true
 
 [dependencies.jni-glue]
