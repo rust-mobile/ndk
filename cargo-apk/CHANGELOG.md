@@ -1,6 +1,9 @@
 # Unreleased
 
+# 0.9.3 (2022-07-05)
+
 - Allow configuration of alternate debug keystore location; require keystore location for release builds. ([#299](https://github.com/rust-windowing/android-ndk-rs/pull/299))
+- **Breaking:** Rename `Activity::intent_filters` back to `Activity::intent_filter`. ([#305](https://github.com/rust-windowing/android-ndk-rs/pull/305))
 
 # 0.9.2 (2022-06-11)
 

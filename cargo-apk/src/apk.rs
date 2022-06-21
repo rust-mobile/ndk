@@ -69,11 +69,11 @@ impl<'a> ApkBuilder<'a> {
 
         // Add a default `MAIN` action to launch the activity, if the user didn't supply it by hand.
         if activity
-            .intent_filters
+            .intent_filter
             .iter()
             .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
         {
-            activity.intent_filters.push(IntentFilter {
+            activity.intent_filter.push(IntentFilter {
                 actions: vec!["android.intent.action.MAIN".to_string()],
                 categories: vec!["android.intent.category.LAUNCHER".to_string()],
                 data: vec![],
