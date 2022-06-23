@@ -11,12 +11,35 @@ pub fn cargo_ndk(
     target_dir: impl AsRef<Path>,
 ) -> Result<Command, NdkError> {
     let triple = target.rust_triple();
+    let clang_target = format!("--target={}{}", target.ndk_llvm_triple(), sdk_version);
     let mut cargo = Command::new("cargo");
 
-    let (clang, clang_pp) = ndk.clang(target, sdk_version)?;
+    // Read initial RUSTFLAGS
+    let mut rustflags = match std::env::var("CARGO_ENCODED_RUSTFLAGS") {
+        Ok(val) => val,
+        Err(std::env::VarError::NotPresent) => "".to_string(),
+        Err(std::env::VarError::NotUnicode(_)) => {
+            panic!("RUSTFLAGS environment variable contains non-unicode characters")
+        }
+    };
+
+    let (clang, clang_pp) = ndk.clang()?;
+
+    // Configure cross-compiler for `cc` crate
+    // https://github.com/rust-lang/cc-rs#external-configuration-via-environment-variables
     cargo.env(format!("CC_{}", triple), &clang);
+    cargo.env(format!("CFLAGS_{}", triple), &clang_target);
     cargo.env(format!("CXX_{}", triple), &clang_pp);
+    cargo.env(format!("CXXFLAGS_{}", triple), &clang_target);
+
+    // Configure LINKER for `rustc`
+    // https://doc.rust-lang.org/beta/cargo/reference/environment-variables.html#configuration-environment-variables
     cargo.env(cargo_env_target_cfg("LINKER", triple), &clang);
+    if !rustflags.is_empty() {
+        rustflags.push('\x1f');
+    }
+    rustflags.push_str("-Clink-arg=");
+    rustflags.push_str(&clang_target);
 
     let ar = ndk.toolchain_bin("ar", target)?;
     cargo.env(format!("AR_{}", triple), &ar);
@@ -32,31 +55,27 @@ pub fn cargo_ndk(
         let cargo_apk_link_dir = target_dir
             .as_ref()
             .join("cargo-apk-temp-extra-link-libraries");
-        std::fs::create_dir_all(&cargo_apk_link_dir)?;
-        std::fs::write(cargo_apk_link_dir.join("libgcc.a"), "INPUT(-lunwind)")
-            .expect("Failed to write");
+        std::fs::create_dir_all(&cargo_apk_link_dir)
+            .map_err(|e| NdkError::IoPathError(cargo_apk_link_dir.clone(), e))?;
+        let libgcc = cargo_apk_link_dir.join("libgcc.a");
+        std::fs::write(&libgcc, "INPUT(-lunwind)").map_err(|e| NdkError::IoPathError(libgcc, e))?;
 
         // cdylibs in transitive dependencies still get built and also need this
         // workaround linker flag, yet arguments passed to `cargo rustc` are only
         // forwarded to the final compiler invocation rendering our workaround ineffective.
         // The cargo page documenting this discrepancy (https://doc.rust-lang.org/cargo/commands/cargo-rustc.html)
-        // suggests to resort to RUSTFLAGS, which are updated below:
-        let mut rustflags = match std::env::var("CARGO_ENCODED_RUSTFLAGS") {
-            Ok(val) => val,
-            Err(std::env::VarError::NotPresent) => "".to_string(),
-            Err(std::env::VarError::NotUnicode(_)) => {
-                panic!("RUSTFLAGS environment variable contains non-unicode characters")
-            }
-        };
-        if !rustflags.is_empty() {
-            rustflags.push('\x1f');
-        }
-        rustflags += "-L\x1f";
-        rustflags += cargo_apk_link_dir
-            .to_str()
-            .expect("Target dir must be valid UTF-8");
-        cargo.env("CARGO_ENCODED_RUSTFLAGS", rustflags);
+        // suggests to resort to RUSTFLAGS.
+        // Note that `rustflags` will never be empty because of an unconditional `.push_str` above,
+        // so we can safely start with appending \x1f here.
+        rustflags.push_str("\x1f-L\x1f");
+        rustflags.push_str(
+            cargo_apk_link_dir
+                .to_str()
+                .expect("Target dir must be valid UTF-8"),
+        );
     }
+
+    cargo.env("CARGO_ENCODED_RUSTFLAGS", rustflags);
 
     Ok(cargo)
 }

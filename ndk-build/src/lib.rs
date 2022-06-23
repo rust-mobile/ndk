@@ -1,21 +1,21 @@
 macro_rules! bin {
-    ($bin:expr) => {{
-        #[cfg(not(target_os = "windows"))]
-        let bin = $bin;
-        #[cfg(target_os = "windows")]
-        let bin = concat!($bin, ".exe");
-        bin
-    }};
+    ($bin:expr) => {
+        if cfg!(target_os = "windows") {
+            concat!($bin, ".exe")
+        } else {
+            $bin
+        }
+    };
 }
 
 macro_rules! bat {
-    ($bat:expr) => {{
-        #[cfg(not(target_os = "windows"))]
-        let bat = $bat;
-        #[cfg(target_os = "windows")]
-        let bat = concat!($bat, ".bat");
-        bat
-    }};
+    ($bat:expr) => {
+        if cfg!(target_os = "windows") {
+            concat!($bat, ".bat")
+        } else {
+            $bat
+        }
+    };
 }
 
 pub mod apk;
