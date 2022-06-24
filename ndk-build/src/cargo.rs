@@ -41,18 +41,21 @@ pub fn cargo_ndk(
         // forwarded to the final compiler invocation rendering our workaround ineffective.
         // The cargo page documenting this discrepancy (https://doc.rust-lang.org/cargo/commands/cargo-rustc.html)
         // suggests to resort to RUSTFLAGS, which are updated below:
-        let mut rustflags = match std::env::var("RUSTFLAGS") {
+        let mut rustflags = match std::env::var("CARGO_ENCODED_RUSTFLAGS") {
             Ok(val) => val,
             Err(std::env::VarError::NotPresent) => "".to_string(),
             Err(std::env::VarError::NotUnicode(_)) => {
                 panic!("RUSTFLAGS environment variable contains non-unicode characters")
             }
         };
-        rustflags += " -L ";
+        if !rustflags.is_empty() {
+            rustflags.push('\x1f');
+        }
+        rustflags += "-L\x1f";
         rustflags += cargo_apk_link_dir
             .to_str()
             .expect("Target dir must be valid UTF-8");
-        cargo.env("RUSTFLAGS", rustflags);
+        cargo.env("CARGO_ENCODED_RUSTFLAGS", rustflags);
     }
 
     Ok(cargo)
