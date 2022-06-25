@@ -19,7 +19,7 @@ proc-macro2 = "1.0.24"
 proc-macro-crate = "1.0"
 quote = "1.0.8"
 syn = { version = "1.0.60", features = ["full"] }
-darling = "0.13"
+darling = "0.14"
 
 [features]
 default = []

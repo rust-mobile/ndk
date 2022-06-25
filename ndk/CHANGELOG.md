@@ -14,6 +14,7 @@
 - Add `SurfaceTexture` bindings. (#267)
 - Improve library and structure documentation, linking back to the NDK docs more rigorously. (#290)
 - **Breaking:** input_queue: `InputQueue::{get_event,has_events}()` now return a `Result` with `std::io::Error`; `InputQueueError` has been removed. (#292)
+- **Breaking:** Update `jni` crate (used in public API) from `0.18` to `0.19`. (#300)
 
 # 0.6.0 (2022-01-05)
 
