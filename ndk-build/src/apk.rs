@@ -116,7 +116,7 @@ impl<'a> UnalignedApk<'a> {
         search_paths: &[&Path],
     ) -> Result<(), NdkError> {
         let abi_dir = path.join(target.android_abi());
-        for entry in fs::read_dir(&abi_dir).map_err(|e| NdkError::IoPathError(e, abi_dir))? {
+        for entry in fs::read_dir(&abi_dir).map_err(|e| NdkError::IoPathError(abi_dir, e))? {
             let entry = entry?;
             let path = entry.path();
             if path.extension() == Some(OsStr::new("so")) {

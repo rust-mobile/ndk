@@ -1,6 +1,7 @@
 # Unreleased
 
 - Allow NDK r23 `-lgcc` workaround to work for target directories containing spaces. ([#298](https://github.com/rust-windowing/android-ndk-rs/pull/298))
+- Invoke `clang` directly instead of through the NDK's wrapper scripts. ([#306](https://github.com/rust-windowing/android-ndk-rs/pull/306))
 
 # 0.6.0 (2022-06-11)
 
