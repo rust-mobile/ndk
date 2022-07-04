@@ -2,20 +2,25 @@ use crate::error::Error;
 use ndk_build::manifest::AndroidManifest;
 use ndk_build::target::Target;
 use serde::Deserialize;
-use std::path::Path;
+use std::{
+    collections::HashMap,
+    path::{Path, PathBuf},
+};
 
-pub struct Manifest {
-    pub version: String,
-    pub apk_name: Option<String>,
-    pub android_manifest: AndroidManifest,
-    pub build_targets: Vec<Target>,
-    pub assets: Option<String>,
-    pub resources: Option<String>,
-    pub runtime_libs: Option<String>,
+pub(crate) struct Manifest {
+    pub(crate) version: String,
+    pub(crate) apk_name: Option<String>,
+    pub(crate) android_manifest: AndroidManifest,
+    pub(crate) build_targets: Vec<Target>,
+    pub(crate) assets: Option<PathBuf>,
+    pub(crate) resources: Option<PathBuf>,
+    pub(crate) runtime_libs: Option<PathBuf>,
+    /// Maps profiles to keystores
+    pub(crate) signing: HashMap<String, Signing>,
 }
 
 impl Manifest {
-    pub fn parse_from_toml(path: &Path) -> Result<Self, Error> {
+    pub(crate) fn parse_from_toml(path: &Path) -> Result<Self, Error> {
         let contents = std::fs::read_to_string(path)?;
         let toml: Root = toml::from_str(&contents)?;
         let metadata = toml
@@ -32,6 +37,7 @@ impl Manifest {
             assets: metadata.assets,
             resources: metadata.resources,
             runtime_libs: metadata.runtime_libs,
+            signing: metadata.signing,
         })
     }
 }
@@ -59,7 +65,16 @@ struct AndroidMetadata {
     android_manifest: AndroidManifest,
     #[serde(default)]
     build_targets: Vec<Target>,
-    assets: Option<String>,
-    resources: Option<String>,
-    runtime_libs: Option<String>,
+    assets: Option<PathBuf>,
+    resources: Option<PathBuf>,
+    runtime_libs: Option<PathBuf>,
+    /// Maps profiles to keystores
+    #[serde(default)]
+    signing: HashMap<String, Signing>,
+}
+
+#[derive(Clone, Debug, Default, Deserialize)]
+pub(crate) struct Signing {
+    pub(crate) path: PathBuf,
+    pub(crate) keystore_password: String,
 }

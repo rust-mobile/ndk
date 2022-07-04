@@ -14,6 +14,8 @@ pub enum Error {
     Ndk(#[from] NdkError),
     #[error(transparent)]
     Io(#[from] IoError),
+    #[error("Configure a release keystore via `[package.metadata.android.signing.{0}]`")]
+    MissingReleaseKey(String),
 }
 
 impl Error {

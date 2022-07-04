@@ -50,6 +50,13 @@ apk_name = "myapp"
 # according to the specified build_targets.
 runtime_libs = "path/to/libs_folder"
 
+# Defaults to `$HOME/.android/debug.keystore` for the `dev` profile. Will ONLY generate a new
+# debug.keystore if this file does NOT exist.
+# A keystore path is always required on the `release` profile.
+[package.metadata.android.signing.<profile>]
+path = "$HOME/.android/debug.keystore"
+keystore_password = "android"
+
 # See https://developer.android.com/guide/topics/manifest/uses-sdk-element
 #
 # Defaults to a `min_sdk_version` of 23 and `target_sdk_version` of 30 (or lower if the detected NDK doesn't support this).

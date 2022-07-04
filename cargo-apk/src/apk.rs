@@ -6,7 +6,7 @@ use ndk_build::cargo::{cargo_ndk, VersionCode};
 use ndk_build::dylibs::get_libs_search_paths;
 use ndk_build::error::NdkError;
 use ndk_build::manifest::{IntentFilter, MetaData};
-use ndk_build::ndk::Ndk;
+use ndk_build::ndk::{Key, Ndk};
 use ndk_build::target::Target;
 use std::path::PathBuf;
 use std::process::Command;
@@ -139,6 +139,8 @@ impl<'a> ApkBuilder<'a> {
 
         let crate_path = self.cmd.manifest().parent().expect("invalid manifest path");
 
+        let is_debug_profile = *self.cmd.profile() == Profile::Dev;
+
         let assets = self
             .manifest
             .assets
@@ -167,7 +169,7 @@ impl<'a> ApkBuilder<'a> {
             assets,
             resources,
             manifest,
-            disable_aapt_compression: self.cmd.profile() == &Profile::Dev,
+            disable_aapt_compression: is_debug_profile,
         };
         let apk = config.create_apk()?;
 
@@ -181,7 +183,7 @@ impl<'a> ApkBuilder<'a> {
                 .join(artifact.file_name(CrateType::Cdylib, triple));
 
             let mut cargo = cargo_ndk(
-                &config.ndk,
+                &self.ndk,
                 *target,
                 self.min_sdk_version(),
                 self.cmd.target_dir(),
@@ -212,7 +214,24 @@ impl<'a> ApkBuilder<'a> {
             }
         }
 
-        Ok(apk.align()?.sign(config.ndk.debug_key()?)?)
+        let profile_name = match self.cmd.profile() {
+            Profile::Dev => "dev",
+            Profile::Release => "release",
+            Profile::Custom(c) => c.as_str(),
+        };
+
+        let signing_key = self.manifest.signing.get(profile_name);
+
+        let signing_key = match (signing_key, is_debug_profile) {
+            (Some(signing), _) => Key {
+                path: crate_path.join(&signing.path),
+                password: signing.keystore_password.clone(),
+            },
+            (None, true) => self.ndk.debug_key()?,
+            (None, false) => return Err(Error::MissingReleaseKey(profile_name.to_owned())),
+        };
+
+        Ok(apk.align()?.sign(signing_key)?)
     }
 
     pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {

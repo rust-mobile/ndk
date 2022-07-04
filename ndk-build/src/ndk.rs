@@ -314,7 +314,7 @@ impl Ndk {
                 .arg("-keystore")
                 .arg(&path)
                 .arg("-storepass")
-                .arg("android")
+                .arg(&password)
                 .arg("-alias")
                 .arg("androiddebugkey")
                 .arg("-keypass")
