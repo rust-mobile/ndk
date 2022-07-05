@@ -6,14 +6,9 @@
 //! [`ASurfaceTexture`]: https://developer.android.com/ndk/reference/group/surface-texture
 #![cfg(feature = "api-level-28")]
 
-use crate::native_window::NativeWindow;
+use crate::{native_window::NativeWindow, utils::status_to_io_result};
 use jni_sys::{jobject, JNIEnv};
-use std::{
-    convert::TryInto,
-    io::{Error, Result},
-    ptr::NonNull,
-    time::Duration,
-};
+use std::{convert::TryInto, io::Result, ptr::NonNull, time::Duration};
 
 /// An opaque type to manage [`android.graphics.SurfaceTexture`] from native code
 ///
@@ -88,14 +83,8 @@ impl SurfaceTexture {
     /// contexts. Note, however, that the image contents are only accessible from one OpenGL ES
     /// context at a time.
     pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<()> {
-        match unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) } {
-            0 => Ok(()),
-            r if r < 0 => Err(Error::from_raw_os_error(-r)),
-            r => unreachable!(
-                "ASurfaceTexture_attachToGLContext returned positive integer {}",
-                r
-            ),
-        }
+        let status = unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) };
+        status_to_io_result(status, ())
     }
 
     /// Detach the [`SurfaceTexture`] from the OpenGL ES context that owns the OpenGL ES texture
@@ -110,14 +99,8 @@ impl SurfaceTexture {
     /// contexts. Note, however, that the image contents are only accessible from one OpenGL ES
     /// context at a time.
     pub fn detach_from_gl_context(&self) -> Result<()> {
-        match unsafe { ffi::ASurfaceTexture_detachFromGLContext(self.ptr.as_ptr()) } {
-            0 => Ok(()),
-            r if r < 0 => Err(Error::from_raw_os_error(-r)),
-            r => unreachable!(
-                "ASurfaceTexture_detachFromGLContext returned positive integer {}",
-                r
-            ),
-        }
+        let status = unsafe { ffi::ASurfaceTexture_detachFromGLContext(self.ptr.as_ptr()) };
+        status_to_io_result(status, ())
     }
 
     /// Retrieve the 4x4 texture coordinate transform matrix associated with the texture image set
@@ -170,13 +153,7 @@ impl SurfaceTexture {
     /// calling thread. It will implicitly bind its texture to the `GL_TEXTURE_EXTERNAL_OES`
     /// texture target.
     pub fn update_tex_image(&self) -> Result<()> {
-        match unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) } {
-            0 => Ok(()),
-            r if r < 0 => Err(Error::from_raw_os_error(-r)),
-            r => unreachable!(
-                "ASurfaceTexture_updateTexImage returned positive integer {}",
-                r
-            ),
-        }
+        let status = unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) };
+        status_to_io_result(status, ())
     }
 }

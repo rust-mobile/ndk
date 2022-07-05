@@ -2,10 +2,12 @@
 //!
 //! [`ANativeWindow`]: https://developer.android.com/ndk/reference/group/a-native-window#anativewindow
 
+use crate::utils::status_to_io_result;
+
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
 use raw_window_handle::{AndroidNdkHandle, HasRawWindowHandle, RawWindowHandle};
-use std::{convert::TryFrom, ffi::c_void, ptr::NonNull};
+use std::{convert::TryFrom, ffi::c_void, io::Result, ptr::NonNull};
 
 // [`NativeWindow`] represents the producer end of an image queue
 ///
@@ -94,16 +96,12 @@ impl NativeWindow {
         width: i32,
         height: i32,
         format: Option<HardwareBufferFormat>,
-    ) -> Result<(), i32> {
+    ) -> Result<()> {
         let format: u32 = format.map_or(0, |f| f.into());
-        let r = unsafe {
+        let status = unsafe {
             ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format as i32)
         };
-        if r == 0 {
-            Ok(())
-        } else {
-            Err(r)
-        }
+        status_to_io_result(status, ())
     }
 
     /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
