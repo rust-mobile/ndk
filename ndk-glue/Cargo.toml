@@ -27,6 +27,7 @@ test = ["ndk/test", "ndk-sys/test"]
 logger = ["android_logger", "ndk-macro/logger"]
 
 [package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs"]
 targets = [
     "aarch64-linux-android",
     "armv7-linux-androideabi",

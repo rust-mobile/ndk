@@ -24,3 +24,6 @@ darling = "0.14"
 [features]
 default = []
 logger = []
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs"]

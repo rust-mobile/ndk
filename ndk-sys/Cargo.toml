@@ -21,6 +21,7 @@ bitmap = []
 media = []
 
 [package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs"]
 targets = [
     "aarch64-linux-android",
     "armv7-linux-androideabi",

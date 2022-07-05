@@ -4,6 +4,7 @@
 //!
 //! [Android NDK]: https://developer.android.com/ndk/reference
 #![warn(missing_debug_implementations, trivial_casts)]
+#![cfg_attr(docsrs, feature(doc_cfg, doc_auto_cfg))]
 
 pub mod asset;
 pub mod audio;
