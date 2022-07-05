@@ -229,14 +229,18 @@ impl MediaCodec {
     pub fn configure(
         &self,
         format: &MediaFormat,
-        surface: &NativeWindow,
+        surface: Option<&NativeWindow>,
         direction: MediaCodecDirection,
     ) -> Result<()> {
         let status = unsafe {
             ffi::AMediaCodec_configure(
                 self.as_ptr(),
                 format.as_ptr(),
-                surface.ptr().as_ptr(),
+                if let Some(surface) = surface {
+                    surface.ptr().as_ptr()
+                } else {
+                    ptr::null_mut()
+                },
                 ptr::null_mut(),
                 if direction == MediaCodecDirection::Encoder {
                     1
