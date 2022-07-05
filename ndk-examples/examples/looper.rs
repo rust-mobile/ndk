@@ -116,7 +116,7 @@ fn main() {
                     ndk_glue::NDK_GLUE_LOOPER_INPUT_QUEUE_IDENT => {
                         let input_queue = ndk_glue::input_queue();
                         let input_queue = input_queue.as_ref().expect("Input queue not attached");
-                        assert!(input_queue.has_events().unwrap());
+                        assert!(input_queue.has_events());
                         // Consume as many events as possible
                         while let Some(event) = input_queue.get_event().unwrap() {
                             // Pass the event by a possible IME (Input Method Editor, ie. an open keyboard) first

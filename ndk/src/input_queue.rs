@@ -59,11 +59,10 @@ impl InputQueue {
     }
 
     /// Returns [`true`] if there are one or more events available in the input queue.
-    pub fn has_events(&self) -> Result<bool> {
+    pub fn has_events(&self) -> bool {
         match unsafe { ffi::AInputQueue_hasEvents(self.ptr.as_ptr()) } {
-            0 => Ok(false),
-            1 => Ok(true),
-            r if r < 0 => Err(Error::from_raw_os_error(-r)),
+            0 => false,
+            1 => true,
             r => unreachable!("AInputQueue_hasEvents returned non-boolean {}", r),
         }
     }
