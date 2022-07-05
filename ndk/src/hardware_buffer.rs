@@ -103,11 +103,15 @@ pub struct HardwareBuffer {
 }
 
 impl HardwareBuffer {
-    /// Create a `HardwareBuffer` from a native pointer
+    /// Create an _unowned_ [`HardwareBuffer`] from a native pointer
+    ///
+    /// To wrap a strong reference (that is `release`d on [`Drop`]), call
+    /// [`HardwareBufferRef::from_ptr()`] instead.
     ///
     /// # Safety
-    /// By calling this function, you assert that it is a valid pointer to
-    /// an NDK [`ffi::AHardwareBuffer`].
+    /// By calling this function, you assert that it is a valid pointer to an NDK
+    /// [`ffi::AHardwareBuffer`] that is kept alive externally, or retrieve a strong reference
+    /// using [`HardwareBuffer::acquire()`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AHardwareBuffer>) -> Self {
         Self { inner: ptr }
     }
@@ -125,9 +129,7 @@ impl HardwareBuffer {
         unsafe {
             let ptr = construct(|res| ffi::AHardwareBuffer_allocate(&desc.into_native(), res))?;
 
-            Ok(HardwareBufferRef {
-                inner: Self::from_ptr(NonNull::new_unchecked(ptr)),
-            })
+            Ok(HardwareBufferRef::from_ptr(NonNull::new_unchecked(ptr)))
         }
     }
 
@@ -135,6 +137,13 @@ impl HardwareBuffer {
     ///
     /// # Safety
     /// By calling this function, you assert that these are valid pointers to JNI objects.
+    ///
+    /// This method does not acquire any additional reference to the AHardwareBuffer that is
+    /// returned. To keep the [`HardwareBuffer`] alive after the [Java `HardwareBuffer`] object
+    /// is closed, explicitly or by the garbage collector, be sure to retrieve a strong reference
+    /// using [`HardwareBuffer::acquire()`].
+    ///
+    /// [Java `HardwareBuffer`]: https://developer.android.com/reference/android/hardware/HardwareBuffer
     pub unsafe fn from_jni(env: *mut JNIEnv, hardware_buffer: jobject) -> Self {
         let ptr = ffi::AHardwareBuffer_fromHardwareBuffer(env, hardware_buffer);
 
@@ -273,21 +282,39 @@ impl HardwareBuffer {
         status_to_io_result(status, ())
     }
 
+    /// Acquire a reference on the given [`HardwareBuffer`] object.
+    ///
+    /// This prevents the object from being deleted until the last strong reference, represented
+    /// by [`HardwareBufferRef`], is [`drop()`]ped.
     pub fn acquire(&self) -> HardwareBufferRef {
         unsafe {
             ffi::AHardwareBuffer_acquire(self.as_ptr());
-        }
-        HardwareBufferRef {
-            inner: HardwareBuffer { inner: self.inner },
+            HardwareBufferRef::from_ptr(self.inner)
         }
     }
 }
 
-/// A [`HardwareBuffer`] with an owned reference, the reference is released when dropped.
+/// A [`HardwareBuffer`] with an owned reference, that is released when dropped.
 /// It behaves much like a strong [`std::rc::Rc`] reference.
 #[derive(Debug)]
 pub struct HardwareBufferRef {
     inner: HardwareBuffer,
+}
+
+impl HardwareBufferRef {
+    /// Create an _owned_ [`HardwareBuffer`] from a native pointer
+    ///
+    /// To wrap a weak reference (that is **not** `release`d on [`Drop`]), call
+    /// [`HardwareBuffer::from_ptr()`] instead.
+    ///
+    /// # Safety
+    /// By calling this function, you assert that it is a valid pointer to an NDK
+    /// [`ffi::AHardwareBuffer`].
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AHardwareBuffer>) -> Self {
+        Self {
+            inner: HardwareBuffer { inner: ptr },
+        }
+    }
 }
 
 impl Deref for HardwareBufferRef {
@@ -300,9 +327,13 @@ impl Deref for HardwareBufferRef {
 
 impl Drop for HardwareBufferRef {
     fn drop(&mut self) {
-        unsafe {
-            ffi::AHardwareBuffer_release(self.inner.as_ptr());
-        }
+        unsafe { ffi::AHardwareBuffer_release(self.inner.as_ptr()) }
+    }
+}
+
+impl Clone for HardwareBufferRef {
+    fn clone(&self) -> Self {
+        self.acquire()
     }
 }
 

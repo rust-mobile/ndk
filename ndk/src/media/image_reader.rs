@@ -322,6 +322,20 @@ impl Image {
         construct(|res| unsafe { ffi::AImage_getNumberOfPlanes(self.as_ptr(), res) })
     }
 
+    /// Get the hardware buffer handle of the input image intended for GPU and/or hardware access.
+    ///
+    /// Note that no reference on the returned [`HardwareBuffer`] handle is acquired automatically.
+    /// Once the [`Image`] or the parent [`ImageReader`] is deleted, the [`HardwareBuffer`] handle
+    /// from previous [`Image::get_hardware_buffer()`] becomes invalid.
+    ///
+    /// If the caller ever needs to hold on a reference to the [`HardwareBuffer`] handle after the
+    /// [`Image`] or the parent [`ImageReader`] is deleted, it must call
+    /// [`HardwareBuffer::acquire()`] to acquire an extra reference, and [`drop()`] it when
+    /// finished using it in order to properly deallocate the underlying memory managed by
+    /// [`HardwareBuffer`]. If the caller has acquired an extra reference on a [`HardwareBuffer`]
+    /// returned from this function, it must also register a listener using
+    /// [`ImageReader::set_buffer_removed_listener()`] to be notified when the buffer is no longer
+    /// used by [`ImageReader`].
     #[cfg(feature = "hardware_buffer")]
     pub fn get_hardware_buffer(&self) -> Result<HardwareBuffer> {
         unsafe {

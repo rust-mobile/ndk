@@ -11,7 +11,7 @@ use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{convert::TryInto, mem::MaybeUninit, ptr::NonNull};
 
 #[cfg(feature = "hardware_buffer")]
-use crate::hardware_buffer::HardwareBuffer;
+use crate::hardware_buffer::HardwareBufferRef;
 
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -101,8 +101,11 @@ impl AndroidBitmap {
         BitmapError::from_status(status)
     }
 
+    /// Retrieve the native object associated with a `HARDWARE` [`AndroidBitmap`].
+    ///
+    /// Client must not modify it while an [`AndroidBitmap`] is wrapping it.
     #[cfg(all(feature = "hardware_buffer", feature = "api-level-30"))]
-    pub fn get_hardware_buffer(&self) -> BitmapResult<HardwareBuffer> {
+    pub fn get_hardware_buffer(&self) -> BitmapResult<HardwareBufferRef> {
         unsafe {
             let result =
                 construct(|res| ffi::AndroidBitmap_getHardwareBuffer(self.env, self.inner, res))?;
@@ -111,7 +114,7 @@ impl AndroidBitmap {
             } else {
                 NonNull::new_unchecked(result)
             };
-            Ok(HardwareBuffer::from_ptr(non_null))
+            Ok(HardwareBufferRef::from_ptr(non_null))
         }
     }
 }
