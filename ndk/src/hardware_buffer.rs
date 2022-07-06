@@ -96,7 +96,29 @@ fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> Result<T> {
 
 /// A native [`AHardwareBuffer *`]
 ///
+/// [`HardwareBuffer`] objects represent chunks of memory that can be accessed by various hardware
+/// components in the system.
+///
+/// It can be easily converted to the Java counterpart [`android.hardware.HardwareBuffer`] and
+/// passed between processes using Binder. All operations involving [`HardwareBuffer`] and
+/// [`android.hardware.HardwareBuffer`] are zero-copy, i.e., passing [`HardwareBuffer`] to another
+/// process creates a shared view of the same region of memory.
+///
+/// [`HardwareBuffer`] can be bound to EGL/OpenGL and Vulkan primitives. For EGL, use the extension
+/// function [`eglGetNativeClientBufferANDROID`] to obtain an `EGLClientBuffer` and pass it
+/// directly to [`eglCreateImageKHR`]. Refer to the EGL extensions
+/// [`EGL_ANDROID_get_native_client_buffer`] and [`EGL_ANDROID_image_native_buffer`] for more
+/// information. In Vulkan, the contents of the [`HardwareBuffer`] can be accessed as [external
+/// memory]. See the [`VK_ANDROID_external_memory_android_hardware_buffer`] extension for details.
+///
 /// [`AHardwareBuffer *`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer
+/// [`android.hardware.HardwareBuffer`]: https://developer.android.com/reference/android/hardware/HardwareBuffer
+/// [`eglGetNativeClientBufferANDROID`]: https://www.khronos.org/registry/EGL/extensions/ANDROID/EGL_ANDROID_get_native_client_buffer.txt
+/// [`eglCreateImageKHR`]: https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_image_base.txt
+/// [`EGL_ANDROID_get_native_client_buffer`]: https://www.khronos.org/registry/EGL/extensions/ANDROID/EGL_ANDROID_get_native_client_buffer.txt
+/// [`EGL_ANDROID_image_native_buffer`]: https://www.khronos.org/registry/EGL/extensions/ANDROID/EGL_ANDROID_image_native_buffer.txt
+/// [external memory]: https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_memory.html
+/// [`VK_ANDROID_external_memory_android_hardware_buffer`]: https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html
 #[derive(Debug)]
 pub struct HardwareBuffer {
     inner: NonNull<ffi::AHardwareBuffer>,
@@ -118,13 +140,17 @@ impl HardwareBuffer {
 
     /// Returns the underlying [`ffi::AHardwareBuffer`] pointer
     ///
-    /// The pointer can be used to import this hardware buffer into a Vulkan memory object using [`VK_ANDROID_external_memory_android_hardware_buffer`].
-    ///
-    /// [`VK_ANDROID_external_memory_android_hardware_buffer`]: https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html
+    /// See the top-level [`HardwareBuffer`] struct documentation for (graphics) APIs that accept
+    /// this pointer.
     pub fn as_ptr(&self) -> *mut ffi::AHardwareBuffer {
         self.inner.as_ptr()
     }
 
+    /// Allocates a buffer that matches the passed [`HardwareBufferDesc`].
+    ///
+    /// If allocation succeeds, the buffer can be used according to the usage flags specified in
+    /// its description. If a buffer is used in ways not compatible with its usage flags, the
+    /// results are undefined and may include program termination.
     pub fn allocate(desc: HardwareBufferDesc) -> Result<HardwareBufferRef> {
         unsafe {
             let ptr = construct(|res| ffi::AHardwareBuffer_allocate(&desc.into_native(), res))?;
@@ -156,6 +182,7 @@ impl HardwareBuffer {
         ffi::AHardwareBuffer_toHardwareBuffer(env, self.as_ptr())
     }
 
+    /// Return a description of the [`HardwareBuffer`] in the passed [`HardwareBufferDesc`] struct.
     pub fn describe(&self) -> HardwareBufferDesc {
         let desc = unsafe {
             let mut result = MaybeUninit::uninit();
@@ -173,12 +200,57 @@ impl HardwareBuffer {
         }
     }
 
+    /// Test whether the given format and usage flag combination is allocatable.
+    ///
+    /// If this function returns [`true`], it means that a buffer with the given description can
+    /// be allocated on this implementation, unless resource exhaustion occurs. If this function
+    /// returns [`false`], it means that the allocation of the given description will never
+    /// succeed.
+    ///
+    /// The return value of this function may depend on all fields in the description, except
+    /// [`HardwareBufferDesc::stride`], which is always ignored. For example, some implementations
+    /// have implementation-defined limits on texture size and layer count.
     #[cfg(feature = "api-level-29")]
     pub fn is_supported(desc: HardwareBufferDesc) -> bool {
         let res = unsafe { ffi::AHardwareBuffer_isSupported(&desc.into_native()) };
         res == 1
     }
 
+    /// Lock the [`HardwareBuffer`] for direct CPU access.
+    ///
+    /// This function can lock the buffer for either reading or writing. It may block if the
+    /// hardware needs to finish rendering, if CPU caches need to be synchronized, or possibly for
+    /// other implementation-specific reasons.
+    ///
+    /// The [`HardwareBuffer`] must have one layer, otherwise the call will fail.
+    ///
+    /// If `fence` is not [`None`], it specifies a fence file descriptor on which to wait before
+    /// locking the buffer. If it's [`None`], the caller is responsible for ensuring that writes
+    /// to the buffer have completed before calling this function. Using this parameter is more
+    /// efficient than waiting on the fence and then calling this function.
+    ///
+    /// The `usage` parameter may only specify `HardwareBufferUsage::CPU_*`. If set, then the
+    /// address of the buffer in virtual memory is returned. The flags must also be compatible with
+    /// usage flags specified at buffer creation: if a read flag is passed, the buffer must have
+    /// been created with [`HardwareBufferUsage::CPU_READ_RARELY`] or
+    /// [`HardwareBufferUsage::CPU_READ_OFTEN`]. If a write flag is passed, it must have been
+    /// created with [`HardwareBufferUsage::CPU_WRITE_RARELY`] or
+    /// [`HardwareBufferUsage::CPU_WRITE_OFTEN`].
+    ///
+    /// If `rect` is not [`None`], the caller promises to modify only data in the area specified by
+    /// `rect`. If rect is [`None`], the caller may modify the contents of the entire buffer. The
+    /// content of the buffer outside of the specified rect is NOT modified by this call.
+    ///
+    /// It is legal for several different threads to lock a buffer for read access; none of the
+    /// threads are blocked.
+    ///
+    /// Locking a buffer simultaneously for write or read/write is undefined, but will neither
+    /// terminate the process nor block the caller. This function may return an error or leave the
+    /// buffer's content in an indeterminate state.
+    ///
+    /// If the buffer has [`HardwareBufferFormat::BLOB`], it is legal lock it for reading and
+    /// writing in multiple threads and/or processes simultaneously, and the contents of the buffer
+    /// behave like shared memory.
     pub fn lock(
         &self,
         usage: HardwareBufferUsage,
@@ -195,6 +267,13 @@ impl HardwareBuffer {
         })
     }
 
+    /// Lock a [`HardwareBuffer`] for direct CPU access.
+    ///
+    /// This function is the same as the above [`lock()`][Self::lock()] function, but passes back
+    /// additional information about the bytes per pixel and the bytes per stride of the locked
+    /// buffer. If the bytes per pixel or bytes per stride are unknown or variable, or if the
+    /// underlying mapper implementation does not support returning additional information, then
+    /// this call will fail with [`std::io::Error::kind()`] = [`std::io::ErrorKind::Unsupported`].
     #[cfg(feature = "api-level-29")]
     pub fn lock_and_get_info(
         &self,
@@ -230,6 +309,23 @@ impl HardwareBuffer {
         })
     }
 
+    /// Lock a potentially multi-planar [`HardwareBuffer`] for direct CPU access.
+    ///
+    /// This function is similar to [`lock()`][Self::lock()], but can lock multi-planar formats.
+    /// Note, that multi-planar should not be confused with multi-layer images, which this locking
+    /// function does not support.
+    ///
+    /// YUV formats are always represented by three separate planes of data, one for each color
+    /// plane. The order of planes in the array is guaranteed such that plane #0 is always `Y`,
+    /// plane #1 is always `U` (`Cb`), and plane #2 is always `V` (`Cr`). All other formats are
+    /// represented by a single plane.
+    ///
+    /// Additional information always accompanies the buffers, describing the row stride and the
+    /// pixel stride for each plane.
+    ///
+    /// In case the buffer cannot be locked, this will return zero planes.
+    ///
+    /// See the [`lock()`][Self::lock()] documentation for all other locking semantics.
     #[cfg(feature = "api-level-29")]
     pub fn lock_planes(
         &self,
@@ -252,13 +348,22 @@ impl HardwareBuffer {
         })
     }
 
+    /// Unlock the [`HardwareBuffer`] from direct CPU access.
+    ///
+    /// Must be called after all changes to the buffer are completed by the caller. The function
+    /// will block until all work is completed. See [`unlock_async()`][Self::unlock_async()] for
+    /// a non-blocking variant that returns a file descriptor to be signaled on unlocking instead.
     pub fn unlock(&self) -> Result<()> {
         let status = unsafe { ffi::AHardwareBuffer_unlock(self.as_ptr(), std::ptr::null_mut()) };
         status_to_io_result(status, ())
     }
 
-    /// Returns a fence file descriptor that will become signalled when unlocking is completed,
-    /// or [`None`] if unlocking is already finished.
+    /// Unlock the [`HardwareBuffer`] from direct CPU access.
+    ///
+    /// Returns a fence file descriptor that will become signaled when unlocking is completed, or
+    /// [`None`] if unlocking is already finished. The caller is responsible for closing the file
+    /// descriptor once it's no longer needed. See [`unlock()`][Self::unlock()] for a variant that
+    /// blocks instead.
     pub fn unlock_async(&self) -> Result<Option<RawFd>> {
         let fence = construct(|res| unsafe { ffi::AHardwareBuffer_unlock(self.as_ptr(), res) })?;
         Ok(match fence {
@@ -267,6 +372,9 @@ impl HardwareBuffer {
         })
     }
 
+    /// Receive a [`HardwareBuffer`] from an `AF_UNIX` socket.
+    ///
+    /// `AF_UNIX` sockets are wrapped by [`std::os::unix::net::UnixListener`] in Rust.
     pub fn recv_handle_from_unix_socket(socket_fd: RawFd) -> Result<Self> {
         unsafe {
             let ptr =
@@ -276,6 +384,9 @@ impl HardwareBuffer {
         }
     }
 
+    /// Send the [`HardwareBuffer`] to an `AF_UNIX` socket.
+    ///
+    /// `AF_UNIX` sockets are wrapped by [`std::os::unix::net::UnixListener`] in Rust.
     pub fn send_handle_to_unix_socket(&self, socket_fd: RawFd) -> Result<()> {
         let status =
             unsafe { ffi::AHardwareBuffer_sendHandleToUnixSocket(self.as_ptr(), socket_fd) };
@@ -337,14 +448,17 @@ impl Clone for HardwareBufferRef {
     }
 }
 
+/// Buffer description.
+///
+/// Used for allocating new buffers and querying parameters of existing ones.
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct HardwareBufferDesc {
-    width: u32,
-    height: u32,
-    layers: u32,
-    format: HardwareBufferFormat,
-    usage: HardwareBufferUsage,
-    stride: u32,
+    pub width: u32,
+    pub height: u32,
+    pub layers: u32,
+    pub format: HardwareBufferFormat,
+    pub usage: HardwareBufferUsage,
+    pub stride: u32,
 }
 
 impl HardwareBufferDesc {
@@ -362,6 +476,11 @@ impl HardwareBufferDesc {
     }
 }
 
+/// A native [`AHardwareBuffer_Plane`]
+///
+/// Contains the same fields as [`ffi::AHardwareBuffer_Plane`].
+///
+/// [`AHardwareBuffer_Plane`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer_plane
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct LockedPlaneInfo {
     pub virtual_address: *mut c_void,
@@ -369,6 +488,7 @@ pub struct LockedPlaneInfo {
     pub bytes_per_stride: u32,
 }
 
+/// Iterator over [`ffi::AHardwareBuffer_Planes`], containing a list of [`LockedPlaneInfo`].
 #[derive(Debug)]
 pub struct HardwareBufferPlanes {
     inner: ffi::AHardwareBuffer_Planes,
