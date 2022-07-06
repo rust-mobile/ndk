@@ -1,5 +1,6 @@
 # Unreleased
 
+- **Breaking:** `MediaCodec::configure` now accepts `Option<&NartiveWindow>` instead of `&NativeWindow`, as per https://developer.android.com/reference/android/media/MediaCodec#configure(android.media.MediaFormat,%20android.view.Surface,%20android.media.MediaCrypto,%20int)
 - hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan. (#213)
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`)
 - Add `MediaCodec` and `MediaFormat` bindings. (#216)

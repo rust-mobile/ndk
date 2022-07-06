@@ -236,11 +236,7 @@ impl MediaCodec {
             ffi::AMediaCodec_configure(
                 self.as_ptr(),
                 format.as_ptr(),
-                if let Some(surface) = surface {
-                    surface.ptr().as_ptr()
-                } else {
-                    ptr::null_mut()
-                },
+                surface.map_or(ptr::null_mut(), |s| s.ptr().as_ptr()),
                 ptr::null_mut(),
                 if direction == MediaCodecDirection::Encoder {
                     1
