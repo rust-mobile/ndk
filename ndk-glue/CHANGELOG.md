@@ -1,5 +1,7 @@
 # Unreleased
 
+- **Breaking:** Provide a `LockReadGuard` newtype around `NativeWindow`/`InputQueue` to hide the underlying lock implementation. (#288)
+
 # 0.6.2 (2022-04-19)
 
 - Call `ndk_context::release_android_context()` function to remove `AndroidContext` when activity is destroyed. (#263)
