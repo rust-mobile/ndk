@@ -239,7 +239,7 @@ impl MediaCodec {
                 surface.map_or(ptr::null_mut(), |s| s.ptr().as_ptr()),
                 ptr::null_mut(),
                 if direction == MediaCodecDirection::Encoder {
-                    1
+                    ffi::AMEDIACODEC_CONFIGURE_FLAG_ENCODE as u32
                 } else {
                     0
                 },
