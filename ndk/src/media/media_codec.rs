@@ -20,6 +20,22 @@ pub enum MediaCodecDirection {
     Encoder,
 }
 
+#[non_exhaustive]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+pub enum MediaCodecInfo {
+    TryAgainLater = ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER,
+    OutputFormatChanged = ffi::AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED,
+    OutputBuffersChanged = ffi::AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED,
+}
+
+#[derive(Debug)]
+pub enum MediaCodecResult<T> {
+    Ok(T),
+    Info(MediaCodecInfo),
+    Err(NdkMediaError),
+}
+
 /// A native [`AMediaFormat *`]
 ///
 /// [`AMediaFormat *`]: https://developer.android.com/ndk/reference/group/media#amediaformat
@@ -291,8 +307,8 @@ impl MediaCodec {
         }
     }
 
-    /// Returns [`None`] if timeout is reached.
-    pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<Option<InputBuffer>> {
+    /// Can only return [`MediaCodecInfo::TryAgainLater`] with [`MediaCodecResult::Info`].
+    pub fn dequeue_input_buffer(&self, timeout: Duration) -> MediaCodecResult<InputBuffer> {
         let result = unsafe {
             ffi::AMediaCodec_dequeueInputBuffer(
                 self.as_ptr(),
@@ -303,20 +319,23 @@ impl MediaCodec {
             )
         };
 
-        if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as ffi::ssize_t {
-            Ok(None)
-        } else if result >= 0 {
-            Ok(Some(InputBuffer {
+        if (0..1000).contains(&result) {
+            MediaCodecResult::Ok(InputBuffer {
                 codec: self,
                 index: result as ffi::size_t,
-            }))
+            })
+        } else if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as ffi::ssize_t {
+            MediaCodecResult::Info(MediaCodecInfo::TryAgainLater)
         } else {
-            NdkMediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
+            MediaCodecResult::Err(
+                NdkMediaError::from_status(ffi::media_status_t(result as _)).unwrap_err(),
+            )
         }
     }
 
-    /// Returns [`None`] if timeout is reached.
-    pub fn dequeue_output_buffer(&self, timeout: Duration) -> Result<Option<OutputBuffer>> {
+    /// Can return [`MediaCodecInfo::TryAgainLater`], [`MediaCodecInfo::OutputFormatChanged`],
+    /// [`MediaCodecInfo::OutputBuffersChanged`] with [`MediaCodecResult::Info`].
+    pub fn dequeue_output_buffer(&self, timeout: Duration) -> MediaCodecResult<OutputBuffer> {
         let mut info: ffi::AMediaCodecBufferInfo = unsafe { std::mem::zeroed() };
 
         let result = unsafe {
@@ -330,16 +349,24 @@ impl MediaCodec {
             )
         };
 
-        if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as ffi::ssize_t {
-            Ok(None)
-        } else if result >= 0 {
-            Ok(Some(OutputBuffer {
+        // result usage: https://android.googlesource.com/platform/frameworks/av/+/1495f5db71dfeaaef6bc012dd41f3194f2d298c3/media/ndk/NdkMediaCodec.cpp#693
+        // Note: use if-else chain instead of match because of casts
+        if (0..1000).contains(&result) {
+            MediaCodecResult::Ok(OutputBuffer {
                 codec: self,
                 index: result as ffi::size_t,
                 info,
-            }))
+            })
+        } else if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as ffi::ssize_t {
+            MediaCodecResult::Info(MediaCodecInfo::TryAgainLater)
+        } else if result == ffi::AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED as ffi::ssize_t {
+            MediaCodecResult::Info(MediaCodecInfo::OutputFormatChanged)
+        } else if result == ffi::AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED as ffi::ssize_t {
+            MediaCodecResult::Info(MediaCodecInfo::OutputBuffersChanged)
         } else {
-            NdkMediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
+            MediaCodecResult::Err(
+                NdkMediaError::from_status(ffi::media_status_t(result as _)).unwrap_err(),
+            )
         }
     }
 
