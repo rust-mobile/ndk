@@ -106,7 +106,14 @@ impl ImageReader {
         max_images: i32,
     ) -> Result<Self> {
         let inner = construct_never_null(|res| unsafe {
-            ffi::AImageReader_newWithUsage(width, height, format as i32, usage.0, max_images, res)
+            ffi::AImageReader_newWithUsage(
+                width,
+                height,
+                format as i32,
+                usage.0 .0,
+                max_images,
+                res,
+            )
         })?;
 
         Ok(Self::from_ptr(inner))

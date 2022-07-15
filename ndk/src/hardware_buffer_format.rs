@@ -8,13 +8,13 @@ use num_enum::{IntoPrimitive, TryFromPrimitive};
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 pub enum HardwareBufferFormat {
-    /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGBA_8888`].
+    /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGBA_8888`].
     R8G8B8A8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM.0,
-    /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGBX_8888`].
+    /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGBX_8888`].
     R8G8B8X8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8X8_UNORM.0,
     #[cfg(feature = "api-level-26")]
     R8G8B8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM.0,
-    /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat_WINDOW_FORMAT_RGB_565`].
+    /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGB_565`].
     R5G6B5_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R5G6B5_UNORM.0,
     R16G16B16A16_FLOAT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R16G16B16A16_FLOAT.0,
     #[cfg(feature = "api-level-26")]

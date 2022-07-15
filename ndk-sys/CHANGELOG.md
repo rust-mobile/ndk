@@ -1,6 +1,6 @@
 # Unreleased
 
-- **Breaking:** Turn `enum` type aliases into newtype wrappers. (#245)
+- **Breaking:** Turn `enum` type aliases into newtype wrappers. (#245, #315)
 
 # 0.3.0 (2022-01-05)
 
