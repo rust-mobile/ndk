@@ -6,7 +6,7 @@ use crate::utils::status_to_io_result;
 
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
-use raw_window_handle::{AndroidNdkHandle, HasRawWindowHandle, RawWindowHandle};
+use raw_window_handle::{AndroidNdkWindowHandle, HasRawWindowHandle, RawWindowHandle};
 use std::{convert::TryFrom, ffi::c_void, io::Result, ptr::NonNull};
 
 // [`NativeWindow`] represents the producer end of an image queue
@@ -39,7 +39,7 @@ impl Clone for NativeWindow {
 
 unsafe impl HasRawWindowHandle for NativeWindow {
     fn raw_window_handle(&self) -> RawWindowHandle {
-        let mut handle = AndroidNdkHandle::empty();
+        let mut handle = AndroidNdkWindowHandle::empty();
         handle.a_native_window = self.ptr.as_ptr() as *mut c_void;
         RawWindowHandle::AndroidNdk(handle)
     }
