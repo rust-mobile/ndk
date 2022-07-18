@@ -19,6 +19,7 @@
 - Fixed `HardwareBuffer` leak on buffers returned from `AndroidBitmap::get_hardware_buffer()`. (#296)
 - **Breaking:** Update `jni` crate (used in public API) from `0.18` to `0.19`. (#300)
 - hardware_buffer: Made `HardwareBufferDesc` fields `pub`. (#313)
+- **Breaking:** Remove `hardware_buffer` and `trace` features in favour of using `api-level-26` or `api-level-23` directly. (#320)
 
 # 0.6.0 (2022-01-05)
 

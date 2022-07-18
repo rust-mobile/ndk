@@ -9,7 +9,7 @@ publish = false
 jni = "0.19"
 libc = "0.2"
 log = "0.4.14"
-ndk = { path = "../ndk", features = ["trace"] }
+ndk = { path = "../ndk", features = ["api-level-23"] }
 ndk-context = { path = "../ndk-context" }
 ndk-glue = { path = "../ndk-glue", features = ["logger"] }
 
