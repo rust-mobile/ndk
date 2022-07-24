@@ -1,7 +1,7 @@
 //! Bindings for the NDK tracing API.
 //!
 //! See also [the NDK docs](https://developer.android.com/ndk/reference/group/tracing)
-#![cfg(feature = "trace")]
+#![cfg(feature = "api-level-23")]
 use std::ffi::{CString, NulError};
 use std::marker::PhantomData;
 

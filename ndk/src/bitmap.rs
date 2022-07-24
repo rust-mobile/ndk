@@ -8,9 +8,9 @@
 
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-use std::{convert::TryInto, mem::MaybeUninit, ptr::NonNull};
+use std::{convert::TryInto, mem::MaybeUninit};
 
-#[cfg(feature = "hardware_buffer")]
+#[cfg(feature = "api-level-30")]
 use crate::hardware_buffer::HardwareBufferRef;
 
 #[repr(i32)]
@@ -104,15 +104,15 @@ impl AndroidBitmap {
     /// Retrieve the native object associated with a `HARDWARE` [`AndroidBitmap`].
     ///
     /// Client must not modify it while an [`AndroidBitmap`] is wrapping it.
-    #[cfg(all(feature = "hardware_buffer", feature = "api-level-30"))]
+    #[cfg(feature = "api-level-30")]
     pub fn get_hardware_buffer(&self) -> BitmapResult<HardwareBufferRef> {
         unsafe {
             let result =
                 construct(|res| ffi::AndroidBitmap_getHardwareBuffer(self.env, self.inner, res))?;
             let non_null = if cfg!(debug_assertions) {
-                NonNull::new(result).expect("result should never be null")
+                std::ptr::NonNull::new(result).expect("result should never be null")
             } else {
-                NonNull::new_unchecked(result)
+                std::ptr::NonNull::new_unchecked(result)
             };
             Ok(HardwareBufferRef::from_ptr(non_null))
         }

@@ -2,7 +2,7 @@
 //!
 //! [`AHardwareBuffer`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer
 
-#![cfg(feature = "hardware_buffer")]
+#![cfg(feature = "api-level-26")]
 
 use crate::utils::status_to_io_result;
 

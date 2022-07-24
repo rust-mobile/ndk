@@ -19,7 +19,7 @@ use std::{
 #[cfg(feature = "api-level-26")]
 use std::os::unix::io::RawFd;
 
-#[cfg(feature = "hardware_buffer")]
+#[cfg(feature = "api-level-26")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
 
 #[repr(u32)]
@@ -47,7 +47,7 @@ pub enum ImageFormat {
 
 pub type ImageListener = Box<dyn FnMut(&ImageReader)>;
 
-#[cfg(feature = "hardware_buffer")]
+#[cfg(feature = "api-level-26")]
 pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer)>;
 
 /// A native [`AImageReader *`]
@@ -56,7 +56,7 @@ pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer)>;
 pub struct ImageReader {
     inner: NonNull<ffi::AImageReader>,
     image_cb: Option<Box<ImageListener>>,
-    #[cfg(feature = "hardware_buffer")]
+    #[cfg(feature = "api-level-26")]
     buffer_removed_cb: Option<Box<BufferRemovedListener>>,
 }
 
@@ -80,7 +80,7 @@ impl ImageReader {
         Self {
             inner,
             image_cb: None,
-            #[cfg(feature = "hardware_buffer")]
+            #[cfg(feature = "api-level-26")]
             buffer_removed_cb: None,
         }
     }
@@ -97,7 +97,7 @@ impl ImageReader {
         Ok(Self::from_ptr(inner))
     }
 
-    #[cfg(feature = "hardware_buffer")]
+    #[cfg(feature = "api-level-26")]
     pub fn new_with_usage(
         width: i32,
         height: i32,
@@ -143,7 +143,7 @@ impl ImageReader {
         NdkMediaError::from_status(status)
     }
 
-    #[cfg(feature = "hardware_buffer")]
+    #[cfg(feature = "api-level-26")]
     pub fn set_buffer_removed_listener(&mut self, listener: BufferRemovedListener) -> Result<()> {
         let mut boxed = Box::new(listener);
         let ptr: *mut BufferRemovedListener = &mut *boxed;
@@ -343,7 +343,7 @@ impl Image {
     /// returned from this function, it must also register a listener using
     /// [`ImageReader::set_buffer_removed_listener()`] to be notified when the buffer is no longer
     /// used by [`ImageReader`].
-    #[cfg(feature = "hardware_buffer")]
+    #[cfg(feature = "api-level-26")]
     pub fn get_hardware_buffer(&self) -> Result<HardwareBuffer> {
         unsafe {
             let ptr =
