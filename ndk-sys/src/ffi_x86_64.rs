@@ -34,10 +34,10 @@ pub const __BIONIC__: u32 = 1;
 pub const __WORDSIZE: u32 = 64;
 pub const __bos_level: u32 = 0;
 pub const __ANDROID_NDK__: u32 = 1;
-pub const __NDK_MAJOR__: u32 = 23;
-pub const __NDK_MINOR__: u32 = 1;
+pub const __NDK_MAJOR__: u32 = 25;
+pub const __NDK_MINOR__: u32 = 0;
 pub const __NDK_BETA__: u32 = 0;
-pub const __NDK_BUILD__: u32 = 7779620;
+pub const __NDK_BUILD__: u32 = 8775105;
 pub const __NDK_CANARY__: u32 = 0;
 pub const __ANDROID_API_FUTURE__: u32 = 10000;
 pub const __ANDROID_API__: u32 = 10000;
@@ -395,6 +395,8 @@ pub const SO_DETACH_REUSEPORT_BPF: u32 = 68;
 pub const SO_PREFER_BUSY_POLL: u32 = 69;
 pub const SO_BUSY_POLL_BUDGET: u32 = 70;
 pub const SO_NETNS_COOKIE: u32 = 71;
+pub const SO_BUF_LOCK: u32 = 72;
+pub const SO_RESERVE_MEM: u32 = 73;
 pub const SO_TIMESTAMP: u32 = 29;
 pub const SO_TIMESTAMPNS: u32 = 35;
 pub const SO_TIMESTAMPING: u32 = 37;
@@ -1883,6 +1885,9 @@ impl AndroidBitmapFormat {
 impl AndroidBitmapFormat {
     pub const ANDROID_BITMAP_FORMAT_RGBA_F16: AndroidBitmapFormat = AndroidBitmapFormat(9);
 }
+impl AndroidBitmapFormat {
+    pub const ANDROID_BITMAP_FORMAT_RGBA_1010102: AndroidBitmapFormat = AndroidBitmapFormat(10);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AndroidBitmapFormat(pub ::std::os::raw::c_uint);
@@ -2040,11 +2045,23 @@ extern "C" {
 pub struct AChoreographer {
     _unused: [u8; 0],
 }
+pub type AVsyncId = i64;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AChoreographerFrameCallbackData {
+    _unused: [u8; 0],
+}
 pub type AChoreographer_frameCallback = ::std::option::Option<
     unsafe extern "C" fn(frameTimeNanos: ::std::os::raw::c_long, data: *mut ::std::os::raw::c_void),
 >;
 pub type AChoreographer_frameCallback64 = ::std::option::Option<
     unsafe extern "C" fn(frameTimeNanos: i64, data: *mut ::std::os::raw::c_void),
+>;
+pub type AChoreographer_vsyncCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        callbackData: *const AChoreographerFrameCallbackData,
+        data: *mut ::std::os::raw::c_void,
+    ),
 >;
 pub type AChoreographer_refreshRateCallback = ::std::option::Option<
     unsafe extern "C" fn(vsyncPeriodNanos: i64, data: *mut ::std::os::raw::c_void),
@@ -2083,6 +2100,13 @@ extern "C" {
     );
 }
 extern "C" {
+    pub fn AChoreographer_postVsyncCallback(
+        choreographer: *mut AChoreographer,
+        callback: AChoreographer_vsyncCallback,
+        data: *mut ::std::os::raw::c_void,
+    );
+}
+extern "C" {
     pub fn AChoreographer_registerRefreshRateCallback(
         choreographer: *mut AChoreographer,
         arg1: AChoreographer_refreshRateCallback,
@@ -2095,6 +2119,39 @@ extern "C" {
         arg1: AChoreographer_refreshRateCallback,
         data: *mut ::std::os::raw::c_void,
     );
+}
+extern "C" {
+    pub fn AChoreographerFrameCallbackData_getFrameTimeNanos(
+        data: *const AChoreographerFrameCallbackData,
+    ) -> i64;
+}
+extern "C" {
+    pub fn AChoreographerFrameCallbackData_getFrameTimelinesLength(
+        data: *const AChoreographerFrameCallbackData,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn AChoreographerFrameCallbackData_getPreferredFrameTimelineIndex(
+        data: *const AChoreographerFrameCallbackData,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn AChoreographerFrameCallbackData_getFrameTimelineVsyncId(
+        data: *const AChoreographerFrameCallbackData,
+        index: size_t,
+    ) -> AVsyncId;
+}
+extern "C" {
+    pub fn AChoreographerFrameCallbackData_getFrameTimelineExpectedPresentationTimeNanos(
+        data: *const AChoreographerFrameCallbackData,
+        index: size_t,
+    ) -> i64;
+}
+extern "C" {
+    pub fn AChoreographerFrameCallbackData_getFrameTimelineDeadlineNanos(
+        data: *const AChoreographerFrameCallbackData,
+        index: size_t,
+    ) -> i64;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2428,6 +2485,90 @@ impl ADataSpace {
     pub const ADATASPACE_UNKNOWN: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
+    pub const STANDARD_MASK: ADataSpace = ADataSpace(4128768);
+}
+impl ADataSpace {
+    pub const STANDARD_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const STANDARD_BT709: ADataSpace = ADataSpace(65536);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_625: ADataSpace = ADataSpace(131072);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_625_UNADJUSTED: ADataSpace = ADataSpace(196608);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_525: ADataSpace = ADataSpace(262144);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_525_UNADJUSTED: ADataSpace = ADataSpace(327680);
+}
+impl ADataSpace {
+    pub const STANDARD_BT2020: ADataSpace = ADataSpace(393216);
+}
+impl ADataSpace {
+    pub const STANDARD_BT2020_CONSTANT_LUMINANCE: ADataSpace = ADataSpace(458752);
+}
+impl ADataSpace {
+    pub const STANDARD_BT470M: ADataSpace = ADataSpace(524288);
+}
+impl ADataSpace {
+    pub const STANDARD_FILM: ADataSpace = ADataSpace(589824);
+}
+impl ADataSpace {
+    pub const STANDARD_DCI_P3: ADataSpace = ADataSpace(655360);
+}
+impl ADataSpace {
+    pub const STANDARD_ADOBE_RGB: ADataSpace = ADataSpace(720896);
+}
+impl ADataSpace {
+    pub const TRANSFER_MASK: ADataSpace = ADataSpace(130023424);
+}
+impl ADataSpace {
+    pub const TRANSFER_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const TRANSFER_LINEAR: ADataSpace = ADataSpace(4194304);
+}
+impl ADataSpace {
+    pub const TRANSFER_SRGB: ADataSpace = ADataSpace(8388608);
+}
+impl ADataSpace {
+    pub const TRANSFER_SMPTE_170M: ADataSpace = ADataSpace(12582912);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_2: ADataSpace = ADataSpace(16777216);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_6: ADataSpace = ADataSpace(20971520);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_8: ADataSpace = ADataSpace(25165824);
+}
+impl ADataSpace {
+    pub const TRANSFER_ST2084: ADataSpace = ADataSpace(29360128);
+}
+impl ADataSpace {
+    pub const TRANSFER_HLG: ADataSpace = ADataSpace(33554432);
+}
+impl ADataSpace {
+    pub const RANGE_MASK: ADataSpace = ADataSpace(939524096);
+}
+impl ADataSpace {
+    pub const RANGE_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const RANGE_FULL: ADataSpace = ADataSpace(134217728);
+}
+impl ADataSpace {
+    pub const RANGE_LIMITED: ADataSpace = ADataSpace(268435456);
+}
+impl ADataSpace {
+    pub const RANGE_EXTENDED: ADataSpace = ADataSpace(402653184);
+}
+impl ADataSpace {
     pub const ADATASPACE_SCRGB_LINEAR: ADataSpace = ADataSpace(406913024);
 }
 impl ADataSpace {
@@ -2443,7 +2584,19 @@ impl ADataSpace {
     pub const ADATASPACE_BT2020_PQ: ADataSpace = ADataSpace(163971072);
 }
 impl ADataSpace {
+    pub const ADATASPACE_BT2020_ITU_PQ: ADataSpace = ADataSpace(298188800);
+}
+impl ADataSpace {
     pub const ADATASPACE_ADOBE_RGB: ADataSpace = ADataSpace(151715840);
+}
+impl ADataSpace {
+    pub const ADATASPACE_JFIF: ADataSpace = ADataSpace(146931712);
+}
+impl ADataSpace {
+    pub const ADATASPACE_BT601_625: ADataSpace = ADataSpace(281149440);
+}
+impl ADataSpace {
+    pub const ADATASPACE_BT601_525: ADataSpace = ADataSpace(281280512);
 }
 impl ADataSpace {
     pub const ADATASPACE_BT2020: ADataSpace = ADataSpace(147193856);
@@ -2456,6 +2609,18 @@ impl ADataSpace {
 }
 impl ADataSpace {
     pub const ADATASPACE_SRGB_LINEAR: ADataSpace = ADataSpace(138477568);
+}
+impl ADataSpace {
+    pub const ADATASPACE_BT2020_HLG: ADataSpace = ADataSpace(168165376);
+}
+impl ADataSpace {
+    pub const ADATASPACE_BT2020_ITU_HLG: ADataSpace = ADataSpace(302383104);
+}
+impl ADataSpace {
+    pub const DEPTH: ADataSpace = ADataSpace(4096);
+}
+impl ADataSpace {
+    pub const DYNAMIC_DEPTH: ADataSpace = ADataSpace(4098);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -2822,6 +2987,13 @@ impl AHardwareBuffer_Format {
 impl AHardwareBuffer_Format {
     pub const AHARDWAREBUFFER_FORMAT_Y8Cb8Cr8_420: AHardwareBuffer_Format =
         AHardwareBuffer_Format(35);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_YCbCr_P010: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(54);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_R8_UNORM: AHardwareBuffer_Format = AHardwareBuffer_Format(56);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -4042,6 +4214,7 @@ pub const AINPUT_EVENT_TYPE_MOTION: ::std::os::raw::c_uint = 2;
 pub const AINPUT_EVENT_TYPE_FOCUS: ::std::os::raw::c_uint = 3;
 pub const AINPUT_EVENT_TYPE_CAPTURE: ::std::os::raw::c_uint = 4;
 pub const AINPUT_EVENT_TYPE_DRAG: ::std::os::raw::c_uint = 5;
+pub const AINPUT_EVENT_TYPE_TOUCH_MODE: ::std::os::raw::c_uint = 6;
 pub type _bindgen_ty_17 = ::std::os::raw::c_uint;
 pub const AKEY_EVENT_ACTION_DOWN: ::std::os::raw::c_uint = 0;
 pub const AKEY_EVENT_ACTION_UP: ::std::os::raw::c_uint = 1;
@@ -4144,6 +4317,20 @@ pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: ::std::os::raw::c_uint = 3;
 pub const AMOTION_EVENT_TOOL_TYPE_ERASER: ::std::os::raw::c_uint = 4;
 pub const AMOTION_EVENT_TOOL_TYPE_PALM: ::std::os::raw::c_uint = 5;
 pub type _bindgen_ty_25 = ::std::os::raw::c_uint;
+impl AMotionClassification {
+    pub const AMOTION_EVENT_CLASSIFICATION_NONE: AMotionClassification = AMotionClassification(0);
+}
+impl AMotionClassification {
+    pub const AMOTION_EVENT_CLASSIFICATION_AMBIGUOUS_GESTURE: AMotionClassification =
+        AMotionClassification(1);
+}
+impl AMotionClassification {
+    pub const AMOTION_EVENT_CLASSIFICATION_DEEP_PRESS: AMotionClassification =
+        AMotionClassification(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AMotionClassification(pub u32);
 pub const AINPUT_SOURCE_CLASS_MASK: ::std::os::raw::c_uint = 255;
 pub const AINPUT_SOURCE_CLASS_NONE: ::std::os::raw::c_uint = 0;
 pub const AINPUT_SOURCE_CLASS_BUTTON: ::std::os::raw::c_uint = 1;
@@ -4420,6 +4607,12 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    pub fn AMotionEvent_getActionButton(motion_event: *const AInputEvent) -> i32;
+}
+extern "C" {
+    pub fn AMotionEvent_getClassification(motion_event: *const AInputEvent) -> i32;
+}
+extern "C" {
     pub fn AMotionEvent_fromJava(env: *mut JNIEnv, motionEvent: jobject) -> *const AInputEvent;
 }
 #[repr(C)]
@@ -4454,6 +4647,9 @@ extern "C" {
         event: *mut AInputEvent,
         handled: ::std::os::raw::c_int,
     );
+}
+extern "C" {
+    pub fn AInputQueue_fromJava(env: *mut JNIEnv, inputQueue: jobject) -> *mut AInputQueue;
 }
 impl android_LogPriority {
     pub const ANDROID_LOG_UNKNOWN: android_LogPriority = android_LogPriority(0);
@@ -6579,6 +6775,133 @@ fn bindgen_test_layout_mallinfo() {
 extern "C" {
     pub fn mallinfo() -> mallinfo;
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct mallinfo2 {
+    pub arena: size_t,
+    pub ordblks: size_t,
+    pub smblks: size_t,
+    pub hblks: size_t,
+    pub hblkhd: size_t,
+    pub usmblks: size_t,
+    pub fsmblks: size_t,
+    pub uordblks: size_t,
+    pub fordblks: size_t,
+    pub keepcost: size_t,
+}
+#[test]
+fn bindgen_test_layout_mallinfo2() {
+    assert_eq!(
+        ::std::mem::size_of::<mallinfo2>(),
+        80usize,
+        concat!("Size of: ", stringify!(mallinfo2))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<mallinfo2>(),
+        8usize,
+        concat!("Alignment of ", stringify!(mallinfo2))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).arena as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(arena)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).ordblks as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(ordblks)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).smblks as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(smblks)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).hblks as *const _ as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(hblks)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).hblkhd as *const _ as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(hblkhd)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).usmblks as *const _ as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(usmblks)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).fsmblks as *const _ as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(fsmblks)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).uordblks as *const _ as usize },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(uordblks)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).fordblks as *const _ as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(fordblks)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<mallinfo2>())).keepcost as *const _ as usize },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(mallinfo2),
+            "::",
+            stringify!(keepcost)
+        )
+    );
+}
 extern "C" {
     pub fn malloc_info(
         __must_be_zero: ::std::os::raw::c_int,
@@ -7229,6 +7552,19 @@ extern "C" {
 }
 extern "C" {
     pub fn android_res_cancel(nsend_fd: ::std::os::raw::c_int);
+}
+extern "C" {
+    pub fn android_tag_socket_with_uid(
+        sockfd: ::std::os::raw::c_int,
+        tag: u32,
+        uid: uid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_tag_socket(sockfd: ::std::os::raw::c_int, tag: u32) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_untag_socket(sockfd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 impl ANativeWindow_LegacyFormat {
     pub const WINDOW_FORMAT_RGBA_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(1);
@@ -8224,6 +8560,18 @@ impl OperationCode {
 impl OperationCode {
     pub const ANEURALNETWORKS_RANK: OperationCode = OperationCode(101);
 }
+impl OperationCode {
+    pub const ANEURALNETWORKS_BATCH_MATMUL: OperationCode = OperationCode(102);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_PACK: OperationCode = OperationCode(103);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_MIRROR_PAD: OperationCode = OperationCode(104);
+}
+impl OperationCode {
+    pub const ANEURALNETWORKS_REVERSE: OperationCode = OperationCode(105);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct OperationCode(pub ::std::os::raw::c_uint);
@@ -8295,6 +8643,15 @@ impl FeatureLevelCode {
 }
 impl FeatureLevelCode {
     pub const ANEURALNETWORKS_FEATURE_LEVEL_5: FeatureLevelCode = FeatureLevelCode(31);
+}
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_6: FeatureLevelCode = FeatureLevelCode(1000006);
+}
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_7: FeatureLevelCode = FeatureLevelCode(1000007);
+}
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_8: FeatureLevelCode = FeatureLevelCode(1000008);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -9586,10 +9943,17 @@ pub const ASENSOR_TYPE_POSE_6DOF: ::std::os::raw::c_int = 28;
 pub const ASENSOR_TYPE_STATIONARY_DETECT: ::std::os::raw::c_int = 29;
 pub const ASENSOR_TYPE_MOTION_DETECT: ::std::os::raw::c_int = 30;
 pub const ASENSOR_TYPE_HEART_BEAT: ::std::os::raw::c_int = 31;
+pub const ASENSOR_TYPE_DYNAMIC_SENSOR_META: ::std::os::raw::c_int = 32;
 pub const ASENSOR_TYPE_ADDITIONAL_INFO: ::std::os::raw::c_int = 33;
 pub const ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT: ::std::os::raw::c_int = 34;
 pub const ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED: ::std::os::raw::c_int = 35;
 pub const ASENSOR_TYPE_HINGE_ANGLE: ::std::os::raw::c_int = 36;
+pub const ASENSOR_TYPE_HEAD_TRACKER: ::std::os::raw::c_int = 37;
+pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES: ::std::os::raw::c_int = 38;
+pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES: ::std::os::raw::c_int = 39;
+pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED: ::std::os::raw::c_int = 40;
+pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED: ::std::os::raw::c_int = 41;
+pub const ASENSOR_TYPE_HEADING: ::std::os::raw::c_int = 42;
 pub type _bindgen_ty_38 = ::std::os::raw::c_int;
 pub const ASENSOR_STATUS_NO_CONTACT: ::std::os::raw::c_int = -1;
 pub const ASENSOR_STATUS_UNRELIABLE: ::std::os::raw::c_int = 0;
@@ -10243,6 +10607,692 @@ fn bindgen_test_layout_AAdditionalInfoEvent() {
     );
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AHeadTrackerEvent {
+    pub rx: f32,
+    pub ry: f32,
+    pub rz: f32,
+    pub vx: f32,
+    pub vy: f32,
+    pub vz: f32,
+    pub discontinuity_count: i32,
+}
+#[test]
+fn bindgen_test_layout_AHeadTrackerEvent() {
+    assert_eq!(
+        ::std::mem::size_of::<AHeadTrackerEvent>(),
+        28usize,
+        concat!("Size of: ", stringify!(AHeadTrackerEvent))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<AHeadTrackerEvent>(),
+        4usize,
+        concat!("Alignment of ", stringify!(AHeadTrackerEvent))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadTrackerEvent>())).rx as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadTrackerEvent),
+            "::",
+            stringify!(rx)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadTrackerEvent>())).ry as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadTrackerEvent),
+            "::",
+            stringify!(ry)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadTrackerEvent>())).rz as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadTrackerEvent),
+            "::",
+            stringify!(rz)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadTrackerEvent>())).vx as *const _ as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadTrackerEvent),
+            "::",
+            stringify!(vx)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadTrackerEvent>())).vy as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadTrackerEvent),
+            "::",
+            stringify!(vy)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadTrackerEvent>())).vz as *const _ as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadTrackerEvent),
+            "::",
+            stringify!(vz)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<AHeadTrackerEvent>())).discontinuity_count as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadTrackerEvent),
+            "::",
+            stringify!(discontinuity_count)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ALimitedAxesImuEvent {
+    pub __bindgen_anon_1: ALimitedAxesImuEvent__bindgen_ty_1,
+    pub __bindgen_anon_2: ALimitedAxesImuEvent__bindgen_ty_2,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ALimitedAxesImuEvent__bindgen_ty_1 {
+    pub calib: [f32; 3usize],
+    pub __bindgen_anon_1: ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1 {
+    pub x: f32,
+    pub y: f32,
+    pub z: f32,
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>())).x
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(x)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>())).y
+                as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(y)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>())).z
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(z)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_1>(),
+        12usize,
+        concat!("Size of: ", stringify!(ALimitedAxesImuEvent__bindgen_ty_1))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_1>())).calib as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_1),
+            "::",
+            stringify!(calib)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ALimitedAxesImuEvent__bindgen_ty_2 {
+    pub supported: [f32; 3usize],
+    pub __bindgen_anon_1: ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1 {
+    pub x_supported: f32,
+    pub y_supported: f32,
+    pub z_supported: f32,
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>())).x_supported
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(x_supported)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>())).y_supported
+                as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(y_supported)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>())).z_supported
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(z_supported)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_2() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_2>(),
+        12usize,
+        concat!("Size of: ", stringify!(ALimitedAxesImuEvent__bindgen_ty_2))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_2>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_2)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuEvent__bindgen_ty_2>())).supported as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuEvent__bindgen_ty_2),
+            "::",
+            stringify!(supported)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuEvent() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuEvent>(),
+        24usize,
+        concat!("Size of: ", stringify!(ALimitedAxesImuEvent))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuEvent>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ALimitedAxesImuEvent))
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ALimitedAxesImuUncalibratedEvent {
+    pub __bindgen_anon_1: ALimitedAxesImuUncalibratedEvent__bindgen_ty_1,
+    pub __bindgen_anon_2: ALimitedAxesImuUncalibratedEvent__bindgen_ty_2,
+    pub __bindgen_anon_3: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ALimitedAxesImuUncalibratedEvent__bindgen_ty_1 {
+    pub uncalib: [f32; 3usize],
+    pub __bindgen_anon_1: ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1 {
+    pub x_uncalib: f32,
+    pub y_uncalib: f32,
+    pub z_uncalib: f32,
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>()))
+                .x_uncalib as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(x_uncalib)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>()))
+                .y_uncalib as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(y_uncalib)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>()))
+                .z_uncalib as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(z_uncalib)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1>())).uncalib
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_1),
+            "::",
+            stringify!(uncalib)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ALimitedAxesImuUncalibratedEvent__bindgen_ty_2 {
+    pub bias: [f32; 3usize],
+    pub __bindgen_anon_1: ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1 {
+    pub x_bias: f32,
+    pub y_bias: f32,
+    pub z_bias: f32,
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>()))
+                .x_bias as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(x_bias)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>()))
+                .y_bias as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(y_bias)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>()))
+                .z_bias as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1),
+            "::",
+            stringify!(z_bias)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_2() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2>())).bias
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_2),
+            "::",
+            stringify!(bias)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ALimitedAxesImuUncalibratedEvent__bindgen_ty_3 {
+    pub supported: [f32; 3usize],
+    pub __bindgen_anon_1: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1 {
+    pub x_supported: f32,
+    pub y_supported: f32,
+    pub z_supported: f32,
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>()))
+                .x_supported as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1),
+            "::",
+            stringify!(x_supported)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>()))
+                .y_supported as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1),
+            "::",
+            stringify!(y_supported)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>()))
+                .z_supported as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1),
+            "::",
+            stringify!(z_supported)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_3() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3>(),
+        12usize,
+        concat!(
+            "Size of: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3>())).supported
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ALimitedAxesImuUncalibratedEvent__bindgen_ty_3),
+            "::",
+            stringify!(supported)
+        )
+    );
+}
+#[test]
+fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent() {
+    assert_eq!(
+        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent>(),
+        36usize,
+        concat!("Size of: ", stringify!(ALimitedAxesImuUncalibratedEvent))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent>(),
+        4usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ALimitedAxesImuUncalibratedEvent)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AHeadingEvent {
+    pub heading: f32,
+    pub accuracy: f32,
+}
+#[test]
+fn bindgen_test_layout_AHeadingEvent() {
+    assert_eq!(
+        ::std::mem::size_of::<AHeadingEvent>(),
+        8usize,
+        concat!("Size of: ", stringify!(AHeadingEvent))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<AHeadingEvent>(),
+        4usize,
+        concat!("Alignment of ", stringify!(AHeadingEvent))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadingEvent>())).heading as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadingEvent),
+            "::",
+            stringify!(heading)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<AHeadingEvent>())).accuracy as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AHeadingEvent),
+            "::",
+            stringify!(accuracy)
+        )
+    );
+}
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ASensorEvent {
     pub version: i32,
@@ -10280,6 +11330,10 @@ pub union ASensorEvent__bindgen_ty_1__bindgen_ty_1 {
     pub heart_rate: AHeartRateEvent,
     pub dynamic_sensor_meta: ADynamicSensorEvent,
     pub additional_info: AAdditionalInfoEvent,
+    pub head_tracker: AHeadTrackerEvent,
+    pub limited_axes_imu: ALimitedAxesImuEvent,
+    pub limited_axes_imu_uncalibrated: ALimitedAxesImuUncalibratedEvent,
+    pub heading: AHeadingEvent,
 }
 #[test]
 fn bindgen_test_layout_ASensorEvent__bindgen_ty_1__bindgen_ty_1() {
@@ -10520,6 +11574,58 @@ fn bindgen_test_layout_ASensorEvent__bindgen_ty_1__bindgen_ty_1() {
             stringify!(additional_info)
         )
     );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>())).head_tracker
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ASensorEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(head_tracker)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>())).limited_axes_imu
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ASensorEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(limited_axes_imu)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>()))
+                .limited_axes_imu_uncalibrated as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ASensorEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(limited_axes_imu_uncalibrated)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>())).heading as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ASensorEvent__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(heading)
+        )
+    );
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10708,6 +11814,12 @@ extern "C" {
         manager: *mut ASensorManager,
         list: *mut ASensorList,
     ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASensorManager_getDynamicSensorList(
+        manager: *mut ASensorManager,
+        list: *mut ASensorList,
+    ) -> ssize_t;
 }
 extern "C" {
     pub fn ASensorManager_getDefaultSensor(
@@ -16494,23 +17606,81 @@ pub const AAUDIO_CONTENT_TYPE_MOVIE: ::std::os::raw::c_uint = 3;
 pub const AAUDIO_CONTENT_TYPE_SONIFICATION: ::std::os::raw::c_uint = 4;
 pub type _bindgen_ty_54 = ::std::os::raw::c_uint;
 pub type aaudio_content_type_t = i32;
+pub const AAUDIO_SPATIALIZATION_BEHAVIOR_AUTO: ::std::os::raw::c_uint = 1;
+pub const AAUDIO_SPATIALIZATION_BEHAVIOR_NEVER: ::std::os::raw::c_uint = 2;
+pub type _bindgen_ty_55 = ::std::os::raw::c_uint;
+pub type aaudio_spatialization_behavior_t = i32;
 pub const AAUDIO_INPUT_PRESET_GENERIC: ::std::os::raw::c_uint = 1;
 pub const AAUDIO_INPUT_PRESET_CAMCORDER: ::std::os::raw::c_uint = 5;
 pub const AAUDIO_INPUT_PRESET_VOICE_RECOGNITION: ::std::os::raw::c_uint = 6;
 pub const AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION: ::std::os::raw::c_uint = 7;
 pub const AAUDIO_INPUT_PRESET_UNPROCESSED: ::std::os::raw::c_uint = 9;
 pub const AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE: ::std::os::raw::c_uint = 10;
-pub type _bindgen_ty_55 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_56 = ::std::os::raw::c_uint;
 pub type aaudio_input_preset_t = i32;
 pub const AAUDIO_ALLOW_CAPTURE_BY_ALL: ::std::os::raw::c_uint = 1;
 pub const AAUDIO_ALLOW_CAPTURE_BY_SYSTEM: ::std::os::raw::c_uint = 2;
 pub const AAUDIO_ALLOW_CAPTURE_BY_NONE: ::std::os::raw::c_uint = 3;
-pub type _bindgen_ty_56 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_57 = ::std::os::raw::c_uint;
 pub type aaudio_allowed_capture_policy_t = i32;
 pub const AAUDIO_SESSION_ID_NONE: ::std::os::raw::c_int = -1;
 pub const AAUDIO_SESSION_ID_ALLOCATE: ::std::os::raw::c_int = 0;
-pub type _bindgen_ty_57 = ::std::os::raw::c_int;
+pub type _bindgen_ty_58 = ::std::os::raw::c_int;
 pub type aaudio_session_id_t = i32;
+pub const AAUDIO_CHANNEL_INVALID: ::std::os::raw::c_int = -1;
+pub const AAUDIO_CHANNEL_FRONT_LEFT: ::std::os::raw::c_int = 1;
+pub const AAUDIO_CHANNEL_FRONT_RIGHT: ::std::os::raw::c_int = 2;
+pub const AAUDIO_CHANNEL_FRONT_CENTER: ::std::os::raw::c_int = 4;
+pub const AAUDIO_CHANNEL_LOW_FREQUENCY: ::std::os::raw::c_int = 8;
+pub const AAUDIO_CHANNEL_BACK_LEFT: ::std::os::raw::c_int = 16;
+pub const AAUDIO_CHANNEL_BACK_RIGHT: ::std::os::raw::c_int = 32;
+pub const AAUDIO_CHANNEL_FRONT_LEFT_OF_CENTER: ::std::os::raw::c_int = 64;
+pub const AAUDIO_CHANNEL_FRONT_RIGHT_OF_CENTER: ::std::os::raw::c_int = 128;
+pub const AAUDIO_CHANNEL_BACK_CENTER: ::std::os::raw::c_int = 256;
+pub const AAUDIO_CHANNEL_SIDE_LEFT: ::std::os::raw::c_int = 512;
+pub const AAUDIO_CHANNEL_SIDE_RIGHT: ::std::os::raw::c_int = 1024;
+pub const AAUDIO_CHANNEL_TOP_CENTER: ::std::os::raw::c_int = 2048;
+pub const AAUDIO_CHANNEL_TOP_FRONT_LEFT: ::std::os::raw::c_int = 4096;
+pub const AAUDIO_CHANNEL_TOP_FRONT_CENTER: ::std::os::raw::c_int = 8192;
+pub const AAUDIO_CHANNEL_TOP_FRONT_RIGHT: ::std::os::raw::c_int = 16384;
+pub const AAUDIO_CHANNEL_TOP_BACK_LEFT: ::std::os::raw::c_int = 32768;
+pub const AAUDIO_CHANNEL_TOP_BACK_CENTER: ::std::os::raw::c_int = 65536;
+pub const AAUDIO_CHANNEL_TOP_BACK_RIGHT: ::std::os::raw::c_int = 131072;
+pub const AAUDIO_CHANNEL_TOP_SIDE_LEFT: ::std::os::raw::c_int = 262144;
+pub const AAUDIO_CHANNEL_TOP_SIDE_RIGHT: ::std::os::raw::c_int = 524288;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_LEFT: ::std::os::raw::c_int = 1048576;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_CENTER: ::std::os::raw::c_int = 2097152;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_RIGHT: ::std::os::raw::c_int = 4194304;
+pub const AAUDIO_CHANNEL_LOW_FREQUENCY_2: ::std::os::raw::c_int = 8388608;
+pub const AAUDIO_CHANNEL_FRONT_WIDE_LEFT: ::std::os::raw::c_int = 16777216;
+pub const AAUDIO_CHANNEL_FRONT_WIDE_RIGHT: ::std::os::raw::c_int = 33554432;
+pub const AAUDIO_CHANNEL_MONO: ::std::os::raw::c_int = 1;
+pub const AAUDIO_CHANNEL_STEREO: ::std::os::raw::c_int = 3;
+pub const AAUDIO_CHANNEL_2POINT1: ::std::os::raw::c_int = 11;
+pub const AAUDIO_CHANNEL_TRI: ::std::os::raw::c_int = 7;
+pub const AAUDIO_CHANNEL_TRI_BACK: ::std::os::raw::c_int = 259;
+pub const AAUDIO_CHANNEL_3POINT1: ::std::os::raw::c_int = 15;
+pub const AAUDIO_CHANNEL_2POINT0POINT2: ::std::os::raw::c_int = 786435;
+pub const AAUDIO_CHANNEL_2POINT1POINT2: ::std::os::raw::c_int = 786443;
+pub const AAUDIO_CHANNEL_3POINT0POINT2: ::std::os::raw::c_int = 786439;
+pub const AAUDIO_CHANNEL_3POINT1POINT2: ::std::os::raw::c_int = 786447;
+pub const AAUDIO_CHANNEL_QUAD: ::std::os::raw::c_int = 51;
+pub const AAUDIO_CHANNEL_QUAD_SIDE: ::std::os::raw::c_int = 1539;
+pub const AAUDIO_CHANNEL_SURROUND: ::std::os::raw::c_int = 263;
+pub const AAUDIO_CHANNEL_PENTA: ::std::os::raw::c_int = 55;
+pub const AAUDIO_CHANNEL_5POINT1: ::std::os::raw::c_int = 63;
+pub const AAUDIO_CHANNEL_5POINT1_SIDE: ::std::os::raw::c_int = 1551;
+pub const AAUDIO_CHANNEL_6POINT1: ::std::os::raw::c_int = 319;
+pub const AAUDIO_CHANNEL_7POINT1: ::std::os::raw::c_int = 1599;
+pub const AAUDIO_CHANNEL_5POINT1POINT2: ::std::os::raw::c_int = 786495;
+pub const AAUDIO_CHANNEL_5POINT1POINT4: ::std::os::raw::c_int = 184383;
+pub const AAUDIO_CHANNEL_7POINT1POINT2: ::std::os::raw::c_int = 788031;
+pub const AAUDIO_CHANNEL_7POINT1POINT4: ::std::os::raw::c_int = 185919;
+pub const AAUDIO_CHANNEL_9POINT1POINT4: ::std::os::raw::c_int = 50517567;
+pub const AAUDIO_CHANNEL_9POINT1POINT6: ::std::os::raw::c_int = 51303999;
+pub const AAUDIO_CHANNEL_FRONT_BACK: ::std::os::raw::c_int = 260;
+pub type _bindgen_ty_59 = ::std::os::raw::c_int;
+pub type aaudio_channel_mask_t = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AAudioStreamStruct {
@@ -16605,6 +17775,18 @@ extern "C" {
     );
 }
 extern "C" {
+    pub fn AAudioStreamBuilder_setSpatializationBehavior(
+        builder: *mut AAudioStreamBuilder,
+        spatializationBehavior: aaudio_spatialization_behavior_t,
+    );
+}
+extern "C" {
+    pub fn AAudioStreamBuilder_setIsContentSpatialized(
+        builder: *mut AAudioStreamBuilder,
+        isSpatialized: bool,
+    );
+}
+extern "C" {
     pub fn AAudioStreamBuilder_setInputPreset(
         builder: *mut AAudioStreamBuilder,
         inputPreset: aaudio_input_preset_t,
@@ -16630,7 +17812,7 @@ extern "C" {
 }
 pub const AAUDIO_CALLBACK_RESULT_CONTINUE: ::std::os::raw::c_uint = 0;
 pub const AAUDIO_CALLBACK_RESULT_STOP: ::std::os::raw::c_uint = 1;
-pub type _bindgen_ty_58 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_60 = ::std::os::raw::c_uint;
 pub type aaudio_data_callback_result_t = i32;
 pub type AAudioStream_dataCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -16675,6 +17857,12 @@ extern "C" {
 }
 extern "C" {
     pub fn AAudioStreamBuilder_delete(builder: *mut AAudioStreamBuilder) -> aaudio_result_t;
+}
+extern "C" {
+    pub fn AAudioStreamBuilder_setChannelMask(
+        builder: *mut AAudioStreamBuilder,
+        channelMask: aaudio_channel_mask_t,
+    );
 }
 extern "C" {
     pub fn AAudioStream_release(stream: *mut AAudioStream) -> aaudio_result_t;
@@ -16790,6 +17978,14 @@ extern "C" {
     pub fn AAudioStream_getContentType(stream: *mut AAudioStream) -> aaudio_content_type_t;
 }
 extern "C" {
+    pub fn AAudioStream_getSpatializationBehavior(
+        stream: *mut AAudioStream,
+    ) -> aaudio_spatialization_behavior_t;
+}
+extern "C" {
+    pub fn AAudioStream_isContentSpatialized(stream: *mut AAudioStream) -> bool;
+}
+extern "C" {
     pub fn AAudioStream_getInputPreset(stream: *mut AAudioStream) -> aaudio_input_preset_t;
 }
 extern "C" {
@@ -16799,6 +17995,9 @@ extern "C" {
 }
 extern "C" {
     pub fn AAudioStream_isPrivacySensitive(stream: *mut AAudioStream) -> bool;
+}
+extern "C" {
+    pub fn AAudioStream_getChannelMask(stream: *mut AAudioStream) -> aaudio_channel_mask_t;
 }
 impl media_status_t {
     pub const AMEDIA_OK: media_status_t = media_status_t(0);
@@ -16907,11 +18106,43 @@ pub struct AMidiOutputPort {
 }
 pub const AMIDI_OPCODE_DATA: ::std::os::raw::c_uint = 1;
 pub const AMIDI_OPCODE_FLUSH: ::std::os::raw::c_uint = 2;
-pub type _bindgen_ty_59 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_61 = ::std::os::raw::c_uint;
 pub const AMIDI_DEVICE_TYPE_USB: ::std::os::raw::c_uint = 1;
 pub const AMIDI_DEVICE_TYPE_VIRTUAL: ::std::os::raw::c_uint = 2;
 pub const AMIDI_DEVICE_TYPE_BLUETOOTH: ::std::os::raw::c_uint = 3;
-pub type _bindgen_ty_60 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UMP_USE_MIDI_CI: AMidiDevice_Protocol = AMidiDevice_Protocol(0);
+}
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_1_0_UP_TO_64_BITS: AMidiDevice_Protocol =
+        AMidiDevice_Protocol(1);
+}
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_1_0_UP_TO_64_BITS_AND_JRTS: AMidiDevice_Protocol =
+        AMidiDevice_Protocol(2);
+}
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_1_0_UP_TO_128_BITS: AMidiDevice_Protocol =
+        AMidiDevice_Protocol(3);
+}
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_1_0_UP_TO_128_BITS_AND_JRTS: AMidiDevice_Protocol =
+        AMidiDevice_Protocol(4);
+}
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_2_0: AMidiDevice_Protocol = AMidiDevice_Protocol(17);
+}
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_2_0_AND_JRTS: AMidiDevice_Protocol =
+        AMidiDevice_Protocol(18);
+}
+impl AMidiDevice_Protocol {
+    pub const AMIDI_DEVICE_PROTOCOL_UNKNOWN: AMidiDevice_Protocol = AMidiDevice_Protocol(-1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AMidiDevice_Protocol(pub i32);
 extern "C" {
     pub fn AMidiDevice_fromJava(
         env: *mut JNIEnv,
@@ -16930,6 +18161,9 @@ extern "C" {
 }
 extern "C" {
     pub fn AMidiDevice_getNumOutputPorts(device: *const AMidiDevice) -> ssize_t;
+}
+extern "C" {
+    pub fn AMidiDevice_getDefaultProtocol(device: *const AMidiDevice) -> AMidiDevice_Protocol;
 }
 extern "C" {
     pub fn AMidiOutputPort_open(
@@ -17125,7 +18359,13 @@ impl acamera_metadata_section {
     pub const ACAMERA_HEIC_INFO: acamera_metadata_section = acamera_metadata_section(29);
 }
 impl acamera_metadata_section {
-    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(30);
+    pub const ACAMERA_AUTOMOTIVE: acamera_metadata_section = acamera_metadata_section(30);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_AUTOMOTIVE_LENS: acamera_metadata_section = acamera_metadata_section(31);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(32);
 }
 impl acamera_metadata_section {
     pub const ACAMERA_VENDOR: acamera_metadata_section = acamera_metadata_section(32768);
@@ -17253,6 +18493,14 @@ impl acamera_metadata_section_start {
 impl acamera_metadata_section_start {
     pub const ACAMERA_HEIC_INFO_START: acamera_metadata_section_start =
         acamera_metadata_section_start(1900544);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_AUTOMOTIVE_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(1966080);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_AUTOMOTIVE_LENS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2031616);
 }
 impl acamera_metadata_section_start {
     pub const ACAMERA_VENDOR_START: acamera_metadata_section_start =
@@ -17460,7 +18708,15 @@ impl acamera_metadata_tag {
     pub const ACAMERA_FLASH_INFO_AVAILABLE: acamera_metadata_tag = acamera_metadata_tag(327680);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_FLASH_INFO_END: acamera_metadata_tag = acamera_metadata_tag(327681);
+    pub const ACAMERA_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL: acamera_metadata_tag =
+        acamera_metadata_tag(327682);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_FLASH_INFO_STRENGTH_DEFAULT_LEVEL: acamera_metadata_tag =
+        acamera_metadata_tag(327683);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_FLASH_INFO_END: acamera_metadata_tag = acamera_metadata_tag(327684);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_HOT_PIXEL_MODE: acamera_metadata_tag = acamera_metadata_tag(393216);
@@ -17641,7 +18897,11 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(786449);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_REQUEST_END: acamera_metadata_tag = acamera_metadata_tag(786450);
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP: acamera_metadata_tag =
+        acamera_metadata_tag(786451);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_REQUEST_END: acamera_metadata_tag = acamera_metadata_tag(786452);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_SCALER_CROP_REGION: acamera_metadata_tag = acamera_metadata_tag(851968);
@@ -17705,7 +18965,11 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(851992);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_SCALER_END: acamera_metadata_tag = acamera_metadata_tag(851993);
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_USE_CASES: acamera_metadata_tag =
+        acamera_metadata_tag(851993);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_END: acamera_metadata_tag = acamera_metadata_tag(851994);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_SENSOR_EXPOSURE_TIME: acamera_metadata_tag = acamera_metadata_tag(917504);
@@ -17990,7 +19254,11 @@ impl acamera_metadata_tag {
     pub const ACAMERA_INFO_VERSION: acamera_metadata_tag = acamera_metadata_tag(1376257);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_INFO_END: acamera_metadata_tag = acamera_metadata_tag(1376258);
+    pub const ACAMERA_INFO_DEVICE_STATE_ORIENTATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1376259);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_INFO_END: acamera_metadata_tag = acamera_metadata_tag(1376260);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_BLACK_LEVEL_LOCK: acamera_metadata_tag = acamera_metadata_tag(1441792);
@@ -18120,6 +19388,18 @@ impl acamera_metadata_tag {
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835014);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION: acamera_metadata_tag = acamera_metadata_tag(1966080);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_AUTOMOTIVE_END: acamera_metadata_tag = acamera_metadata_tag(1966081);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING: acamera_metadata_tag = acamera_metadata_tag(2031616);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_AUTOMOTIVE_LENS_END: acamera_metadata_tag = acamera_metadata_tag(2031617);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -18559,6 +19839,11 @@ impl acamera_metadata_enum_acamera_control_video_stabilization_mode {
         acamera_metadata_enum_acamera_control_video_stabilization_mode =
         acamera_metadata_enum_acamera_control_video_stabilization_mode(1);
 }
+impl acamera_metadata_enum_acamera_control_video_stabilization_mode {
+    pub const ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE_PREVIEW_STABILIZATION:
+        acamera_metadata_enum_acamera_control_video_stabilization_mode =
+        acamera_metadata_enum_acamera_control_video_stabilization_mode(2);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_control_video_stabilization_mode(
@@ -18873,6 +20158,11 @@ impl acamera_metadata_enum_acamera_lens_pose_reference {
         acamera_metadata_enum_acamera_lens_pose_reference =
         acamera_metadata_enum_acamera_lens_pose_reference(2);
 }
+impl acamera_metadata_enum_acamera_lens_pose_reference {
+    pub const ACAMERA_LENS_POSE_REFERENCE_AUTOMOTIVE:
+        acamera_metadata_enum_acamera_lens_pose_reference =
+        acamera_metadata_enum_acamera_lens_pose_reference(3);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_lens_pose_reference(pub ::std::os::raw::c_uint);
@@ -18991,10 +20281,86 @@ impl acamera_metadata_enum_acamera_request_available_capabilities {
         acamera_metadata_enum_acamera_request_available_capabilities =
         acamera_metadata_enum_acamera_request_available_capabilities(16);
 }
+impl acamera_metadata_enum_acamera_request_available_capabilities {
+    pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_STREAM_USE_CASE:
+        acamera_metadata_enum_acamera_request_available_capabilities =
+        acamera_metadata_enum_acamera_request_available_capabilities(19);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_request_available_capabilities(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_request_available_capabilities as acamera_metadata_enum_android_request_available_capabilities_t;
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_STANDARD:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(1);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HLG10:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(2);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(4);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10_PLUS:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(8);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(16);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF_PO:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(32);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(64);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM_PO:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(128);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(256);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF_PO:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(512);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(1024);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM_PO:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(2048);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_MAX:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(4096);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map as acamera_metadata_enum_android_request_available_dynamic_range_profiles_map_t;
 impl acamera_metadata_enum_acamera_scaler_available_stream_configurations {
     pub const ACAMERA_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_OUTPUT:
         acamera_metadata_enum_acamera_scaler_available_stream_configurations =
@@ -19064,6 +20430,16 @@ impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configura
     pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END:
         acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
         acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(7);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_10BIT_OUTPUT:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(8);
+}
+impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
+    pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END_3_8:
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations =
+        acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(9);
 }
 impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
     pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VENDOR_START:
@@ -19157,6 +20533,42 @@ pub struct acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supporte
     pub ::std::os::raw::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported as acamera_metadata_enum_android_scaler_multi_resolution_stream_supported_t;
+impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_USE_CASES_DEFAULT:
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases =
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases(0);
+}
+impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW:
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases =
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases(1);
+}
+impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_USE_CASES_STILL_CAPTURE:
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases =
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases(2);
+}
+impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_RECORD:
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases =
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases(3);
+}
+impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW_VIDEO_STILL:
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases =
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases(4);
+}
+impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
+    pub const ACAMERA_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_CALL:
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases =
+        acamera_metadata_enum_acamera_scaler_available_stream_use_cases(5);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_scaler_available_stream_use_cases(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_scaler_available_stream_use_cases as acamera_metadata_enum_android_scaler_available_stream_use_cases_t;
 impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
     pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAYLIGHT:
         acamera_metadata_enum_acamera_sensor_reference_illuminant1 =
@@ -19736,6 +21148,144 @@ pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configuratio
     pub ::std::os::raw::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_stream_configurations_maximum_resolution_t;
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_INTERIOR:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(0);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTERIOR_OTHER:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(1);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTERIOR_FRONT:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(2);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTERIOR_REAR:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(3);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTERIOR_LEFT:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(4);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTERIOR_RIGHT:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(5);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTRA_OTHER:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(6);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTRA_FRONT:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(7);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTRA_REAR:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(8);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTRA_LEFT:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(9);
+}
+impl acamera_metadata_enum_acamera_automotive_location {
+    pub const ACAMERA_AUTOMOTIVE_LOCATION_EXTRA_RIGHT:
+        acamera_metadata_enum_acamera_automotive_location =
+        acamera_metadata_enum_acamera_automotive_location(10);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_automotive_location(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_automotive_location as acamera_metadata_enum_android_automotive_location_t;
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_EXTERIOR_OTHER:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(0);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_EXTERIOR_FRONT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(1);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_EXTERIOR_REAR:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(2);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_EXTERIOR_LEFT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(3);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_EXTERIOR_RIGHT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(4);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_OTHER:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(5);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_LEFT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(6);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_CENTER:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(7);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_RIGHT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(8);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_LEFT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(9);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_CENTER:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(10);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_RIGHT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(11);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_LEFT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(12);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_CENTER:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(13);
+}
+impl acamera_metadata_enum_acamera_automotive_lens_facing {
+    pub const ACAMERA_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_RIGHT:
+        acamera_metadata_enum_acamera_automotive_lens_facing =
+        acamera_metadata_enum_acamera_automotive_lens_facing(14);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_automotive_lens_facing(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_automotive_lens_facing as acamera_metadata_enum_android_automotive_lens_facing_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata {
@@ -19748,7 +21298,7 @@ pub const ACAMERA_TYPE_INT64: ::std::os::raw::c_uint = 3;
 pub const ACAMERA_TYPE_DOUBLE: ::std::os::raw::c_uint = 4;
 pub const ACAMERA_TYPE_RATIONAL: ::std::os::raw::c_uint = 5;
 pub const ACAMERA_NUM_TYPES: ::std::os::raw::c_uint = 6;
-pub type _bindgen_ty_61 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata_rational {
@@ -20428,7 +21978,7 @@ fn bindgen_test_layout_ACameraCaptureSession_stateCallbacks() {
 }
 pub const CAPTURE_FAILURE_REASON_FLUSHED: ::std::os::raw::c_uint = 0;
 pub const CAPTURE_FAILURE_REASON_ERROR: ::std::os::raw::c_uint = 1;
-pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureFailure {
@@ -20680,7 +22230,7 @@ fn bindgen_test_layout_ACameraCaptureSession_captureCallbacks() {
     );
 }
 pub const CAPTURE_SEQUENCE_ID_NONE: ::std::os::raw::c_int = -1;
-pub type _bindgen_ty_63 = ::std::os::raw::c_int;
+pub type _bindgen_ty_65 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ACameraCaptureSession_close(session: *mut ACameraCaptureSession);
 }
@@ -20951,6 +22501,321 @@ extern "C" {
         captureSequenceId: *mut ::std::os::raw::c_int,
     ) -> camera_status_t;
 }
+pub type ACameraCaptureSession_captureCallback_startV2 = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        session: *mut ACameraCaptureSession,
+        request: *const ACaptureRequest,
+        timestamp: i64,
+        frameNumber: i64,
+    ),
+>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ACameraCaptureSession_captureCallbacksV2 {
+    pub context: *mut ::std::os::raw::c_void,
+    pub onCaptureStarted: ACameraCaptureSession_captureCallback_startV2,
+    pub onCaptureProgressed: ACameraCaptureSession_captureCallback_result,
+    pub onCaptureCompleted: ACameraCaptureSession_captureCallback_result,
+    pub onCaptureFailed: ACameraCaptureSession_captureCallback_failed,
+    pub onCaptureSequenceCompleted: ACameraCaptureSession_captureCallback_sequenceEnd,
+    pub onCaptureSequenceAborted: ACameraCaptureSession_captureCallback_sequenceAbort,
+    pub onCaptureBufferLost: ACameraCaptureSession_captureCallback_bufferLost,
+}
+#[test]
+fn bindgen_test_layout_ACameraCaptureSession_captureCallbacksV2() {
+    assert_eq!(
+        ::std::mem::size_of::<ACameraCaptureSession_captureCallbacksV2>(),
+        64usize,
+        concat!(
+            "Size of: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ACameraCaptureSession_captureCallbacksV2>(),
+        8usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>())).context as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(context)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>())).onCaptureStarted
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureStarted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>())).onCaptureProgressed
+                as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureProgressed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>())).onCaptureCompleted
+                as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureCompleted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>())).onCaptureFailed
+                as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureFailed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>()))
+                .onCaptureSequenceCompleted as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureSequenceCompleted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>()))
+                .onCaptureSequenceAborted as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureSequenceAborted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_captureCallbacksV2>())).onCaptureBufferLost
+                as *const _ as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureBufferLost)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ACameraCaptureSession_logicalCamera_captureCallbacksV2 {
+    pub context: *mut ::std::os::raw::c_void,
+    pub onCaptureStarted: ACameraCaptureSession_captureCallback_startV2,
+    pub onCaptureProgressed: ACameraCaptureSession_captureCallback_result,
+    pub onLogicalCameraCaptureCompleted: ACameraCaptureSession_logicalCamera_captureCallback_result,
+    pub onLogicalCameraCaptureFailed: ACameraCaptureSession_logicalCamera_captureCallback_failed,
+    pub onCaptureSequenceCompleted: ACameraCaptureSession_captureCallback_sequenceEnd,
+    pub onCaptureSequenceAborted: ACameraCaptureSession_captureCallback_sequenceAbort,
+    pub onCaptureBufferLost: ACameraCaptureSession_captureCallback_bufferLost,
+}
+#[test]
+fn bindgen_test_layout_ACameraCaptureSession_logicalCamera_captureCallbacksV2() {
+    assert_eq!(
+        ::std::mem::size_of::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>(),
+        64usize,
+        concat!(
+            "Size of: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2)
+        )
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>(),
+        8usize,
+        concat!(
+            "Alignment of ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .context as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(context)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .onCaptureStarted as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureStarted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .onCaptureProgressed as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureProgressed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .onLogicalCameraCaptureCompleted as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(onLogicalCameraCaptureCompleted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .onLogicalCameraCaptureFailed as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(onLogicalCameraCaptureFailed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .onCaptureSequenceCompleted as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureSequenceCompleted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .onCaptureSequenceAborted as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureSequenceAborted)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>()))
+                .onCaptureBufferLost as *const _ as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ACameraCaptureSession_logicalCamera_captureCallbacksV2),
+            "::",
+            stringify!(onCaptureBufferLost)
+        )
+    );
+}
+extern "C" {
+    pub fn ACameraCaptureSession_captureV2(
+        session: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_captureCallbacksV2,
+        numRequests: ::std::os::raw::c_int,
+        requests: *mut *mut ACaptureRequest,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSession_setRepeatingRequestV2(
+        session: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_captureCallbacksV2,
+        numRequests: ::std::os::raw::c_int,
+        requests: *mut *mut ACaptureRequest,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSession_logicalCamera_captureV2(
+        session: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacksV2,
+        numRequests: ::std::os::raw::c_int,
+        requests: *mut *mut ACaptureRequest,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSession_logicalCamera_setRepeatingRequestV2(
+        session: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacksV2,
+        numRequests: ::std::os::raw::c_int,
+        requests: *mut *mut ACaptureRequest,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraIdList {
@@ -20995,7 +22860,7 @@ pub const ERROR_MAX_CAMERAS_IN_USE: ::std::os::raw::c_uint = 2;
 pub const ERROR_CAMERA_DISABLED: ::std::os::raw::c_uint = 3;
 pub const ERROR_CAMERA_DEVICE: ::std::os::raw::c_uint = 4;
 pub const ERROR_CAMERA_SERVICE: ::std::os::raw::c_uint = 5;
-pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
 pub type ACameraDevice_StateCallback = ::std::option::Option<
     unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, device: *mut ACameraDevice),
 >;
@@ -22346,6 +24211,15 @@ extern "C" {
     pub static mut AMEDIAFORMAT_KEY_SAMPLE_TIME_BEFORE_APPEND: *const ::std::os::raw::c_char;
 }
 extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_PICTURE_TYPE: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_VIDEO_ENCODING_STATISTICS_LEVEL: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_VIDEO_QP_AVERAGE: *const ::std::os::raw::c_char;
+}
+extern "C" {
     pub static mut AMEDIAFORMAT_VIDEO_QP_B_MAX: *const ::std::os::raw::c_char;
 }
 extern "C" {
@@ -22368,6 +24242,15 @@ extern "C" {
 }
 extern "C" {
     pub static mut AMEDIAFORMAT_VIDEO_QP_P_MIN: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_MPEGH_COMPATIBLE_SETS: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_MPEGH_PROFILE_LEVEL_INDICATION: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_MPEGH_REFERENCE_CHANNEL_LAYOUT: *const ::std::os::raw::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -22450,7 +24333,7 @@ pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: ::std::os::raw::c_int = 1;
 pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: ::std::os::raw::c_int = -3;
 pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: ::std::os::raw::c_int = -2;
 pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: ::std::os::raw::c_int = -1;
-pub type _bindgen_ty_65 = ::std::os::raw::c_int;
+pub type _bindgen_ty_67 = ::std::os::raw::c_int;
 pub type AMediaCodecOnAsyncInputAvailable = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
@@ -22558,6 +24441,14 @@ fn bindgen_test_layout_AMediaCodecOnAsyncNotifyCallback() {
         )
     );
 }
+pub type AMediaCodecOnFrameRendered = ::std::option::Option<
+    unsafe extern "C" fn(
+        codec: *mut AMediaCodec,
+        userdata: *mut ::std::os::raw::c_void,
+        mediaTimeUs: i64,
+        systemNano: i64,
+    ),
+>;
 extern "C" {
     pub fn AMediaCodec_createCodecByName(name: *const ::std::os::raw::c_char) -> *mut AMediaCodec;
 }
@@ -22716,6 +24607,13 @@ extern "C" {
     pub fn AMediaCodec_setAsyncNotifyCallback(
         arg1: *mut AMediaCodec,
         callback: AMediaCodecOnAsyncNotifyCallback,
+        userdata: *mut ::std::os::raw::c_void,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AMediaCodec_setOnFrameRenderedCallback(
+        arg1: *mut AMediaCodec,
+        callback: AMediaCodecOnFrameRendered,
         userdata: *mut ::std::os::raw::c_void,
     ) -> media_status_t;
 }
@@ -22993,6 +24891,24 @@ impl AMediaDrmKeyType {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AMediaDrmKeyType(pub ::std::os::raw::c_uint);
+impl AMediaDrmKeyRequestType {
+    pub const KEY_REQUEST_TYPE_INITIAL: AMediaDrmKeyRequestType = AMediaDrmKeyRequestType(0);
+}
+impl AMediaDrmKeyRequestType {
+    pub const KEY_REQUEST_TYPE_RENEWAL: AMediaDrmKeyRequestType = AMediaDrmKeyRequestType(1);
+}
+impl AMediaDrmKeyRequestType {
+    pub const KEY_REQUEST_TYPE_RELEASE: AMediaDrmKeyRequestType = AMediaDrmKeyRequestType(2);
+}
+impl AMediaDrmKeyRequestType {
+    pub const KEY_REQUEST_TYPE_NONE: AMediaDrmKeyRequestType = AMediaDrmKeyRequestType(3);
+}
+impl AMediaDrmKeyRequestType {
+    pub const KEY_REQUEST_TYPE_UPDATE: AMediaDrmKeyRequestType = AMediaDrmKeyRequestType(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AMediaDrmKeyRequestType(pub i32);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AMediaDrmKeyValuePair {
@@ -23171,6 +25087,22 @@ extern "C" {
         numOptionalParameters: size_t,
         keyRequest: *mut *const u8,
         keyRequestSize: *mut size_t,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AMediaDrm_getKeyRequestWithDefaultUrlAndType(
+        arg1: *mut AMediaDrm,
+        scope: *const AMediaDrmScope,
+        init: *const u8,
+        initSize: size_t,
+        mimeType: *const ::std::os::raw::c_char,
+        keyType: AMediaDrmKeyType,
+        optionalParameters: *const AMediaDrmKeyValue,
+        numOptionalParameters: size_t,
+        keyRequest: *mut *const u8,
+        keyRequestSize: *mut size_t,
+        defaultUrl: *mut *const ::std::os::raw::c_char,
+        keyRequestType: *mut AMediaDrmKeyRequestType,
     ) -> media_status_t;
 }
 extern "C" {
@@ -23493,7 +25425,7 @@ extern "C" {
 }
 pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: ::std::os::raw::c_uint = 1;
 pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: ::std::os::raw::c_uint = 2;
-pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }
