@@ -42,6 +42,8 @@ pub enum Source {
     Touchpad = ffi::AINPUT_SOURCE_TOUCHPAD,
     TouchNavigation = ffi::AINPUT_SOURCE_TOUCH_NAVIGATION,
     Joystick = ffi::AINPUT_SOURCE_JOYSTICK,
+    Hdmi = ffi::AINPUT_SOURCE_HDMI,
+    Sensor = ffi::AINPUT_SOURCE_SENSOR,
     RotaryEncoder = ffi::AINPUT_SOURCE_ROTARY_ENCODER,
     Any = ffi::AINPUT_SOURCE_ANY,
 }
