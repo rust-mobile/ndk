@@ -1,6 +1,7 @@
 # Unreleased
 
 - event: Add `tool_type` getter for `Pointer`. (#323)
+- input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
 
 # 0.7.0 (2022-07-24)
 
