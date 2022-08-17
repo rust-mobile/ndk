@@ -177,10 +177,46 @@ impl Apk {
     }
 
     pub fn install(&self) -> Result<(), NdkError> {
-        let mut adb = self.ndk.platform_tool(bin!("adb"))?;
-        adb.arg("install").arg("-r").arg(&self.path);
-        if !adb.status()?.success() {
-            return Err(NdkError::CmdFailed(adb));
+        if std::env::var("CARGO_APK_MANUAL_INSTALL")
+            .map(|var| var == "1")
+            .unwrap_or(false)
+        {
+            let dist_path = String::from("/data/local/tmp/")
+                + &self.path.file_name().unwrap().to_str().unwrap();
+            println!("Pushing {:?} to the device", &self.path);
+            {
+                let mut cmd = self.ndk.platform_tool(bin!("adb"))?;
+
+                cmd.arg("push").arg(&self.path).arg(&dist_path);
+                if !cmd.status()?.success() {
+                    return Err(NdkError::CmdFailed(cmd));
+                }
+            }
+            println!("Installing application");
+            {
+                let mut cmd = self.ndk.platform_tool(bin!("adb"))?;
+                cmd.arg("shell").arg("pm").arg("install").arg(&dist_path);
+
+                if !cmd.status()?.success() {
+                    return Err(NdkError::CmdFailed(cmd));
+                }
+            }
+            println!("Cleaning up");
+            {
+                let mut cmd = self.ndk.platform_tool(bin!("adb"))?;
+
+                cmd.arg("shell").arg("rm").arg(&dist_path);
+
+                if !cmd.status()?.success() {
+                    return Err(NdkError::CmdFailed(cmd));
+                }
+            }
+        } else {
+            let mut adb = self.ndk.platform_tool(bin!("adb"))?;
+            adb.arg("install").arg("-r").arg(&self.path);
+            if !adb.status()?.success() {
+                return Err(NdkError::CmdFailed(adb));
+            }
         }
         Ok(())
     }
