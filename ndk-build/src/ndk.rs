@@ -127,6 +127,10 @@ impl Ndk {
         &self.ndk_path
     }
 
+    pub fn ndk_gdb(&self) -> PathBuf {
+        self.ndk_path.join(cmd!("ndk-gdb"))
+    }
+
     pub fn build_tools_version(&self) -> &str {
         &self.build_tools_version
     }
@@ -378,7 +382,7 @@ impl Ndk {
     }
 
     pub fn detect_abi(&self, device_serial: Option<&str>) -> Result<Target, NdkError> {
-        let mut adb = self.platform_tool("adb")?;
+        let mut adb = self.platform_tool(bin!("adb"))?;
 
         if let Some(device_serial) = device_serial {
             adb.arg("-s").arg(device_serial);
