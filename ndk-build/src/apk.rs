@@ -192,7 +192,7 @@ impl Apk {
 
     pub fn start(&self, device_name: Option<String>) -> Result<(), NdkError> {
         let mut adb = self.ndk.platform_tool(bin!("adb"))?;
-        
+
         if let Some(device_name) = device_name {
             adb.arg("-s").arg(device_name);
         }

@@ -25,7 +25,8 @@ fn main() -> anyhow::Result<()> {
         println!("Running on {}", device_name);
     }
 
-    let cmd = Subcommand::new(new_args.into_iter(), "apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
+    let cmd = Subcommand::new(new_args.into_iter(), "apk", |_, _| Ok(false))
+        .map_err(Error::Subcommand)?;
     let builder = ApkBuilder::from_subcommand(&cmd)?;
 
     match cmd.cmd() {
@@ -37,7 +38,7 @@ fn main() -> anyhow::Result<()> {
         }
         "run" | "r" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
-           
+
             builder.run(&cmd.artifacts()[0], device_name)?;
         }
         "--" => {
