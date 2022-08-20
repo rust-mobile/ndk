@@ -234,15 +234,15 @@ impl<'a> ApkBuilder<'a> {
         Ok(apk.align()?.sign(signing_key)?)
     }
 
-    pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {
+    pub fn run(&self, artifact: &Artifact, device_name: Option<String>) -> Result<(), Error> {
         let apk = self.build(artifact)?;
-        apk.install()?;
-        apk.start()?;
+        apk.install(device_name.clone())?;
+        apk.start(device_name)?;
         Ok(())
     }
 
-    pub fn gdb(&self, artifact: &Artifact) -> Result<(), Error> {
-        self.run(artifact)?;
+    pub fn gdb(&self, artifact: &Artifact, device_name: Option<String>) -> Result<(), Error> {
+        self.run(artifact, device_name)?;
         let abi = self.ndk.detect_abi()?;
         let target_dir = self.build_dir.join(artifact);
         let jni_dir = target_dir.join("jni");

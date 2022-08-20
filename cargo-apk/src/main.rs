@@ -4,8 +4,28 @@ use std::process::Command;
 
 fn main() -> anyhow::Result<()> {
     env_logger::init();
-    let args = std::env::args();
-    let cmd = Subcommand::new(args, "apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
+    let mut args = std::env::args();
+    let mut new_args: Vec<String> = vec![];
+    let mut device_name = None;
+
+    while let Some(name) = args.next() {
+        if name == "--device" {
+            if let Some(dev_name_arg) = args.next() {
+                device_name = Some(dev_name_arg);
+            } else {
+                println!("Expected device name after `--device`");
+                return Err(Error::invalid_args().into());
+            }
+        } else {
+            new_args.push(name);
+        }
+    }
+
+    if let Some(device_name) = &device_name {
+        println!("Running on {}", device_name);
+    }
+
+    let cmd = Subcommand::new(new_args.into_iter(), "apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
     let builder = ApkBuilder::from_subcommand(&cmd)?;
 
     match cmd.cmd() {
@@ -17,14 +37,15 @@ fn main() -> anyhow::Result<()> {
         }
         "run" | "r" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
-            builder.run(&cmd.artifacts()[0])?;
+           
+            builder.run(&cmd.artifacts()[0], device_name)?;
         }
         "--" => {
             builder.default()?;
         }
         "gdb" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
-            builder.gdb(&cmd.artifacts()[0])?;
+            builder.gdb(&cmd.artifacts()[0], device_name)?;
         }
         "help" => {
             if let Some(arg) = cmd.args().get(0) {
