@@ -250,6 +250,8 @@ impl<'a> ApkBuilder<'a> {
             .ndk
             .adb(self.device_serial.as_deref())?
             .arg("logcat")
+            .arg("-v")
+            .arg("color")
             .arg("--pid")
             .arg(pid.to_string())
             .spawn()?;
