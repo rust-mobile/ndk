@@ -244,7 +244,16 @@ impl<'a> ApkBuilder<'a> {
     pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {
         let apk = self.build(artifact)?;
         apk.install(self.device_serial.as_deref())?;
-        apk.start(self.device_serial.as_deref())?;
+        let pid = apk.start(self.device_serial.as_deref())?;
+
+        let _handle = self
+            .ndk
+            .adb(self.device_serial.as_deref())?
+            .arg("logcat")
+            .arg("--pid")
+            .arg(pid.to_string())
+            .spawn()?;
+
         Ok(())
     }
 
