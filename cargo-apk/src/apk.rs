@@ -171,7 +171,7 @@ impl<'a> ApkBuilder<'a> {
             manifest,
             disable_aapt_compression: is_debug_profile,
         };
-        let apk = config.create_apk()?;
+        let mut apk = config.create_apk()?;
 
         for target in &self.build_targets {
             let triple = target.rust_triple();
@@ -231,7 +231,7 @@ impl<'a> ApkBuilder<'a> {
             (None, false) => return Err(Error::MissingReleaseKey(profile_name.to_owned())),
         };
 
-        Ok(apk.align()?.sign(signing_key)?)
+        Ok(apk.add_pending_libs_and_align()?.sign(signing_key)?)
     }
 
     pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {
