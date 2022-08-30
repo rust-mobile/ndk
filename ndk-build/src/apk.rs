@@ -2,11 +2,11 @@ use crate::error::NdkError;
 use crate::manifest::AndroidManifest;
 use crate::ndk::{Key, Ndk};
 use crate::target::Target;
+use std::collections::HashSet;
 use std::ffi::OsStr;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::collections::HashSet;
 
 pub struct ApkConfig {
     pub ndk: Ndk,
@@ -71,7 +71,7 @@ impl ApkConfig {
 
         Ok(UnalignedApk {
             config: self,
-            pending_libs: HashSet::default()
+            pending_libs: HashSet::default(),
         })
     }
 }
@@ -138,7 +138,7 @@ impl<'a> UnalignedApk<'a> {
                 return Err(NdkError::CmdFailed(aapt));
             }
         }
-        
+
         let mut zipalign = self.config.build_tool(bin!("zipalign"))?;
         zipalign
             .arg("-f")
