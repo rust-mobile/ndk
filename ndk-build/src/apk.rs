@@ -124,19 +124,21 @@ impl<'a> UnalignedApk<'a> {
     }
 
     pub fn add_pending_libs_and_align(self) -> Result<UnsignedApk<'a>, NdkError> {
+        let mut aapt = self.config.build_tool(bin!("aapt"))?;
+        aapt.arg("add");
+
+        if self.config.disable_aapt_compression {
+            aapt.arg("-0").arg("");
+        }
+
+        aapt.arg(self.config.unaligned_apk());
+
         for lib_path_unix in self.pending_libs {
-            let mut aapt = self.config.build_tool(bin!("aapt"))?;
-            aapt.arg("add");
+            aapt.arg(lib_path_unix);
+        }
 
-            if self.config.disable_aapt_compression {
-                aapt.arg("-0").arg("");
-            }
-
-            aapt.arg(self.config.unaligned_apk()).arg(lib_path_unix);
-
-            if !aapt.status()?.success() {
-                return Err(NdkError::CmdFailed(aapt));
-            }
+        if !aapt.status()?.success() {
+            return Err(NdkError::CmdFailed(aapt));
         }
 
         let mut zipalign = self.config.build_tool(bin!("zipalign"))?;
