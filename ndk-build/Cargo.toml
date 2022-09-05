@@ -1,6 +1,6 @@
 [package]
 name = "ndk-build"
-version = "0.7.0"
+version = "0.8.0"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Utilities for building Android binaries"
