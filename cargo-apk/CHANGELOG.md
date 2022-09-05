@@ -1,5 +1,7 @@
 # Unreleased
 
+- Upgrade to latest `ndk-build` to deduplicate libraries before packaging them into the APK. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))
+
 # 0.9.3 (2022-07-05)
 
 - Allow configuration of alternate debug keystore location; require keystore location for release builds. ([#299](https://github.com/rust-windowing/android-ndk-rs/pull/299))

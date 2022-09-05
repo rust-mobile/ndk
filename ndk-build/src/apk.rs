@@ -2,6 +2,7 @@ use crate::error::NdkError;
 use crate::manifest::AndroidManifest;
 use crate::ndk::{Key, Ndk};
 use crate::target::Target;
+use std::collections::HashSet;
 use std::ffi::OsStr;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -68,24 +69,30 @@ impl ApkConfig {
             return Err(NdkError::CmdFailed(aapt));
         }
 
-        Ok(UnalignedApk(self))
+        Ok(UnalignedApk {
+            config: self,
+            pending_libs: HashSet::default(),
+        })
     }
 }
 
-pub struct UnalignedApk<'a>(&'a ApkConfig);
+pub struct UnalignedApk<'a> {
+    config: &'a ApkConfig,
+    pending_libs: HashSet<String>,
+}
 
 impl<'a> UnalignedApk<'a> {
     pub fn config(&self) -> &ApkConfig {
-        self.0
+        self.config
     }
 
-    pub fn add_lib(&self, path: &Path, target: Target) -> Result<(), NdkError> {
+    pub fn add_lib(&mut self, path: &Path, target: Target) -> Result<(), NdkError> {
         if !path.exists() {
             return Err(NdkError::PathNotFound(path.into()));
         }
         let abi = target.android_abi();
         let lib_path = Path::new("lib").join(abi).join(path.file_name().unwrap());
-        let out = self.0.build_dir.join(&lib_path);
+        let out = self.config.build_dir.join(&lib_path);
         std::fs::create_dir_all(out.parent().unwrap())?;
         std::fs::copy(path, out)?;
 
@@ -94,23 +101,13 @@ impl<'a> UnalignedApk<'a> {
         // Otherwise, it results in a runtime error when loading the NativeActivity `.so` library.
         let lib_path_unix = lib_path.to_str().unwrap().replace('\\', "/");
 
-        let mut aapt = self.0.build_tool(bin!("aapt"))?;
-        aapt.arg("add");
+        self.pending_libs.insert(lib_path_unix);
 
-        if self.0.disable_aapt_compression {
-            aapt.arg("-0").arg("");
-        }
-
-        aapt.arg(self.0.unaligned_apk()).arg(lib_path_unix);
-
-        if !aapt.status()?.success() {
-            return Err(NdkError::CmdFailed(aapt));
-        }
         Ok(())
     }
 
     pub fn add_runtime_libs(
-        &self,
+        &mut self,
         path: &Path,
         target: Target,
         search_paths: &[&Path],
@@ -126,18 +123,35 @@ impl<'a> UnalignedApk<'a> {
         Ok(())
     }
 
-    pub fn align(self) -> Result<UnsignedApk<'a>, NdkError> {
-        let mut zipalign = self.0.build_tool(bin!("zipalign"))?;
+    pub fn add_pending_libs_and_align(self) -> Result<UnsignedApk<'a>, NdkError> {
+        let mut aapt = self.config.build_tool(bin!("aapt"))?;
+        aapt.arg("add");
+
+        if self.config.disable_aapt_compression {
+            aapt.arg("-0").arg("");
+        }
+
+        aapt.arg(self.config.unaligned_apk());
+
+        for lib_path_unix in self.pending_libs {
+            aapt.arg(lib_path_unix);
+        }
+
+        if !aapt.status()?.success() {
+            return Err(NdkError::CmdFailed(aapt));
+        }
+
+        let mut zipalign = self.config.build_tool(bin!("zipalign"))?;
         zipalign
             .arg("-f")
             .arg("-v")
             .arg("4")
-            .arg(self.0.unaligned_apk())
-            .arg(self.0.apk());
+            .arg(self.config.unaligned_apk())
+            .arg(self.config.apk());
         if !zipalign.status()?.success() {
             return Err(NdkError::CmdFailed(zipalign));
         }
-        Ok(UnsignedApk(self.0))
+        Ok(UnsignedApk(self.config))
     }
 }
 

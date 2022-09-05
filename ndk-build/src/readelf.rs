@@ -8,7 +8,7 @@ use std::process::Command;
 
 impl<'a> UnalignedApk<'a> {
     pub fn add_lib_recursively(
-        &self,
+        &mut self,
         lib: &Path,
         target: Target,
         search_paths: &[&Path],
