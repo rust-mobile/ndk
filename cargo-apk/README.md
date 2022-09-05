@@ -159,6 +159,11 @@ orientation = "landscape"
 # Unset by default, or "true" when targeting Android >= 31 (S and up).
 exported = "true"
 
+# See https://developer.android.com/guide/topics/manifest/activity-element#resizeableActivity
+#
+# Unset by default, or "true" when targeting Android >= 24 (Nougat and up).
+resizeable_activity = "true"
+
 # See https://developer.android.com/guide/topics/manifest/meta-data-element
 #
 # Note: there can be several .meta_data entries.
