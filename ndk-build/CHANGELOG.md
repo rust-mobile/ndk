@@ -1,5 +1,7 @@
 # Unreleased
 
+- **Breaking:** Postpone APK library packaging until before zip alignment, to deduplicate possibly overlapping entries. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))
+
 # 0.7.0 (2022-07-05)
 
 - Fix NDK r23 `-lgcc` workaround for target directories containing spaces. ([#298](https://github.com/rust-windowing/android-ndk-rs/pull/298))
