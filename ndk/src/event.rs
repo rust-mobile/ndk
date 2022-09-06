@@ -271,6 +271,20 @@ pub enum Axis {
     Generic16 = ffi::AMOTION_EVENT_AXIS_GENERIC_16,
 }
 
+/// The tool type of a pointer.
+///
+/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-48)
+#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(u32)]
+pub enum ToolType {
+    Unknown = ffi::AMOTION_EVENT_TOOL_TYPE_UNKNOWN,
+    Finger = ffi::AMOTION_EVENT_TOOL_TYPE_FINGER,
+    Stylus = ffi::AMOTION_EVENT_TOOL_TYPE_STYLUS,
+    Mouse = ffi::AMOTION_EVENT_TOOL_TYPE_MOUSE,
+    Eraser = ffi::AMOTION_EVENT_TOOL_TYPE_ERASER,
+    Palm = ffi::AMOTION_EVENT_TOOL_TYPE_PALM,
+}
+
 /// A bitfield representing the state of buttons during a motion event.
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-33)
@@ -655,6 +669,14 @@ impl<'a> Pointer<'a> {
     #[inline]
     pub fn touch_minor(&self) -> f32 {
         unsafe { ffi::AMotionEvent_getTouchMinor(self.event.as_ptr(), self.index as ffi::size_t) }
+    }
+
+    #[inline]
+    pub fn tool_type(&self) -> ToolType {
+        let tool_type = unsafe {
+            ffi::AMotionEvent_getToolType(self.event.as_ptr(), self.index as ffi::size_t) as u32
+        };
+        tool_type.try_into().unwrap()
     }
 }
 
