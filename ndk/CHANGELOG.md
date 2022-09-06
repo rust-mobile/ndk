@@ -2,6 +2,7 @@
 
 # 0.7.0 (2022-07-24)
 
+- event: Add `tool_type` getter for `Pointer`. (#323)
 - hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan. (#213)
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`). (#220)
 - Add `MediaCodec` and `MediaFormat` bindings. (#216)

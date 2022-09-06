@@ -1,7 +1,5 @@
 # Unreleased
 
-- Add `tool_type` getter for `Pointer` events. (#323)
-
 # 0.4.0 (2022-07-24)
 
 - **Breaking:** Turn `enum` type aliases into newtype wrappers. (#245, #315)
