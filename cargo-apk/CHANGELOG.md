@@ -1,6 +1,7 @@
 # Unreleased
 
 - Upgrade to latest `ndk-build` to deduplicate libraries before packaging them into the APK. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))
+- Support `android:resizeableActivity`. ([#338](https://github.com/rust-windowing/android-ndk-rs/pull/338))
 
 # 0.9.3 (2022-07-05)
 
