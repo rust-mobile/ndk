@@ -1,5 +1,7 @@
 # Unreleased
 
+- event: Add `tool_type` getter for `Pointer`. (#323)
+
 # 0.7.0 (2022-07-24)
 
 - hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan. (#213)
