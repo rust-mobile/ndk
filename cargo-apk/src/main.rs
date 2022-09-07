@@ -27,7 +27,7 @@ fn main() -> anyhow::Result<()> {
 
     let cmd = Subcommand::new(new_args.into_iter(), "apk", |_, _| Ok(false))
         .map_err(Error::Subcommand)?;
-    let builder = ApkBuilder::from_subcommand(&cmd, device_serial.clone())?;
+    let builder = ApkBuilder::from_subcommand(&cmd, device_serial)?;
 
     match cmd.cmd() {
         "check" | "c" => builder.check()?,
@@ -39,14 +39,14 @@ fn main() -> anyhow::Result<()> {
         "run" | "r" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
 
-            builder.run(&cmd.artifacts()[0], device_serial)?;
+            builder.run(&cmd.artifacts()[0])?;
         }
         "--" => {
             builder.default()?;
         }
         "gdb" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
-            builder.gdb(&cmd.artifacts()[0], device_serial)?;
+            builder.gdb(&cmd.artifacts()[0])?;
         }
         "help" => {
             if let Some(arg) = cmd.args().get(0) {

@@ -377,7 +377,7 @@ impl Ndk {
         Err(NdkError::PlatformNotFound(min_sdk_version))
     }
 
-    pub fn detect_abi(&self, device_serial: Option<String>) -> Result<Target, NdkError> {
+    pub fn detect_abi(&self, device_serial: Option<&str>) -> Result<Target, NdkError> {
         let mut adb = self.platform_tool("adb")?;
 
         if let Some(device_serial) = device_serial {
