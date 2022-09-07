@@ -7,10 +7,14 @@ fn main() -> anyhow::Result<()> {
     let args = std::env::args();
     let mut device_serial = None;
     let cmd = Subcommand::new(args, "apk", |name, value| {
-        if let ("--device", Some(value)) = (name, value) {
-            println!("Running on {}", value);
-            device_serial = Some(value.to_owned());
-            Ok(true)
+        if name == "--device" {
+            if let Some(value) = value {
+                println!("Running on {}", value);
+                device_serial = Some(value.to_owned());
+                Ok(true)
+            } else {
+                Err(cargo_subcommand::Error::InvalidArgs)
+            }
         } else {
             Ok(false)
         }
