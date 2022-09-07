@@ -17,10 +17,14 @@ pub struct ApkBuilder<'a> {
     manifest: Manifest,
     build_dir: PathBuf,
     build_targets: Vec<Target>,
+    device_serial: Option<String>,
 }
 
 impl<'a> ApkBuilder<'a> {
-    pub fn from_subcommand(cmd: &'a Subcommand) -> Result<Self, Error> {
+    pub fn from_subcommand(
+        cmd: &'a Subcommand,
+        device_serial: Option<String>,
+    ) -> Result<Self, Error> {
         let ndk = Ndk::from_env()?;
         let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
         let build_targets = if let Some(target) = cmd.target() {
@@ -28,7 +32,9 @@ impl<'a> ApkBuilder<'a> {
         } else if !manifest.build_targets.is_empty() {
             manifest.build_targets.clone()
         } else {
-            vec![ndk.detect_abi().unwrap_or(Target::Arm64V8a)]
+            vec![ndk
+                .detect_abi(device_serial.as_deref())
+                .unwrap_or(Target::Arm64V8a)]
         };
         let build_dir = dunce::simplified(cmd.target_dir())
             .join(cmd.profile())
@@ -93,6 +99,7 @@ impl<'a> ApkBuilder<'a> {
             manifest,
             build_dir,
             build_targets,
+            device_serial,
         })
     }
 
@@ -236,14 +243,14 @@ impl<'a> ApkBuilder<'a> {
 
     pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {
         let apk = self.build(artifact)?;
-        apk.install()?;
-        apk.start()?;
+        apk.install(self.device_serial.as_deref())?;
+        apk.start(self.device_serial.as_deref())?;
         Ok(())
     }
 
     pub fn gdb(&self, artifact: &Artifact) -> Result<(), Error> {
         self.run(artifact)?;
-        let abi = self.ndk.detect_abi()?;
+        let abi = self.ndk.detect_abi(self.device_serial.as_deref())?;
         let target_dir = self.build_dir.join(artifact);
         let jni_dir = target_dir.join("jni");
         std::fs::create_dir_all(&jni_dir)?;

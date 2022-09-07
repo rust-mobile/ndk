@@ -5,8 +5,22 @@ use std::process::Command;
 fn main() -> anyhow::Result<()> {
     env_logger::init();
     let args = std::env::args();
-    let cmd = Subcommand::new(args, "apk", |_, _| Ok(false)).map_err(Error::Subcommand)?;
-    let builder = ApkBuilder::from_subcommand(&cmd)?;
+    let mut device_serial = None;
+    let cmd = Subcommand::new(args, "apk", |name, value| {
+        if name == "--device" {
+            if let Some(value) = value {
+                println!("Running on {}", value);
+                device_serial = Some(value.to_owned());
+                Ok(true)
+            } else {
+                Err(cargo_subcommand::Error::InvalidArgs)
+            }
+        } else {
+            Ok(false)
+        }
+    })
+    .map_err(Error::Subcommand)?;
+    let builder = ApkBuilder::from_subcommand(&cmd, device_serial)?;
 
     match cmd.cmd() {
         "check" | "c" => builder.check()?,
@@ -70,6 +84,10 @@ SUBCOMMAND:
     run, r      Run a binary or example of the local package
     gdb         Start a gdb session attached to an adb device with symbols loaded
     version     Print the version of cargo-apk
+
+OPTIONS:
+    --device    Use device with the given serial. See `adb devices` for a list of
+                connected Android devices.
 "#
     );
 }

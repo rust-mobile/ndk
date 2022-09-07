@@ -1,6 +1,7 @@
 # Unreleased
 
 - **Breaking:** Postpone APK library packaging until before zip alignment, to deduplicate possibly overlapping entries. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))
+- Add `adb` device serial parameter to `detect_abi()` and `Apk::{install,start}()`. ([#329](https://github.com/rust-windowing/android-ndk-rs/pull/329))
 
 # 0.7.0 (2022-07-05)
 
