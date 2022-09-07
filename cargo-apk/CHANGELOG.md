@@ -1,5 +1,7 @@
 # Unreleased
 
+- Add `--device` argument to select `adb` device by serial (see `adb devices` for connected devices and their serial). ([#329](https://github.com/rust-windowing/android-ndk-rs/pull/329))
+
 # 0.9.3 (2022-07-05)
 
 - Allow configuration of alternate debug keystore location; require keystore location for release builds. ([#299](https://github.com/rust-windowing/android-ndk-rs/pull/299))
