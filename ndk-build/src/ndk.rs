@@ -378,11 +378,7 @@ impl Ndk {
     }
 
     pub fn detect_abi(&self, device_serial: Option<&str>) -> Result<Target, NdkError> {
-        let mut adb = self.platform_tool("adb")?;
-
-        if let Some(device_serial) = device_serial {
-            adb.arg("-s").arg(device_serial);
-        }
+        let mut adb = self.adb(device_serial)?;
 
         let stdout = adb
             .arg("shell")
@@ -392,6 +388,16 @@ impl Ndk {
             .stdout;
         let abi = std::str::from_utf8(&stdout).or(Err(NdkError::UnsupportedTarget))?;
         Target::from_android_abi(abi.trim())
+    }
+
+    pub fn adb(&self, device_serial: Option<&str>) -> Result<Command, NdkError> {
+        let mut adb = self.platform_tool(bin!("adb"))?;
+
+        if let Some(device_serial) = device_serial {
+            adb.arg("-s").arg(device_serial);
+        }
+
+        Ok(adb)
     }
 }
 
