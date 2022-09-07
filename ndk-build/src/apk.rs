@@ -176,11 +176,11 @@ impl Apk {
         }
     }
 
-    pub fn install(&self, device_name: Option<String>) -> Result<(), NdkError> {
+    pub fn install(&self, device_serial: Option<String>) -> Result<(), NdkError> {
         let mut adb = self.ndk.platform_tool(bin!("adb"))?;
 
-        if let Some(device_name) = device_name {
-            adb.arg("-s").arg(device_name);
+        if let Some(device_serial) = device_serial {
+            adb.arg("-s").arg(device_serial);
         }
 
         adb.arg("install").arg("-r").arg(&self.path);
@@ -190,11 +190,11 @@ impl Apk {
         Ok(())
     }
 
-    pub fn start(&self, device_name: Option<String>) -> Result<(), NdkError> {
+    pub fn start(&self, device_serial: Option<String>) -> Result<(), NdkError> {
         let mut adb = self.ndk.platform_tool(bin!("adb"))?;
 
-        if let Some(device_name) = device_name {
-            adb.arg("-s").arg(device_name);
+        if let Some(device_serial) = device_serial {
+            adb.arg("-s").arg(device_serial);
         }
 
         adb.arg("shell")

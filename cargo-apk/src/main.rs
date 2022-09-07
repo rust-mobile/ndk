@@ -6,12 +6,12 @@ fn main() -> anyhow::Result<()> {
     env_logger::init();
     let mut args = std::env::args();
     let mut new_args: Vec<String> = vec![];
-    let mut device_name = None;
+    let mut device_serial = None;
 
     while let Some(name) = args.next() {
         if name == "--device" {
             if let Some(dev_name_arg) = args.next() {
-                device_name = Some(dev_name_arg);
+                device_serial = Some(dev_name_arg);
             } else {
                 println!("Expected device name after `--device`");
                 return Err(Error::invalid_args().into());
@@ -21,13 +21,13 @@ fn main() -> anyhow::Result<()> {
         }
     }
 
-    if let Some(device_name) = &device_name {
-        println!("Running on {}", device_name);
+    if let Some(device_serial) = &device_serial {
+        println!("Running on {}", device_serial);
     }
 
     let cmd = Subcommand::new(new_args.into_iter(), "apk", |_, _| Ok(false))
         .map_err(Error::Subcommand)?;
-    let builder = ApkBuilder::from_subcommand(&cmd)?;
+    let builder = ApkBuilder::from_subcommand(&cmd, device_serial.clone())?;
 
     match cmd.cmd() {
         "check" | "c" => builder.check()?,
@@ -39,14 +39,14 @@ fn main() -> anyhow::Result<()> {
         "run" | "r" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
 
-            builder.run(&cmd.artifacts()[0], device_name)?;
+            builder.run(&cmd.artifacts()[0], device_serial)?;
         }
         "--" => {
             builder.default()?;
         }
         "gdb" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
-            builder.gdb(&cmd.artifacts()[0], device_name)?;
+            builder.gdb(&cmd.artifacts()[0], device_serial)?;
         }
         "help" => {
             if let Some(arg) = cmd.args().get(0) {
