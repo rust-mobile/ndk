@@ -1,4 +1,5 @@
 use std::io::Error as IoError;
+use std::num::ParseIntError;
 use std::path::PathBuf;
 use std::process::Command;
 use thiserror::Error;
@@ -47,4 +48,6 @@ pub enum NdkError {
     CmdFailed(Command),
     #[error(transparent)]
     Serialize(#[from] quick_xml::de::DeError),
+    #[error("String `{1}` is not a PID")]
+    NotAPid(#[source] ParseIntError, String),
 }
