@@ -31,7 +31,6 @@ fn main() -> anyhow::Result<()> {
         }
         "run" | "r" => {
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
-
             builder.run(&cmd.artifacts()[0])?;
         }
         "--" => {
@@ -87,8 +86,8 @@ SUBCOMMAND:
     version     Print the version of cargo-apk
 
 OPTIONS:
-    --device    Serial of the device to use in `adb` commands. See `adb devices`
-                for a list of connected Android devices.
+    --device    Use device with the given serial. See `adb devices` for a list of
+                connected Android devices.
 "#
     );
 }
