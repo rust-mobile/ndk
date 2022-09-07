@@ -246,15 +246,14 @@ impl<'a> ApkBuilder<'a> {
         apk.install(self.device_serial.as_deref())?;
         let pid = apk.start(self.device_serial.as_deref())?;
 
-        let _handle = self
-            .ndk
+        self.ndk
             .adb(self.device_serial.as_deref())?
             .arg("logcat")
             .arg("-v")
             .arg("color")
             .arg("--pid")
             .arg(pid.to_string())
-            .spawn()?;
+            .status()?;
 
         Ok(())
     }
