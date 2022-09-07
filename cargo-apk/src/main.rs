@@ -92,6 +92,10 @@ SUBCOMMAND:
     run, r      Run a binary or example of the local package
     gdb         Start a gdb session attached to an adb device with symbols loaded
     version     Print the version of cargo-apk
+
+OPTIONS:
+    --device    Serial of the device to use in `adb` commands. See `adb devices`
+                for a list of connected Android devices.
 "#
     );
 }
