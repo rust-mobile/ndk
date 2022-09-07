@@ -4,29 +4,18 @@ use std::process::Command;
 
 fn main() -> anyhow::Result<()> {
     env_logger::init();
-    let mut args = std::env::args();
-    let mut new_args: Vec<String> = vec![];
+    let args = std::env::args();
     let mut device_serial = None;
-
-    while let Some(name) = args.next() {
-        if name == "--device" {
-            if let Some(dev_name_arg) = args.next() {
-                device_serial = Some(dev_name_arg);
-            } else {
-                println!("Expected device name after `--device`");
-                return Err(Error::invalid_args().into());
-            }
+    let cmd = Subcommand::new(args, "apk", |name, value| {
+        if let ("--device", Some(value)) = (name, value) {
+            println!("Running on {}", value);
+            device_serial = Some(value.to_owned());
+            Ok(true)
         } else {
-            new_args.push(name);
+            Ok(false)
         }
-    }
-
-    if let Some(device_serial) = &device_serial {
-        println!("Running on {}", device_serial);
-    }
-
-    let cmd = Subcommand::new(new_args.into_iter(), "apk", |_, _| Ok(false))
-        .map_err(Error::Subcommand)?;
+    })
+    .map_err(Error::Subcommand)?;
     let builder = ApkBuilder::from_subcommand(&cmd, device_serial)?;
 
     match cmd.cmd() {
