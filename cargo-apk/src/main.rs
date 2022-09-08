@@ -6,8 +6,9 @@ fn main() -> anyhow::Result<()> {
     env_logger::init();
     let args = std::env::args();
     let mut device_serial = None;
-    let cmd = Subcommand::new(args, "apk", |name, value| {
-        if name == "--device" {
+    let mut no_logcat = false;
+    let cmd = Subcommand::new(args, "apk", |name, value| match name {
+        "--device" => {
             if let Some(value) = value {
                 println!("Running on {}", value);
                 device_serial = Some(value.to_owned());
@@ -15,12 +16,15 @@ fn main() -> anyhow::Result<()> {
             } else {
                 Err(cargo_subcommand::Error::InvalidArgs)
             }
-        } else {
-            Ok(false)
         }
+        "--no-logcat" => {
+            no_logcat = true;
+            Ok(true)
+        }
+        _ => Ok(false),
     })
     .map_err(Error::Subcommand)?;
-    let builder = ApkBuilder::from_subcommand(&cmd, device_serial)?;
+    let builder = ApkBuilder::from_subcommand(&cmd, device_serial, no_logcat)?;
 
     match cmd.cmd() {
         "check" | "c" => builder.check()?,
@@ -79,15 +83,18 @@ USAGE:
     cargo apk [SUBCOMMAND]
 
 SUBCOMMAND:
-    check, c    Checks that the current package builds without creating an apk
-    build, b    Compiles the current package and creates an apk
-    run, r      Run a binary or example of the local package
-    gdb         Start a gdb session attached to an adb device with symbols loaded
-    version     Print the version of cargo-apk
+    check, c            Checks that the current package builds without creating an apk
+    build, b            Compiles the current package and creates an apk
+    run, r              Run a binary or example of the local package
+    gdb                 Start a gdb session attached to an adb device with symbols loaded
+    version             Print the version of cargo-apk
+
+FLAGS:
+    --no-logcat         Don't print and follow `logcat` after running the application.
 
 OPTIONS:
-    --device    Use device with the given serial. See `adb devices` for a list of
-                connected Android devices.
+    --device <serial>   Use device with the given serial. See `adb devices` for a list of
+                        connected Android devices.
 "#
     );
 }

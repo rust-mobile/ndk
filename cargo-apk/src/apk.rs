@@ -18,12 +18,14 @@ pub struct ApkBuilder<'a> {
     build_dir: PathBuf,
     build_targets: Vec<Target>,
     device_serial: Option<String>,
+    no_logcat: bool,
 }
 
 impl<'a> ApkBuilder<'a> {
     pub fn from_subcommand(
         cmd: &'a Subcommand,
         device_serial: Option<String>,
+        no_logcat: bool,
     ) -> Result<Self, Error> {
         let ndk = Ndk::from_env()?;
         let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
@@ -100,6 +102,7 @@ impl<'a> ApkBuilder<'a> {
             build_dir,
             build_targets,
             device_serial,
+            no_logcat,
         })
     }
 
@@ -244,7 +247,19 @@ impl<'a> ApkBuilder<'a> {
     pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {
         let apk = self.build(artifact)?;
         apk.install(self.device_serial.as_deref())?;
-        apk.start(self.device_serial.as_deref())?;
+        let pid = apk.start(self.device_serial.as_deref())?;
+
+        if !self.no_logcat {
+            self.ndk
+                .adb(self.device_serial.as_deref())?
+                .arg("logcat")
+                .arg("-v")
+                .arg("color")
+                .arg("--pid")
+                .arg(pid.to_string())
+                .status()?;
+        }
+
         Ok(())
     }
 
