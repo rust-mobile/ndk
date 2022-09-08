@@ -18,6 +18,16 @@ macro_rules! bat {
     };
 }
 
+macro_rules! cmd {
+    ($cmd:expr) => {
+        if cfg!(target_os = "windows") {
+            concat!($cmd, ".cmd")
+        } else {
+            $cmd
+        }
+    };
+}
+
 pub mod apk;
 pub mod cargo;
 pub mod dylibs;

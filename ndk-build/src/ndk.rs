@@ -127,6 +127,10 @@ impl Ndk {
         &self.ndk_path
     }
 
+    pub fn ndk_gdb(&self) -> PathBuf {
+        self.ndk_path.join(cmd!("ndk-gdb"))
+    }
+
     pub fn build_tools_version(&self) -> &str {
         &self.build_tools_version
     }

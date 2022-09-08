@@ -273,7 +273,7 @@ impl<'a> ApkBuilder<'a> {
             jni_dir.join("Android.mk"),
             format!("APP_ABI=\"{}\"\nTARGET_OUT=\"\"\n", abi.android_abi()),
         )?;
-        Command::new(self.ndk.ndk().join("ndk-gdb"))
+        Command::new(self.ndk.ndk_gdb())
             .current_dir(target_dir)
             .status()?;
         Ok(())
