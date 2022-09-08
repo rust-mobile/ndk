@@ -191,11 +191,7 @@ impl Apk {
     }
 
     pub fn install(&self, device_serial: Option<&str>) -> Result<(), NdkError> {
-        let mut adb = self.ndk.platform_tool(bin!("adb"))?;
-
-        if let Some(device_serial) = device_serial {
-            adb.arg("-s").arg(device_serial);
-        }
+        let mut adb = self.ndk.adb(device_serial)?;
 
         adb.arg("install").arg("-r").arg(&self.path);
         if !adb.status()?.success() {
@@ -204,23 +200,37 @@ impl Apk {
         Ok(())
     }
 
-    pub fn start(&self, device_serial: Option<&str>) -> Result<(), NdkError> {
-        let mut adb = self.ndk.platform_tool(bin!("adb"))?;
-
-        if let Some(device_serial) = device_serial {
-            adb.arg("-s").arg(device_serial);
-        }
-
-        adb.arg("shell")
+    pub fn start(&self, device_serial: Option<&str>) -> Result<u32, NdkError> {
+        let mut am_start = self.ndk.adb(device_serial)?;
+        am_start
+            .arg("shell")
             .arg("am")
             .arg("start")
+            .arg("-W")
             .arg("-a")
             .arg("android.intent.action.MAIN")
             .arg("-n")
             .arg(format!("{}/android.app.NativeActivity", &self.package_name));
-        if !adb.status()?.success() {
-            return Err(NdkError::CmdFailed(adb));
+        if !am_start.status()?.success() {
+            return Err(NdkError::CmdFailed(am_start));
         }
-        Ok(())
+
+        let pid_vec = self
+            .ndk
+            .adb(device_serial)?
+            .arg("shell")
+            .arg("pidof")
+            .arg(&self.package_name)
+            .output()?
+            .stdout;
+
+        let pid = std::str::from_utf8(&pid_vec).unwrap().trim();
+        let pid: u32 = pid
+            .parse()
+            .map_err(|e| NdkError::NotAPid(e, pid.to_owned()))?;
+
+        println!("Launched with PID {}", pid);
+
+        Ok(pid)
     }
 }
