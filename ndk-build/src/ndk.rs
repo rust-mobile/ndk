@@ -151,12 +151,20 @@ impl Ndk {
         Ok(Command::new(dunce::canonicalize(path)?))
     }
 
-    pub fn platform_tool(&self, tool: &str) -> Result<Command, NdkError> {
+    pub fn platform_tool_path(&self, tool: &str) -> Result<PathBuf, NdkError> {
         let path = self.sdk_path.join("platform-tools").join(tool);
         if !path.exists() {
             return Err(NdkError::CmdNotFound(tool.to_string()));
         }
-        Ok(Command::new(dunce::canonicalize(path)?))
+        Ok(dunce::canonicalize(path)?)
+    }
+
+    pub fn adb_path(&self) -> Result<PathBuf, NdkError> {
+        self.platform_tool_path(bin!("adb"))
+    }
+
+    pub fn platform_tool(&self, tool: &str) -> Result<Command, NdkError> {
+        Ok(Command::new(self.platform_tool_path(tool)?))
     }
 
     pub fn highest_supported_platform(&self) -> u32 {
@@ -316,7 +324,11 @@ impl Ndk {
             ndk_gdb.arg("-s").arg(device_serial);
         }
 
-        ndk_gdb.current_dir(launch_dir).status()?;
+        ndk_gdb
+            .arg("--adb")
+            .arg(self.adb_path()?)
+            .current_dir(launch_dir)
+            .status()?;
         Ok(())
     }
 
@@ -429,7 +441,7 @@ impl Ndk {
     }
 
     pub fn adb(&self, device_serial: Option<&str>) -> Result<Command, NdkError> {
-        let mut adb = self.platform_tool(bin!("adb"))?;
+        let mut adb = Command::new(self.adb_path()?);
 
         if let Some(device_serial) = device_serial {
             adb.arg("-s").arg(device_serial);
