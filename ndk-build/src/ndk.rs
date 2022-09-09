@@ -309,6 +309,7 @@ impl Ndk {
     pub fn ndk_gdb(
         &self,
         launch_dir: impl AsRef<Path>,
+        launch_activity: &str,
         device_serial: Option<&str>,
     ) -> Result<(), NdkError> {
         let abi = self.detect_abi(device_serial)?;
@@ -327,6 +328,8 @@ impl Ndk {
         ndk_gdb
             .arg("--adb")
             .arg(self.adb_path()?)
+            .arg("--launch")
+            .arg(launch_activity)
             .current_dir(launch_dir)
             .status()?;
         Ok(())

@@ -25,10 +25,6 @@ fn main() -> anyhow::Result<()> {
     })
     .map_err(Error::Subcommand)?;
 
-    if cmd.cmd() == "gdb" {
-        no_logcat = true;
-    }
-
     let builder = ApkBuilder::from_subcommand(&cmd, device_serial, no_logcat)?;
 
     match cmd.cmd() {

@@ -263,10 +263,15 @@ impl<'a> ApkBuilder<'a> {
     }
 
     pub fn gdb(&self, artifact: &Artifact) -> Result<(), Error> {
-        self.run(artifact)?;
+        let apk = self.build(artifact)?;
+        apk.install(self.device_serial.as_deref())?;
+
         let target_dir = self.build_dir.join(artifact);
-        self.ndk
-            .ndk_gdb(&target_dir, self.device_serial.as_deref())?;
+        self.ndk.ndk_gdb(
+            &target_dir,
+            "android.app.NativeActivity",
+            self.device_serial.as_deref(),
+        )?;
         Ok(())
     }
 
