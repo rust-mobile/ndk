@@ -316,7 +316,7 @@ impl Ndk {
         std::fs::create_dir_all(&jni_dir)?;
         std::fs::write(
             jni_dir.join("Android.mk"),
-            format!("APP_ABI=\"{}\"\nTARGET_OUT=\"\"\n", abi.android_abi()),
+            format!("APP_ABI={}\nTARGET_OUT=\n", abi.android_abi()),
         )?;
         let mut ndk_gdb = Command::new(self.prebuilt_dir()?.join("bin").join(cmd!("ndk-gdb")));
 

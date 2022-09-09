@@ -6,6 +6,7 @@
 - `start()` now returns the PID of the started app process (useful for passing to `adb logcat --pid`). ([#331](https://github.com/rust-windowing/android-ndk-rs/pull/331))
 - Inherit `ndk_gdb()` function from `cargo-apk` with the appropriate script extension across platforms. ([#330](https://github.com/rust-windowing/android-ndk-rs/pull/330), [#258](https://github.com/rust-windowing/android-ndk-rs/pull/258))
 - Provide `adb` path to `ndk-gdb`, allowing it to run without `adb` in `PATH`. ([#343](https://github.com/rust-windowing/android-ndk-rs/pull/343))
+- Remove quotes from `Android.mk` to fix `ndk-gdb` on Windows. ([#344](https://github.com/rust-windowing/android-ndk-rs/pull/344))
 
 # 0.7.0 (2022-07-05)
 
