@@ -7,6 +7,7 @@ use std::process::Command;
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Ndk {
     sdk_path: PathBuf,
+    user_home: PathBuf,
     ndk_path: PathBuf,
     build_tools_version: String,
     build_tag: u32,
@@ -30,6 +31,29 @@ impl Ndk {
                     .or_else(|| std::env::var("ANDROID_HOME").ok())
                     .ok_or(NdkError::SdkNotFound)?,
             )
+        };
+
+        let user_home = {
+            let user_home = std::env::var("ANDROID_SDK_HOME")
+                .map(PathBuf::from)
+                // Unlike ANDROID_USER_HOME, ANDROID_SDK_HOME points to the _parent_ directory of .android:
+                // https://developer.android.com/studio/command-line/variables#envar
+                .map(|home| home.join(".android"))
+                .ok();
+
+            if user_home.is_some() {
+                eprintln!(
+                    "Warning: Environment variable ANDROID_SDK_HOME is deprecated \
+                    (https://developer.android.com/studio/command-line/variables#envar). \
+                    It will be used until it is unset and replaced by ANDROID_USER_HOME."
+                );
+            }
+
+            // Default to $HOME/.android
+            user_home
+                .or_else(|| std::env::var("ANDROID_USER_HOME").map(PathBuf::from).ok())
+                .or_else(|| dirs::home_dir().map(|home| home.join(".android")))
+                .ok_or_else(|| NdkError::PathNotFound(PathBuf::from("$HOME")))?
         };
 
         let ndk_path = {
@@ -114,6 +138,7 @@ impl Ndk {
 
         Ok(Self {
             sdk_path,
+            user_home,
             ndk_path,
             build_tools_version,
             build_tag,
@@ -337,12 +362,10 @@ impl Ndk {
         Ok(())
     }
 
-    pub fn android_dir(&self) -> Result<PathBuf, NdkError> {
-        let android_dir = dirs::home_dir()
-            .ok_or_else(|| NdkError::PathNotFound(PathBuf::from("$HOME")))?
-            .join(".android");
-        std::fs::create_dir_all(&android_dir)?;
-        Ok(android_dir)
+    pub fn android_user_home(&self) -> Result<PathBuf, NdkError> {
+        let android_user_home = self.user_home.clone();
+        std::fs::create_dir_all(&android_user_home)?;
+        Ok(android_user_home)
     }
 
     pub fn keytool(&self) -> Result<Command, NdkError> {
@@ -359,7 +382,7 @@ impl Ndk {
     }
 
     pub fn debug_key(&self) -> Result<Key, NdkError> {
-        let path = self.android_dir()?.join("debug.keystore");
+        let path = self.android_user_home()?.join("debug.keystore");
         let password = "android".to_string();
         if !path.exists() {
             let mut keytool = self.keytool()?;

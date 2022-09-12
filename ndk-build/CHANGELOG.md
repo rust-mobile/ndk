@@ -9,6 +9,7 @@
 - Remove quotes from `Android.mk` to fix `ndk-gdb` on Windows. ([#344](https://github.com/rust-windowing/android-ndk-rs/pull/344))
 - Launch Android activity through `ndk-gdb` to block app start until the debugger is attached. ([#345](https://github.com/rust-windowing/android-ndk-rs/pull/345))
 - Consider `ANDROID_SDK_ROOT` as deprecated instead of `ANDROID_HOME`. ([#346](https://github.com/rust-windowing/android-ndk-rs/pull/346))
+- **Breaking:** Rename `fn android_dir()` to `fn android_user_home()` and seed with `ANDROID_SDK_HOME` or `ANDROID_USER_HOME`. ([#347](https://github.com/rust-windowing/android-ndk-rs/pull/347))
 
 # 0.7.0 (2022-07-05)
 
