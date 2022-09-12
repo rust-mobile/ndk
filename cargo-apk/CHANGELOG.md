@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.9.4 (2022-09-12)
+
 - Upgrade to latest `ndk-build` to deduplicate libraries before packaging them into the APK. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))
 - Support `android:resizeableActivity`. ([#338](https://github.com/rust-windowing/android-ndk-rs/pull/338))
 - Add `--device` argument to select `adb` device by serial (see `adb devices` for connected devices and their serial). ([#329](https://github.com/rust-windowing/android-ndk-rs/pull/329))

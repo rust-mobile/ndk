@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.8.0 (2022-09-12)
+
 - **Breaking:** Postpone APK library packaging until before zip alignment, to deduplicate possibly overlapping entries. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))
 - Add `adb` device serial parameter to `detect_abi()` and `Apk::{install,start}()`. ([#329](https://github.com/rust-windowing/android-ndk-rs/pull/329))
 - Fix missing `.exe` extension for `adb` on Windows inside `detect_abi()`. ([#339](https://github.com/rust-windowing/android-ndk-rs/pull/339))
