@@ -16,18 +16,20 @@ pub struct Ndk {
 impl Ndk {
     pub fn from_env() -> Result<Self, NdkError> {
         let sdk_path = {
-            let mut sdk_path = std::env::var("ANDROID_HOME").ok();
+            let sdk_path = std::env::var("ANDROID_SDK_ROOT").ok();
             if sdk_path.is_some() {
-                println!(
-                    "Warning: You use environment variable ANDROID_HOME that is deprecated. \
-                 Please, remove it and use ANDROID_SDK_ROOT instead. Now ANDROID_HOME is used"
+                eprintln!(
+                    "Warning: Environment variable ANDROID_SDK_ROOT is deprecated \
+                    (https://developer.android.com/studio/command-line/variables#envar). \
+                    It will be used until it is unset and replaced by ANDROID_HOME."
                 );
             }
-            if sdk_path.is_none() {
-                sdk_path = std::env::var("ANDROID_SDK_ROOT").ok();
-            }
 
-            PathBuf::from(sdk_path.ok_or(NdkError::SdkNotFound)?)
+            PathBuf::from(
+                sdk_path
+                    .or_else(|| std::env::var("ANDROID_HOME").ok())
+                    .ok_or(NdkError::SdkNotFound)?,
+            )
         };
 
         let ndk_path = {
