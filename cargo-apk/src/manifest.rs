@@ -17,6 +17,7 @@ pub(crate) struct Manifest {
     pub(crate) runtime_libs: Option<PathBuf>,
     /// Maps profiles to keystores
     pub(crate) signing: HashMap<String, Signing>,
+    pub(crate) reverse_port_fwd: HashMap<String, String>,
 }
 
 impl Manifest {
@@ -38,6 +39,7 @@ impl Manifest {
             resources: metadata.resources,
             runtime_libs: metadata.runtime_libs,
             signing: metadata.signing,
+            reverse_port_fwd: metadata.reverse_port_fwd,
         })
     }
 }
@@ -71,6 +73,9 @@ struct AndroidMetadata {
     /// Maps profiles to keystores
     #[serde(default)]
     signing: HashMap<String, Signing>,
+    /// Set up reverse port forwarding before the application launches
+    #[serde(default)]
+    reverse_port_fwd: HashMap<String, String>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
