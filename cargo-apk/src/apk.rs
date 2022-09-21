@@ -17,14 +17,12 @@ pub struct ApkBuilder<'a> {
     build_dir: PathBuf,
     build_targets: Vec<Target>,
     device_serial: Option<String>,
-    no_logcat: bool,
 }
 
 impl<'a> ApkBuilder<'a> {
     pub fn from_subcommand(
         cmd: &'a Subcommand,
         device_serial: Option<String>,
-        no_logcat: bool,
     ) -> Result<Self, Error> {
         let ndk = Ndk::from_env()?;
         let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
@@ -101,7 +99,6 @@ impl<'a> ApkBuilder<'a> {
             build_dir,
             build_targets,
             device_serial,
-            no_logcat,
         })
     }
 
@@ -239,12 +236,12 @@ impl<'a> ApkBuilder<'a> {
         Ok(apk.add_pending_libs_and_align()?.sign(signing_key)?)
     }
 
-    pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {
+    pub fn run(&self, artifact: &Artifact, no_logcat: bool) -> Result<(), Error> {
         let apk = self.build(artifact)?;
         apk.install(self.device_serial.as_deref())?;
         let pid = apk.start(self.device_serial.as_deref())?;
 
-        if !self.no_logcat {
+        if !no_logcat {
             self.ndk
                 .adb(self.device_serial.as_deref())?
                 .arg("logcat")
@@ -268,34 +265,6 @@ impl<'a> ApkBuilder<'a> {
             "android.app.NativeActivity",
             self.device_serial.as_deref(),
         )?;
-        Ok(())
-    }
-
-    // pub fn default(&self, task: &str) -> Result<(), Error> {
-    //     let ndk = Ndk::from_env()?;
-    //     for target in &self.build_targets {
-    //         let mut cargo = cargo_ndk(&ndk, *target, self.min_sdk_version())?;
-    //         cargo.arg(task);
-    //         self.cmd.args().apply(&mut cargo);
-    /* pub */ fn default(&self) -> Result<(), Error> {
-        for target in &self.build_targets {
-            let mut cargo = cargo_ndk(
-                &self.ndk,
-                *target,
-                self.min_sdk_version(),
-                self.cmd.target_dir(),
-            )?;
-            self.cmd.args().apply(&mut cargo);
-
-            if self.cmd.target().is_none() {
-                let triple = target.rust_triple();
-                cargo.arg("--target").arg(triple);
-            }
-
-            if !cargo.status()?.success() {
-                return Err(NdkError::CmdFailed(cargo).into());
-            }
-        }
         Ok(())
     }
 

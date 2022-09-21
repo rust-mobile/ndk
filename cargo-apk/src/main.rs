@@ -1,5 +1,5 @@
 use cargo_apk::{ApkBuilder, Error};
-use cargo_subcommand::{Args, Subcommand};
+use cargo_subcommand::Subcommand;
 use clap::Parser;
 
 #[derive(Parser)]
@@ -18,9 +18,12 @@ enum ApkCmd {
 }
 
 #[derive(Parser)]
-struct SelectArgs {
-    /// Use device with the given serial. See `adb devices` for a list of connected Android devices.
-    device: String,
+struct Args {
+    #[clap(flatten)]
+    subcommand_args: cargo_subcommand::Args,
+    /// Use device with the given serial (see `adb devices`)
+    #[clap(short, long)]
+    device: Option<String>,
 }
 
 #[derive(clap::Subcommand)]
@@ -39,16 +42,17 @@ enum ApkSubCmd {
     Run {
         #[clap(flatten)]
         args: Args,
-
-        // /// "Don't print and follow `logcat` after running the application.
-        // no_logcat: bool,
+        /// Do not print `logcat` after running the application
+        #[clap(short, long)]
+        no_logcat: bool,
     },
     /// Start a gdb session attached to an adb device with symbols loaded
     Gdb {
         #[clap(flatten)]
         args: Args,
     },
-    Version {},
+    /// Print the version of cargo-apk
+    Version,
     // TODO:
     // Test {}
     // Doc {}
@@ -61,30 +65,30 @@ fn main() -> anyhow::Result<()> {
     } = Cmd::parse();
     match cmd {
         ApkSubCmd::Check { args } => {
-            let cmd = Subcommand::new(args)?;
-            let builder = ApkBuilder::from_subcommand(&cmd)?;
+            let cmd = Subcommand::new(args.subcommand_args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd, args.device)?;
             builder.check()?;
         }
         ApkSubCmd::Build { args } => {
-            let cmd = Subcommand::new(args)?;
-            let builder = ApkBuilder::from_subcommand(&cmd)?;
+            let cmd = Subcommand::new(args.subcommand_args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd, args.device)?;
             for artifact in cmd.artifacts() {
                 builder.build(artifact)?;
             }
         }
-        ApkSubCmd::Run { args } => {
-            let cmd = Subcommand::new(args)?;
-            let builder = ApkBuilder::from_subcommand(&cmd)?;
+        ApkSubCmd::Run { args, no_logcat } => {
+            let cmd = Subcommand::new(args.subcommand_args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd, args.device)?;
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
-            builder.run(&cmd.artifacts()[0])?;
+            builder.run(&cmd.artifacts()[0], no_logcat)?;
         }
         ApkSubCmd::Gdb { args } => {
-            let cmd = Subcommand::new(args)?;
-            let builder = ApkBuilder::from_subcommand(&cmd)?;
+            let cmd = Subcommand::new(args.subcommand_args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd, args.device)?;
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
             builder.gdb(&cmd.artifacts()[0])?;
         }
-        ApkSubCmd::Version {} => {
+        ApkSubCmd::Version => {
             println!("{} {}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"));
         }
     }
