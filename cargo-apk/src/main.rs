@@ -10,7 +10,7 @@ struct Cmd {
 
 #[derive(clap::Subcommand)]
 enum ApkCmd {
-    /// Helps cargo build apk's for android
+    /// Helps cargo build apks for Android
     Apk {
         #[clap(subcommand)]
         cmd: ApkSubCmd,
@@ -28,24 +28,24 @@ struct Args {
 
 #[derive(clap::Subcommand)]
 enum ApkSubCmd {
-    /// Checks that the current package builds without creating an apk
+    /// Analyze the current package and report errors, but don't build object files nor an apk
     #[clap(visible_alias = "c")]
     Check {
         #[clap(flatten)]
         args: Args,
     },
-    /// Compiles the current package and creates an apk
+    /// Compile the current package and create an apk
     #[clap(visible_alias = "b")]
     Build {
         #[clap(flatten)]
         args: Args,
     },
-    /// Run a binary or example of the local package
+    /// Run a binary or example apk of the local package
     #[clap(visible_alias = "r")]
     Run {
         #[clap(flatten)]
         args: Args,
-        /// Do not print `logcat` after running the application
+        /// Do not print or follow `logcat` after running the app
         #[clap(short, long)]
         no_logcat: bool,
     },
