@@ -1,12 +1,25 @@
 # Unreleased
 
+# 0.7.0 (2022-07-24)
+
+- **Breaking:** Provide a `LockReadGuard` newtype around `NativeWindow`/`InputQueue` to hide the underlying lock implementation. (#288)
+- **Breaking:** Transpose `LockReadGuard<Option<T>>` into `Option<LockReadGuard<T>>` to only necessitate an `Option` unpack/`unwrap()` once. (#282)
+
+# 0.6.2 (2022-04-19)
+
+- Call `ndk_context::release_android_context()` function to remove `AndroidContext` when activity is destroyed. (#263)
+
 # 0.6.1 (2022-02-14)
 
 - Initialize `ndk-context` for cross-version access to the Java `VM` and Android `Context`.
 
 # 0.6.0 (2022-01-05)
 
-- **Breaking:** Update to `ndk-sys 0.3.0` and `ndk 0.6.0`.
+- **Breaking:** Update to `ndk-sys 0.3.0` and `ndk 0.6.0`. (#214)
+
+# 0.5.2 (2022-04-19)
+
+- Call `ndk_context::release_android_context()` function to remove `AndroidContext` when activity is destroyed. (#263)
 
 # 0.5.1 (2022-02-15)
 
@@ -16,6 +29,10 @@
 
 - Document when to lock and unlock the window/input queue when certain events are received.
 - **Breaking:** Update to `ndk 0.5.0` and `ndk-macros 0.3.0`.
+
+# 0.4.2 (2022-04-19)
+
+- Call `ndk_context::release_android_context()` function to remove `AndroidContext` when activity is destroyed. (#263)
 
 # 0.4.1 (2022-02-15)
 

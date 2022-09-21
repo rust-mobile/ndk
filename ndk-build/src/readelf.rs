@@ -8,7 +8,7 @@ use std::process::Command;
 
 impl<'a> UnalignedApk<'a> {
     pub fn add_lib_recursively(
-        &self,
+        &mut self,
         lib: &Path,
         target: Target,
         search_paths: &[&Path],
@@ -31,7 +31,9 @@ impl<'a> UnalignedApk<'a> {
         let mut provided = HashSet::new();
         for path in &android_search_paths {
             for lib in list_libs(path)? {
-                provided.insert(lib);
+                if lib != "libc++_shared.so" {
+                    provided.insert(lib);
+                }
             }
         }
 
@@ -51,8 +53,9 @@ impl<'a> UnalignedApk<'a> {
                 };
 
                 if let Some(path) = find_library_path(search_paths, &need)? {
-                    provided.insert(path.file_name().unwrap().to_str().unwrap().to_string());
-                    artifacts.push(path);
+                    if provided.insert(path.file_name().unwrap().to_str().unwrap().to_string()) {
+                        artifacts.push(path);
+                    }
                 } else {
                     eprintln!("Shared library \"{}\" not found.", need);
                 }

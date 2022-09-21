@@ -1,4 +1,5 @@
 use std::io::Error as IoError;
+use std::num::ParseIntError;
 use std::path::PathBuf;
 use std::process::Command;
 use thiserror::Error;
@@ -39,12 +40,14 @@ pub enum NdkError {
     UnsupportedHost(String),
     #[error(transparent)]
     Io(#[from] IoError),
-    #[error("{0:?}: `{1}`")]
-    IoPathError(#[source] IoError, PathBuf),
+    #[error("IoError on `{0:?}`: {1}")]
+    IoPathError(PathBuf, #[source] IoError),
     #[error("Invalid semver")]
     InvalidSemver,
     #[error("Command `{}` had a non-zero exit code.", format!("{:?}", .0).replace('"', ""))]
     CmdFailed(Command),
     #[error(transparent)]
     Serialize(#[from] quick_xml::de::DeError),
+    #[error("String `{1}` is not a PID")]
+    NotAPid(#[source] ParseIntError, String),
 }

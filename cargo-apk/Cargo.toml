@@ -1,6 +1,6 @@
 [package]
 name = "cargo-apk"
-version = "0.8.2"
+version = "0.9.4"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Helps cargo build APKs"
@@ -11,13 +11,13 @@ homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
 
 [dependencies]
-anyhow = "1.0.38"
-cargo-subcommand = { git = "https://github.com/dvc94ch/cargo-subcommand", branch = "refactoring" }
-clap = { version = "3.1.6", features = ["derive"] }
-dunce = "1.0.1"
-env_logger = "0.8.2"
-log = "0.4.14"
-ndk-build = { path = "../ndk-build", version = "0.4.3" }
-serde = "1.0.123"
-thiserror = "1.0.23"
-toml = "0.5.8"
+anyhow = "1.0.57"
+cargo-subcommand = "0.7"
+clap = { version = "3", features = ["derive"] }
+dunce = "1"
+env_logger = "0.9"
+log = "0.4"
+ndk-build = { path = "../ndk-build", version = "0.8.0" }
+serde = "1"
+thiserror = "1"
+toml = "0.5"

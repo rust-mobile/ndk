@@ -2,6 +2,7 @@ use crate::error::NdkError;
 use crate::manifest::AndroidManifest;
 use crate::ndk::{Key, Ndk};
 use crate::target::Target;
+use std::collections::HashSet;
 use std::ffi::OsStr;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -14,6 +15,7 @@ pub struct ApkConfig {
     pub assets: Option<PathBuf>,
     pub resources: Option<PathBuf>,
     pub manifest: AndroidManifest,
+    pub disable_aapt_compression: bool,
 }
 
 impl ApkConfig {
@@ -51,6 +53,10 @@ impl ApkConfig {
             .arg("-I")
             .arg(self.ndk.android_jar(target_sdk_version)?);
 
+        if self.disable_aapt_compression {
+            aapt.arg("-0").arg("");
+        }
+
         if let Some(res) = &self.resources {
             aapt.arg("-S").arg(res);
         }
@@ -63,24 +69,30 @@ impl ApkConfig {
             return Err(NdkError::CmdFailed(aapt));
         }
 
-        Ok(UnalignedApk(self))
+        Ok(UnalignedApk {
+            config: self,
+            pending_libs: HashSet::default(),
+        })
     }
 }
 
-pub struct UnalignedApk<'a>(&'a ApkConfig);
+pub struct UnalignedApk<'a> {
+    config: &'a ApkConfig,
+    pending_libs: HashSet<String>,
+}
 
 impl<'a> UnalignedApk<'a> {
     pub fn config(&self) -> &ApkConfig {
-        self.0
+        self.config
     }
 
-    pub fn add_lib(&self, path: &Path, target: Target) -> Result<(), NdkError> {
+    pub fn add_lib(&mut self, path: &Path, target: Target) -> Result<(), NdkError> {
         if !path.exists() {
             return Err(NdkError::PathNotFound(path.into()));
         }
         let abi = target.android_abi();
         let lib_path = Path::new("lib").join(abi).join(path.file_name().unwrap());
-        let out = self.0.build_dir.join(&lib_path);
+        let out = self.config.build_dir.join(&lib_path);
         std::fs::create_dir_all(out.parent().unwrap())?;
         std::fs::copy(path, out)?;
 
@@ -89,24 +101,19 @@ impl<'a> UnalignedApk<'a> {
         // Otherwise, it results in a runtime error when loading the NativeActivity `.so` library.
         let lib_path_unix = lib_path.to_str().unwrap().replace('\\', "/");
 
-        let mut aapt = self.0.build_tool(bin!("aapt"))?;
-        aapt.arg("add")
-            .arg(self.0.unaligned_apk())
-            .arg(lib_path_unix);
-        if !aapt.status()?.success() {
-            return Err(NdkError::CmdFailed(aapt));
-        }
+        self.pending_libs.insert(lib_path_unix);
+
         Ok(())
     }
 
     pub fn add_runtime_libs(
-        &self,
+        &mut self,
         path: &Path,
         target: Target,
         search_paths: &[&Path],
     ) -> Result<(), NdkError> {
         let abi_dir = path.join(target.android_abi());
-        for entry in fs::read_dir(&abi_dir).map_err(|e| NdkError::IoPathError(e, abi_dir))? {
+        for entry in fs::read_dir(&abi_dir).map_err(|e| NdkError::IoPathError(abi_dir, e))? {
             let entry = entry?;
             let path = entry.path();
             if path.extension() == Some(OsStr::new("so")) {
@@ -116,18 +123,35 @@ impl<'a> UnalignedApk<'a> {
         Ok(())
     }
 
-    pub fn align(self) -> Result<UnsignedApk<'a>, NdkError> {
-        let mut zipalign = self.0.build_tool(bin!("zipalign"))?;
+    pub fn add_pending_libs_and_align(self) -> Result<UnsignedApk<'a>, NdkError> {
+        let mut aapt = self.config.build_tool(bin!("aapt"))?;
+        aapt.arg("add");
+
+        if self.config.disable_aapt_compression {
+            aapt.arg("-0").arg("");
+        }
+
+        aapt.arg(self.config.unaligned_apk());
+
+        for lib_path_unix in self.pending_libs {
+            aapt.arg(lib_path_unix);
+        }
+
+        if !aapt.status()?.success() {
+            return Err(NdkError::CmdFailed(aapt));
+        }
+
+        let mut zipalign = self.config.build_tool(bin!("zipalign"))?;
         zipalign
             .arg("-f")
             .arg("-v")
             .arg("4")
-            .arg(self.0.unaligned_apk())
-            .arg(self.0.apk());
+            .arg(self.config.unaligned_apk())
+            .arg(self.config.apk());
         if !zipalign.status()?.success() {
             return Err(NdkError::CmdFailed(zipalign));
         }
-        Ok(UnsignedApk(self.0))
+        Ok(UnsignedApk(self.config))
     }
 }
 
@@ -166,8 +190,9 @@ impl Apk {
         }
     }
 
-    pub fn install(&self) -> Result<(), NdkError> {
-        let mut adb = self.ndk.platform_tool(bin!("adb"))?;
+    pub fn install(&self, device_serial: Option<&str>) -> Result<(), NdkError> {
+        let mut adb = self.ndk.adb(device_serial)?;
+
         adb.arg("install").arg("-r").arg(&self.path);
         if !adb.status()?.success() {
             return Err(NdkError::CmdFailed(adb));
@@ -175,18 +200,37 @@ impl Apk {
         Ok(())
     }
 
-    pub fn start(&self) -> Result<(), NdkError> {
-        let mut adb = self.ndk.platform_tool(bin!("adb"))?;
-        adb.arg("shell")
+    pub fn start(&self, device_serial: Option<&str>) -> Result<u32, NdkError> {
+        let mut am_start = self.ndk.adb(device_serial)?;
+        am_start
+            .arg("shell")
             .arg("am")
             .arg("start")
+            .arg("-W")
             .arg("-a")
             .arg("android.intent.action.MAIN")
             .arg("-n")
             .arg(format!("{}/android.app.NativeActivity", &self.package_name));
-        if !adb.status()?.success() {
-            return Err(NdkError::CmdFailed(adb));
+        if !am_start.status()?.success() {
+            return Err(NdkError::CmdFailed(am_start));
         }
-        Ok(())
+
+        let pid_vec = self
+            .ndk
+            .adb(device_serial)?
+            .arg("shell")
+            .arg("pidof")
+            .arg(&self.package_name)
+            .output()?
+            .stdout;
+
+        let pid = std::str::from_utf8(&pid_vec).unwrap().trim();
+        let pid: u32 = pid
+            .parse()
+            .map_err(|e| NdkError::NotAPid(e, pid.to_owned()))?;
+
+        println!("Launched with PID {}", pid);
+
+        Ok(pid)
     }
 }

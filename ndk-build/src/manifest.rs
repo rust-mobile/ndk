@@ -11,6 +11,8 @@ pub struct AndroidManifest {
     ns_android: String,
     #[serde(default)]
     pub package: String,
+    #[serde(rename(serialize = "android:sharedUserId"))]
+    pub shared_user_id: Option<String>,
     #[serde(rename(serialize = "android:versionCode"))]
     pub version_code: Option<u32>,
     #[serde(rename(serialize = "android:versionName"))]
@@ -28,6 +30,9 @@ pub struct AndroidManifest {
     pub uses_permission: Vec<Permission>,
 
     #[serde(default)]
+    pub queries: Option<Queries>,
+
+    #[serde(default)]
     pub application: Application,
 }
 
@@ -36,11 +41,13 @@ impl Default for AndroidManifest {
         Self {
             ns_android: default_namespace(),
             package: Default::default(),
+            shared_user_id: Default::default(),
             version_code: Default::default(),
             version_name: Default::default(),
             sdk: Default::default(),
             uses_feature: Default::default(),
             uses_permission: Default::default(),
+            queries: Default::default(),
             application: Default::default(),
         }
     }
@@ -93,12 +100,15 @@ pub struct Activity {
     pub name: String,
     #[serde(rename(serialize = "android:screenOrientation"))]
     pub orientation: Option<String>,
+    #[serde(rename(serialize = "android:exported"))]
+    pub exported: Option<bool>,
+    #[serde(rename(serialize = "android:resizeableActivity"))]
+    pub resizeable_activity: Option<bool>,
 
     #[serde(rename(serialize = "meta-data"))]
     #[serde(default)]
     pub meta_data: Vec<MetaData>,
-    /// If no `MAIN` action exists in any intent filter, a default `MAIN` filter is serialized.
-    #[serde(serialize_with = "serialize_intents")]
+    /// If no `MAIN` action exists in any intent filter, a default `MAIN` filter is serialized by `cargo-apk`.
     #[serde(rename(serialize = "intent-filter"))]
     #[serde(default)]
     pub intent_filter: Vec<IntentFilter>,
@@ -112,35 +122,12 @@ impl Default for Activity {
             launch_mode: None,
             name: default_activity_name(),
             orientation: None,
+            exported: None,
+            resizeable_activity: None,
             meta_data: Default::default(),
             intent_filter: Default::default(),
         }
     }
-}
-
-fn serialize_intents<S>(intent_filters: &[IntentFilter], serializer: S) -> Result<S::Ok, S::Error>
-where
-    S: Serializer,
-{
-    use serde::ser::SerializeSeq;
-
-    let mut seq = serializer.serialize_seq(None)?;
-    for intent_filter in intent_filters {
-        seq.serialize_element(intent_filter)?;
-    }
-
-    // Check if `intent_filters` contains a `MAIN` action. If not, add a default filter.
-    if intent_filters
-        .iter()
-        .all(|i| i.actions.iter().all(|f| f != "android.intent.action.MAIN"))
-    {
-        seq.serialize_element(&IntentFilter {
-            actions: vec!["android.intent.action.MAIN".to_string()],
-            categories: vec!["android.intent.category.LAUNCHER".to_string()],
-            data: vec![],
-        })?;
-    }
-    seq.end()
 }
 
 /// Android [intent filter element](https://developer.android.com/guide/topics/manifest/intent-filter-element).
@@ -276,6 +263,36 @@ pub struct Permission {
     pub name: String,
     #[serde(rename(serialize = "android:maxSdkVersion"))]
     pub max_sdk_version: Option<u32>,
+}
+
+/// Android [package element](https://developer.android.com/guide/topics/manifest/queries-element#package).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Package {
+    #[serde(rename(serialize = "android:name"))]
+    pub name: String,
+}
+
+/// Android [provider element](https://developer.android.com/guide/topics/manifest/queries-element#provider).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct QueryProvider {
+    #[serde(rename(serialize = "android:authorities"))]
+    pub authorities: String,
+
+    // The specs say only an `authorities` attribute is required for providers contained in a `queries` element
+    // however this is required for aapt support and should be made optional if/when cargo-apk migrates to aapt2
+    #[serde(rename(serialize = "android:name"))]
+    pub name: String,
+}
+
+/// Android [queries element](https://developer.android.com/guide/topics/manifest/queries-element).
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Queries {
+    #[serde(default)]
+    pub package: Vec<Package>,
+    #[serde(default)]
+    pub intent: Vec<IntentFilter>,
+    #[serde(default)]
+    pub provider: Vec<QueryProvider>,
 }
 
 /// Android [uses-sdk element](https://developer.android.com/guide/topics/manifest/uses-sdk-element).

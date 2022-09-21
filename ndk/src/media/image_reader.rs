@@ -1,3 +1,7 @@
+//! Bindings for [`AImageReader`] and [`AImage`]
+//!
+//! [`AImageReader`]: https://developer.android.com/ndk/reference/group/media#aimagereader
+//! [`AImage`]: https://developer.android.com/ndk/reference/group/media#aimage
 #![cfg(feature = "api-level-24")]
 
 use super::NdkMediaError;
@@ -9,45 +13,50 @@ use std::{
     ffi::c_void,
     fmt::{self, Debug, Formatter},
     mem::MaybeUninit,
-    os::unix::io::RawFd,
     ptr::NonNull,
 };
 
-#[cfg(feature = "hardware_buffer")]
+#[cfg(feature = "api-level-26")]
+use std::os::unix::io::RawFd;
+
+#[cfg(feature = "api-level-26")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 pub enum ImageFormat {
-    RGBA_8888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGBA_8888,
-    RGBX_8888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGBX_8888,
-    RGB_888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGB_888,
-    RGB_565 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGB_565,
-    RGBA_FP16 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RGBA_FP16,
-    YUV_420_888 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_YUV_420_888,
-    JPEG = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_JPEG,
-    RAW16 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW16,
-    RAW_PRIVATE = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW_PRIVATE,
-    RAW10 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW10,
-    RAW12 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_RAW12,
-    DEPTH16 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_DEPTH16,
-    DEPTH_POINT_CLOUD = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_DEPTH_POINT_CLOUD,
-    PRIVATE = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_PRIVATE,
-    Y8 = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_Y8,
-    HEIC = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_HEIC,
-    DEPTH_JPEG = ffi::AIMAGE_FORMATS_AIMAGE_FORMAT_DEPTH_JPEG,
+    RGBA_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_8888.0,
+    RGBX_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBX_8888.0,
+    RGB_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_888.0,
+    RGB_565 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_565.0,
+    RGBA_FP16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_FP16.0,
+    YUV_420_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_YUV_420_888.0,
+    JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_JPEG.0,
+    RAW16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW16.0,
+    RAW_PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW_PRIVATE.0,
+    RAW10 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW10.0,
+    RAW12 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW12.0,
+    DEPTH16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH16.0,
+    DEPTH_POINT_CLOUD = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_POINT_CLOUD.0,
+    PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_PRIVATE.0,
+    Y8 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_Y8.0,
+    HEIC = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_HEIC.0,
+    DEPTH_JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_JPEG.0,
 }
 
 pub type ImageListener = Box<dyn FnMut(&ImageReader)>;
 
-#[cfg(feature = "hardware_buffer")]
+#[cfg(feature = "api-level-26")]
 pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer)>;
 
+/// A native [`AImageReader *`]
+///
+/// [`AImageReader *`]: https://developer.android.com/ndk/reference/group/media#aimagereader
 pub struct ImageReader {
     inner: NonNull<ffi::AImageReader>,
     image_cb: Option<Box<ImageListener>>,
-    #[cfg(feature = "hardware_buffer")]
+    #[cfg(feature = "api-level-26")]
     buffer_removed_cb: Option<Box<BufferRemovedListener>>,
 }
 
@@ -71,7 +80,7 @@ impl ImageReader {
         Self {
             inner,
             image_cb: None,
-            #[cfg(feature = "hardware_buffer")]
+            #[cfg(feature = "api-level-26")]
             buffer_removed_cb: None,
         }
     }
@@ -88,7 +97,7 @@ impl ImageReader {
         Ok(Self::from_ptr(inner))
     }
 
-    #[cfg(feature = "hardware_buffer")]
+    #[cfg(feature = "api-level-26")]
     pub fn new_with_usage(
         width: i32,
         height: i32,
@@ -97,7 +106,14 @@ impl ImageReader {
         max_images: i32,
     ) -> Result<Self> {
         let inner = construct_never_null(|res| unsafe {
-            ffi::AImageReader_newWithUsage(width, height, format as i32, usage.0, max_images, res)
+            ffi::AImageReader_newWithUsage(
+                width,
+                height,
+                format as i32,
+                usage.0 .0,
+                max_images,
+                res,
+            )
         })?;
 
         Ok(Self::from_ptr(inner))
@@ -124,10 +140,10 @@ impl ImageReader {
             onImageAvailable: Some(on_image_available),
         };
         let status = unsafe { ffi::AImageReader_setImageListener(self.as_ptr(), &mut listener) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
-    #[cfg(feature = "hardware_buffer")]
+    #[cfg(feature = "api-level-26")]
     pub fn set_buffer_removed_listener(&mut self, listener: BufferRemovedListener) -> Result<()> {
         let mut boxed = Box::new(listener);
         let ptr: *mut BufferRemovedListener = &mut *boxed;
@@ -152,7 +168,7 @@ impl ImageReader {
         };
         let status =
             unsafe { ffi::AImageReader_setBufferRemovedListener(self.as_ptr(), &mut listener) };
-        NdkMediaError::from_status(status, || ())
+        NdkMediaError::from_status(status)
     }
 
     pub fn get_window(&self) -> Result<NativeWindow> {
@@ -172,7 +188,7 @@ impl ImageReader {
 
     pub fn get_format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImageReader_getFormat(self.as_ptr(), res) })?;
-        Ok((format as ffi::AIMAGE_FORMATS).try_into().unwrap())
+        Ok((format as u32).try_into().unwrap())
     }
 
     pub fn get_max_images(&self) -> Result<i32> {
@@ -248,6 +264,9 @@ impl Drop for ImageReader {
     }
 }
 
+/// A native [`AImage *`]
+///
+/// [`AImage *`]: https://developer.android.com/ndk/reference/group/media#aimage
 #[derive(Debug)]
 pub struct Image {
     inner: NonNull<ffi::AImage>,
@@ -272,7 +291,7 @@ impl Image {
             )
         };
 
-        NdkMediaError::from_status(status, || unsafe {
+        NdkMediaError::from_status(status).map(|()| unsafe {
             std::slice::from_raw_parts(result_ptr.assume_init(), result_len.assume_init() as _)
         })
     }
@@ -299,7 +318,7 @@ impl Image {
 
     pub fn get_format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImage_getFormat(self.as_ptr(), res) })?;
-        Ok((format as ffi::AIMAGE_FORMATS).try_into().unwrap())
+        Ok((format as u32).try_into().unwrap())
     }
 
     pub fn get_timestamp(&self) -> Result<i64> {
@@ -310,7 +329,21 @@ impl Image {
         construct(|res| unsafe { ffi::AImage_getNumberOfPlanes(self.as_ptr(), res) })
     }
 
-    #[cfg(feature = "hardware_buffer")]
+    /// Get the hardware buffer handle of the input image intended for GPU and/or hardware access.
+    ///
+    /// Note that no reference on the returned [`HardwareBuffer`] handle is acquired automatically.
+    /// Once the [`Image`] or the parent [`ImageReader`] is deleted, the [`HardwareBuffer`] handle
+    /// from previous [`Image::get_hardware_buffer()`] becomes invalid.
+    ///
+    /// If the caller ever needs to hold on a reference to the [`HardwareBuffer`] handle after the
+    /// [`Image`] or the parent [`ImageReader`] is deleted, it must call
+    /// [`HardwareBuffer::acquire()`] to acquire an extra reference, and [`drop()`] it when
+    /// finished using it in order to properly deallocate the underlying memory managed by
+    /// [`HardwareBuffer`]. If the caller has acquired an extra reference on a [`HardwareBuffer`]
+    /// returned from this function, it must also register a listener using
+    /// [`ImageReader::set_buffer_removed_listener()`] to be notified when the buffer is no longer
+    /// used by [`ImageReader`].
+    #[cfg(feature = "api-level-26")]
     pub fn get_hardware_buffer(&self) -> Result<HardwareBuffer> {
         unsafe {
             let ptr =

@@ -17,6 +17,12 @@ enum ApkCmd {
     },
 }
 
+#[derive(Parser)]
+struct SelectArgs {
+    /// Use device with the given serial. See `adb devices` for a list of connected Android devices.
+    device: String,
+}
+
 #[derive(clap::Subcommand)]
 enum ApkSubCmd {
     /// Checks that the current package builds without creating an apk
@@ -33,18 +39,26 @@ enum ApkSubCmd {
     Run {
         #[clap(flatten)]
         args: Args,
+
+        // /// "Don't print and follow `logcat` after running the application.
+        // no_logcat: bool,
     },
     /// Start a gdb session attached to an adb device with symbols loaded
     Gdb {
         #[clap(flatten)]
         args: Args,
     },
+    Version {},
+    // TODO:
+    // Test {}
+    // Doc {}
 }
 
 fn main() -> anyhow::Result<()> {
     env_logger::init();
-    let cmd = Cmd::parse();
-    let ApkCmd::Apk { cmd } = cmd.apk;
+    let Cmd {
+        apk: ApkCmd::Apk { cmd },
+    } = Cmd::parse();
     match cmd {
         ApkSubCmd::Check { args } => {
             let cmd = Subcommand::new(args)?;
@@ -69,6 +83,9 @@ fn main() -> anyhow::Result<()> {
             let builder = ApkBuilder::from_subcommand(&cmd)?;
             anyhow::ensure!(cmd.artifacts().len() == 1, Error::invalid_args());
             builder.gdb(&cmd.artifacts()[0])?;
+        }
+        ApkSubCmd::Version {} => {
+            println!("{} {}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"));
         }
     }
     Ok(())

@@ -1,6 +1,6 @@
 [package]
 name = "ndk-sys"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "FFI bindings for the Android NDK"
@@ -16,11 +16,12 @@ jni-sys = "0.3.0"
 
 [features]
 test = []
-aaudio = []
+audio = []
 bitmap = []
 media = []
 
 [package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs"]
 targets = [
     "aarch64-linux-android",
     "armv7-linux-androideabi",

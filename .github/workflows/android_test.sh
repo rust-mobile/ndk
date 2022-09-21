@@ -2,10 +2,15 @@
 
 set -ex
 
+# Make sure the package is removed since it may end up in the AVD cache. This causes
+# INSTALL_FAILED_UPDATE_INCOMPATIBLE errors when the debug keystore is regenerated,
+# as it is not stored/cached on the CI:
+# https://github.com/rust-windowing/android-ndk-rs/blob/240389f1e281f582b84a8049e2afaa8677d901c2/ndk-build/src/ndk.rs#L308-L332
+adb uninstall rust.example.hello_world || true
 
 if [ -z "$1" ];
 then
-    cargo apk run -p ndk-examples --target x86_64-linux-android --example hello_world
+    cargo apk run -p ndk-examples --target x86_64-linux-android --example hello_world --no-logcat
 else
     adb install -r "$1/hello_world.apk"
     adb shell am start -a android.intent.action.MAIN -n "rust.example.hello_world/android.app.NativeActivity"

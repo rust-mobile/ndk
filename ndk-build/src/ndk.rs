@@ -7,6 +7,7 @@ use std::process::Command;
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Ndk {
     sdk_path: PathBuf,
+    user_home: PathBuf,
     ndk_path: PathBuf,
     build_tools_version: String,
     build_tag: u32,
@@ -16,18 +17,43 @@ pub struct Ndk {
 impl Ndk {
     pub fn from_env() -> Result<Self, NdkError> {
         let sdk_path = {
-            let mut sdk_path = std::env::var("ANDROID_HOME").ok();
+            let sdk_path = std::env::var("ANDROID_SDK_ROOT").ok();
             if sdk_path.is_some() {
-                println!(
-                    "Warning: You use environment variable ANDROID_HOME that is deprecated. \
-                 Please, remove it and use ANDROID_SDK_ROOT instead. Now ANDROID_HOME is used"
+                eprintln!(
+                    "Warning: Environment variable ANDROID_SDK_ROOT is deprecated \
+                    (https://developer.android.com/studio/command-line/variables#envar). \
+                    It will be used until it is unset and replaced by ANDROID_HOME."
                 );
             }
-            if sdk_path.is_none() {
-                sdk_path = std::env::var("ANDROID_SDK_ROOT").ok();
+
+            PathBuf::from(
+                sdk_path
+                    .or_else(|| std::env::var("ANDROID_HOME").ok())
+                    .ok_or(NdkError::SdkNotFound)?,
+            )
+        };
+
+        let user_home = {
+            let user_home = std::env::var("ANDROID_SDK_HOME")
+                .map(PathBuf::from)
+                // Unlike ANDROID_USER_HOME, ANDROID_SDK_HOME points to the _parent_ directory of .android:
+                // https://developer.android.com/studio/command-line/variables#envar
+                .map(|home| home.join(".android"))
+                .ok();
+
+            if user_home.is_some() {
+                eprintln!(
+                    "Warning: Environment variable ANDROID_SDK_HOME is deprecated \
+                    (https://developer.android.com/studio/command-line/variables#envar). \
+                    It will be used until it is unset and replaced by ANDROID_USER_HOME."
+                );
             }
 
-            PathBuf::from(sdk_path.ok_or(NdkError::SdkNotFound)?)
+            // Default to $HOME/.android
+            user_home
+                .or_else(|| std::env::var("ANDROID_USER_HOME").map(PathBuf::from).ok())
+                .or_else(|| dirs::home_dir().map(|home| home.join(".android")))
+                .ok_or_else(|| NdkError::PathNotFound(PathBuf::from("$HOME")))?
         };
 
         let ndk_path = {
@@ -51,7 +77,7 @@ impl Ndk {
             .filter_map(|path| path.ok())
             .filter(|path| path.path().is_dir())
             .filter_map(|path| path.file_name().into_string().ok())
-            .filter(|name| name.chars().next().unwrap().is_digit(10))
+            .filter(|name| name.chars().next().unwrap().is_ascii_digit())
             .max()
             .ok_or(NdkError::BuildToolsNotFound)?;
 
@@ -112,6 +138,7 @@ impl Ndk {
 
         Ok(Self {
             sdk_path,
+            user_home,
             ndk_path,
             build_tools_version,
             build_tag,
@@ -151,12 +178,20 @@ impl Ndk {
         Ok(Command::new(dunce::canonicalize(path)?))
     }
 
-    pub fn platform_tool(&self, tool: &str) -> Result<Command, NdkError> {
+    pub fn platform_tool_path(&self, tool: &str) -> Result<PathBuf, NdkError> {
         let path = self.sdk_path.join("platform-tools").join(tool);
         if !path.exists() {
             return Err(NdkError::CmdNotFound(tool.to_string()));
         }
-        Ok(Command::new(dunce::canonicalize(path)?))
+        Ok(dunce::canonicalize(path)?)
+    }
+
+    pub fn adb_path(&self) -> Result<PathBuf, NdkError> {
+        self.platform_tool_path(bin!("adb"))
+    }
+
+    pub fn platform_tool(&self, tool: &str) -> Result<Command, NdkError> {
+        Ok(Command::new(self.platform_tool_path(tool)?))
     }
 
     pub fn highest_supported_platform(&self) -> u32 {
@@ -190,11 +225,11 @@ impl Ndk {
         Ok(android_jar)
     }
 
-    pub fn toolchain_dir(&self) -> Result<PathBuf, NdkError> {
+    fn host_arch() -> Result<&'static str, NdkError> {
         let host_os = std::env::var("HOST").ok();
         let host_contains = |s| host_os.as_ref().map(|h| h.contains(s)).unwrap_or(false);
 
-        let arch = if host_contains("linux") {
+        Ok(if host_contains("linux") {
             "linux"
         } else if host_contains("macos") {
             "darwin"
@@ -211,8 +246,11 @@ impl Ndk {
                 Some(host_os) => Err(NdkError::UnsupportedHost(host_os)),
                 _ => Err(NdkError::UnsupportedTarget),
             };
-        };
+        })
+    }
 
+    pub fn toolchain_dir(&self) -> Result<PathBuf, NdkError> {
+        let arch = Self::host_arch()?;
         let mut toolchain_dir = self
             .ndk_path
             .join("toolchains")
@@ -228,21 +266,21 @@ impl Ndk {
         Ok(toolchain_dir)
     }
 
-    pub fn clang(&self, target: Target, platform: u32) -> Result<(PathBuf, PathBuf), NdkError> {
-        #[cfg(target_os = "windows")]
-        let ext = ".cmd";
-        #[cfg(not(target_os = "windows"))]
-        let ext = "";
+    pub fn clang(&self) -> Result<(PathBuf, PathBuf), NdkError> {
+        let ext = if cfg!(target_os = "windows") {
+            "exe"
+        } else {
+            ""
+        };
 
-        let bin_name = format!("{}{}-clang", target.ndk_llvm_triple(), platform);
         let bin_path = self.toolchain_dir()?.join("bin");
 
-        let clang = bin_path.join(format!("{}{}", &bin_name, ext));
+        let clang = bin_path.join("clang").with_extension(ext);
         if !clang.exists() {
             return Err(NdkError::PathNotFound(clang));
         }
 
-        let clang_pp = bin_path.join(format!("{}++{}", &bin_name, ext));
+        let clang_pp = bin_path.join("clang++").with_extension(ext);
         if !clang_pp.exists() {
             return Err(NdkError::PathNotFound(clang_pp));
         }
@@ -251,10 +289,11 @@ impl Ndk {
     }
 
     pub fn toolchain_bin(&self, name: &str, target: Target) -> Result<PathBuf, NdkError> {
-        #[cfg(target_os = "windows")]
-        let ext = ".exe";
-        #[cfg(not(target_os = "windows"))]
-        let ext = "";
+        let ext = if cfg!(target_os = "windows") {
+            ".exe"
+        } else {
+            ""
+        };
 
         let toolchain_path = self.toolchain_dir()?.join("bin");
 
@@ -281,12 +320,52 @@ impl Ndk {
         }
     }
 
-    pub fn android_dir(&self) -> Result<PathBuf, NdkError> {
-        let android_dir = dirs::home_dir()
-            .ok_or_else(|| NdkError::PathNotFound(PathBuf::from("$HOME")))?
-            .join(".android");
-        std::fs::create_dir_all(&android_dir)?;
-        Ok(android_dir)
+    pub fn prebuilt_dir(&self) -> Result<PathBuf, NdkError> {
+        let arch = Self::host_arch()?;
+        let prebuilt_dir = self
+            .ndk_path
+            .join("prebuilt")
+            .join(format!("{}-x86_64", arch));
+        if !prebuilt_dir.exists() {
+            Err(NdkError::PathNotFound(prebuilt_dir))
+        } else {
+            Ok(prebuilt_dir)
+        }
+    }
+
+    pub fn ndk_gdb(
+        &self,
+        launch_dir: impl AsRef<Path>,
+        launch_activity: &str,
+        device_serial: Option<&str>,
+    ) -> Result<(), NdkError> {
+        let abi = self.detect_abi(device_serial)?;
+        let jni_dir = launch_dir.as_ref().join("jni");
+        std::fs::create_dir_all(&jni_dir)?;
+        std::fs::write(
+            jni_dir.join("Android.mk"),
+            format!("APP_ABI={}\nTARGET_OUT=\n", abi.android_abi()),
+        )?;
+        let mut ndk_gdb = Command::new(self.prebuilt_dir()?.join("bin").join(cmd!("ndk-gdb")));
+
+        if let Some(device_serial) = &device_serial {
+            ndk_gdb.arg("-s").arg(device_serial);
+        }
+
+        ndk_gdb
+            .arg("--adb")
+            .arg(self.adb_path()?)
+            .arg("--launch")
+            .arg(launch_activity)
+            .current_dir(launch_dir)
+            .status()?;
+        Ok(())
+    }
+
+    pub fn android_user_home(&self) -> Result<PathBuf, NdkError> {
+        let android_user_home = self.user_home.clone();
+        std::fs::create_dir_all(&android_user_home)?;
+        Ok(android_user_home)
     }
 
     pub fn keytool(&self) -> Result<Command, NdkError> {
@@ -303,7 +382,7 @@ impl Ndk {
     }
 
     pub fn debug_key(&self) -> Result<Key, NdkError> {
-        let path = self.android_dir()?.join("debug.keystore");
+        let path = self.android_user_home()?.join("debug.keystore");
         let password = "android".to_string();
         if !path.exists() {
             let mut keytool = self.keytool()?;
@@ -313,7 +392,7 @@ impl Ndk {
                 .arg("-keystore")
                 .arg(&path)
                 .arg("-storepass")
-                .arg("android")
+                .arg(&password)
                 .arg("-alias")
                 .arg("androiddebugkey")
                 .arg("-keypass")
@@ -376,9 +455,10 @@ impl Ndk {
         Err(NdkError::PlatformNotFound(min_sdk_version))
     }
 
-    pub fn detect_abi(&self) -> Result<Target, NdkError> {
-        let stdout = self
-            .platform_tool("adb")?
+    pub fn detect_abi(&self, device_serial: Option<&str>) -> Result<Target, NdkError> {
+        let mut adb = self.adb(device_serial)?;
+
+        let stdout = adb
             .arg("shell")
             .arg("getprop")
             .arg("ro.product.cpu.abi")
@@ -386,6 +466,16 @@ impl Ndk {
             .stdout;
         let abi = std::str::from_utf8(&stdout).or(Err(NdkError::UnsupportedTarget))?;
         Target::from_android_abi(abi.trim())
+    }
+
+    pub fn adb(&self, device_serial: Option<&str>) -> Result<Command, NdkError> {
+        let mut adb = Command::new(self.adb_path()?);
+
+        if let Some(device_serial) = device_serial {
+            adb.arg("-s").arg(device_serial);
+        }
+
+        Ok(adb)
     }
 }
 

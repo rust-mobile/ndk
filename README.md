@@ -34,9 +34,36 @@ r23 | 23.1.7779620 | LTS | :heavy_check_mark: Workaround in [#189](https://githu
 r24 | 24.0.7856742-beta1 | Rolling Release | :heavy_check_mark: Workaround in [#189](https://github.com/rust-windowing/android-ndk-rs/pull/189)
 
 
-## Hello world
+## Quick start: `Hello World` crate on Android
 
-Quick start for setting up a new project with support for Android. For communication with the Android framework in our native Rust application we require a `NativeActivity`. `ndk-glue` will do the necessary initialization when calling `main` but requires a few adjustments:
+Quick start setting up a new project with support for Android, using the `ndk-glue` layer for communicating with the Android framework through [`NativeActivity`](https://developer.android.com/reference/android/app/NativeActivity) and `cargo-apk` for packaging a crate in an Android `.apk` file.
+
+This short guide can also be used as a reference for converting existing crates to be runnable on Android.
+
+### 1. Install the Android NDK and SDK
+
+Make sure the Android NDK is installed, together with a target platform (`30` by default), `build-tools` and `platform-tools`, using either the [`sdkmanager`](https://developer.android.com/studio/command-line/sdkmanager) or [Android Studio](https://developer.android.com/studio/projects/install-ndk).
+
+### 2. Create a new library crate
+
+```console
+$ cargo new hello_world_android --lib
+```
+
+Never name your project `android` as this results in a target binary named `libandroid.so` which is also the name of Android's framework library: this will fail to link.
+
+### 3. Configure crate for use on Android
+
+Add the `ndk-glue` dependency to your crate.
+
+`Cargo.toml`
+```toml
+# This dependency will only be included when targeting Android
+[target.'cfg(target_os = "android")'.dependencies]
+ndk-glue = "xxx" # Substitute this with the latest ndk-glue version you wish to use
+```
+
+Then configure the library target to be compiled to a Rust `lib` (for use in an executable on desktop) and a `cdylib` to create a native binary that can be bundled in the final `.apk` and loaded by Android.
 
 `Cargo.toml`
 ```toml
@@ -44,22 +71,36 @@ Quick start for setting up a new project with support for Android. For communica
 crate-type = ["lib", "cdylib"]
 ```
 
-Wraps `main` function using attribute macro `ndk::glue::main`:
+### 4. Wrap entry point with `ndk-glue`
+
+Create a `main` function holding your code in the library portion of the crate, and wrap it in the `ndk_glue::main` attribute macro when targeting Android.
 
 `src/lib.rs`
 ```rust
 #[cfg_attr(target_os = "android", ndk_glue::main(backtrace = "on"))]
 pub fn main() {
-    println!("hello world");
+    println!("Hello World");
 }
 ```
+
+See the [`ndk-macro` documentation](./ndk-macro/README.md) for more options.
+
+Additionally, to make this crate runnable outside of Android, create a binary that calls the main function in the library.
 
 `src/main.rs`
 ```rust
 fn main() {
-    $crate::main();
+    hello_world_android::main()
 }
 ```
+
+As a sanity check, run this binary to make sure everything is set up correctly:
+
+```console
+$ cargo run
+```
+
+### 5. Run the crate on your Android device
 
 Install `cargo apk` for building, running and debugging your application:
 ```console
@@ -71,17 +112,39 @@ We can now directly execute our `Hello World` application on a real connected de
 $ cargo apk run
 ```
 
+If the crate includes a runnable binary as suggested above, you will likely be greeted by the following error:
+
+```console
+$ cargo apk run
+error: extra arguments to `rustc` can only be passed to one target, consider filtering
+the package by passing, e.g., `--lib` or `--bin NAME` to specify a single target
+Error: Command `cargo rustc --target aarch64-linux-android -- -L hello_world_android/target/cargo-apk-temp-extra-link-libraries` had a non-zero exit code.
+```
+
+To solve this, add `--lib` to the run invocation, like so:
+```console
+$ cargo apk run --lib
+```
+
+### 6. Inspect the output
+
+`ndk-glue` redirects stdout and stderr to Android `logcat`, including the `println!("Hello World")` by the example above. See [Logging and stdout](##Logging-and-stdout) below how to access it.
+
+## Rendering to the window
+
+Android native apps have no easy access to [Android's User Interface](https://developer.android.com/guide/topics/ui) functionality (bar [JNI](##jni) interop). Applications can instead draw pixels directly to the window using [`ANativeWindow_lock`](https://developer.android.com/ndk/reference/group/a-native-window#group___a_native_window_1ga0b0e3b7d442dee83e1a1b42e5b0caee6), or use a graphics API like OpenGL or Vulkan for high performance rendering.
+
 ## Logging and stdout
 Stdout is redirected to the android log api when using `ndk-glue`. Any logger that logs to
 stdout, like `println!`, should therefore work.
 
-Use can filter the output in logcat
+To filter on this output in `logcat`:
 ```console
 $ adb logcat RustStdoutStderr:D *:S
 ```
 
 ### Android logger
-Android logger can be setup using feature "logger" and attribute macro like so:
+Enable the `"logger"` feature on the `ndk-glue` macro and configure its log tag and debug level through the attribute macro:
 
 `src/lib.rs`
 ```rust
@@ -96,7 +159,6 @@ Android APKs contain a file called `AndroidManifest.xml`, which has things like 
 
 ## Overriding crate paths
 The macro `ndk_glue::main` tries to determine crate names from current _Cargo.toml_.
-In cases when it is not possible the default crate names will be used.
 You can override this names with specific paths like so:
 ```rust
 #[ndk_glue::main(

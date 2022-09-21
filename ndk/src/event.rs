@@ -1,19 +1,22 @@
-//! A wrapper around the NDK's `AInputEvent`.
+//! Bindings for [`AInputEvent`, `AKeyEvent` and `AMotionEvent`]
 //!
-//! Most of these operations directly wrap functions in the NDK.  Documentation for all NDK
-//! functions in this module can be found
-//! [here](https://developer.android.com/ndk/reference/group/input).  See also the javadocs for
-//! [`android.view.InputEvent`](https://developer.android.com/reference/android/view/InputEvent.html),
-//! [`android.view.MotionEvent`](https://developer.android.com/reference/android/view/MotionEvent.html),
-//! and [`android.view.KeyEvent`](https://developer.android.com/reference/android/view/KeyEvent).
+//! Most of these operations directly wrap functions in the NDK.
+//!
+//! See also the Java docs for [`android.view.InputEvent`], [`android.view.MotionEvent`], and
+//! [`android.view.KeyEvent`].
+//!
+//! [`AInputEvent`, `AKeyEvent` and `AMotionEvent`]: https://developer.android.com/ndk/reference/group/input
+//! [`android.view.InputEvent`]: https://developer.android.com/reference/android/view/InputEvent.html
+//! [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent.html
+//! [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryInto;
 use std::ptr::NonNull;
 
-/// A [`*const AInputEvent`](ffi::AInputEvent)
+/// A native [`AInputEvent *`]
 ///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#ainputevent)
+/// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
 #[derive(Debug)]
 pub enum InputEvent {
     MotionEvent(MotionEvent),
@@ -43,7 +46,7 @@ pub enum Source {
     Any = ffi::AINPUT_SOURCE_ANY,
 }
 
-/// An enum representing the class of an [`InputEvent`] source
+/// An enum representing the class of an [`InputEvent`] source.
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-35)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
@@ -62,7 +65,7 @@ impl InputEvent {
     ///
     /// # Safety
     /// By calling this function, you assert that the pointer is a valid pointer to a
-    /// native [`AInputEvent`](ffi::AInputEvent).
+    /// native [`ffi::AInputEvent`].
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         match ffi::AInputEvent_getType(ptr.as_ptr()) as u32 {
@@ -72,7 +75,7 @@ impl InputEvent {
         }
     }
 
-    /// Returns a pointer to the native [`AInputEvent`](ffi::AInputEvent).
+    /// Returns a pointer to the native [`ffi::AInputEvent`].
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         match self {
@@ -178,10 +181,14 @@ impl MetaState {
     }
 }
 
-/// A motion event.
+/// A motion event
+///
+/// Wraps an [`AInputEvent *`] of the [`ffi::AINPUT_EVENT_TYPE_MOTION`] type.
 ///
 /// For general discussion of motion events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/MotionEvent).
+///
+/// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
 #[derive(Clone, Debug)]
 pub struct MotionEvent {
     ptr: NonNull<ffi::AInputEvent>,
@@ -264,6 +271,20 @@ pub enum Axis {
     Generic16 = ffi::AMOTION_EVENT_AXIS_GENERIC_16,
 }
 
+/// The tool type of a pointer.
+///
+/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-48)
+#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(u32)]
+pub enum ToolType {
+    Unknown = ffi::AMOTION_EVENT_TOOL_TYPE_UNKNOWN,
+    Finger = ffi::AMOTION_EVENT_TOOL_TYPE_FINGER,
+    Stylus = ffi::AMOTION_EVENT_TOOL_TYPE_STYLUS,
+    Mouse = ffi::AMOTION_EVENT_TOOL_TYPE_MOUSE,
+    Eraser = ffi::AMOTION_EVENT_TOOL_TYPE_ERASER,
+    Palm = ffi::AMOTION_EVENT_TOOL_TYPE_PALM,
+}
+
 /// A bitfield representing the state of buttons during a motion event.
 ///
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-33)
@@ -340,18 +361,18 @@ impl MotionEventFlags {
 }
 
 impl MotionEvent {
-    /// Constructs a MotionEvent from a pointer to a native [`AInputEvent`](ffi::AInputEvent)
+    /// Constructs a MotionEvent from a pointer to a native [`ffi::AInputEvent`]
     ///
     /// # Safety
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to a
-    /// native [`AInputEvent`](ffi::AInputEvent) and that that [`AInputEvent`](ffi::AInputEvent)
+    /// native [`ffi::AInputEvent`] and that [`ffi::AInputEvent`]
     /// is an `AMotionEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         Self { ptr }
     }
 
-    /// Returns a pointer to the native [`AInputEvent`](ffi::AInputEvent)
+    /// Returns a pointer to the native [`ffi::AInputEvent`]
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr
@@ -393,9 +414,9 @@ impl MotionEvent {
     /// Pointer indices can change per motion event.  For an identifier that stays the same, see
     /// [`Pointer::pointer_id()`].
     ///
-    /// This only has a meaning when the [action](Self::action) is one of [`Up`](MotionAction::Up),
-    /// [`Down`](MotionAction::Down), [`PointerUp`](MotionAction::PointerUp),
-    /// or [`PointerDown`](MotionAction::PointerDown).
+    /// This only has a meaning when the [action][Self::action] is one of [`Up`][MotionAction::Up],
+    /// [`Down`][MotionAction::Down], [`PointerUp`][MotionAction::PointerUp],
+    /// or [`PointerDown`][MotionAction::PointerDown].
     #[inline]
     pub fn pointer_index(&self) -> usize {
         let action = unsafe { ffi::AMotionEvent_getAction(self.ptr.as_ptr()) as u32 };
@@ -438,7 +459,7 @@ impl MotionEvent {
 
     /// The pointer at a given pointer index. Panics if the pointer index is out of bounds.
     ///
-    /// If you need to loop over all the pointers, prefer the [`pointers()`](Self::pointers) method.
+    /// If you need to loop over all the pointers, prefer the [`pointers()`][Self::pointers] method.
     #[inline]
     pub fn pointer_at_index(&self, index: usize) -> Pointer<'_> {
         if index >= self.pointer_count() {
@@ -648,6 +669,14 @@ impl<'a> Pointer<'a> {
     #[inline]
     pub fn touch_minor(&self) -> f32 {
         unsafe { ffi::AMotionEvent_getTouchMinor(self.event.as_ptr(), self.index as ffi::size_t) }
+    }
+
+    #[inline]
+    pub fn tool_type(&self) -> ToolType {
+        let tool_type = unsafe {
+            ffi::AMotionEvent_getToolType(self.event.as_ptr(), self.index as ffi::size_t) as u32
+        };
+        tool_type.try_into().unwrap()
     }
 }
 
@@ -994,10 +1023,14 @@ impl ExactSizeIterator for HistoricalPointersIter<'_> {
     }
 }
 
-/// A key event.
+/// A key event
+///
+/// Wraps an [`AInputEvent *`] of the [`ffi::AINPUT_EVENT_TYPE_KEY`] type.
 ///
 /// For general discussion of key events in Android, see [the relevant
 /// javadoc](https://developer.android.com/reference/android/view/KeyEvent).
+///
+/// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
 #[derive(Debug)]
 pub struct KeyEvent {
     ptr: NonNull<ffi::AInputEvent>,
@@ -1314,17 +1347,17 @@ pub enum Keycode {
 }
 
 impl KeyEvent {
-    /// Constructs a KeyEvent from a pointer to a native [`AInputEvent`](ffi::AInputEvent)
+    /// Constructs a KeyEvent from a pointer to a native [`ffi::AInputEvent`]
     ///
     /// # Safety
     /// By calling this method, you assert that the pointer is a valid, non-null pointer to an
-    /// [`AInputEvent`](ffi::AInputEvent), and that that [`AInputEvent`](ffi::AInputEvent) is an `AKeyEvent`.
+    /// [`ffi::AInputEvent`], and that [`ffi::AInputEvent`] is an `AKeyEvent`.
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         Self { ptr }
     }
 
-    /// Returns a pointer to the native [`AInputEvent`](ffi::AInputEvent)
+    /// Returns a pointer to the native [`ffi::AInputEvent`]
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr

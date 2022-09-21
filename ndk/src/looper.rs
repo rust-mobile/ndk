@@ -1,11 +1,13 @@
-//! Bindings for `ALooper`
+//! Bindings for [`ALooper`]
 //!
-//! In Android, `ALooper`s are inherently thread-local.  Due to this, there are two different
-//! `ALooper` interfaces exposed in this module:
+//! In Android, [`ALooper`]s are inherently thread-local.  Due to this, there are two different
+//! [`ALooper`] interfaces exposed in this module:
 //!
-//!  * [`ThreadLooper`], which has methods for the operations performable with a looper in one's own
-//!    thread; and
-//!  * [`ForeignLooper`], which has methods for the operations performable with any thread's looper.
+//! * [`ThreadLooper`], which has methods for the operations performable with a looper in one's own
+//!   thread; and
+//! * [`ForeignLooper`], which has methods for the operations performable with any thread's looper.
+//!
+//! [`ALooper`]: https://developer.android.com/ndk/reference/group/looper#alooper
 
 use bitflags::bitflags;
 use std::convert::TryInto;
@@ -17,8 +19,10 @@ use std::ptr::NonNull;
 use std::time::Duration;
 use thiserror::Error;
 
-/// A thread-local `ALooper`.  This contains a native `ALooper *` and promises that there is a
-/// looper associated with the current thread.
+/// A thread-local native [`ALooper *`].  This promises that there is a looper associated with the
+/// current thread.
+///
+/// [`ALooper *`]: https://developer.android.com/ndk/reference/group/looper#alooper
 #[derive(Debug)]
 pub struct ThreadLooper {
     _marker: std::marker::PhantomData<*mut ()>, // Not send or sync
@@ -174,7 +178,9 @@ impl ThreadLooper {
     }
 }
 
-/// An `ALooper`, not necessarily allocated with the current thread.
+/// A native [`ALooper *`], not necessarily allocated with the current thread.
+///
+/// [`ALooper *`]: https://developer.android.com/ndk/reference/group/looper#alooper
 #[derive(Debug)]
 pub struct ForeignLooper {
     ptr: NonNull<ffi::ALooper>,
@@ -209,7 +215,7 @@ impl ForeignLooper {
     ///
     /// # Safety
     /// By calling this function, you guarantee that the pointer is a valid, non-null pointer to an
-    /// NDK `ALooper`.
+    /// NDK [`ffi::ALooper`].
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::ALooper>) -> Self {
         ffi::ALooper_acquire(ptr.as_ptr());
@@ -232,7 +238,7 @@ impl ForeignLooper {
     /// See also [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
 
-    // `ALooper_addFd won't dereference `data`; it will only pass it on to the event.
+    // `ALooper_addFd` won't dereference `data`; it will only pass it on to the event.
     // Optionally dereferencing it there already enforces `unsafe` context.
     #[allow(clippy::not_unsafe_ptr_arg_deref)]
     pub fn add_fd(

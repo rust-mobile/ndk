@@ -27,6 +27,9 @@ Following configuration options are supported by `cargo apk` under `[package.met
 
 ```toml
 [package.metadata.android]
+# Specifies the package property of the manifest.
+package = "com.foo.bar"
+
 # Specifies the array of targets to build for.
 build_targets = [ "armv7-linux-androideabi", "aarch64-linux-android", "i686-linux-android", "x86_64-linux-android" ]
 
@@ -46,6 +49,13 @@ apk_name = "myapp"
 # Files matching `libs_folder/${android_abi}/*.so` are added to the apk
 # according to the specified build_targets.
 runtime_libs = "path/to/libs_folder"
+
+# Defaults to `$HOME/.android/debug.keystore` for the `dev` profile. Will ONLY generate a new
+# debug.keystore if this file does NOT exist.
+# A keystore path is always required on the `release` profile.
+[package.metadata.android.signing.<profile>]
+path = "$HOME/.android/debug.keystore"
+keystore_password = "android"
 
 # See https://developer.android.com/guide/topics/manifest/uses-sdk-element
 #
@@ -69,6 +79,27 @@ version = 1
 [[package.metadata.android.uses_permission]]
 name = "android.permission.WRITE_EXTERNAL_STORAGE"
 max_sdk_version = 18
+
+# See https://developer.android.com/guide/topics/manifest/queries-element#provider
+[[package.metadata.android.queries.provider]]
+authorities = "org.khronos.openxr.runtime_broker;org.khronos.openxr.system_runtime_broker"
+# Note: The `name` attribute is normally not required for a queries provider, but is non-optional
+# as a workaround for aapt throwing errors about missing `android:name` attribute.
+# This will be made optional if/when cargo-apk migrates to aapt2.
+name = "org.khronos.openxr"
+
+# See https://developer.android.com/guide/topics/manifest/queries-element#intent
+[[package.metadata.android.queries.intent]]
+actions = ["android.intent.action.SEND"]
+
+# See https://developer.android.com/guide/topics/manifest/queries-element#intent
+# Note: there can be several .data entries.
+[[package.metadata.android.queries.intent.data]]
+mime_type = "image/jpeg"
+
+# See https://developer.android.com/guide/topics/manifest/queries-element#package
+[[package.metadata.android.queries.package]]
+name = "org.freedesktop.monado.openxr_runtime.in_process"
 
 # See https://developer.android.com/guide/topics/manifest/application-element
 [package.metadata.android.application]
@@ -122,6 +153,16 @@ launch_mode = "singleTop"
 #
 # Defaults to "unspecified".
 orientation = "landscape"
+
+# See https://developer.android.com/guide/topics/manifest/activity-element#exported
+#
+# Unset by default, or true when targeting Android >= 31 (S and up).
+exported = true
+
+# See https://developer.android.com/guide/topics/manifest/activity-element#resizeableActivity
+#
+# Defaults to true on Android >= 24, no effect on earlier API levels
+resizeable_activity = false
 
 # See https://developer.android.com/guide/topics/manifest/meta-data-element
 #
