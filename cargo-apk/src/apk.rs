@@ -268,6 +268,29 @@ impl<'a> ApkBuilder<'a> {
         Ok(())
     }
 
+    pub fn default(&self, cargo_cmd: &str) -> Result<(), Error> {
+        for target in &self.build_targets {
+            let mut cargo = cargo_ndk(
+                &self.ndk,
+                *target,
+                self.min_sdk_version(),
+                self.cmd.target_dir(),
+            )?;
+            cargo.arg(cargo_cmd);
+            self.cmd.args().apply(&mut cargo);
+
+            if self.cmd.target().is_none() {
+                let triple = target.rust_triple();
+                cargo.arg("--target").arg(triple);
+            }
+
+            if !cargo.status()?.success() {
+                return Err(NdkError::CmdFailed(cargo).into());
+            }
+        }
+        Ok(())
+    }
+
     /// Returns `minSdkVersion` for use in compiler target selection:
     /// <https://developer.android.com/ndk/guides/sdk-versions#minsdkversion>
     ///

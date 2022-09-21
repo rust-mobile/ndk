@@ -27,6 +27,7 @@ struct Args {
 }
 
 #[derive(clap::Subcommand)]
+#[clap(trailing_var_arg = true)]
 enum ApkSubCmd {
     /// Analyze the current package and report errors, but don't build object files nor an apk
     #[clap(visible_alias = "c")]
@@ -37,6 +38,13 @@ enum ApkSubCmd {
     /// Compile the current package and create an apk
     #[clap(visible_alias = "b")]
     Build {
+        #[clap(flatten)]
+        args: Args,
+    },
+    /// Invoke `cargo` under the detected NDK environment
+    #[clap(name = "--")]
+    Ndk {
+        cargo_cmd: String,
         #[clap(flatten)]
         args: Args,
     },
@@ -75,6 +83,11 @@ fn main() -> anyhow::Result<()> {
             for artifact in cmd.artifacts() {
                 builder.build(artifact)?;
             }
+        }
+        ApkSubCmd::Ndk { cargo_cmd, args } => {
+            let cmd = Subcommand::new(args.subcommand_args)?;
+            let builder = ApkBuilder::from_subcommand(&cmd, args.device)?;
+            builder.default(&cargo_cmd)?;
         }
         ApkSubCmd::Run { args, no_logcat } => {
             let cmd = Subcommand::new(args.subcommand_args)?;
