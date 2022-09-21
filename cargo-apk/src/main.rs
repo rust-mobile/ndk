@@ -29,16 +29,19 @@ struct Args {
 #[derive(clap::Subcommand)]
 enum ApkSubCmd {
     /// Checks that the current package builds without creating an apk
+    #[clap(visible_alias = "c")]
     Check {
         #[clap(flatten)]
         args: Args,
     },
     /// Compiles the current package and creates an apk
+    #[clap(visible_alias = "b")]
     Build {
         #[clap(flatten)]
         args: Args,
     },
     /// Run a binary or example of the local package
+    #[clap(visible_alias = "r")]
     Run {
         #[clap(flatten)]
         args: Args,
@@ -53,9 +56,6 @@ enum ApkSubCmd {
     },
     /// Print the version of cargo-apk
     Version,
-    // TODO:
-    // Test {}
-    // Doc {}
 }
 
 fn main() -> anyhow::Result<()> {
