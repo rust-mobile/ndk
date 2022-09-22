@@ -192,6 +192,12 @@ port = "8080"
 path = "/rust-windowing/android-ndk-rs/tree/master/cargo-apk"
 path_prefix = "/rust-windowing/"
 mime_type = "image/jpeg"
+
+# Set up reverse port forwarding through `adb reverse`, meaning that if the
+# Android device connects to `https://localhost:1338` it will be routed to 
+# the localhost on the host device instead.
+[package.metadata.android.reverse_port_fwd]
+"tcp:1338" = "tcp:1338"
 ```
 
 If a manifest attribute is not supported by `cargo apk` feel free to create a PR that adds the missing attribute.
