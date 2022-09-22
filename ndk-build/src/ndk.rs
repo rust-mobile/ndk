@@ -309,14 +309,15 @@ impl Ndk {
         } else {
             let llvm_bin = format!("llvm-{}{}", name, ext);
             let llvm_path = toolchain_path.join(&llvm_bin);
-            llvm_path
-                .exists()
-                .then(|| llvm_path)
-                .ok_or(NdkError::ToolchainBinaryNotFound {
+            if llvm_path.exists() {
+                Ok(llvm_path)
+            } else {
+                Err(NdkError::ToolchainBinaryNotFound {
                     toolchain_path,
                     gnu_bin,
                     llvm_bin,
                 })
+            }
         }
     }
 
