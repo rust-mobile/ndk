@@ -9,6 +9,3 @@ members = [
     "ndk-sys",
     "cargo-apk",
 ]
-
-[patch.crates-io]
-cargo-subcommand = { git = "https://github.com/dvc94ch/cargo-subcommand", branch = "master" }
