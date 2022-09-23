@@ -17,14 +17,12 @@ pub struct ApkBuilder<'a> {
     build_dir: PathBuf,
     build_targets: Vec<Target>,
     device_serial: Option<String>,
-    no_logcat: bool,
 }
 
 impl<'a> ApkBuilder<'a> {
     pub fn from_subcommand(
         cmd: &'a Subcommand,
         device_serial: Option<String>,
-        no_logcat: bool,
     ) -> Result<Self, Error> {
         let ndk = Ndk::from_env()?;
         let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
@@ -101,7 +99,6 @@ impl<'a> ApkBuilder<'a> {
             build_dir,
             build_targets,
             device_serial,
-            no_logcat,
         })
     }
 
@@ -118,7 +115,7 @@ impl<'a> ApkBuilder<'a> {
                 let triple = target.rust_triple();
                 cargo.arg("--target").arg(triple);
             }
-            cargo.args(self.cmd.args());
+            self.cmd.args().apply(&mut cargo);
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
             }
@@ -184,12 +181,8 @@ impl<'a> ApkBuilder<'a> {
 
         for target in &self.build_targets {
             let triple = target.rust_triple();
-            let build_dir = dunce::simplified(self.cmd.target_dir())
-                .join(triple)
-                .join(self.cmd.profile());
-            let artifact = build_dir
-                .join(artifact)
-                .join(artifact.file_name(CrateType::Cdylib, triple));
+            let build_dir = self.cmd.build_dir(Some(triple));
+            let artifact = self.cmd.artifact(artifact, Some(triple), CrateType::Cdylib);
 
             let mut cargo = cargo_ndk(
                 &self.ndk,
@@ -201,7 +194,7 @@ impl<'a> ApkBuilder<'a> {
             if self.cmd.target().is_none() {
                 cargo.arg("--target").arg(triple);
             }
-            cargo.args(self.cmd.args());
+            self.cmd.args().apply(&mut cargo);
 
             if !cargo.status()?.success() {
                 return Err(NdkError::CmdFailed(cargo).into());
@@ -243,12 +236,12 @@ impl<'a> ApkBuilder<'a> {
         Ok(apk.add_pending_libs_and_align()?.sign(signing_key)?)
     }
 
-    pub fn run(&self, artifact: &Artifact) -> Result<(), Error> {
+    pub fn run(&self, artifact: &Artifact, no_logcat: bool) -> Result<(), Error> {
         let apk = self.build(artifact)?;
         apk.install(self.device_serial.as_deref())?;
         let pid = apk.start(self.device_serial.as_deref())?;
 
-        if !self.no_logcat {
+        if !no_logcat {
             self.ndk
                 .adb(self.device_serial.as_deref())?
                 .arg("logcat")
@@ -275,7 +268,7 @@ impl<'a> ApkBuilder<'a> {
         Ok(())
     }
 
-    pub fn default(&self) -> Result<(), Error> {
+    pub fn default(&self, cargo_cmd: &str) -> Result<(), Error> {
         for target in &self.build_targets {
             let mut cargo = cargo_ndk(
                 &self.ndk,
@@ -283,7 +276,8 @@ impl<'a> ApkBuilder<'a> {
                 self.min_sdk_version(),
                 self.cmd.target_dir(),
             )?;
-            cargo.args(self.cmd.args());
+            cargo.arg(cargo_cmd);
+            self.cmd.args().apply(&mut cargo);
 
             if self.cmd.target().is_none() {
                 let triple = target.rust_triple();
