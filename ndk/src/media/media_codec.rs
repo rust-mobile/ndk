@@ -55,26 +55,41 @@ impl MediaFormat {
     pub fn i32(&self, key: &str) -> Option<i32> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
-        unsafe { ffi::AMediaFormat_getInt32(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
+        if unsafe { ffi::AMediaFormat_getInt32(self.as_ptr(), name.as_ptr(), &mut out) } {
+            Some(out)
+        } else {
+            None
+        }
     }
 
     pub fn i64(&self, key: &str) -> Option<i64> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
-        unsafe { ffi::AMediaFormat_getInt64(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
+        if unsafe { ffi::AMediaFormat_getInt64(self.as_ptr(), name.as_ptr(), &mut out) } {
+            Some(out)
+        } else {
+            None
+        }
     }
 
     pub fn f32(&self, key: &str) -> Option<f32> {
         let name = CString::new(key).unwrap();
         let mut out = 0.0;
-        unsafe { ffi::AMediaFormat_getFloat(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
+        if unsafe { ffi::AMediaFormat_getFloat(self.as_ptr(), name.as_ptr(), &mut out) } {
+            Some(out)
+        } else {
+            None
+        }
     }
 
     pub fn usize(&self, key: &str) -> Option<usize> {
         let name = CString::new(key).unwrap();
         let mut out = 0;
-        unsafe { ffi::AMediaFormat_getSize(self.as_ptr(), name.as_ptr(), &mut out) }
-            .then(|| out as usize)
+        if unsafe { ffi::AMediaFormat_getSize(self.as_ptr(), name.as_ptr(), &mut out) } {
+            Some(out as usize)
+        } else {
+            None
+        }
     }
 
     pub fn buffer(&self, key: &str) -> Option<&[u8]> {
@@ -136,7 +151,11 @@ impl MediaFormat {
     pub fn f64(&self, key: &str) -> Option<f64> {
         let name = CString::new(key).unwrap();
         let mut out = 0.0;
-        unsafe { ffi::AMediaFormat_getDouble(self.as_ptr(), name.as_ptr(), &mut out) }.then(|| out)
+        if unsafe { ffi::AMediaFormat_getDouble(self.as_ptr(), name.as_ptr(), &mut out) } {
+            Some(out)
+        } else {
+            None
+        }
     }
 
     /// Returns (left, top, right, bottom)
@@ -147,7 +166,7 @@ impl MediaFormat {
         let mut top = 0;
         let mut right = 0;
         let mut bottom = 0;
-        unsafe {
+        if unsafe {
             ffi::AMediaFormat_getRect(
                 self.as_ptr(),
                 name.as_ptr(),
@@ -156,8 +175,11 @@ impl MediaFormat {
                 &mut right,
                 &mut bottom,
             )
+        } {
+            Some((left, top, right, bottom))
+        } else {
+            None
         }
-        .then(|| (left, top, right, bottom))
     }
 
     #[cfg(feature = "api-level-28")]
