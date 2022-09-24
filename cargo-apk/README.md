@@ -196,7 +196,7 @@ mime_type = "image/jpeg"
 # Set up reverse port forwarding through `adb reverse`, meaning that if the
 # Android device connects to `https://localhost:1338` it will be routed to 
 # the localhost on the host device instead.
-[package.metadata.android.reverse_port_fwd]
+[package.metadata.android.reverse_port_forward]
 "tcp:1338" = "tcp:1338"
 ```
 

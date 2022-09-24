@@ -17,7 +17,7 @@ pub struct ApkConfig {
     pub resources: Option<PathBuf>,
     pub manifest: AndroidManifest,
     pub disable_aapt_compression: bool,
-    pub reverse_port_fwd: HashMap<String, String>,
+    pub reverse_port_forward: HashMap<String, String>,
 }
 
 impl ApkConfig {
@@ -180,7 +180,7 @@ pub struct Apk {
     path: PathBuf,
     package_name: String,
     ndk: Ndk,
-    reverse_port_fwd: HashMap<String, String>,
+    reverse_port_forward: HashMap<String, String>,
 }
 
 impl Apk {
@@ -190,12 +190,12 @@ impl Apk {
             path: config.apk(),
             package_name: config.manifest.package.clone(),
             ndk,
-            reverse_port_fwd: config.reverse_port_fwd.clone(),
+            reverse_port_forward: config.reverse_port_forward.clone(),
         }
     }
 
     pub fn reverse_port_forwarding(&self, device_serial: Option<&str>) -> Result<(), NdkError> {
-        for (from, to) in &self.reverse_port_fwd {
+        for (from, to) in &self.reverse_port_forward {
             println!("Reverse port forwarding {} {}", from, to);
             let mut adb = self.ndk.platform_tool(bin!("adb"))?;
 
