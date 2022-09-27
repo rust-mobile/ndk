@@ -9,6 +9,8 @@ use ndk_build::manifest::{IntentFilter, MetaData};
 use ndk_build::ndk::{Key, Ndk};
 use ndk_build::target::Target;
 use std::path::PathBuf;
+use std::thread;
+use std::time;
 
 pub struct ApkBuilder<'a> {
     cmd: &'a Subcommand,
@@ -239,6 +241,10 @@ impl<'a> ApkBuilder<'a> {
     pub fn run(&self, artifact: &Artifact, no_logcat: bool) -> Result<(), Error> {
         let apk = self.build(artifact)?;
         apk.install(self.device_serial.as_deref())?;
+
+        // Delay 300ms while waiting for process ID to become available.
+        thread::sleep(time::Duration::from_millis(300));
+
         let pid = apk.start(self.device_serial.as_deref())?;
 
         if !no_logcat {
