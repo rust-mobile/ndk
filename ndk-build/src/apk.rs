@@ -2,6 +2,7 @@ use crate::error::NdkError;
 use crate::manifest::AndroidManifest;
 use crate::ndk::{Key, Ndk};
 use crate::target::Target;
+use std::collections::HashMap;
 use std::collections::HashSet;
 use std::ffi::OsStr;
 use std::fs;
@@ -16,6 +17,7 @@ pub struct ApkConfig {
     pub resources: Option<PathBuf>,
     pub manifest: AndroidManifest,
     pub disable_aapt_compression: bool,
+    pub reverse_port_forward: HashMap<String, String>,
 }
 
 impl ApkConfig {
@@ -178,6 +180,7 @@ pub struct Apk {
     path: PathBuf,
     package_name: String,
     ndk: Ndk,
+    reverse_port_forward: HashMap<String, String>,
 }
 
 impl Apk {
@@ -187,7 +190,23 @@ impl Apk {
             path: config.apk(),
             package_name: config.manifest.package.clone(),
             ndk,
+            reverse_port_forward: config.reverse_port_forward.clone(),
         }
+    }
+
+    pub fn reverse_port_forwarding(&self, device_serial: Option<&str>) -> Result<(), NdkError> {
+        for (from, to) in &self.reverse_port_forward {
+            println!("Reverse port forwarding from {} to {}", from, to);
+            let mut adb = self.ndk.adb(device_serial)?;
+
+            adb.arg("reverse").arg(from).arg(to);
+
+            if !adb.status()?.success() {
+                return Err(NdkError::CmdFailed(adb));
+            }
+        }
+
+        Ok(())
     }
 
     pub fn install(&self, device_serial: Option<&str>) -> Result<(), NdkError> {

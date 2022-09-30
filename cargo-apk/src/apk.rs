@@ -176,6 +176,7 @@ impl<'a> ApkBuilder<'a> {
             resources,
             manifest,
             disable_aapt_compression: is_debug_profile,
+            reverse_port_forward: self.manifest.reverse_port_forward.clone(),
         };
         let mut apk = config.create_apk()?;
 
@@ -238,6 +239,7 @@ impl<'a> ApkBuilder<'a> {
 
     pub fn run(&self, artifact: &Artifact, no_logcat: bool) -> Result<(), Error> {
         let apk = self.build(artifact)?;
+        apk.reverse_port_forwarding(self.device_serial.as_deref())?;
         apk.install(self.device_serial.as_deref())?;
         let pid = apk.start(self.device_serial.as_deref())?;
 
