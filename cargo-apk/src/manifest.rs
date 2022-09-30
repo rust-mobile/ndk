@@ -73,7 +73,7 @@ struct AndroidMetadata {
     /// Maps profiles to keystores
     #[serde(default)]
     signing: HashMap<String, Signing>,
-    /// Set up reverse port forwarding before the application launches
+    /// Set up reverse port forwarding before launching the application
     #[serde(default)]
     reverse_port_forward: HashMap<String, String>,
 }

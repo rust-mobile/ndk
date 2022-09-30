@@ -196,7 +196,7 @@ impl Apk {
 
     pub fn reverse_port_forwarding(&self, device_serial: Option<&str>) -> Result<(), NdkError> {
         for (from, to) in &self.reverse_port_forward {
-            println!("Reverse port forwarding {} {}", from, to);
+            println!("Reverse port forwarding from {} to {}", from, to);
             let mut adb = self.ndk.adb(device_serial)?;
 
             adb.arg("reverse").arg(from).arg(to);
