@@ -103,7 +103,7 @@ impl MidiDevice {
     }
 
     /// Opens the input port so that the client can send data to it.
-    pub fn open_input_port<'a>(&'a self, port_number: i32) -> Result<MidiInputPort<'a>> {
+    pub fn open_input_port(&self, port_number: i32) -> Result<MidiInputPort> {
         unsafe {
             let input_port =
                 construct(|res| ffi::AMidiInputPort_open(self.as_ptr(), port_number, res))?;
@@ -112,7 +112,7 @@ impl MidiDevice {
     }
 
     /// Opens the output port so that the client can receive data from it.
-    pub fn open_output_port<'a>(&'a self, port_number: i32) -> Result<MidiOutputPort<'a>> {
+    pub fn open_output_port(&self, port_number: i32) -> Result<MidiOutputPort> {
         unsafe {
             let output_port =
                 construct(|res| ffi::AMidiOutputPort_open(self.as_ptr(), port_number, res))?;
