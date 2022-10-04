@@ -12,7 +12,7 @@ use std::{mem::MaybeUninit, ptr::NonNull};
 
 pub type Result<T, E = NdkMediaError> = std::result::Result<T, E>;
 
-fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::media_status_t) -> Result<T> {
+pub(crate) fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::media_status_t) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
     NdkMediaError::from_status(status).map(|()| unsafe { result.assume_init() })

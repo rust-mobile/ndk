@@ -16,6 +16,7 @@ pub mod hardware_buffer_format;
 pub mod input_queue;
 pub mod looper;
 pub mod media;
+pub mod midi;
 pub mod native_activity;
 pub mod native_window;
 pub mod surface_texture;
