@@ -44,7 +44,12 @@ pub struct MidiDevice {
 }
 
 impl MidiDevice {
-    fn from_ptr(inner: NonNull<ffi::AMidiDevice>) -> Self {
+    /// Creates an `MidiDevice` from a pointer.
+    ///
+    /// # Safety
+    /// By calling this function, you assert that the pointer is a valid pointer to a native
+    /// `AMidiDevice`.
+    pub unsafe fn from_ptr(inner: NonNull<ffi::AMidiDevice>) -> Self {
         Self { inner }
     }
 
@@ -144,7 +149,12 @@ impl<'a> fmt::Debug for MidiInputPort<'a> {
 }
 
 impl<'a> MidiInputPort<'a> {
-    fn from_ptr(inner: NonNull<ffi::AMidiInputPort>) -> Self {
+    /// Creates an `MidiInputPort` from a pointer.
+    ///
+    /// # Safety
+    /// By calling this function, you assert that the pointer is a valid pointer to a native
+    /// `AMidiInputPort`.
+    pub unsafe fn from_ptr(inner: NonNull<ffi::AMidiInputPort>) -> Self {
         Self {
             inner,
             _marker: PhantomData,
@@ -219,7 +229,12 @@ impl<'a> fmt::Debug for MidiOutputPort<'a> {
 }
 
 impl<'a> MidiOutputPort<'a> {
-    fn from_ptr(inner: NonNull<ffi::AMidiOutputPort>) -> Self {
+    /// Creates an `MidiOutputPort` from a pointer.
+    ///
+    /// # Safety
+    /// By calling this function, you assert that the pointer is a valid pointer to a native
+    /// `AMidiOutputPort`.
+    pub unsafe fn from_ptr(inner: NonNull<ffi::AMidiOutputPort>) -> Self {
         Self {
             inner,
             _marker: PhantomData,
@@ -233,10 +248,10 @@ impl<'a> MidiOutputPort<'a> {
     /// Receives the next pending MIDI message.
     ///
     /// To retrieve all pending messages, the client should repeatedly call this method until it
-    /// returns [`MidiOpcode::NoMessage`].
+    /// returns [`Ok(MidiOpcode::NoMessage)`].
     ///
     /// Note that this is a non-blocking call. If there are no Midi messages are available, the
-    /// function returns [`MidiOpcode::NoMessage`] immediately (for 0 messages received).
+    /// function returns [`Ok(MidiOpcode::NoMessage)`] immediately (for 0 messages received).
     pub fn receive(&self, buffer: &mut [u8]) -> Result<(MidiOpcode, i64)> {
         let mut opcode = 0i32;
         let mut timestamp = 0i64;
