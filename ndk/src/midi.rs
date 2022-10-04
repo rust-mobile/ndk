@@ -233,10 +233,10 @@ impl<'a> MidiOutputPort<'a> {
     /// Receives the next pending MIDI message.
     ///
     /// To retrieve all pending messages, the client should repeatedly call this method until it
-    /// returns `Some(_)`.
+    /// returns [`MidiOpcode::NoMessage`].
     ///
     /// Note that this is a non-blocking call. If there are no Midi messages are available, the
-    /// function returns `None` immediately (for 0 messages received).
+    /// function returns [`MidiOpcode::NoMessage`] immediately (for 0 messages received).
     pub fn receive(&self, buffer: &mut [u8]) -> Result<(MidiOpcode, i64)> {
         let mut opcode = 0i32;
         let mut timestamp = 0i64;
