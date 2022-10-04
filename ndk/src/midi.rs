@@ -66,7 +66,7 @@ impl MidiDevice {
     }
 
     /// Gets the number of input (sending) ports available on the specified MIDI device.
-    pub fn get_num_input_ports(&self) -> Result<usize> {
+    pub fn num_input_ports(&self) -> Result<usize> {
         let num_input_ports = unsafe { ffi::AMidiDevice_getNumInputPorts(self.as_ptr()) };
         if num_input_ports >= 0 {
             Ok(num_input_ports as usize)
@@ -76,7 +76,7 @@ impl MidiDevice {
     }
 
     /// Gets the number of output (receiving) ports available on the specified MIDI device.
-    pub fn get_num_output_ports(&self) -> Result<usize> {
+    pub fn num_output_ports(&self) -> Result<usize> {
         let num_output_ports = unsafe { ffi::AMidiDevice_getNumOutputPorts(self.as_ptr()) };
         if num_output_ports >= 0 {
             Ok(num_output_ports as usize)
@@ -89,7 +89,7 @@ impl MidiDevice {
     }
 
     /// Gets the MIDI device type.
-    pub fn get_type(&self) -> Result<MidiDeviceType> {
+    pub fn device_type(&self) -> Result<MidiDeviceType> {
         let device_type = unsafe { ffi::AMidiDevice_getType(self.as_ptr()) };
         if device_type >= 0 {
             let device_type =
