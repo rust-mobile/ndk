@@ -64,10 +64,6 @@ impl MidiDevice {
         self.ptr
     }
 
-    fn as_ptr(&self) -> *mut ffi::AMidiDevice {
-        self.ptr.as_ptr()
-    }
-
     /// Connects a native Midi Device object to the associated Java MidiDevice object.
     ///
     /// Use the returned [`MidiDevice`] to access the rest of the native MIDI API.
@@ -83,7 +79,7 @@ impl MidiDevice {
 
     /// Gets the number of input (sending) ports available on the specified MIDI device.
     pub fn num_input_ports(&self) -> Result<usize> {
-        let num_input_ports = unsafe { ffi::AMidiDevice_getNumInputPorts(self.as_ptr()) };
+        let num_input_ports = unsafe { ffi::AMidiDevice_getNumInputPorts(self.ptr.as_ptr()) };
         if num_input_ports >= 0 {
             Ok(num_input_ports as usize)
         } else {
@@ -93,7 +89,7 @@ impl MidiDevice {
 
     /// Gets the number of output (receiving) ports available on the specified MIDI device.
     pub fn num_output_ports(&self) -> Result<usize> {
-        let num_output_ports = unsafe { ffi::AMidiDevice_getNumOutputPorts(self.as_ptr()) };
+        let num_output_ports = unsafe { ffi::AMidiDevice_getNumOutputPorts(self.ptr.as_ptr()) };
         if num_output_ports >= 0 {
             Ok(num_output_ports as usize)
         } else {
@@ -106,7 +102,7 @@ impl MidiDevice {
 
     /// Gets the MIDI device type.
     pub fn device_type(&self) -> Result<MidiDeviceType> {
-        let device_type = unsafe { ffi::AMidiDevice_getType(self.as_ptr()) };
+        let device_type = unsafe { ffi::AMidiDevice_getType(self.ptr.as_ptr()) };
         if device_type >= 0 {
             let device_type = MidiDeviceType::try_from(device_type as u32).map_err(|e| {
                 NdkMediaError::UnknownResult(ffi::media_status_t(e.number as c_int))
@@ -121,7 +117,7 @@ impl MidiDevice {
     pub fn open_input_port(&self, port_number: i32) -> Result<MidiInputPort> {
         unsafe {
             let input_port =
-                construct(|res| ffi::AMidiInputPort_open(self.as_ptr(), port_number, res))?;
+                construct(|res| ffi::AMidiInputPort_open(self.ptr.as_ptr(), port_number, res))?;
             Ok(MidiInputPort::from_ptr(NonNull::new_unchecked(input_port)))
         }
     }
@@ -130,7 +126,7 @@ impl MidiDevice {
     pub fn open_output_port(&self, port_number: i32) -> Result<MidiOutputPort> {
         unsafe {
             let output_port =
-                construct(|res| ffi::AMidiOutputPort_open(self.as_ptr(), port_number, res))?;
+                construct(|res| ffi::AMidiOutputPort_open(self.ptr.as_ptr(), port_number, res))?;
             Ok(MidiOutputPort::from_ptr(NonNull::new_unchecked(
                 output_port,
             )))
@@ -140,7 +136,7 @@ impl MidiDevice {
 
 impl Drop for MidiDevice {
     fn drop(&mut self) {
-        let status = unsafe { ffi::AMidiDevice_release(self.as_ptr()) };
+        let status = unsafe { ffi::AMidiDevice_release(self.ptr.as_ptr()) };
         NdkMediaError::from_status(status).unwrap();
     }
 }
@@ -174,14 +170,14 @@ impl<'a> MidiInputPort<'a> {
         self.ptr
     }
 
-    fn as_ptr(&self) -> *mut ffi::AMidiInputPort {
-        self.ptr.as_ptr()
-    }
-
     /// Sends data to the specified input port.
     pub fn send(&self, buffer: &[u8]) -> Result<usize> {
         let num_bytes_sent = unsafe {
-            ffi::AMidiInputPort_send(self.as_ptr(), buffer.as_ptr(), buffer.len() as ffi::size_t)
+            ffi::AMidiInputPort_send(
+                self.ptr.as_ptr(),
+                buffer.as_ptr(),
+                buffer.len() as ffi::size_t,
+            )
         };
         if num_bytes_sent >= 0 {
             Ok(num_bytes_sent as usize)
@@ -198,14 +194,14 @@ impl<'a> MidiInputPort<'a> {
     /// This should cause a receiver to discard any pending MIDI data it may have accumulated and
     /// not processed.
     pub fn send_flush(&self) -> Result<()> {
-        let result = unsafe { ffi::AMidiInputPort_sendFlush(self.as_ptr()) };
+        let result = unsafe { ffi::AMidiInputPort_sendFlush(self.ptr.as_ptr()) };
         NdkMediaError::from_status(result)
     }
 
     pub fn send_with_timestamp(&self, buffer: &[u8], timestamp: i64) -> Result<usize> {
         let num_bytes_sent = unsafe {
             ffi::AMidiInputPort_sendWithTimestamp(
-                self.as_ptr(),
+                self.ptr.as_ptr(),
                 buffer.as_ptr(),
                 buffer.len() as ffi::size_t,
                 timestamp,
@@ -224,7 +220,7 @@ impl<'a> MidiInputPort<'a> {
 
 impl<'a> Drop for MidiInputPort<'a> {
     fn drop(&mut self) {
-        unsafe { ffi::AMidiInputPort_close(self.as_ptr()) };
+        unsafe { ffi::AMidiInputPort_close(self.ptr.as_ptr()) };
     }
 }
 
@@ -257,10 +253,6 @@ impl<'a> MidiOutputPort<'a> {
         self.ptr
     }
 
-    fn as_ptr(&self) -> *mut ffi::AMidiOutputPort {
-        self.ptr.as_ptr()
-    }
-
     /// Receives the next pending MIDI message.
     ///
     /// To retrieve all pending messages, the client should repeatedly call this method until it
@@ -274,7 +266,7 @@ impl<'a> MidiOutputPort<'a> {
         let mut num_bytes_received: ffi::size_t = 0;
         let num_messages_received = unsafe {
             ffi::AMidiOutputPort_receive(
-                self.as_ptr(),
+                self.ptr.as_ptr(),
                 &mut opcode,
                 buffer.as_mut_ptr(),
                 buffer.len() as ffi::size_t,
@@ -300,6 +292,6 @@ impl<'a> MidiOutputPort<'a> {
 
 impl<'a> Drop for MidiOutputPort<'a> {
     fn drop(&mut self) {
-        unsafe { ffi::AMidiOutputPort_close(self.as_ptr()) };
+        unsafe { ffi::AMidiOutputPort_close(self.ptr.as_ptr()) };
     }
 }
