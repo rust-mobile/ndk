@@ -272,7 +272,7 @@ impl<'a> MidiOutputPort<'a> {
         let mut opcode = 0i32;
         let mut timestamp = 0i64;
         let mut num_bytes_received: ffi::size_t = 0;
-        let result = unsafe {
+        let num_messages_received = unsafe {
             ffi::AMidiOutputPort_receive(
                 self.as_ptr(),
                 &mut opcode,
@@ -283,17 +283,17 @@ impl<'a> MidiOutputPort<'a> {
             )
         };
 
-        if result < 0 {
-            Err(NdkMediaError::from_status(ffi::media_status_t(result as c_int)).unwrap_err())
-        } else if result == 0 {
-            Ok(MidiOpcode::NoMessage)
-        } else if opcode as c_uint == ffi::AMIDI_OPCODE_DATA {
-            Ok(MidiOpcode::Data {
+        match num_messages_received {
+            r if r < 0 => {
+                Err(NdkMediaError::from_status(ffi::media_status_t(r as c_int)).unwrap_err())
+            }
+            0 => Ok(MidiOpcode::NoMessage),
+            1 if opcode as c_uint == ffi::AMIDI_OPCODE_DATA => Ok(MidiOpcode::Data {
                 length: num_bytes_received as usize,
                 timestamp,
-            })
-        } else {
-            Ok(MidiOpcode::Flush)
+            }),
+            1 => Ok(MidiOpcode::Flush),
+            r => unreachable!("Result is positive integer {}", r),
         }
     }
 }
