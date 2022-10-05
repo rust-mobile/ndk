@@ -32,8 +32,8 @@ unsafe impl<'a> Send for MidiOutputPort<'a> {}
 pub enum MidiOpcode {
     /// No MIDI messages are available.
     NoMessage,
-    /// Received a MIDI message with the given length.
-    Data(usize),
+    /// Received a MIDI message with the given length and the timestamp.
+    Data { length: usize, timestamp: i64 },
     /// Instructed to discard all pending MIDI data.
     Flush,
 }
@@ -259,7 +259,7 @@ impl<'a> MidiOutputPort<'a> {
     ///
     /// Note that this is a non-blocking call. If there are no Midi messages are available, the
     /// function returns [`Ok(MidiOpcode::NoMessage)`] immediately (for 0 messages received).
-    pub fn receive(&self, buffer: &mut [u8]) -> Result<(MidiOpcode, i64)> {
+    pub fn receive(&self, buffer: &mut [u8]) -> Result<MidiOpcode> {
         let mut opcode = 0i32;
         let mut timestamp = 0i64;
         let mut num_bytes_received: ffi::size_t = 0;
@@ -277,11 +277,14 @@ impl<'a> MidiOutputPort<'a> {
         if result < 0 {
             Err(NdkMediaError::from_status(ffi::media_status_t(result as c_int)).unwrap_err())
         } else if result == 0 {
-            Ok((MidiOpcode::NoMessage, timestamp))
+            Ok(MidiOpcode::NoMessage)
         } else if opcode as c_uint == ffi::AMIDI_OPCODE_DATA {
-            Ok((MidiOpcode::Data(num_bytes_received as usize), timestamp))
+            Ok(MidiOpcode::Data {
+                length: num_bytes_received as usize,
+                timestamp,
+            })
         } else {
-            Ok((MidiOpcode::Flush, timestamp))
+            Ok(MidiOpcode::Flush)
         }
     }
 }
