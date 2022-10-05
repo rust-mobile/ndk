@@ -48,21 +48,24 @@ pub enum MidiDeviceType {
 
 #[derive(Debug)]
 pub struct MidiDevice {
-    inner: NonNull<ffi::AMidiDevice>,
+    ptr: NonNull<ffi::AMidiDevice>,
 }
 
 impl MidiDevice {
-    /// Creates an `MidiDevice` from a pointer.
+    /// Assumes ownership of `ptr`
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to a native
-    /// `AMidiDevice`.
-    pub unsafe fn from_ptr(inner: NonNull<ffi::AMidiDevice>) -> Self {
-        Self { inner }
+    /// `ptr` must be a valid pointer to an Android [`ffi::AMidiDevice`].
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AMidiDevice>) -> Self {
+        Self { ptr }
+    }
+
+    pub fn ptr(&self) -> NonNull<ffi::AMidiDevice> {
+        self.ptr
     }
 
     fn as_ptr(&self) -> *mut ffi::AMidiDevice {
-        self.inner.as_ptr()
+        self.ptr.as_ptr()
     }
 
     /// Connects a native Midi Device object to the associated Java MidiDevice object.
@@ -143,33 +146,36 @@ impl Drop for MidiDevice {
 }
 
 pub struct MidiInputPort<'a> {
-    inner: NonNull<ffi::AMidiInputPort>,
+    ptr: NonNull<ffi::AMidiInputPort>,
     _marker: PhantomData<&'a MidiDevice>,
 }
 
 impl<'a> fmt::Debug for MidiInputPort<'a> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("MidiInputPort")
-            .field("inner", &self.inner)
+            .field("inner", &self.ptr)
             .finish()
     }
 }
 
 impl<'a> MidiInputPort<'a> {
-    /// Creates an `MidiInputPort` from a pointer.
+    /// Assumes ownership of `ptr`
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to a native
-    /// `AMidiInputPort`.
-    pub unsafe fn from_ptr(inner: NonNull<ffi::AMidiInputPort>) -> Self {
+    /// `ptr` must be a valid pointer to an Android [`ffi::AMidiInputPort`].
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AMidiInputPort>) -> Self {
         Self {
-            inner,
+            ptr,
             _marker: PhantomData,
         }
     }
 
+    pub fn ptr(&self) -> NonNull<ffi::AMidiInputPort> {
+        self.ptr
+    }
+
     fn as_ptr(&self) -> *mut ffi::AMidiInputPort {
-        self.inner.as_ptr()
+        self.ptr.as_ptr()
     }
 
     /// Sends data to the specified input port.
@@ -223,33 +229,36 @@ impl<'a> Drop for MidiInputPort<'a> {
 }
 
 pub struct MidiOutputPort<'a> {
-    inner: NonNull<ffi::AMidiOutputPort>,
+    ptr: NonNull<ffi::AMidiOutputPort>,
     _marker: PhantomData<&'a MidiDevice>,
 }
 
 impl<'a> fmt::Debug for MidiOutputPort<'a> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("MidiOutputPort")
-            .field("inner", &self.inner)
+            .field("inner", &self.ptr)
             .finish()
     }
 }
 
 impl<'a> MidiOutputPort<'a> {
-    /// Creates an `MidiOutputPort` from a pointer.
+    /// Assumes ownership of `ptr`
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to a native
-    /// `AMidiOutputPort`.
-    pub unsafe fn from_ptr(inner: NonNull<ffi::AMidiOutputPort>) -> Self {
+    /// `ptr` must be a valid pointer to an Android [`ffi::AMidiOutputPort`].
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AMidiOutputPort>) -> Self {
         Self {
-            inner,
+            ptr,
             _marker: PhantomData,
         }
     }
 
+    pub fn ptr(&self) -> NonNull<ffi::AMidiOutputPort> {
+        self.ptr
+    }
+
     fn as_ptr(&self) -> *mut ffi::AMidiOutputPort {
-        self.inner.as_ptr()
+        self.ptr.as_ptr()
     }
 
     /// Receives the next pending MIDI message.
