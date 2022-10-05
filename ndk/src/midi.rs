@@ -280,12 +280,15 @@ impl<'a> MidiOutputPort<'a> {
                 Err(NdkMediaError::from_status(ffi::media_status_t(r as c_int)).unwrap_err())
             }
             0 => Ok(MidiOpcode::NoMessage),
-            1 if opcode as c_uint == ffi::AMIDI_OPCODE_DATA => Ok(MidiOpcode::Data {
-                length: num_bytes_received as usize,
-                timestamp,
-            }),
-            1 => Ok(MidiOpcode::Flush),
-            r => unreachable!("Result is positive integer {}", r),
+            1 => match opcode as c_uint {
+                ffi::AMIDI_OPCODE_DATA => Ok(MidiOpcode::Data {
+                    length: num_bytes_received as usize,
+                    timestamp,
+                }),
+                ffi::AMIDI_OPCODE_FLUSH => Ok(MidiOpcode::Flush),
+                _ => unreachable!("Opcode is {}", opcode),
+            },
+            r => unreachable!("Number of messages is positive integer {}", r),
         }
     }
 }
