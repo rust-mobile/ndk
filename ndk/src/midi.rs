@@ -13,6 +13,7 @@ pub use super::media::Result;
 use super::media::{construct, NdkMediaError};
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
+use std::convert::TryFrom;
 use std::fmt;
 use std::marker::PhantomData;
 use std::os::raw::{c_int, c_uint};
@@ -28,7 +29,6 @@ unsafe impl<'a> Send for MidiOutputPort<'a> {}
 
 /// Result of [`MidiOutputPort::receive`].
 #[derive(Copy, Clone, Debug)]
-#[repr(u32)]
 pub enum MidiOpcode {
     /// No MIDI messages are available.
     NoMessage,
@@ -38,8 +38,8 @@ pub enum MidiOpcode {
     Flush,
 }
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 pub enum MidiDeviceType {
     Bluetooth = ffi::AMIDI_DEVICE_TYPE_BLUETOOTH,
     USB = ffi::AMIDI_DEVICE_TYPE_USB,
