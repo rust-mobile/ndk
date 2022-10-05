@@ -1,5 +1,15 @@
-use super::Result;
+#![cfg(any(feature = "media", feature = "midi"))]
+
+use std::mem::MaybeUninit;
 use thiserror::Error;
+
+pub type Result<T, E = NdkMediaError> = std::result::Result<T, E>;
+
+pub(crate) fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::media_status_t) -> Result<T> {
+    let mut result = MaybeUninit::uninit();
+    let status = with_ptr(result.as_mut_ptr());
+    NdkMediaError::from_status(status).map(|()| unsafe { result.assume_init() })
+}
 
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
