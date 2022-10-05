@@ -6,9 +6,7 @@
 pub mod image_reader;
 pub mod media_codec;
 
-pub use crate::media_error::{NdkMediaError, Result};
-
-use crate::media_error::construct;
+use crate::media_error::{construct, NdkMediaError, Result};
 use std::ptr::NonNull;
 
 fn construct_never_null<T>(
