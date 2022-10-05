@@ -7,7 +7,7 @@
 //! [`AMidiDevice`]: https://developer.android.com/ndk/reference/group/midi#amididevice
 //! [`AMidiInputPort`]: https://developer.android.com/ndk/reference/group/midi#amidiinputport
 //! [`AMidiOutputPort`]: https://developer.android.com/ndk/reference/group/midi#amidioutputport
-#![cfg(feature = "media")]
+#![cfg(feature = "midi")]
 
 pub use super::media::Result;
 use super::media::{construct, NdkMediaError};
