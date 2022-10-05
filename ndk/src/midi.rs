@@ -286,7 +286,7 @@ impl<'a> MidiOutputPort<'a> {
                     timestamp,
                 }),
                 ffi::AMIDI_OPCODE_FLUSH => Ok(MidiOpcode::Flush),
-                _ => unreachable!("Opcode is {}", opcode),
+                _ => unreachable!("Unrecognized opcode {}", opcode),
             },
             r => unreachable!("Number of messages is positive integer {}", r),
         }
