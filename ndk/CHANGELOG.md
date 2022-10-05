@@ -1,6 +1,7 @@
 # Unreleased
 
 - event: Add `tool_type` getter for `Pointer`. (#323)
+- Add `AMidi` bindings. (#353)
 
 # 0.7.0 (2022-07-24)
 
