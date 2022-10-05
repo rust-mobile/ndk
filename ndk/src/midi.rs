@@ -67,7 +67,7 @@ impl MidiDevice {
 
     /// Connects a native Midi Device object to the associated Java MidiDevice object.
     ///
-    /// Use this AMidiDevice to access the rest of the native MIDI API.
+    /// Use the returned [`MidiDevice`] to access the rest of the native MIDI API.
     pub fn from_java(
         env: *mut jni_sys::JNIEnv,
         midi_device_obj: jni_sys::jobject,
