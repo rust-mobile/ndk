@@ -6,7 +6,7 @@
 pub mod image_reader;
 pub mod media_codec;
 
-pub use crate::media_error::{MediaErrorResult, NdkMediaError, Result};
+pub use crate::media_error::{NdkMediaError, Result};
 
 use crate::media_error::construct;
 use std::ptr::NonNull;

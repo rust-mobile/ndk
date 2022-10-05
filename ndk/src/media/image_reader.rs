@@ -5,7 +5,8 @@
 #![cfg(feature = "api-level-24")]
 
 use super::NdkMediaError;
-use super::{construct, construct_never_null, MediaErrorResult, Result};
+use super::{construct, construct_never_null, Result};
+use crate::media_error::MediaErrorResult;
 use crate::native_window::NativeWindow;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
