@@ -77,7 +77,7 @@ impl MidiDevice {
         }
     }
 
-    /// Gets the number of input (sending) ports available on the specified MIDI device.
+    /// Gets the number of input (sending) ports available on this device.
     pub fn num_input_ports(&self) -> Result<usize> {
         let num_input_ports = unsafe { ffi::AMidiDevice_getNumInputPorts(self.ptr.as_ptr()) };
         if num_input_ports >= 0 {
@@ -87,7 +87,7 @@ impl MidiDevice {
         }
     }
 
-    /// Gets the number of output (receiving) ports available on the specified MIDI device.
+    /// Gets the number of output (receiving) ports available on this device.
     pub fn num_output_ports(&self) -> Result<usize> {
         let num_output_ports = unsafe { ffi::AMidiDevice_getNumOutputPorts(self.ptr.as_ptr()) };
         if num_output_ports >= 0 {
@@ -100,7 +100,7 @@ impl MidiDevice {
         }
     }
 
-    /// Gets the MIDI device type.
+    /// Gets the MIDI device type of this device.
     pub fn device_type(&self) -> Result<MidiDeviceType> {
         let device_type = unsafe { ffi::AMidiDevice_getType(self.ptr.as_ptr()) };
         if device_type >= 0 {
@@ -170,7 +170,7 @@ impl<'a> MidiInputPort<'a> {
         self.ptr
     }
 
-    /// Sends data to the specified input port.
+    /// Sends data to this port.
     pub fn send(&self, buffer: &[u8]) -> Result<usize> {
         let num_bytes_sent = unsafe {
             ffi::AMidiInputPort_send(
@@ -189,7 +189,7 @@ impl<'a> MidiInputPort<'a> {
         }
     }
 
-    /// Sends a message with a 'MIDI flush command code' to the specified port.
+    /// Sends a message with a 'MIDI flush command code' to this port.
     ///
     /// This should cause a receiver to discard any pending MIDI data it may have accumulated and
     /// not processed.
