@@ -21,7 +21,7 @@ use std::ptr::NonNull;
 // There is no mention about thread-safety in the NDK reference, but the official Android C++ MIDI
 // sample stores `AMidiDevice *` and `AMidi{Input,Output}Port *` in global variables and accesses the
 // ports from separate threads.
-// See https://github.com/android/ndk-samples/blob/main/native-midi/app/src/main/cpp/AppMidiManager.cpp
+// See https://github.com/android/ndk-samples/blob/7f6936ea044ee29c36b5c3ebd62bb3a64e1e6014/native-midi/app/src/main/cpp/AppMidiManager.cpp
 unsafe impl Send for MidiDevice {}
 unsafe impl<'a> Send for MidiInputPort<'a> {}
 unsafe impl<'a> Send for MidiOutputPort<'a> {}
@@ -105,10 +105,9 @@ impl MidiDevice {
     pub fn device_type(&self) -> Result<MidiDeviceType> {
         let device_type = unsafe { ffi::AMidiDevice_getType(self.as_ptr()) };
         if device_type >= 0 {
-            let device_type =
-                MidiDeviceType::try_from_primitive(device_type as u32).map_err(|e| {
-                    NdkMediaError::UnknownResult(ffi::media_status_t(e.number as c_int))
-                })?;
+            let device_type = MidiDeviceType::try_from(device_type as u32).map_err(|e| {
+                NdkMediaError::UnknownResult(ffi::media_status_t(e.number as c_int))
+            })?;
             Ok(device_type)
         } else {
             Err(NdkMediaError::from_status(ffi::media_status_t(device_type)).unwrap_err())
