@@ -19,6 +19,7 @@ test = []
 audio = []
 bitmap = []
 media = []
+midi = []
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
