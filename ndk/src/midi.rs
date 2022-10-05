@@ -18,6 +18,14 @@ use std::marker::PhantomData;
 use std::os::raw::{c_int, c_uint};
 use std::ptr::NonNull;
 
+// There is no mention about thread-safety in the NDK reference, nut the official Android C++ MIDI
+// sample stores `AMidiDevice*` and `AMidi{InputOutput}Port*` in global variables and accesses the
+// ports from separate threads.
+// See https://github.com/android/ndk-samples/blob/main/native-midi/app/src/main/cpp/AppMidiManager.cpp
+unsafe impl Send for MidiDevice {}
+unsafe impl<'a> Send for MidiInputPort<'a> {}
+unsafe impl<'a> Send for MidiOutputPort<'a> {}
+
 /// Result of [`MidiOutputPort::receive`].
 #[derive(Copy, Clone, Debug)]
 #[repr(u32)]
