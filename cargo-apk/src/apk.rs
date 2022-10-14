@@ -226,10 +226,28 @@ impl<'a> ApkBuilder<'a> {
         let signing_key = self.manifest.signing.get(profile_name);
 
         let signing_key = match (signing_key, is_debug_profile) {
-            (Some(signing), _) => Key {
-                path: crate_path.join(&signing.path),
-                password: signing.keystore_password.clone(),
-            },
+            (Some(signing), _) => {
+                // This is just a dumb find replace for a single env var which is
+                // the typical use case
+                let path = || {
+                    if let Some(pstr) = signing.path.to_str() {
+                        if pstr.starts_with('$') {
+                            if let Some(ind) = pstr.find(|c| c == '/' || c == '\\') {
+                                if let Ok(var) = std::env::var(&pstr[1..ind]) {
+                                    return PathBuf::from(format!("{var}{}", &pstr[ind..]));
+                                }
+                            }
+                        }
+                    }
+
+                    crate_path.join(&signing.path)
+                };
+
+                Key {
+                    path: path(),
+                    password: signing.keystore_password.clone(),
+                }
+            }
             (None, true) => self.ndk.debug_key()?,
             (None, false) => return Err(Error::MissingReleaseKey(profile_name.to_owned())),
         };
