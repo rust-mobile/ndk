@@ -113,7 +113,54 @@ impl<'a> UnalignedApk<'a> {
         let lib_path = Path::new("lib").join(abi).join(path.file_name().unwrap());
         let out = self.config.build_dir.join(&lib_path);
         std::fs::create_dir_all(out.parent().unwrap())?;
-        std::fs::copy(path, out)?;
+
+        match self.config.strip {
+            StripConfig::Default => {
+                std::fs::copy(path, out)?;
+            }
+            StripConfig::Strip | StripConfig::Split => {
+                let obj_copy = self.config.ndk.toolchain_bin("objcopy", target)?;
+
+                {
+                    let mut cmd = Command::new(&obj_copy);
+                    cmd.current_dir(&self.config.build_dir);
+                    cmd.arg("--strip-debug");
+                    cmd.arg(path);
+                    cmd.arg(&lib_path);
+
+                    if !cmd.status()?.success() {
+                        return Err(NdkError::CmdFailed(cmd));
+                    }
+                }
+
+                if self.config.strip == StripConfig::Split {
+                    let dwarf_path = {
+                        let mut dp = lib_path.clone();
+                        dp.set_extension("dwarf");
+                        dp
+                    };
+
+                    let mut cmd = Command::new(&obj_copy);
+                    cmd.current_dir(&self.config.build_dir);
+                    cmd.arg("--only-keep-debug");
+                    cmd.arg(path);
+                    cmd.arg(&dwarf_path);
+
+                    if !cmd.status()?.success() {
+                        return Err(NdkError::CmdFailed(cmd));
+                    }
+
+                    let mut cmd = Command::new(obj_copy);
+                    cmd.current_dir(&self.config.build_dir);
+                    cmd.arg(format!("--add-gnu-debuglink={}", dwarf_path.display()));
+                    cmd.arg(path);
+
+                    if !cmd.status()?.success() {
+                        return Err(NdkError::CmdFailed(cmd));
+                    }
+                }
+            }
+        }
 
         // Pass UNIX path separators to `aapt` on non-UNIX systems, ensuring the resulting separator
         // is compatible with the target device instead of the host platform.
@@ -170,6 +217,7 @@ impl<'a> UnalignedApk<'a> {
         if !zipalign.status()?.success() {
             return Err(NdkError::CmdFailed(zipalign));
         }
+
         Ok(UnsignedApk(self.config))
     }
 }
