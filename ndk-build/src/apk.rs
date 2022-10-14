@@ -9,6 +9,19 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+#[derive(Default, Debug, Copy, Clone, PartialEq, Eq, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum StripConfig {
+    /// Matches the current behavior to not do anything to the native library
+    #[default]
+    Default,
+    /// Removes debug symbols from the library before copying it into the APK
+    Strip,
+    /// Splits the library into into an ELF (.so) and DWARF (.dwarf). Only the
+    /// .so is copied into the APK
+    Split,
+}
+
 pub struct ApkConfig {
     pub ndk: Ndk,
     pub build_dir: PathBuf,
@@ -17,6 +30,7 @@ pub struct ApkConfig {
     pub resources: Option<PathBuf>,
     pub manifest: AndroidManifest,
     pub disable_aapt_compression: bool,
+    pub strip: StripConfig,
     pub reverse_port_forward: HashMap<String, String>,
 }
 
