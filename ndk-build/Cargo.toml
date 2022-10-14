@@ -1,6 +1,6 @@
 [package]
 name = "ndk-build"
-version = "0.8.0"
+version = "0.8.1"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Utilities for building Android binaries"
@@ -13,7 +13,7 @@ repository = "https://github.com/rust-windowing/android-ndk-rs"
 [dependencies]
 dirs = "4"
 dunce = "1"
-quick-xml = { version = "0.23", features = ["serialize"] }
+quick-xml = { version = "0.25", features = ["serialize"] }
 serde = { version = "1", features = ["derive"] }
 thiserror = "1"
 which = "4"

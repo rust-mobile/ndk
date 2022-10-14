@@ -194,7 +194,7 @@ path_prefix = "/rust-windowing/"
 mime_type = "image/jpeg"
 
 # Set up reverse port forwarding through `adb reverse`, meaning that if the
-# Android device connects to `localhost` on port `1338` it will be routed to 
+# Android device connects to `localhost` on port `1338` it will be routed to
 # the host on port `1338` instead. Source and destination ports can differ,
 # see the `adb` help page for possible configurations.
 [package.metadata.android.reverse_port_forward]

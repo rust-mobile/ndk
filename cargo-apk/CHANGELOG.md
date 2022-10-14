@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.9.5 (2022-10-14)
+
+- Automate `adb reverse` port forwarding through `Cargo.toml` metadata ([#348](https://github.com/rust-windowing/android-ndk-rs/pull/348))
+
 # 0.9.4 (2022-09-12)
 
 - Upgrade to latest `ndk-build` to deduplicate libraries before packaging them into the APK. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))

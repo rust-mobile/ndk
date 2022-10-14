@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.8.1 (2022-10-14)
+
+- Provide `reverse_port_forwarding()` to set up `adb reverse` ([#348](https://github.com/rust-windowing/android-ndk-rs/pull/348))
+
 # 0.8.0 (2022-09-12)
 
 - **Breaking:** Postpone APK library packaging until before zip alignment, to deduplicate possibly overlapping entries. ([#333](https://github.com/rust-windowing/android-ndk-rs/pull/333))
