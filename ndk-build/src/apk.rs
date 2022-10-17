@@ -100,6 +100,16 @@ pub struct UnalignedApk<'a> {
     pending_libs: HashSet<String>,
 }
 
+macro_rules! timeit {
+    ($name:expr, $op:block) => {
+        let start = std::time::Instant::now();
+
+        $op
+
+        eprintln!("{} completed in {:.2}s", $name, start.elapsed().as_secs_f32());
+    }
+}
+
 impl<'a> UnalignedApk<'a> {
     pub fn config(&self) -> &ApkConfig {
         self.config
@@ -121,7 +131,7 @@ impl<'a> UnalignedApk<'a> {
             StripConfig::Strip | StripConfig::Split => {
                 let obj_copy = self.config.ndk.toolchain_bin("objcopy", target)?;
 
-                {
+                timeit!(format!("strip debuginfo from {}", lib_path.display()), {
                     let mut cmd = Command::new(&obj_copy);
                     cmd.current_dir(&self.config.build_dir);
                     cmd.arg("--strip-debug");
@@ -131,7 +141,7 @@ impl<'a> UnalignedApk<'a> {
                     if !cmd.status()?.success() {
                         return Err(NdkError::CmdFailed(cmd));
                     }
-                }
+                });
 
                 if self.config.strip == StripConfig::Split {
                     let dwarf_path = {
@@ -140,15 +150,17 @@ impl<'a> UnalignedApk<'a> {
                         dp
                     };
 
-                    let mut cmd = Command::new(&obj_copy);
-                    cmd.current_dir(&self.config.build_dir);
-                    cmd.arg("--only-keep-debug");
-                    cmd.arg(path);
-                    cmd.arg(&dwarf_path);
+                    timeit!(format!("write {}", dwarf_path.display()), {
+                        let mut cmd = Command::new(&obj_copy);
+                        cmd.current_dir(&self.config.build_dir);
+                        cmd.arg("--only-keep-debug");
+                        cmd.arg(path);
+                        cmd.arg(&dwarf_path);
 
-                    if !cmd.status()?.success() {
-                        return Err(NdkError::CmdFailed(cmd));
-                    }
+                        if !cmd.status()?.success() {
+                            return Err(NdkError::CmdFailed(cmd));
+                        }
+                    });
 
                     let mut cmd = Command::new(obj_copy);
                     cmd.current_dir(&self.config.build_dir);
@@ -203,9 +215,11 @@ impl<'a> UnalignedApk<'a> {
             aapt.arg(lib_path_unix);
         }
 
-        if !aapt.status()?.success() {
-            return Err(NdkError::CmdFailed(aapt));
-        }
+        timeit!("write APK", {
+            if !aapt.status()?.success() {
+                return Err(NdkError::CmdFailed(aapt));
+            }
+        });
 
         let mut zipalign = self.config.build_tool(bin!("zipalign"))?;
         zipalign
@@ -214,9 +228,12 @@ impl<'a> UnalignedApk<'a> {
             .arg("4")
             .arg(self.config.unaligned_apk())
             .arg(self.config.apk());
-        if !zipalign.status()?.success() {
-            return Err(NdkError::CmdFailed(zipalign));
-        }
+
+        timeit!(format!("align {}", self.config.apk().display()), {
+            if !zipalign.status()?.success() {
+                return Err(NdkError::CmdFailed(zipalign));
+            }
+        });
 
         Ok(UnsignedApk(self.config))
     }
