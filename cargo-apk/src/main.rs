@@ -27,7 +27,6 @@ struct Args {
 }
 
 #[derive(clap::Subcommand)]
-#[clap(trailing_var_arg = true)]
 enum ApkSubCmd {
     /// Analyze the current package and report errors, but don't build object files nor an apk
     #[clap(visible_alias = "c")]
@@ -44,9 +43,20 @@ enum ApkSubCmd {
     /// Invoke `cargo` under the detected NDK environment
     #[clap(name = "--")]
     Ndk {
+        /// `cargo` subcommand to run
         cargo_cmd: String,
+
+        /// Arguments used to deduce the current environment. Also passed to `cargo`
         #[clap(flatten)]
         args: Args,
+
+        /// Additional arguments passed to `cargo`
+        // TODO: Arguments in this vec should be intermixable with other arguments;
+        // this is somewhat possible with `allow_hyphen_values = true` but any argument
+        // after the first unknown arg/flag ends up inside `cargo_args` instead of being
+        // parsed into `args: Args`.
+        #[clap(trailing_var_arg = true, last = true)]
+        cargo_args: Vec<String>,
     },
     /// Run a binary or example apk of the local package
     #[clap(visible_alias = "r")]
@@ -84,10 +94,14 @@ fn main() -> anyhow::Result<()> {
                 builder.build(artifact)?;
             }
         }
-        ApkSubCmd::Ndk { cargo_cmd, args } => {
+        ApkSubCmd::Ndk {
+            cargo_cmd,
+            args,
+            cargo_args,
+        } => {
             let cmd = Subcommand::new(args.subcommand_args)?;
             let builder = ApkBuilder::from_subcommand(&cmd, args.device)?;
-            builder.default(&cargo_cmd)?;
+            builder.default(&cargo_cmd, &cargo_args)?;
         }
         ApkSubCmd::Run { args, no_logcat } => {
             let cmd = Subcommand::new(args.subcommand_args)?;
