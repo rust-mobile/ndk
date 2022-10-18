@@ -19,7 +19,7 @@ See [`ndk-examples`](./ndk-examples) for examples using the NDK and the README f
 
 `android-ndk-rs` aims to support at least the `LTS` and `Rolling Release` branches of the NDK, as described on [their wiki](https://github.com/android/ndk/wiki#supported-downloads). Additionally the `Beta Release` might be supported to prepare for an upcoming release.
 
-As of writing (2021-07-24) the following NDKs are tested:
+As of writing (2022-10-10) the following NDKs are tested:
 
 Branch | Version | Status | Working
 -|-|:-:|:-:
@@ -28,10 +28,9 @@ r19 | 19.2.5345600 | _Deprecated_ | :heavy_check_mark:
 r20 | 20.1.5948944 | _Deprecated_ | :heavy_check_mark:
 r21 | 21.4.7075529 | _Deprecated_ | :heavy_check_mark:
 r22 | 22.1.7171670 | _Deprecated_ | :heavy_check_mark:
-r23 | beta 1/2 | _Deprecated_ | :heavy_check_mark:
-r23 | 23.0.7272597-beta3 | _Deprecated_ | :heavy_check_mark: Workaround in [#189](https://github.com/rust-windowing/android-ndk-rs/pull/189)
-r23 | 23.1.7779620 | LTS | :heavy_check_mark: Workaround in [#189](https://github.com/rust-windowing/android-ndk-rs/pull/189)
-r24 | 24.0.7856742-beta1 | Rolling Release | :heavy_check_mark: Workaround in [#189](https://github.com/rust-windowing/android-ndk-rs/pull/189)
+r23 | 23.1.7779620 | _Deprecated_ | :heavy_check_mark:
+r24 | 24.0.8215888 | _Deprecated_ | :heavy_check_mark:
+r25 | 25.1.8937393 | LTS | :heavy_check_mark:
 
 
 ## Quick start: `Hello World` crate on Android
