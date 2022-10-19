@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.9.5 (2022-10-14)
+(0.9.5, released on 2022-10-14, was yanked due to unintentionally bumping MSRV through the `quick-xml` crate, and breaking `cargo apk --` parsing after switching to `clap`.)
 
 - Automate `adb reverse` port forwarding through `Cargo.toml` metadata ([#348](https://github.com/rust-windowing/android-ndk-rs/pull/348))
 

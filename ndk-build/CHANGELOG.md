@@ -1,8 +1,8 @@
 # Unreleased
 
-# 0.8.1 (2022-10-14)
+(0.8.1, released on 2022-10-14, was yanked due to violating semver.)
 
-- Provide `reverse_port_forwarding()` to set up `adb reverse` ([#348](https://github.com/rust-windowing/android-ndk-rs/pull/348))
+- **Breaking:** Provide `reverse_port_forwarding()` to set up `adb reverse` ([#348](https://github.com/rust-windowing/android-ndk-rs/pull/348))
 
 # 0.8.0 (2022-09-12)
 
