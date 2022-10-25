@@ -1,5 +1,7 @@
 # Unreleased
 
+- The `path` component of the profile signing is now optional, if not specified the `CARGO_APK_<PROFILE>_KEYSTORE` environment variable is read to determine the path to the keystore. ([#358](https://github.com/rust-windowing/android-ndk-rs/pull/358))
+
 (0.9.5, released on 2022-10-14, was yanked due to unintentionally bumping MSRV through the `quick-xml` crate, and breaking `cargo apk --` parsing after switching to `clap`.)
 
 - Automate `adb reverse` port forwarding through `Cargo.toml` metadata ([#348](https://github.com/rust-windowing/android-ndk-rs/pull/348))
@@ -29,10 +31,10 @@
 # 0.9.0 (2022-05-07)
 
 - **Breaking:** Use `min_sdk_version` to select compiler target instead of `target_sdk_version`. ([#197](https://github.com/rust-windowing/android-ndk-rs/pull/197))
-  See https://developer.android.com/ndk/guides/sdk-versions#minsdkversion for more details.
+  See <https://developer.android.com/ndk/guides/sdk-versions#minsdkversion> for more details.
 - **Breaking:** Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
   for more consistent interaction with Android backwards compatibility handling and its increasingly strict usage rules:
-  https://developer.android.com/distribute/best-practices/develop/target-sdk
+  <https://developer.android.com/distribute/best-practices/develop/target-sdk>
   ([#203](https://github.com/rust-windowing/android-ndk-rs/pull/203))
 - Allow manifest `package` property to be provided in `Cargo.toml`. ([#236](https://github.com/rust-windowing/android-ndk-rs/pull/236))
 - Add `MAIN` intent filter in `from_subcommand` instead of relying on a custom serialization function in `ndk-build`. ([#241](https://github.com/rust-windowing/android-ndk-rs/pull/241))
@@ -44,7 +46,7 @@
 
 - Fixed the library name in case of multiple build artifacts in the Android manifest.
 - Work around missing `libgcc` on NDK r23 beta 3 and above, by providing linker script that "redirects" to `libunwind`.
-  See https://github.com/rust-windowing/android-ndk-rs/issues/149 and https://github.com/rust-lang/rust/pull/85806 for more details.
+  See <https://github.com/rust-windowing/android-ndk-rs/issues/149> and <https://github.com/rust-lang/rust/pull/85806> for more details.
 
 # 0.8.1 (2021-08-06)
 
