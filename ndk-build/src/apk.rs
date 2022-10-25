@@ -9,10 +9,17 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+/// The options for how to treat debug symbols that are present in any `.so`
+/// files that are added to the APK.
+///
+/// Using [strip](https://doc.rust-lang.org/cargo/reference/profiles.html#strip)
+/// or [split-debuginfo](https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo)
+/// in your cargo manifest(s) may cause debug symbols to not be present in an
+/// `.so`, which would cause these options to do nothing
 #[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum StripConfig {
-    /// Does not treat debug symbols especially
+    /// Does not treat debug symbols specially
     Default,
     /// Removes debug symbols from the library before copying it into the APK
     Strip,
