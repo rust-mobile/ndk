@@ -1,7 +1,7 @@
 # Unreleased
 
 - Profile signing information can now be specified via the `CARGO_APK_<PROFILE>_KEYSTORE` and `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` environment variables. The environment variables take precedence over signing information in the cargo manifest. Both environment variables are required except in the case of the `dev` profile, which will fall back to the default password if `CARGO_APK_DEV_KEYSTORE_PASSWORD` is not set. ([#358](https://github.com/rust-windowing/android-ndk-rs/pull/358))
-- Adds the `strip` option, allowing a user to specify how they want debug symbols treated after cargo has finished building, but before the shared object is copied into the APK. ([#356](https://github.com/rust-windowing/android-ndk-rs/pull/356))
+- Add the `strip` option, allowing a user to specify how they want debug symbols treated after cargo has finished building, but before the shared object is copied into the APK. ([#356](https://github.com/rust-windowing/android-ndk-rs/pull/356))
 
 (0.9.5, released on 2022-10-14, was yanked due to unintentionally bumping MSRV through the `quick-xml` crate, and breaking `cargo apk --` parsing after switching to `clap`.)
 
