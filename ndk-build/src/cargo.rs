@@ -16,7 +16,7 @@ pub fn cargo_ndk(
 
     const SEP: char = '\x1f';
 
-    // Read initial RUSTFLAGS
+    // Read initial CARGO_ENCODED_/RUSTFLAGS
     let mut rustflags = match std::env::var("CARGO_ENCODED_RUSTFLAGS") {
         Ok(val) => val,
         Err(std::env::VarError::NotPresent) => {
@@ -26,20 +26,15 @@ pub fn cargo_ndk(
                     // https://github.com/rust-lang/cargo/blob/f6de921a5d807746e972d9d10a4d8e1ca21e1b1f/src/cargo/core/compiler/build_context/target_info.rs#L682-L690
                     let mut rf = String::with_capacity(val.len());
                     if !val.is_empty() {
-                        for arg in val.split(' ').filter_map(|s| {
-                            let s = s.trim();
-                            if !s.is_empty() {
-                                Some(s)
-                            } else {
-                                None
-                            }
-                        }) {
+                        for arg in val.split(' ').map(|s| s.trim()).filter(|s| !s.is_empty()) {
                             rf.push_str(arg);
                             rf.push(SEP);
                         }
 
                         rf.pop();
                     }
+
+                    cargo.env_remove("RUSTFLAGS");
 
                     rf
                 }
