@@ -12,12 +12,12 @@ use std::process::Command;
 #[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum StripConfig {
-    /// Matches the current behavior to not do anything to the native library
+    /// Does not treat debug symbols especially
     Default,
     /// Removes debug symbols from the library before copying it into the APK
     Strip,
-    /// Splits the library into into an ELF (.so) and DWARF (.dwarf). Only the
-    /// .so is copied into the APK
+    /// Splits the library into into an ELF (`.so`) and DWARF (`.dwarf`). Only the
+    /// `.so` is copied into the APK
     Split,
 }
 
@@ -128,10 +128,9 @@ impl<'a> UnalignedApk<'a> {
 
                 {
                     let mut cmd = Command::new(&obj_copy);
-                    cmd.current_dir(&self.config.build_dir);
                     cmd.arg("--strip-debug");
                     cmd.arg(path);
-                    cmd.arg(&lib_path);
+                    cmd.arg(&out);
 
                     if !cmd.status()?.success() {
                         return Err(NdkError::CmdFailed(cmd));
@@ -139,15 +138,10 @@ impl<'a> UnalignedApk<'a> {
                 }
 
                 if self.config.strip == StripConfig::Split {
-                    let dwarf_path = {
-                        let mut dp = lib_path.clone();
-                        dp.set_extension("dwarf");
-                        dp
-                    };
+                    let dwarf_path = out.with_extension("dwarf");
 
                     {
                         let mut cmd = Command::new(&obj_copy);
-                        cmd.current_dir(&self.config.build_dir);
                         cmd.arg("--only-keep-debug");
                         cmd.arg(path);
                         cmd.arg(&dwarf_path);
@@ -158,9 +152,8 @@ impl<'a> UnalignedApk<'a> {
                     }
 
                     let mut cmd = Command::new(obj_copy);
-                    cmd.current_dir(&self.config.build_dir);
                     cmd.arg(format!("--add-gnu-debuglink={}", dwarf_path.display()));
-                    cmd.arg(path);
+                    cmd.arg(out);
 
                     if !cmd.status()?.success() {
                         return Err(NdkError::CmdFailed(cmd));
