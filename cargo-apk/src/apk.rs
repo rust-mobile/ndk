@@ -230,9 +230,10 @@ impl<'a> ApkBuilder<'a> {
                 let path = if let Some(path) = &signing.path {
                     crate_path.join(path)
                 } else {
-                    let profile = profile_name.to_uppercase();
-                    let profile = profile.replace('-', "_");
-                    let profile_env = format!("CARGO_APK_{profile}_KEYSTORE");
+                    let profile_env = format!(
+                        "CARGO_APK_{}_KEYSTORE",
+                        profile.to_uppercase().replace('-', "_")
+                    );
 
                     let path = std::env::var_os(&profile_env)
                         .ok_or_else(|| Error::MissingReleaseKey(profile_name.to_owned()))?;
