@@ -18,7 +18,15 @@ pub fn cargo_ndk(
 
     // Read initial CARGO_ENCODED_/RUSTFLAGS
     let mut rustflags = match std::env::var("CARGO_ENCODED_RUSTFLAGS") {
-        Ok(val) => val,
+        Ok(val) => {
+            if std::env::var_os("RUSTFLAGS").is_some() {
+                panic!(
+                    "Both `CARGO_ENCODED_RUSTFLAGS` and `RUSTFLAGS` were found in the environment, please clear one or the other before invoking this script"
+                );
+            }
+
+            val
+        }
         Err(std::env::VarError::NotPresent) => {
             match std::env::var("RUSTFLAGS") {
                 Ok(val) => {
