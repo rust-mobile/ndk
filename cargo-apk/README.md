@@ -45,12 +45,23 @@ assets = "path/to/assets_folder"
 # Defaults to package name.
 apk_name = "myapp"
 
-# `default` (or unspecified) - Debug symbols are not treated specially
-# `strip` - Debug symbols are stripped from the shared libraries before being
-#   copied into the APK
-# `split` - Functions the same as strip, except the debug symbols are written to
-#   the apk output directory alongside the stripped shared libraries, but with a
-#   `.dwarf` extension.
+# `default` (or unspecified) - Debug symbols, if they exist, are not treated
+#                              specially
+#
+# `strip`                    - Debug symbols are stripped from the shared
+#                              libraries before being copied into the APK
+#
+# `split`                    - Functions the same as strip, except the debug
+#                              symbols are written to the apk output directory
+#                              alongside the stripped shared libraries, but with
+#                              a `.dwarf` extension.
+#
+# Note that the `strip` and `split` options will only have an effect if the
+# debug symbols are present in the `.so` file(s) produced by your build, using
+# https://doc.rust-lang.org/cargo/reference/profiles.html#strip or
+# https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo
+# in your cargo manifest will mean the debug symbols will no longer be present
+# in the `.so`
 strip = "default"
 
 # Folder containing extra shared libraries intended to be dynamically loaded at runtime.
