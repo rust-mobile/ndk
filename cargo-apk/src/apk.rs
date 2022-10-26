@@ -232,7 +232,7 @@ impl<'a> ApkBuilder<'a> {
                 } else {
                     let profile_env = format!(
                         "CARGO_APK_{}_KEYSTORE",
-                        profile.to_uppercase().replace('-', "_")
+                        profile_name.to_uppercase().replace('-', "_")
                     );
 
                     let path = std::env::var_os(&profile_env)
