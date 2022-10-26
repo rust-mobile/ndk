@@ -14,7 +14,7 @@ pub fn cargo_ndk(
     let clang_target = format!("--target={}{}", target.ndk_llvm_triple(), sdk_version);
     let mut cargo = Command::new("cargo");
 
-    const SEP: char = '\x1f';
+    const SEP: &str = "\x1f";
 
     // Read initial CARGO_ENCODED_/RUSTFLAGS
     let mut rustflags = match std::env::var("CARGO_ENCODED_RUSTFLAGS") {
@@ -41,7 +41,7 @@ pub fn cargo_ndk(
 
                     cargo.env_remove("RUSTFLAGS");
 
-                    to_join.join("\x1f")
+                    to_join.join(SEP)
                 }
                 Err(std::env::VarError::NotPresent) => String::new(),
                 Err(std::env::VarError::NotUnicode(_)) => {
@@ -67,7 +67,7 @@ pub fn cargo_ndk(
     // https://doc.rust-lang.org/beta/cargo/reference/environment-variables.html#configuration-environment-variables
     cargo.env(cargo_env_target_cfg("LINKER", triple), &clang);
     if !rustflags.is_empty() {
-        rustflags.push(SEP);
+        rustflags.push_str(SEP);
     }
     rustflags.push_str("-Clink-arg=");
     rustflags.push_str(&clang_target);
@@ -98,9 +98,9 @@ pub fn cargo_ndk(
         // suggests to resort to RUSTFLAGS.
         // Note that `rustflags` will never be empty because of an unconditional `.push_str` above,
         // so we can safely start with appending \x1f here.
-        rustflags.push(SEP);
+        rustflags.push_str(SEP);
         rustflags.push_str("-L");
-        rustflags.push(SEP);
+        rustflags.push_str(SEP);
         rustflags.push_str(
             cargo_apk_link_dir
                 .to_str()
