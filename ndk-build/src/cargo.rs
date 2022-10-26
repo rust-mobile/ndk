@@ -30,18 +30,15 @@ pub fn cargo_ndk(
         Err(std::env::VarError::NotPresent) => {
             match std::env::var("RUSTFLAGS") {
                 Ok(val) => {
-                    // Note cargo also does this very simplified parsing of only
-                    // splitting on spaces, ignoring things like quoting
-                    // https://github.com/rust-lang/cargo/blob/f6de921a5d807746e972d9d10a4d8e1ca21e1b1f/src/cargo/core/compiler/build_context/target_info.rs#L682-L690
-                    let to_join: Vec<_> = val
-                        .split(' ')
-                        .map(|s| s.trim())
-                        .filter(|s| !s.is_empty())
-                        .collect();
-
                     cargo.env_remove("RUSTFLAGS");
 
-                    to_join.join(SEP)
+                    // Same as cargo
+                    // https://github.com/rust-lang/cargo/blob/f6de921a5d807746e972d9d10a4d8e1ca21e1b1f/src/cargo/core/compiler/build_context/target_info.rs#L682-L690
+                    val.split(' ')
+                        .map(str::trim)
+                        .filter(|s| !s.is_empty())
+                        .collect::<Vec<_>>()
+                        .join(SEP)
                 }
                 Err(std::env::VarError::NotPresent) => String::new(),
                 Err(std::env::VarError::NotUnicode(_)) => {
