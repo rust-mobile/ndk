@@ -57,7 +57,7 @@ runtime_libs = "path/to/libs_folder"
 # The keystore path can be absolute, or relative to the Cargo.toml file.
 #
 # The environment variables `CARGO_APK_<PROFILE>_KEYSTORE` and
-# `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` can be configured/set to the keystore path
+# `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` can be set to a keystore path
 # and keystore password respectively. The profile portion follows the same rules
 # as `<cfg>`, it is the uppercased profile name with `-` replaced with `_`.
 #
