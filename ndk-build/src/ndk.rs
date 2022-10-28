@@ -4,7 +4,9 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-pub const DEFAULT_DEV_PASSWORD: &str = "android";
+/// The default password used when creating the default `debug.keystore` via
+/// [`Ndk::debug_key`]
+pub const DEFAULT_DEV_KEYSTORE_PASSWORD: &str = "android";
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Ndk {
@@ -386,7 +388,7 @@ impl Ndk {
 
     pub fn debug_key(&self) -> Result<Key, NdkError> {
         let path = self.android_user_home()?.join("debug.keystore");
-        let password = DEFAULT_DEV_PASSWORD.to_owned();
+        let password = DEFAULT_DEV_KEYSTORE_PASSWORD.to_owned();
 
         if !path.exists() {
             let mut keytool = self.keytool()?;

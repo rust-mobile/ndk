@@ -241,7 +241,7 @@ impl<'a> ApkBuilder<'a> {
                 );
                 Key {
                     path,
-                    password: ndk_build::ndk::DEFAULT_DEV_PASSWORD.to_owned(),
+                    password: ndk_build::ndk::DEFAULT_DEV_KEYSTORE_PASSWORD.to_owned(),
                 }
             }
             (_, _) => {
@@ -261,7 +261,7 @@ impl<'a> ApkBuilder<'a> {
         let unsigned = apk.add_pending_libs_and_align()?;
 
         println!(
-            "Signing '{}' with keystore '{}'",
+            "Signing `{}` with keystore `{}`",
             config.apk().display(),
             signing_key.path.display()
         );
