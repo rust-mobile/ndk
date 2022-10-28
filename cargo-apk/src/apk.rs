@@ -244,7 +244,11 @@ impl<'a> ApkBuilder<'a> {
                     password: ndk_build::ndk::DEFAULT_DEV_KEYSTORE_PASSWORD.to_owned(),
                 }
             }
-            (_, _) => {
+            (Some(path), None) => {
+                eprintln!("`{}` was specified via `{}`, but `{}` was not specified, both or neither must be present for profiles other than `dev`", path.display(), keystore_env, password_env);
+                return Err(Error::MissingReleaseKey(profile_name.to_owned()));
+            }
+            (None, _) => {
                 if let Some(msk) = self.manifest.signing.get(profile_name) {
                     Key {
                         path: crate_path.join(&msk.path),
