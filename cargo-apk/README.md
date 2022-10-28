@@ -57,7 +57,7 @@ apk_name = "myapp"
 #                              a `.dwarf` extension.
 #
 # Note that the `strip` and `split` options will only have an effect if the
-# debug symbols are present in the `.so` file(s) produced by your build, using
+# debug symbols are present in the `.so` file(s) produced by your build, enabling
 # https://doc.rust-lang.org/cargo/reference/profiles.html#strip or
 # https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo
 # in your cargo manifest will cause debug symbols will no longer be present
