@@ -53,7 +53,7 @@ apk_name = "myapp"
 #
 # `split`                    - Functions the same as strip, except the debug
 #                              symbols are written to the apk output directory
-#                              alongside the stripped shared libraries, but with
+#                              alongside the stripped shared libraries, with
 #                              a `.dwarf` extension.
 #
 # Note that the `strip` and `split` options will only have an effect if the
