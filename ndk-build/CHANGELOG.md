@@ -1,5 +1,7 @@
 # Unreleased
 
+- Add `ndk::DEFAULT_DEV_KEYSTORE_PASSWORD` and make `apk::ApkConfig::apk` public. ([#358](https://github.com/rust-windowing/android-ndk-rs/pull/358))
+
 (0.8.1, released on 2022-10-14, was yanked due to violating semver.)
 
 - **Breaking:** Provide `reverse_port_forwarding()` to set up `adb reverse` ([#348](https://github.com/rust-windowing/android-ndk-rs/pull/348))

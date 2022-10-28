@@ -223,18 +223,53 @@ impl<'a> ApkBuilder<'a> {
             Profile::Custom(c) => c.as_str(),
         };
 
-        let signing_key = self.manifest.signing.get(profile_name);
+        let keystore_env = format!(
+            "CARGO_APK_{}_KEYSTORE",
+            profile_name.to_uppercase().replace('-', "_")
+        );
+        let password_env = format!("{}_PASSWORD", keystore_env);
 
-        let signing_key = match (signing_key, is_debug_profile) {
-            (Some(signing), _) => Key {
-                path: crate_path.join(&signing.path),
-                password: signing.keystore_password.clone(),
-            },
-            (None, true) => self.ndk.debug_key()?,
-            (None, false) => return Err(Error::MissingReleaseKey(profile_name.to_owned())),
+        let path = std::env::var_os(&keystore_env).map(PathBuf::from);
+        let password = std::env::var(&password_env).ok();
+
+        let signing_key = match (path, password) {
+            (Some(path), Some(password)) => Key { path, password },
+            (Some(path), None) if is_debug_profile => {
+                eprintln!(
+                    "{} not specified, falling back to default password",
+                    password_env
+                );
+                Key {
+                    path,
+                    password: ndk_build::ndk::DEFAULT_DEV_KEYSTORE_PASSWORD.to_owned(),
+                }
+            }
+            (Some(path), None) => {
+                eprintln!("`{}` was specified via `{}`, but `{}` was not specified, both or neither must be present for profiles other than `dev`", path.display(), keystore_env, password_env);
+                return Err(Error::MissingReleaseKey(profile_name.to_owned()));
+            }
+            (None, _) => {
+                if let Some(msk) = self.manifest.signing.get(profile_name) {
+                    Key {
+                        path: crate_path.join(&msk.path),
+                        password: msk.keystore_password.clone(),
+                    }
+                } else if is_debug_profile {
+                    self.ndk.debug_key()?
+                } else {
+                    return Err(Error::MissingReleaseKey(profile_name.to_owned()));
+                }
+            }
         };
 
-        Ok(apk.add_pending_libs_and_align()?.sign(signing_key)?)
+        let unsigned = apk.add_pending_libs_and_align()?;
+
+        println!(
+            "Signing `{}` with keystore `{}`",
+            config.apk().display(),
+            signing_key.path.display()
+        );
+        Ok(unsigned.sign(signing_key)?)
     }
 
     pub fn run(&self, artifact: &Artifact, no_logcat: bool) -> Result<(), Error> {

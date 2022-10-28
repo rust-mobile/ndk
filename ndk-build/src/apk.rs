@@ -32,7 +32,10 @@ impl ApkConfig {
             .join(format!("{}-unaligned.apk", self.apk_name))
     }
 
-    fn apk(&self) -> PathBuf {
+    /// Retrieves the path of the APK that will be written when [`UnsignedApk::sign`]
+    /// is invoked
+    #[inline]
+    pub fn apk(&self) -> PathBuf {
         self.build_dir.join(format!("{}.apk", self.apk_name))
     }
 

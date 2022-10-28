@@ -50,11 +50,20 @@ apk_name = "myapp"
 # according to the specified build_targets.
 runtime_libs = "path/to/libs_folder"
 
-# Defaults to `$HOME/.android/debug.keystore` for the `dev` profile. Will ONLY generate a new
-# debug.keystore if this file does NOT exist.
-# A keystore path is always required on the `release` profile.
+# Defaults to `$HOME/.android/debug.keystore` for the `dev` profile. Will ONLY
+# generate a new debug.keystore if this file does NOT exist. A keystore is never
+# auto-generated for other profiles.
+#
+# The keystore path can be absolute, or relative to the Cargo.toml file.
+#
+# The environment variables `CARGO_APK_<PROFILE>_KEYSTORE` and
+# `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` can be set to a keystore path
+# and keystore password respectively. The profile portion follows the same rules
+# as `<cfg>`, it is the uppercased profile name with `-` replaced with `_`.
+#
+# If present they take precedence over the signing information in the manifest. 
 [package.metadata.android.signing.<profile>]
-path = "$HOME/.android/debug.keystore"
+path = "relative/or/absolute/path/to/my.keystore"
 keystore_password = "android"
 
 # See https://developer.android.com/guide/topics/manifest/uses-sdk-element
