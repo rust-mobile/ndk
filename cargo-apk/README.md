@@ -46,10 +46,10 @@ assets = "path/to/assets_folder"
 apk_name = "myapp"
 
 # `default` (or unspecified) - Debug symbols, if they exist, are not treated
-#                              specially
+#                              specially.
 #
 # `strip`                    - Debug symbols are stripped from the shared
-#                              libraries before being copied into the APK
+#                              libraries before being copied into the APK.
 #
 # `split`                    - Functions the same as strip, except the debug
 #                              symbols are written to the apk output directory
