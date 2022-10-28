@@ -1,6 +1,8 @@
 # Unreleased
 
 - Add `ndk::DEFAULT_DEV_KEYSTORE_PASSWORD` and make `apk::ApkConfig::apk` public. ([#358](https://github.com/rust-windowing/android-ndk-rs/pull/358))
+- `RUSTFLAGS` is now considered if `CARGO_ENCODED_RUSTFLAGS` is not present allowing `cargo apk build` to not break users' builds if they depend on `RUSTFLAGS` being set prior to the build,
+  as `CARGO_ENCODED_RUSTFLAGS` set by `ndk-build` before invoking `cargo` will take precedence over [all other sources of build flags](https://doc.rust-lang.org/cargo/reference/config.html#buildrustflags). ([#357](https://github.com/rust-windowing/android-ndk-rs/pull/357))
 
 (0.8.1, released on 2022-10-14, was yanked due to violating semver.)
 
@@ -34,7 +36,7 @@
 
 - **Breaking:** Default `target_sdk_version` to `30` or lower (instead of the highest supported SDK version by the detected NDK toolchain)
   for more consistent interaction with Android backwards compatibility handling and its increasingly strict usage rules:
-  https://developer.android.com/distribute/best-practices/develop/target-sdk
+  <https://developer.android.com/distribute/best-practices/develop/target-sdk>
 - **Breaking:** Remove default insertion of `MAIN` intent filter through a custom serialization function, this is better filled in by
   the default setup in `cargo-apk`. ([#241](https://github.com/rust-windowing/android-ndk-rs/pull/241))
 - Add `android:exported` attribute to the manifest's `Activity` element. ([#242](https://github.com/rust-windowing/android-ndk-rs/pull/242))
