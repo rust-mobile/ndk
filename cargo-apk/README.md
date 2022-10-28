@@ -56,7 +56,7 @@ apk_name = "myapp"
 #                              alongside the stripped shared libraries, with
 #                              a `.dwarf` extension.
 #
-# Note that the `strip` and `split` options will only have an effect if the
+# Note that the `strip` and `split` options will only have an effect if
 # debug symbols are present in the `.so` file(s) produced by your build, enabling
 # https://doc.rust-lang.org/cargo/reference/profiles.html#strip or
 # https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo
