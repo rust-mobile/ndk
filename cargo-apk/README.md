@@ -60,7 +60,7 @@ apk_name = "myapp"
 # debug symbols are present in the `.so` file(s) produced by your build, using
 # https://doc.rust-lang.org/cargo/reference/profiles.html#strip or
 # https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo
-# in your cargo manifest will mean the debug symbols will no longer be present
+# in your cargo manifest will cause debug symbols will no longer be present
 # in the `.so`.
 strip = "default"
 
