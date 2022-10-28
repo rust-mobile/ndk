@@ -1,6 +1,6 @@
 # Unreleased
 
-- The `path` component of the profile signing is now optional, if not specified the `CARGO_APK_<PROFILE>_KEYSTORE` environment variable is read to determine the path to the keystore. ([#358](https://github.com/rust-windowing/android-ndk-rs/pull/358))
+- Non-dev profile signing information can now be specified via the `CARGO_APK_<PROFILE>_KEYSTORE` and `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` environment variables if the signing information isn't present in the cargo manifest. ([#358](https://github.com/rust-windowing/android-ndk-rs/pull/358))
 
 (0.9.5, released on 2022-10-14, was yanked due to unintentionally bumping MSRV through the `quick-xml` crate, and breaking `cargo apk --` parsing after switching to `clap`.)
 

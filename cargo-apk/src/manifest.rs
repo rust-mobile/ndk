@@ -80,6 +80,6 @@ struct AndroidMetadata {
 
 #[derive(Clone, Debug, Default, Deserialize)]
 pub(crate) struct Signing {
-    pub(crate) path: Option<PathBuf>,
+    pub(crate) path: PathBuf,
     pub(crate) keystore_password: String,
 }

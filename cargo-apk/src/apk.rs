@@ -226,14 +226,16 @@ impl<'a> ApkBuilder<'a> {
         let signing_key = self.manifest.signing.get(profile_name);
 
         let signing_key = match (signing_key, is_debug_profile) {
-            (Some(signing), _) => {
-                let path = if let Some(path) = &signing.path {
-                    crate_path.join(path)
-                } else {
-                    let profile_env = format!(
-                        "CARGO_APK_{}_KEYSTORE",
-                        profile_name.to_uppercase().replace('-', "_")
-                    );
+            (Some(signing), _) => Key {
+                path: crate_path.join(&signing.path),
+                password: signing.keystore_password.clone(),
+            },
+            (None, true) => self.ndk.debug_key()?,
+            (None, false) => {
+                let env_profile_name = profile_name.to_uppercase().replace('-', "_");
+
+                let path = {
+                    let profile_env = format!("CARGO_APK_{}_KEYSTORE", env_profile_name,);
 
                     let path = std::env::var_os(&profile_env)
                         .ok_or_else(|| Error::MissingReleaseKey(profile_name.to_owned()))?;
@@ -241,13 +243,18 @@ impl<'a> ApkBuilder<'a> {
                     PathBuf::from(path)
                 };
 
-                Key {
-                    path,
-                    password: signing.keystore_password.clone(),
-                }
+                let password = {
+                    let profile_env = format!(
+                        "CARGO_APK_{}_KEYSTORE_PASSWORD",
+                        profile_name.to_uppercase().replace('-', "_")
+                    );
+
+                    std::env::var(&profile_env)
+                        .map_err(|_err| Error::MissingReleaseKey(profile_name.to_owned()))?
+                };
+
+                Key { path, password }
             }
-            (None, true) => self.ndk.debug_key()?,
-            (None, false) => return Err(Error::MissingReleaseKey(profile_name.to_owned())),
         };
 
         Ok(apk.add_pending_libs_and_align()?.sign(signing_key)?)
