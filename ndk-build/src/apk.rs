@@ -32,7 +32,7 @@ impl ApkConfig {
             .join(format!("{}-unaligned.apk", self.apk_name))
     }
 
-    fn apk(&self) -> PathBuf {
+    pub fn apk(&self) -> PathBuf {
         self.build_dir.join(format!("{}.apk", self.apk_name))
     }
 

@@ -54,11 +54,14 @@ runtime_libs = "path/to/libs_folder"
 # generate a new debug.keystore if this file does NOT exist. A keystore is never
 # auto-generated for other profiles.
 #
-# If specified, the keystore path can be absolute, or relative to the Cargo.toml
-# file. If not specified, the environment variables `CARGO_APK_<PROFILE>_KEYSTORE`
-# `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` are read to retrieve the keystore path
+# The keystore path can be absolute, or relative to the Cargo.toml file.
+#
+# The environment variables `CARGO_APK_<PROFILE>_KEYSTORE` and
+# `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` can be read to retrieve the keystore path
 # and keystore password respectively. The profile portion follows the same rules
 # as `<cfg>`, it is the uppercased profile name with `-` replaced with `_`.
+#
+# If present they take precedence over the signing information in the manifest. 
 [package.metadata.android.signing.<profile>]
 path = "relative/or/absolute/path/to/my.keystore"
 keystore_password = "android"
