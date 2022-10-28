@@ -225,35 +225,40 @@ impl<'a> ApkBuilder<'a> {
 
         let signing_key = self.manifest.signing.get(profile_name);
 
-        let signing_key = match (signing_key, is_debug_profile) {
-            (Some(signing), _) => Key {
+        let signing_key = if let Some(signing) = signing_key {
+            Key {
                 path: crate_path.join(&signing.path),
                 password: signing.keystore_password.clone(),
-            },
-            (None, true) => self.ndk.debug_key()?,
-            (None, false) => {
-                let env_profile_name = profile_name.to_uppercase().replace('-', "_");
+            }
+        } else {
+            let env_profile_name = profile_name.to_uppercase().replace('-', "_");
 
-                let path = {
-                    let profile_env = format!("CARGO_APK_{}_KEYSTORE", env_profile_name,);
+            let path = {
+                let profile_env = format!("CARGO_APK_{}_KEYSTORE", env_profile_name);
+                std::env::var_os(&profile_env).map(PathBuf::from)
+            };
 
-                    let path = std::env::var_os(&profile_env)
-                        .ok_or_else(|| Error::MissingReleaseKey(profile_name.to_owned()))?;
+            let password = {
+                let profile_env = format!(
+                    "CARGO_APK_{}_KEYSTORE_PASSWORD",
+                    profile_name.to_uppercase().replace('-', "_")
+                );
 
-                    PathBuf::from(path)
-                };
+                std::env::var(&profile_env).ok()
+            };
 
-                let password = {
-                    let profile_env = format!(
-                        "CARGO_APK_{}_KEYSTORE_PASSWORD",
-                        profile_name.to_uppercase().replace('-', "_")
-                    );
-
-                    std::env::var(&profile_env)
-                        .map_err(|_err| Error::MissingReleaseKey(profile_name.to_owned()))?
-                };
-
-                Key { path, password }
+            if is_debug_profile {
+                if let (Some(path), Some(password)) = (path, password) {
+                    Key { path, password }
+                } else {
+                    self.ndk.debug_key()?
+                }
+            } else {
+                Key {
+                    path: path.ok_or_else(|| Error::MissingReleaseKey(profile_name.to_owned()))?,
+                    password: password
+                        .ok_or_else(|| Error::MissingReleaseKey(profile_name.to_owned()))?,
+                }
             }
         };
 
