@@ -61,7 +61,7 @@ apk_name = "myapp"
 # https://doc.rust-lang.org/cargo/reference/profiles.html#strip or
 # https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo
 # in your cargo manifest will mean the debug symbols will no longer be present
-# in the `.so`
+# in the `.so`.
 strip = "default"
 
 # Folder containing extra shared libraries intended to be dynamically loaded at runtime.
