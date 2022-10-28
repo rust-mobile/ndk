@@ -14,8 +14,8 @@ use std::process::Command;
 ///
 /// Using [strip](https://doc.rust-lang.org/cargo/reference/profiles.html#strip)
 /// or [split-debuginfo](https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo)
-/// in your cargo manifest(s) may cause debug symbols to not be present in an
-/// `.so`, which would cause these options to do nothing
+/// in your cargo manifest(s) may cause debug symbols to not be present in a
+/// `.so`, which would cause these options to do nothing.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum StripConfig {
