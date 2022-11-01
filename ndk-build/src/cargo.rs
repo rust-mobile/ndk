@@ -47,7 +47,7 @@ pub fn cargo_ndk(
             }
         }
         Err(std::env::VarError::NotUnicode(_)) => {
-            panic!("RUSTFLAGS environment variable contains non-unicode characters")
+            panic!("CARGO_ENCODED_RUSTFLAGS environment variable contains non-unicode characters")
         }
     };
 
