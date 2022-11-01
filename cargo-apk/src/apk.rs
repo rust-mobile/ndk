@@ -176,6 +176,7 @@ impl<'a> ApkBuilder<'a> {
             resources,
             manifest,
             disable_aapt_compression: is_debug_profile,
+            strip: self.manifest.strip,
             reverse_port_forward: self.manifest.reverse_port_forward.clone(),
         };
         let mut apk = config.create_apk()?;

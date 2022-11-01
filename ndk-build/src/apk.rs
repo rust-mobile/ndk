@@ -9,6 +9,31 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+/// The options for how to treat debug symbols that are present in any `.so`
+/// files that are added to the APK.
+///
+/// Using [`strip`](https://doc.rust-lang.org/cargo/reference/profiles.html#strip)
+/// or [`split-debuginfo`](https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo)
+/// in your cargo manifest(s) may cause debug symbols to not be present in a
+/// `.so`, which would cause these options to do nothing.
+#[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum StripConfig {
+    /// Does not treat debug symbols specially
+    Default,
+    /// Removes debug symbols from the library before copying it into the APK
+    Strip,
+    /// Splits the library into into an ELF (`.so`) and DWARF (`.dwarf`). Only the
+    /// `.so` is copied into the APK
+    Split,
+}
+
+impl Default for StripConfig {
+    fn default() -> Self {
+        Self::Default
+    }
+}
+
 pub struct ApkConfig {
     pub ndk: Ndk,
     pub build_dir: PathBuf,
@@ -17,6 +42,7 @@ pub struct ApkConfig {
     pub resources: Option<PathBuf>,
     pub manifest: AndroidManifest,
     pub disable_aapt_compression: bool,
+    pub strip: StripConfig,
     pub reverse_port_forward: HashMap<String, String>,
 }
 
@@ -99,7 +125,49 @@ impl<'a> UnalignedApk<'a> {
         let lib_path = Path::new("lib").join(abi).join(path.file_name().unwrap());
         let out = self.config.build_dir.join(&lib_path);
         std::fs::create_dir_all(out.parent().unwrap())?;
-        std::fs::copy(path, out)?;
+
+        match self.config.strip {
+            StripConfig::Default => {
+                std::fs::copy(path, out)?;
+            }
+            StripConfig::Strip | StripConfig::Split => {
+                let obj_copy = self.config.ndk.toolchain_bin("objcopy", target)?;
+
+                {
+                    let mut cmd = Command::new(&obj_copy);
+                    cmd.arg("--strip-debug");
+                    cmd.arg(path);
+                    cmd.arg(&out);
+
+                    if !cmd.status()?.success() {
+                        return Err(NdkError::CmdFailed(cmd));
+                    }
+                }
+
+                if self.config.strip == StripConfig::Split {
+                    let dwarf_path = out.with_extension("dwarf");
+
+                    {
+                        let mut cmd = Command::new(&obj_copy);
+                        cmd.arg("--only-keep-debug");
+                        cmd.arg(path);
+                        cmd.arg(&dwarf_path);
+
+                        if !cmd.status()?.success() {
+                            return Err(NdkError::CmdFailed(cmd));
+                        }
+                    }
+
+                    let mut cmd = Command::new(obj_copy);
+                    cmd.arg(format!("--add-gnu-debuglink={}", dwarf_path.display()));
+                    cmd.arg(out);
+
+                    if !cmd.status()?.success() {
+                        return Err(NdkError::CmdFailed(cmd));
+                    }
+                }
+            }
+        }
 
         // Pass UNIX path separators to `aapt` on non-UNIX systems, ensuring the resulting separator
         // is compatible with the target device instead of the host platform.
@@ -153,9 +221,11 @@ impl<'a> UnalignedApk<'a> {
             .arg("4")
             .arg(self.config.unaligned_apk())
             .arg(self.config.apk());
+
         if !zipalign.status()?.success() {
             return Err(NdkError::CmdFailed(zipalign));
         }
+
         Ok(UnsignedApk(self.config))
     }
 }

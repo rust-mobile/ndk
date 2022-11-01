@@ -1,4 +1,5 @@
 use crate::error::Error;
+use ndk_build::apk::StripConfig;
 use ndk_build::manifest::AndroidManifest;
 use ndk_build::target::Target;
 use serde::Deserialize;
@@ -18,6 +19,7 @@ pub(crate) struct Manifest {
     /// Maps profiles to keystores
     pub(crate) signing: HashMap<String, Signing>,
     pub(crate) reverse_port_forward: HashMap<String, String>,
+    pub(crate) strip: StripConfig,
 }
 
 impl Manifest {
@@ -40,6 +42,7 @@ impl Manifest {
             runtime_libs: metadata.runtime_libs,
             signing: metadata.signing,
             reverse_port_forward: metadata.reverse_port_forward,
+            strip: metadata.strip,
         })
     }
 }
@@ -76,6 +79,8 @@ struct AndroidMetadata {
     /// Set up reverse port forwarding before launching the application
     #[serde(default)]
     reverse_port_forward: HashMap<String, String>,
+    #[serde(default)]
+    strip: StripConfig,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
