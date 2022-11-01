@@ -12,8 +12,8 @@ use std::process::Command;
 /// The options for how to treat debug symbols that are present in any `.so`
 /// files that are added to the APK.
 ///
-/// Using [strip](https://doc.rust-lang.org/cargo/reference/profiles.html#strip)
-/// or [split-debuginfo](https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo)
+/// Using [`strip`](https://doc.rust-lang.org/cargo/reference/profiles.html#strip)
+/// or [`split-debuginfo`](https://doc.rust-lang.org/cargo/reference/profiles.html#split-debuginfo)
 /// in your cargo manifest(s) may cause debug symbols to not be present in a
 /// `.so`, which would cause these options to do nothing.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Deserialize)]
