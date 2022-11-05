@@ -1,5 +1,5 @@
 use crate::error::Error;
-use crate::manifest::Manifest;
+use crate::manifest::{Inheritable, Manifest, Root};
 use cargo_subcommand::{Artifact, CrateType, Profile, Subcommand};
 use ndk_build::apk::{Apk, ApkConfig};
 use ndk_build::cargo::{cargo_ndk, VersionCode};
@@ -24,8 +24,17 @@ impl<'a> ApkBuilder<'a> {
         cmd: &'a Subcommand,
         device_serial: Option<String>,
     ) -> Result<Self, Error> {
+        println!(
+            "Using package `{}` in `{}`",
+            cmd.package(),
+            cmd.manifest().display()
+        );
         let ndk = Ndk::from_env()?;
         let mut manifest = Manifest::parse_from_toml(cmd.manifest())?;
+        let workspace_manifest: Option<Root> = cmd
+            .workspace_manifest()
+            .map(Root::parse_from_toml)
+            .transpose()?;
         let build_targets = if let Some(target) = cmd.target() {
             vec![Target::from_rust_triple(target)?]
         } else if !manifest.build_targets.is_empty() {
@@ -39,11 +48,36 @@ impl<'a> ApkBuilder<'a> {
             .join(cmd.profile())
             .join("apk");
 
+        let package_version = match &manifest.version {
+            Inheritable::Value(v) => v.clone(),
+            Inheritable::Inherited { workspace: true } => {
+                let workspace = workspace_manifest
+                    .ok_or(Error::InheritanceMissingWorkspace)?
+                    .workspace
+                    .unwrap_or_else(|| {
+                        // Unlikely to fail as cargo-subcommand should give us
+                        // a `Cargo.toml` containing a `[workspace]` table
+                        panic!(
+                            "Manifest `{:?}` must contain a `[workspace]` table",
+                            cmd.workspace_manifest().unwrap()
+                        )
+                    });
+
+                workspace
+                    .package
+                    .ok_or(Error::WorkspaceMissingInheritedField("package"))?
+                    .version
+                    .ok_or(Error::WorkspaceMissingInheritedField("package.version"))?
+            }
+            Inheritable::Inherited { workspace: false } => return Err(Error::InheritedFalse),
+        };
+        let version_code = VersionCode::from_semver(&package_version)?.to_code(1);
+
         // Set default Android manifest values
         if manifest
             .android_manifest
             .version_name
-            .replace(manifest.version.clone())
+            .replace(package_version)
             .is_some()
         {
             panic!("version_name should not be set in TOML");
@@ -52,7 +86,7 @@ impl<'a> ApkBuilder<'a> {
         if manifest
             .android_manifest
             .version_code
-            .replace(VersionCode::from_semver(&manifest.version)?.to_code(1))
+            .replace(version_code)
             .is_some()
         {
             panic!("version_code should not be set in TOML");

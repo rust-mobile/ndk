@@ -16,6 +16,12 @@ pub enum Error {
     Io(#[from] IoError),
     #[error("Configure a release keystore via `[package.metadata.android.signing.{0}]`")]
     MissingReleaseKey(String),
+    #[error("`workspace=false` is unsupported")]
+    InheritedFalse,
+    #[error("`workspace=true` requires a workspace")]
+    InheritanceMissingWorkspace,
+    #[error("Failed to inherit field: `workspace.{0}` was not defined in workspace root manifest")]
+    WorkspaceMissingInheritedField(&'static str),
 }
 
 impl Error {

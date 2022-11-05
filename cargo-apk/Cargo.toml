@@ -13,7 +13,7 @@ rust-version = "1.60"
 
 [dependencies]
 anyhow = "1.0.57"
-cargo-subcommand = "0.9"
+cargo-subcommand = "0.10"
 clap = { version = "4", features = ["derive"] }
 dunce = "1"
 env_logger = "0.9"

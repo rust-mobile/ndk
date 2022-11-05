@@ -8,8 +8,15 @@ use std::{
     path::{Path, PathBuf},
 };
 
+#[derive(Debug, Clone, Deserialize)]
+#[serde(untagged)]
+pub enum Inheritable<T> {
+    Value(T),
+    Inherited { workspace: bool },
+}
+
 pub(crate) struct Manifest {
-    pub(crate) version: String,
+    pub(crate) version: Inheritable<String>,
     pub(crate) apk_name: Option<String>,
     pub(crate) android_manifest: AndroidManifest,
     pub(crate) build_targets: Vec<Target>,
@@ -24,16 +31,19 @@ pub(crate) struct Manifest {
 
 impl Manifest {
     pub(crate) fn parse_from_toml(path: &Path) -> Result<Self, Error> {
-        let contents = std::fs::read_to_string(path)?;
-        let toml: Root = toml::from_str(&contents)?;
-        let metadata = toml
+        let toml = Root::parse_from_toml(path)?;
+        // Unlikely to fail as cargo-subcommand should give us a `Cargo.toml` containing
+        // a `[package]` table (with a matching `name` when requested by the user)
+        let package = toml
             .package
+            .unwrap_or_else(|| panic!("Manifest `{:?}` must contain a `[package]`", path));
+        let metadata = package
             .metadata
             .unwrap_or_default()
             .android
             .unwrap_or_default();
         Ok(Self {
-            version: toml.package.version,
+            version: package.version,
             apk_name: metadata.apk_name,
             android_manifest: metadata.android_manifest,
             build_targets: metadata.build_targets,
@@ -48,18 +58,38 @@ impl Manifest {
 }
 
 #[derive(Debug, Clone, Deserialize)]
-struct Root {
-    package: Package,
+pub(crate) struct Root {
+    pub(crate) package: Option<Package>,
+    pub(crate) workspace: Option<Workspace>,
+}
+
+impl Root {
+    pub(crate) fn parse_from_toml(path: &Path) -> Result<Self, Error> {
+        let contents = std::fs::read_to_string(path)?;
+        toml::from_str(&contents).map_err(|e| e.into())
+    }
 }
 
 #[derive(Debug, Clone, Deserialize)]
-struct Package {
-    version: String,
-    metadata: Option<PackageMetadata>,
+pub(crate) struct Package {
+    pub(crate) version: Inheritable<String>,
+    pub(crate) metadata: Option<PackageMetadata>,
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub(crate) struct Workspace {
+    pub(crate) package: Option<WorkspacePackage>,
+}
+
+/// Almost the same as [`Package`], except that this must provide
+/// root values instead of possibly inheritable values
+#[derive(Clone, Debug, Deserialize)]
+pub(crate) struct WorkspacePackage {
+    pub(crate) version: Option<String>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
-struct PackageMetadata {
+pub(crate) struct PackageMetadata {
     android: Option<AndroidMetadata>,
 }
 
