@@ -10,6 +10,7 @@ readme = "README.md"
 documentation = "https://docs.rs/ndk-glue"
 homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
+rust-version = "1.60"
 
 [dependencies]
 android_logger = { version = "0.11", optional = true }

@@ -9,6 +9,7 @@ keywords = ["android", "ndk", "apk"]
 documentation = "https://docs.rs/ndk-build"
 homepage = "https://github.com/rust-windowing/android-ndk-rs"
 repository = "https://github.com/rust-windowing/android-ndk-rs"
+rust-version = "1.60"
 
 [dependencies]
 dirs = "4"

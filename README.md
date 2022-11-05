@@ -1,6 +1,7 @@
 # Rust on Android
 
-[![Rust](https://github.com/rust-windowing/android-ndk-rs/workflows/Rust/badge.svg)](https://github.com/rust-windowing/android-ndk-rs/actions) ![MIT license](https://img.shields.io/badge/License-MIT-green.svg) ![APACHE2 license](https://img.shields.io/badge/License-APACHE2-green.svg)
+[![Rust](https://github.com/rust-windowing/android-ndk-rs/workflows/Rust/badge.svg)](https://github.com/rust-windowing/android-ndk-rs/actions) ![MIT license](https://img.shields.io/badge/License-MIT-green.svg) ![APACHE2 license](https://img.shields.io/badge/License-APACHE2-green.svg) [![MSRV](https://img.shields.io/badge/rustc-1.60.0+-ab6000.svg)](https://blog.rust-lang.org/2022/04/07/Rust-1.60.0.html)
+
 
 Libraries and tools for Rust programming on Android targets:
 
