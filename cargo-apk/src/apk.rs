@@ -151,17 +151,17 @@ impl<'a> ApkBuilder<'a> {
             .manifest
             .assets
             .as_ref()
-            .map(|assets| dunce::simplified(&crate_path.join(&assets)).to_owned());
+            .map(|assets| dunce::simplified(&crate_path.join(assets)).to_owned());
         let resources = self
             .manifest
             .resources
             .as_ref()
-            .map(|res| dunce::simplified(&crate_path.join(&res)).to_owned());
+            .map(|res| dunce::simplified(&crate_path.join(res)).to_owned());
         let runtime_libs = self
             .manifest
             .runtime_libs
             .as_ref()
-            .map(|libs| dunce::simplified(&crate_path.join(&libs)).to_owned());
+            .map(|libs| dunce::simplified(&crate_path.join(libs)).to_owned());
         let apk_name = self
             .manifest
             .apk_name
