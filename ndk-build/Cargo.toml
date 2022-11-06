@@ -14,7 +14,7 @@ rust-version = "1.60"
 [dependencies]
 dirs = "4"
 dunce = "1"
-quick-xml = { version = "0.25", features = ["serialize"] }
+quick-xml = { version = "0.26", features = ["serialize"] }
 serde = { version = "1", features = ["derive"] }
 thiserror = "1"
 which = "4"
