@@ -6,7 +6,7 @@ edition = "2018"
 publish = false
 
 [target.'cfg(target_os = "android")'.dependencies]
-jni = "0.19"
+jni = "0.20"
 libc = "0.2"
 log = "0.4.14"
 ndk = { path = "../ndk", features = ["api-level-23"] }
