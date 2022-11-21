@@ -78,8 +78,7 @@ impl InputQueue {
         match unsafe { ffi::AInputQueue_preDispatchEvent(self.ptr.as_ptr(), event.ptr().as_ptr()) }
         {
             0 => Some(event),
-            1 => None,
-            r => unreachable!("AInputQueue_preDispatchEvent returned non-boolean {}", r),
+            _ => None,
         }
     }
 
