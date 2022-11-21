@@ -36,6 +36,20 @@ jobs:
         # also compile cleanly under this target.
         args: --all --all-targets --all-features --target aarch64-linux-android -- -Dwarnings
 
+  check_msrv:
+    name: Check MSRV (1.60.0)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: dtolnay/rust-toolchain@1.60.0
+        with:
+          target: aarch64-linux-android
+      - uses: actions-rs/cargo@v1
+        with:
+          command: check
+          # See comment above about using one of our supported targets.
+          args: --workspace --all-targets --all-features --target aarch64-linux-android
+
   build:
     strategy:
       fail-fast: false
