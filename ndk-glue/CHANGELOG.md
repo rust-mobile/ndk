@@ -1,5 +1,10 @@
 # Unreleased
 
+- **Breaking:** `NativeActivity` is now behind a lock, and will be removed as soon as `onDestroy`
+  is called. Due to the async nature of events, make sure to hold on to the lock received from
+  `native_activity()` _beforehand_ if you wish to use it during handling of `Event::Destroy`. The
+  lock should be released to allow `onDestroy` to return.
+
 # 0.7.0 (2022-07-24)
 
 - **Breaking:** Provide a `LockReadGuard` newtype around `NativeWindow`/`InputQueue` to hide the underlying lock implementation. (#288)
