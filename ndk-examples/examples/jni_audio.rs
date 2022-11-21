@@ -1,3 +1,5 @@
+use jni::objects::JObject;
+
 #[cfg_attr(target_os = "android", ndk_glue::main(backtrace = "on"))]
 fn main() {
     enumerate_audio_devices().unwrap();
@@ -9,6 +11,7 @@ fn enumerate_audio_devices() -> Result<(), Box<dyn std::error::Error>> {
     // Create a VM for executing Java calls
     let ctx = ndk_context::android_context();
     let vm = unsafe { jni::JavaVM::from_raw(ctx.vm().cast()) }?;
+    let context = unsafe { JObject::from_raw(ctx.context().cast()) };
     let env = vm.attach_current_thread()?;
 
     // Query the global Audio Service
@@ -17,7 +20,7 @@ fn enumerate_audio_devices() -> Result<(), Box<dyn std::error::Error>> {
 
     let audio_manager = env
         .call_method(
-            ctx.context().cast(),
+            context,
             "getSystemService",
             // JNI type signature needs to be derived from the Java API
             // (ArgTys)ResultTy
@@ -36,7 +39,7 @@ fn enumerate_audio_devices() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("-- Output Audio Devices --");
 
-    let device_array = devices.l()?.into_inner();
+    let device_array = devices.l()?.into_raw();
     let len = env.get_array_length(device_array)?;
     for i in 0..len {
         let device = env.get_object_array_element(device_array, i)?;
@@ -56,7 +59,7 @@ fn enumerate_audio_devices() -> Result<(), Box<dyn std::error::Error>> {
             let sample_array = env
                 .call_method(device, "getSampleRates", "()[I", &[])?
                 .l()?
-                .into_inner();
+                .into_raw();
             let len = env.get_array_length(sample_array)?;
 
             let mut sample_rates = vec![0; len as usize];
