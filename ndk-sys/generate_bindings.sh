@@ -14,8 +14,11 @@ while read ARCH && read TARGET ; do
         --newtype-enum 'AHdrMetadataType' \
         --newtype-enum 'AIMAGE_FORMATS' \
         --newtype-enum 'AMediaDrmEventType' \
+        --newtype-enum 'AMediaDrmKeyRequestType' \
         --newtype-enum 'AMediaDrmKeyType' \
         --newtype-enum 'AMediaKeyStatusType' \
+        --newtype-enum 'AMidiDevice_Protocol' \
+        --newtype-enum 'AMotionClassification' \
         --newtype-enum 'ANativeWindowTransform' \
         --newtype-enum 'ANativeWindow_ChangeFrameRateStrategy' \
         --newtype-enum 'ANativeWindow_FrameRateCompatibility' \
