@@ -49,10 +49,13 @@ enum ApkSubCmd {
         /// `cargo` subcommand to run
         cargo_cmd: String,
 
+        // This struct will be filled up later by arguments that are intermixed
+        // with unknown args and ended up in `cargo_args` below.
+        #[clap(flatten)]
+        args: Args,
+
         /// Arguments passed to cargo. Some arguments will be used to configure
         /// the environment similar to other `cargo apk` commands
-        // TODO: This enum variant should parse into `Args` as soon as `clap` supports
-        // parsing
         #[clap(trailing_var_arg = true, allow_hyphen_values = true)]
         cargo_args: Vec<String>,
     },
@@ -74,13 +77,13 @@ enum ApkSubCmd {
     Version,
 }
 
-fn split_apk_and_cargo_args(input: Vec<String>) -> (Args, Vec<String>) {
+fn split_apk_and_cargo_args(mut args: Args, input: Vec<String>) -> (Args, Vec<String>) {
     // Clap doesn't support parsing unknown args properly:
     // https://github.com/clap-rs/clap/issues/1404
     // https://github.com/clap-rs/clap/issues/4498
     // Introspect the `Args` struct and extract every known arg, and whether it takes a value. Use
     // this information to separate out known args from unknown args, and re-parse all the known
-    // args into an `Args` struct.
+    // args into an existing `args: Args` struct instance.
 
     let known_args_taking_value = Args::command()
         .get_arguments()
@@ -125,7 +128,7 @@ fn split_apk_and_cargo_args(input: Vec<String>) -> (Args, Vec<String>) {
     let m = Args::command()
         .no_binary_name(true)
         .get_matches_from(&split_args.apk_args);
-    let args = Args::from_arg_matches(&m).unwrap();
+    args.update_from_arg_matches(&m).unwrap();
     (args, split_args.cargo_args)
 }
 
@@ -149,9 +152,10 @@ fn main() -> anyhow::Result<()> {
         }
         ApkSubCmd::Ndk {
             cargo_cmd,
+            args,
             cargo_args,
         } => {
-            let (args, cargo_args) = split_apk_and_cargo_args(cargo_args);
+            let (args, cargo_args) = split_apk_and_cargo_args(args, cargo_args);
 
             let cmd = Subcommand::new(args.subcommand_args)?;
             let builder = ApkBuilder::from_subcommand(&cmd, args.device)?;
@@ -178,11 +182,11 @@ fn main() -> anyhow::Result<()> {
 
 #[test]
 fn test_split_apk_and_cargo_args() {
-    // Set up a default because cargo-subcommand doesn't derive a default
+    // Set up a default because cargo-subcommand doesn't derive/implement Default
     let args_default = Args::parse_from(std::iter::empty::<&str>());
 
     assert_eq!(
-        split_apk_and_cargo_args(vec!["--quiet".to_string()]),
+        split_apk_and_cargo_args(args_default.clone(), vec!["--quiet".to_string()]),
         (
             Args {
                 subcommand_args: cargo_subcommand::Args {
@@ -196,7 +200,10 @@ fn test_split_apk_and_cargo_args() {
     );
 
     assert_eq!(
-        split_apk_and_cargo_args(vec!["unrecognized".to_string(), "--quiet".to_string()]),
+        split_apk_and_cargo_args(
+            args_default.clone(),
+            vec!["unrecognized".to_string(), "--quiet".to_string()]
+        ),
         (
             Args {
                 subcommand_args: cargo_subcommand::Args {
@@ -210,7 +217,10 @@ fn test_split_apk_and_cargo_args() {
     );
 
     assert_eq!(
-        split_apk_and_cargo_args(vec!["--unrecognized".to_string(), "--quiet".to_string()]),
+        split_apk_and_cargo_args(
+            args_default.clone(),
+            vec!["--unrecognized".to_string(), "--quiet".to_string()]
+        ),
         (
             Args {
                 subcommand_args: cargo_subcommand::Args {
@@ -224,7 +234,10 @@ fn test_split_apk_and_cargo_args() {
     );
 
     assert_eq!(
-        split_apk_and_cargo_args(vec!["-p".to_string(), "foo".to_string()]),
+        split_apk_and_cargo_args(
+            args_default.clone(),
+            vec!["-p".to_string(), "foo".to_string()]
+        ),
         (
             Args {
                 subcommand_args: cargo_subcommand::Args {
@@ -238,12 +251,15 @@ fn test_split_apk_and_cargo_args() {
     );
 
     assert_eq!(
-        split_apk_and_cargo_args(vec![
-            "-p".to_string(),
-            "foo".to_string(),
-            "--unrecognized".to_string(),
-            "--quiet".to_string()
-        ]),
+        split_apk_and_cargo_args(
+            args_default.clone(),
+            vec![
+                "-p".to_string(),
+                "foo".to_string(),
+                "--unrecognized".to_string(),
+                "--quiet".to_string()
+            ]
+        ),
         (
             Args {
                 subcommand_args: cargo_subcommand::Args {
@@ -258,13 +274,16 @@ fn test_split_apk_and_cargo_args() {
     );
 
     assert_eq!(
-        split_apk_and_cargo_args(vec![
-            "--no-deps".to_string(),
-            "-p".to_string(),
-            "foo".to_string(),
-            "--unrecognized".to_string(),
-            "--quiet".to_string()
-        ]),
+        split_apk_and_cargo_args(
+            args_default.clone(),
+            vec![
+                "--no-deps".to_string(),
+                "-p".to_string(),
+                "foo".to_string(),
+                "--unrecognized".to_string(),
+                "--quiet".to_string()
+            ]
+        ),
         (
             Args {
                 subcommand_args: cargo_subcommand::Args {
@@ -272,20 +291,23 @@ fn test_split_apk_and_cargo_args() {
                     package: vec!["foo".to_string()],
                     ..args_default.subcommand_args.clone()
                 },
-                ..args_default
+                ..args_default.clone()
             },
             vec!["--no-deps".to_string(), "--unrecognized".to_string()]
         )
     );
 
     assert_eq!(
-        split_apk_and_cargo_args(vec![
-            "--no-deps".to_string(),
-            "--device".to_string(),
-            "adb:test".to_string(),
-            "--unrecognized".to_string(),
-            "--quiet".to_string()
-        ]),
+        split_apk_and_cargo_args(
+            args_default.clone(),
+            vec![
+                "--no-deps".to_string(),
+                "--device".to_string(),
+                "adb:test".to_string(),
+                "--unrecognized".to_string(),
+                "--quiet".to_string()
+            ]
+        ),
         (
             Args {
                 subcommand_args: cargo_subcommand::Args {
