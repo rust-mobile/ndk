@@ -1,6 +1,6 @@
 [package]
 name = "cargo-apk"
-version = "0.9.4"
+version = "0.9.6"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Helps cargo build APKs"
@@ -18,7 +18,7 @@ clap = { version = "4", features = ["derive"] }
 dunce = "1"
 env_logger = "0.9"
 log = "0.4"
-ndk-build = { path = "../ndk-build", version = "0.8.0" }
+ndk-build = { path = "../ndk-build", version = "0.9.0" }
 serde = "1"
 thiserror = "1"
 toml = "0.5"
