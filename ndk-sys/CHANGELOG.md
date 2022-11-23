@@ -1,5 +1,9 @@
 # Unreleased
 
+# 0.4.1 (2022-11-23)
+
+- Re-release of `0.4.0` to combat a faulty `0.4.0+25.0.8775105` publish. Now also includes `+23.1.7779620` version metadata.
+
 # 0.4.0 (2022-07-24)
 
 - **Breaking:** Turn `enum` type aliases into newtype wrappers. (#245, #315)

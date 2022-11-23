@@ -47,7 +47,7 @@ optional = true
 [dependencies.ffi]
 package = "ndk-sys"
 path = "../ndk-sys"
-version = "0.4.0"
+version = "0.4.1"
 
 [package.metadata.docs.rs]
 features = ["jni", "jni-glue", "all"]
