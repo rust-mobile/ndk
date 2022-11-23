@@ -306,7 +306,7 @@ impl<'a> ApkBuilder<'a> {
         Ok(())
     }
 
-    pub fn default(&self, cargo_cmd: &str) -> Result<(), Error> {
+    pub fn default(&self, cargo_cmd: &str, cargo_args: &[String]) -> Result<(), Error> {
         for target in &self.build_targets {
             let mut cargo = cargo_ndk(
                 &self.ndk,
@@ -320,6 +320,10 @@ impl<'a> ApkBuilder<'a> {
             if self.cmd.target().is_none() {
                 let triple = target.rust_triple();
                 cargo.arg("--target").arg(triple);
+            }
+
+            for additional_arg in cargo_args {
+                cargo.arg(additional_arg);
             }
 
             if !cargo.status()?.success() {
