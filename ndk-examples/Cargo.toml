@@ -9,9 +9,15 @@ publish = false
 jni = "0.20"
 libc = "0.2"
 log = "0.4.14"
-ndk = { path = "../ndk", features = ["api-level-23"] }
+ndk = { version = "0.7", features = ["api-level-23"] }
 ndk-context = { path = "../ndk-context" }
-ndk-glue = { path = "../ndk-glue", features = ["logger"] }
+ndk-glue = { version = "0.7", features = ["logger"] }
+
+# The examples currently use ndk-glue which itself exposes types
+# from the ndk crate and so we need to force a consistent
+# choice to use the local `ndk` implementation
+[patch.crates-io]
+ndk = { path = "../ndk" }
 
 [[example]]
 name = "hello_world"
