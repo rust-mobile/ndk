@@ -206,14 +206,6 @@ jobs:
       run:
         cargo test -p ndk-build --all-features
 
-    - name: Test ndk-glue
-      run:
-        cargo test -p ndk-glue --all-features
-
-    - name: Test ndk-macro
-      run:
-        cargo test -p ndk-macro --all-features
-
     - name: Test cargo-apk
       run:
         cargo test -p cargo-apk --all-features
