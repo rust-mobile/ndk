@@ -1,7 +1,6 @@
 [workspace]
 members = [
     "ndk",
-    "ndk-context",
     "ndk-build",
     "ndk-examples",
     "ndk-sys",
