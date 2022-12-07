@@ -1,7 +1,9 @@
+use android_activity::AndroidApp;
 use jni::objects::JObject;
 
-#[cfg_attr(target_os = "android", ndk_glue::main(backtrace = "on"))]
-fn main() {
+#[no_mangle]
+fn android_main(_app: AndroidApp) {
+    android_logger::init_once(android_logger::Config::default().with_min_level(log::Level::Info));
     enumerate_audio_devices().unwrap();
 }
 

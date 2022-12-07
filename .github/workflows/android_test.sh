@@ -18,7 +18,7 @@ fi
 
 sleep 30s
 
-adb logcat *:E hello-world:V -d | tee ~/logcat.log
+adb logcat *:E hello_world:V -d | tee ~/logcat.log
 
 if grep 'hello world' ~/logcat.log;
 then

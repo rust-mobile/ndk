@@ -14,7 +14,7 @@ $ adb logcat RustStdoutStderr:D '*:S'
 Prints `hello world` in the console
 
 ```console
-$ cargo apk build --example hello_world
+$ cargo apk run --example hello_world
 ```
 
 ### jni_audio
