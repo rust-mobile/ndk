@@ -1,6 +1,6 @@
 [package]
 name = "cargo-apk"
-version = "0.9.6"
+version = "0.9.7"
 authors = ["The Rust Windowing contributors"]
 edition = "2018"
 description = "Helps cargo build APKs"
