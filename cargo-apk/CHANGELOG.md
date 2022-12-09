@@ -1,5 +1,7 @@
 # Unreleased
 
+- Removed known-arg parsing from `cargo apk --` to not make argument flags/values get lost, see also [#375](https://github.com/rust-windowing/android-ndk-rs/issues/375). ([#377](https://github.com/rust-windowing/android-ndk-rs/pull/377))
+
 # 0.9.6 (2022-11-23)
 
 - Profile signing information can now be specified via the `CARGO_APK_<PROFILE>_KEYSTORE` and `CARGO_APK_<PROFILE>_KEYSTORE_PASSWORD` environment variables. The environment variables take precedence over signing information in the cargo manifest. Both environment variables are required except in the case of the `dev` profile, which will fall back to the default password if `CARGO_APK_DEV_KEYSTORE_PASSWORD` is not set. ([#358](https://github.com/rust-windowing/android-ndk-rs/pull/358))
