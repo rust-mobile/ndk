@@ -7,9 +7,9 @@ description = "Safe Rust bindings to the Android NDK"
 license = "MIT OR Apache-2.0"
 keywords = ["android", "ndk"]
 readme = "../README.md"
-documentation = "https://docs.rs/android-ndk"
-homepage = "https://github.com/rust-windowing/android-ndk-rs"
-repository = "https://github.com/rust-windowing/android-ndk-rs"
+documentation = "https://docs.rs/ndk"
+homepage = "https://github.com/rust-mobile/ndk"
+repository = "https://github.com/rust-mobile/ndk"
 rust-version = "1.60"
 
 [features]
