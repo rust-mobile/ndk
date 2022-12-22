@@ -8,8 +8,8 @@ license = "MIT OR Apache-2.0"
 keywords = ["android", "ndk"]
 readme = "../README.md"
 documentation = "https://docs.rs/android-ndk"
-homepage = "https://github.com/rust-windowing/android-ndk-rs"
-repository = "https://github.com/rust-windowing/android-ndk-rs"
+homepage = "https://github.com/rust-mobile/ndk"
+repository = "https://github.com/rust-mobile/ndk"
 rust-version = "1.60"
 
 [features]
