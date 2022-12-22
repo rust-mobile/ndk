@@ -18,7 +18,7 @@ See [`ndk-examples`](./ndk-examples) for examples using the NDK and the README f
 
 ## Supported NDK versions
 
-`android-ndk-rs` aims to support at least the `LTS` and `Rolling Release` branches of the NDK, as described on [their wiki](https://github.com/android/ndk/wiki#supported-downloads). Additionally the `Beta Release` might be supported to prepare for an upcoming release.
+`ndk` and `ndk-sys` aim to support at least the `LTS` and `Rolling Release` branches of the NDK, as described on [their wiki](https://github.com/android/ndk/wiki#supported-downloads). Additionally the `Beta Release` might be supported to prepare for an upcoming release.
 
 As of writing (2022-10-10) the following NDKs are tested:
 
