@@ -14,7 +14,7 @@ Name | Description | Badges
 [`ndk-build`](./ndk-build) | Everything for building apk's | [![crates.io](https://img.shields.io/crates/v/ndk-build.svg)](https://crates.io/crates/ndk-build) [![crates.io](https://docs.rs/ndk-build/badge.svg)](https://docs.rs/ndk-build)
 [`cargo-apk`](./cargo-apk) | Build tool | [![crates.io](https://img.shields.io/crates/v/cargo-apk.svg)](https://crates.io/crates/cargo-apk) [![crates.io](https://docs.rs/cargo-apk/badge.svg)](https://docs.rs/cargo-apk)
 
-See [`ndk-examples`](./ndk-examples) for examples using the NDK and the README files of the crates for more details.
+See [`ndk-examples`](https://github.com/rust-mobile/rust-android-examples/) for examples using the NDK and the README files of the crates for more details.
 
 ## Supported NDK versions
 
