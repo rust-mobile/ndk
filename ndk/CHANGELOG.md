@@ -5,6 +5,7 @@
 - asset: Use entire asset length when mapping buffer. (#387)
 - Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
+- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
 - **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
 
@@ -38,7 +39,7 @@
 # 0.5.0 (2021-11-22)
 
 - **Breaking:** Replace `add_fd_with_callback` `ident` with constant value `ALOOPER_POLL_CALLBACK`,
-  as per https://developer.android.com/ndk/reference/group/looper#alooper_addfd.
+  as per <https://developer.android.com/ndk/reference/group/looper#alooper_addfd>.
 - **Breaking:** Accept unboxed closure in `add_fd_with_callback`.
 - aaudio: Replace "Added in" comments with missing `#[cfg(feature)]`.
 - aaudio: Add missing `fn get_allowed_capture_policy()`.
