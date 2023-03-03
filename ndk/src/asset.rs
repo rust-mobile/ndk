@@ -206,7 +206,7 @@ impl Asset {
         unsafe { ffi::AAsset_getRemainingLength64(self.ptr.as_ptr()) as usize }
     }
 
-    /// Reads all data into a buffer and returns it
+    /// Maps all data into a buffer and returns it
     pub fn get_buffer(&mut self) -> io::Result<&[u8]> {
         unsafe {
             let buf_ptr = ffi::AAsset_getBuffer(self.ptr.as_ptr());
@@ -218,7 +218,7 @@ impl Asset {
             } else {
                 Ok(std::slice::from_raw_parts(
                     buf_ptr as *const u8,
-                    self.get_remaining_length(),
+                    self.get_length(),
                 ))
             }
         }
