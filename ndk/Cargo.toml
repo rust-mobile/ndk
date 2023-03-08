@@ -28,7 +28,7 @@ api-level-28 = ["api-level-27"]
 api-level-29 = ["api-level-28"]
 api-level-30 = ["api-level-29"]
 
-test = ["ffi/test", "jni", "jni-glue", "all"]
+test = ["ffi/test", "jni", "all"]
 
 [dependencies]
 bitflags = "1.2.1"
@@ -41,17 +41,13 @@ thiserror = "1.0.23"
 version = "0.19"
 optional = true
 
-[dependencies.jni-glue]
-version = "0.0.10"
-optional = true
-
 [dependencies.ffi]
 package = "ndk-sys"
 path = "../ndk-sys"
 version = "0.4.0"
 
 [package.metadata.docs.rs]
-features = ["jni", "jni-glue", "all"]
+features = ["jni", "all"]
 rustdoc-args = ["--cfg", "docsrs"]
 targets = [
     "aarch64-linux-android",
