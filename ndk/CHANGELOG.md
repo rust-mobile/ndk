@@ -4,6 +4,7 @@
 - input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
 - asset: Use entire asset length when mapping buffer. (#387)
 - Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
+- Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
 
 # 0.7.0 (2022-07-24)
 
@@ -24,7 +25,7 @@
 - **Breaking:** input_queue: `has_events()` now returns a `bool` directly without being wrapped in `Result`. (#294)
 - **Breaking:** hardware_buffer: `HardwareBufferError` has been removed and replaced with `std::io::Error` in return types. (#295)
 - Fixed `HardwareBuffer` leak on buffers returned from `AndroidBitmap::get_hardware_buffer()`. (#296)
-- **Breaking:** Update `jni` crate (used in public API) from `0.18` to `0.19`. (#300)
+- Bump optional `jni` dependency for doctest example from `0.18` to `0.19`. (#300)
 - hardware_buffer: Made `HardwareBufferDesc` fields `pub`. (#313)
 - **Breaking:** Remove `hardware_buffer` and `trace` features in favour of using `api-level-26` or `api-level-23` directly. (#320)
 
