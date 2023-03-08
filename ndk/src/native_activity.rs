@@ -142,17 +142,6 @@ impl NativeActivity {
     /// let env = vm.attach_current_thread();
     /// // Do JNI with env ...
     /// ```
-    ///
-    /// Usage with [__jni-glue__](https://crates.io/crates/jni-glue) crate:
-    /// ```no_run
-    /// # use ndk::native_activity::NativeActivity;
-    /// # let native_activity: NativeActivity = unimplemented!();
-    /// let vm_ptr = native_activity.vm();
-    /// let vm = unsafe { jni_glue::VM::from_jni_local(&*vm_ptr) };
-    /// vm.with_env(|env| {
-    ///     // Do JNI with env ...
-    /// });
-    /// ```
     pub fn vm(&self) -> *mut jni_sys::JavaVM {
         unsafe { self.ptr.as_ref() }.vm
     }

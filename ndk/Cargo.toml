@@ -10,7 +10,7 @@ readme = "../README.md"
 documentation = "https://docs.rs/ndk"
 homepage = "https://github.com/rust-mobile/ndk"
 repository = "https://github.com/rust-mobile/ndk"
-rust-version = "1.60"
+rust-version = "1.64"
 
 [features]
 all = ["audio", "bitmap","media", "api-level-30"]
@@ -28,7 +28,7 @@ api-level-28 = ["api-level-27"]
 api-level-29 = ["api-level-28"]
 api-level-30 = ["api-level-29"]
 
-test = ["ffi/test", "jni", "jni-glue", "all"]
+test = ["ffi/test", "jni", "all"]
 
 [dependencies]
 bitflags = "1.2.1"
@@ -38,11 +38,7 @@ raw-window-handle = "0.5"
 thiserror = "1.0.23"
 
 [dependencies.jni]
-version = "0.19"
-optional = true
-
-[dependencies.jni-glue]
-version = "0.0.10"
+version = "0.21"
 optional = true
 
 [dependencies.ffi]
@@ -51,7 +47,7 @@ path = "../ndk-sys"
 version = "0.4.0"
 
 [package.metadata.docs.rs]
-features = ["jni", "jni-glue", "all"]
+features = ["jni", "all"]
 rustdoc-args = ["--cfg", "docsrs"]
 targets = [
     "aarch64-linux-android",
