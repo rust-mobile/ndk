@@ -33,8 +33,8 @@ jobs:
         # Use a cross-compilation target (that's typical for Android) to lint everything
         args: --all --all-targets --all-features --target aarch64-linux-android -- -Dwarnings
 
-  check_msrv:
-    name: Check MSRV (1.60.0)
+  check_ndk_sys_msrv:
+    name: Check ndk-sys MSRV (1.60.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -44,7 +44,19 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: check
-          # Use a cross-compilation target (that's typical for Android) to lint everything
+          args: -p ndk-sys --all-targets --all-features --target aarch64-linux-android
+
+  check_msrv:
+    name: Check overall MSRV (1.64.0)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: dtolnay/rust-toolchain@1.64.0
+        with:
+          target: aarch64-linux-android
+      - uses: actions-rs/cargo@v1
+        with:
+          command: check
           args: --workspace --all-targets --all-features --target aarch64-linux-android
 
   build:

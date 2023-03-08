@@ -10,7 +10,7 @@ readme = "../README.md"
 documentation = "https://docs.rs/ndk"
 homepage = "https://github.com/rust-mobile/ndk"
 repository = "https://github.com/rust-mobile/ndk"
-rust-version = "1.60"
+rust-version = "1.64"
 
 [features]
 all = ["audio", "bitmap","media", "api-level-30"]
