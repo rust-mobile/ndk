@@ -2,6 +2,8 @@
 
 - event: Add `tool_type` getter for `Pointer`. (#323)
 - input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
+- asset: Use entire asset length when mapping buffer. (#387)
+- Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
 
 # 0.7.0 (2022-07-24)
 
