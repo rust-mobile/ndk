@@ -31,7 +31,7 @@ api-level-30 = ["api-level-29"]
 test = ["ffi/test", "jni", "all"]
 
 [dependencies]
-bitflags = "1.2.1"
+bitflags = "2.0.0"
 jni-sys = "0.3.0"
 num_enum = "0.5.1"
 raw-window-handle = "0.5"

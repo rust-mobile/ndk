@@ -31,6 +31,7 @@ pub struct ThreadLooper {
 
 bitflags! {
     /// Flags for file descriptor events that a looper can monitor.
+    #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
     pub struct FdEvent: u32 {
         const INPUT = ffi::ALOOPER_EVENT_INPUT;
         const OUTPUT = ffi::ALOOPER_EVENT_OUTPUT;
