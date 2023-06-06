@@ -15,6 +15,7 @@
 - hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 - **Breaking:** hardware_buffer_format: Add catch-all variant. (#407)
 - Add panic guards to callbacks. (#412)
+- bitmap: Add `try_format()` to `AndroidBitmapInfo` to handle unexpected formats without panicking. (#395)
 
 # 0.7.0 (2022-07-24)
 

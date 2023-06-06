@@ -7,7 +7,7 @@
 #![cfg(feature = "bitmap")]
 
 use jni_sys::{jobject, JNIEnv};
-use num_enum::{IntoPrimitive, TryFromPrimitive};
+use num_enum::{IntoPrimitive, TryFromPrimitive, TryFromPrimitiveError};
 use std::{convert::TryInto, mem::MaybeUninit};
 
 #[cfg(feature = "api-level-30")]
@@ -136,9 +136,24 @@ impl AndroidBitmapInfo {
         self.inner.stride
     }
 
-    pub fn format(&self) -> BitmapFormat {
+    /// Attempt to convert the internal, native `AndroidBitmapInfo` into
+    /// this crate's [`BitmapFormat`] type. This may fail if the value
+    /// does not have a corresponding Rust enum variant.
+    pub fn try_format(&self) -> Result<BitmapFormat, TryFromPrimitiveError<BitmapFormat>> {
         let format = self.inner.format as u32;
-        format.try_into().unwrap()
+        format.try_into()
+    }
+
+    /// Attempt to convert the internal, native `AndroidBitmapInfo` into
+    /// this crate's [`BitmapFormat`] type.
+    ///
+    /// # Panics
+    ///
+    /// This function panics if the underlying value does not have a corresponding variant in
+    /// [`BitmapFormat`]. Use [`try_format()`][AndroidBitmapInfo::try_format() for an infallible
+    /// version of this function.
+    pub fn format(&self) -> BitmapFormat {
+        self.try_format().unwrap()
     }
 
     #[cfg(feature = "api-level-30")]
