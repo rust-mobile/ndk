@@ -33,7 +33,7 @@ test = ["ffi/test", "jni", "all"]
 [dependencies]
 bitflags = "1.2.1"
 jni-sys = "0.3.0"
-num_enum = "0.5.1"
+num_enum = "0.6"
 raw-window-handle = "0.5"
 thiserror = "1.0.23"
 
