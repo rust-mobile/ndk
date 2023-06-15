@@ -22,11 +22,11 @@ use std::ptr::NonNull;
 pub struct FontWeight(u16);
 
 impl FontWeight {
-    pub const fn new(value: u16) -> Option<Self> {
+    pub const fn new(value: u16) -> std::result::Result<Self, TryFromU16Error> {
         if 0 < value && value <= 1000 {
-            Some(Self(value))
+            Ok(Self(value))
         } else {
-            None
+            Err(TryFromU16Error(()))
         }
     }
 
@@ -71,7 +71,7 @@ impl fmt::Display for TryFromU16Error {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
         write!(
             fmt,
-            "Font weight must be positive and less than or equal to 1000"
+            "font weight must be positive and less than or equal to 1000"
         )
     }
 }
@@ -82,9 +82,68 @@ impl TryFrom<u16> for FontWeight {
     type Error = TryFromU16Error;
 
     fn try_from(value: u16) -> Result<Self, Self::Error> {
-        FontWeight::new(value).ok_or(TryFromU16Error(()))
+        FontWeight::new(value)
     }
 }
+
+/// A 4-byte integer representing an OpenType axis tag.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct AxisTag(u32);
+
+impl AxisTag {
+    pub const fn from_be(value: u32) -> std::result::Result<Self, TryFromU32Error> {
+        // Each byte in a tag must be in the range 0x20 to 0x7E.
+        // See https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
+        macro_rules! check_in_valid_range {
+            ($($byte: expr),+) => {
+                $(
+                    if !(0x20 <= ($byte) && ($byte) <= 0x7E) {
+                        return Err(TryFromU32Error(()));
+                    }
+                )+
+            };
+        }
+
+        let bytes = value.to_be_bytes();
+        check_in_valid_range!(bytes[0], bytes[1], bytes[2], bytes[3]);
+
+        Ok(Self(value))
+    }
+}
+
+impl fmt::Display for AxisTag {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let bytes = self.0.to_be_bytes();
+        write!(
+            f,
+            "{}{}{}{}",
+            bytes[0] as char, bytes[1] as char, bytes[2] as char, bytes[3] as char
+        )
+    }
+}
+
+impl fmt::Debug for AxisTag {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "AxisTag(")?;
+        fmt::Display::fmt(self, f)?;
+        write!(f, " {:#x})", self.0)
+    }
+}
+
+/// The error type returned when an invalie font weight value is passed.
+#[derive(Debug)]
+pub struct TryFromU32Error(());
+
+impl fmt::Display for TryFromU32Error {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            fmt,
+            "each byte in an axis tag must be in the range 0x20 to 0x7E"
+        )
+    }
+}
+
+impl std::error::Error for TryFromU32Error {}
 
 /// A native [`AFont *`]
 ///
@@ -125,8 +184,10 @@ impl Font {
     /// Return an OpenType axis tag associated with the current font.
     ///
     /// See [`Font::axis_count`] for more details.
-    pub fn axis_tag_at(&self, idx: usize) -> u32 {
-        unsafe { ffi::AFont_getAxisTag(self.ptr.as_ptr(), idx as u32) }
+    pub fn axis_tag_at(&self, idx: usize) -> AxisTag {
+        // Android returns Axis Tag in big-endian.
+        // See https://cs.android.com/android/platform/superproject/+/refs/heads/master:frameworks/base/native/android/system_fonts.cpp;l=197 for details
+        AxisTag(unsafe { ffi::AFont_getAxisTag(self.ptr.as_ptr(), idx as u32) })
     }
 
     /// Return an OpenType axis value associated with the current font.
