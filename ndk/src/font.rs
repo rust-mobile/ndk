@@ -263,3 +263,53 @@ impl Drop for FontMatcher {
         unsafe { ffi::AFontMatcher_destroy(self.ptr.as_ptr()) }
     }
 }
+
+/// A native [`ASystemFontIterator *`]
+///
+/// [`ASystemFontIterator *`]: https://developer.android.com/ndk/reference/group/font#asystemfontiterator_open
+#[cfg(feature = "api-level-29")]
+#[derive(Debug)]
+pub struct SystemFontIterator {
+    ptr: NonNull<ffi::ASystemFontIterator>,
+}
+
+#[cfg(feature = "api-level-29")]
+impl SystemFontIterator {
+    /// Create an `SystemFontIterator` from a pointer
+    ///
+    /// # Safety
+    /// By calling this function, you assert that the pointer is a valid pointer to a native
+    /// `ASystemFontIterator`.
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::ASystemFontIterator>) -> Self {
+        Self { ptr }
+    }
+
+    /// Returns the pointer to the native `ASystemFontIterator`.
+    pub fn ptr(&self) -> NonNull<ffi::ASystemFontIterator> {
+        self.ptr
+    }
+
+    /// Create a system font iterator.
+    pub fn new() -> Self {
+        NonNull::new(unsafe { ffi::ASystemFontIterator_open() })
+            .map(|p| unsafe { SystemFontIterator::from_ptr(p) })
+            .unwrap()
+    }
+}
+
+#[cfg(feature = "api-level-29")]
+impl Iterator for SystemFontIterator {
+    type Item = Font;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        NonNull::new(unsafe { ffi::ASystemFontIterator_next(self.ptr.as_ptr()) })
+            .map(|p| unsafe { Font::from_ptr(p) })
+    }
+}
+
+#[cfg(feature = "api-level-29")]
+impl Drop for SystemFontIterator {
+    fn drop(&mut self) {
+        unsafe { ffi::ASystemFontIterator_close(self.ptr.as_ptr()) }
+    }
+}
