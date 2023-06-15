@@ -3,7 +3,7 @@
 //! [`AMediaFormat`]: https://developer.android.com/ndk/reference/group/media#amediaformat
 //! [`AMediaCodec`]: https://developer.android.com/ndk/reference/group/media#amediacodec
 
-use super::{get_unlikely_to_be_null, NdkMediaError, Result};
+use super::{NdkMediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
     convert::TryInto,
@@ -350,14 +350,14 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-28")]
     pub fn input_format(&self) -> MediaFormat {
-        let inner =
-            get_unlikely_to_be_null(|| unsafe { ffi::AMediaCodec_getInputFormat(self.as_ptr()) });
+        let inner = NonNull::new(unsafe { ffi::AMediaCodec_getInputFormat(self.as_ptr()) })
+            .expect("AMediaCodec_getInputFormat returned NULL");
         MediaFormat { inner }
     }
 
     pub fn output_format(&self) -> MediaFormat {
-        let inner =
-            get_unlikely_to_be_null(|| unsafe { ffi::AMediaCodec_getOutputFormat(self.as_ptr()) });
+        let inner = NonNull::new(unsafe { ffi::AMediaCodec_getOutputFormat(self.as_ptr()) })
+            .expect("AMediaCodec_getOutputFormat returned NULL");
         MediaFormat { inner }
     }
 
@@ -495,9 +495,10 @@ impl OutputBuffer<'_> {
 
     #[cfg(feature = "api-level-28")]
     pub fn format(&self) -> MediaFormat {
-        let inner = get_unlikely_to_be_null(|| unsafe {
+        let inner = NonNull::new(unsafe {
             ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index)
-        });
+        })
+        .expect("AMediaCodec_getBufferFormat returned NULL");
         MediaFormat { inner }
     }
 
