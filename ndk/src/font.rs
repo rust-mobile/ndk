@@ -46,6 +46,23 @@ impl FontWeight {
     pub const MAX: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MAX as u16);
 }
 
+impl fmt::Display for FontWeight {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match *self {
+            FontWeight::THIN => writeln!(f, "Thin"),
+            FontWeight::EXTRA_LIGHT => writeln!(f, "Extra Light (Ultra Light)"),
+            FontWeight::LIGHT => writeln!(f, "Light"),
+            FontWeight::NORMAL => writeln!(f, "Normal (Regular)"),
+            FontWeight::MEDIUM => writeln!(f, "Medium"),
+            FontWeight::SEMI_BOLD => writeln!(f, "Semi Bold (Demi Bold)"),
+            FontWeight::BOLD => writeln!(f, "Bold"),
+            FontWeight::EXTRA_BOLD => writeln!(f, "Extra Bold (Ultra Bold)"),
+            FontWeight::BLACK => writeln!(f, "Black (Heavy)"),
+            _ => writeln!(f, "{}", self.0),
+        }
+    }
+}
+
 /// The error type returned when an invalie font weight value is passed.
 #[derive(Debug)]
 pub struct TryFromU16Error(());
