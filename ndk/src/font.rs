@@ -14,8 +14,8 @@ use std::ptr::NonNull;
 /// Encapsulates font weights.
 ///
 /// See the followings for more details:
-/// - [`AFONT_WEIGHT_*`]
-/// - [`Font::weight`]
+/// * [`AFONT_WEIGHT_*`]
+/// * [`Font::weight`]
 ///
 /// [`AFONT_WEIGHT_*`]: https://developer.android.com/ndk/reference/group/font#anonymous-enum-33
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
@@ -132,10 +132,10 @@ impl Font {
     ///
     /// Here is a list of font formats returned by this method:
     ///
-    /// - OpenType
-    /// - OpenType Font Collection
-    /// - TrueType
-    /// - TrueType Collection
+    /// * OpenType
+    /// * OpenType Font Collection
+    /// * TrueType
+    /// * TrueType Collection
     ///
     /// The file extension could be one of *.otf, *.ttf, *.otc or *.ttc.
     /// The font file returned is guaranteed to be opened with `O_RDONLY`.
@@ -183,5 +183,83 @@ impl Font {
 impl Drop for Font {
     fn drop(&mut self) {
         unsafe { ffi::AFont_close(self.ptr.as_ptr()) }
+    }
+}
+
+/// Encapsulates [`AFAMILY_VARIANT_*`].
+///
+/// [`AFAMILY_VARIANT_*`]: https://developer.android.com/ndk/reference/group/font#group___font_1gga96a58e29e8dbf2b5bdeb775cba46556ea662aafc7016e35d6758da93416fc0833
+#[repr(u32)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[allow(clippy::unnecessary_cast)]
+pub enum FamilyVariant {
+    Compact = ffi::AFAMILY_VARIANT_COMPACT as u32,
+    Default = ffi::AFAMILY_VARIANT_DEFAULT as u32,
+    Elegant = ffi::AFAMILY_VARIANT_ELEGANT as u32,
+}
+
+/// A native [`AFontMatcher *`]
+///
+/// [`AFontMatcher *`]: https://developer.android.com/ndk/reference/group/font#afontmatcher_create
+#[cfg(feature = "api-level-29")]
+#[derive(Debug)]
+pub struct FontMatcher {
+    ptr: NonNull<ffi::AFontMatcher>,
+}
+
+#[cfg(feature = "api-level-29")]
+impl FontMatcher {
+    /// Create an `FontMatcher` from a pointer
+    ///
+    /// # Safety
+    /// By calling this function, you assert that the pointer is a valid pointer to a native
+    /// `AFontMatcher`.
+    pub unsafe fn from_ptr(ptr: NonNull<ffi::AFontMatcher>) -> Self {
+        Self { ptr }
+    }
+
+    /// Returns the pointer to the native `AFontMatcher`.
+    pub fn ptr(&self) -> NonNull<ffi::AFontMatcher> {
+        self.ptr
+    }
+
+    /// Select the best font from given parameters.
+    ///
+    /// Creates a new [`FontMatcher`] object.
+    pub fn new() -> Self {
+        NonNull::new(unsafe { ffi::AFontMatcher_create() })
+            .map(|p| unsafe { FontMatcher::from_ptr(p) })
+            .unwrap()
+    }
+
+    /// Set family variant to matcher.
+    ///
+    /// If this function is not called, the matcher performs with [`FamilyVariant::Default`].
+    pub fn set_family_variant(&mut self, family_variant: FamilyVariant) {
+        unsafe { ffi::AFontMatcher_setFamilyVariant(self.ptr.as_ptr(), family_variant as u32) }
+    }
+
+    /// Set font locales to matcher.
+    ///
+    /// If this function is not called, the matcher performs with empty locale list.
+    ///
+    /// # Arguments
+    /// * `language_tags`: a null character terminated comma separated IETF BCP47 compliant language tags.
+    pub fn set_locales(&mut self, language_tags: &CStr) {
+        unsafe { ffi::AFontMatcher_setLocales(self.ptr.as_ptr(), language_tags.as_ptr()) }
+    }
+
+    /// Set font style to matcher.
+    ///
+    /// If this function is not called, the matcher performs with [`FontWeight::NORMAL`] with non-italic style.
+    pub fn set_style(&mut self, weight: FontWeight, italic: bool) {
+        unsafe { ffi::AFontMatcher_setStyle(self.ptr.as_ptr(), weight.value(), italic) }
+    }
+}
+
+#[cfg(feature = "api-level-29")]
+impl Drop for FontMatcher {
+    fn drop(&mut self) {
+        unsafe { ffi::AFontMatcher_destroy(self.ptr.as_ptr()) }
     }
 }
