@@ -445,7 +445,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getpointercount)
     #[inline]
     pub fn pointer_count(&self) -> usize {
-        unsafe { ffi::AMotionEvent_getPointerCount(self.ptr.as_ptr()) as usize }
+        unsafe { ffi::AMotionEvent_getPointerCount(self.ptr.as_ptr()) }
     }
 
     /// An iterator over the pointers in this motion event
@@ -480,7 +480,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_gethistorysize)
     #[inline]
     pub fn history_size(&self) -> usize {
-        unsafe { ffi::AMotionEvent_getHistorySize(self.ptr.as_ptr()) as usize }
+        unsafe { ffi::AMotionEvent_getHistorySize(self.ptr.as_ptr()) }
     }
 
     /// An iterator over the historical events contained in this event.
@@ -604,80 +604,73 @@ impl<'a> Pointer<'a> {
 
     #[inline]
     pub fn pointer_id(&self) -> i32 {
-        unsafe { ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn axis_value(&self, axis: Axis) -> f32 {
-        unsafe {
-            ffi::AMotionEvent_getAxisValue(
-                self.event.as_ptr(),
-                axis as i32,
-                self.index as ffi::size_t,
-            )
-        }
+        unsafe { ffi::AMotionEvent_getAxisValue(self.event.as_ptr(), axis as i32, self.index) }
     }
 
     #[inline]
     pub fn orientation(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getOrientation(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getOrientation(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn pressure(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getPressure(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getPressure(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn raw_x(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getRawX(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getRawX(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn raw_y(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getRawY(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getRawY(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn x(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getX(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getX(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn y(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getY(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getY(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn size(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getSize(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getSize(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn tool_major(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getToolMajor(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getToolMajor(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn tool_minor(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getToolMinor(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getToolMinor(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn touch_major(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getTouchMajor(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getTouchMajor(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn touch_minor(&self) -> f32 {
-        unsafe { ffi::AMotionEvent_getTouchMinor(self.event.as_ptr(), self.index as ffi::size_t) }
+        unsafe { ffi::AMotionEvent_getTouchMinor(self.event.as_ptr(), self.index) }
     }
 
     #[inline]
     pub fn tool_type(&self) -> ToolType {
-        let tool_type = unsafe {
-            ffi::AMotionEvent_getToolType(self.event.as_ptr(), self.index as ffi::size_t) as u32
-        };
+        let tool_type =
+            unsafe { ffi::AMotionEvent_getToolType(self.event.as_ptr(), self.index) as u32 };
         tool_type.try_into().unwrap()
     }
 }
@@ -743,12 +736,7 @@ impl<'a> HistoricalMotionEvent<'a> {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_gethistoricaleventtime)
     #[inline]
     pub fn event_time(&self) -> i64 {
-        unsafe {
-            ffi::AMotionEvent_getHistoricalEventTime(
-                self.event.as_ptr(),
-                self.history_index as ffi::size_t,
-            )
-        }
+        unsafe { ffi::AMotionEvent_getHistoricalEventTime(self.event.as_ptr(), self.history_index) }
     }
 
     /// An iterator over the pointers of this historical motion event
@@ -758,9 +746,7 @@ impl<'a> HistoricalMotionEvent<'a> {
             event: self.event,
             history_index: self.history_index,
             next_pointer_index: 0,
-            pointer_count: unsafe {
-                ffi::AMotionEvent_getPointerCount(self.event.as_ptr()) as usize
-            },
+            pointer_count: unsafe { ffi::AMotionEvent_getPointerCount(self.event.as_ptr()) },
             _marker: std::marker::PhantomData,
         }
     }
@@ -840,9 +826,7 @@ impl<'a> HistoricalPointer<'a> {
 
     #[inline]
     pub fn pointer_id(&self) -> i32 {
-        unsafe {
-            ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.pointer_index as ffi::size_t)
-        }
+        unsafe { ffi::AMotionEvent_getPointerId(self.event.as_ptr(), self.pointer_index) }
     }
 
     #[inline]
@@ -856,8 +840,8 @@ impl<'a> HistoricalPointer<'a> {
             ffi::AMotionEvent_getHistoricalAxisValue(
                 self.event.as_ptr(),
                 axis as i32,
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -867,8 +851,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalOrientation(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -878,8 +862,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalPressure(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -889,8 +873,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalRawX(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -900,8 +884,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalRawY(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -911,8 +895,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalX(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -922,8 +906,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalY(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -933,8 +917,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalSize(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -944,8 +928,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalToolMajor(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -955,8 +939,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalToolMinor(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -966,8 +950,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalTouchMajor(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
@@ -977,8 +961,8 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalTouchMinor(
                 self.event.as_ptr(),
-                self.pointer_index as ffi::size_t,
-                self.history_index as ffi::size_t,
+                self.pointer_index,
+                self.history_index,
             )
         }
     }
