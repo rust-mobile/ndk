@@ -11,7 +11,7 @@ use std::os::unix::prelude::OsStrExt;
 use std::path::Path;
 use std::ptr::NonNull;
 
-/// Encapsulates font weights.
+/// An integer holding a valid font weight value between 1 and 1000.
 ///
 /// See the followings for more details:
 /// * [`AFONT_WEIGHT_*`]
@@ -208,7 +208,7 @@ impl Drop for Font {
     }
 }
 
-/// Encapsulates [`AFAMILY_VARIANT_*`].
+/// Corresponds to [`AFAMILY_VARIANT_*`].
 ///
 /// [`AFAMILY_VARIANT_*`]: https://developer.android.com/ndk/reference/group/font#group___font_1gga96a58e29e8dbf2b5bdeb775cba46556ea662aafc7016e35d6758da93416fc0833
 #[repr(u32)]
