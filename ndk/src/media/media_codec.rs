@@ -9,6 +9,7 @@ use std::{
     convert::TryInto,
     ffi::{CStr, CString},
     fmt::Display,
+    mem::MaybeUninit,
     ptr::{self, NonNull},
     slice,
     time::Duration,
@@ -318,12 +319,12 @@ impl MediaCodec {
         &self,
         timeout: Duration,
     ) -> Result<DequeuedOutputBufferInfoResult<'_>> {
-        let mut info: ffi::AMediaCodecBufferInfo = unsafe { std::mem::zeroed() };
+        let mut info = MaybeUninit::uninit();
 
         let result = unsafe {
             ffi::AMediaCodec_dequeueOutputBuffer(
                 self.as_ptr(),
-                &mut info,
+                info.as_mut_ptr(),
                 timeout
                     .as_micros()
                     .try_into()
@@ -341,7 +342,7 @@ impl MediaCodec {
             Ok(DequeuedOutputBufferInfoResult::Buffer(OutputBuffer {
                 codec: self,
                 index: result as usize,
-                info,
+                info: unsafe { info.assume_init() },
             }))
         } else {
             Err(MediaError::from_status(ffi::media_status_t(result as _)).unwrap_err())
