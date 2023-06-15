@@ -276,8 +276,13 @@ impl Drop for Font {
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
 #[allow(clippy::unnecessary_cast)]
 pub enum FamilyVariant {
+    /// A family variant value for the compact font family variant.
+    /// The compact font family has Latin-based vertical metrics.
     Compact = ffi::AFAMILY_VARIANT_COMPACT as u32,
+    /// A family variant value for the system default variant.
     Default = ffi::AFAMILY_VARIANT_DEFAULT as u32,
+    /// A family variant value for the elegant font family variant.
+    /// The elegant font family may have larger vertical metrics than Latin font.
     Elegant = ffi::AFAMILY_VARIANT_ELEGANT as u32,
 }
 
