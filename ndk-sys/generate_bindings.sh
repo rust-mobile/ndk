@@ -15,6 +15,7 @@ sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/${host_tag}/sysroot/
 
 while read ARCH && read TARGET ; do
     bindgen wrapper.h -o src/ffi_$ARCH.rs \
+        --no-size_t-is-usize \
         --blocklist-item 'JNI\w+' \
         --blocklist-item 'C?_?JNIEnv' \
         --blocklist-item '_?JavaVM' \
