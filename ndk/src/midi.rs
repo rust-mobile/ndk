@@ -67,7 +67,11 @@ impl MidiDevice {
     /// Connects a native Midi Device object to the associated Java MidiDevice object.
     ///
     /// Use the returned [`MidiDevice`] to access the rest of the native MIDI API.
-    pub fn from_java(
+    ///
+    /// # Safety
+    /// `env` and `midi_device_obj` must be valid pointers to a [`jni_sys::JNIEnv`] instance and a
+    /// Java [`MidiDevice`](https://developer.android.com/reference/android/media/midi/MidiDevice) instance.
+    pub unsafe fn from_java(
         env: *mut jni_sys::JNIEnv,
         midi_device_obj: jni_sys::jobject,
     ) -> Result<MidiDevice> {
