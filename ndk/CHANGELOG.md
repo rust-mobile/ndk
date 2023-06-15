@@ -5,6 +5,7 @@
 - asset: Use entire asset length when mapping buffer. (#387)
 - Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
+- Add `Font` bindings.
 
 # 0.7.0 (2022-07-24)
 
