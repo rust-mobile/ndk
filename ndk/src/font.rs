@@ -166,8 +166,13 @@ impl Font {
     /// For information about IETF BCP47, read [`Locale.forLanguageTag(java.lang.String)`].
     ///
     /// [`Locale.forLanguageTag(java.lang.String)`]: https://developer.android.com/reference/java/util/Locale.html#forLanguageTag(java.lang.String)
-    pub fn locale(&self) -> &CStr {
-        unsafe { CStr::from_ptr(ffi::AFont_getLocale(self.ptr.as_ptr())) }
+    pub fn locale(&self) -> Option<&CStr> {
+        let ptr = unsafe { ffi::AFont_getLocale(self.ptr.as_ptr()) };
+        if ptr.is_null() {
+            None
+        } else {
+            Some(unsafe { CStr::from_ptr(ptr) })
+        }
     }
 
     /// Return a weight value associated with the current font.
