@@ -378,10 +378,9 @@ impl SystemFontIterator {
     }
 
     /// Create a system font iterator.
-    pub fn new() -> Self {
+    pub fn new() -> Option<Self> {
         NonNull::new(unsafe { ffi::ASystemFontIterator_open() })
             .map(|p| unsafe { SystemFontIterator::from_ptr(p) })
-            .unwrap()
     }
 }
 
