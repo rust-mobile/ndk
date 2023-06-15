@@ -2,6 +2,7 @@
 
 - Detect OS from `generate_bindings.sh` and use proper NDK Host Tag
 - Use `--no-size_t-is-usize` with `bindgen` to ensure `size_t` is generated
+- Prevent AFont bindgen errors by adding `typedef struct` to wrapper.h
 - Regenerate against NDK 25.0.8775105 with `rust-bindgen 0.59.2`. (#324)
 
 # 0.4.1 (2022-11-23)

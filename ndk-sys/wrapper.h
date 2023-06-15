@@ -20,8 +20,10 @@
 #include <android/dlext.h>
 #include <android/fdsan.h>
 #include <android/file_descriptor_jni.h>
-// #include <android/font.h>
-// #include <android/font_matcher.h>
+typedef struct AFont AFont;
+#include <android/font.h>
+typedef struct AFontMatcher AFontMatcher;
+#include <android/font_matcher.h>
 #include <android/hardware_buffer.h>
 #include <android/hardware_buffer_jni.h>
 #include <android/hdr_metadata.h>
@@ -49,7 +51,8 @@
 #include <android/surface_texture.h>
 #include <android/surface_texture_jni.h>
 #include <android/sync.h>
-// #include <android/system_fonts.h>
+typedef struct ASystemFontIterator ASystemFontIterator;
+#include <android/system_fonts.h>
 // #include <android/thermal.h>
 #include <android/trace.h>
 #include <android/versioning.h>
