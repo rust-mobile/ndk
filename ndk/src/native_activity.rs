@@ -17,6 +17,7 @@ bitflags! {
     /// <https://developer.android.com/ndk/reference/group/native-activity#group___native_activity_1ga2f1398dba5e4a5616b83437528bdb28e>
     ///
     /// [`android.view.WindowManager.LayoutParams`]: https://developer.android.com/reference/android/view/WindowManager.LayoutParams
+    #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
     pub struct WindowFlags: u32 {
         const ALLOW_LOCK_WHILE_SCREEN_ON = ffi::AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
         const DIM_BEHIND = ffi::AWINDOW_FLAG_DIM_BEHIND;
