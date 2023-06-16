@@ -316,7 +316,7 @@ impl FontMatcher {
     pub fn new() -> Self {
         NonNull::new(unsafe { ffi::AFontMatcher_create() })
             .map(|p| unsafe { FontMatcher::from_ptr(p) })
-            .unwrap()
+            .expect("AFontMatcher_create returned NULL")
     }
 
     /// Set family variant to matcher.
