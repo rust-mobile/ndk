@@ -281,7 +281,7 @@ impl<'a> MidiOutputPort<'a> {
             0 => Ok(MidiOpcode::NoMessage),
             1 => match opcode as c_uint {
                 ffi::AMIDI_OPCODE_DATA => Ok(MidiOpcode::Data {
-                    length: num_bytes_received as usize,
+                    length: num_bytes_received,
                     timestamp,
                 }),
                 ffi::AMIDI_OPCODE_FLUSH => Ok(MidiOpcode::Flush),
