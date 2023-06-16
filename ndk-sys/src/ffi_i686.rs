@@ -35,9 +35,9 @@ pub const __WORDSIZE: u32 = 32;
 pub const __bos_level: u32 = 0;
 pub const __ANDROID_NDK__: u32 = 1;
 pub const __NDK_MAJOR__: u32 = 25;
-pub const __NDK_MINOR__: u32 = 1;
+pub const __NDK_MINOR__: u32 = 2;
 pub const __NDK_BETA__: u32 = 0;
-pub const __NDK_BUILD__: u32 = 8937393;
+pub const __NDK_BUILD__: u32 = 9519653;
 pub const __NDK_CANARY__: u32 = 0;
 pub const __ANDROID_API_FUTURE__: u32 = 10000;
 pub const __ANDROID_API__: u32 = 10000;
@@ -227,7 +227,6 @@ extern "C" {
 extern "C" {
     pub fn android_get_device_api_level() -> ::std::os::raw::c_int;
 }
-pub type size_t = ::std::os::raw::c_uint;
 pub type wchar_t = ::std::os::raw::c_int;
 #[repr(C)]
 #[repr(align(8))]
@@ -414,8 +413,8 @@ pub type __poll_t = ::std::os::raw::c_uint;
 pub struct pthread_attr_t {
     pub flags: u32,
     pub stack_base: *mut ::std::os::raw::c_void,
-    pub stack_size: size_t,
-    pub guard_size: size_t,
+    pub stack_size: usize,
+    pub guard_size: usize,
     pub sched_policy: i32,
     pub sched_priority: i32,
 }
@@ -692,7 +691,6 @@ pub type off64_t = loff_t;
 pub type __socklen_t = i32;
 pub type socklen_t = __socklen_t;
 pub type __va_list = __builtin_va_list;
-pub type ssize_t = __kernel_ssize_t;
 pub type uint_t = ::std::os::raw::c_uint;
 pub type uint = ::std::os::raw::c_uint;
 pub type u_char = ::std::os::raw::c_uchar;
@@ -749,7 +747,7 @@ extern "C" {
     pub fn AAsset_read(
         asset: *mut AAsset,
         buf: *mut ::std::os::raw::c_void,
-        count: size_t,
+        count: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -1110,7 +1108,7 @@ pub type AndroidBitmap_CompressWriteFunc = ::std::option::Option<
     unsafe extern "C" fn(
         userContext: *mut ::std::os::raw::c_void,
         data: *const ::std::os::raw::c_void,
-        size: size_t,
+        size: usize,
     ) -> bool,
 >;
 extern "C" {
@@ -1224,29 +1222,29 @@ extern "C" {
 extern "C" {
     pub fn AChoreographerFrameCallbackData_getFrameTimelinesLength(
         data: *const AChoreographerFrameCallbackData,
-    ) -> size_t;
+    ) -> usize;
 }
 extern "C" {
     pub fn AChoreographerFrameCallbackData_getPreferredFrameTimelineIndex(
         data: *const AChoreographerFrameCallbackData,
-    ) -> size_t;
+    ) -> usize;
 }
 extern "C" {
     pub fn AChoreographerFrameCallbackData_getFrameTimelineVsyncId(
         data: *const AChoreographerFrameCallbackData,
-        index: size_t,
+        index: usize,
     ) -> AVsyncId;
 }
 extern "C" {
     pub fn AChoreographerFrameCallbackData_getFrameTimelineExpectedPresentationTimeNanos(
         data: *const AChoreographerFrameCallbackData,
-        index: size_t,
+        index: usize,
     ) -> i64;
 }
 extern "C" {
     pub fn AChoreographerFrameCallbackData_getFrameTimelineDeadlineNanos(
         data: *const AChoreographerFrameCallbackData,
-        index: size_t,
+        index: usize,
     ) -> i64;
 }
 #[repr(C)]
@@ -1744,7 +1742,7 @@ pub struct android_namespace_t {
 pub struct android_dlextinfo {
     pub flags: u64,
     pub reserved_addr: *mut ::std::os::raw::c_void,
-    pub reserved_size: size_t,
+    pub reserved_size: usize,
     pub relro_fd: ::std::os::raw::c_int,
     pub library_fd: ::std::os::raw::c_int,
     pub library_fd_offset: off64_t,
@@ -2005,10 +2003,10 @@ extern "C" {
     pub fn AFont_getLocale(font: *const AFont) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn AFont_getCollectionIndex(font: *const AFont) -> size_t;
+    pub fn AFont_getCollectionIndex(font: *const AFont) -> usize;
 }
 extern "C" {
-    pub fn AFont_getAxisCount(font: *const AFont) -> size_t;
+    pub fn AFont_getAxisCount(font: *const AFont) -> usize;
 }
 extern "C" {
     pub fn AFont_getAxisTag(font: *const AFont, axisIndex: u32) -> u32;
@@ -3534,7 +3532,7 @@ extern "C" {
 extern "C" {
     pub fn AImageDecoder_createFromBuffer(
         buffer: *const ::std::os::raw::c_void,
-        length: size_t,
+        length: usize,
         outDecoder: *mut *mut AImageDecoder,
     ) -> ::std::os::raw::c_int;
 }
@@ -3613,14 +3611,14 @@ extern "C" {
     pub fn AImageDecoderHeaderInfo_getDataSpace(arg1: *const AImageDecoderHeaderInfo) -> i32;
 }
 extern "C" {
-    pub fn AImageDecoder_getMinimumStride(decoder: *mut AImageDecoder) -> size_t;
+    pub fn AImageDecoder_getMinimumStride(decoder: *mut AImageDecoder) -> usize;
 }
 extern "C" {
     pub fn AImageDecoder_decodeImage(
         decoder: *mut AImageDecoder,
         pixels: *mut ::std::os::raw::c_void,
-        stride: size_t,
-        size: size_t,
+        stride: usize,
+        size: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -4309,166 +4307,158 @@ extern "C" {
     pub fn AMotionEvent_getYPrecision(motion_event: *const AInputEvent) -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getPointerCount(motion_event: *const AInputEvent) -> size_t;
+    pub fn AMotionEvent_getPointerCount(motion_event: *const AInputEvent) -> usize;
 }
 extern "C" {
-    pub fn AMotionEvent_getPointerId(
-        motion_event: *const AInputEvent,
-        pointer_index: size_t,
-    ) -> i32;
-}
-extern "C" {
-    pub fn AMotionEvent_getToolType(motion_event: *const AInputEvent, pointer_index: size_t)
+    pub fn AMotionEvent_getPointerId(motion_event: *const AInputEvent, pointer_index: usize)
         -> i32;
 }
 extern "C" {
-    pub fn AMotionEvent_getRawX(motion_event: *const AInputEvent, pointer_index: size_t) -> f32;
+    pub fn AMotionEvent_getToolType(motion_event: *const AInputEvent, pointer_index: usize) -> i32;
 }
 extern "C" {
-    pub fn AMotionEvent_getRawY(motion_event: *const AInputEvent, pointer_index: size_t) -> f32;
+    pub fn AMotionEvent_getRawX(motion_event: *const AInputEvent, pointer_index: usize) -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getX(motion_event: *const AInputEvent, pointer_index: size_t) -> f32;
+    pub fn AMotionEvent_getRawY(motion_event: *const AInputEvent, pointer_index: usize) -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getY(motion_event: *const AInputEvent, pointer_index: size_t) -> f32;
+    pub fn AMotionEvent_getX(motion_event: *const AInputEvent, pointer_index: usize) -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getPressure(motion_event: *const AInputEvent, pointer_index: size_t)
-        -> f32;
+    pub fn AMotionEvent_getY(motion_event: *const AInputEvent, pointer_index: usize) -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getSize(motion_event: *const AInputEvent, pointer_index: size_t) -> f32;
+    pub fn AMotionEvent_getPressure(motion_event: *const AInputEvent, pointer_index: usize) -> f32;
+}
+extern "C" {
+    pub fn AMotionEvent_getSize(motion_event: *const AInputEvent, pointer_index: usize) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getTouchMajor(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
+        pointer_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getTouchMinor(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
+        pointer_index: usize,
     ) -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getToolMajor(
-        motion_event: *const AInputEvent,
-        pointer_index: size_t,
-    ) -> f32;
+    pub fn AMotionEvent_getToolMajor(motion_event: *const AInputEvent, pointer_index: usize)
+        -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getToolMinor(
-        motion_event: *const AInputEvent,
-        pointer_index: size_t,
-    ) -> f32;
+    pub fn AMotionEvent_getToolMinor(motion_event: *const AInputEvent, pointer_index: usize)
+        -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getOrientation(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
+        pointer_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getAxisValue(
         motion_event: *const AInputEvent,
         axis: i32,
-        pointer_index: size_t,
+        pointer_index: usize,
     ) -> f32;
 }
 extern "C" {
-    pub fn AMotionEvent_getHistorySize(motion_event: *const AInputEvent) -> size_t;
+    pub fn AMotionEvent_getHistorySize(motion_event: *const AInputEvent) -> usize;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalEventTime(
         motion_event: *const AInputEvent,
-        history_index: size_t,
+        history_index: usize,
     ) -> i64;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalRawX(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalRawY(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalX(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalY(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalPressure(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalSize(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalTouchMajor(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalTouchMinor(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalToolMajor(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalToolMinor(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalOrientation(
         motion_event: *const AInputEvent,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
     pub fn AMotionEvent_getHistoricalAxisValue(
         motion_event: *const AInputEvent,
         axis: i32,
-        pointer_index: size_t,
-        history_index: size_t,
+        pointer_index: usize,
+        history_index: usize,
     ) -> f32;
 }
 extern "C" {
@@ -4634,7 +4624,7 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __android_log_message {
-    pub struct_size: size_t,
+    pub struct_size: usize,
     pub buffer_id: i32,
     pub priority: i32,
     pub tag: *const ::std::os::raw::c_char,
@@ -4764,7 +4754,7 @@ extern "C" {
     pub fn __android_log_is_loggable_len(
         prio: ::std::os::raw::c_int,
         tag: *const ::std::os::raw::c_char,
-        len: size_t,
+        len: usize,
         default_prio: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
@@ -5198,9 +5188,9 @@ pub struct msghdr {
     pub msg_name: *mut ::std::os::raw::c_void,
     pub msg_namelen: socklen_t,
     pub msg_iov: *mut iovec,
-    pub msg_iovlen: size_t,
+    pub msg_iovlen: usize,
     pub msg_control: *mut ::std::os::raw::c_void,
-    pub msg_controllen: size_t,
+    pub msg_controllen: usize,
     pub msg_flags: ::std::os::raw::c_int,
 }
 #[test]
@@ -5332,7 +5322,7 @@ fn bindgen_test_layout_mmsghdr() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct cmsghdr {
-    pub cmsg_len: size_t,
+    pub cmsg_len: usize,
     pub cmsg_level: ::std::os::raw::c_int,
     pub cmsg_type: ::std::os::raw::c_int,
 }
@@ -5508,7 +5498,7 @@ extern "C" {
         __fd: ::std::os::raw::c_int,
         __msg: *mut msghdr,
         __flags: ::std::os::raw::c_int,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn sendmmsg(
@@ -5523,7 +5513,7 @@ extern "C" {
         __fd: ::std::os::raw::c_int,
         __msg: *const msghdr,
         __flags: ::std::os::raw::c_int,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn setsockopt(
@@ -5559,37 +5549,37 @@ extern "C" {
     pub fn recv(
         __fd: ::std::os::raw::c_int,
         __buf: *mut ::std::os::raw::c_void,
-        __n: size_t,
+        __n: usize,
         __flags: ::std::os::raw::c_int,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn send(
         __fd: ::std::os::raw::c_int,
         __buf: *const ::std::os::raw::c_void,
-        __n: size_t,
+        __n: usize,
         __flags: ::std::os::raw::c_int,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn sendto(
         __fd: ::std::os::raw::c_int,
         __buf: *const ::std::os::raw::c_void,
-        __n: size_t,
+        __n: usize,
         __flags: ::std::os::raw::c_int,
         __dst_addr: *const sockaddr,
         __dst_addr_length: socklen_t,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn recvfrom(
         __fd: ::std::os::raw::c_int,
         __buf: *mut ::std::os::raw::c_void,
-        __n: size_t,
+        __n: usize,
         __flags: ::std::os::raw::c_int,
         __src_addr: *mut sockaddr,
         __src_addr_length: *mut socklen_t,
-    ) -> ssize_t;
+    ) -> isize;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -5966,9 +5956,9 @@ extern "C" {
         __sa: *const sockaddr,
         __sa_length: socklen_t,
         __host: *mut ::std::os::raw::c_char,
-        __host_length: size_t,
+        __host_length: usize,
         __service: *mut ::std::os::raw::c_char,
-        __service_length: size_t,
+        __service_length: usize,
         __flags: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
@@ -5998,7 +5988,7 @@ extern "C" {
         __type: ::std::os::raw::c_int,
         __ret: *mut hostent,
         __buf: *mut ::std::os::raw::c_char,
-        __buf_size: size_t,
+        __buf_size: usize,
         __result: *mut *mut hostent,
         __h_errno_ptr: *mut ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
@@ -6011,7 +6001,7 @@ extern "C" {
         __name: *const ::std::os::raw::c_char,
         __ret: *mut hostent,
         __buf: *mut ::std::os::raw::c_char,
-        __buf_size: size_t,
+        __buf_size: usize,
         __result: *mut *mut hostent,
         __h_errno_ptr: *mut ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
@@ -6028,7 +6018,7 @@ extern "C" {
         __af: ::std::os::raw::c_int,
         __ret: *mut hostent,
         __buf: *mut ::std::os::raw::c_char,
-        __buf_size: size_t,
+        __buf_size: usize,
         __result: *mut *mut hostent,
         __h_errno_ptr: *mut ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
@@ -6180,17 +6170,17 @@ extern "C" {
 extern "C" {
     pub fn getdelim(
         __line_ptr: *mut *mut ::std::os::raw::c_char,
-        __line_length_ptr: *mut size_t,
+        __line_length_ptr: *mut usize,
         __delimiter: ::std::os::raw::c_int,
         __fp: *mut FILE,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn getline(
         __line_ptr: *mut *mut ::std::os::raw::c_char,
-        __line_length_ptr: *mut size_t,
+        __line_length_ptr: *mut usize,
         __fp: *mut FILE,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn perror(__msg: *const ::std::os::raw::c_char);
@@ -6224,7 +6214,7 @@ extern "C" {
         __fp: *mut FILE,
         __buf: *mut ::std::os::raw::c_char,
         __mode: ::std::os::raw::c_int,
-        __size: size_t,
+        __size: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -6453,14 +6443,14 @@ extern "C" {
 extern "C" {
     pub fn fmemopen(
         __buf: *mut ::std::os::raw::c_void,
-        __size: size_t,
+        __size: usize,
         __mode: *const ::std::os::raw::c_char,
     ) -> *mut FILE;
 }
 extern "C" {
     pub fn open_memstream(
         __ptr: *mut *mut ::std::os::raw::c_char,
-        __size_ptr: *mut size_t,
+        __size_ptr: *mut usize,
     ) -> *mut FILE;
 }
 extern "C" {
@@ -6471,7 +6461,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fgetln(__fp: *mut FILE, __length_ptr: *mut size_t) -> *mut ::std::os::raw::c_char;
+    pub fn fgetln(__fp: *mut FILE, __length_ptr: *mut usize) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn fpurge(__fp: *mut FILE) -> ::std::os::raw::c_int;
@@ -6523,8 +6513,8 @@ extern "C" {
 extern "C" {
     pub fn reallocarray(
         __ptr: *mut ::std::os::raw::c_void,
-        __item_count: size_t,
-        __item_size: size_t,
+        __item_count: usize,
+        __item_size: usize,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
@@ -6537,21 +6527,21 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn malloc_usable_size(__ptr: *const ::std::os::raw::c_void) -> size_t;
+    pub fn malloc_usable_size(__ptr: *const ::std::os::raw::c_void) -> usize;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct mallinfo {
-    pub arena: size_t,
-    pub ordblks: size_t,
-    pub smblks: size_t,
-    pub hblks: size_t,
-    pub hblkhd: size_t,
-    pub usmblks: size_t,
-    pub fsmblks: size_t,
-    pub uordblks: size_t,
-    pub fordblks: size_t,
-    pub keepcost: size_t,
+    pub arena: usize,
+    pub ordblks: usize,
+    pub smblks: usize,
+    pub hblks: usize,
+    pub hblkhd: usize,
+    pub usmblks: usize,
+    pub fsmblks: usize,
+    pub uordblks: usize,
+    pub fordblks: usize,
+    pub keepcost: usize,
 }
 #[test]
 fn bindgen_test_layout_mallinfo() {
@@ -6674,16 +6664,16 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct mallinfo2 {
-    pub arena: size_t,
-    pub ordblks: size_t,
-    pub smblks: size_t,
-    pub hblks: size_t,
-    pub hblkhd: size_t,
-    pub usmblks: size_t,
-    pub fsmblks: size_t,
-    pub uordblks: size_t,
-    pub fordblks: size_t,
-    pub keepcost: size_t,
+    pub arena: usize,
+    pub ordblks: usize,
+    pub smblks: usize,
+    pub hblks: usize,
+    pub hblkhd: usize,
+    pub usmblks: usize,
+    pub fsmblks: usize,
+    pub uordblks: usize,
+    pub fordblks: usize,
+    pub keepcost: usize,
 }
 #[test]
 fn bindgen_test_layout_mallinfo2() {
@@ -6830,7 +6820,7 @@ extern "C" {
 extern "C" {
     pub static mut __malloc_hook: ::std::option::Option<
         unsafe extern "C" fn(
-            __byte_count: size_t,
+            __byte_count: usize,
             __caller: *const ::std::os::raw::c_void,
         ) -> *mut ::std::os::raw::c_void,
     >;
@@ -6839,7 +6829,7 @@ extern "C" {
     pub static mut __realloc_hook: ::std::option::Option<
         unsafe extern "C" fn(
             __ptr: *mut ::std::os::raw::c_void,
-            __byte_count: size_t,
+            __byte_count: usize,
             __caller: *const ::std::os::raw::c_void,
         ) -> *mut ::std::os::raw::c_void,
     >;
@@ -6855,8 +6845,8 @@ extern "C" {
 extern "C" {
     pub static mut __memalign_hook: ::std::option::Option<
         unsafe extern "C" fn(
-            __alignment: size_t,
-            __byte_count: size_t,
+            __alignment: usize,
+            __byte_count: usize,
             __caller: *const ::std::os::raw::c_void,
         ) -> *mut ::std::os::raw::c_void,
     >;
@@ -6987,8 +6977,8 @@ extern "C" {
 extern "C" {
     pub fn posix_memalign(
         __memptr: *mut *mut ::std::os::raw::c_void,
-        __alignment: size_t,
-        __size: size_t,
+        __alignment: usize,
+        __size: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -7033,8 +7023,8 @@ extern "C" {
     pub fn bsearch(
         __key: *const ::std::os::raw::c_void,
         __base: *const ::std::os::raw::c_void,
-        __nmemb: size_t,
-        __size: size_t,
+        __nmemb: usize,
+        __size: usize,
         __comparator: ::std::option::Option<
             unsafe extern "C" fn(
                 __lhs: *const ::std::os::raw::c_void,
@@ -7046,8 +7036,8 @@ extern "C" {
 extern "C" {
     pub fn qsort(
         __base: *mut ::std::os::raw::c_void,
-        __nmemb: size_t,
-        __size: size_t,
+        __nmemb: usize,
+        __size: usize,
         __comparator: ::std::option::Option<
             unsafe extern "C" fn(
                 __lhs: *const ::std::os::raw::c_void,
@@ -7063,7 +7053,7 @@ extern "C" {
     pub fn arc4random_uniform(__upper_bound: u32) -> u32;
 }
 extern "C" {
-    pub fn arc4random_buf(__buf: *mut ::std::os::raw::c_void, __n: size_t);
+    pub fn arc4random_buf(__buf: *mut ::std::os::raw::c_void, __n: usize);
 }
 extern "C" {
     pub fn rand_r(__seed_ptr: *mut ::std::os::raw::c_uint) -> ::std::os::raw::c_int;
@@ -7096,7 +7086,7 @@ extern "C" {
     pub fn initstate(
         __seed: ::std::os::raw::c_uint,
         __state: *mut ::std::os::raw::c_char,
-        __n: size_t,
+        __n: usize,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
@@ -7115,7 +7105,7 @@ extern "C" {
     pub fn ptsname_r(
         __fd: ::std::os::raw::c_int,
         __buf: *mut ::std::os::raw::c_char,
-        __n: size_t,
+        __n: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -7276,34 +7266,28 @@ extern "C" {
     pub fn setprogname(__name: *const ::std::os::raw::c_char);
 }
 extern "C" {
-    pub fn mblen(__s: *const ::std::os::raw::c_char, __n: size_t) -> ::std::os::raw::c_int;
+    pub fn mblen(__s: *const ::std::os::raw::c_char, __n: usize) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn mbstowcs(
-        __dst: *mut wchar_t,
-        __src: *const ::std::os::raw::c_char,
-        __n: size_t,
-    ) -> size_t;
+    pub fn mbstowcs(__dst: *mut wchar_t, __src: *const ::std::os::raw::c_char, __n: usize)
+        -> usize;
 }
 extern "C" {
     pub fn mbtowc(
         __wc_ptr: *mut wchar_t,
         __s: *const ::std::os::raw::c_char,
-        __n: size_t,
+        __n: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn wctomb(__dst: *mut ::std::os::raw::c_char, __wc: wchar_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn wcstombs(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const wchar_t,
-        __n: size_t,
-    ) -> size_t;
+    pub fn wcstombs(__dst: *mut ::std::os::raw::c_char, __src: *const wchar_t, __n: usize)
+        -> usize;
 }
 extern "C" {
-    pub fn __ctype_get_mb_cur_max() -> size_t;
+    pub fn __ctype_get_mb_cur_max() -> usize;
 }
 extern "C" {
     pub fn abs(__x: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
@@ -7436,7 +7420,7 @@ extern "C" {
     pub fn android_res_nsend(
         network: net_handle_t,
         msg: *const u8,
-        msglen: size_t,
+        msglen: usize,
         flags: u32,
     ) -> ::std::os::raw::c_int;
 }
@@ -7445,7 +7429,7 @@ extern "C" {
         fd: ::std::os::raw::c_int,
         rcode: *mut ::std::os::raw::c_int,
         answer: *mut u8,
-        anslen: size_t,
+        anslen: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -7809,7 +7793,7 @@ pub struct ANativeActivityCallbacks {
     pub onSaveInstanceState: ::std::option::Option<
         unsafe extern "C" fn(
             activity: *mut ANativeActivity,
-            outSize: *mut size_t,
+            outSize: *mut usize,
         ) -> *mut ::std::os::raw::c_void,
     >,
     pub onPause: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
@@ -8023,14 +8007,14 @@ pub type ANativeActivity_createFunc = ::std::option::Option<
     unsafe extern "C" fn(
         activity: *mut ANativeActivity,
         savedState: *mut ::std::os::raw::c_void,
-        savedStateSize: size_t,
+        savedStateSize: usize,
     ),
 >;
 extern "C" {
     pub fn ANativeActivity_onCreate(
         activity: *mut ANativeActivity,
         savedState: *mut ::std::os::raw::c_void,
-        savedStateSize: size_t,
+        savedStateSize: usize,
     );
 }
 extern "C" {
@@ -8938,10 +8922,10 @@ extern "C" {
 }
 extern "C" {
     pub fn ANeuralNetworksMemory_createFromFd(
-        size: size_t,
+        size: usize,
         protect: ::std::os::raw::c_int,
         fd: ::std::os::raw::c_int,
-        offset: size_t,
+        offset: usize,
         memory: *mut *mut ANeuralNetworksMemory,
     ) -> ::std::os::raw::c_int;
 }
@@ -8970,7 +8954,7 @@ extern "C" {
         model: *mut ANeuralNetworksModel,
         index: i32,
         buffer: *const ::std::os::raw::c_void,
-        length: size_t,
+        length: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -8985,8 +8969,8 @@ extern "C" {
         model: *mut ANeuralNetworksModel,
         index: i32,
         memory: *const ANeuralNetworksMemory,
-        offset: size_t,
-        length: size_t,
+        offset: usize,
+        length: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -9068,7 +9052,7 @@ extern "C" {
         index: i32,
         type_: *const ANeuralNetworksOperandType,
         buffer: *const ::std::os::raw::c_void,
-        length: size_t,
+        length: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -9077,8 +9061,8 @@ extern "C" {
         index: i32,
         type_: *const ANeuralNetworksOperandType,
         memory: *const ANeuralNetworksMemory,
-        offset: size_t,
-        length: size_t,
+        offset: usize,
+        length: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -9087,7 +9071,7 @@ extern "C" {
         index: i32,
         type_: *const ANeuralNetworksOperandType,
         buffer: *mut ::std::os::raw::c_void,
-        length: size_t,
+        length: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -9096,8 +9080,8 @@ extern "C" {
         index: i32,
         type_: *const ANeuralNetworksOperandType,
         memory: *const ANeuralNetworksMemory,
-        offset: size_t,
-        length: size_t,
+        offset: usize,
+        length: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -11407,7 +11391,7 @@ extern "C" {
     pub fn ASensorManager_getDynamicSensorList(
         manager: *mut ASensorManager,
         list: *mut ASensorList,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn ASensorManager_getDefaultSensor(
@@ -11441,14 +11425,14 @@ extern "C" {
     pub fn ASensorManager_createSharedMemoryDirectChannel(
         manager: *mut ASensorManager,
         fd: ::std::os::raw::c_int,
-        size: size_t,
+        size: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn ASensorManager_createHardwareBufferDirectChannel(
         manager: *mut ASensorManager,
         buffer: *const AHardwareBuffer,
-        size: size_t,
+        size: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -11499,8 +11483,8 @@ extern "C" {
     pub fn ASensorEventQueue_getEvents(
         queue: *mut ASensorEventQueue,
         events: *mut ASensorEvent,
-        count: size_t,
-    ) -> ssize_t;
+        count: usize,
+    ) -> isize;
 }
 extern "C" {
     pub fn ASensorEventQueue_requestAdditionalInfoEvents(
@@ -11557,11 +11541,11 @@ extern "C" {
 extern "C" {
     pub fn ASharedMemory_create(
         name: *const ::std::os::raw::c_char,
-        size: size_t,
+        size: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn ASharedMemory_getSize(fd: ::std::os::raw::c_int) -> size_t;
+    pub fn ASharedMemory_getSize(fd: ::std::os::raw::c_int) -> usize;
 }
 extern "C" {
     pub fn ASharedMemory_setProt(
@@ -17016,16 +17000,16 @@ fn bindgen_test_layout_fd_set() {
     );
 }
 extern "C" {
-    pub fn __FD_CLR_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: size_t);
+    pub fn __FD_CLR_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
 }
 extern "C" {
-    pub fn __FD_SET_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: size_t);
+    pub fn __FD_SET_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
 }
 extern "C" {
     pub fn __FD_ISSET_chk(
         arg1: ::std::os::raw::c_int,
         arg2: *const fd_set,
-        arg3: size_t,
+        arg3: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -17285,19 +17269,19 @@ extern "C" {
 extern "C" {
     pub fn strftime(
         __buf: *mut ::std::os::raw::c_char,
-        __n: size_t,
+        __n: usize,
         __fmt: *const ::std::os::raw::c_char,
         __tm: *const tm,
-    ) -> size_t;
+    ) -> usize;
 }
 extern "C" {
     pub fn strftime_l(
         __buf: *mut ::std::os::raw::c_char,
-        __n: size_t,
+        __n: usize,
         __fmt: *const ::std::os::raw::c_char,
         __tm: *const tm,
         __l: locale_t,
-    ) -> size_t;
+    ) -> usize;
 }
 extern "C" {
     pub fn ctime(__t: *const time_t) -> *mut ::std::os::raw::c_char;
@@ -18002,10 +17986,10 @@ extern "C" {
     pub fn AMidiDevice_getType(device: *const AMidiDevice) -> i32;
 }
 extern "C" {
-    pub fn AMidiDevice_getNumInputPorts(device: *const AMidiDevice) -> ssize_t;
+    pub fn AMidiDevice_getNumInputPorts(device: *const AMidiDevice) -> isize;
 }
 extern "C" {
-    pub fn AMidiDevice_getNumOutputPorts(device: *const AMidiDevice) -> ssize_t;
+    pub fn AMidiDevice_getNumOutputPorts(device: *const AMidiDevice) -> isize;
 }
 extern "C" {
     pub fn AMidiDevice_getDefaultProtocol(device: *const AMidiDevice) -> AMidiDevice_Protocol;
@@ -18025,10 +18009,10 @@ extern "C" {
         outputPort: *const AMidiOutputPort,
         opcodePtr: *mut i32,
         buffer: *mut u8,
-        maxBytes: size_t,
-        numBytesReceivedPtr: *mut size_t,
+        maxBytes: usize,
+        numBytesReceivedPtr: *mut usize,
         outTimestampPtr: *mut i64,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn AMidiInputPort_open(
@@ -18041,16 +18025,16 @@ extern "C" {
     pub fn AMidiInputPort_send(
         inputPort: *const AMidiInputPort,
         buffer: *const u8,
-        numBytes: size_t,
-    ) -> ssize_t;
+        numBytes: usize,
+    ) -> isize;
 }
 extern "C" {
     pub fn AMidiInputPort_sendWithTimestamp(
         inputPort: *const AMidiInputPort,
         buffer: *const u8,
-        numBytes: size_t,
+        numBytes: usize,
         timestamp: i64,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn AMidiInputPort_sendFlush(inputPort: *const AMidiInputPort) -> media_status_t;
@@ -21518,7 +21502,7 @@ extern "C" {
 extern "C" {
     pub fn ACameraMetadata_isLogicalMultiCamera(
         staticMetadata: *const ACameraMetadata,
-        numPhysicalCameras: *mut size_t,
+        numPhysicalCameras: *mut usize,
         physicalCameraIds: *mut *const *const ::std::os::raw::c_char,
     ) -> bool;
 }
@@ -22075,7 +22059,7 @@ pub type ACameraCaptureSession_logicalCamera_captureCallback_result = ::std::opt
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
         result: *const ACameraMetadata,
-        physicalResultCount: size_t,
+        physicalResultCount: usize,
         physicalCameraIds: *mut *const ::std::os::raw::c_char,
         physicalResults: *mut *const ACameraMetadata,
     ),
@@ -23370,7 +23354,7 @@ extern "C" {
     pub fn AMediaCrypto_new(
         uuid: *mut u8,
         initData: *const ::std::os::raw::c_void,
-        initDataSize: size_t,
+        initDataSize: usize,
     ) -> *mut AMediaCrypto;
 }
 extern "C" {
@@ -23415,7 +23399,7 @@ extern "C" {
     pub fn AMediaFormat_getSize(
         arg1: *mut AMediaFormat,
         name: *const ::std::os::raw::c_char,
-        out: *mut size_t,
+        out: *mut usize,
     ) -> bool;
 }
 extern "C" {
@@ -23423,7 +23407,7 @@ extern "C" {
         arg1: *mut AMediaFormat,
         name: *const ::std::os::raw::c_char,
         data: *mut *mut ::std::os::raw::c_void,
-        size: *mut size_t,
+        size: *mut usize,
     ) -> bool;
 }
 extern "C" {
@@ -23466,7 +23450,7 @@ extern "C" {
         arg1: *mut AMediaFormat,
         name: *const ::std::os::raw::c_char,
         data: *const ::std::os::raw::c_void,
-        size: size_t,
+        size: usize,
     );
 }
 extern "C" {
@@ -23695,7 +23679,7 @@ extern "C" {
     pub fn AMediaFormat_setSize(
         arg1: *mut AMediaFormat,
         name: *const ::std::os::raw::c_char,
-        value: size_t,
+        value: usize,
     );
 }
 extern "C" {
@@ -24183,19 +24167,19 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodec_getInputBuffer(
         arg1: *mut AMediaCodec,
-        idx: size_t,
-        out_size: *mut size_t,
+        idx: usize,
+        out_size: *mut usize,
     ) -> *mut u8;
 }
 extern "C" {
     pub fn AMediaCodec_getOutputBuffer(
         arg1: *mut AMediaCodec,
-        idx: size_t,
-        out_size: *mut size_t,
+        idx: usize,
+        out_size: *mut usize,
     ) -> *mut u8;
 }
 extern "C" {
-    pub fn AMediaCodec_dequeueInputBuffer(arg1: *mut AMediaCodec, timeoutUs: i64) -> ssize_t;
+    pub fn AMediaCodec_dequeueInputBuffer(arg1: *mut AMediaCodec, timeoutUs: i64) -> isize;
 }
 extern "C" {
     pub fn __assert(
@@ -24215,9 +24199,9 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodec_queueInputBuffer(
         arg1: *mut AMediaCodec,
-        idx: size_t,
+        idx: usize,
         offset: off_t,
-        size: size_t,
+        size: usize,
         time: u64,
         flags: u32,
     ) -> media_status_t;
@@ -24225,7 +24209,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodec_queueSecureInputBuffer(
         arg1: *mut AMediaCodec,
-        idx: size_t,
+        idx: usize,
         offset: off_t,
         arg2: *mut AMediaCodecCryptoInfo,
         time: u64,
@@ -24237,7 +24221,7 @@ extern "C" {
         arg1: *mut AMediaCodec,
         info: *mut AMediaCodecBufferInfo,
         timeoutUs: i64,
-    ) -> ssize_t;
+    ) -> isize;
 }
 extern "C" {
     pub fn AMediaCodec_getOutputFormat(arg1: *mut AMediaCodec) -> *mut AMediaFormat;
@@ -24245,7 +24229,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodec_releaseOutputBuffer(
         arg1: *mut AMediaCodec,
-        idx: size_t,
+        idx: usize,
         render: bool,
     ) -> media_status_t;
 }
@@ -24258,7 +24242,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodec_releaseOutputBufferAtTime(
         mData: *mut AMediaCodec,
-        idx: size_t,
+        idx: usize,
         timestampNs: i64,
     ) -> media_status_t;
 }
@@ -24289,7 +24273,7 @@ extern "C" {
     pub fn AMediaCodec_signalEndOfInputStream(mData: *mut AMediaCodec) -> media_status_t;
 }
 extern "C" {
-    pub fn AMediaCodec_getBufferFormat(arg1: *mut AMediaCodec, index: size_t) -> *mut AMediaFormat;
+    pub fn AMediaCodec_getBufferFormat(arg1: *mut AMediaCodec, index: usize) -> *mut AMediaFormat;
 }
 extern "C" {
     pub fn AMediaCodec_getName(
@@ -24388,8 +24372,8 @@ extern "C" {
         key: *mut u8,
         iv: *mut u8,
         mode: cryptoinfo_mode_t,
-        clearbytes: *mut size_t,
-        encryptedbytes: *mut size_t,
+        clearbytes: *mut usize,
+        encryptedbytes: *mut usize,
     ) -> *mut AMediaCodecCryptoInfo;
 }
 extern "C" {
@@ -24402,7 +24386,7 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn AMediaCodecCryptoInfo_getNumSubSamples(arg1: *mut AMediaCodecCryptoInfo) -> size_t;
+    pub fn AMediaCodecCryptoInfo_getNumSubSamples(arg1: *mut AMediaCodecCryptoInfo) -> usize;
 }
 extern "C" {
     pub fn AMediaCodecCryptoInfo_getKey(
@@ -24422,13 +24406,13 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodecCryptoInfo_getClearBytes(
         arg1: *mut AMediaCodecCryptoInfo,
-        dst: *mut size_t,
+        dst: *mut usize,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaCodecCryptoInfo_getEncryptedBytes(
         arg1: *mut AMediaCodecCryptoInfo,
-        dst: *mut size_t,
+        dst: *mut usize,
     ) -> media_status_t;
 }
 extern "C" {
@@ -24462,18 +24446,18 @@ pub type AMediaDataSourceReadAt = ::std::option::Option<
         userdata: *mut ::std::os::raw::c_void,
         offset: off64_t,
         buffer: *mut ::std::os::raw::c_void,
-        size: size_t,
-    ) -> ssize_t,
+        size: usize,
+    ) -> isize,
 >;
 pub type AMediaDataSourceGetSize =
-    ::std::option::Option<unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void) -> ssize_t>;
+    ::std::option::Option<unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void) -> isize>;
 pub type AMediaDataSourceClose =
     ::std::option::Option<unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void)>;
 extern "C" {
     pub fn AMediaDataSource_new() -> *mut AMediaDataSource;
 }
 pub type AMediaDataSourceGetAvailableSize = ::std::option::Option<
-    unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void, offset: off64_t) -> ssize_t,
+    unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void, offset: off64_t) -> isize,
 >;
 extern "C" {
     pub fn AMediaDataSource_newUri(
@@ -24518,7 +24502,7 @@ pub struct AMediaDrm {
 #[derive(Debug, Copy, Clone)]
 pub struct AMediaDrmByteArray {
     pub ptr: *const u8,
-    pub length: size_t,
+    pub length: usize,
 }
 #[test]
 fn bindgen_test_layout_AMediaDrmByteArray() {
@@ -24718,7 +24702,7 @@ pub type AMediaDrmEventListener = ::std::option::Option<
         eventType: AMediaDrmEventType,
         extra: ::std::os::raw::c_int,
         data: *const u8,
-        dataSize: size_t,
+        dataSize: usize,
     ),
 >;
 pub type AMediaDrmExpirationUpdateListener = ::std::option::Option<
@@ -24733,7 +24717,7 @@ pub type AMediaDrmKeysChangeListener = ::std::option::Option<
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
         keyStatus: *const AMediaDrmKeyStatus,
-        numKeys: size_t,
+        numKeys: usize,
         hasNewUsableKey: bool,
     ),
 >;
@@ -24784,13 +24768,13 @@ extern "C" {
         arg1: *mut AMediaDrm,
         scope: *const AMediaDrmScope,
         init: *const u8,
-        initSize: size_t,
+        initSize: usize,
         mimeType: *const ::std::os::raw::c_char,
         keyType: AMediaDrmKeyType,
         optionalParameters: *const AMediaDrmKeyValue,
-        numOptionalParameters: size_t,
+        numOptionalParameters: usize,
         keyRequest: *mut *const u8,
-        keyRequestSize: *mut size_t,
+        keyRequestSize: *mut usize,
     ) -> media_status_t;
 }
 extern "C" {
@@ -24798,13 +24782,13 @@ extern "C" {
         arg1: *mut AMediaDrm,
         scope: *const AMediaDrmScope,
         init: *const u8,
-        initSize: size_t,
+        initSize: usize,
         mimeType: *const ::std::os::raw::c_char,
         keyType: AMediaDrmKeyType,
         optionalParameters: *const AMediaDrmKeyValue,
-        numOptionalParameters: size_t,
+        numOptionalParameters: usize,
         keyRequest: *mut *const u8,
-        keyRequestSize: *mut size_t,
+        keyRequestSize: *mut usize,
         defaultUrl: *mut *const ::std::os::raw::c_char,
         keyRequestType: *mut AMediaDrmKeyRequestType,
     ) -> media_status_t;
@@ -24814,7 +24798,7 @@ extern "C" {
         arg1: *mut AMediaDrm,
         scope: *const AMediaDrmScope,
         response: *const u8,
-        responseSize: size_t,
+        responseSize: usize,
         keySetId: *mut AMediaDrmKeySetId,
     ) -> media_status_t;
 }
@@ -24836,14 +24820,14 @@ extern "C" {
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
         keyValuePairs: *mut AMediaDrmKeyValue,
-        numPairs: *mut size_t,
+        numPairs: *mut usize,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaDrm_getProvisionRequest(
         arg1: *mut AMediaDrm,
         provisionRequest: *mut *const u8,
-        provisionRequestSize: *mut size_t,
+        provisionRequestSize: *mut usize,
         serverUrl: *mut *const ::std::os::raw::c_char,
     ) -> media_status_t;
 }
@@ -24851,14 +24835,14 @@ extern "C" {
     pub fn AMediaDrm_provideProvisionResponse(
         arg1: *mut AMediaDrm,
         response: *const u8,
-        responseSize: size_t,
+        responseSize: usize,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaDrm_getSecureStops(
         arg1: *mut AMediaDrm,
         secureStops: *mut AMediaDrmSecureStop,
-        numSecureStops: *mut size_t,
+        numSecureStops: *mut usize,
     ) -> media_status_t;
 }
 extern "C" {
@@ -24893,7 +24877,7 @@ extern "C" {
         arg1: *mut AMediaDrm,
         propertyName: *const ::std::os::raw::c_char,
         value: *const u8,
-        valueSize: size_t,
+        valueSize: usize,
     ) -> media_status_t;
 }
 extern "C" {
@@ -24905,7 +24889,7 @@ extern "C" {
         iv: *mut u8,
         input: *const u8,
         output: *mut u8,
-        dataSize: size_t,
+        dataSize: usize,
     ) -> media_status_t;
 }
 extern "C" {
@@ -24917,7 +24901,7 @@ extern "C" {
         iv: *mut u8,
         input: *const u8,
         output: *mut u8,
-        dataSize: size_t,
+        dataSize: usize,
     ) -> media_status_t;
 }
 extern "C" {
@@ -24927,9 +24911,9 @@ extern "C" {
         macAlgorithm: *const ::std::os::raw::c_char,
         keyId: *mut u8,
         message: *mut u8,
-        messageSize: size_t,
+        messageSize: usize,
         signature: *mut u8,
-        signatureSize: *mut size_t,
+        signatureSize: *mut usize,
     ) -> media_status_t;
 }
 extern "C" {
@@ -24939,9 +24923,9 @@ extern "C" {
         macAlgorithm: *const ::std::os::raw::c_char,
         keyId: *mut u8,
         message: *const u8,
-        messageSize: size_t,
+        messageSize: usize,
         signature: *const u8,
-        signatureSize: size_t,
+        signatureSize: usize,
     ) -> media_status_t;
 }
 #[repr(C)]
@@ -24976,27 +24960,26 @@ extern "C" {
     ) -> media_status_t;
 }
 extern "C" {
-    pub fn AMediaExtractor_getTrackCount(arg1: *mut AMediaExtractor) -> size_t;
+    pub fn AMediaExtractor_getTrackCount(arg1: *mut AMediaExtractor) -> usize;
 }
 extern "C" {
     pub fn AMediaExtractor_getTrackFormat(
         arg1: *mut AMediaExtractor,
-        idx: size_t,
+        idx: usize,
     ) -> *mut AMediaFormat;
 }
 extern "C" {
-    pub fn AMediaExtractor_selectTrack(arg1: *mut AMediaExtractor, idx: size_t) -> media_status_t;
+    pub fn AMediaExtractor_selectTrack(arg1: *mut AMediaExtractor, idx: usize) -> media_status_t;
 }
 extern "C" {
-    pub fn AMediaExtractor_unselectTrack(arg1: *mut AMediaExtractor, idx: size_t)
-        -> media_status_t;
+    pub fn AMediaExtractor_unselectTrack(arg1: *mut AMediaExtractor, idx: usize) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaExtractor_readSampleData(
         arg1: *mut AMediaExtractor,
         buffer: *mut u8,
-        capacity: size_t,
-    ) -> ssize_t;
+        capacity: usize,
+    ) -> isize;
 }
 extern "C" {
     pub fn AMediaExtractor_getSampleFlags(arg1: *mut AMediaExtractor) -> u32;
@@ -25034,7 +25017,7 @@ extern "C" {
 #[derive(Debug, Copy, Clone)]
 pub struct PsshEntry {
     pub uuid: AMediaUUID,
-    pub datalen: size_t,
+    pub datalen: usize,
     pub data: *mut ::std::os::raw::c_void,
 }
 #[test]
@@ -25085,7 +25068,7 @@ fn bindgen_test_layout_PsshEntry() {
 #[repr(C)]
 #[derive(Debug)]
 pub struct PsshInfo {
-    pub numentries: size_t,
+    pub numentries: usize,
     pub entries: __IncompleteArrayField<PsshEntry>,
 }
 #[test]
@@ -25138,7 +25121,7 @@ extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }
 extern "C" {
-    pub fn AMediaExtractor_getSampleSize(arg1: *mut AMediaExtractor) -> ssize_t;
+    pub fn AMediaExtractor_getSampleSize(arg1: *mut AMediaExtractor) -> isize;
 }
 extern "C" {
     pub fn AMediaExtractor_getCachedDuration(arg1: *mut AMediaExtractor) -> i64;
@@ -25195,7 +25178,7 @@ extern "C" {
     ) -> media_status_t;
 }
 extern "C" {
-    pub fn AMediaMuxer_addTrack(arg1: *mut AMediaMuxer, format: *const AMediaFormat) -> ssize_t;
+    pub fn AMediaMuxer_addTrack(arg1: *mut AMediaMuxer, format: *const AMediaFormat) -> isize;
 }
 extern "C" {
     pub fn AMediaMuxer_start(arg1: *mut AMediaMuxer) -> media_status_t;
@@ -25206,7 +25189,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaMuxer_writeSampleData(
         muxer: *mut AMediaMuxer,
-        trackIdx: size_t,
+        trackIdx: usize,
         data: *const u8,
         info: *const AMediaCodecBufferInfo,
     ) -> media_status_t;
@@ -25215,9 +25198,9 @@ extern "C" {
     pub fn AMediaMuxer_append(fd: ::std::os::raw::c_int, mode: AppendMode) -> *mut AMediaMuxer;
 }
 extern "C" {
-    pub fn AMediaMuxer_getTrackCount(arg1: *mut AMediaMuxer) -> ssize_t;
+    pub fn AMediaMuxer_getTrackCount(arg1: *mut AMediaMuxer) -> isize;
 }
 extern "C" {
-    pub fn AMediaMuxer_getTrackFormat(muxer: *mut AMediaMuxer, idx: size_t) -> *mut AMediaFormat;
+    pub fn AMediaMuxer_getTrackFormat(muxer: *mut AMediaMuxer, idx: usize) -> *mut AMediaFormat;
 }
 pub type __builtin_va_list = *mut ::std::os::raw::c_char;

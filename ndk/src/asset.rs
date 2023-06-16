@@ -230,11 +230,7 @@ impl Asset {
 impl io::Read for Asset {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         unsafe {
-            let res = ffi::AAsset_read(
-                self.ptr.as_ptr(),
-                buf.as_mut_ptr() as *mut _,
-                buf.len() as ffi::size_t,
-            );
+            let res = ffi::AAsset_read(self.ptr.as_ptr(), buf.as_mut_ptr() as *mut _, buf.len());
             if res >= 0 {
                 Ok(res as usize)
             } else {
