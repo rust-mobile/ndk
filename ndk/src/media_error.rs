@@ -1,19 +1,13 @@
-#![cfg(any(feature = "media", feature = "midi"))]
+use std::{mem::MaybeUninit, ptr::NonNull};
 
-use std::mem::MaybeUninit;
 use thiserror::Error;
 
-pub type Result<T, E = NdkMediaError> = std::result::Result<T, E>;
+pub type Result<T, E = MediaError> = std::result::Result<T, E>;
 
-pub(crate) fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::media_status_t) -> Result<T> {
-    let mut result = MaybeUninit::uninit();
-    let status = with_ptr(result.as_mut_ptr());
-    NdkMediaError::from_status(status).map(|()| unsafe { result.assume_init() })
-}
-
+/// Media Status codes for [`media_status_t`](https://developer.android.com/ndk/reference/group/media#group___media_1ga009a49041fe39f7bdc6d8b5cddbe760c)
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub enum MediaErrorResult {
+pub enum MediaStatus {
     CodecErrorInsufficientResource = ffi::media_status_t::AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE.0,
     CodecErrorReclaimed = ffi::media_status_t::AMEDIACODEC_ERROR_RECLAIMED.0,
     ErrorUnknown = ffi::media_status_t::AMEDIA_ERROR_UNKNOWN.0,
@@ -43,18 +37,20 @@ pub enum MediaErrorResult {
     ImgreaderImageNotLocked = ffi::media_status_t::AMEDIA_IMGREADER_IMAGE_NOT_LOCKED.0,
 }
 
+/// Media Status codes in [`MediaStatus`] or raw [`ffi::media_status_t`] if unknown.
 #[derive(Debug, Error)]
-pub enum NdkMediaError {
-    #[error("error Media result ({0:?})")]
-    ErrorResult(MediaErrorResult),
-    #[error("unknown Media error result ({0:?})")]
-    UnknownResult(ffi::media_status_t),
+pub enum MediaError {
+    #[error("Media Status {0:?}")]
+    MediaStatus(MediaStatus),
+    #[error("Unknown Media Status {0:?}")]
+    UnknownStatus(ffi::media_status_t),
 }
 
-impl NdkMediaError {
+impl MediaError {
+    /// Returns [`Ok`] on [`ffi::media_status_t::AMEDIA_OK`], [`Err`] otherwise.
     pub(crate) fn from_status(status: ffi::media_status_t) -> Result<()> {
-        use MediaErrorResult::*;
-        let result = match status {
+        use MediaStatus::*;
+        Err(Self::MediaStatus(match status {
             ffi::media_status_t::AMEDIA_OK => return Ok(()),
             ffi::media_status_t::AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE => {
                 CodecErrorInsufficientResource
@@ -85,8 +81,30 @@ impl NdkMediaError {
             ffi::media_status_t::AMEDIA_IMGREADER_CANNOT_LOCK_IMAGE => ImgreaderCannotLockImage,
             ffi::media_status_t::AMEDIA_IMGREADER_CANNOT_UNLOCK_IMAGE => ImgreaderCannotUnlockImage,
             ffi::media_status_t::AMEDIA_IMGREADER_IMAGE_NOT_LOCKED => ImgreaderImageNotLocked,
-            _ => return Err(NdkMediaError::UnknownResult(status)),
-        };
-        Err(NdkMediaError::ErrorResult(result))
+            _ => return Err(MediaError::UnknownStatus(status)),
+        }))
     }
+}
+
+/// Calls the `with_ptr` construction function with a pointer to uninitialized stack memory,
+/// expecting `with_ptr` to initialize it or otherwise return an error code.
+pub(crate) fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::media_status_t) -> Result<T> {
+    let mut result = MaybeUninit::uninit();
+    let status = with_ptr(result.as_mut_ptr());
+    MediaError::from_status(status).map(|()| unsafe { result.assume_init() })
+}
+
+/// Calls the `with_ptr` construction function with a pointer to a pointer, and expects `with_ptr`
+/// to initialize the second pointer to a valid address.  That address is returned in the form of a
+/// [`NonNull`] object.
+pub(crate) fn construct_never_null<T>(
+    with_ptr: impl FnOnce(*mut *mut T) -> ffi::media_status_t,
+) -> Result<NonNull<T>> {
+    let result = construct(with_ptr)?;
+    let non_null = if cfg!(debug_assertions) {
+        NonNull::new(result).expect("result should never be null")
+    } else {
+        unsafe { NonNull::new_unchecked(result) }
+    };
+    Ok(non_null)
 }

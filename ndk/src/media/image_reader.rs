@@ -4,9 +4,7 @@
 //! [`AImage`]: https://developer.android.com/ndk/reference/group/media#aimage
 #![cfg(feature = "api-level-24")]
 
-use super::NdkMediaError;
-use super::{construct, construct_never_null, Result};
-use crate::media_error::MediaErrorResult;
+use crate::media_error::{construct, construct_never_null, MediaError, MediaStatus, Result};
 use crate::native_window::NativeWindow;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
@@ -141,7 +139,7 @@ impl ImageReader {
             onImageAvailable: Some(on_image_available),
         };
         let status = unsafe { ffi::AImageReader_setImageListener(self.as_ptr(), &mut listener) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
@@ -169,7 +167,7 @@ impl ImageReader {
         };
         let status =
             unsafe { ffi::AImageReader_setBufferRemovedListener(self.as_ptr(), &mut listener) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     pub fn get_window(&self) -> Result<NativeWindow> {
@@ -203,9 +201,7 @@ impl ImageReader {
 
         match res {
             Ok(inner) => Ok(Some(Image { inner })),
-            Err(NdkMediaError::ErrorResult(MediaErrorResult::ImgreaderNoBufferAvailable)) => {
-                Ok(None)
-            }
+            Err(MediaError::MediaStatus(MediaStatus::ImgreaderNoBufferAvailable)) => Ok(None),
             Err(e) => Err(e),
         }
     }
@@ -233,7 +229,7 @@ impl ImageReader {
             ffi::AImageReader_acquireLatestImage(self.as_ptr(), res)
         });
 
-        if let Err(NdkMediaError::ErrorResult(MediaErrorResult::ImgreaderNoBufferAvailable)) = res {
+        if let Err(MediaError::MediaStatus(MediaStatus::ImgreaderNoBufferAvailable)) = res {
             return Ok(None);
         }
 
@@ -292,7 +288,7 @@ impl Image {
             )
         };
 
-        NdkMediaError::from_status(status).map(|()| unsafe {
+        MediaError::from_status(status).map(|()| unsafe {
             std::slice::from_raw_parts(result_ptr.assume_init(), result_len.assume_init() as _)
         })
     }

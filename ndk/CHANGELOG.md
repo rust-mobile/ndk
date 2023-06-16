@@ -9,6 +9,7 @@
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
 - **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
+- **Breaking:** Renamed and moved "`media`" error types and helpers to the always-available `media_error` module. (#399)
 
 # 0.7.0 (2022-07-24)
 
