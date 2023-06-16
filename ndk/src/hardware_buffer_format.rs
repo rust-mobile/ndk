@@ -35,4 +35,8 @@ pub enum HardwareBufferFormat {
     S8_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_S8_UINT.0,
     #[cfg(feature = "api-level-26")]
     Y8Cb8Cr8_420 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_Y8Cb8Cr8_420.0,
+    #[cfg(feature = "api-level-26")]
+    YCbCr_P010 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_YCbCr_P010.0,
+    #[cfg(feature = "api-level-26")]
+    R8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8_UNORM.0,
 }
