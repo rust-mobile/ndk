@@ -176,13 +176,8 @@ impl<'a> MidiInputPort<'a> {
 
     /// Sends data to this port.
     pub fn send(&self, buffer: &[u8]) -> Result<usize> {
-        let num_bytes_sent = unsafe {
-            ffi::AMidiInputPort_send(
-                self.ptr.as_ptr(),
-                buffer.as_ptr(),
-                buffer.len() as ffi::size_t,
-            )
-        };
+        let num_bytes_sent =
+            unsafe { ffi::AMidiInputPort_send(self.ptr.as_ptr(), buffer.as_ptr(), buffer.len()) };
         if num_bytes_sent >= 0 {
             Ok(num_bytes_sent as usize)
         } else {
@@ -207,7 +202,7 @@ impl<'a> MidiInputPort<'a> {
             ffi::AMidiInputPort_sendWithTimestamp(
                 self.ptr.as_ptr(),
                 buffer.as_ptr(),
-                buffer.len() as ffi::size_t,
+                buffer.len(),
                 timestamp,
             )
         };
@@ -267,13 +262,13 @@ impl<'a> MidiOutputPort<'a> {
     pub fn receive(&self, buffer: &mut [u8]) -> Result<MidiOpcode> {
         let mut opcode = 0i32;
         let mut timestamp = 0i64;
-        let mut num_bytes_received: ffi::size_t = 0;
+        let mut num_bytes_received = 0;
         let num_messages_received = unsafe {
             ffi::AMidiOutputPort_receive(
                 self.ptr.as_ptr(),
                 &mut opcode,
                 buffer.as_mut_ptr(),
-                buffer.len() as ffi::size_t,
+                buffer.len(),
                 &mut num_bytes_received,
                 &mut timestamp,
             )
