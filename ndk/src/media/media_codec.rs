@@ -467,7 +467,7 @@ pub struct InputBuffer<'a> {
 }
 
 impl InputBuffer<'_> {
-    pub fn buffer_mut(&mut self) -> &mut [u8] {
+    pub fn buffer_mut(&mut self) -> &mut [MaybeUninit<u8>] {
         unsafe {
             let mut out_size = 0;
             let buffer_ptr =
@@ -477,7 +477,7 @@ impl InputBuffer<'_> {
                 "AMediaCodec_getInputBuffer returned NULL for index {}",
                 self.index
             );
-            slice::from_raw_parts_mut(buffer_ptr, out_size)
+            slice::from_raw_parts_mut(buffer_ptr.cast(), out_size)
         }
     }
 }
