@@ -10,7 +10,7 @@
 #![cfg(feature = "midi")]
 
 pub use super::media_error::Result;
-use super::media_error::{construct, NdkMediaError};
+use super::media_error::{construct, MediaError};
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryFrom;
@@ -87,7 +87,7 @@ impl MidiDevice {
         if num_input_ports >= 0 {
             Ok(num_input_ports as usize)
         } else {
-            NdkMediaError::from_status(ffi::media_status_t(num_input_ports as c_int)).map(|_| 0)
+            MediaError::from_status(ffi::media_status_t(num_input_ports as c_int)).map(|_| 0)
         }
     }
 
@@ -98,7 +98,7 @@ impl MidiDevice {
             Ok(num_output_ports as usize)
         } else {
             Err(
-                NdkMediaError::from_status(ffi::media_status_t(num_output_ports as c_int))
+                MediaError::from_status(ffi::media_status_t(num_output_ports as c_int))
                     .unwrap_err(),
             )
         }
@@ -108,12 +108,11 @@ impl MidiDevice {
     pub fn device_type(&self) -> Result<MidiDeviceType> {
         let device_type = unsafe { ffi::AMidiDevice_getType(self.ptr.as_ptr()) };
         if device_type >= 0 {
-            let device_type = MidiDeviceType::try_from(device_type as u32).map_err(|e| {
-                NdkMediaError::UnknownResult(ffi::media_status_t(e.number as c_int))
-            })?;
+            let device_type = MidiDeviceType::try_from(device_type as u32)
+                .map_err(|e| MediaError::UnknownStatus(ffi::media_status_t(e.number as c_int)))?;
             Ok(device_type)
         } else {
-            Err(NdkMediaError::from_status(ffi::media_status_t(device_type)).unwrap_err())
+            Err(MediaError::from_status(ffi::media_status_t(device_type)).unwrap_err())
         }
     }
 
@@ -141,7 +140,7 @@ impl MidiDevice {
 impl Drop for MidiDevice {
     fn drop(&mut self) {
         let status = unsafe { ffi::AMidiDevice_release(self.ptr.as_ptr()) };
-        NdkMediaError::from_status(status).unwrap();
+        MediaError::from_status(status).unwrap();
     }
 }
 
@@ -181,10 +180,7 @@ impl<'a> MidiInputPort<'a> {
         if num_bytes_sent >= 0 {
             Ok(num_bytes_sent as usize)
         } else {
-            Err(
-                NdkMediaError::from_status(ffi::media_status_t(num_bytes_sent as c_int))
-                    .unwrap_err(),
-            )
+            Err(MediaError::from_status(ffi::media_status_t(num_bytes_sent as c_int)).unwrap_err())
         }
     }
 
@@ -194,7 +190,7 @@ impl<'a> MidiInputPort<'a> {
     /// not processed.
     pub fn send_flush(&self) -> Result<()> {
         let result = unsafe { ffi::AMidiInputPort_sendFlush(self.ptr.as_ptr()) };
-        NdkMediaError::from_status(result)
+        MediaError::from_status(result)
     }
 
     pub fn send_with_timestamp(&self, buffer: &[u8], timestamp: i64) -> Result<usize> {
@@ -209,10 +205,7 @@ impl<'a> MidiInputPort<'a> {
         if num_bytes_sent >= 0 {
             Ok(num_bytes_sent as usize)
         } else {
-            Err(
-                NdkMediaError::from_status(ffi::media_status_t(num_bytes_sent as c_int))
-                    .unwrap_err(),
-            )
+            Err(MediaError::from_status(ffi::media_status_t(num_bytes_sent as c_int)).unwrap_err())
         }
     }
 }
@@ -276,7 +269,7 @@ impl<'a> MidiOutputPort<'a> {
 
         match num_messages_received {
             r if r < 0 => {
-                Err(NdkMediaError::from_status(ffi::media_status_t(r as c_int)).unwrap_err())
+                Err(MediaError::from_status(ffi::media_status_t(r as c_int)).unwrap_err())
             }
             0 => Ok(MidiOpcode::NoMessage),
             1 => match opcode as c_uint {
