@@ -178,7 +178,7 @@ impl Font {
     /// 'slnt' -12. In this case, [`Font::axis_count`] returns 2 and [`Font::axis_tag_at`] and
     /// [`Font::axis_value_at`] will return following values.
     pub fn axis_count(&self) -> usize {
-        unsafe { ffi::AFont_getAxisCount(self.ptr.as_ptr()) as usize }
+        unsafe { ffi::AFont_getAxisCount(self.ptr.as_ptr()) }
     }
 
     /// Return an OpenType axis tag associated with the current font.
@@ -203,7 +203,7 @@ impl Font {
     /// negative value as an font offset in the collection. This always returns 0 if the target font
     /// file is a regular font.
     pub fn collection_index(&self) -> usize {
-        unsafe { ffi::AFont_getCollectionIndex(self.ptr.as_ptr()) as usize }
+        unsafe { ffi::AFont_getCollectionIndex(self.ptr.as_ptr()) }
     }
 
     /// Return an absolute path to the current font file.
@@ -274,16 +274,15 @@ impl Drop for Font {
 /// [`AFAMILY_VARIANT_*`]: https://developer.android.com/ndk/reference/group/font#group___font_1gga96a58e29e8dbf2b5bdeb775cba46556ea662aafc7016e35d6758da93416fc0833
 #[repr(u32)]
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
-#[allow(clippy::unnecessary_cast)]
 pub enum FamilyVariant {
     /// A family variant value for the compact font family variant.
     /// The compact font family has Latin-based vertical metrics.
-    Compact = ffi::AFAMILY_VARIANT_COMPACT as u32,
+    Compact = ffi::AFAMILY_VARIANT_COMPACT as _,
     /// A family variant value for the system default variant.
-    Default = ffi::AFAMILY_VARIANT_DEFAULT as u32,
+    Default = ffi::AFAMILY_VARIANT_DEFAULT as _,
     /// A family variant value for the elegant font family variant.
     /// The elegant font family may have larger vertical metrics than Latin font.
-    Elegant = ffi::AFAMILY_VARIANT_ELEGANT as u32,
+    Elegant = ffi::AFAMILY_VARIANT_ELEGANT as _,
 }
 
 /// A native [`AFontMatcher *`]
