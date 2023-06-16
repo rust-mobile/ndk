@@ -1,5 +1,8 @@
 #!/bin/sh
 
+sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/linux-x86_64/sysroot/
+[ ! -d "$sysroot" ] && echo "Android sysroot $sysroot does not exist!" && exit 1
+
 while read ARCH && read TARGET ; do
     bindgen wrapper.h -o src/ffi_$ARCH.rs \
         --blocklist-item 'JNI\w+' \
@@ -14,8 +17,11 @@ while read ARCH && read TARGET ; do
         --newtype-enum 'AHdrMetadataType' \
         --newtype-enum 'AIMAGE_FORMATS' \
         --newtype-enum 'AMediaDrmEventType' \
+        --newtype-enum 'AMediaDrmKeyRequestType' \
         --newtype-enum 'AMediaDrmKeyType' \
         --newtype-enum 'AMediaKeyStatusType' \
+        --newtype-enum 'AMidiDevice_Protocol' \
+        --newtype-enum 'AMotionClassification' \
         --newtype-enum 'ANativeWindowTransform' \
         --newtype-enum 'ANativeWindow_ChangeFrameRateStrategy' \
         --newtype-enum 'ANativeWindow_FrameRateCompatibility' \
@@ -44,9 +50,7 @@ while read ARCH && read TARGET ; do
         --newtype-enum 'cryptoinfo_mode_t' \
         --newtype-enum 'log_id' \
         -- \
-        --sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/linux-x86_64/sysroot/ --target=$TARGET
-
-        # --newtype-enum '_bindgen_ty_63' \
+        --sysroot="$sysroot" --target=$TARGET
 done << EOF
 arm
 arm-linux-androideabi

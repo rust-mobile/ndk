@@ -7,7 +7,7 @@ on:
 
 jobs:
   Publish:
-    if: github.repository_owner == 'rust-windowing'
+    if: github.repository_owner == 'rust-mobile'
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1 # ensure crate order
@@ -16,11 +16,6 @@ jobs:
         crate:
           - { name: "ndk-sys", target: "armv7-linux-androideabi" }
           - { name: "ndk", target: "armv7-linux-androideabi" }
-          - { name: "ndk-macro", target: "x86_64-unknown-linux-gnu" }
-          - { name: "ndk-context", target: "armv7-linux-androideabi" }
-          - { name: "ndk-glue", target: "armv7-linux-androideabi" }
-          - { name: "ndk-build", target: "x86_64-unknown-linux-gnu" }
-          - { name: "cargo-apk", target: "x86_64-unknown-linux-gnu" }
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1

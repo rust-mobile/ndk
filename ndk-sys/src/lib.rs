@@ -19,7 +19,7 @@
 use jni_sys::*;
 
 #[cfg(not(any(target_os = "android", feature = "test")))]
-compile_error!("android-ndk-sys only supports compiling for Android");
+compile_error!("ndk-sys only supports compiling for Android");
 
 #[cfg(all(
     any(target_os = "android", feature = "test"),

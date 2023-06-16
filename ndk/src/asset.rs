@@ -36,7 +36,7 @@ impl AssetManager {
         self.ptr
     }
 
-    /// Open the asset. Returns `None` if opening the asset fails.
+    /// Open the asset. Returns [`None`] if opening the asset fails.
     ///
     /// This currently always opens the asset in the streaming mode.
     pub fn open(&self, filename: &CStr) -> Option<Asset> {
@@ -50,7 +50,7 @@ impl AssetManager {
         }
     }
 
-    /// Open an asset directory. Returns `None` if opening the directory fails.
+    /// Open an asset directory. Returns [`None`] if opening the directory fails.
     pub fn open_dir(&self, filename: &CStr) -> Option<AssetDir> {
         unsafe {
             let ptr = ffi::AAssetManager_openDir(self.ptr.as_ptr(), filename.as_ptr());
@@ -116,10 +116,10 @@ impl AssetDir {
         self.ptr
     }
 
-    /// Get the next filename, if any, and process it.  Like `.next()`, but performs no additional
-    /// allocation.
+    /// Get the next filename, if any, and process it.  Like [`Iterator::next()`], but performs
+    /// no additional allocation.
     ///
-    /// The filenames are in the correct format to be passed to `AssetManager::open`
+    /// The filenames are in the correct format to be passed to [`AssetManager::open()`].
     pub fn with_next<T>(&mut self, f: impl for<'a> FnOnce(&'a CStr) -> T) -> Option<T> {
         unsafe {
             let next_name = ffi::AAssetDir_getNextFileName(self.ptr.as_ptr());
@@ -206,7 +206,7 @@ impl Asset {
         unsafe { ffi::AAsset_getRemainingLength64(self.ptr.as_ptr()) as usize }
     }
 
-    /// Reads all data into a buffer and returns it
+    /// Maps all data into a buffer and returns it
     pub fn get_buffer(&mut self) -> io::Result<&[u8]> {
         unsafe {
             let buf_ptr = ffi::AAsset_getBuffer(self.ptr.as_ptr());
@@ -218,7 +218,7 @@ impl Asset {
             } else {
                 Ok(std::slice::from_raw_parts(
                     buf_ptr as *const u8,
-                    self.get_remaining_length(),
+                    self.get_length(),
                 ))
             }
         }
@@ -230,11 +230,7 @@ impl Asset {
 impl io::Read for Asset {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         unsafe {
-            let res = ffi::AAsset_read(
-                self.ptr.as_ptr(),
-                buf.as_mut_ptr() as *mut _,
-                buf.len() as ffi::size_t,
-            );
+            let res = ffi::AAsset_read(self.ptr.as_ptr(), buf.as_mut_ptr() as *mut _, buf.len());
             if res >= 0 {
                 Ok(res as usize)
             } else {

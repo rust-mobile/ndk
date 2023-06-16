@@ -2,13 +2,20 @@
 
 - event: Add `tool_type` getter for `Pointer`. (#323)
 - Add `AMidi` bindings. (#353)
+- input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
+- asset: Use entire asset length when mapping buffer. (#387)
+- Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
+- Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
+- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
+- **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
+- **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
 
 # 0.7.0 (2022-07-24)
 
 - hardware_buffer: Make `HardwareBuffer::as_ptr()` public for interop with Vulkan. (#213)
 - **Breaking:** `Configuration::country()` now returns `None` when the country is unset (akin to `Configuration::language()`). (#220)
 - Add `MediaCodec` and `MediaFormat` bindings. (#216)
-- **Breaking:** Upgrade to [`ndk-sys 0.4.0`](../ndk-sys/CHANGELOG.md#040-2022-07-XXXX) and use new `enum` newtype wrappers. (#245)
+- **Breaking:** Upgrade to [`ndk-sys 0.4.0`](../ndk-sys/CHANGELOG.md#040-2022-07-24) and use new `enum` newtype wrappers. (#245)
 - native_window: Use `release`/`acquire` for `Drop` and `Clone` respectively. (#207)
 - **Breaking:** audio: Rename from `aaudio` to `audio` and drop `A` prefix. (#273)
 - Implement `HasRawWindowHandle` directly on `NativeWindow`. (#274, #319)
@@ -22,7 +29,7 @@
 - **Breaking:** input_queue: `has_events()` now returns a `bool` directly without being wrapped in `Result`. (#294)
 - **Breaking:** hardware_buffer: `HardwareBufferError` has been removed and replaced with `std::io::Error` in return types. (#295)
 - Fixed `HardwareBuffer` leak on buffers returned from `AndroidBitmap::get_hardware_buffer()`. (#296)
-- **Breaking:** Update `jni` crate (used in public API) from `0.18` to `0.19`. (#300)
+- Bump optional `jni` dependency for doctest example from `0.18` to `0.19`. (#300)
 - hardware_buffer: Made `HardwareBufferDesc` fields `pub`. (#313)
 - **Breaking:** Remove `hardware_buffer` and `trace` features in favour of using `api-level-26` or `api-level-23` directly. (#320)
 
@@ -33,7 +40,7 @@
 # 0.5.0 (2021-11-22)
 
 - **Breaking:** Replace `add_fd_with_callback` `ident` with constant value `ALOOPER_POLL_CALLBACK`,
-  as per https://developer.android.com/ndk/reference/group/looper#alooper_addfd.
+  as per <https://developer.android.com/ndk/reference/group/looper#alooper_addfd>.
 - **Breaking:** Accept unboxed closure in `add_fd_with_callback`.
 - aaudio: Replace "Added in" comments with missing `#[cfg(feature)]`.
 - aaudio: Add missing `fn get_allowed_capture_policy()`.
