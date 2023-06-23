@@ -64,7 +64,7 @@ impl fmt::Display for FontWeight {
     }
 }
 
-/// The error type returned when an invalie font weight value is passed.
+/// The error type returned when an invalid font weight value is passed.
 #[derive(Debug)]
 pub struct TryFromU16Error(());
 
@@ -131,7 +131,7 @@ impl fmt::Debug for AxisTag {
     }
 }
 
-/// The error type returned when an invalie font weight value is passed.
+/// The error type returned when an invalid axis tag value is passed.
 #[derive(Debug)]
 pub struct TryFromU32Error(());
 
@@ -157,57 +157,56 @@ pub struct Font {
 
 #[cfg(feature = "api-level-29")]
 impl Font {
-    /// Create an `Font` from a pointer
+    /// Creates a [`Font`] from a pointer.
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to a native
-    /// `AFont`.
+    /// `ptr` must be a valid owning pointer to an Android [`ffi::AFont`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AFont>) -> Self {
         Self { ptr }
     }
 
-    /// Returns the pointer to the native `AFont`.
+    /// Returns s the pointer to the native [`ffi::AFont`].
     pub fn ptr(&self) -> NonNull<ffi::AFont> {
         self.ptr
     }
 
-    /// Return a count of font variation settings associated with the current font.
+    /// Returns a count of font variation settings associated with the current font.
     ///
-    /// The font variation settings are provided as multiple tag-values pairs.
+    /// The font variation settings are provided as multiple tag-value pairs.
     ///
     /// For example, bold italic font may have following font variation settings: 'wght' 700,
-    /// 'slnt' -12. In this case, [`Font::axis_count`] returns 2 and [`Font::axis_tag_at`] and
-    /// [`Font::axis_value_at`] will return following values.
+    /// 'slnt' -12. In this case, [`Font::axis_count()`] returns 2 and [`Font::axis_tag_at()`] and
+    /// [`Font::axis_value_at()`] will return following values.
     pub fn axis_count(&self) -> usize {
         unsafe { ffi::AFont_getAxisCount(self.ptr.as_ptr()) }
     }
 
-    /// Return an OpenType axis tag associated with the current font.
+    /// Returns an OpenType axis tag associated with the current font.
     ///
-    /// See [`Font::axis_count`] for more details.
+    /// See [`Font::axis_count()`] for more details.
     pub fn axis_tag_at(&self, idx: usize) -> AxisTag {
         // Android returns Axis Tag in big-endian.
         // See https://cs.android.com/android/platform/superproject/+/refs/heads/master:frameworks/base/native/android/system_fonts.cpp;l=197 for details
         AxisTag(unsafe { ffi::AFont_getAxisTag(self.ptr.as_ptr(), idx as u32) })
     }
 
-    /// Return an OpenType axis value associated with the current font.
+    /// Returns an OpenType axis value associated with the current font.
     ///
-    /// See [`Font::axis_count`] for more details.
+    /// See [`Font::axis_count()`] for more details.
     pub fn axis_value_at(&self, idx: usize) -> f32 {
         unsafe { ffi::AFont_getAxisValue(self.ptr.as_ptr(), idx as u32) }
     }
 
-    /// Return a font collection index value associated with the current font.
+    /// Returns a font collection index value associated with the current font.
     ///
-    /// In case the target font file is a font collection (e.g. .ttc or .otc), this returns a non
-    /// negative value as an font offset in the collection. This always returns 0 if the target font
-    /// file is a regular font.
+    /// In case the target font file is a font collection (e.g. `.ttc` or `.otc`), this returns a
+    /// non negative value as a font offset in the collection. This always returns 0 if the target
+    /// font file is a regular font.
     pub fn collection_index(&self) -> usize {
         unsafe { ffi::AFont_getCollectionIndex(self.ptr.as_ptr()) }
     }
 
-    /// Return an absolute path to the current font file.
+    /// Returns an absolute path to the current font file.
     ///
     /// Here is a list of font formats returned by this method:
     ///
@@ -216,14 +215,14 @@ impl Font {
     /// * TrueType
     /// * TrueType Collection
     ///
-    /// The file extension could be one of *.otf, *.ttf, *.otc or *.ttc.
-    /// The font file returned is guaranteed to be opened with `O_RDONLY`.
+    /// The file extension could be one of `*.otf`, `*.ttf`, `*.otc` or `*.ttc`.
+    /// The font file specified by the returned path is guaranteed to be opened with `O_RDONLY`.
     pub fn path(&self) -> &Path {
         let path = unsafe { CStr::from_ptr(ffi::AFont_getFontFilePath(self.ptr.as_ptr())) };
         OsStr::from_bytes(path.to_bytes()).as_ref()
     }
 
-    /// Return a IETF BCP47 compliant language tag associated with the current font.
+    /// Returns an IETF BCP47 compliant language tag associated with the current font.
     ///
     /// For information about IETF BCP47, read [`Locale.forLanguageTag(java.lang.String)`].
     ///
@@ -237,7 +236,7 @@ impl Font {
         }
     }
 
-    /// Return a weight value associated with the current font.
+    /// Returns a weight value associated with the current font.
     ///
     /// The weight values are positive and less than or equal to 1000. Here are pairs of the common
     /// names and their values.
@@ -257,7 +256,7 @@ impl Font {
         FontWeight(unsafe { ffi::AFont_getWeight(self.ptr.as_ptr()) })
     }
 
-    /// Return true if the current font is italic, otherwise returns false.
+    /// Returns [`true`] if the current font is italic, otherwise returns [`false`].
     pub fn is_italic(&self) -> bool {
         unsafe { ffi::AFont_isItalic(self.ptr.as_ptr()) }
     }
@@ -297,49 +296,47 @@ pub struct FontMatcher {
 
 #[cfg(feature = "api-level-29")]
 impl FontMatcher {
-    /// Create an `FontMatcher` from a pointer
+    /// Creates a [`FontMatcher`] from a pointer.
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to a native
-    /// `AFontMatcher`.
+    /// `ptr` must be a valid owning pointer to an Android [`ffi::AFontMatcher`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AFontMatcher>) -> Self {
         Self { ptr }
     }
 
-    /// Returns the pointer to the native `AFontMatcher`.
+    /// Returns s the pointer to the native [`ffi::AFontMatcher`].
     pub fn ptr(&self) -> NonNull<ffi::AFontMatcher> {
         self.ptr
     }
 
-    /// Select the best font from given parameters.
-    ///
-    /// Creates a new [`FontMatcher`] object.
+    /// Createss a new [`FontMatcher`] object. [`FontMatcher`] selects the best font from parameters
+    /// set by the user.
     pub fn new() -> Self {
-        NonNull::new(unsafe { ffi::AFontMatcher_create() })
-            .map(|p| unsafe { FontMatcher::from_ptr(p) })
-            .expect("AFontMatcher_create returned NULL")
+        let ptr = NonNull::new(unsafe { ffi::AFontMatcher_create() })
+            .expect("AFontMatcher_create returned NULL");
+        unsafe { FontMatcher::from_ptr(ptr) }
     }
 
-    /// Set family variant to matcher.
+    /// Sets family variant to matcher.
     ///
-    /// If this function is not called, the matcher performs with [`FamilyVariant::Default`].
+    /// If this function is not called, the match is performed with [`FamilyVariant::Default`].
     pub fn set_family_variant(&mut self, family_variant: FamilyVariant) {
         unsafe { ffi::AFontMatcher_setFamilyVariant(self.ptr.as_ptr(), family_variant as u32) }
     }
 
-    /// Set font locales to matcher.
+    /// Sets font locales to matcher.
     ///
-    /// If this function is not called, the matcher performs with empty locale list.
+    /// If this function is not called, the match is performed with empty locale list.
     ///
     /// # Arguments
-    /// * `language_tags`: a null character terminated comma separated IETF BCP47 compliant language tags.
+    /// * `language_tags`: comma separated IETF BCP47 compliant language tags.
     pub fn set_locales(&mut self, language_tags: &CStr) {
         unsafe { ffi::AFontMatcher_setLocales(self.ptr.as_ptr(), language_tags.as_ptr()) }
     }
 
-    /// Set font style to matcher.
+    /// Sets font style to matcher.
     ///
-    /// If this function is not called, the matcher performs with [`FontWeight::NORMAL`] with non-italic style.
+    /// If this function is not called, the match is performed with [`FontWeight::NORMAL`] with non-italic style.
     pub fn set_style(&mut self, weight: FontWeight, italic: bool) {
         unsafe { ffi::AFontMatcher_setStyle(self.ptr.as_ptr(), weight.value(), italic) }
     }
@@ -363,21 +360,20 @@ pub struct SystemFontIterator {
 
 #[cfg(feature = "api-level-29")]
 impl SystemFontIterator {
-    /// Create an `SystemFontIterator` from a pointer
+    /// Creates an [`SystemFontIterator`] from a pointer.
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to a native
-    /// `ASystemFontIterator`.
+    /// `ptr` must be a valid owning pointer to an Android [`ffi::ASystemFontIterator`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::ASystemFontIterator>) -> Self {
         Self { ptr }
     }
 
-    /// Returns the pointer to the native `ASystemFontIterator`.
+    /// Returns s the pointer to the native [`ffi::ASystemFontIterator`].
     pub fn ptr(&self) -> NonNull<ffi::ASystemFontIterator> {
         self.ptr
     }
 
-    /// Create a system font iterator.
+    /// Creates a system font iterator.
     pub fn new() -> Option<Self> {
         NonNull::new(unsafe { ffi::ASystemFontIterator_open() })
             .map(|p| unsafe { SystemFontIterator::from_ptr(p) })
