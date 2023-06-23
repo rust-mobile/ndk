@@ -10,6 +10,7 @@ use std::fmt;
 use std::os::unix::prelude::OsStrExt;
 use std::path::Path;
 use std::ptr::NonNull;
+use std::result::Result;
 
 /// An integer holding a valid font weight value between 1 and 1000.
 ///
@@ -22,7 +23,7 @@ use std::ptr::NonNull;
 pub struct FontWeight(u16);
 
 impl FontWeight {
-    pub const fn new(value: u16) -> std::result::Result<Self, TryFromU16Error> {
+    pub const fn new(value: u16) -> Result<Self, TryFromU16Error> {
         if 0 < value && value <= 1000 {
             Ok(Self(value))
         } else {
@@ -91,7 +92,7 @@ impl TryFrom<u16> for FontWeight {
 pub struct AxisTag(u32);
 
 impl AxisTag {
-    pub const fn from_be(value: u32) -> std::result::Result<Self, TryFromU32Error> {
+    pub const fn from_be(value: u32) -> Result<Self, TryFromU32Error> {
         // Each byte in a tag must be in the range 0x20 to 0x7E.
         // See https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
         macro_rules! check_in_valid_range {
