@@ -13,7 +13,7 @@ use std::ptr::NonNull;
 
 /// An integer holding a valid font weight value between 1 and 1000.
 ///
-/// See the followings for more details:
+/// See the following definitions for more details:
 /// * [`AFONT_WEIGHT_*`]
 /// * [`Font::weight`]
 ///
