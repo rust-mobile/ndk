@@ -4,6 +4,8 @@
 //! [`AFontMatcher`]: https://developer.android.com/ndk/reference/group/font#afontmatcher_create
 //! [`ASystemFontIterator`]: https://developer.android.com/ndk/reference/group/font#asystemfontiterator_open
 
+#![cfg(feature = "api-level-29")]
+
 use std::convert::TryFrom;
 use std::ffi::{CStr, OsStr};
 use std::fmt::{self, Write};
@@ -155,13 +157,11 @@ impl std::error::Error for TryFromU32Error {}
 /// A native [`AFont *`]
 ///
 /// [`AFont *`]: https://developer.android.com/ndk/reference/group/font
-#[cfg(feature = "api-level-29")]
 #[derive(Debug)]
 pub struct Font {
     ptr: NonNull<ffi::AFont>,
 }
 
-#[cfg(feature = "api-level-29")]
 impl Font {
     /// Creates a [`Font`] from a pointer.
     ///
@@ -268,7 +268,6 @@ impl Font {
     }
 }
 
-#[cfg(feature = "api-level-29")]
 impl Drop for Font {
     fn drop(&mut self) {
         unsafe { ffi::AFont_close(self.ptr.as_ptr()) }
@@ -294,13 +293,11 @@ pub enum FamilyVariant {
 /// A native [`AFontMatcher *`]
 ///
 /// [`AFontMatcher *`]: https://developer.android.com/ndk/reference/group/font#afontmatcher_create
-#[cfg(feature = "api-level-29")]
 #[derive(Debug)]
 pub struct FontMatcher {
     ptr: NonNull<ffi::AFontMatcher>,
 }
 
-#[cfg(feature = "api-level-29")]
 impl FontMatcher {
     /// Creates a [`FontMatcher`] from a pointer.
     ///
@@ -348,7 +345,6 @@ impl FontMatcher {
     }
 }
 
-#[cfg(feature = "api-level-29")]
 impl Drop for FontMatcher {
     fn drop(&mut self) {
         unsafe { ffi::AFontMatcher_destroy(self.ptr.as_ptr()) }
@@ -358,13 +354,11 @@ impl Drop for FontMatcher {
 /// A native [`ASystemFontIterator *`]
 ///
 /// [`ASystemFontIterator *`]: https://developer.android.com/ndk/reference/group/font#asystemfontiterator_open
-#[cfg(feature = "api-level-29")]
 #[derive(Debug)]
 pub struct SystemFontIterator {
     ptr: NonNull<ffi::ASystemFontIterator>,
 }
 
-#[cfg(feature = "api-level-29")]
 impl SystemFontIterator {
     /// Creates an [`SystemFontIterator`] from a pointer.
     ///
@@ -386,7 +380,6 @@ impl SystemFontIterator {
     }
 }
 
-#[cfg(feature = "api-level-29")]
 impl Iterator for SystemFontIterator {
     type Item = Font;
 
@@ -396,7 +389,6 @@ impl Iterator for SystemFontIterator {
     }
 }
 
-#[cfg(feature = "api-level-29")]
 impl Drop for SystemFontIterator {
     fn drop(&mut self) {
         unsafe { ffi::ASystemFontIterator_close(self.ptr.as_ptr()) }
