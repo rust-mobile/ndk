@@ -24,7 +24,7 @@ pub struct FontWeight(u16);
 
 impl FontWeight {
     pub const fn new(value: u16) -> Result<Self, TryFromU16Error> {
-        if 0 < value && value <= 1000 {
+        if Self::MIN.0 <= value && value <= Self::MAX.0 {
             Ok(Self(value))
         } else {
             Err(TryFromU16Error(()))
@@ -35,6 +35,8 @@ impl FontWeight {
         self.0
     }
 
+    // + 1 is to keep consistency between FontWeight and other types like std::num::NonZero*
+    pub const MIN: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MIN as u16 + 1);
     pub const THIN: FontWeight = FontWeight(ffi::AFONT_WEIGHT_THIN as u16);
     pub const EXTRA_LIGHT: FontWeight = FontWeight(ffi::AFONT_WEIGHT_EXTRA_LIGHT as u16);
     pub const LIGHT: FontWeight = FontWeight(ffi::AFONT_WEIGHT_LIGHT as u16);
