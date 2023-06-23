@@ -24,11 +24,11 @@ use std::ptr::NonNull;
 pub struct FontWeight(u16);
 
 impl FontWeight {
-    pub const fn new(value: u16) -> Result<Self, TryFromU16Error> {
+    pub const fn new(value: u16) -> Result<Self, FontWeightValueError> {
         if Self::MIN.0 <= value && value <= Self::MAX.0 {
             Ok(Self(value))
         } else {
-            Err(TryFromU16Error(()))
+            Err(FontWeightValueError(()))
         }
     }
 
@@ -69,9 +69,9 @@ impl fmt::Display for FontWeight {
 
 /// The error type returned when an invalid font weight value is passed.
 #[derive(Debug)]
-pub struct TryFromU16Error(());
+pub struct FontWeightValueError(());
 
-impl fmt::Display for TryFromU16Error {
+impl fmt::Display for FontWeightValueError {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
         write!(
             fmt,
@@ -80,10 +80,10 @@ impl fmt::Display for TryFromU16Error {
     }
 }
 
-impl std::error::Error for TryFromU16Error {}
+impl std::error::Error for FontWeightValueError {}
 
 impl TryFrom<u16> for FontWeight {
-    type Error = TryFromU16Error;
+    type Error = FontWeightValueError;
 
     fn try_from(value: u16) -> Result<Self, Self::Error> {
         FontWeight::new(value)
@@ -95,7 +95,7 @@ impl TryFrom<u16> for FontWeight {
 pub struct AxisTag(u32);
 
 impl AxisTag {
-    pub const fn from_be(value: u32) -> Result<Self, TryFromU32Error> {
+    pub const fn from_be(value: u32) -> Result<Self, AxisTagValueError> {
         // Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be
         // followed by a non-space character. A tag must have one to four non-space characters.
         // See https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
@@ -108,7 +108,7 @@ impl AxisTag {
                     return if true $(&& bytes[$f] == b' ')+ {
                         Ok(Self(value))
                     } else {
-                        Err(TryFromU32Error(()))
+                        Err(AxisTagValueError(()))
                     };
                 }
             };
@@ -116,7 +116,7 @@ impl AxisTag {
 
         // A tag must have one to four non-space characters.
         if !(bytes[0] as char).is_ascii_graphic() {
-            return Err(TryFromU32Error(()));
+            return Err(AxisTagValueError(()));
         }
 
         check_if_valid!(1; 1 2 3);
@@ -126,7 +126,7 @@ impl AxisTag {
         Ok(Self(value))
     }
 
-    pub const fn from_be_bytes(value: [u8; 4]) -> Result<Self, TryFromU32Error> {
+    pub const fn from_be_bytes(value: [u8; 4]) -> Result<Self, AxisTagValueError> {
         Self::from_be(u32::from_be_bytes(value))
     }
 
@@ -157,9 +157,9 @@ impl fmt::Debug for AxisTag {
 
 /// The error type returned when an invalid axis tag value is passed.
 #[derive(Debug)]
-pub struct TryFromU32Error(());
+pub struct AxisTagValueError(());
 
-impl fmt::Display for TryFromU32Error {
+impl fmt::Display for AxisTagValueError {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
         write!(
             fmt,
@@ -168,7 +168,7 @@ impl fmt::Display for TryFromU32Error {
     }
 }
 
-impl std::error::Error for TryFromU32Error {}
+impl std::error::Error for AxisTagValueError {}
 
 /// A native [`AFont *`]
 ///
