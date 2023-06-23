@@ -5,9 +5,9 @@
 - asset: Use entire asset length when mapping buffer. (#387)
 - Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
-- Add `Font` bindings. (#397)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
+- Add `Font` bindings. (#397)
 - **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
 
 # 0.7.0 (2022-07-24)
