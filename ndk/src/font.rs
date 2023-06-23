@@ -96,20 +96,32 @@ pub struct AxisTag(u32);
 
 impl AxisTag {
     pub const fn from_be(value: u32) -> Result<Self, TryFromU32Error> {
-        // Each byte in a tag must be in the range 0x20 to 0x7E.
+        // Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be
+        // followed by a non-space character. A tag must have one to four non-space characters.
         // See https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
-        macro_rules! check_in_valid_range {
-            ($($byte: expr),+) => {
-                $(
-                    if !(0x20 <= ($byte) && ($byte) <= 0x7E) {
-                        return Err(TryFromU32Error(()));
-                    }
-                )+
+
+        let bytes = value.to_be_bytes();
+
+        macro_rules! check_if_valid {
+            ($e:expr ; $($f:expr)+) => {
+                if !(bytes[$e] as char).is_ascii_graphic() {
+                    return if true $(&& bytes[$f] == b' ')+ {
+                        Ok(Self(value))
+                    } else {
+                        Err(TryFromU32Error(()))
+                    };
+                }
             };
         }
 
-        let bytes = value.to_be_bytes();
-        check_in_valid_range!(bytes[0], bytes[1], bytes[2], bytes[3]);
+        // A tag must have one to four non-space characters.
+        if !(bytes[0] as char).is_ascii_graphic() {
+            return Err(TryFromU32Error(()));
+        }
+
+        check_if_valid!(1; 1 2 3);
+        check_if_valid!(2; 2 3);
+        check_if_valid!(3; 3);
 
         Ok(Self(value))
     }
