@@ -10,7 +10,6 @@ use std::fmt::{self, Write};
 use std::os::unix::prelude::OsStrExt;
 use std::path::Path;
 use std::ptr::NonNull;
-use std::result::Result;
 
 /// An integer holding a valid font weight value between 1 and 1000.
 ///
@@ -31,7 +30,7 @@ impl FontWeight {
         }
     }
 
-    pub const fn value(&self) -> u16 {
+    pub const fn to_u16(self) -> u16 {
         self.0
     }
 
@@ -111,6 +110,14 @@ impl AxisTag {
         check_in_valid_range!(bytes[0], bytes[1], bytes[2], bytes[3]);
 
         Ok(Self(value))
+    }
+
+    pub const fn to_u32(self) -> u32 {
+        self.0
+    }
+
+    pub const fn to_be_bytes(self) -> [u8; 4] {
+        self.0.to_be_bytes()
     }
 }
 
@@ -337,7 +344,7 @@ impl FontMatcher {
     ///
     /// If this function is not called, the match is performed with [`FontWeight::NORMAL`] with non-italic style.
     pub fn set_style(&mut self, weight: FontWeight, italic: bool) {
-        unsafe { ffi::AFontMatcher_setStyle(self.ptr.as_ptr(), weight.value(), italic) }
+        unsafe { ffi::AFontMatcher_setStyle(self.ptr.as_ptr(), weight.to_u16(), italic) }
     }
 }
 
