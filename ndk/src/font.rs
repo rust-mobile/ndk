@@ -18,7 +18,7 @@ use std::ptr::NonNull;
 /// * [`Font::weight`]
 ///
 /// [`AFONT_WEIGHT_*`]: https://developer.android.com/ndk/reference/group/font#anonymous-enum-33
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct FontWeight(u16);
 
 impl FontWeight {
