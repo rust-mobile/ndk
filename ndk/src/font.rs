@@ -73,10 +73,7 @@ pub struct FontWeightValueError(());
 
 impl fmt::Display for FontWeightValueError {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            fmt,
-            "font weight must be positive and less than or equal to 1000"
-        )
+        fmt.write_str("font weight must be positive and less than or equal to 1000")
     }
 }
 
@@ -102,27 +99,47 @@ impl AxisTag {
 
         let bytes = value.to_be_bytes();
 
+        // Each byte in a tag must be in the range 0x20 to 0x7E.
+        macro_rules! check_byte_range {
+            ($($e:expr)+) => {
+                $(
+                    if !(bytes[$e] as char).is_ascii_graphic() && bytes[$e] != b' ' {
+                        return Err(AxisTagValueError::InvalidCharacter);
+                    }
+                )+
+            };
+        }
+        check_byte_range!(0 1 2 3);
+
+        if bytes[0] == b' ' {
+            return Err(
+                if bytes[1] == b' ' && bytes[2] == b' ' && bytes[3] == b' ' {
+                    // A tag must have one to four non-space characters.
+                    AxisTagValueError::EmptyTag
+                } else {
+                    // A space character cannot be followed by a non-space character.
+                    AxisTagValueError::InvalidSpacePadding
+                },
+            );
+        }
+
         macro_rules! check_if_valid {
             ($e:expr ; $($f:expr)+) => {
-                if !(bytes[$e] as char).is_ascii_graphic() {
+                if bytes[$e] == b' ' {
                     return if true $(&& bytes[$f] == b' ')+ {
                         Ok(Self(value))
                     } else {
-                        Err(AxisTagValueError(()))
+                        // A space character cannot be followed by a non-space character.
+                        Err(AxisTagValueError::InvalidSpacePadding)
                     };
                 }
             };
         }
 
-        // A tag must have one to four non-space characters.
-        if !(bytes[0] as char).is_ascii_graphic() {
-            return Err(AxisTagValueError(()));
-        }
+        check_if_valid!(1; 2 3);
+        check_if_valid!(2; 3);
 
-        check_if_valid!(1; 1 2 3);
-        check_if_valid!(2; 2 3);
-        check_if_valid!(3; 3);
-
+        // Whether or not bytes[3] is b' ', value is a valid axis tag.
         Ok(Self(value))
     }
 
@@ -156,15 +173,31 @@ impl fmt::Debug for AxisTag {
 }
 
 /// The error type returned when an invalid axis tag value is passed.
-#[derive(Debug)]
-pub struct AxisTagValueError(());
+#[derive(Clone, Copy, Debug)]
+pub enum AxisTagValueError {
+    /// There is a byte not in the range 0x20 to 0x7E.
+    InvalidCharacter,
+    /// There is a space character followed by a non-space character.
+    InvalidSpacePadding,
+    /// The tag only consists of space characters.
+    EmptyTag,
+}
+
+impl AxisTagValueError {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::InvalidCharacter => "each byte in an axis tag must be in the range 0x20 to 0x7E",
+            Self::InvalidSpacePadding => {
+                "a space character cannot be followed by a non-space character"
+            }
+            Self::EmptyTag => "a tag must have one to four non-space characters",
+        }
+    }
+}
 
 impl fmt::Display for AxisTagValueError {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            fmt,
-            "each byte in an axis tag must be in the range 0x20 to 0x7E"
-        )
+        fmt.write_str(self.as_str())
     }
 }
 
