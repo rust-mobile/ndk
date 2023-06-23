@@ -126,6 +126,10 @@ impl AxisTag {
         Ok(Self(value))
     }
 
+    pub const fn from_be_bytes(value: [u8; 4]) -> Result<Self, TryFromU32Error> {
+        Self::from_be(u32::from_be_bytes(value))
+    }
+
     pub const fn to_u32(self) -> u32 {
         self.0
     }
