@@ -9,7 +9,10 @@
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
 - **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
-- **Breaking:** Renamed and moved "`media`" error types and helpers to the always-available `media_error` module. (#399)
+- **Breaking:** Renamed and moved "`media`" error types and helpers to a new `media_error` module. (#399)
+- **Breaking:** media_codec: Wrap common dequeued-buffer status codes in enum. (#401)
+- **Breaking:** media_codec: Return `MaybeUninit` bytes in `buffer_mut()`. (#403)
+- hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 
 # 0.7.0 (2022-07-24)
 

@@ -1,3 +1,11 @@
+//! Bindings for NDK media status codes.
+//!
+//! Also used outside of `libmediandk.so` in `libmidi.so` for example.
+
+#![cfg(feature = "media")]
+// The cfg(feature) bounds for some pub(crate) fn uses are non-trivial and will become even more
+// complex going forward.  Allow them to be unused when compiling with certain feature combinations.
+#![allow(dead_code)]
 use std::{mem::MaybeUninit, ptr::NonNull};
 
 use thiserror::Error;

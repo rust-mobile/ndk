@@ -9,6 +9,7 @@ use std::{
     convert::TryInto,
     ffi::{CStr, CString},
     fmt::Display,
+    mem::MaybeUninit,
     ptr::{self, NonNull},
     slice,
     time::Duration,
@@ -291,8 +292,7 @@ impl MediaCodec {
         }
     }
 
-    /// Returns [`None`] if timeout is reached.
-    pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<Option<InputBuffer>> {
+    pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<DequeuedInputBufferResult<'_>> {
         let result = unsafe {
             ffi::AMediaCodec_dequeueInputBuffer(
                 self.as_ptr(),
@@ -304,25 +304,27 @@ impl MediaCodec {
         };
 
         if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as isize {
-            Ok(None)
+            Ok(DequeuedInputBufferResult::TryAgainLater)
         } else if result >= 0 {
-            Ok(Some(InputBuffer {
+            Ok(DequeuedInputBufferResult::Buffer(InputBuffer {
                 codec: self,
                 index: result as usize,
             }))
         } else {
-            MediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
+            Err(MediaError::from_status(ffi::media_status_t(result as _)).unwrap_err())
         }
     }
 
-    /// Returns [`None`] if timeout is reached.
-    pub fn dequeue_output_buffer(&self, timeout: Duration) -> Result<Option<OutputBuffer>> {
-        let mut info: ffi::AMediaCodecBufferInfo = unsafe { std::mem::zeroed() };
+    pub fn dequeue_output_buffer(
+        &self,
+        timeout: Duration,
+    ) -> Result<DequeuedOutputBufferInfoResult<'_>> {
+        let mut info = MaybeUninit::uninit();
 
         let result = unsafe {
             ffi::AMediaCodec_dequeueOutputBuffer(
                 self.as_ptr(),
-                &mut info,
+                info.as_mut_ptr(),
                 timeout
                     .as_micros()
                     .try_into()
@@ -331,15 +333,19 @@ impl MediaCodec {
         };
 
         if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as isize {
-            Ok(None)
+            Ok(DequeuedOutputBufferInfoResult::TryAgainLater)
+        } else if result == ffi::AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED as isize {
+            Ok(DequeuedOutputBufferInfoResult::OutputFormatChanged)
+        } else if result == ffi::AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED as isize {
+            Ok(DequeuedOutputBufferInfoResult::OutputBuffersChanged)
         } else if result >= 0 {
-            Ok(Some(OutputBuffer {
+            Ok(DequeuedOutputBufferInfoResult::Buffer(OutputBuffer {
                 codec: self,
                 index: result as usize,
-                info,
+                info: unsafe { info.assume_init() },
             }))
         } else {
-            MediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
+            Err(MediaError::from_status(ffi::media_status_t(result as _)).unwrap_err())
         }
     }
 
@@ -461,15 +467,25 @@ pub struct InputBuffer<'a> {
 }
 
 impl InputBuffer<'_> {
-    pub fn buffer_mut(&mut self) -> &mut [u8] {
+    pub fn buffer_mut(&mut self) -> &mut [MaybeUninit<u8>] {
         unsafe {
             let mut out_size = 0;
             let buffer_ptr =
                 ffi::AMediaCodec_getInputBuffer(self.codec.as_ptr(), self.index, &mut out_size);
-            assert!(!buffer_ptr.is_null());
-            slice::from_raw_parts_mut(buffer_ptr, out_size)
+            assert!(
+                !buffer_ptr.is_null(),
+                "AMediaCodec_getInputBuffer returned NULL for index {}",
+                self.index
+            );
+            slice::from_raw_parts_mut(buffer_ptr.cast(), out_size)
         }
     }
+}
+
+#[derive(Debug)]
+pub enum DequeuedInputBufferResult<'a> {
+    Buffer(InputBuffer<'a>),
+    TryAgainLater,
 }
 
 #[derive(Debug)]
@@ -485,7 +501,11 @@ impl OutputBuffer<'_> {
             let mut _out_size = 0;
             let buffer_ptr =
                 ffi::AMediaCodec_getOutputBuffer(self.codec.as_ptr(), self.index, &mut _out_size);
-            assert!(!buffer_ptr.is_null());
+            assert!(
+                !buffer_ptr.is_null(),
+                "AMediaCodec_getOutputBuffer returned NULL for index {}",
+                self.index
+            );
             slice::from_raw_parts(
                 buffer_ptr.add(self.info.offset as usize),
                 self.info.size as usize,
@@ -509,4 +529,12 @@ impl OutputBuffer<'_> {
     pub fn presentation_time_us(&self) -> i64 {
         self.info.presentationTimeUs
     }
+}
+
+#[derive(Debug)]
+pub enum DequeuedOutputBufferInfoResult<'a> {
+    Buffer(OutputBuffer<'a>),
+    TryAgainLater,
+    OutputFormatChanged,
+    OutputBuffersChanged,
 }
