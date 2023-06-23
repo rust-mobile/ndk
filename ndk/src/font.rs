@@ -1,6 +1,6 @@
 //! Bindings for [`AFont`], [`AFontMatcher`], and [`ASystemFontIterator`]
 //!
-//! [`AFont`]: https://developer.android.com/ndk/reference/group/font#afont_close
+//! [`AFont`]: https://developer.android.com/ndk/reference/group/font
 //! [`AFontMatcher`]: https://developer.android.com/ndk/reference/group/font#afontmatcher_create
 //! [`ASystemFontIterator`]: https://developer.android.com/ndk/reference/group/font#asystemfontiterator_open
 
@@ -147,7 +147,7 @@ impl std::error::Error for TryFromU32Error {}
 
 /// A native [`AFont *`]
 ///
-/// [`AFont *`]: https://developer.android.com/ndk/reference/group/font#afont_close
+/// [`AFont *`]: https://developer.android.com/ndk/reference/group/font
 #[cfg(feature = "api-level-29")]
 #[derive(Debug)]
 pub struct Font {
