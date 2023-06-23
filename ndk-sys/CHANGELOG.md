@@ -1,8 +1,7 @@
 # Unreleased
 
-- Detect OS from `generate_bindings.sh` and use proper NDK Host Tag. (#397)
-- Add `font`, `font_matcher`, `system_fonts` bindings. (#397)
 - **Breaking:** Regenerate against NDK `25.2.9519653` with `rust-bindgen 0.66.0`. (#324, #370)
+- Add `font`, `font_matcher`, `system_fonts` bindings. (#397)
 
 # 0.4.1 (2022-11-23)
 
