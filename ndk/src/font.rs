@@ -6,7 +6,7 @@
 
 use std::convert::TryFrom;
 use std::ffi::{CStr, OsStr};
-use std::fmt;
+use std::fmt::{self, Write};
 use std::os::unix::prelude::OsStrExt;
 use std::path::Path;
 use std::ptr::NonNull;
@@ -52,15 +52,15 @@ impl FontWeight {
 impl fmt::Display for FontWeight {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match *self {
-            FontWeight::THIN => writeln!(f, "Thin"),
-            FontWeight::EXTRA_LIGHT => writeln!(f, "Extra Light (Ultra Light)"),
-            FontWeight::LIGHT => writeln!(f, "Light"),
-            FontWeight::NORMAL => writeln!(f, "Normal (Regular)"),
-            FontWeight::MEDIUM => writeln!(f, "Medium"),
-            FontWeight::SEMI_BOLD => writeln!(f, "Semi Bold (Demi Bold)"),
-            FontWeight::BOLD => writeln!(f, "Bold"),
-            FontWeight::EXTRA_BOLD => writeln!(f, "Extra Bold (Ultra Bold)"),
-            FontWeight::BLACK => writeln!(f, "Black (Heavy)"),
+            FontWeight::THIN => f.write_str("Thin"),
+            FontWeight::EXTRA_LIGHT => f.write_str("Extra Light (Ultra Light)"),
+            FontWeight::LIGHT => f.write_str("Light"),
+            FontWeight::NORMAL => f.write_str("Normal (Regular)"),
+            FontWeight::MEDIUM => f.write_str("Medium"),
+            FontWeight::SEMI_BOLD => f.write_str("Semi Bold (Demi Bold)"),
+            FontWeight::BOLD => f.write_str("Bold"),
+            FontWeight::EXTRA_BOLD => f.write_str("Extra Bold (Ultra Bold)"),
+            FontWeight::BLACK => f.write_str("Black (Heavy)"),
             _ => writeln!(f, "{}", self.0),
         }
     }
@@ -117,19 +117,16 @@ impl AxisTag {
 impl fmt::Display for AxisTag {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let bytes = self.0.to_be_bytes();
-        write!(
-            f,
-            "{}{}{}{}",
-            bytes[0] as char, bytes[1] as char, bytes[2] as char, bytes[3] as char
-        )
+        f.write_char(bytes[0] as char)?;
+        f.write_char(bytes[1] as char)?;
+        f.write_char(bytes[2] as char)?;
+        f.write_char(bytes[3] as char)
     }
 }
 
 impl fmt::Debug for AxisTag {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "AxisTag(")?;
-        fmt::Display::fmt(self, f)?;
-        write!(f, " {:#x})", self.0)
+        write!(f, "AxisTag({} {:#x})", self, self.0)
     }
 }
 
@@ -202,7 +199,7 @@ impl Font {
     /// Returns a font collection index value associated with the current font.
     ///
     /// In case the target font file is a font collection (e.g. `.ttc` or `.otc`), this returns a
-    /// non negative value as a font offset in the collection. This always returns 0 if the target
+    /// non-negative value as a font offset in the collection. This always returns 0 if the target
     /// font file is a regular font.
     pub fn collection_index(&self) -> usize {
         unsafe { ffi::AFont_getCollectionIndex(self.ptr.as_ptr()) }
@@ -311,8 +308,8 @@ impl FontMatcher {
         self.ptr
     }
 
-    /// Createss a new [`FontMatcher`] object. [`FontMatcher`] selects the best font from parameters
-    /// set by the user.
+    /// Creates a new [`FontMatcher`] object. [`FontMatcher`] selects the best font from the
+    /// parameters set by the user.
     pub fn new() -> Self {
         let ptr = NonNull::new(unsafe { ffi::AFontMatcher_create() })
             .expect("AFontMatcher_create returned NULL");
