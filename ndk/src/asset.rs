@@ -6,6 +6,8 @@
 
 use std::ffi::{CStr, CString};
 use std::io;
+// TODO: Import from std::os::fd::{} since Rust 1.66
+use std::os::unix::io::{FromRawFd, OwnedFd};
 use std::ptr::NonNull;
 
 /// A native [`AAssetManager *`]
@@ -224,7 +226,34 @@ impl Asset {
         }
     }
 
-    //pub fn open_file_descriptor(&self) -> TODO
+    /// Returns whether this asset's internal buffer is allocated in ordinary RAM (i.e. not `mmap`ped).
+    #[doc(alias = "AAsset_isAllocated")]
+    pub fn is_allocated(&self) -> bool {
+        unsafe { ffi::AAsset_isAllocated(self.ptr.as_ptr()) != 0 }
+    }
+
+    /// Open a new file descriptor that can be used to read the asset data.
+    ///
+    /// Returns an error if direct fd access is not possible (for example, if the asset is compressed).
+    #[doc(alias = "AAsset_openFileDescriptor64")]
+    pub fn open_file_descriptor(&self) -> io::Result<OpenedFileDescriptor> {
+        let mut offset = 0;
+        let mut size = 0;
+        let res =
+            unsafe { ffi::AAsset_openFileDescriptor64(self.ptr.as_ptr(), &mut offset, &mut size) };
+        if res >= 0 {
+            Ok(OpenedFileDescriptor {
+                fd: unsafe { OwnedFd::from_raw_fd(res) },
+                offset: offset as usize,
+                size: size as usize,
+            })
+        } else {
+            Err(io::Error::new(
+                io::ErrorKind::Other,
+                "Android Asset openFileDescriptor error",
+            ))
+        }
+    }
 }
 
 impl io::Read for Asset {
@@ -267,4 +296,13 @@ impl io::Seek for Asset {
             }
         }
     }
+}
+
+/// Contains the opened file descriptor returned by [`Asset::open_file_descriptor()`], together
+/// with the offset and size of the given asset within that file descriptor.
+#[derive(Debug)]
+pub struct OpenedFileDescriptor {
+    pub fd: OwnedFd,
+    pub offset: usize,
+    pub size: usize,
 }
