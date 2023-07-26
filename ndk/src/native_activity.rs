@@ -216,8 +216,8 @@ impl NativeActivity {
     ///
     /// [`getWindow().setFormat()`]: https://developer.android.com/reference/android/view/Window#setFormat(int)
     pub fn set_window_format(&self, format: HardwareBufferFormat) {
-        let format: u32 = format.into();
-        unsafe { ffi::ANativeActivity_setWindowFormat(self.ptr.as_ptr(), format as i32) }
+        let format: ffi::AHardwareBuffer_Format = format.into();
+        unsafe { ffi::ANativeActivity_setWindowFormat(self.ptr.as_ptr(), format.0 as i32) }
     }
 
     /// Change the window flags of the given activity.
