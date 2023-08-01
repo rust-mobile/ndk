@@ -6,6 +6,7 @@
 
 use crate::media_error::{construct, construct_never_null, MediaError, MediaStatus, Result};
 use crate::native_window::NativeWindow;
+use crate::utils::abort_on_panic;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
     convert::TryInto,
@@ -128,10 +129,12 @@ impl ImageReader {
             context: *mut c_void,
             reader: *mut ffi::AImageReader,
         ) {
-            let reader = ImageReader::from_ptr(NonNull::new_unchecked(reader));
-            let listener: *mut ImageListener = context as *mut _;
-            (*listener)(&reader);
-            std::mem::forget(reader);
+            abort_on_panic(|| {
+                let reader = ImageReader::from_ptr(NonNull::new_unchecked(reader));
+                let listener: *mut ImageListener = context as *mut _;
+                (*listener)(&reader);
+                std::mem::forget(reader);
+            })
         }
 
         let mut listener = ffi::AImageReader_ImageListener {
@@ -154,11 +157,13 @@ impl ImageReader {
             reader: *mut ffi::AImageReader,
             buffer: *mut ffi::AHardwareBuffer,
         ) {
-            let reader = ImageReader::from_ptr(NonNull::new_unchecked(reader));
-            let buffer = HardwareBuffer::from_ptr(NonNull::new_unchecked(buffer));
-            let listener: *mut BufferRemovedListener = context as *mut _;
-            (*listener)(&reader, &buffer);
-            std::mem::forget(reader);
+            abort_on_panic(|| {
+                let reader = ImageReader::from_ptr(NonNull::new_unchecked(reader));
+                let buffer = HardwareBuffer::from_ptr(NonNull::new_unchecked(buffer));
+                let listener: *mut BufferRemovedListener = context as *mut _;
+                (*listener)(&reader, &buffer);
+                std::mem::forget(reader);
+            })
         }
 
         let mut listener = ffi::AImageReader_BufferRemovedListener {

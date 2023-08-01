@@ -8,6 +8,7 @@
 //! [`AAudioStreamBuilder`]: https://developer.android.com/ndk/reference/group/audio#aaudiostreambuilder
 #![cfg(feature = "audio")]
 
+use crate::utils::abort_on_panic;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
     borrow::Cow,
@@ -573,15 +574,17 @@ impl AudioStreamBuilder {
             audio_data: *mut c_void,
             num_frames: i32,
         ) -> ffi::aaudio_data_callback_result_t {
-            let callback = user_data as *mut AudioStreamDataCallback;
-            let stream = AudioStream {
-                inner: NonNull::new_unchecked(stream),
-                data_callback: None,
-                error_callback: None,
-            };
-            let result = (*callback)(&stream, audio_data, num_frames);
-            std::mem::forget(stream);
-            result as ffi::aaudio_data_callback_result_t
+            abort_on_panic(|| {
+                let callback = user_data as *mut AudioStreamDataCallback;
+                let stream = AudioStream {
+                    inner: NonNull::new_unchecked(stream),
+                    data_callback: None,
+                    error_callback: None,
+                };
+                let result = (*callback)(&stream, audio_data, num_frames);
+                std::mem::forget(stream);
+                result as ffi::aaudio_data_callback_result_t
+            })
         }
 
         unsafe {
@@ -657,15 +660,17 @@ impl AudioStreamBuilder {
             user_data: *mut c_void,
             error: ffi::aaudio_result_t,
         ) {
-            let callback = user_data as *mut AudioStreamErrorCallback;
-            let stream = AudioStream {
-                inner: NonNull::new_unchecked(stream),
-                data_callback: None,
-                error_callback: None,
-            };
-            let err = AudioError::from_result(error, || ()).unwrap_err();
-            (*callback)(&stream, err);
-            std::mem::forget(stream);
+            abort_on_panic(|| {
+                let callback = user_data as *mut AudioStreamErrorCallback;
+                let stream = AudioStream {
+                    inner: NonNull::new_unchecked(stream),
+                    data_callback: None,
+                    error_callback: None,
+                };
+                let err = AudioError::from_result(error, || ()).unwrap_err();
+                (*callback)(&stream, err);
+                std::mem::forget(stream);
+            })
         }
 
         unsafe {
