@@ -29,42 +29,28 @@ pub(crate) fn android_log(level: Level, tag: &CStr, msg: &CStr) {
 }
 
 pub(crate) fn log_panic(panic: Box<dyn std::any::Any + Send>) {
-    let rust_panic = unsafe { CStr::from_bytes_with_nul_unchecked(b"RustPanic\0") };
+    fn log_panic(panic_str: &str) {
+        const RUST_PANIC_TAG: &CStr =
+            unsafe { CStr::from_bytes_with_nul_unchecked(b"RustPanic\0") };
 
-    // Use the Rust logger if installed and enabled, otherwise fall back to the Android system
-    // logger so there is at least some record of the panic
-    let use_log = log_enabled!(Level::Error);
+        let panic_str = CString::new(panic_str).unwrap_or_default();
 
-    match panic.downcast::<String>() {
-        Ok(panic_string) => {
-            if use_log {
-                error!("RustPanic: {}", panic_string);
-            } else if let Ok(msg) = CString::new(*panic_string) {
-                android_log(Level::Error, rust_panic, &msg);
-            }
+        // Use the Rust logger if installed and enabled, otherwise fall back to the Android system
+        // logger so there is at least some record of the panic
+        if log_enabled!(Level::Error) {
+            error!("RustPanic: {}", panic_str.to_string_lossy());
+            log::logger().flush();
+        } else {
+            android_log(Level::Error, RUST_PANIC_TAG, &panic_str);
         }
-        Err(panic) => match panic.downcast::<&str>() {
-            Ok(panic_str) => {
-                if use_log {
-                    error!("RustPanic: {}", panic_str);
-                } else if let Ok(msg) = CString::new(*panic_str) {
-                    android_log(Level::Error, rust_panic, &msg);
-                }
-            }
-            Err(_) => {
-                if use_log {
-                    error!("UnknownPanic");
-                } else {
-                    let unknown_panic =
-                        unsafe { CStr::from_bytes_with_nul_unchecked(b"UnknownPanic\0") };
-                    android_log(Level::Error, unknown_panic, Default::default());
-                }
-            }
-        },
     }
 
-    if use_log {
-        log::logger().flush();
+    match panic.downcast::<String>() {
+        Ok(panic_string) => log_panic(&panic_string),
+        Err(panic) => match panic.downcast::<&str>() {
+            Ok(panic_str) => log_panic(&panic_str),
+            Err(_) => log_panic("Unknown panic message type"),
+        },
     }
 }
 
