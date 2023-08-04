@@ -9,8 +9,7 @@ use crate::utils::status_to_io_result;
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
 use std::{
-    convert::TryInto, io::Result, mem::MaybeUninit, ops::Deref, os::raw::c_void,
-    os::unix::io::RawFd, ptr::NonNull,
+    io::Result, mem::MaybeUninit, ops::Deref, os::raw::c_void, os::unix::io::RawFd, ptr::NonNull,
 };
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -204,7 +203,7 @@ impl HardwareBuffer {
             width: desc.width,
             height: desc.height,
             layers: desc.layers,
-            format: desc.format.try_into().unwrap(),
+            format: ffi::AHardwareBuffer_Format(desc.format).into(),
             usage: HardwareBufferUsage(ffi::AHardwareBuffer_UsageFlags(desc.usage)),
             stride: desc.stride,
         }
@@ -477,7 +476,7 @@ impl HardwareBufferDesc {
             width: self.width,
             height: self.height,
             layers: self.layers,
-            format: self.format.try_into().unwrap(),
+            format: ffi::AHardwareBuffer_Format::from(self.format).0,
             usage: self.usage.0 .0,
             stride: self.stride,
             rfu0: 0,

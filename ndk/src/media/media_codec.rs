@@ -3,12 +3,13 @@
 //! [`AMediaFormat`]: https://developer.android.com/ndk/reference/group/media#amediaformat
 //! [`AMediaCodec`]: https://developer.android.com/ndk/reference/group/media#amediacodec
 
-use super::{NdkMediaError, Result};
+use crate::media_error::{MediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
     convert::TryInto,
     ffi::{CStr, CString},
     fmt::Display,
+    mem::MaybeUninit,
     ptr::{self, NonNull},
     slice,
     time::Duration,
@@ -206,7 +207,7 @@ impl MediaFormat {
 impl Drop for MediaFormat {
     fn drop(&mut self) {
         let status = unsafe { ffi::AMediaFormat_delete(self.as_ptr()) };
-        NdkMediaError::from_status(status).unwrap();
+        MediaError::from_status(status).unwrap();
     }
 }
 
@@ -267,12 +268,12 @@ impl MediaCodec {
                 },
             )
         };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
     pub fn create_input_surface(&self) -> Result<NativeWindow> {
-        use super::construct_never_null;
+        use crate::media_error::construct_never_null;
         unsafe {
             let ptr = construct_never_null(|res| {
                 ffi::AMediaCodec_createInputSurface(self.as_ptr(), res)
@@ -283,7 +284,7 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-26")]
     pub fn create_persistent_input_surface() -> Result<NativeWindow> {
-        use super::construct_never_null;
+        use crate::media_error::construct_never_null;
         unsafe {
             let ptr =
                 construct_never_null(|res| ffi::AMediaCodec_createPersistentInputSurface(res))?;
@@ -291,8 +292,7 @@ impl MediaCodec {
         }
     }
 
-    /// Returns [`None`] if timeout is reached.
-    pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<Option<InputBuffer>> {
+    pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<DequeuedInputBufferResult<'_>> {
         let result = unsafe {
             ffi::AMediaCodec_dequeueInputBuffer(
                 self.as_ptr(),
@@ -304,25 +304,27 @@ impl MediaCodec {
         };
 
         if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as isize {
-            Ok(None)
+            Ok(DequeuedInputBufferResult::TryAgainLater)
         } else if result >= 0 {
-            Ok(Some(InputBuffer {
+            Ok(DequeuedInputBufferResult::Buffer(InputBuffer {
                 codec: self,
                 index: result as usize,
             }))
         } else {
-            NdkMediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
+            Err(MediaError::from_status(ffi::media_status_t(result as _)).unwrap_err())
         }
     }
 
-    /// Returns [`None`] if timeout is reached.
-    pub fn dequeue_output_buffer(&self, timeout: Duration) -> Result<Option<OutputBuffer>> {
-        let mut info: ffi::AMediaCodecBufferInfo = unsafe { std::mem::zeroed() };
+    pub fn dequeue_output_buffer(
+        &self,
+        timeout: Duration,
+    ) -> Result<DequeuedOutputBufferInfoResult<'_>> {
+        let mut info = MaybeUninit::uninit();
 
         let result = unsafe {
             ffi::AMediaCodec_dequeueOutputBuffer(
                 self.as_ptr(),
-                &mut info,
+                info.as_mut_ptr(),
                 timeout
                     .as_micros()
                     .try_into()
@@ -331,21 +333,25 @@ impl MediaCodec {
         };
 
         if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as isize {
-            Ok(None)
+            Ok(DequeuedOutputBufferInfoResult::TryAgainLater)
+        } else if result == ffi::AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED as isize {
+            Ok(DequeuedOutputBufferInfoResult::OutputFormatChanged)
+        } else if result == ffi::AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED as isize {
+            Ok(DequeuedOutputBufferInfoResult::OutputBuffersChanged)
         } else if result >= 0 {
-            Ok(Some(OutputBuffer {
+            Ok(DequeuedOutputBufferInfoResult::Buffer(OutputBuffer {
                 codec: self,
                 index: result as usize,
-                info,
+                info: unsafe { info.assume_init() },
             }))
         } else {
-            NdkMediaError::from_status(ffi::media_status_t(result as _)).map(|()| None)
+            Err(MediaError::from_status(ffi::media_status_t(result as _)).unwrap_err())
         }
     }
 
     pub fn flush(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_flush(self.as_ptr()) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-28")]
@@ -363,7 +369,7 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-28")]
     pub fn name(&self) -> Result<String> {
-        use super::construct;
+        use crate::media_error::construct;
         unsafe {
             let name_ptr = construct(|name| ffi::AMediaCodec_getName(self.as_ptr(), name))?;
             let name = CStr::from_ptr(name_ptr).to_str().unwrap().to_owned();
@@ -391,13 +397,13 @@ impl MediaCodec {
                 flags,
             )
         };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     pub fn release_output_buffer(&self, buffer: OutputBuffer, render: bool) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_releaseOutputBuffer(self.as_ptr(), buffer.index, render) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     pub fn release_output_buffer_at_time(
@@ -408,49 +414,49 @@ impl MediaCodec {
         let status = unsafe {
             ffi::AMediaCodec_releaseOutputBufferAtTime(self.as_ptr(), buffer.index, timestamp_ns)
         };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
     pub fn set_input_surface(&self, surface: &NativeWindow) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_setInputSurface(self.as_ptr(), surface.ptr().as_ptr()) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     pub fn set_output_surface(&self, surface: &NativeWindow) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_setOutputSurface(self.as_ptr(), surface.ptr().as_ptr()) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
     pub fn set_parameters(&self, params: MediaFormat) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_setParameters(self.as_ptr(), params.as_ptr()) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     #[cfg(feature = "api-level-26")]
     pub fn set_signal_end_of_input_stream(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_signalEndOfInputStream(self.as_ptr()) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     pub fn start(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_start(self.as_ptr()) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 
     pub fn stop(&self) -> Result<()> {
         let status = unsafe { ffi::AMediaCodec_stop(self.as_ptr()) };
-        NdkMediaError::from_status(status)
+        MediaError::from_status(status)
     }
 }
 
 impl Drop for MediaCodec {
     fn drop(&mut self) {
         let status = unsafe { ffi::AMediaCodec_delete(self.as_ptr()) };
-        NdkMediaError::from_status(status).unwrap();
+        MediaError::from_status(status).unwrap();
     }
 }
 
@@ -461,15 +467,25 @@ pub struct InputBuffer<'a> {
 }
 
 impl InputBuffer<'_> {
-    pub fn buffer_mut(&mut self) -> &mut [u8] {
+    pub fn buffer_mut(&mut self) -> &mut [MaybeUninit<u8>] {
         unsafe {
             let mut out_size = 0;
             let buffer_ptr =
                 ffi::AMediaCodec_getInputBuffer(self.codec.as_ptr(), self.index, &mut out_size);
-            assert!(!buffer_ptr.is_null());
-            slice::from_raw_parts_mut(buffer_ptr, out_size)
+            assert!(
+                !buffer_ptr.is_null(),
+                "AMediaCodec_getInputBuffer returned NULL for index {}",
+                self.index
+            );
+            slice::from_raw_parts_mut(buffer_ptr.cast(), out_size)
         }
     }
+}
+
+#[derive(Debug)]
+pub enum DequeuedInputBufferResult<'a> {
+    Buffer(InputBuffer<'a>),
+    TryAgainLater,
 }
 
 #[derive(Debug)]
@@ -485,7 +501,11 @@ impl OutputBuffer<'_> {
             let mut _out_size = 0;
             let buffer_ptr =
                 ffi::AMediaCodec_getOutputBuffer(self.codec.as_ptr(), self.index, &mut _out_size);
-            assert!(!buffer_ptr.is_null());
+            assert!(
+                !buffer_ptr.is_null(),
+                "AMediaCodec_getOutputBuffer returned NULL for index {}",
+                self.index
+            );
             slice::from_raw_parts(
                 buffer_ptr.add(self.info.offset as usize),
                 self.info.size as usize,
@@ -509,4 +529,12 @@ impl OutputBuffer<'_> {
     pub fn presentation_time_us(&self) -> i64 {
         self.info.presentationTimeUs
     }
+}
+
+#[derive(Debug)]
+pub enum DequeuedOutputBufferInfoResult<'a> {
+    Buffer(OutputBuffer<'a>),
+    TryAgainLater,
+    OutputFormatChanged,
+    OutputBuffersChanged,
 }

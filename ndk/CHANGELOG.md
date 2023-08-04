@@ -9,6 +9,12 @@
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
 - Add `Font` bindings. (#397)
 - **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
+- **Breaking:** Renamed and moved "`media`" error types and helpers to a new `media_error` module. (#399)
+- **Breaking:** media_codec: Wrap common dequeued-buffer status codes in enum. (#401)
+- **Breaking:** media_codec: Return `MaybeUninit` bytes in `buffer_mut()`. (#403)
+- native_window: Add `lock()` to blit raw pixel data. (#404)
+- hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
+- **Breaking:** hardware_buffer_format: Add catch-all variant. (#407)
 
 # 0.7.0 (2022-07-24)
 
