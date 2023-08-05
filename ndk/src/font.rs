@@ -402,7 +402,7 @@ impl FontMatcher {
         text: &[u16],
         run_length_out: Option<&mut u32>,
     ) -> Font {
-        if text.len() == 0 {
+        if text.is_empty() {
             panic!("text is empty");
         }
         unsafe {
