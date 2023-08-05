@@ -381,6 +381,44 @@ impl FontMatcher {
         unsafe { FontMatcher::from_ptr(ptr) }
     }
 
+    /// Performs the matching from the generic font family for the text and select one font.
+    ///
+    /// For more information about generic font families, please read the
+    /// [W3C spec](https://www.w3.org/TR/css-fonts-4/#generic-font-families).
+    ///
+    /// Even if no font can render the given text, this function will return a non-null result for
+    /// drawing Tofu character.
+    ///
+    /// # Arguments
+    ///
+    /// * `family_name`: A font family name.
+    /// * `text`: A UTF-16 encoded text buffer to be rendered. If an empty string is given, this
+    ///   function will panic.
+    /// * `run_length_out`: Set this to [`Some`] if you want to get the length of the text run with
+    ///   the font returned.
+    pub fn match_font(
+        &mut self,
+        family_name: &CStr,
+        text: &[u16],
+        run_length_out: Option<&mut u32>,
+    ) -> Font {
+        if text.len() == 0 {
+            panic!("text is empty");
+        }
+        unsafe {
+            Font::from_ptr(
+                NonNull::new(ffi::AFontMatcher_match(
+                    self.ptr.as_ptr(),
+                    family_name.as_ptr(),
+                    text.as_ptr(),
+                    text.len() as _,
+                    run_length_out.map_or(std::ptr::null_mut(), |u| u),
+                ))
+                .expect("AonftMatcher_match returned NULL"),
+            )
+        }
+    }
+
     /// Sets family variant to matcher.
     ///
     /// If this function is not called, the match is performed with [`FamilyVariant::Default`].
