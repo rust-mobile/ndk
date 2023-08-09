@@ -7,6 +7,7 @@
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
+- bitmap: Add `try_format()` to `AndroidBitmapInfo` to handle unexpected formats without panicking. (#395)
 - **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
 - **Breaking:** Renamed and moved "`media`" error types and helpers to a new `media_error` module. (#399)
 - **Breaking:** media_codec: Wrap common dequeued-buffer status codes in enum. (#401)
@@ -15,7 +16,6 @@
 - hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 - **Breaking:** hardware_buffer_format: Add catch-all variant. (#407)
 - Add panic guards to callbacks. (#412)
-- bitmap: Add `try_format()` to `AndroidBitmapInfo` to handle unexpected formats without panicking. (#395)
 
 # 0.7.0 (2022-07-24)
 

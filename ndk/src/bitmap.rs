@@ -136,24 +136,23 @@ impl AndroidBitmapInfo {
         self.inner.stride
     }
 
-    /// Attempt to convert the internal, native `AndroidBitmapInfo` into
-    /// this crate's [`BitmapFormat`] type. This may fail if the value
-    /// does not have a corresponding Rust enum variant.
-    pub fn try_format(&self) -> Result<BitmapFormat, TryFromPrimitiveError<BitmapFormat>> {
-        let format = self.inner.format as u32;
-        format.try_into()
-    }
-
-    /// Attempt to convert the internal, native `AndroidBitmapInfo` into
-    /// this crate's [`BitmapFormat`] type.
+    /// Convert the internal, native [`ffi::AndroidBitmapInfo::format`] into a [`BitmapFormat`].
     ///
     /// # Panics
     ///
     /// This function panics if the underlying value does not have a corresponding variant in
-    /// [`BitmapFormat`]. Use [`try_format()`][AndroidBitmapInfo::try_format() for an infallible
+    /// [`BitmapFormat`]. Use [`try_format()`][AndroidBitmapInfo::try_format()] for an infallible
     /// version of this function.
     pub fn format(&self) -> BitmapFormat {
         self.try_format().unwrap()
+    }
+
+    /// Attempt to convert the internal, native [`ffi::AndroidBitmapInfo::format`] into a
+    /// [`BitmapFormat`]. This may fail if the value does not have a corresponding Rust enum
+    /// variant.
+    pub fn try_format(&self) -> Result<BitmapFormat, TryFromPrimitiveError<BitmapFormat>> {
+        let format = self.inner.format as u32;
+        format.try_into()
     }
 
     #[cfg(feature = "api-level-30")]
