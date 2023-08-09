@@ -14,6 +14,7 @@
 - native_window: Add `lock()` to blit raw pixel data. (#404)
 - hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 - **Breaking:** hardware_buffer_format: Add catch-all variant. (#407)
+- Add panic guards to callbacks. (#412)
 
 # 0.7.0 (2022-07-24)
 
