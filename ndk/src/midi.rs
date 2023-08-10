@@ -174,6 +174,8 @@ impl<'a> MidiInputPort<'a> {
     }
 
     /// Sends data to this port.
+    ///
+    /// Returns the number of bytes that were sent.
     pub fn send(&self, buffer: &[u8]) -> Result<usize> {
         let num_bytes_sent =
             unsafe { ffi::AMidiInputPort_send(self.ptr.as_ptr(), buffer.as_ptr(), buffer.len()) };
