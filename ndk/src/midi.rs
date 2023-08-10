@@ -11,8 +11,6 @@
 
 use super::media_error::{construct, MediaError, Result};
 
-use num_enum::{IntoPrimitive, TryFromPrimitive};
-use std::convert::TryFrom;
 use std::fmt;
 use std::marker::PhantomData;
 use std::os::raw::{c_int, c_uint};
@@ -37,11 +35,34 @@ pub enum MidiOpcode {
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum MidiDeviceType {
-    Bluetooth = ffi::AMIDI_DEVICE_TYPE_BLUETOOTH,
-    USB = ffi::AMIDI_DEVICE_TYPE_USB,
-    Virtual = ffi::AMIDI_DEVICE_TYPE_VIRTUAL,
+    Bluetooth,
+    USB,
+    Virtual,
+    Unknown(u32),
+}
+
+impl From<u32> for MidiDeviceType {
+    fn from(value: u32) -> Self {
+        match value {
+            ffi::AMIDI_DEVICE_TYPE_BLUETOOTH => Self::Bluetooth,
+            ffi::AMIDI_DEVICE_TYPE_USB => Self::USB,
+            ffi::AMIDI_DEVICE_TYPE_VIRTUAL => Self::Virtual,
+            v => Self::Unknown(v),
+        }
+    }
+}
+
+impl From<MidiDeviceType> for u32 {
+    fn from(val: MidiDeviceType) -> Self {
+        match val {
+            MidiDeviceType::Bluetooth => ffi::AMIDI_DEVICE_TYPE_BLUETOOTH,
+            MidiDeviceType::USB => ffi::AMIDI_DEVICE_TYPE_USB,
+            MidiDeviceType::Virtual => ffi::AMIDI_DEVICE_TYPE_VIRTUAL,
+            MidiDeviceType::Unknown(v) => v,
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -106,9 +127,7 @@ impl MidiDevice {
     pub fn device_type(&self) -> Result<MidiDeviceType> {
         let device_type = unsafe { ffi::AMidiDevice_getType(self.ptr.as_ptr()) };
         if device_type >= 0 {
-            let device_type = MidiDeviceType::try_from(device_type as u32)
-                .map_err(|e| MediaError::UnknownStatus(ffi::media_status_t(e.number as c_int)))?;
-            Ok(device_type)
+            Ok(MidiDeviceType::from(device_type as u32))
         } else {
             Err(MediaError::from_status(ffi::media_status_t(device_type)).unwrap_err())
         }
