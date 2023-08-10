@@ -10,7 +10,6 @@
 //! [`ALooper`]: https://developer.android.com/ndk/reference/group/looper#alooper
 
 use bitflags::bitflags;
-use std::convert::TryInto;
 use std::mem::ManuallyDrop;
 use std::os::raw::c_void;
 use std::os::unix::io::RawFd;

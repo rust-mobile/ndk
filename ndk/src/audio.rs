@@ -12,7 +12,6 @@ use crate::utils::abort_on_panic;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
     borrow::Cow,
-    convert::TryFrom,
     ffi::{c_void, CStr},
     fmt,
     mem::MaybeUninit,
@@ -398,7 +397,7 @@ pub struct AudioStreamBuilder {
 }
 
 impl fmt::Debug for AudioStreamBuilder {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("AAudioStreamBuilder")
             .field("inner", &self.inner)
             .field(
@@ -916,7 +915,7 @@ pub struct AudioStream {
 }
 
 impl fmt::Debug for AudioStream {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("AAudioStream")
             .field("inner", &self.inner)
             .field(

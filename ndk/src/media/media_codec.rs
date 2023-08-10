@@ -6,7 +6,6 @@
 use crate::media_error::{MediaError, Result};
 use crate::native_window::NativeWindow;
 use std::{
-    convert::TryInto,
     ffi::{CStr, CString},
     fmt::Display,
     mem::MaybeUninit,
@@ -381,7 +380,7 @@ impl MediaCodec {
 
     pub fn queue_input_buffer(
         &self,
-        buffer: InputBuffer,
+        buffer: InputBuffer<'_>,
         offset: usize,
         size: usize,
         time: u64,
@@ -400,7 +399,7 @@ impl MediaCodec {
         MediaError::from_status(status)
     }
 
-    pub fn release_output_buffer(&self, buffer: OutputBuffer, render: bool) -> Result<()> {
+    pub fn release_output_buffer(&self, buffer: OutputBuffer<'_>, render: bool) -> Result<()> {
         let status =
             unsafe { ffi::AMediaCodec_releaseOutputBuffer(self.as_ptr(), buffer.index, render) };
         MediaError::from_status(status)
@@ -408,7 +407,7 @@ impl MediaCodec {
 
     pub fn release_output_buffer_at_time(
         &self,
-        buffer: OutputBuffer,
+        buffer: OutputBuffer<'_>,
         timestamp_ns: i64,
     ) -> Result<()> {
         let status = unsafe {

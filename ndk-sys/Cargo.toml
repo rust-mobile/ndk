@@ -2,7 +2,7 @@
 name = "ndk-sys"
 version = "0.4.1+23.1.7779620"  # Current source contains 25.2.9519653
 authors = ["The Rust Windowing contributors"]
-edition = "2018"
+edition = "2021"
 description = "FFI bindings for the Android NDK"
 license = "MIT OR Apache-2.0"
 keywords = ["android", "ndk"]

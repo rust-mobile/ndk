@@ -8,7 +8,7 @@
 
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{IntoPrimitive, TryFromPrimitive, TryFromPrimitiveError};
-use std::{convert::TryInto, mem::MaybeUninit};
+use std::mem::MaybeUninit;
 
 #[cfg(feature = "api-level-30")]
 use crate::hardware_buffer::HardwareBufferRef;
@@ -22,7 +22,7 @@ pub enum BitmapError {
     JniException = ffi::ANDROID_BITMAP_RESULT_JNI_EXCEPTION,
 }
 
-pub type BitmapResult<T, E = BitmapError> = std::result::Result<T, E>;
+pub type BitmapResult<T, E = BitmapError> = Result<T, E>;
 
 impl BitmapError {
     pub(crate) fn from_status(status: i32) -> BitmapResult<()> {

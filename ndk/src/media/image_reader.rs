@@ -9,7 +9,6 @@ use crate::native_window::NativeWindow;
 use crate::utils::abort_on_panic;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::{
-    convert::TryInto,
     ffi::c_void,
     fmt::{self, Debug, Formatter},
     mem::MaybeUninit,
@@ -61,7 +60,7 @@ pub struct ImageReader {
 }
 
 impl Debug for ImageReader {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("ImageReader")
             .field("inner", &self.inner)
             .field(

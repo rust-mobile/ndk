@@ -11,7 +11,6 @@
 
 use crate::asset::AssetManager;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-use std::convert::TryInto;
 use std::fmt;
 use std::ptr::NonNull;
 
@@ -49,7 +48,7 @@ impl PartialEq for Configuration {
 impl Eq for Configuration {}
 
 impl fmt::Debug for Configuration {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Configuration")
             .field("mcc", &self.mcc())
             .field("mnc", &self.mnc())
