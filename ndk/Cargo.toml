@@ -18,7 +18,7 @@ all = ["audio", "bitmap","media", "api-level-30"]
 audio = ["ffi/audio", "api-level-26"]
 bitmap = ["ffi/bitmap"]
 media = ["ffi/media"]
-midi = ["ffi/midi", "api-level-29"]
+midi = ["ffi/midi", "api-level-29", "media"]
 
 api-level-23 = []
 api-level-24 = ["api-level-23"]
