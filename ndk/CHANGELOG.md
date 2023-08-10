@@ -1,8 +1,8 @@
 # Unreleased
 
 - event: Add `tool_type` getter for `Pointer`. (#323)
-- Add `AMidi` bindings. (#353)
 - input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
+- Add `AMidi` bindings. (#353)
 - asset: Use entire asset length when mapping buffer. (#387)
 - Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
