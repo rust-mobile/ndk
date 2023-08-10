@@ -9,8 +9,7 @@
 //! [`AMidiOutputPort`]: https://developer.android.com/ndk/reference/group/midi#amidioutputport
 #![cfg(feature = "midi")]
 
-pub use super::media_error::Result;
-use super::media_error::{construct, MediaError};
+use super::media_error::{construct, MediaError, Result};
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::convert::TryFrom;
