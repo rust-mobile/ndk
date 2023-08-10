@@ -27,7 +27,7 @@ unsafe impl Send for MidiDevice {}
 unsafe impl<'a> Send for MidiInputPort<'a> {}
 unsafe impl<'a> Send for MidiOutputPort<'a> {}
 
-/// Result of [`MidiOutputPort::receive`].
+/// Result of [`MidiOutputPort::receive()`].
 #[derive(Copy, Clone, Debug)]
 pub enum MidiOpcode {
     /// No MIDI messages are available.
