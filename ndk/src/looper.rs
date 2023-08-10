@@ -267,11 +267,14 @@ impl ForeignLooper {
 
     /// Adds a file descriptor to be polled, with a callback.
     ///
-    /// The callback takes as an argument the file descriptor, and should return true to continue
-    /// receiving callbacks, or false to have the callback unregistered.
+    /// The callback takes as an argument the file descriptor, and should return [`true`] to
+    /// continue receiving callbacks, or [`false`] to have the callback unregistered.
     ///
     /// See also [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
+    ///
+    /// Note that this will leak a [`Box`] unless the callback returns [`false`] to unregister
+    /// itself.
     pub fn add_fd_with_callback<F: FnMut(RawFd) -> bool>(
         &self,
         fd: RawFd,
@@ -304,6 +307,32 @@ impl ForeignLooper {
             )
         } {
             1 => Ok(()),
+            -1 => Err(LooperError),
+            _ => unreachable!(),
+        }
+    }
+
+    /// Removes a previously added file descriptor from the looper.
+    ///
+    /// Returns [`true`] if the file descriptor was removed, [`false`] if it was not previously
+    /// registered.
+    ///
+    /// # Safety
+    /// When this method returns, it is safe to close the file descriptor since the looper will no
+    /// longer have a reference to it. However, it is possible for the callback to already be
+    /// running or for it to run one last time if the file descriptor was already signalled.
+    /// Calling code is responsible for ensuring that this case is safely handled. For example, if
+    /// the callback takes care of removing itself during its own execution either by returning `0`
+    /// or by calling this method, then it can be guaranteed to not be invoked again at any later
+    /// time unless registered anew.
+    ///
+    /// Note that unregistering a file descriptor with callback will leak a [`Box`] created in
+    /// [`add_fd_with_callback()`][Self::add_fd_with_callback()]. Consider returning [`false`]
+    /// from the callback instead to drop it.
+    pub fn remove_fd(&self, fd: RawFd) -> Result<bool, LooperError> {
+        match unsafe { ffi::ALooper_removeFd(self.ptr.as_ptr(), fd) } {
+            1 => Ok(true),
+            0 => Ok(false),
             -1 => Err(LooperError),
             _ => unreachable!(),
         }
