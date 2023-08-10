@@ -191,7 +191,7 @@ impl<'a> NativeWindowBufferLockGuard<'a> {
     /// line of pixels in the buffer.
     ///
     /// See [`bytes()`][Self::bytes()] for safe access to these bytes.
-    pub fn bits(&mut self) -> *mut std::ffi::c_void {
+    pub fn bits(&mut self) -> *mut c_void {
         self.buffer.bits
     }
 

@@ -3,7 +3,12 @@
 //! Bindings to the [Android NDK].
 //!
 //! [Android NDK]: https://developer.android.com/ndk/reference
-#![warn(missing_debug_implementations, trivial_casts, rust_2018_idioms)]
+#![warn(
+    missing_debug_implementations,
+    rust_2018_idioms,
+    trivial_casts,
+    unused_qualifications
+)]
 #![cfg_attr(docsrs, feature(doc_cfg, doc_auto_cfg))]
 
 pub mod asset;
