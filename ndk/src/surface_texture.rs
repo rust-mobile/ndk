@@ -8,7 +8,7 @@
 
 use crate::{native_window::NativeWindow, utils::status_to_io_result};
 use jni_sys::{jobject, JNIEnv};
-use std::{convert::TryInto, io::Result, ptr::NonNull, time::Duration};
+use std::{io::Result, ptr::NonNull, time::Duration};
 
 /// An opaque type to manage [`android.graphics.SurfaceTexture`] from native code
 ///

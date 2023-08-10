@@ -8,7 +8,7 @@
 
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{IntoPrimitive, TryFromPrimitive, TryFromPrimitiveError};
-use std::{convert::TryInto, mem::MaybeUninit};
+use std::mem::MaybeUninit;
 
 #[cfg(feature = "api-level-30")]
 use crate::hardware_buffer::HardwareBufferRef;

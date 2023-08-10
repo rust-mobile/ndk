@@ -7,7 +7,7 @@ use crate::utils::status_to_io_result;
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
 use raw_window_handle::{AndroidNdkWindowHandle, HasRawWindowHandle, RawWindowHandle};
-use std::{convert::TryFrom, ffi::c_void, io::Result, mem::MaybeUninit, ptr::NonNull};
+use std::{ffi::c_void, io::Result, mem::MaybeUninit, ptr::NonNull};
 
 pub type Rect = ffi::ARect;
 
@@ -133,7 +133,7 @@ impl NativeWindow {
     ///
     /// Optionally pass the region you intend to draw into `dirty_bounds`.  When this function
     /// returns it is updated (commonly enlarged) with the actual area the caller needs to redraw.
-    pub fn lock(&self, dirty_bounds: Option<&mut Rect>) -> Result<NativeWindowBufferLockGuard> {
+    pub fn lock(&self, dirty_bounds: Option<&mut Rect>) -> Result<NativeWindowBufferLockGuard<'_>> {
         let dirty_bounds = match dirty_bounds {
             Some(dirty_bounds) => dirty_bounds,
             None => std::ptr::null_mut(),
