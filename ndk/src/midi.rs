@@ -85,7 +85,7 @@ impl MidiDevice {
         if num_input_ports >= 0 {
             Ok(num_input_ports as usize)
         } else {
-            MediaError::from_status(ffi::media_status_t(num_input_ports as c_int)).map(|_| 0)
+            Err(MediaError::from_status(ffi::media_status_t(num_input_ports as c_int)).unwrap_err())
         }
     }
 
