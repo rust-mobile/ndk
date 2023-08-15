@@ -34,7 +34,7 @@ test = ["ffi/test", "jni", "all"]
 bitflags = "2.0.0"
 jni-sys = "0.3.0"
 log = "0.4"
-num_enum = "0.6"
+num_enum = "0.7"
 raw-window-handle = "0.5"
 thiserror = "1.0.23"
 
