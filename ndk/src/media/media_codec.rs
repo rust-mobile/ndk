@@ -525,13 +525,12 @@ impl MediaCodec {
 
         if result == ffi::AMEDIACODEC_INFO_TRY_AGAIN_LATER as isize {
             Ok(DequeuedInputBufferResult::TryAgainLater)
-        } else if result >= 0 {
+        } else {
+            let index = MediaError::from_status_if_negative(result)? as usize;
             Ok(DequeuedInputBufferResult::Buffer(InputBuffer {
                 codec: self,
-                index: result as usize,
+                index,
             }))
-        } else {
-            Err(MediaError::from_status(ffi::media_status_t(result as _)).unwrap_err())
         }
     }
 
@@ -558,16 +557,15 @@ impl MediaCodec {
             Ok(DequeuedOutputBufferInfoResult::OutputFormatChanged)
         } else if result == ffi::AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED as isize {
             Ok(DequeuedOutputBufferInfoResult::OutputBuffersChanged)
-        } else if result >= 0 {
+        } else {
+            let index = MediaError::from_status_if_negative(result)? as usize;
             Ok(DequeuedOutputBufferInfoResult::Buffer(OutputBuffer {
                 codec: self,
-                index: result as usize,
+                index,
                 info: BufferInfo {
                     inner: unsafe { info.assume_init() },
                 },
             }))
-        } else {
-            Err(MediaError::from_status(ffi::media_status_t(result as _)).unwrap_err())
         }
     }
 
