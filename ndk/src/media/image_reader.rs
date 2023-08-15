@@ -16,7 +16,8 @@ use std::{
 };
 
 #[cfg(feature = "api-level-26")]
-use std::os::unix::io::RawFd;
+// TODO: Import from std::os::fd::{} since Rust 1.66
+use std::os::unix::io::{FromRawFd, IntoRawFd, OwnedFd};
 
 #[cfg(feature = "api-level-26")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
@@ -213,11 +214,15 @@ impl ImageReader {
         }
     }
 
+    /// Acquire the next [`Image`] from the image reader's queue asynchronously.
+    ///
     /// # Safety
-    /// If the returned file descriptor is not `None`, it must be awaited before attempting to access the Image returned.
+    /// If the returned file descriptor is not [`None`], it must be awaited before attempting to
+    /// access the [`Image`] returned.
+    ///
     /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirenextimageasync>
     #[cfg(feature = "api-level-26")]
-    pub unsafe fn acquire_next_image_async(&self) -> Result<(Image, Option<RawFd>)> {
+    pub unsafe fn acquire_next_image_async(&self) -> Result<(Image, Option<OwnedFd>)> {
         let mut fence = MaybeUninit::uninit();
         let inner = construct_never_null(|res| {
             ffi::AImageReader_acquireNextImageAsync(self.as_ptr(), res, fence.as_mut_ptr())
@@ -227,7 +232,7 @@ impl ImageReader {
 
         Ok(match fence.assume_init() {
             -1 => (image, None),
-            fence => (image, Some(fence)),
+            fence => (image, Some(unsafe { OwnedFd::from_raw_fd(fence) })),
         })
     }
 
@@ -243,11 +248,15 @@ impl ImageReader {
         Ok(Some(Image { inner: res? }))
     }
 
+    /// Acquire the latest [`Image`] from the image reader's queue asynchronously, dropping older images.
+    ///
     /// # Safety
-    /// If the returned file descriptor is not `None`, it must be awaited before attempting to access the Image returned.
+    /// If the returned file descriptor is not [`None`], it must be awaited before attempting to
+    /// access the [`Image`] returned.
+    ///
     /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirelatestimageasync>
     #[cfg(feature = "api-level-26")]
-    pub fn acquire_latest_image_async(&self) -> Result<(Image, Option<RawFd>)> {
+    pub fn acquire_latest_image_async(&self) -> Result<(Image, Option<OwnedFd>)> {
         let mut fence = MaybeUninit::uninit();
         let inner = construct_never_null(|res| unsafe {
             ffi::AImageReader_acquireLatestImageAsync(self.as_ptr(), res, fence.as_mut_ptr())
@@ -257,7 +266,7 @@ impl ImageReader {
 
         Ok(match unsafe { fence.assume_init() } {
             -1 => (image, None),
-            fence => (image, Some(fence)),
+            fence => (image, Some(unsafe { OwnedFd::from_raw_fd(fence) })),
         })
     }
 }
@@ -357,8 +366,8 @@ impl Image {
     }
 
     #[cfg(feature = "api-level-26")]
-    pub fn delete_async(self, release_fence_fd: RawFd) {
-        unsafe { ffi::AImage_deleteAsync(self.as_ptr(), release_fence_fd) };
+    pub fn delete_async(self, release_fence_fd: OwnedFd) {
+        unsafe { ffi::AImage_deleteAsync(self.as_ptr(), release_fence_fd.into_raw_fd()) };
         std::mem::forget(self);
     }
 }

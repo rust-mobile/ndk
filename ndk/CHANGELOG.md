@@ -20,6 +20,7 @@
 - **Breaking:** media_codec: Add support for asynchronous notification callbacks. (#410)
 - Add panic guards to callbacks. (#412)
 - looper: Add `remove_fd()` to unregister events/callbacks for a file descriptor. (#416)
+- **Breaking:** Use `BorrowedFd` and `OwnedFd` to clarify possible ownership transitions. (#417)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
 
 # 0.7.0 (2022-07-24)

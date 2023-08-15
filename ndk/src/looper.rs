@@ -12,9 +12,9 @@
 use bitflags::bitflags;
 use std::mem::ManuallyDrop;
 use std::os::raw::c_void;
-use std::os::unix::io::RawFd;
+// TODO: Import from std::os::fd::{} since Rust 1.66
+use std::os::unix::io::{AsRawFd, BorrowedFd, RawFd};
 use std::ptr;
-use std::ptr::NonNull;
 use std::time::Duration;
 use thiserror::Error;
 
@@ -42,7 +42,7 @@ bitflags! {
 
 /// The poll result from a [`ThreadLooper`].
 #[derive(Debug)]
-pub enum Poll {
+pub enum Poll<'fd> {
     /// This looper was woken using [`ForeignLooper::wake()`]
     Wake,
     /// For [`ThreadLooper::poll_once*()`][ThreadLooper::poll_once()], an event was received and processed using a callback.
@@ -52,7 +52,10 @@ pub enum Poll {
     /// An event was received
     Event {
         ident: i32,
-        fd: RawFd,
+        /// # Safety
+        /// The caller should guarantee that this file descriptor remains open after it was added
+        /// via [`ForeignLooper::add_fd()`] or [`ForeignLooper::add_fd_with_callback()`].
+        fd: BorrowedFd<'fd>,
         events: FdEvent,
         data: *mut c_void,
     },
@@ -67,7 +70,7 @@ impl ThreadLooper {
     pub fn prepare() -> Self {
         unsafe {
             let ptr = ffi::ALooper_prepare(ffi::ALOOPER_PREPARE_ALLOW_NON_CALLBACKS as _);
-            let foreign = ForeignLooper::from_ptr(NonNull::new(ptr).expect("looper non null"));
+            let foreign = ForeignLooper::from_ptr(ptr::NonNull::new(ptr).expect("looper non null"));
             Self {
                 _marker: std::marker::PhantomData,
                 foreign,
@@ -83,9 +86,11 @@ impl ThreadLooper {
         })
     }
 
-    fn poll_once_ms(&self, ms: i32) -> Result<Poll, LooperError> {
-        let mut fd: RawFd = -1;
-        let mut events: i32 = -1;
+    /// Polls the looper, blocking on processing an event, but with a timeout in milliseconds.
+    /// Give a timeout of `0` to make this non-blocking.
+    fn poll_once_ms(&self, ms: i32) -> Result<Poll<'_>, LooperError> {
+        let mut fd = -1;
+        let mut events = -1;
         let mut data: *mut c_void = ptr::null_mut();
         match unsafe { ffi::ALooper_pollOnce(ms, &mut fd, &mut events, &mut data) } {
             ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
@@ -94,7 +99,9 @@ impl ThreadLooper {
             ffi::ALOOPER_POLL_ERROR => Err(LooperError),
             ident if ident >= 0 => Ok(Poll::Event {
                 ident,
-                fd,
+                // SAFETY: Even though this FD at least shouldn't outlive self, a user could have
+                // closed it after calling add_fd or add_fd_with_callback.
+                fd: unsafe { BorrowedFd::borrow_raw(fd) },
                 events: FdEvent::from_bits(events as u32)
                     .expect("poll event contains unknown bits"),
                 data,
@@ -105,17 +112,17 @@ impl ThreadLooper {
 
     /// Polls the looper, blocking on processing an event.
     #[inline]
-    pub fn poll_once(&self) -> Result<Poll, LooperError> {
+    pub fn poll_once(&self) -> Result<Poll<'_>, LooperError> {
         self.poll_once_ms(-1)
     }
 
-    /// Polls the looper, blocking on processing an event, but with a timeout.  Give a timeout of 0
-    /// to make this non-blocking.
+    /// Polls the looper, blocking on processing an event, but with a timeout.  Give a timeout of
+    /// [`Duration::ZERO`] to make this non-blocking.
     ///
     /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
     #[inline]
-    pub fn poll_once_timeout(&self, timeout: Duration) -> Result<Poll, LooperError> {
+    pub fn poll_once_timeout(&self, timeout: Duration) -> Result<Poll<'_>, LooperError> {
         self.poll_once_ms(
             timeout
                 .as_millis()
@@ -124,9 +131,13 @@ impl ThreadLooper {
         )
     }
 
-    fn poll_all_ms(&self, ms: i32) -> Result<Poll, LooperError> {
-        let mut fd: RawFd = -1;
-        let mut events: i32 = -1;
+    /// Repeatedly polls the looper, blocking on processing an event, but with a timeout in
+    /// milliseconds.  Give a timeout of `0` to make this non-blocking.
+    ///
+    /// This function will never return [`Poll::Callback`].
+    fn poll_all_ms(&self, ms: i32) -> Result<Poll<'_>, LooperError> {
+        let mut fd = -1;
+        let mut events = -1;
         let mut data: *mut c_void = ptr::null_mut();
         match unsafe { ffi::ALooper_pollAll(ms, &mut fd, &mut events, &mut data) } {
             ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
@@ -134,7 +145,9 @@ impl ThreadLooper {
             ffi::ALOOPER_POLL_ERROR => Err(LooperError),
             ident if ident >= 0 => Ok(Poll::Event {
                 ident,
-                fd,
+                // SAFETY: Even though this FD at least shouldn't outlive self, a user could have
+                // closed it after calling add_fd or add_fd_with_callback.
+                fd: unsafe { BorrowedFd::borrow_raw(fd) },
                 events: FdEvent::from_bits(events as u32)
                     .expect("poll event contains unknown bits"),
                 data,
@@ -147,19 +160,19 @@ impl ThreadLooper {
     ///
     /// This function will never return [`Poll::Callback`].
     #[inline]
-    pub fn poll_all(&self) -> Result<Poll, LooperError> {
+    pub fn poll_all(&self) -> Result<Poll<'_>, LooperError> {
         self.poll_all_ms(-1)
     }
 
-    /// Repeatedly polls the looper, blocking on processing an event, but with a timeout. Give a
-    /// timeout of 0 to make this non-blocking.
+    /// Repeatedly polls the looper, blocking on processing an event, but with a timeout.  Give a
+    /// timeout of [`Duration::ZERO`] to make this non-blocking.
     ///
     /// This function will never return [`Poll::Callback`].
     ///
     /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
     #[inline]
-    pub fn poll_all_timeout(&self, timeout: Duration) -> Result<Poll, LooperError> {
+    pub fn poll_all_timeout(&self, timeout: Duration) -> Result<Poll<'_>, LooperError> {
         self.poll_all_ms(
             timeout
                 .as_millis()
@@ -183,7 +196,7 @@ impl ThreadLooper {
 /// [`ALooper *`]: https://developer.android.com/ndk/reference/group/looper#alooper
 #[derive(Debug)]
 pub struct ForeignLooper {
-    ptr: NonNull<ffi::ALooper>,
+    ptr: ptr::NonNull<ffi::ALooper>,
 }
 
 unsafe impl Send for ForeignLooper {}
@@ -208,7 +221,8 @@ impl ForeignLooper {
     /// Returns the looper associated with the current thread, if any.
     #[inline]
     pub fn for_thread() -> Option<Self> {
-        NonNull::new(unsafe { ffi::ALooper_forThread() }).map(|ptr| unsafe { Self::from_ptr(ptr) })
+        ptr::NonNull::new(unsafe { ffi::ALooper_forThread() })
+            .map(|ptr| unsafe { Self::from_ptr(ptr) })
     }
 
     /// Construct a [`ForeignLooper`] object from the given pointer.
@@ -217,14 +231,14 @@ impl ForeignLooper {
     /// By calling this function, you guarantee that the pointer is a valid, non-null pointer to an
     /// NDK [`ffi::ALooper`].
     #[inline]
-    pub unsafe fn from_ptr(ptr: NonNull<ffi::ALooper>) -> Self {
+    pub unsafe fn from_ptr(ptr: ptr::NonNull<ffi::ALooper>) -> Self {
         ffi::ALooper_acquire(ptr.as_ptr());
         Self { ptr }
     }
 
     /// Returns a pointer to the NDK `ALooper` object.
     #[inline]
-    pub fn ptr(&self) -> NonNull<ffi::ALooper> {
+    pub fn ptr(&self) -> ptr::NonNull<ffi::ALooper> {
         self.ptr
     }
 
@@ -237,13 +251,18 @@ impl ForeignLooper {
     ///
     /// See also [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
+    ///
+    /// # Safety
+    /// The caller should guarantee that this file descriptor stays open until it is removed via
+    /// [`remove_fd()`][Self::remove_fd()], and for however long the caller wishes to use this file
+    /// descriptor when it is returned in [`Poll::Event::fd`].
 
     // `ALooper_addFd` won't dereference `data`; it will only pass it on to the event.
     // Optionally dereferencing it there already enforces `unsafe` context.
     #[allow(clippy::not_unsafe_ptr_arg_deref)]
     pub fn add_fd(
         &self,
-        fd: RawFd,
+        fd: BorrowedFd<'_>,
         ident: i32,
         events: FdEvent,
         data: *mut c_void,
@@ -251,7 +270,7 @@ impl ForeignLooper {
         match unsafe {
             ffi::ALooper_addFd(
                 self.ptr.as_ptr(),
-                fd,
+                fd.as_raw_fd(),
                 ident,
                 events.bits() as i32,
                 None,
@@ -274,20 +293,25 @@ impl ForeignLooper {
     ///
     /// Note that this will leak a [`Box`] unless the callback returns [`false`] to unregister
     /// itself.
-    pub fn add_fd_with_callback<F: FnMut(RawFd) -> bool>(
+    ///
+    /// # Safety
+    /// The caller should guarantee that this file descriptor stays open until it is removed via
+    /// [`remove_fd()`][Self::remove_fd()] or by returning [`false`] from the callback, and for
+    /// however long the caller wishes to use this file descriptor inside and after the callback.
+    pub fn add_fd_with_callback<F: FnMut(BorrowedFd<'_>) -> bool>(
         &self,
-        fd: RawFd,
+        fd: BorrowedFd<'_>,
         events: FdEvent,
         callback: F,
     ) -> Result<(), LooperError> {
-        extern "C" fn cb_handler<F: FnMut(RawFd) -> bool>(
+        extern "C" fn cb_handler<F: FnMut(BorrowedFd<'_>) -> bool>(
             fd: RawFd,
             _events: i32,
             data: *mut c_void,
         ) -> i32 {
             unsafe {
                 let mut cb = ManuallyDrop::new(Box::<F>::from_raw(data as *mut _));
-                let keep_registered = cb(fd);
+                let keep_registered = cb(BorrowedFd::borrow_raw(fd));
                 if !keep_registered {
                     ManuallyDrop::into_inner(cb);
                 }
@@ -298,7 +322,7 @@ impl ForeignLooper {
         match unsafe {
             ffi::ALooper_addFd(
                 self.ptr.as_ptr(),
-                fd,
+                fd.as_raw_fd(),
                 ffi::ALOOPER_POLL_CALLBACK,
                 events.bits() as i32,
                 Some(cb_handler::<F>),
@@ -328,8 +352,8 @@ impl ForeignLooper {
     /// Note that unregistering a file descriptor with callback will leak a [`Box`] created in
     /// [`add_fd_with_callback()`][Self::add_fd_with_callback()]. Consider returning [`false`]
     /// from the callback instead to drop it.
-    pub fn remove_fd(&self, fd: RawFd) -> Result<bool, LooperError> {
-        match unsafe { ffi::ALooper_removeFd(self.ptr.as_ptr(), fd) } {
+    pub fn remove_fd(&self, fd: BorrowedFd<'_>) -> Result<bool, LooperError> {
+        match unsafe { ffi::ALooper_removeFd(self.ptr.as_ptr(), fd.as_raw_fd()) } {
             1 => Ok(true),
             0 => Ok(false),
             -1 => Err(LooperError),
