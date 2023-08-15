@@ -174,10 +174,13 @@ impl ImageReader {
         MediaError::from_status(status)
     }
 
+    /// Get a [`NativeWindow`] that can be used to produce [`Image`]s for this [`ImageReader`].
+    ///
+    /// <https://developer.android.com/ndk/reference/group/media#aimagereader_getwindow>
     pub fn get_window(&self) -> Result<NativeWindow> {
         unsafe {
             let ptr = construct_never_null(|res| ffi::AImageReader_getWindow(self.as_ptr(), res))?;
-            Ok(NativeWindow::from_ptr(ptr))
+            Ok(NativeWindow::clone_from_ptr(ptr))
         }
     }
 
