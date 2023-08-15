@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.8.0-beta.0 (2023-08-15)
+
 - event: Add `tool_type` getter for `Pointer`. (#323)
 - input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
 - asset: Use entire asset length when mapping buffer. (#387)
@@ -18,6 +20,7 @@
 - **Breaking:** media_codec: Add support for asynchronous notification callbacks. (#410)
 - Add panic guards to callbacks. (#412)
 - looper: Add `remove_fd()` to unregister events/callbacks for a file descriptor. (#416)
+- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
 
 # 0.7.0 (2022-07-24)
 
