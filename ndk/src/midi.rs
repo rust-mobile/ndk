@@ -30,7 +30,7 @@ pub enum MidiOpcode {
     NoMessage,
     /// Received a MIDI message with the given length and the timestamp.
     Data {
-        /// The length of the received message. Callers shoud limit the passed `buffer` slice to
+        /// The length of the received message. The caller should limit the passed `buffer` slice to
         /// this length after [`MidiOutputPort::receive()`] returns.
         /// ```no_run
         /// let output_port: MidiOutputPort = ...;
@@ -302,6 +302,9 @@ impl<'a> MidiOutputPort<'a> {
     ///
     /// Note that this is a non-blocking call. If there are no Midi messages are available, the
     /// function returns [`Ok(MidiOpcode::NoMessage)`] immediately (for 0 messages received).
+    ///
+    /// When [`Ok(MidiOpcode::Data)`] is returned, the caller should limit `buffer` to
+    /// [`MidiOpcode::Data::length`]. See [`MidiOpcode`] for more details.
     pub fn receive(&self, buffer: &mut [u8]) -> Result<MidiOpcode> {
         let mut opcode = 0i32;
         let mut timestamp = 0i64;
