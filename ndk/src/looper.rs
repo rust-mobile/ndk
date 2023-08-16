@@ -18,6 +18,8 @@ use std::ptr;
 use std::time::Duration;
 use thiserror::Error;
 
+use crate::utils::abort_on_panic;
+
 /// A thread-local native [`ALooper *`].  This promises that there is a looper associated with the
 /// current thread.
 ///
@@ -309,14 +311,14 @@ impl ForeignLooper {
             _events: i32,
             data: *mut c_void,
         ) -> i32 {
-            unsafe {
+            abort_on_panic(|| unsafe {
                 let mut cb = ManuallyDrop::new(Box::<F>::from_raw(data as *mut _));
                 let keep_registered = cb(BorrowedFd::borrow_raw(fd));
                 if !keep_registered {
                     ManuallyDrop::into_inner(cb);
                 }
                 keep_registered as i32
-            }
+            })
         }
         let data = Box::into_raw(Box::new(callback)) as *mut _;
         match unsafe {
