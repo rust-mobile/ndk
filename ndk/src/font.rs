@@ -36,9 +36,9 @@ impl FontWeight {
         self.0
     }
 
-    /// The minimum value for the font weight value. Unlike [`ffi::AFONT_WEIGHT_MIN`] being 0,
-    /// [`FontWeight::MIN`] is 1 to make the `MIN..MAX` range be inclusive, keeping consistency
-    /// between FontWeight and other types like `std::num::NonZeroU*`.
+    /// The minimum value for the font weight value. Unlike [`ffi::AFONT_WEIGHT_MIN`] being `0`,
+    /// [`FontWeight::MIN`] is `1` to make the `MIN..MAX` range be inclusive, keeping consistency
+    /// between [`FontWeight`] and other types like `std::num::NonZeroU*`.
     pub const MIN: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MIN as u16 + 1);
 
     /// A font weight value for the thin weight.
@@ -332,7 +332,7 @@ impl Font {
     /// * TrueType Collection
     ///
     /// The file extension could be one of `*.otf`, `*.ttf`, `*.otc` or `*.ttc`.
-    /// The font file specified by the returned path is guaranteed to be opened with `O_RDONLY`.
+    /// The font file specified by the returned path is guaranteed to be openable with `O_RDONLY`.
     pub fn path(&self) -> &Path {
         let path = unsafe { CStr::from_ptr(ffi::AFont_getFontFilePath(self.ptr.as_ptr())) };
         OsStr::from_bytes(path.to_bytes()).as_ref()
@@ -463,7 +463,7 @@ impl FontMatcher {
                     text.len() as _,
                     run_length_out.map_or(std::ptr::null_mut(), |u| u),
                 ))
-                .expect("AonftMatcher_match returned NULL"),
+                .expect("AFontMatcher_match returned NULL"),
             )
         }
     }
@@ -516,7 +516,7 @@ impl SystemFontIterator {
         Self { ptr }
     }
 
-    /// Returns s the pointer to the native [`ffi::ASystemFontIterator`].
+    /// Returns the pointer to the native [`ffi::ASystemFontIterator`].
     pub fn ptr(&self) -> NonNull<ffi::ASystemFontIterator> {
         self.ptr
     }
