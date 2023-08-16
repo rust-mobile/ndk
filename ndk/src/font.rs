@@ -8,7 +8,7 @@
 
 use std::convert::TryFrom;
 use std::ffi::{CStr, OsStr};
-use std::fmt::{self, Debug, Write};
+use std::fmt::{self, Write};
 use std::os::unix::prelude::OsStrExt;
 use std::path::Path;
 use std::ptr::NonNull;
@@ -94,7 +94,7 @@ impl fmt::Display for FontWeight {
 pub struct FontWeightValueError(());
 
 impl fmt::Display for FontWeightValueError {
-    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
         fmt.write_str("font weight must be positive and less than or equal to 1000")
     }
 }
@@ -120,7 +120,7 @@ impl AxisTag {
     /// Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be followed
     /// by a non-space character. A tag must have one to four non-space characters. See the
     /// [OpenType spec] for more details.
-    /// 
+    ///
     /// [OpenType spec]: https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types
     pub const fn from_be_bytes_checked(value: [u8; 4]) -> Result<Self, AxisTagValueError> {
         // Each byte in a tag must be in the range 0x20 to 0x7E.
@@ -249,7 +249,7 @@ impl AxisTagValueError {
 }
 
 impl fmt::Display for AxisTagValueError {
-    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
         fmt.write_str(self.as_str())
     }
 }
