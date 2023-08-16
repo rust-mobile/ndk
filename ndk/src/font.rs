@@ -232,7 +232,7 @@ pub struct Font {
 }
 
 impl Font {
-    /// Creates a [`Font`] from a pointer.
+    /// Assumes ownership of `ptr`.
     ///
     /// # Safety
     /// `ptr` must be a valid owning pointer to an Android [`ffi::AFont`].
@@ -380,7 +380,7 @@ pub struct FontMatcher {
 }
 
 impl FontMatcher {
-    /// Creates a [`FontMatcher`] from a pointer.
+    /// Assumes ownership of `ptr`.
     ///
     /// # Safety
     /// `ptr` must be a valid owning pointer to an Android [`ffi::AFontMatcher`].
@@ -479,7 +479,7 @@ pub struct SystemFontIterator {
 }
 
 impl SystemFontIterator {
-    /// Creates an [`SystemFontIterator`] from a pointer.
+    /// Assumes ownership of `ptr`.
     ///
     /// # Safety
     /// `ptr` must be a valid owning pointer to an Android [`ffi::ASystemFontIterator`].
