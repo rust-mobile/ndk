@@ -114,8 +114,8 @@ impl TryFrom<u16> for FontWeight {
 pub struct AxisTag(u32);
 
 impl AxisTag {
-    /// Checks whether the given 4-byte array can construct a valid axis tag and returns [`Ok`] if
-    /// the array is valid.
+    /// Checks whether the given 4-byte array can construct a valid axis tag and returns
+    /// [`Ok(AxisTag)`] if the array is valid.
     ///
     /// Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be followed
     /// by a non-space character. A tag must have one to four non-space characters. See
@@ -165,8 +165,8 @@ impl AxisTag {
         Ok(Self(u32::from_be_bytes(value)))
     }
 
-    /// Checks whether the given 4-byte array can construct a valid axis tag and returns [`Ok`] if
-    /// the array is valid.
+    /// Checks whether the given 4-byte array can construct a valid axis tag and returns
+    /// [`Ok(AxisTag)`] if the array is valid.
     ///
     /// See [`AxisTag::from_be()`] for more details.
     pub const fn from_be_checked(value: u32) -> Result<Self, AxisTagValueError> {
@@ -189,8 +189,8 @@ impl AxisTag {
         Self::unwrap_result(Self::from_be_checked(value))
     }
 
-    // const-version of [`Result::unwrap`]. Should be removed when [`Option::unwrap`] or
-    // [`Result::unwrap`] become `const`-stable.
+    /// const-version of [`Result::unwrap`]. Should be removed when [`Option::unwrap`] or
+    /// [`Result::unwrap`] become `const`-stable.
     const fn unwrap_result(result: Result<Self, AxisTagValueError>) -> Self {
         match result {
             Ok(t) => t,
