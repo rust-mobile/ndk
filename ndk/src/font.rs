@@ -8,7 +8,7 @@
 
 use std::convert::TryFrom;
 use std::ffi::{CStr, OsStr};
-use std::fmt::{self, Write};
+use std::fmt::{self, Debug, Write};
 use std::os::unix::prelude::OsStrExt;
 use std::path::Path;
 use std::ptr::NonNull;
@@ -114,11 +114,13 @@ impl TryFrom<u16> for FontWeight {
 pub struct AxisTag(u32);
 
 impl AxisTag {
-    pub const fn from_be_bytes(value: [u8; 4]) -> Result<Self, AxisTagValueError> {
-        // Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be
-        // followed by a non-space character. A tag must have one to four non-space characters.
-        // See https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
-
+    /// Checks whether the given 4-byte array can construct a valid axis tag and returns [`Ok`] if
+    /// the array is valid.
+    ///
+    /// Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be followed
+    /// by a non-space character. A tag must have one to four non-space characters. See
+    /// https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
+    pub const fn from_be_bytes_checked(value: [u8; 4]) -> Result<Self, AxisTagValueError> {
         // Each byte in a tag must be in the range 0x20 to 0x7E.
         macro_rules! check_byte_range {
             ($($e:expr)+) => {
@@ -163,8 +165,45 @@ impl AxisTag {
         Ok(Self(u32::from_be_bytes(value)))
     }
 
-    pub const fn from_be(value: u32) -> Result<Self, AxisTagValueError> {
-        Self::from_be_bytes(value.to_be_bytes())
+    /// Checks whether the given 4-byte array can construct a valid axis tag and returns [`Ok`] if
+    /// the array is valid.
+    ///
+    /// See [`AxisTag::from_be()`] for more details.
+    pub const fn from_be_checked(value: u32) -> Result<Self, AxisTagValueError> {
+        Self::from_be_bytes_checked(value.to_be_bytes())
+    }
+
+    /// Construct an axis tag from the given 4-byte array. If the resulting axis tag is invalid,
+    /// this function panics.
+    ///
+    /// See [`AxisTag::from_be()`] for more details.
+    pub const fn from_be_bytes(value: [u8; 4]) -> Self {
+        Self::unwrap_result(Self::from_be_bytes_checked(value))
+    }
+
+    /// Construct an axis tag from the given 4-byte integer. If the resulting axis tag is invalid,
+    /// this function panics.
+    ///
+    /// See [`AxisTag::from_be()`] for more details.
+    pub const fn from_be(value: u32) -> Self {
+        Self::unwrap_result(Self::from_be_checked(value))
+    }
+
+    // const-version of [`Result::unwrap`]. Should be removed when [`Option::unwrap`] or
+    // [`Result::unwrap`] become `const`-stable.
+    const fn unwrap_result(result: Result<Self, AxisTagValueError>) -> Self {
+        match result {
+            Ok(t) => t,
+            Err(e) => match e {
+                AxisTagValueError::InvalidCharacter => {
+                    panic!("axis tag contains invalid character")
+                }
+                AxisTagValueError::InvalidSpacePadding => {
+                    panic!("space is followed by a non-space character")
+                }
+                AxisTagValueError::EmptyTag => panic!("axis tag contains no character"),
+            },
+        }
     }
 
     pub const fn to_u32(self) -> u32 {
