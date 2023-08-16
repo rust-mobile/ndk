@@ -24,6 +24,7 @@
 - looper: Add `remove_fd()` to unregister events/callbacks for a file descriptor. (#416)
 - **Breaking:** Use `BorrowedFd` and `OwnedFd` to clarify possible ownership transitions. (#417)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
+- Add bindings for `sync.h`. (#423)
 - **Breaking:** bitmap: Provide detailed implementation for `AndroidBitmapInfoFlags`. (#424)
 - native_window: Add `set_buffers_transform()`, `try_allocate_buffers()` and `set_frame_rate*()`. (#425)
 - Add bindings for `ASharedMemory`. (#427)
