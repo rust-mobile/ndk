@@ -190,9 +190,11 @@ impl<'a> MidiInputPort<'a> {
         self.ptr
     }
 
-    /// Sends data to this port.
+    /// Sends data to this port. Returns the number of bytes that were sent.
     ///
-    /// Returns the number of bytes that were sent.
+    /// # Arguments
+    ///
+    /// * `buffer`: The array of bytes containing the data to send.
     pub fn send(&self, buffer: &[u8]) -> Result<usize> {
         let num_bytes_sent =
             unsafe { ffi::AMidiInputPort_send(self.ptr.as_ptr(), buffer.as_ptr(), buffer.len()) };
@@ -212,6 +214,15 @@ impl<'a> MidiInputPort<'a> {
         MediaError::from_status(result)
     }
 
+    /// Sends data to the specified input port with a timestamp.
+    ///
+    /// # Arguments
+    ///
+    /// * `buffer`: The array of bytes containing the data to send.
+    /// * `timestamp`: The `CLOCK_MONOTONIC` time in nanoseconds to associate with the sent data.
+    ///   This is consistent with the value returned by [`java.lang.System.nanoTime()`].
+    ///
+    /// [`java.lang.System.nanoTime()`]: https://developer.android.com/reference/java/lang/System#nanoTime()
     pub fn send_with_timestamp(&self, buffer: &[u8], timestamp: i64) -> Result<usize> {
         let num_bytes_sent = unsafe {
             ffi::AMidiInputPort_sendWithTimestamp(
