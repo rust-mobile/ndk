@@ -293,9 +293,7 @@ impl Font {
     /// [`Font::axis_value_at()`] return those variation names and the corresponding values.
     ///
     /// ```no_run
-    /// use ndk::font::Font;
-    ///
-    /// let font: Font = unimplemented!();
+    /// let font: Font = ...;
     /// for idx in 0..font.axis_count() {
     ///     log::debug!("{}: {}", font.axis_tag_at(idx), font.axis_value_at(idx));
     /// }
