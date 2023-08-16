@@ -229,8 +229,8 @@ impl Font {
     ///
     /// The font variation settings are provided as multiple tag-value pairs.
     ///
-    /// For example, bold italic font may have following font variation settings: 'wght' 700,
-    /// 'slnt' -12. In this case, [`Font::axis_count()`] returns 2 and [`Font::axis_tag_at()`] and
+    /// For example, bold italic font may have following font variation settings: `'wght' 700`,
+    /// `'slnt' -12`. In this case, [`Font::axis_count()`] returns `2` and [`Font::axis_tag_at()`] and
     /// [`Font::axis_value_at()`] return those variation names and the corresponding values.
     ///
     /// ```no_run
@@ -241,8 +241,8 @@ impl Font {
     ///     log::debug!("{}: {}", font.axis_tag_at(idx), font.axis_value_at(idx));
     /// }
     /// // Output:
-    /// // wght 700
-    /// // slnt -12
+    /// // wght: 700
+    /// // slnt: -12
     /// ```
     pub fn axis_count(&self) -> usize {
         unsafe { ffi::AFont_getAxisCount(self.ptr.as_ptr()) }
