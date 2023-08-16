@@ -286,7 +286,7 @@ impl Font {
     ///
     /// ```no_run
     /// use ndk::font::Font;
-    /// 
+    ///
     /// let font: Font = todo!();
     /// for idx in 0..font.axis_count() {
     ///     log::debug!("{}: {}", font.axis_tag_at(idx), font.axis_value_at(idx));
