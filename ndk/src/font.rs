@@ -194,15 +194,7 @@ impl AxisTag {
     const fn unwrap_result(result: Result<Self, AxisTagValueError>) -> Self {
         match result {
             Ok(t) => t,
-            Err(e) => match e {
-                AxisTagValueError::InvalidCharacter => {
-                    panic!("axis tag contains invalid character")
-                }
-                AxisTagValueError::InvalidSpacePadding => {
-                    panic!("space is followed by a non-space character")
-                }
-                AxisTagValueError::EmptyTag => panic!("axis tag contains no character"),
-            },
+            Err(e) => panic!("{}", e.as_str()),
         }
     }
 
@@ -243,7 +235,7 @@ pub enum AxisTagValueError {
 }
 
 impl AxisTagValueError {
-    pub fn as_str(&self) -> &'static str {
+    pub const fn as_str(&self) -> &'static str {
         match self {
             Self::InvalidCharacter => "each byte in an axis tag must be in the range 0x20 to 0x7E",
             Self::InvalidSpacePadding => {
