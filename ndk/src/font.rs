@@ -118,8 +118,10 @@ impl AxisTag {
     /// [`Ok(AxisTag)`] if the array is valid.
     ///
     /// Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be followed
-    /// by a non-space character. A tag must have one to four non-space characters. See
-    /// https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
+    /// by a non-space character. A tag must have one to four non-space characters. See the
+    /// [OpenType spec] for more details.
+    /// 
+    /// [OpenType spec]: https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types
     pub const fn from_be_bytes_checked(value: [u8; 4]) -> Result<Self, AxisTagValueError> {
         // Each byte in a tag must be in the range 0x20 to 0x7E.
         macro_rules! check_byte_range {
