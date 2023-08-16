@@ -114,18 +114,16 @@ impl TryFrom<u16> for FontWeight {
 pub struct AxisTag(u32);
 
 impl AxisTag {
-    pub const fn from_be(value: u32) -> Result<Self, AxisTagValueError> {
+    pub const fn from_be_bytes(value: [u8; 4]) -> Result<Self, AxisTagValueError> {
         // Each byte in a tag must be in the range 0x20 to 0x7E. A space character cannot be
         // followed by a non-space character. A tag must have one to four non-space characters.
         // See https://learn.microsoft.com/en-us/typography/opentype/spec/otff#data-types for details.
-
-        let bytes = value.to_be_bytes();
 
         // Each byte in a tag must be in the range 0x20 to 0x7E.
         macro_rules! check_byte_range {
             ($($e:expr)+) => {
                 $(
-                    if !(bytes[$e] as char).is_ascii_graphic() && bytes[$e] != b' ' {
+                    if !(value[$e] as char).is_ascii_graphic() && value[$e] != b' ' {
                         return Err(AxisTagValueError::InvalidCharacter);
                     }
                 )+
@@ -133,9 +131,9 @@ impl AxisTag {
         }
         check_byte_range!(0 1 2 3);
 
-        if bytes[0] == b' ' {
+        if value[0] == b' ' {
             return Err(
-                if bytes[1] == b' ' && bytes[2] == b' ' && bytes[3] == b' ' {
+                if value[1] == b' ' && value[2] == b' ' && value[3] == b' ' {
                     // A tag must have one to four non-space characters.
                     AxisTagValueError::EmptyTag
                 } else {
@@ -147,9 +145,9 @@ impl AxisTag {
 
         macro_rules! check_if_valid {
             ($e:expr ; $($f:expr)+) => {
-                if bytes[$e] == b' ' {
-                    return if true $(&& bytes[$f] == b' ')+ {
-                        Ok(Self(value))
+                if value[$e] == b' ' {
+                    return if true $(&& value[$f] == b' ')+ {
+                        Ok(Self(u32::from_be_bytes(value)))
                     } else {
                         // A space character cannot be followed by a non-space character.
                         Err(AxisTagValueError::InvalidSpacePadding)
@@ -161,12 +159,12 @@ impl AxisTag {
         check_if_valid!(1; 2 3);
         check_if_valid!(2; 3);
 
-        // Whether or not bytes[3] is b' ', value is a valid axis tag.
-        Ok(Self(value))
+        // Whether or not value[3] is b' ', value is a valid axis tag.
+        Ok(Self(u32::from_be_bytes(value)))
     }
 
-    pub const fn from_be_bytes(value: [u8; 4]) -> Result<Self, AxisTagValueError> {
-        Self::from_be(u32::from_be_bytes(value))
+    pub const fn from_be(value: u32) -> Result<Self, AxisTagValueError> {
+        Self::from_be_bytes(value.to_be_bytes())
     }
 
     pub const fn to_u32(self) -> u32 {
