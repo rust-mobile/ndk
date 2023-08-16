@@ -36,17 +36,39 @@ impl FontWeight {
         self.0
     }
 
-    // + 1 is to keep consistency between FontWeight and other types like std::num::NonZero*
+    /// The minimum value for the font weight value. Unlike [`ffi::AFONT_WEIGHT_MIN`] being 0,
+    /// [`FontWeight::MIN`] is 1 to make the `MIN..MAX` range be inclusive, keeping consistency
+    /// between FontWeight and other types like `std::num::NonZeroU*`.
     pub const MIN: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MIN as u16 + 1);
+
+    /// A font weight value for the thin weight.
     pub const THIN: FontWeight = FontWeight(ffi::AFONT_WEIGHT_THIN as u16);
+
+    /// A font weight value for the extra-light weight.
     pub const EXTRA_LIGHT: FontWeight = FontWeight(ffi::AFONT_WEIGHT_EXTRA_LIGHT as u16);
+
+    /// A font weight value for the light weight.
     pub const LIGHT: FontWeight = FontWeight(ffi::AFONT_WEIGHT_LIGHT as u16);
+
+    /// A font weight value for the normal weight.
     pub const NORMAL: FontWeight = FontWeight(ffi::AFONT_WEIGHT_NORMAL as u16);
+
+    /// A font weight value for the medium weight.
     pub const MEDIUM: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MEDIUM as u16);
+
+    /// A font weight value for the semi-bold weight.
     pub const SEMI_BOLD: FontWeight = FontWeight(ffi::AFONT_WEIGHT_SEMI_BOLD as u16);
+
+    /// A font weight value for the bold weight.
     pub const BOLD: FontWeight = FontWeight(ffi::AFONT_WEIGHT_BOLD as u16);
+
+    /// A font weight value for the extra-bold weight.
     pub const EXTRA_BOLD: FontWeight = FontWeight(ffi::AFONT_WEIGHT_EXTRA_BOLD as u16);
+
+    /// A font weight value for the black weight.
     pub const BLACK: FontWeight = FontWeight(ffi::AFONT_WEIGHT_BLACK as u16);
+
+    /// The maximum value for the font weight value.
     pub const MAX: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MAX as u16);
 }
 
