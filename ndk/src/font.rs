@@ -468,16 +468,16 @@ impl FontMatcher {
         }
     }
 
-    /// Sets family variant to matcher.
+    /// Sets the family variant of the font to be matched.
     ///
     /// If this function is not called, the match is performed with [`FamilyVariant::Default`].
     pub fn set_family_variant(&mut self, family_variant: FamilyVariant) {
         unsafe { ffi::AFontMatcher_setFamilyVariant(self.ptr.as_ptr(), family_variant as u32) }
     }
 
-    /// Sets font locales to matcher.
+    /// Sets the locale of the font to be matched.
     ///
-    /// If this function is not called, the match is performed with empty locale list.
+    /// If this function is not called, the match is performed with an empty locale list.
     ///
     /// # Arguments
     /// * `language_tags`: comma separated IETF BCP47 compliant language tags.
@@ -485,7 +485,7 @@ impl FontMatcher {
         unsafe { ffi::AFontMatcher_setLocales(self.ptr.as_ptr(), language_tags.as_ptr()) }
     }
 
-    /// Sets font style to matcher.
+    /// Sets the style of the font to be matched.
     ///
     /// If this function is not called, the match is performed with [`FontWeight::NORMAL`] with non-italic style.
     pub fn set_style(&mut self, weight: FontWeight, italic: bool) {
