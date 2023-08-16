@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.8.0-beta.0 (2023-08-15)
+
 - event: Add `tool_type` getter for `Pointer`. (#323)
 - input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
 - asset: Use entire asset length when mapping buffer. (#387)
@@ -7,14 +9,20 @@
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
+- bitmap: Add `try_format()` to `AndroidBitmapInfo` to handle unexpected formats without panicking. (#395)
 - Add `Font` bindings. (#397)
-- **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.6`. (#398)
+- **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.7`. (#398, #419)
 - **Breaking:** Renamed and moved "`media`" error types and helpers to a new `media_error` module. (#399)
 - **Breaking:** media_codec: Wrap common dequeued-buffer status codes in enum. (#401)
 - **Breaking:** media_codec: Return `MaybeUninit` bytes in `buffer_mut()`. (#403)
 - native_window: Add `lock()` to blit raw pixel data. (#404)
 - hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 - **Breaking:** hardware_buffer_format: Add catch-all variant. (#407)
+- **Breaking:** media_codec: Add support for asynchronous notification callbacks. (#410)
+- Add panic guards to callbacks. (#412)
+- looper: Add `remove_fd()` to unregister events/callbacks for a file descriptor. (#416)
+- **Breaking:** Use `BorrowedFd` and `OwnedFd` to clarify possible ownership transitions. (#417)
+- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
 
 # 0.7.0 (2022-07-24)
 
