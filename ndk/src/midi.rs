@@ -29,7 +29,24 @@ pub enum MidiOpcode {
     /// No MIDI messages are available.
     NoMessage,
     /// Received a MIDI message with the given length and the timestamp.
-    Data { length: usize, timestamp: i64 },
+    Data {
+        /// The length of the received message. Callers shoud limit the passed `buffer` slice to
+        /// this length after [`MidiOutputPort::receive()`] returns.
+        /// ```no_run
+        /// let output_port: MidiOutputPort = ...;
+        /// let mut buffer = [0u8; 128];
+        /// if let Ok(MidiOpcode::Data { length, .. }) = output_port.receive(&mut buffer) {
+        ///     let buffer = &buffer[..length];
+        ///     ...
+        /// }
+        /// ```
+        length: usize,
+        /// The timestamp associated with the message. This is consistent with the value returned by
+        /// [`java.lang.System.nanoTime()`].
+        ///
+        /// [`java.lang.System.nanoTime()`]: https://developer.android.com/reference/java/lang/System#nanoTime()
+        timestamp: i64,
+    },
     /// Instructed to discard all pending MIDI data.
     Flush,
 }
