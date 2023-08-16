@@ -16,6 +16,7 @@ pub mod audio;
 pub mod bitmap;
 pub mod configuration;
 pub mod event;
+pub mod font;
 pub mod hardware_buffer;
 pub mod hardware_buffer_format;
 pub mod input_queue;
