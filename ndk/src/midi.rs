@@ -231,7 +231,9 @@ impl<'a> MidiInputPort<'a> {
         MediaError::from_status(result)
     }
 
-    /// Sends data to the specified input port with a timestamp.
+    /// Sends data to the specified input port with a timestamp. Sometimes it is convenient to send
+    /// MIDI messages with a timestamp. By scheduling events in the future we can mask scheduling
+    /// jitter. See the Java [Android MIDI docs] for more details.
     ///
     /// # Arguments
     ///
@@ -239,6 +241,7 @@ impl<'a> MidiInputPort<'a> {
     /// * `timestamp`: The `CLOCK_MONOTONIC` time in nanoseconds to associate with the sent data.
     ///   This is consistent with the value returned by [`java.lang.System.nanoTime()`].
     ///
+    /// [Android docs]: https://developer.android.com/reference/android/media/midi/package-summary#send_a_noteon
     /// [`java.lang.System.nanoTime()`]: https://developer.android.com/reference/java/lang/System#nanoTime()
     pub fn send_with_timestamp(&self, buffer: &[u8], timestamp: i64) -> Result<usize> {
         let num_bytes_sent = unsafe {
