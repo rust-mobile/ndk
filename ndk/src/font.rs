@@ -178,7 +178,7 @@ impl AxisTag {
 
 impl fmt::Display for AxisTag {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let bytes = self.0.to_be_bytes();
+        let bytes = self.to_be_bytes();
         f.write_char(bytes[0] as char)?;
         f.write_char(bytes[1] as char)?;
         f.write_char(bytes[2] as char)?;
