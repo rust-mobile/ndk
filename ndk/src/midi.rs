@@ -84,7 +84,8 @@ impl MidiDevice {
     /// Assumes ownership of `ptr`
     ///
     /// # Safety
-    /// `ptr` must be a valid pointer to an Android [`ffi::AMidiDevice`].
+    /// `ptr` must be a valid pointer to an Android [`ffi::AMidiDevice`]. The calling thread also
+    /// must be attached to the Java VM during the lifetime of the returned instance.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AMidiDevice>) -> Self {
         Self { ptr }
     }
@@ -99,7 +100,9 @@ impl MidiDevice {
     ///
     /// # Safety
     /// `env` and `midi_device_obj` must be valid pointers to a [`jni_sys::JNIEnv`] instance and a
-    /// Java [`MidiDevice`](https://developer.android.com/reference/android/media/midi/MidiDevice) instance.
+    /// Java [`MidiDevice`](https://developer.android.com/reference/android/media/midi/MidiDevice)
+    /// instance. The calling thread also must be attached to the Java VM during the lifetime of the
+    /// returned instance.
     pub unsafe fn from_java(
         env: *mut jni_sys::JNIEnv,
         midi_device_obj: jni_sys::jobject,
