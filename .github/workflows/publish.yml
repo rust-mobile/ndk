@@ -18,14 +18,9 @@ jobs:
           - { name: "ndk", target: "armv7-linux-androideabi" }
     steps:
       - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          target: ${{ matrix.crate.target }}
-          override: true
+          target: aarch64-linux-android
       - name: Publish ${{ matrix.crate.name }}
-        uses: actions-rs/cargo@v1
         continue-on-error: true
-        with:
-          command: publish
-          args: --manifest-path ${{ matrix.crate.name }}/Cargo.toml --target ${{ matrix.crate.target }} --token ${{ secrets.cratesio_token }}
+        run: cargo publish --manifest-path ${{ matrix.crate.name }}/Cargo.toml --target ${{ matrix.crate.target }} --token ${{ secrets.cratesio_token }}

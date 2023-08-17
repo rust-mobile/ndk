@@ -6,148 +6,133 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
-    - name: Format
-      uses: actions-rs/cargo@v1
-      with:
-        command: fmt
-        args: --all -- --check
+      - uses: actions/checkout@v2
+
+      - name: Format
+        run: cargo fmt --all -- --check
 
   clippy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
-        target: aarch64-linux-android
-    - name: Clippy
-      uses: actions-rs/cargo@v1
-      with:
-        command: clippy
+      - uses: actions/checkout@v2
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          target: aarch64-linux-android
+
+      - name: Clippy
         # Use a cross-compilation target (that's typical for Android) to lint everything
-        args: --all --all-targets --all-features --target aarch64-linux-android -- -Dwarnings
+        run: cargo clippy --all --all-targets --all-features --target aarch64-linux-android -- -Dwarnings
 
   check_ndk_sys_msrv:
     name: Check ndk-sys MSRV (1.60.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+
       - uses: dtolnay/rust-toolchain@1.60.0
         with:
           target: aarch64-linux-android
-      - uses: actions-rs/cargo@v1
-        with:
-          command: check
-          args: -p ndk-sys --all-targets --all-features --target aarch64-linux-android
+
+      - name: cargo check
+        run: cargo check -p ndk-sys --all-targets --all-features --target aarch64-linux-android
 
   check_msrv:
     name: Check overall MSRV (1.64.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+
       - uses: dtolnay/rust-toolchain@1.64.0
         with:
           target: aarch64-linux-android
-      - uses: actions-rs/cargo@v1
-        with:
-          command: check
-          args: --workspace --all-targets --all-features --target aarch64-linux-android
+
+      - name: cargo check
+        run: cargo check --workspace --all-targets --all-features --target aarch64-linux-android
 
   build:
     strategy:
       fail-fast: false
       matrix:
-        os:  [ubuntu-latest]
-        rust-channel: ['stable', 'nightly']
+        os: [ubuntu-latest]
+        rust-channel: [stable, nightly]
         rust-target:
-          - { triple: 'armv7-linux-androideabi', abi: armeabi-v7a }
-          - { triple: 'aarch64-linux-android', abi: arm64-v8a }
-          - { triple: 'i686-linux-android', abi: x86 }
-          - { triple: 'x86_64-linux-android', abi: x86_64 }
+          - { triple: "armv7-linux-androideabi", abi: armeabi-v7a }
+          - { triple: "aarch64-linux-android", abi: arm64-v8a }
+          - { triple: "i686-linux-android", abi: x86 }
+          - { triple: "x86_64-linux-android", abi: x86_64 }
         include:
           - os: windows-latest
-            rust-channel: 'stable'
-            rust-target: { triple: 'aarch64-linux-android', abi: arm64-v8a }
+            rust-channel: stable
+            rust-target: { triple: "aarch64-linux-android", abi: arm64-v8a }
           - os: windows-latest
-            rust-channel: 'stable'
-            rust-target: { triple: 'x86_64-linux-android', abi: x86_64 }
+            rust-channel: stable
+            rust-target: { triple: "x86_64-linux-android", abi: x86_64 }
 
     runs-on: ${{ matrix.os }}
     name: Cross-compile
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
 
-    - name: Install cargo-ndk
-      run: cargo install cargo-ndk
+      - name: Install cargo-ndk
+        run: cargo install cargo-ndk
 
-    - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target.triple }}
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: ${{ matrix.rust-channel }}
-        target: ${{ matrix.rust-target.triple }}
-        override: true
+      - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target.triple }}
+        uses: dtolnay/rust-toolchain@master
+        with:
+          target: ${{ matrix.rust-target.triple }}
+          toolchain: ${{ matrix.rust-channel }}
 
-    - name: Compile for ${{ matrix.rust-target.triple }}
-      run: cargo ndk -t ${{ matrix.rust-target.abi }} build
+      - name: Compile for ${{ matrix.rust-target.triple }}
+        run: cargo ndk -t ${{ matrix.rust-target.abi }} build
 
   build-host:
     strategy:
       fail-fast: false
       matrix:
-        os:  [ubuntu-latest]
-        rust-channel: ['stable', 'nightly']
+        os: [ubuntu-latest]
+        rust-channel: [stable, nightly]
 
     runs-on: ${{ matrix.os }}
     name: Host-side tests
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Installing Rust ${{ matrix.rust-channel }}
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: ${{ matrix.rust-channel }}
-        override: true
+      - name: Installing Rust ${{ matrix.rust-channel }}
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust-channel }}
 
-    - name: Test ndk-sys
-      run:
-        cargo test -p ndk-sys --all-features
+      - name: Test ndk-sys
+        run: cargo test -p ndk-sys --all-features
 
-    - name: Test ndk
-      run:
-        cargo test -p ndk --all-features
+      - name: Test ndk
+        run: cargo test -p ndk --all-features
 
   docs:
     strategy:
       fail-fast: false
       matrix:
-        os:  [ubuntu-latest]
-        rust-channel: ['stable', 'nightly']
+        os: [ubuntu-latest]
+        rust-channel: [stable, nightly]
 
     runs-on: ${{ matrix.os }}
     name: Build-test docs
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Installing Rust ${{ matrix.rust-channel }}
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: ${{ matrix.rust-channel }}
-        override: true
+      - name: Installing Rust ${{ matrix.rust-channel }}
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust-channel }}
 
-    - name: Document all crates
-      env:
-        RUSTDOCFLAGS: -Dwarnings
-      run:
-        cargo doc --all --all-features
+      - name: Document all crates
+        env:
+          RUSTDOCFLAGS: -Dwarnings
+        run: cargo doc --all --all-features
