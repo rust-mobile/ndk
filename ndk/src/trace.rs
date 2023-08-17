@@ -24,7 +24,7 @@ impl Section {
     }
 
     pub fn end(self) {
-        std::mem::drop(self)
+        drop(self)
     }
 }
 
@@ -62,7 +62,7 @@ impl AsyncSection {
     }
 
     pub fn end(self) {
-        std::mem::drop(self)
+        drop(self)
     }
 }
 

@@ -11,7 +11,6 @@
 //! [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-use std::convert::TryInto;
 use std::ptr::NonNull;
 
 /// A native [`AInputEvent *`]

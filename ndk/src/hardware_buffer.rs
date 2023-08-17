@@ -9,8 +9,15 @@ use crate::utils::status_to_io_result;
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
 use std::{
-    convert::TryInto, io::Result, mem::MaybeUninit, ops::Deref, os::raw::c_void,
-    os::unix::io::RawFd, ptr::NonNull,
+    io::Result,
+    mem::MaybeUninit,
+    ops::Deref,
+    os::{
+        raw::c_void,
+        // TODO: Import from std::os::fd::{} since Rust 1.66
+        unix::io::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
+    },
+    ptr::NonNull,
 };
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -204,7 +211,7 @@ impl HardwareBuffer {
             width: desc.width,
             height: desc.height,
             layers: desc.layers,
-            format: desc.format.try_into().unwrap(),
+            format: ffi::AHardwareBuffer_Format(desc.format).into(),
             usage: HardwareBufferUsage(ffi::AHardwareBuffer_UsageFlags(desc.usage)),
             stride: desc.stride,
         }
@@ -264,10 +271,10 @@ impl HardwareBuffer {
     pub fn lock(
         &self,
         usage: HardwareBufferUsage,
-        fence: Option<RawFd>,
+        fence: Option<OwnedFd>,
         rect: Option<Rect>,
     ) -> Result<*mut c_void> {
-        let fence = fence.unwrap_or(-1);
+        let fence = fence.map_or(-1, IntoRawFd::into_raw_fd);
         let rect = match rect {
             Some(rect) => &rect,
             None => std::ptr::null(),
@@ -288,10 +295,10 @@ impl HardwareBuffer {
     pub fn lock_and_get_info(
         &self,
         usage: HardwareBufferUsage,
-        fence: Option<RawFd>,
+        fence: Option<OwnedFd>,
         rect: Option<Rect>,
     ) -> Result<LockedPlaneInfo> {
-        let fence = fence.unwrap_or(-1);
+        let fence = fence.map_or(-1, IntoRawFd::into_raw_fd);
         let rect = match rect {
             Some(rect) => &rect,
             None => std::ptr::null(),
@@ -340,10 +347,10 @@ impl HardwareBuffer {
     pub fn lock_planes(
         &self,
         usage: HardwareBufferUsage,
-        fence: Option<RawFd>,
+        fence: Option<OwnedFd>,
         rect: Option<Rect>,
     ) -> Result<HardwareBufferPlanes> {
-        let fence = fence.unwrap_or(-1);
+        let fence = fence.map_or(-1, IntoRawFd::into_raw_fd);
         let rect = match rect {
             Some(rect) => &rect,
             None => std::ptr::null(),
@@ -374,21 +381,24 @@ impl HardwareBuffer {
     /// [`None`] if unlocking is already finished. The caller is responsible for closing the file
     /// descriptor once it's no longer needed. See [`unlock()`][Self::unlock()] for a variant that
     /// blocks instead.
-    pub fn unlock_async(&self) -> Result<Option<RawFd>> {
+    pub fn unlock_async(&self) -> Result<Option<OwnedFd>> {
         let fence = construct(|res| unsafe { ffi::AHardwareBuffer_unlock(self.as_ptr(), res) })?;
         Ok(match fence {
             -1 => None,
-            fence => Some(fence),
+            fence => Some(unsafe { OwnedFd::from_raw_fd(fence) }),
         })
     }
 
     /// Receive a [`HardwareBuffer`] from an `AF_UNIX` socket.
     ///
-    /// `AF_UNIX` sockets are wrapped by [`std::os::unix::net::UnixListener`] in Rust.
-    pub fn recv_handle_from_unix_socket(socket_fd: RawFd) -> Result<Self> {
+    /// `AF_UNIX` sockets are wrapped by [`std::os::unix::net::UnixListener`] and
+    /// [`std::os::unix::net::UnixStream`] in Rust and have a corresponding
+    /// [`std::os::unix::io::AsFd::as_fd()`] implementation.
+    pub fn recv_handle_from_unix_socket(socket_fd: BorrowedFd<'_>) -> Result<Self> {
         unsafe {
-            let ptr =
-                construct(|res| ffi::AHardwareBuffer_recvHandleFromUnixSocket(socket_fd, res))?;
+            let ptr = construct(|res| {
+                ffi::AHardwareBuffer_recvHandleFromUnixSocket(socket_fd.as_raw_fd(), res)
+            })?;
 
             Ok(Self::from_ptr(NonNull::new_unchecked(ptr)))
         }
@@ -396,10 +406,13 @@ impl HardwareBuffer {
 
     /// Send the [`HardwareBuffer`] to an `AF_UNIX` socket.
     ///
-    /// `AF_UNIX` sockets are wrapped by [`std::os::unix::net::UnixListener`] in Rust.
-    pub fn send_handle_to_unix_socket(&self, socket_fd: RawFd) -> Result<()> {
-        let status =
-            unsafe { ffi::AHardwareBuffer_sendHandleToUnixSocket(self.as_ptr(), socket_fd) };
+    /// `AF_UNIX` sockets are wrapped by [`std::os::unix::net::UnixListener`] and
+    /// [`std::os::unix::net::UnixStream`] in Rust and have a corresponding
+    /// [`std::os::unix::io::AsFd::as_fd()`] implementation.
+    pub fn send_handle_to_unix_socket(&self, socket_fd: BorrowedFd<'_>) -> Result<()> {
+        let status = unsafe {
+            ffi::AHardwareBuffer_sendHandleToUnixSocket(self.as_ptr(), socket_fd.as_raw_fd())
+        };
         status_to_io_result(status, ())
     }
 
@@ -477,7 +490,7 @@ impl HardwareBufferDesc {
             width: self.width,
             height: self.height,
             layers: self.layers,
-            format: self.format.try_into().unwrap(),
+            format: ffi::AHardwareBuffer_Format::from(self.format).0,
             usage: self.usage.0 .0,
             stride: self.stride,
             rfu0: 0,

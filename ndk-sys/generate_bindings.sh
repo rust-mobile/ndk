@@ -1,6 +1,16 @@
 #!/bin/sh
 
-sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/linux-x86_64/sysroot/
+os=$(uname -s)
+
+if [[ "$os" == "Darwin" ]]; then
+    host_tag="darwin-x86_64"
+elif [[ "$os" == "CYGWIN"* ]]; then
+    host_tag="windows-x86_64"
+else
+    host_tag="linux-x86_64"
+fi
+
+sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/${host_tag}/sysroot/
 [ ! -d "$sysroot" ] && echo "Android sysroot $sysroot does not exist!" && exit 1
 
 while read ARCH && read TARGET ; do

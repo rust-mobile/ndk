@@ -7,7 +7,7 @@
 // complex going forward.  Allow them to be unused when compiling with certain feature combinations.
 #![allow(dead_code)]
 
-use std::{mem::MaybeUninit, ptr::NonNull};
+use std::{convert::TryInto, mem::MaybeUninit, ptr::NonNull};
 
 use thiserror::Error;
 
@@ -56,7 +56,10 @@ pub enum MediaError {
 }
 
 impl MediaError {
-    /// Returns [`Ok`] on [`ffi::media_status_t::AMEDIA_OK`], [`Err`] otherwise.
+    /// Returns [`Ok`] on [`ffi::media_status_t::AMEDIA_OK`], [`Err`] otherwise (including positive
+    /// values).
+    ///
+    /// Note that some known error codes (currently only for `AMediaCodec`) are positive.
     pub(crate) fn from_status(status: ffi::media_status_t) -> Result<()> {
         use MediaStatus::*;
         Err(Self::MediaStatus(match status {
@@ -92,6 +95,25 @@ impl MediaError {
             ffi::media_status_t::AMEDIA_IMGREADER_IMAGE_NOT_LOCKED => ImgreaderImageNotLocked,
             _ => return Err(MediaError::UnknownStatus(status)),
         }))
+    }
+
+    /// Returns the original value in [`Ok`] if it is not negative, [`Err`] otherwise.
+    ///
+    /// Note that some [`ffi::media_status_t`] codes are positive but will never be returned as
+    /// [`Err`] from this function. As of writing these codes are specific to the `AMediaCodec` API
+    /// and should not be handled generically.
+    pub(crate) fn from_status_if_negative<T: Into<isize> + Copy>(value: T) -> Result<T> {
+        let v = value.into();
+        if v >= 0 {
+            Ok(value)
+        } else {
+            Err(Self::from_status(ffi::media_status_t(
+                v.try_into().expect("Error code out of bounds"),
+            ))
+            // This panic should be unreachable: the only case where Ok is returned is in
+            // AMEDIA_OK=0 whose value is already handled above.
+            .unwrap_err())
+        }
     }
 }
 
