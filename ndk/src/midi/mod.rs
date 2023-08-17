@@ -158,7 +158,7 @@ impl MidiDevice {
 
     /// Opens the input port so that the client can send data to it. Note that the returned
     /// [`MidiInputPort`] is intentionally `!Send` and `!Sync`; please use
-    /// [`safe::SafeMidiDevice::open_safe_input_port`] if you need the thread-safe version.
+    /// [`safe::SafeMidiDevice::open_safe_input_port()`] if you need the thread-safe version.
     pub fn open_input_port(&self, port_number: i32) -> Result<MidiInputPort<'_>> {
         unsafe {
             let input_port =
@@ -169,7 +169,7 @@ impl MidiDevice {
 
     /// Opens the output port so that the client can receive data from it. Note that the returned
     /// [`MidiOutputPort`] is intentionally `!Send` and `!Sync`; please use
-    /// [`safe::SafeMidiDevice::open_safe_output_port`] if you need the thread-safe version.
+    /// [`safe::SafeMidiDevice::open_safe_output_port()`] if you need the thread-safe version.
     pub fn open_output_port(&self, port_number: i32) -> Result<MidiOutputPort<'_>> {
         unsafe {
             let output_port =
@@ -189,7 +189,7 @@ impl Drop for MidiDevice {
 }
 
 /// A wrapper over [`ffi::AMidiInputPort`]. Note that [`MidiInputPort`] is intentionally `!Send` and
-/// `!Sync`; please use [`safe::SafeMidiDevice::open_safe_input_port`] if you need the thread-safe
+/// `!Sync`; please use [`safe::SafeMidiDevice::open_safe_input_port()`] if you need the thread-safe
 /// version.
 pub struct MidiInputPort<'a> {
     ptr: NonNull<ffi::AMidiInputPort>,
@@ -280,7 +280,7 @@ impl<'a> Drop for MidiInputPort<'a> {
 }
 
 /// A wrapper over [`ffi::AMidiOutputPort`]. Note that [`MidiOutputPort`] is intentionally `!Send`
-/// and `!Sync`; please use [`safe::SafeMidiDevice::open_safe_output_port`] if you need the
+/// and `!Sync`; please use [`safe::SafeMidiDevice::open_safe_output_port()`] if you need the
 /// thread-safe version.
 pub struct MidiOutputPort<'a> {
     ptr: NonNull<ffi::AMidiOutputPort>,

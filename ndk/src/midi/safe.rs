@@ -1,14 +1,14 @@
 //! Safe bindings for [`AMidiDevice`], [`AMidiInputPort`], and [`AMidiOutputPort`]
 //!
 //! Provides implementation of `SafeMidiDeviceBox` that ensures the current thread is attached to
-//! the Java VM when being dropped, which is required by [`AMidiDevice_release`]. All other types
-//! of this module holds an [`Arc`] of `SafeMidiDeviceBox`.
+//! the Java VM when being dropped, which is required by [`ffi::AMidiDevice_release()`]. All other
+//! types of this module holds an [`Arc`] of `SafeMidiDeviceBox`.
 //!
-//! Note that all other functions except for [`AMidiDevice_fromJava`] and [`AMidiDevice_release`]
-//! are safe to be called in any thread without the calling thread attached to the Java VM.
+//! Note that all other functions except for [`ffi::AMidiDevice_fromJava()`] and
+//! [`ffi::AMidiDevice_release()`] are safe to be called in any thread without the calling thread
+//! attached to the Java VM.
 //!
 //! [`AMidiDevice`]: https://developer.android.com/ndk/reference/group/midi#amididevice
-//! [`AMidiDevice_release`]: https://developer.android.com/ndk/reference/group/midi#amididevice_release
 //! [`AMidiInputPort`]: https://developer.android.com/ndk/reference/group/midi#amidiinputport
 //! [`AMidiOutputPort`]: https://developer.android.com/ndk/reference/group/midi#amidioutputport
 
@@ -27,16 +27,16 @@ use super::*;
 /// [`MidiDevice`] is not dropped while the safe wrappers are alive.
 ///
 /// [`SafeMidiDeviceBox`] also holds a pointer to the current Java VM to attach the calling thread
-/// of [`Drop::drop`] to the VM, which is required by [`ffi::AMidiDevice_release`].
+/// of [`SafeMidiDeviceBox::drop()`] to the VM, which is required by [`ffi::AMidiDevice_release()`].
 struct SafeMidiDeviceBox {
     midi_device: ManuallyDrop<MidiDevice>,
     java_vm: NonNull<jni_sys::JavaVM>,
 }
 
-// SAFETY: [`SafeMidiDeviceBox::drop`] attaches the calling thread to the Java VM if required.
+// SAFETY: [`SafeMidiDeviceBox::drop()`] attaches the calling thread to the Java VM if required.
 unsafe impl Send for SafeMidiDeviceBox {}
 
-// SAFETY: [`SafeMidiDeviceBox::drop`] attaches the calling thread to the Java VM if required.
+// SAFETY: [`SafeMidiDeviceBox::drop()`] attaches the calling thread to the Java VM if required.
 unsafe impl Sync for SafeMidiDeviceBox {}
 
 impl Drop for SafeMidiDeviceBox {
@@ -239,6 +239,6 @@ impl Deref for SafeMidiOutputPort {
 unsafe impl Send for SafeMidiOutputPort {}
 
 // SAFETY: AMidiOutputPort is guarded by a atomic state ([`AMIDI_Port::state`]), which enables
-// [`ffi::AMidiOutputPort_receive`] to detect accesses from multiple threads and return error.
+// [`ffi::AMidiOutputPort_receive()`] to detect accesses from multiple threads and return error.
 // https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/media/native/midi/amidi.cpp?q=symbol%3A%5CbMidiReceiver%3A%3Areceive%5Cb%20case%3Ayes
 unsafe impl Sync for SafeMidiOutputPort {}
