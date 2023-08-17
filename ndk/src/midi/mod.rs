@@ -28,11 +28,17 @@ pub enum MidiOpcode {
         /// The length of the received message. The caller should limit the passed `buffer` slice to
         /// this length after [`MidiOutputPort::receive()`] returns.
         /// ```no_run
-        /// let output_port: MidiOutputPort = ...;
+        /// use ndk::midi::{MidiOutputPort, MidiOpcode};
+        ///
+        /// let output_port: MidiOutputPort = todo!();
         /// let mut buffer = [0u8; 128];
         /// if let Ok(MidiOpcode::Data { length, .. }) = output_port.receive(&mut buffer) {
-        ///     let buffer = &buffer[..length];
-        ///     ...
+        ///     // process message
+        ///     if let [message, key, velocity] = &buffer[..length] {
+        ///         if message & 0xF0 == 0x90 { /* Note On message */ }
+        ///         else if message & 0xF0 == 0x80 { /* Note Off message */ }
+        ///         else { /*  */ }
+        ///     }
         /// }
         /// ```
         length: usize,
