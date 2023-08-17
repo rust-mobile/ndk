@@ -1,8 +1,8 @@
 //! Safe bindings for [`AMidiDevice`], [`AMidiInputPort`], and [`AMidiOutputPort`]
 //!
-//! Provides implementation of [`SafeMidiDeviceBox`] that ensures the current thread is attached to
+//! Provides implementation of `SafeMidiDeviceBox` that ensures the current thread is attached to
 //! the Java VM when being dropped, which is required by [`AMidiDevice_release`]. All other types
-//! of this module holds an [`Arc<SafeMidiDeviceBox>`].
+//! of this module holds an [`Arc`] of `SafeMidiDeviceBox`.
 //!
 //! [`AMidiDevice`]: https://developer.android.com/ndk/reference/group/midi#amididevice
 //! [`AMidiDevice_release`]: https://developer.android.com/ndk/reference/group/midi#amididevice_release
