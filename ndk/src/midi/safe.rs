@@ -30,10 +30,10 @@ struct SafeMidiDeviceBox {
     java_vm: NonNull<jni_sys::JavaVM>,
 }
 
-// SAFETY: [`SafeMidiDeviceBox::drop`] attached the calling thread to the Java VM if required.
+// SAFETY: [`SafeMidiDeviceBox::drop`] attaches the calling thread to the Java VM if required.
 unsafe impl Send for SafeMidiDeviceBox {}
 
-// SAFETY: [`SafeMidiDeviceBox::drop`] attached the calling thread to the Java VM if required.
+// SAFETY: [`SafeMidiDeviceBox::drop`] attaches the calling thread to the Java VM if required.
 unsafe impl Sync for SafeMidiDeviceBox {}
 
 impl Drop for SafeMidiDeviceBox {
