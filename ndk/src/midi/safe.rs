@@ -4,6 +4,9 @@
 //! the Java VM when being dropped, which is required by [`AMidiDevice_release`]. All other types
 //! of this module holds an [`Arc`] of `SafeMidiDeviceBox`.
 //!
+//! Note that all other functions except for [`AMidiDevice_fromJava`] and [`AMidiDevice_release`]
+//! are safe to be called in any thread without the calling thread attached to the Java VM.
+//!
 //! [`AMidiDevice`]: https://developer.android.com/ndk/reference/group/midi#amididevice
 //! [`AMidiDevice_release`]: https://developer.android.com/ndk/reference/group/midi#amididevice_release
 //! [`AMidiInputPort`]: https://developer.android.com/ndk/reference/group/midi#amidiinputport
