@@ -9,6 +9,8 @@
 //! [`AMidiOutputPort`]: https://developer.android.com/ndk/reference/group/midi#amidioutputport
 #![cfg(feature = "midi")]
 
+pub mod safe;
+
 use super::media_error::{construct, MediaError, Result};
 
 use std::fmt;
@@ -75,6 +77,8 @@ impl From<MidiDeviceType> for u32 {
     }
 }
 
+/// A wrapper over [`ffi::AMidiDevice`]. Note that [`MidiDevice`] is intentionally `!Send` and
+/// `!Sync`; please use [`safe::SafeMidiDevice`] if you need the thread-safe version.
 #[derive(Debug)]
 pub struct MidiDevice {
     ptr: NonNull<ffi::AMidiDevice>,
@@ -146,7 +150,9 @@ impl MidiDevice {
         }
     }
 
-    /// Opens the input port so that the client can send data to it.
+    /// Opens the input port so that the client can send data to it. Note that the returned
+    /// [`MidiInputPort`] is intentionally `!Send` and `!Sync`; please use
+    /// [`safe::SafeMidiDevice::open_safe_input_port`] if you need the thread-safe version.
     pub fn open_input_port(&self, port_number: i32) -> Result<MidiInputPort> {
         unsafe {
             let input_port =
@@ -155,7 +161,9 @@ impl MidiDevice {
         }
     }
 
-    /// Opens the output port so that the client can receive data from it.
+    /// Opens the output port so that the client can receive data from it. Note that the returned
+    /// [`MidiOutputPort`] is intentionally `!Send` and `!Sync`; please use
+    /// [`safe::SafeMidiDevice::open_safe_output_port`] if you need the thread-safe version.
     pub fn open_output_port(&self, port_number: i32) -> Result<MidiOutputPort> {
         unsafe {
             let output_port =
@@ -174,6 +182,9 @@ impl Drop for MidiDevice {
     }
 }
 
+/// A wrapper over [`ffi::AMidiInputPort`]. Note that [`MidiInputPort`] is intentionally `!Send` and
+/// `!Sync`; please use [`safe::SafeMidiDevice::open_safe_input_port`] if you need the thread-safe
+/// version.
 pub struct MidiInputPort<'a> {
     ptr: NonNull<ffi::AMidiInputPort>,
     _marker: PhantomData<&'a MidiDevice>,
@@ -262,6 +273,9 @@ impl<'a> Drop for MidiInputPort<'a> {
     }
 }
 
+/// A wrapper over [`ffi::AMidiOutputPort`]. Note that [`MidiOutputPort`] is intentionally `!Send`
+/// and `!Sync`; please use [`safe::SafeMidiDevice::open_safe_output_port`] if you need the
+/// thread-safe version.
 pub struct MidiOutputPort<'a> {
     ptr: NonNull<ffi::AMidiOutputPort>,
     _marker: PhantomData<&'a MidiDevice>,
