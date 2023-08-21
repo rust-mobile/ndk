@@ -110,6 +110,15 @@ impl NativeWindow {
         status_to_io_result(status)
     }
 
+    /// Set a transform that will be applied to future buffers posted to the window.
+    #[cfg(feature = "api-level-26")]
+    pub fn set_buffers_transform(&self, transform: NativeWindowTransform) -> Result<()> {
+        let status = unsafe {
+            ffi::ANativeWindow_setBuffersTransform(self.ptr.as_ptr(), transform.bits() as i32)
+        };
+        status_to_io_result(status)
+    }
+
     /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
     ///
     /// # Safety
@@ -238,5 +247,30 @@ impl<'a> Drop for NativeWindowBufferLockGuard<'a> {
     fn drop(&mut self) {
         let ret = unsafe { ffi::ANativeWindow_unlockAndPost(self.window.ptr.as_ptr()) };
         assert_eq!(ret, 0);
+    }
+}
+
+#[cfg(feature = "api-level-26")]
+bitflags::bitflags! {
+    /// Transforms that can be applied to buffers as they are displayed to a window.
+    ///
+    /// Supported transforms are any combination of horizontal mirror, vertical mirror, and
+    /// clockwise 90 degree rotation, in that order. Rotations of 180 and 270 degrees are made up
+    /// of those basic transforms.
+    #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+    #[doc(alias = "ANativeWindowTransform")]
+    pub struct NativeWindowTransform : u32 {
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_IDENTITY")]
+        const TRANSFORM_IDENTITY = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_IDENTITY.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL")]
+        const TRANSFORM_MIRROR_HORIZONTAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL")]
+        const TRANSFORM_MIRROR_VERTICAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_90")]
+        const TRANSFORM_ROTATE_90 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_90.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_180")]
+        const TRANSFORM_ROTATE_180 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_180.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_270")]
+        const TRANSFORM_ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
     }
 }
