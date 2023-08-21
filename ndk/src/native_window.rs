@@ -119,6 +119,16 @@ impl NativeWindow {
         status_to_io_result(status)
     }
 
+    /// Provides a hint to the window that buffers should be preallocated ahead of time.
+    ///
+    /// Note that the window implementation is not guaranteed to preallocate any buffers, for
+    /// instance if an implementation disallows allocation of new buffers, or if there is
+    /// insufficient memory in the system to preallocate additional buffers
+    #[cfg(feature = "api-level-30")]
+    pub fn try_allocate_buffers(&self) {
+        unsafe { ffi::ANativeWindow_tryAllocateBuffers(self.ptr.as_ptr()) }
+    }
+
     /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
     ///
     /// # Safety

@@ -25,7 +25,7 @@
 - **Breaking:** Use `BorrowedFd` and `OwnedFd` to clarify possible ownership transitions. (#417)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
 - **Breaking:** bitmap: Provide detailed implementation for `AndroidBitmapInfoFlags`. (#424)
-- ndk/native_window: Add `set_buffers_transform()`. (#425)
+- ndk/native_window: Add `set_buffers_transform()` and `try_allocate_buffers()`. (#425)
 - hardware_buffer: Add `id()` to retrieve a system-wide unique identifier for a `HardwareBuffer`. (#428)
 
 # 0.7.0 (2022-07-24)
