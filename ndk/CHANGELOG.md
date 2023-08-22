@@ -26,6 +26,7 @@
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
 - **Breaking:** bitmap: Provide detailed implementation for `AndroidBitmapInfoFlags`. (#424)
 - native_window: Add `set_buffers_transform()`, `try_allocate_buffers()` and `set_frame_rate*()`. (#425)
+- Add bindings for `ASharedMemory`. (#427)
 - hardware_buffer: Add `id()` to retrieve a system-wide unique identifier for a `HardwareBuffer`. (#428)
 - **Breaking:** bitmap: Strip `Android` prefix from structs and enums, and `Bitmap` from `Result`. (#430)
 - **Breaking:** `raw-window-handle 0.5` support is now behind an _optional_ `rwh_05` crate feature and `raw-window-handle` `0.4` and `0.6` support is provided via the new `rwh_04` and (default-enabled) `rwh_06` crate features. (#434)
