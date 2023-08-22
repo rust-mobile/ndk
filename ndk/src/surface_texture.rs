@@ -84,7 +84,7 @@ impl SurfaceTexture {
     /// context at a time.
     pub fn attach_to_gl_context(&self, tex_name: u32) -> Result<()> {
         let status = unsafe { ffi::ASurfaceTexture_attachToGLContext(self.ptr.as_ptr(), tex_name) };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 
     /// Detach the [`SurfaceTexture`] from the OpenGL ES context that owns the OpenGL ES texture
@@ -100,7 +100,7 @@ impl SurfaceTexture {
     /// context at a time.
     pub fn detach_from_gl_context(&self) -> Result<()> {
         let status = unsafe { ffi::ASurfaceTexture_detachFromGLContext(self.ptr.as_ptr()) };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 
     /// Retrieve the 4x4 texture coordinate transform matrix associated with the texture image set
@@ -154,6 +154,6 @@ impl SurfaceTexture {
     /// texture target.
     pub fn update_tex_image(&self) -> Result<()> {
         let status = unsafe { ffi::ASurfaceTexture_updateTexImage(self.ptr.as_ptr()) };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 }

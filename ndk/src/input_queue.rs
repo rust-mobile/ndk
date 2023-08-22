@@ -45,7 +45,7 @@ impl InputQueue {
     pub fn get_event(&self) -> Result<Option<InputEvent>> {
         let mut out_event = ptr::null_mut();
         let status = unsafe { ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) };
-        match status_to_io_result(status, ()) {
+        match status_to_io_result(status) {
             Ok(()) => {
                 debug_assert!(!out_event.is_null());
                 Ok(Some(unsafe {
