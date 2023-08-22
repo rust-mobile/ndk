@@ -451,9 +451,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 29.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `policy` - the desired level of opt-out from being captured.
+    /// - `policy`: the desired level of opt-out from being captured.
     ///
     /// [`android.media.AudioAttributes#setAllowedCapturePolicy(int)`]: https://developer.android.com/reference/android/media/AudioAttributes.Builder#setAllowedCapturePolicy(int)
     #[cfg(feature = "api-level-29")]
@@ -474,9 +474,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `num_frames` - the desired buffer capacity in frames or 0 for unspecified
+    /// - `num_frames`: the desired buffer capacity in frames or 0 for unspecified
     pub fn buffer_capacity_in_frames(self, num_frames: i32) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setBufferCapacityInFrames(self.as_ptr(), num_frames) };
         self
@@ -494,9 +494,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `channel_count` - Number of channels desired.
+    /// - `channel_count`: Number of channels desired.
     pub fn channel_count(self, channel_count: i32) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setChannelCount(self.as_ptr(), channel_count) };
         self
@@ -512,9 +512,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 28.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `content_type` - the type of audio data, eg. [`AudioContentType::Speech`]
+    /// - `content_type`: the type of audio data, eg. [`AudioContentType::Speech`]
     #[cfg(feature = "api-level-28")]
     pub fn content_type(self, content_type: AudioContentType) -> Self {
         unsafe {
@@ -605,9 +605,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `device_id` - device identifier or 0 for unspecified
+    /// - `device_id`: device identifier or 0 for unspecified
     pub fn device_id(self, device_id: i32) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setDeviceId(self.as_ptr(), device_id) };
         self
@@ -619,9 +619,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `direction` - [`Output`][AudioDirection::Output] or [`Input`][AudioDirection::Input]
+    /// - `direction`: [`Output`][AudioDirection::Output] or [`Input`][AudioDirection::Input]
     pub fn direction(self, direction: AudioDirection) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setDirection(
@@ -695,9 +695,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `format` - the sample data format.
+    /// - `format`: the sample data format.
     pub fn format(self, format: AudioFormat) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setFormat(self.as_ptr(), format as ffi::aaudio_format_t)
@@ -727,7 +727,7 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// * `num_frames` - the desired buffer size in frames or 0 for unspecified
+    /// - `num_frames`: the desired buffer size in frames or 0 for unspecified
     pub fn frames_per_data_callback(self, num_frames: i32) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setFramesPerDataCallback(self.as_ptr(), num_frames) };
         self
@@ -745,9 +745,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 28.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `input_preset` - the desired configuration for recording
+    /// - `input_preset`: the desired configuration for recording
     #[cfg(feature = "api-level-28")]
     pub fn input_preset(self, input_preset: AudioInputPreset) -> Self {
         unsafe {
@@ -771,9 +771,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `mode` - the desired performance mode, eg. LowLatency
+    /// - `mode`: the desired performance mode, eg. LowLatency
     pub fn performance_mode(self, mode: AudioPerformanceMode) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setPerformanceMode(
@@ -796,9 +796,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `sample_rate` - frames per second. Common rates include 44100 and 48000 Hz.
+    /// - `sample_rate`: frames per second. Common rates include 44100 and 48000 Hz.
     pub fn sample_rate(self, sample_rate: i32) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setSampleRate(self.as_ptr(), sample_rate) };
         self
@@ -830,9 +830,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 28.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `session_id` - an allocated sessionID or [`Option::None`] to allocate a new sessionID
+    /// - `session_id`: an allocated sessionID or [`Option::None`] to allocate a new sessionID
     #[cfg(feature = "api-level-28")]
     pub fn session_id(self, session_id_or_allocate: Option<SessionId>) -> Self {
         let session_id = match session_id_or_allocate {
@@ -854,9 +854,9 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `sharing_mode` - [`AudioSharingMode::Shared`] or [`AudioSharingMode::Exclusive`]
+    /// - `sharing_mode`: [`AudioSharingMode::Shared`] or [`AudioSharingMode::Exclusive`]
     pub fn sharing_mode(self, sharing_mode: AudioSharingMode) -> Self {
         unsafe {
             ffi::AAudioStreamBuilder_setSharingMode(
@@ -877,7 +877,7 @@ impl AudioStreamBuilder {
     ///
     /// Available since API level 28.
     ///
-    /// * `usage` - the desired usage, eg. [`AudioUsage::Game`]
+    /// - `usage`: the desired usage, eg. [`AudioUsage::Game`]
     #[cfg(feature = "api-level-28")]
     pub fn usage(self, usage: AudioUsage) -> Self {
         unsafe { ffi::AAudioStreamBuilder_setUsage(self.as_ptr(), usage as ffi::aaudio_usage_t) };
@@ -1207,11 +1207,11 @@ impl AudioStream {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `buffer` - The slice with the samples.
-    /// * `num_frames` - Number of frames to read. Only complete frames will be written.
-    /// * `timeout_nanoseconds` - Maximum number of nanoseconds to wait for completion.
+    /// - `buffer`: The slice with the samples.
+    /// - `num_frames`: Number of frames to read. Only complete frames will be written.
+    /// - `timeout_nanoseconds`: Maximum number of nanoseconds to wait for completion.
     ///
     /// # Safety
     /// `buffer` must be a valid pointer to at least `num_frames` samples.
@@ -1295,9 +1295,9 @@ impl AudioStream {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `num_frames` - requested number of frames that can be filled without blocking
+    /// - `num_frames`: requested number of frames that can be filled without blocking
     pub fn set_buffer_size_in_frames(&self, num_frames: i32) -> Result<i32> {
         let result = unsafe { ffi::AAudioStream_setBufferSizeInFrames(self.as_ptr(), num_frames) };
         AudioError::from_result(result, || result)
@@ -1342,11 +1342,11 @@ impl AudioStream {
     ///
     /// Available since API level 26.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `buffer` - The address of the first sample.
-    /// * `num_frames` - Number of frames to write. Only complete frames will be written.
-    /// * `timeout_nanoseconds` - Maximum number of nanoseconds to wait for completion.
+    /// - `buffer`: The address of the first sample.
+    /// - `num_frames`: Number of frames to write. Only complete frames will be written.
+    /// - `timeout_nanoseconds`: Maximum number of nanoseconds to wait for completion.
     ///
     /// # Safety
     /// `buffer` must be a valid pointer to at least `num_frames` samples.

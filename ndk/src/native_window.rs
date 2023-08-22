@@ -119,6 +119,85 @@ impl NativeWindow {
         status_to_io_result(status)
     }
 
+    /// Sets the intended frame rate for this window.
+    ///
+    /// Same as [`set_frame_rate_with_change_strategy(window, frame_rate, compatibility, ChangeFrameRateStrategy::OnlyIfSeamless)`][`NativeWindow::set_frame_rate_with_change_strategy()`].
+    ///
+    #[cfg_attr(
+        not(feature = "api-level-31"),
+        doc = "[`NativeWindow::set_frame_rate_with_change_strategy()`]: https://developer.android.com/ndk/reference/group/a-native-window#anativewindow_setframeratewithchangestrategy"
+    )]
+    #[cfg(feature = "api-level-30")]
+    #[doc(alias = "ANativeWindow_setFrameRate")]
+    pub fn set_frame_rate(
+        &self,
+        frame_rate: f32,
+        compatibility: FrameRateCompatibility,
+    ) -> Result<()> {
+        let compatibility = (compatibility as u32)
+            .try_into()
+            .expect("i8 overflow in FrameRateCompatibility");
+        let status = unsafe {
+            ffi::ANativeWindow_setFrameRate(self.ptr.as_ptr(), frame_rate, compatibility)
+        };
+        status_to_io_result(status)
+    }
+
+    /// Sets the intended frame rate for this window.
+    ///
+    /// On devices that are capable of running the display at different refresh rates, the system
+    /// may choose a display refresh rate to better match this window's frame rate. Usage of this
+    /// API won't introduce frame rate throttling, or affect other aspects of the application's
+    /// frame production pipeline. However, because the system may change the display refresh rate,
+    /// calls to this function may result in changes to Choreographer callback timings, and changes
+    /// to the time interval at which the system releases buffers back to the application.
+    ///
+    /// Note that this only has an effect for windows presented on the display. If this
+    /// [`NativeWindow`] is consumed by something other than the system compositor, e.g. a media
+    /// codec, this call has no effect.
+    ///
+    /// You can register for changes in the refresh rate using
+    /// [`ffi::AChoreographer_registerRefreshRateCallback()`].
+    ///
+    /// # Parameters
+    ///
+    /// - `frame_rate`: The intended frame rate of this window, in frames per second. `0` is a
+    ///   special value that indicates the app will accept the system's choice for the display
+    ///   frame rate, which is the default behavior if this function isn't called. The `frame_rate`
+    ///   param does not need to be a valid refresh rate for this device's display - e.g., it's
+    ///   fine to pass `30`fps to a device that can only run the display at `60`fps.
+    /// - `compatibility`: The frame rate compatibility of this window. The compatibility value may
+    ///   influence the system's choice of display refresh rate. See the [`FrameRateCompatibility`]
+    ///   values for more info. This parameter is ignored when `frame_rate` is `0`.
+    /// - `change_frame_rate_strategy`: Whether display refresh rate transitions caused by this
+    ///   window should be seamless. A seamless transition is one that doesn't have any visual
+    ///   interruptions, such as a black screen for a second or two. See the
+    ///   [`ChangeFrameRateStrategy`] values. This parameter is ignored when `frame_rate` is `0`.
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "ANativeWindow_setFrameRateWithChangeStrategy")]
+    pub fn set_frame_rate_with_change_strategy(
+        &self,
+        frame_rate: f32,
+        compatibility: FrameRateCompatibility,
+        change_frame_rate_strategy: ChangeFrameRateStrategy,
+    ) -> Result<()> {
+        let compatibility = (compatibility as u32)
+            .try_into()
+            .expect("i8 overflow in FrameRateCompatibility");
+        let strategy = (change_frame_rate_strategy as u32)
+            .try_into()
+            .expect("i8 overflow in ChangeFrameRateStrategy");
+        let status = unsafe {
+            ffi::ANativeWindow_setFrameRateWithChangeStrategy(
+                self.ptr.as_ptr(),
+                frame_rate,
+                compatibility,
+                strategy,
+            )
+        };
+        status_to_io_result(status)
+    }
+
     /// Provides a hint to the window that buffers should be preallocated ahead of time.
     ///
     /// Note that the window implementation is not guaranteed to preallocate any buffers, for
@@ -283,4 +362,51 @@ bitflags::bitflags! {
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_270")]
         const TRANSFORM_ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
     }
+}
+
+/// Compatibility value for [`NativeWindow::set_frame_rate()`]
+#[cfg_attr(
+    feature = "api-level-31",
+    doc = " and [`NativeWindow::set_frame_rate_with_change_strategy()`]"
+)]
+/// .
+#[cfg(feature = "api-level-30")]
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+#[doc(alias = "ANativeWindow_FrameRateCompatibility")]
+#[non_exhaustive]
+pub enum FrameRateCompatibility {
+    /// There are no inherent restrictions on the frame rate of this window.
+    ///
+    /// When the system selects a frame rate other than what the app requested, the app will be
+    /// able to run at the system frame rate without requiring pull down. This value should be used
+    /// when displaying game content, UIs, and anything that isn't video.
+    #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT")]
+    Default =
+        ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT.0,
+    /// This window is being used to display content with an inherently fixed frame rate, e.g. a
+    /// video that has a specific frame rate.
+    ///
+    /// When the system selects a frame rate other than what the app requested, the app will need
+    /// to do pull down or use some other technique to adapt to the system's frame rate. The user
+    /// experience is likely to be worse (e.g. more frame stuttering) than it would be if the
+    /// system had chosen the app's requested frame rate. This value should be used for video
+    /// content.
+    #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE")]
+    FixedSource = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE.0,
+}
+
+/// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
+#[cfg(feature = "api-level-31")]
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+#[doc(alias = "ANativeWindow_ChangeFrameRateStrategy")]
+#[non_exhaustive]
+pub enum ChangeFrameRateStrategy {
+    /// Change the frame rate only if the transition is going to be seamless.
+    #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS")]
+    OnlyIfSeamless = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS.0,
+    /// Change the frame rate even if the transition is going to be non-seamless, i.e. with visual interruptions for the user.
+    #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS")]
+    Always = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS.0,
 }
