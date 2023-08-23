@@ -18,6 +18,7 @@
 - native_window: Add `lock()` to blit raw pixel data. (#404)
 - hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 - **Breaking:** hardware_buffer_format: Add catch-all variant. (#407)
+- ndk/asset: Add missing `is_allocated()` and `open_file_descriptor()` methods. (#409)
 - **Breaking:** media_codec: Add support for asynchronous notification callbacks. (#410)
 - Add panic guards to callbacks. (#412)
 - looper: Add `remove_fd()` to unregister events/callbacks for a file descriptor. (#416)
