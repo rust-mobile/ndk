@@ -103,7 +103,7 @@ impl NativeWindow {
         let status = unsafe {
             ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format as i32)
         };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 
     /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
@@ -139,10 +139,10 @@ impl NativeWindow {
             None => std::ptr::null_mut(),
         };
         let mut buffer = MaybeUninit::uninit();
-        let ret = unsafe {
+        let status = unsafe {
             ffi::ANativeWindow_lock(self.ptr.as_ptr(), buffer.as_mut_ptr(), dirty_bounds)
         };
-        status_to_io_result(ret, ())?;
+        status_to_io_result(status)?;
 
         Ok(NativeWindowBufferLockGuard {
             window: self,

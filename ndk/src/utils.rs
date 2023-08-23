@@ -7,9 +7,9 @@ use std::io::{Error, Result};
 /// Rust's [`std::io::Error`].
 ///
 /// [`Errors.h`]: https://cs.android.com/android/platform/superproject/+/master:system/core/libutils/include/utils/Errors.h
-pub(crate) fn status_to_io_result<T>(status: i32, value: T) -> Result<T> {
+pub(crate) fn status_to_io_result(status: i32) -> Result<()> {
     match status {
-        0 => Ok(value),
+        0 => Ok(()),
         r if r < 0 => Err(Error::from_raw_os_error(-r)),
         r => unreachable!("Status is positive integer {}", r),
     }

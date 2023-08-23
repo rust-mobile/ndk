@@ -108,7 +108,7 @@ pub type Rect = ffi::ARect;
 fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
-    status_to_io_result(status, unsafe { result.assume_init() })
+    status_to_io_result(status).map(|()| unsafe { result.assume_init() })
 }
 
 /// A native [`AHardwareBuffer *`]
@@ -317,7 +317,7 @@ impl HardwareBuffer {
                 bytes_per_stride.as_mut_ptr(),
             )
         };
-        status_to_io_result(status, ()).map(|()| unsafe {
+        status_to_io_result(status).map(|()| unsafe {
             LockedPlaneInfo {
                 virtual_address: virtual_address.assume_init(),
                 bytes_per_pixel: bytes_per_pixel.assume_init() as u32,
@@ -372,7 +372,7 @@ impl HardwareBuffer {
     /// a non-blocking variant that returns a file descriptor to be signaled on unlocking instead.
     pub fn unlock(&self) -> Result<()> {
         let status = unsafe { ffi::AHardwareBuffer_unlock(self.as_ptr(), std::ptr::null_mut()) };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 
     /// Unlock the [`HardwareBuffer`] from direct CPU access.
@@ -413,7 +413,7 @@ impl HardwareBuffer {
         let status = unsafe {
             ffi::AHardwareBuffer_sendHandleToUnixSocket(self.as_ptr(), socket_fd.as_raw_fd())
         };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 
     /// Acquire a reference on the given [`HardwareBuffer`] object.
