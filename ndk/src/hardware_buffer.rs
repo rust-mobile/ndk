@@ -233,6 +233,13 @@ impl HardwareBuffer {
         res == 1
     }
 
+    /// Get the system-wide unique id for this [`HardwareBuffer`].
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "AHardwareBuffer_getId")]
+    pub fn id(&self) -> Result<u64> {
+        construct(|res| unsafe { ffi::AHardwareBuffer_getId(self.as_ptr(), res) })
+    }
+
     /// Lock the [`HardwareBuffer`] for direct CPU access.
     ///
     /// This function can lock the buffer for either reading or writing. It may block if the

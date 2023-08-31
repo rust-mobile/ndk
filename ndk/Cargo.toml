@@ -27,6 +27,7 @@ api-level-27 = ["api-level-26"]
 api-level-28 = ["api-level-27"]
 api-level-29 = ["api-level-28"]
 api-level-30 = ["api-level-29"]
+api-level-31 = ["api-level-30"]
 
 test = ["ffi/test", "jni", "all"]
 
