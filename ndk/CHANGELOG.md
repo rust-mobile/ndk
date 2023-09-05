@@ -32,6 +32,9 @@
 - **Breaking:** looper: Provide `event` value to file descriptor poll callback. (#435)
 - **Breaking:** `HardwareBufferFormat` is no longer exported from `hardware_buffer` and `native_window`, and can only be reached through the `hardware_buffer_format` module. (#436)
 - **Breaking:** `get_` prefixes have been removed from all public functions in light of the [C-GETTER](https://rust-lang.github.io/api-guidelines/naming.html#getter-names-follow-rust-convention-c-getter) convention. (#437)
+- Add `DataSpace` type and relevant functions on `Bitmap` and `NativeWindow`. (#438)
+- bitmap: Add `Bitmap::compress()` and `Bitmap::compress_raw()` functions. (#440)
+- **Breaking:** Turn `BitmapError` into a `non_exhaustive` `enum`. (#440)
 
 # 0.7.0 (2022-07-24)
 
