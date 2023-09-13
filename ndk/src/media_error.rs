@@ -6,16 +6,17 @@
 // complex going forward.  Allow them to be unused when compiling with certain feature combinations.
 #![allow(dead_code)]
 
-use std::{convert::TryInto, mem::MaybeUninit, ptr::NonNull};
+use std::{fmt, mem::MaybeUninit, ptr::NonNull};
 
-use thiserror::Error;
+use num_enum::{FromPrimitive, IntoPrimitive};
 
 pub type Result<T, E = MediaError> = std::result::Result<T, E>;
 
 /// Media Status codes for [`media_status_t`](https://developer.android.com/ndk/reference/group/media#group___media_1ga009a49041fe39f7bdc6d8b5cddbe760c)
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub enum MediaStatus {
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[non_exhaustive]
+pub enum MediaError {
     CodecErrorInsufficientResource = ffi::media_status_t::AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE.0,
     CodecErrorReclaimed = ffi::media_status_t::AMEDIACODEC_ERROR_RECLAIMED.0,
     ErrorUnknown = ffi::media_status_t::AMEDIA_ERROR_UNKNOWN.0,
@@ -43,16 +44,18 @@ pub enum MediaStatus {
     ImgreaderCannotLockImage = ffi::media_status_t::AMEDIA_IMGREADER_CANNOT_LOCK_IMAGE.0,
     ImgreaderCannotUnlockImage = ffi::media_status_t::AMEDIA_IMGREADER_CANNOT_UNLOCK_IMAGE.0,
     ImgreaderImageNotLocked = ffi::media_status_t::AMEDIA_IMGREADER_IMAGE_NOT_LOCKED.0,
+    // Use the OK discriminant, assuming no-one calls `as i32` and only uses the generated `From` implementation via `IntoPrimitive`
+    #[num_enum(catch_all)]
+    Unknown(i32) = 0,
 }
 
-/// Media Status codes in [`MediaStatus`] or raw [`ffi::media_status_t`] if unknown.
-#[derive(Debug, Error)]
-pub enum MediaError {
-    #[error("Media Status {0:?}")]
-    MediaStatus(MediaStatus),
-    #[error("Unknown Media Status {0:?}")]
-    UnknownStatus(ffi::media_status_t),
+impl fmt::Display for MediaError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
+
+impl std::error::Error for MediaError {}
 
 impl MediaError {
     /// Returns [`Ok`] on [`ffi::media_status_t::AMEDIA_OK`], [`Err`] otherwise (including positive
@@ -60,40 +63,10 @@ impl MediaError {
     ///
     /// Note that some known error codes (currently only for `AMediaCodec`) are positive.
     pub(crate) fn from_status(status: ffi::media_status_t) -> Result<()> {
-        use MediaStatus::*;
-        Err(Self::MediaStatus(match status {
-            ffi::media_status_t::AMEDIA_OK => return Ok(()),
-            ffi::media_status_t::AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE => {
-                CodecErrorInsufficientResource
-            }
-            ffi::media_status_t::AMEDIACODEC_ERROR_RECLAIMED => CodecErrorReclaimed,
-            ffi::media_status_t::AMEDIA_ERROR_UNKNOWN => ErrorUnknown,
-            ffi::media_status_t::AMEDIA_ERROR_MALFORMED => ErrorMalformed,
-            ffi::media_status_t::AMEDIA_ERROR_UNSUPPORTED => ErrorUnsupported,
-            ffi::media_status_t::AMEDIA_ERROR_INVALID_OBJECT => ErrorInvalidObject,
-            ffi::media_status_t::AMEDIA_ERROR_INVALID_PARAMETER => ErrorInvalidParameter,
-            ffi::media_status_t::AMEDIA_ERROR_INVALID_OPERATION => ErrorInvalidOperation,
-            ffi::media_status_t::AMEDIA_ERROR_END_OF_STREAM => ErrorEndOfStream,
-            ffi::media_status_t::AMEDIA_ERROR_IO => ErrorIo,
-            ffi::media_status_t::AMEDIA_ERROR_WOULD_BLOCK => ErrorWouldBlock,
-            ffi::media_status_t::AMEDIA_DRM_ERROR_BASE => DrmErrorBase,
-            ffi::media_status_t::AMEDIA_DRM_NOT_PROVISIONED => DrmNotProvisioned,
-            ffi::media_status_t::AMEDIA_DRM_RESOURCE_BUSY => DrmResourceBusy,
-            ffi::media_status_t::AMEDIA_DRM_DEVICE_REVOKED => DrmDeviceRevoked,
-            ffi::media_status_t::AMEDIA_DRM_SHORT_BUFFER => DrmShortBuffer,
-            ffi::media_status_t::AMEDIA_DRM_SESSION_NOT_OPENED => DrmSessionNotOpened,
-            ffi::media_status_t::AMEDIA_DRM_TAMPER_DETECTED => DrmTamperDetected,
-            ffi::media_status_t::AMEDIA_DRM_VERIFY_FAILED => DrmVerifyFailed,
-            ffi::media_status_t::AMEDIA_DRM_NEED_KEY => DrmNeedKey,
-            ffi::media_status_t::AMEDIA_DRM_LICENSE_EXPIRED => DrmLicenseExpired,
-            ffi::media_status_t::AMEDIA_IMGREADER_ERROR_BASE => ImgreaderErrorBase,
-            ffi::media_status_t::AMEDIA_IMGREADER_NO_BUFFER_AVAILABLE => ImgreaderNoBufferAvailable,
-            ffi::media_status_t::AMEDIA_IMGREADER_MAX_IMAGES_ACQUIRED => ImgreaderMaxImagesAcquired,
-            ffi::media_status_t::AMEDIA_IMGREADER_CANNOT_LOCK_IMAGE => ImgreaderCannotLockImage,
-            ffi::media_status_t::AMEDIA_IMGREADER_CANNOT_UNLOCK_IMAGE => ImgreaderCannotUnlockImage,
-            ffi::media_status_t::AMEDIA_IMGREADER_IMAGE_NOT_LOCKED => ImgreaderImageNotLocked,
-            _ => return Err(MediaError::UnknownStatus(status)),
-        }))
+        match status {
+            ffi::media_status_t::AMEDIA_OK => Ok(()),
+            x => Err(Self::from(x.0)),
+        }
     }
 
     /// Returns the original value in [`Ok`] if it is not negative, [`Err`] otherwise.
@@ -106,12 +79,9 @@ impl MediaError {
         if v >= 0 {
             Ok(value)
         } else {
-            Err(Self::from_status(ffi::media_status_t(
-                v.try_into().expect("Error code out of bounds"),
+            Err(Self::from(
+                i32::try_from(v).expect("Error code out of bounds"),
             ))
-            // This panic should be unreachable: the only case where Ok is returned is in
-            // AMEDIA_OK=0 whose value is already handled above.
-            .unwrap_err())
         }
     }
 }

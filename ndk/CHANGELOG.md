@@ -12,7 +12,7 @@
 - bitmap: Add `try_format()` to `AndroidBitmapInfo` to handle unexpected formats without panicking. (#395)
 - Add `Font` bindings. (#397)
 - **Breaking:** Upgrade `num_enum` crate from `0.5.1` to `0.7`. (#398, #419)
-- **Breaking:** Renamed and moved "`media`" error types and helpers to a new `media_error` module. (#399)
+- **Breaking:** Renamed, moved and flattened "`media`" error types and helpers to a new `media_error` module. (#399, #432)
 - **Breaking:** media_codec: Wrap common dequeued-buffer status codes in enum. (#401)
 - **Breaking:** media_codec: Return `MaybeUninit` bytes in `buffer_mut()`. (#403)
 - native_window: Add `lock()` to blit raw pixel data. (#404)
