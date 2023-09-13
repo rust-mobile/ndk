@@ -11,9 +11,10 @@
 
 use bitflags::bitflags;
 use std::mem::ManuallyDrop;
-use std::os::raw::c_void;
-// TODO: Import from std::os::fd::{} since Rust 1.66
-use std::os::unix::io::{AsRawFd, BorrowedFd, RawFd};
+use std::os::{
+    fd::{AsRawFd, BorrowedFd, RawFd},
+    raw::c_void,
+};
 use std::ptr;
 use std::time::Duration;
 use thiserror::Error;
