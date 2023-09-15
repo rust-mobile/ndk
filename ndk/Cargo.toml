@@ -13,7 +13,7 @@ repository = "https://github.com/rust-mobile/ndk"
 rust-version = "1.66"
 
 [features]
-all = ["audio", "bitmap","media", "api-level-30"]
+all = ["audio", "bitmap","media", "api-level-31"]
 
 audio = ["ffi/audio", "api-level-26"]
 bitmap = ["ffi/bitmap"]
