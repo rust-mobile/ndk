@@ -81,7 +81,7 @@ impl NativeWindow {
     pub fn format(&self) -> HardwareBufferFormat {
         let value = unsafe { ffi::ANativeWindow_getFormat(self.ptr.as_ptr()) };
         let value = u32::try_from(value).unwrap();
-        HardwareBufferFormat::from(ffi::AHardwareBuffer_Format(value))
+        value.into()
     }
 
     /// Change the format and size of the window buffers.
@@ -99,9 +99,13 @@ impl NativeWindow {
         height: i32,
         format: Option<HardwareBufferFormat>,
     ) -> Result<()> {
-        let format = format.map_or(0, |f| ffi::AHardwareBuffer_Format::from(f).0);
+        let format = format.map_or(0, |f| {
+            u32::from(f)
+                .try_into()
+                .expect("i32 overflow in set_buffers_geometry")
+        });
         let status = unsafe {
-            ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format as i32)
+            ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format)
         };
         status_to_io_result(status)
     }
@@ -179,7 +183,7 @@ impl<'a> NativeWindowBufferLockGuard<'a> {
     /// The format of the buffer. One of [`HardwareBufferFormat`].
     pub fn format(&self) -> HardwareBufferFormat {
         let format = u32::try_from(self.buffer.format).unwrap();
-        HardwareBufferFormat::from(ffi::AHardwareBuffer_Format(format))
+        format.into()
     }
 
     /// The actual bits.

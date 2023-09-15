@@ -16,8 +16,7 @@ use std::{
 };
 
 #[cfg(feature = "api-level-26")]
-// TODO: Import from std::os::fd::{} since Rust 1.66
-use std::os::unix::io::{FromRawFd, IntoRawFd, OwnedFd};
+use std::os::fd::{FromRawFd, IntoRawFd, OwnedFd};
 
 #[cfg(feature = "api-level-26")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};

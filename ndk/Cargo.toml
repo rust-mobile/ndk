@@ -1,7 +1,7 @@
 [package]
 name = "ndk"
 version = "0.8.0-beta.0"
-authors = ["The Rust Windowing contributors"]
+authors = ["The Rust Mobile contributors"]
 edition = "2021"
 description = "Safe Rust bindings to the Android NDK"
 license = "MIT OR Apache-2.0"
@@ -10,7 +10,7 @@ readme = "../README.md"
 documentation = "https://docs.rs/ndk"
 homepage = "https://github.com/rust-mobile/ndk"
 repository = "https://github.com/rust-mobile/ndk"
-rust-version = "1.64"
+rust-version = "1.66"
 
 [features]
 all = ["audio", "bitmap","media", "api-level-30"]

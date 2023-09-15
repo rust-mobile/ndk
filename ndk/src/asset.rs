@@ -4,11 +4,12 @@
 //! [`AAssetDir`]: https://developer.android.com/ndk/reference/group/asset#aassetdir
 //! [`AAssetManager`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
 
-use std::ffi::{CStr, CString};
-use std::io;
-// TODO: Import from std::os::fd::{} since Rust 1.66
-use std::os::unix::io::{FromRawFd, OwnedFd};
-use std::ptr::NonNull;
+use std::{
+    ffi::{CStr, CString},
+    io,
+    os::fd::{FromRawFd, OwnedFd},
+    ptr::NonNull,
+};
 
 /// A native [`AAssetManager *`]
 ///

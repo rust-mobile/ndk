@@ -5,7 +5,7 @@
 - event: Add `tool_type` getter for `Pointer`. (#323)
 - input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
 - asset: Use entire asset length when mapping buffer. (#387)
-- Bump MSRV to 1.64 for `raw-window-handle 0.5.1`. (#388)
+- Bump MSRV to 1.66 for `raw-window-handle 0.5.1`, `num_enum`'s `catch_all` with arbitrary enum discriminants. (#388,#431)
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)

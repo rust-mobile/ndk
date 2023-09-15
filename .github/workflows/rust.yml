@@ -38,12 +38,12 @@ jobs:
         run: cargo check -p ndk-sys --all-targets --all-features --target aarch64-linux-android
 
   check_msrv:
-    name: Check overall MSRV (1.64.0)
+    name: Check overall MSRV (1.66.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
-      - uses: dtolnay/rust-toolchain@1.64.0
+      - uses: dtolnay/rust-toolchain@1.66.0
         with:
           target: aarch64-linux-android
 

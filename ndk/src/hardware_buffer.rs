@@ -13,9 +13,8 @@ use std::{
     mem::MaybeUninit,
     ops::Deref,
     os::{
+        fd::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
         raw::c_void,
-        // TODO: Import from std::os::fd::{} since Rust 1.66
-        unix::io::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
     },
     ptr::NonNull,
 };
@@ -211,7 +210,7 @@ impl HardwareBuffer {
             width: desc.width,
             height: desc.height,
             layers: desc.layers,
-            format: ffi::AHardwareBuffer_Format(desc.format).into(),
+            format: desc.format.into(),
             usage: HardwareBufferUsage(ffi::AHardwareBuffer_UsageFlags(desc.usage)),
             stride: desc.stride,
         }
@@ -497,7 +496,7 @@ impl HardwareBufferDesc {
             width: self.width,
             height: self.height,
             layers: self.layers,
-            format: ffi::AHardwareBuffer_Format::from(self.format).0,
+            format: self.format.into(),
             usage: self.usage.0 .0,
             stride: self.stride,
             rfu0: 0,

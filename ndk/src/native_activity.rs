@@ -219,7 +219,9 @@ impl NativeActivity {
         unsafe {
             ffi::ANativeActivity_setWindowFormat(
                 self.ptr.as_ptr(),
-                ffi::AHardwareBuffer_Format::from(format).0 as i32,
+                u32::from(format)
+                    .try_into()
+                    .expect("i32 overflow in set_window_format()"),
             )
         }
     }
