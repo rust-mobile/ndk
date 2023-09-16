@@ -4,7 +4,7 @@
 //! [`AImage`]: https://developer.android.com/ndk/reference/group/media#aimage
 #![cfg(feature = "api-level-24")]
 
-use crate::media_error::{construct, construct_never_null, MediaError, MediaStatus, Result};
+use crate::media_error::{construct, construct_never_null, MediaError, Result};
 use crate::native_window::NativeWindow;
 use crate::utils::abort_on_panic;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
@@ -208,7 +208,7 @@ impl ImageReader {
 
         match res {
             Ok(inner) => Ok(Some(Image { inner })),
-            Err(MediaError::MediaStatus(MediaStatus::ImgreaderNoBufferAvailable)) => Ok(None),
+            Err(MediaError::ImgreaderNoBufferAvailable) => Ok(None),
             Err(e) => Err(e),
         }
     }
@@ -240,7 +240,7 @@ impl ImageReader {
             ffi::AImageReader_acquireLatestImage(self.as_ptr(), res)
         });
 
-        if let Err(MediaError::MediaStatus(MediaStatus::ImgreaderNoBufferAvailable)) = res {
+        if let Err(MediaError::ImgreaderNoBufferAvailable) = res {
             return Ok(None);
         }
 
