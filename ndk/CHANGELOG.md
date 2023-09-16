@@ -18,15 +18,16 @@
 - native_window: Add `lock()` to blit raw pixel data. (#404)
 - hardware_buffer_format: Add `YCbCr_P010` and `R8_UNORM` variants. (#405)
 - **Breaking:** hardware_buffer_format: Add catch-all variant. (#407)
-- ndk/asset: Add missing `is_allocated()` and `open_file_descriptor()` methods. (#409)
+- asset: Add missing `is_allocated()` and `open_file_descriptor()` methods. (#409)
 - **Breaking:** media_codec: Add support for asynchronous notification callbacks. (#410)
 - Add panic guards to callbacks. (#412)
 - looper: Add `remove_fd()` to unregister events/callbacks for a file descriptor. (#416)
 - **Breaking:** Use `BorrowedFd` and `OwnedFd` to clarify possible ownership transitions. (#417)
 - **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
 - **Breaking:** bitmap: Provide detailed implementation for `AndroidBitmapInfoFlags`. (#424)
-- ndk/native_window: Add `set_buffers_transform()`, `try_allocate_buffers()` and `set_frame_rate*()`. (#425)
+- native_window: Add `set_buffers_transform()`, `try_allocate_buffers()` and `set_frame_rate*()`. (#425)
 - hardware_buffer: Add `id()` to retrieve a system-wide unique identifier for a `HardwareBuffer`. (#428)
+- **Breaking:** bitmap: Strip `Android` prefix from structs and enums, and `Bitmap` from `Result`. (#430)
 
 # 0.7.0 (2022-07-24)
 
