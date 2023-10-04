@@ -5,6 +5,7 @@
 - **Breaking:** Regenerate against NDK `25.2.9519653` with `rust-bindgen 0.66.0`. (#324, #370)
 - Add `font`, `font_matcher`, `system_fonts` bindings. (#397)
 - Add `sync` feature for linking against `libsync.so`. (#423)
+- **Breaking:** Bump `jni-sys` dependency to 0.4. (#433)
 
 # 0.4.1 (2022-11-23)
 

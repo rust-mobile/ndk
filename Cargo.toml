@@ -4,3 +4,6 @@ members = [
     "ndk",
     "ndk-sys",
 ]
+
+[patch.crates-io]
+jni = { git = "https://github.com/jni-rs/jni-rs" }
