@@ -2,11 +2,11 @@
 //!
 //! [`ANativeWindow`]: https://developer.android.com/ndk/reference/group/a-native-window#anativewindow
 
-use crate::utils::status_to_io_result;
-
-pub use super::hardware_buffer_format::HardwareBufferFormat;
-use jni_sys::{jobject, JNIEnv};
 use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
+
+use jni_sys::{jobject, JNIEnv};
+
+use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
 
 pub type Rect = ffi::ARect;
 
