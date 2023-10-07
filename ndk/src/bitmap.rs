@@ -90,7 +90,7 @@ impl Bitmap {
 
     /// Fills out and returns the [`BitmapInfo`] struct for the given Java bitmap object.
     #[doc(alias = "AndroidBitmap_getInfo")]
-    pub fn get_info(&self) -> Result<BitmapInfo> {
+    pub fn info(&self) -> Result<BitmapInfo> {
         let inner =
             construct(|res| unsafe { ffi::AndroidBitmap_getInfo(self.env, self.inner, res) })?;
 
@@ -124,7 +124,7 @@ impl Bitmap {
     /// Client must not modify it while a [`Bitmap`] is wrapping it.
     #[cfg(feature = "api-level-30")]
     #[doc(alias = "AndroidBitmap_getHardwareBuffer")]
-    pub fn get_hardware_buffer(&self) -> Result<HardwareBufferRef> {
+    pub fn hardware_buffer(&self) -> Result<HardwareBufferRef> {
         unsafe {
             let result =
                 construct(|res| ffi::AndroidBitmap_getHardwareBuffer(self.env, self.inner, res))?;
@@ -190,7 +190,7 @@ impl BitmapInfoFlags {
 
     /// Returns [`true`] when [`ffi::ANDROID_BITMAP_FLAGS_IS_HARDWARE`] is set, meaning this
     /// [`Bitmap`] uses "HARDWARE Config" and its [`HardwareBufferRef`] can be retrieved via
-    /// [`Bitmap::get_hardware_buffer()`].
+    /// [`Bitmap::hardware_buffer()`].
     #[doc(alias = "ANDROID_BITMAP_FLAGS_IS_HARDWARE")]
     pub fn is_hardware(self) -> bool {
         // This constant is defined in a separate anonymous enum which bindgen treats as i32.
