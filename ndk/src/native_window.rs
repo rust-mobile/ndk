@@ -6,8 +6,7 @@ use crate::utils::status_to_io_result;
 
 pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
-use raw_window_handle::{AndroidNdkWindowHandle, HasRawWindowHandle, RawWindowHandle};
-use std::{ffi::c_void, io::Result, mem::MaybeUninit, ptr::NonNull};
+use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
 
 pub type Rect = ffi::ARect;
 
@@ -39,11 +38,34 @@ impl Clone for NativeWindow {
     }
 }
 
-unsafe impl HasRawWindowHandle for NativeWindow {
-    fn raw_window_handle(&self) -> RawWindowHandle {
-        let mut handle = AndroidNdkWindowHandle::empty();
-        handle.a_native_window = self.ptr.as_ptr() as *mut c_void;
-        RawWindowHandle::AndroidNdk(handle)
+#[cfg(feature = "rwh_04")]
+unsafe impl rwh_04::HasRawWindowHandle for NativeWindow {
+    fn raw_window_handle(&self) -> rwh_04::RawWindowHandle {
+        let mut handle = rwh_04::AndroidNdkHandle::empty();
+        handle.a_native_window = self.ptr.as_ptr().cast();
+        rwh_04::RawWindowHandle::AndroidNdk(handle)
+    }
+}
+
+#[cfg(feature = "rwh_05")]
+unsafe impl rwh_05::HasRawWindowHandle for NativeWindow {
+    fn raw_window_handle(&self) -> rwh_05::RawWindowHandle {
+        let mut handle = rwh_05::AndroidNdkWindowHandle::empty();
+        handle.a_native_window = self.ptr.as_ptr().cast();
+        rwh_05::RawWindowHandle::AndroidNdk(handle)
+    }
+}
+
+#[cfg(feature = "rwh_06")]
+impl rwh_06::HasWindowHandle for NativeWindow {
+    fn window_handle(&self) -> Result<rwh_06::WindowHandle<'_>, rwh_06::HandleError> {
+        let handle = rwh_06::AndroidNdkWindowHandle::new(self.ptr.cast());
+        let handle = rwh_06::RawWindowHandle::AndroidNdk(handle);
+        // SAFETY: All fields of the "raw" `AndroidNdkWindowHandle` struct are filled out.  The
+        // returned pointer is also kept valid by `NativeWindow` (until `Drop`), which is lifetime-
+        // borrowed in the returned `WindowHandle<'_>` and cannot be outlived.  Its value won't
+        // change throughout the lifetime of this `NativeWindow`.
+        Ok(unsafe { rwh_06::WindowHandle::borrow_raw(handle) })
     }
 }
 
@@ -98,7 +120,7 @@ impl NativeWindow {
         width: i32,
         height: i32,
         format: Option<HardwareBufferFormat>,
-    ) -> Result<()> {
+    ) -> io::Result<()> {
         let format = format.map_or(0, |f| {
             u32::from(f)
                 .try_into()
@@ -112,7 +134,7 @@ impl NativeWindow {
 
     /// Set a transform that will be applied to future buffers posted to the window.
     #[cfg(feature = "api-level-26")]
-    pub fn set_buffers_transform(&self, transform: NativeWindowTransform) -> Result<()> {
+    pub fn set_buffers_transform(&self, transform: NativeWindowTransform) -> io::Result<()> {
         let status = unsafe {
             ffi::ANativeWindow_setBuffersTransform(self.ptr.as_ptr(), transform.bits() as i32)
         };
@@ -133,7 +155,7 @@ impl NativeWindow {
         &self,
         frame_rate: f32,
         compatibility: FrameRateCompatibility,
-    ) -> Result<()> {
+    ) -> io::Result<()> {
         let compatibility = (compatibility as u32)
             .try_into()
             .expect("i8 overflow in FrameRateCompatibility");
@@ -180,7 +202,7 @@ impl NativeWindow {
         frame_rate: f32,
         compatibility: FrameRateCompatibility,
         change_frame_rate_strategy: ChangeFrameRateStrategy,
-    ) -> Result<()> {
+    ) -> io::Result<()> {
         let compatibility = (compatibility as u32)
             .try_into()
             .expect("i8 overflow in FrameRateCompatibility");
@@ -235,7 +257,10 @@ impl NativeWindow {
     ///
     /// Optionally pass the region you intend to draw into `dirty_bounds`.  When this function
     /// returns it is updated (commonly enlarged) with the actual area the caller needs to redraw.
-    pub fn lock(&self, dirty_bounds: Option<&mut Rect>) -> Result<NativeWindowBufferLockGuard<'_>> {
+    pub fn lock(
+        &self,
+        dirty_bounds: Option<&mut Rect>,
+    ) -> io::Result<NativeWindowBufferLockGuard<'_>> {
         let dirty_bounds = match dirty_bounds {
             Some(dirty_bounds) => dirty_bounds,
             None => std::ptr::null_mut(),
