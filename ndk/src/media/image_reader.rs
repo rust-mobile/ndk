@@ -118,6 +118,7 @@ impl ImageReader {
         Ok(Self::from_ptr(inner))
     }
 
+    #[doc(alias = "AImageReader_setImageListener")]
     pub fn set_image_listener(&mut self, listener: ImageListener) -> Result<()> {
         let mut boxed = Box::new(listener);
         let ptr: *mut ImageListener = &mut *boxed;
@@ -145,6 +146,7 @@ impl ImageReader {
     }
 
     #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AImageReader_setBufferRemovedListener")]
     pub fn set_buffer_removed_listener(&mut self, listener: BufferRemovedListener) -> Result<()> {
         let mut boxed = Box::new(listener);
         let ptr: *mut BufferRemovedListener = &mut *boxed;
@@ -177,30 +179,36 @@ impl ImageReader {
     /// Get a [`NativeWindow`] that can be used to produce [`Image`]s for this [`ImageReader`].
     ///
     /// <https://developer.android.com/ndk/reference/group/media#aimagereader_getwindow>
-    pub fn get_window(&self) -> Result<NativeWindow> {
+    #[doc(alias = "AImageReader_getWindow")]
+    pub fn window(&self) -> Result<NativeWindow> {
         unsafe {
             let ptr = construct_never_null(|res| ffi::AImageReader_getWindow(self.as_ptr(), res))?;
             Ok(NativeWindow::clone_from_ptr(ptr))
         }
     }
 
-    pub fn get_width(&self) -> Result<i32> {
+    #[doc(alias = "AImageReader_getWidth")]
+    pub fn width(&self) -> Result<i32> {
         construct(|res| unsafe { ffi::AImageReader_getWidth(self.as_ptr(), res) })
     }
 
-    pub fn get_height(&self) -> Result<i32> {
+    #[doc(alias = "AImageReader_getHeight")]
+    pub fn height(&self) -> Result<i32> {
         construct(|res| unsafe { ffi::AImageReader_getHeight(self.as_ptr(), res) })
     }
 
-    pub fn get_format(&self) -> Result<ImageFormat> {
+    #[doc(alias = "AImageReader_getFormat")]
+    pub fn format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImageReader_getFormat(self.as_ptr(), res) })?;
         Ok((format as u32).try_into().unwrap())
     }
 
-    pub fn get_max_images(&self) -> Result<i32> {
+    #[doc(alias = "AImageReader_getMaxImages")]
+    pub fn max_images(&self) -> Result<i32> {
         construct(|res| unsafe { ffi::AImageReader_getMaxImages(self.as_ptr(), res) })
     }
 
+    #[doc(alias = "AImageReader_acquireNextImage")]
     pub fn acquire_next_image(&self) -> Result<Option<Image>> {
         let res = construct_never_null(|res| unsafe {
             ffi::AImageReader_acquireNextImage(self.as_ptr(), res)
@@ -221,6 +229,7 @@ impl ImageReader {
     ///
     /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirenextimageasync>
     #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AImageReader_acquireNextImageAsync")]
     pub unsafe fn acquire_next_image_async(&self) -> Result<(Image, Option<OwnedFd>)> {
         let mut fence = MaybeUninit::uninit();
         let inner = construct_never_null(|res| {
@@ -235,6 +244,7 @@ impl ImageReader {
         })
     }
 
+    #[doc(alias = "AImageReader_acquireLatestImage")]
     pub fn acquire_latest_image(&self) -> Result<Option<Image>> {
         let res = construct_never_null(|res| unsafe {
             ffi::AImageReader_acquireLatestImage(self.as_ptr(), res)
@@ -255,6 +265,7 @@ impl ImageReader {
     ///
     /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirelatestimageasync>
     #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AImageReader_acquireLatestImageAsync")]
     pub fn acquire_latest_image_async(&self) -> Result<(Image, Option<OwnedFd>)> {
         let mut fence = MaybeUninit::uninit();
         let inner = construct_never_null(|res| unsafe {
@@ -271,6 +282,7 @@ impl ImageReader {
 }
 
 impl Drop for ImageReader {
+    #[doc(alias = "AImageReader_delete")]
     fn drop(&mut self) {
         unsafe { ffi::AImageReader_delete(self.as_ptr()) };
     }
@@ -280,10 +292,12 @@ impl Drop for ImageReader {
 ///
 /// [`AImage *`]: https://developer.android.com/ndk/reference/group/media#aimage
 #[derive(Debug)]
+#[doc(alias = "AImage")]
 pub struct Image {
     inner: NonNull<ffi::AImage>,
 }
 
+#[doc(alias = "AImageCropRect")]
 pub type CropRect = ffi::AImageCropRect;
 
 impl Image {
@@ -291,7 +305,8 @@ impl Image {
         self.inner.as_ptr()
     }
 
-    pub fn get_plane_data(&self, plane_idx: i32) -> Result<&[u8]> {
+    #[doc(alias = "AImage_getPlaneData")]
+    pub fn plane_data(&self, plane_idx: i32) -> Result<&[u8]> {
         let mut result_ptr = MaybeUninit::uninit();
         let mut result_len = MaybeUninit::uninit();
         let status = unsafe {
@@ -308,36 +323,44 @@ impl Image {
         })
     }
 
-    pub fn get_plane_pixel_stride(&self, plane_idx: i32) -> Result<i32> {
+    #[doc(alias = "AImage_getPlanePixelStride")]
+    pub fn plane_pixel_stride(&self, plane_idx: i32) -> Result<i32> {
         construct(|res| unsafe { ffi::AImage_getPlanePixelStride(self.as_ptr(), plane_idx, res) })
     }
 
-    pub fn get_plane_row_stride(&self, plane_idx: i32) -> Result<i32> {
+    #[doc(alias = "AImage_getPlaneRowStride")]
+    pub fn plane_row_stride(&self, plane_idx: i32) -> Result<i32> {
         construct(|res| unsafe { ffi::AImage_getPlaneRowStride(self.as_ptr(), plane_idx, res) })
     }
 
-    pub fn get_crop_rect(&self) -> Result<CropRect> {
+    #[doc(alias = "AImage_getCropRect")]
+    pub fn crop_rect(&self) -> Result<CropRect> {
         construct(|res| unsafe { ffi::AImage_getCropRect(self.as_ptr(), res) })
     }
 
-    pub fn get_width(&self) -> Result<i32> {
+    #[doc(alias = "AImage_getWidth")]
+    pub fn width(&self) -> Result<i32> {
         construct(|res| unsafe { ffi::AImage_getWidth(self.as_ptr(), res) })
     }
 
-    pub fn get_height(&self) -> Result<i32> {
+    #[doc(alias = "AImage_getHeight")]
+    pub fn height(&self) -> Result<i32> {
         construct(|res| unsafe { ffi::AImage_getHeight(self.as_ptr(), res) })
     }
 
-    pub fn get_format(&self) -> Result<ImageFormat> {
+    #[doc(alias = "AImage_getFormat")]
+    pub fn format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImage_getFormat(self.as_ptr(), res) })?;
         Ok((format as u32).try_into().unwrap())
     }
 
-    pub fn get_timestamp(&self) -> Result<i64> {
+    #[doc(alias = "AImage_getTimestamp")]
+    pub fn timestamp(&self) -> Result<i64> {
         construct(|res| unsafe { ffi::AImage_getTimestamp(self.as_ptr(), res) })
     }
 
-    pub fn get_number_of_planes(&self) -> Result<i32> {
+    #[doc(alias = "AImage_getNumberOfPlanes")]
+    pub fn number_of_planes(&self) -> Result<i32> {
         construct(|res| unsafe { ffi::AImage_getNumberOfPlanes(self.as_ptr(), res) })
     }
 
@@ -345,7 +368,7 @@ impl Image {
     ///
     /// Note that no reference on the returned [`HardwareBuffer`] handle is acquired automatically.
     /// Once the [`Image`] or the parent [`ImageReader`] is deleted, the [`HardwareBuffer`] handle
-    /// from previous [`Image::get_hardware_buffer()`] becomes invalid.
+    /// from previous [`Image::hardware_buffer()`] becomes invalid.
     ///
     /// If the caller ever needs to hold on a reference to the [`HardwareBuffer`] handle after the
     /// [`Image`] or the parent [`ImageReader`] is deleted, it must call
@@ -356,7 +379,8 @@ impl Image {
     /// [`ImageReader::set_buffer_removed_listener()`] to be notified when the buffer is no longer
     /// used by [`ImageReader`].
     #[cfg(feature = "api-level-26")]
-    pub fn get_hardware_buffer(&self) -> Result<HardwareBuffer> {
+    #[doc(alias = "AImage_getHardwareBuffer")]
+    pub fn hardware_buffer(&self) -> Result<HardwareBuffer> {
         unsafe {
             let ptr =
                 construct_never_null(|res| ffi::AImage_getHardwareBuffer(self.as_ptr(), res))?;
@@ -365,6 +389,7 @@ impl Image {
     }
 
     #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AImage_deleteAsync")]
     pub fn delete_async(self, release_fence_fd: OwnedFd) {
         unsafe { ffi::AImage_deleteAsync(self.as_ptr(), release_fence_fd.into_raw_fd()) };
         std::mem::forget(self);
@@ -372,6 +397,7 @@ impl Image {
 }
 
 impl Drop for Image {
+    #[doc(alias = "AImage_delete")]
     fn drop(&mut self) {
         unsafe { ffi::AImage_delete(self.as_ptr()) };
     }
