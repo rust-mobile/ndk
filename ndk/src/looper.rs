@@ -33,12 +33,37 @@ pub struct ThreadLooper {
 
 bitflags! {
     /// Flags for file descriptor events that a looper can monitor.
+    ///
+    /// These flag bits can be combined to monitor multiple events at once.
     #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
     pub struct FdEvent: u32 {
+        /// The file descriptor is available for read operations.
+        #[doc(alias = "ALOOPER_EVENT_INPUT")]
         const INPUT = ffi::ALOOPER_EVENT_INPUT;
+        /// The file descriptor is available for write operations.
+        #[doc(alias = "ALOOPER_EVENT_OUTPUT")]
         const OUTPUT = ffi::ALOOPER_EVENT_OUTPUT;
+        /// The file descriptor has encountered an error condition.
+        ///
+        /// The looper always sends notifications about errors; it is not necessary to specify this
+        /// event flag in the requested event set.
+        #[doc(alias = "ALOOPER_EVENT_ERROR")]
         const ERROR = ffi::ALOOPER_EVENT_ERROR;
+        /// The file descriptor was hung up.
+        ///
+        /// For example, indicates that the remote end of a pipe or socket was closed.
+        ///
+        /// The looper always sends notifications about hangups; it is not necessary to specify this
+        /// event flag in the requested event set.
+        #[doc(alias = "ALOOPER_EVENT_HANGUP")]
         const HANGUP = ffi::ALOOPER_EVENT_HANGUP;
+        /// The file descriptor is invalid.
+        ///
+        /// For example, the file descriptor was closed prematurely.
+        ///
+        /// The looper always sends notifications about invalid file descriptors; it is not
+        /// necessary to specify this event flag in the requested event set.
+        #[doc(alias = "ALOOPER_EVENT_INVALID")]
         const INVALID = ffi::ALOOPER_EVENT_INVALID;
     }
 }
@@ -301,20 +326,24 @@ impl ForeignLooper {
     /// The caller should guarantee that this file descriptor stays open until it is removed via
     /// [`remove_fd()`][Self::remove_fd()] or by returning [`false`] from the callback, and for
     /// however long the caller wishes to use this file descriptor inside and after the callback.
-    pub fn add_fd_with_callback<F: FnMut(BorrowedFd<'_>) -> bool>(
+    #[doc(alias = "ALooper_addFd")]
+    pub fn add_fd_with_callback<F: FnMut(BorrowedFd<'_>, FdEvent) -> bool>(
         &self,
         fd: BorrowedFd<'_>,
         events: FdEvent,
         callback: F,
     ) -> Result<(), LooperError> {
-        extern "C" fn cb_handler<F: FnMut(BorrowedFd<'_>) -> bool>(
+        extern "C" fn cb_handler<F: FnMut(BorrowedFd<'_>, FdEvent) -> bool>(
             fd: RawFd,
-            _events: i32,
+            events: i32,
             data: *mut c_void,
         ) -> i32 {
             abort_on_panic(|| unsafe {
                 let mut cb = ManuallyDrop::new(Box::<F>::from_raw(data as *mut _));
-                let keep_registered = cb(BorrowedFd::borrow_raw(fd));
+                let events = FdEvent::from_bits_retain(
+                    events.try_into().expect("Unexpected sign bit in `events`"),
+                );
+                let keep_registered = cb(BorrowedFd::borrow_raw(fd), events);
                 if !keep_registered {
                     ManuallyDrop::into_inner(cb);
                 }
