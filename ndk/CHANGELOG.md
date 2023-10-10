@@ -30,6 +30,7 @@
 - **Breaking:** bitmap: Strip `Android` prefix from structs and enums, and `Bitmap` from `Result`. (#430)
 - **Breaking:** `raw-window-handle 0.5` support is now behind an _optional_ `rwh_05` crate feature and `raw-window-handle` `0.4` and `0.6` support is provided via the new `rwh_04` and (default-enabled) `rwh_06` crate features. (#434)
 - **Breaking:** looper: Provide `event` value to file descriptor poll callback. (#435)
+- **Breaking:** `HardwareBufferFormat` is no longer exported from `hardware_buffer` and `native_window`, and can only be reached through the `hardware_buffer_format` module. (#436)
 
 # 0.7.0 (2022-07-24)
 

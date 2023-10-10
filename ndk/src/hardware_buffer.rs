@@ -4,10 +4,6 @@
 
 #![cfg(feature = "api-level-26")]
 
-use crate::utils::status_to_io_result;
-
-pub use super::hardware_buffer_format::HardwareBufferFormat;
-use jni_sys::{jobject, JNIEnv};
 use std::{
     io::Result,
     mem::MaybeUninit,
@@ -18,6 +14,10 @@ use std::{
     },
     ptr::NonNull,
 };
+
+use jni_sys::{jobject, JNIEnv};
+
+use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct HardwareBufferUsage(pub ffi::AHardwareBuffer_UsageFlags);
