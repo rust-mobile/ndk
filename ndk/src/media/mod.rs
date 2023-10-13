@@ -6,4 +6,5 @@
 pub mod image_reader;
 pub mod media_codec;
 pub mod media_codec_crypto;
+pub mod media_extractor;
 pub mod media_format;

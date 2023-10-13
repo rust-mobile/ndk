@@ -7,6 +7,7 @@
 use std::{
     ffi::{CStr, CString},
     io,
+    ops::Range,
     os::fd::{FromRawFd, OwnedFd},
     ptr::NonNull,
 };
@@ -320,4 +321,12 @@ pub struct OpenedFileDescriptor {
     pub fd: OwnedFd,
     pub offset: usize,
     pub size: usize,
+}
+
+impl OpenedFileDescriptor {
+    /// Returns a range starting at [`OpenedFileDescriptor::offset`] with a length of
+    /// [`OpenedFileDescriptor::size`].
+    pub fn range(&self) -> Range<usize> {
+        self.offset..(self.offset + self.size)
+    }
 }
