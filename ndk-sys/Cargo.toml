@@ -20,6 +20,7 @@ test = []
 audio = []
 bitmap = []
 media = []
+sync = []
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]

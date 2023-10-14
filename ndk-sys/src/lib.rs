@@ -51,3 +51,7 @@ extern "C" {}
 #[cfg(all(feature = "audio", target_os = "android"))]
 #[link(name = "aaudio")]
 extern "C" {}
+
+#[cfg(all(feature = "sync", target_os = "android"))]
+#[link(name = "sync")]
+extern "C" {}
