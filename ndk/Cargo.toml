@@ -1,6 +1,6 @@
 [package]
 name = "ndk"
-version = "0.8.0-beta.0"
+version = "0.8.0"
 authors = ["The Rust Mobile contributors"]
 edition = "2021"
 description = "Safe Rust bindings to the Android NDK"
@@ -50,7 +50,7 @@ optional = true
 [dependencies.ffi]
 package = "ndk-sys"
 path = "../ndk-sys"
-version = "0.5.0-beta.0"
+version = "0.5.0"
 
 [dev-dependencies]
 # Only for use in documentation and doc-tests

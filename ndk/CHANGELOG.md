@@ -1,6 +1,6 @@
 # Unreleased
 
-# 0.8.0-beta.0 (2023-08-15)
+# 0.8.0 (2023-10-15)
 
 - event: Add `tool_type` getter for `Pointer`. (#323)
 - input_queue: Allow any non-zero return code from `pre_dispatch()` again, as per documentation. (#325)
@@ -23,7 +23,7 @@
 - Add panic guards to callbacks. (#412)
 - looper: Add `remove_fd()` to unregister events/callbacks for a file descriptor. (#416)
 - **Breaking:** Use `BorrowedFd` and `OwnedFd` to clarify possible ownership transitions. (#417)
-- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-beta0-2023-08-15). (#420)
+- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-2023-10-15). (#420)
 - Add bindings for `sync.h`. (#423)
 - **Breaking:** bitmap: Provide detailed implementation for `AndroidBitmapInfoFlags`. (#424)
 - native_window: Add `set_buffers_transform()`, `try_allocate_buffers()` and `set_frame_rate*()`. (#425)
