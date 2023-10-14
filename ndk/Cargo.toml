@@ -51,6 +51,10 @@ package = "ndk-sys"
 path = "../ndk-sys"
 version = "0.5.0-beta.0"
 
+[dev-dependencies]
+# Only for use in documentation and doc-tests
+libc = "0.2"
+
 [package.metadata.docs.rs]
 features = ["jni", "all"]
 rustdoc-args = ["--cfg", "docsrs"]
