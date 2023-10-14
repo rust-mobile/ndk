@@ -5,8 +5,14 @@
 use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
 
 use jni_sys::{jobject, JNIEnv};
+#[cfg(feature = "api-level-28")]
+use num_enum::{TryFromPrimitive, TryFromPrimitiveError};
+#[cfg(feature = "api-level-28")]
+use thiserror::Error;
 
 use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
+#[cfg(feature = "api-level-28")]
+use crate::data_space::DataSpace;
 
 pub type Rect = ffi::ARect;
 
@@ -139,6 +145,36 @@ impl NativeWindow {
             ffi::ANativeWindow_setBuffersTransform(self.ptr.as_ptr(), transform.bits() as i32)
         };
         status_to_io_result(status)
+    }
+
+    /// All buffers queued after this call will be associated with the dataSpace parameter
+    /// specified.
+    ///
+    /// `data_space` specifies additional information about the buffer. For example, it can be used
+    /// to convey the color space of the image data in the buffer, or it can be used to indicate
+    /// that the buffers contain depth measurement data instead of color images. The default
+    /// dataSpace is `0`, [`DataSpace::Unknown`], unless it has been overridden by the producer.
+    #[cfg(feature = "api-level-28")]
+    #[doc(alias = "ANativeWindow_setBuffersDataSpace")]
+    pub fn set_buffers_data_space(&self, data_space: DataSpace) -> io::Result<()> {
+        let data_space = (data_space as u32)
+            .try_into()
+            .expect("Sign bit should be unused");
+        let status =
+            unsafe { ffi::ANativeWindow_setBuffersDataSpace(self.ptr.as_ptr(), data_space) };
+        status_to_io_result(status)
+    }
+
+    /// Get the dataspace of the buffers in this [`NativeWindow`].
+    #[cfg(feature = "api-level-28")]
+    #[doc(alias = "ANativeWindow_getBuffersDataSpace")]
+    pub fn buffers_data_space(&self) -> Result<DataSpace, GetDataSpaceError> {
+        let status = unsafe { ffi::ANativeWindow_getBuffersDataSpace(self.ptr.as_ptr()) };
+        if status >= 0 {
+            Ok(DataSpace::try_from_primitive(status as u32)?)
+        } else {
+            Err(status_to_io_result(status).unwrap_err().into())
+        }
     }
 
     /// Sets the intended frame rate for this window.
@@ -387,6 +423,15 @@ bitflags::bitflags! {
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_270")]
         const TRANSFORM_ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
     }
+}
+
+#[cfg(feature = "api-level-28")]
+#[derive(Debug, Error)]
+pub enum GetDataSpaceError {
+    #[error(transparent)]
+    IoError(#[from] io::Error),
+    #[error(transparent)]
+    TryFromPrimitiveError(#[from] TryFromPrimitiveError<DataSpace>),
 }
 
 /// Compatibility value for [`NativeWindow::set_frame_rate()`]

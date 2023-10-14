@@ -11,6 +11,8 @@ use num_enum::{IntoPrimitive, TryFromPrimitive, TryFromPrimitiveError};
 use std::mem::MaybeUninit;
 
 #[cfg(feature = "api-level-30")]
+use crate::data_space::DataSpace;
+#[cfg(feature = "api-level-30")]
 use crate::hardware_buffer::HardwareBufferRef;
 
 #[repr(i32)]
@@ -95,6 +97,21 @@ impl Bitmap {
             construct(|res| unsafe { ffi::AndroidBitmap_getInfo(self.env, self.inner, res) })?;
 
         Ok(BitmapInfo { inner })
+    }
+
+    /// Returns the [`DataSpace`] of this [`Bitmap`].
+    ///
+    /// Note that [`DataSpace`] only exposes a few values. This may return [`DataSpace::Unknown`],
+    /// even for Named ColorSpaces, if they have no corresponding [`DataSpace`].
+    #[cfg(feature = "api-level-30")]
+    #[doc(alias = "AndroidBitmap_getDataSpace")]
+    pub fn data_space(&self) -> Result<DataSpace, TryFromPrimitiveError<DataSpace>> {
+        let value = unsafe { ffi::AndroidBitmap_getDataSpace(self.env, self.inner) };
+        DataSpace::try_from_primitive(
+            value
+                .try_into()
+                .expect("AndroidBitmap_getDataSpace returned negative value"),
+        )
     }
 
     /// Attempt to lock the pixel address.
