@@ -35,6 +35,7 @@
 - Add `DataSpace` type and relevant functions on `Bitmap` and `NativeWindow`. (#438)
 - bitmap: Add `Bitmap::compress()` and `Bitmap::compress_raw()` functions. (#440)
 - **Breaking:** Turn `BitmapError` into a `non_exhaustive` `enum`. (#440)
+- **Breaking:** audio: Rename `AudioErrorResult` to `AudioResult` and turn into a `non_exhaustive` `enum`. (#441)
 
 # 0.7.0 (2022-07-24)
 
