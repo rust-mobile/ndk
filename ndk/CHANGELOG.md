@@ -1,5 +1,7 @@
 # Unreleased
 
+- Move `MediaFormat` from `media::media_codec` to its own `media::media_format` module. (#442)
+
 # 0.8.0 (2023-10-15)
 
 - event: Add `tool_type` getter for `Pointer`. (#323)
