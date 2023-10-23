@@ -6,7 +6,7 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Format
         run: cargo fmt --all -- --check
@@ -14,7 +14,7 @@ jobs:
   clippy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -28,7 +28,7 @@ jobs:
     name: Check ndk-sys MSRV (1.60.0)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - uses: dtolnay/rust-toolchain@1.60.0
         with:
@@ -44,7 +44,7 @@ jobs:
     name: Check overall MSRV (1.66.0)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - uses: dtolnay/rust-toolchain@nightly
         if: ${{ matrix.minimal-versions }}
@@ -86,7 +86,7 @@ jobs:
     name: Cross-compile
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
@@ -114,7 +114,7 @@ jobs:
     name: Host-side tests
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Installing Rust ${{ matrix.rust-channel }}
         uses: dtolnay/rust-toolchain@master
@@ -138,7 +138,7 @@ jobs:
     name: Build-test docs
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Installing Rust ${{ matrix.rust-channel }}
         uses: dtolnay/rust-toolchain@master
