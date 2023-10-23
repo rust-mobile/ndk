@@ -38,17 +38,30 @@ jobs:
         run: cargo check -p ndk-sys --all-targets --all-features --target aarch64-linux-android
 
   check_msrv:
+    strategy:
+      matrix:
+        minimal-versions: [true, false]
     name: Check overall MSRV (1.66.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+
+      - uses: dtolnay/rust-toolchain@nightly
+        if: ${{ matrix.minimal-versions }}
+
+      - name: Generate lockfile with minimal dependency versions
+        run: cargo +nightly generate-lockfile -Zminimal-versions
+        if: ${{ matrix.minimal-versions }}
 
       - uses: dtolnay/rust-toolchain@1.66.0
         with:
           target: aarch64-linux-android
 
       - name: cargo check
-        run: cargo check --workspace --all-targets --all-features --target aarch64-linux-android
+        run: >
+          cargo check --workspace --all-targets --all-features --target aarch64-linux-android
+          || (echo "::warning::MSRV test failed for minimal-versions: ${{ matrix.minimal-versions }}"; false)
+        continue-on-error: ${{ !matrix.minimal-versions }}
 
   build:
     strategy:
