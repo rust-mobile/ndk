@@ -17,7 +17,7 @@ jobs:
           - { name: "ndk-sys", target: "armv7-linux-androideabi" }
           - { name: "ndk", target: "armv7-linux-androideabi" }
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
           target: ${{ matrix.crate.target }}
