@@ -1,6 +1,7 @@
 # Unreleased
 
 - Move `MediaFormat` from `media::media_codec` to its own `media::media_format` module. (#442)
+- media_format: Expose `MediaFormat::copy()` and `MediaFormat::clear()` from API level 29. (#449)
 
 # 0.8.0 (2023-10-15)
 
@@ -9,7 +10,7 @@
 - asset: Use entire asset length when mapping buffer. (#387)
 - Bump MSRV to 1.66 for `raw-window-handle 0.5.1`, `num_enum`'s `catch_all` with arbitrary enum discriminants. (#388, #431)
 - Bump optional `jni` dependency for doctest example from `0.19` to `0.21`. (#390)
-- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-TODO). (#370)
+- **Breaking:** Upgrade to [`ndk-sys 0.5.0`](../ndk-sys/CHANGELOG.md#050-2023-10-15). (#370)
 - **Breaking:** Upgrade `bitflags` crate from `1` to `2`. (#394)
 - bitmap: Add `try_format()` to `AndroidBitmapInfo` to handle unexpected formats without panicking. (#395)
 - Add `Font` bindings. (#397)
