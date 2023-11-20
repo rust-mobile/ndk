@@ -224,6 +224,9 @@ impl Bitmap {
     ///   current thread, each time the compressor has compressed more data that is ready to be
     ///   written.  May be called more than once for each call to this method.
     ///
+    /// # Safety
+    /// `pixels` must point to a valid buffer that matches the size, stride and format in `info`.
+    ///
     /// [`compress()`]: Self::compress()
     /// [^1]: <https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/libs/hwui/apex/android_bitmap.cpp;l=275-279;drc=7ba5c2fb3d1e35eb37a9cc522b30ba51f49ea491>
     #[cfg(feature = "api-level-30")]
