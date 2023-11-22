@@ -14,7 +14,6 @@ use crate::media_error::{MediaError, Result};
 /// A native [`AMediaFormat *`]
 ///
 /// [`AMediaFormat *`]: https://developer.android.com/ndk/reference/group/media#amediaformat
-#[derive(Debug)]
 #[doc(alias = "AMediaFormat")]
 pub struct MediaFormat {
     inner: NonNull<ffi::AMediaFormat>,
@@ -26,6 +25,13 @@ impl fmt::Display for MediaFormat {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let c_str = unsafe { CStr::from_ptr(ffi::AMediaFormat_toString(self.as_ptr())) };
         f.write_str(c_str.to_str().unwrap())
+    }
+}
+
+impl fmt::Debug for MediaFormat {
+    #[doc(alias = "AMediaFormat_toString")]
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "MediaFormat({:?}: {})", self.inner, self)
     }
 }
 
