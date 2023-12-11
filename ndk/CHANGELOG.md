@@ -3,6 +3,16 @@
 - Move `MediaFormat` from `media::media_codec` to its own `media::media_format` module. (#442)
 - media_format: Expose `MediaFormat::copy()` and `MediaFormat::clear()` from API level 29. (#449)
 - **Breaking:** media_format: Mark all `fn set_*()` and `fn str()` as taking `self` by `&mut`. (#452)
+- **Breaking:** Require all `dyn Fn*` types to implement `Send` when the FFI implementation invokes them on a separate thread: (#455)
+  - `audio::AudioStreamDataCallback`;
+  - `audio::AudioStreamErrorCallback`;
+  - `media::image_reader::BufferRemovedListener`;
+  - `media::image_reader::ImageListener`;
+  - `media::media_codec::ErrorCallback`;
+  - `media::media_codec::FormatChangedCallback`;
+  - `media::media_codec::InputAvailableCallback`;
+  - `media::media_codec::OutputAvailableCallback`.
+- Drop previous `Box`ed callbacks _after_ registering new ones, instead of before. (#455)
 - input_queue: Add `from_java()` constructor, available since API level 33. (#456)
 - event: Add `from_java()` constructors to `KeyEvent` and `MotionEvent`, available since API level 31. (#456)
 - event: Implement `SourceClass` `bitflag` and provide `Source::class()` getter. (#458)

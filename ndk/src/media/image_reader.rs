@@ -44,10 +44,10 @@ pub enum ImageFormat {
     DEPTH_JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_JPEG.0,
 }
 
-pub type ImageListener = Box<dyn FnMut(&ImageReader)>;
+pub type ImageListener = Box<dyn FnMut(&ImageReader) + Send>;
 
 #[cfg(feature = "api-level-26")]
-pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer)>;
+pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer) + Send>;
 
 /// A native [`AImageReader *`]
 ///
@@ -122,8 +122,6 @@ impl ImageReader {
     pub fn set_image_listener(&mut self, listener: ImageListener) -> Result<()> {
         let mut boxed = Box::new(listener);
         let ptr: *mut ImageListener = &mut *boxed;
-        // keep listener alive until Drop or new listener is assigned
-        self.image_cb = Some(boxed);
 
         unsafe extern "C" fn on_image_available(
             context: *mut c_void,
@@ -131,7 +129,7 @@ impl ImageReader {
         ) {
             abort_on_panic(|| {
                 let reader = ImageReader::from_ptr(NonNull::new_unchecked(reader));
-                let listener: *mut ImageListener = context as *mut _;
+                let listener: *mut ImageListener = context.cast();
                 (*listener)(&reader);
                 std::mem::forget(reader);
             })
@@ -142,6 +140,10 @@ impl ImageReader {
             onImageAvailable: Some(on_image_available),
         };
         let status = unsafe { ffi::AImageReader_setImageListener(self.as_ptr(), &mut listener) };
+
+        // keep listener alive until Drop or new listener is assigned
+        self.image_cb = Some(boxed);
+
         MediaError::from_status(status)
     }
 
@@ -150,8 +152,6 @@ impl ImageReader {
     pub fn set_buffer_removed_listener(&mut self, listener: BufferRemovedListener) -> Result<()> {
         let mut boxed = Box::new(listener);
         let ptr: *mut BufferRemovedListener = &mut *boxed;
-        // keep listener alive until Drop or new listener is assigned
-        self.buffer_removed_cb = Some(boxed);
 
         unsafe extern "C" fn on_buffer_removed(
             context: *mut c_void,
@@ -161,7 +161,7 @@ impl ImageReader {
             abort_on_panic(|| {
                 let reader = ImageReader::from_ptr(NonNull::new_unchecked(reader));
                 let buffer = HardwareBuffer::from_ptr(NonNull::new_unchecked(buffer));
-                let listener: *mut BufferRemovedListener = context as *mut _;
+                let listener: *mut BufferRemovedListener = context.cast();
                 (*listener)(&reader, &buffer);
                 std::mem::forget(reader);
             })
@@ -173,6 +173,10 @@ impl ImageReader {
         };
         let status =
             unsafe { ffi::AImageReader_setBufferRemovedListener(self.as_ptr(), &mut listener) };
+
+        // keep listener alive until Drop or new listener is assigned
+        self.buffer_removed_cb = Some(boxed);
+
         MediaError::from_status(status)
     }
 
