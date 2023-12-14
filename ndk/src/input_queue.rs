@@ -42,10 +42,11 @@ impl InputQueue {
     /// Returns the next available [`InputEvent`] from the queue.
     ///
     /// Returns [`None`] if no event is available.
-    pub fn get_event(&self) -> Result<Option<InputEvent>> {
+    #[doc(alias = "AInputQueue_getEvent")]
+    pub fn event(&self) -> Result<Option<InputEvent>> {
         let mut out_event = ptr::null_mut();
         let status = unsafe { ffi::AInputQueue_getEvent(self.ptr.as_ptr(), &mut out_event) };
-        match status_to_io_result(status, ()) {
+        match status_to_io_result(status) {
             Ok(()) => {
                 debug_assert!(!out_event.is_null());
                 Ok(Some(unsafe {
@@ -58,6 +59,7 @@ impl InputQueue {
     }
 
     /// Returns [`true`] if there are one or more events available in the input queue.
+    #[doc(alias = "AInputQueue_hasEvents")]
     pub fn has_events(&self) -> bool {
         match unsafe { ffi::AInputQueue_hasEvents(self.ptr.as_ptr()) } {
             0 => false,
@@ -74,6 +76,7 @@ impl InputQueue {
     /// appear again in the event queue (if it does not get consumed during pre-dispatching).
     ///
     /// Also returns [`None`] if `event` is not a [`KeyEvent`].
+    #[doc(alias = "AInputQueue_preDispatchEvent")]
     pub fn pre_dispatch(&self, event: InputEvent) -> Option<InputEvent> {
         match unsafe { ffi::AInputQueue_preDispatchEvent(self.ptr.as_ptr(), event.ptr().as_ptr()) }
         {
@@ -84,7 +87,8 @@ impl InputQueue {
 
     /// Report that dispatching has finished with the given [`InputEvent`].
     ///
-    /// This must be called after receiving an event with [`InputQueue::get_event()`].
+    /// This must be called after receiving an event with [`InputQueue::event()`].
+    #[doc(alias = "AInputQueue_finishEvent")]
     pub fn finish_event(&self, event: InputEvent, handled: bool) {
         unsafe {
             ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int)
@@ -94,6 +98,7 @@ impl InputQueue {
     /// Add this input queue to a [`ForeignLooper`] for processing.
     ///
     /// See [`ForeignLooper::add_fd()`] for information on the `ident`, `callback`, and `data` params.
+    #[doc(alias = "AInputQueue_attachLooper")]
     pub fn attach_looper(&self, looper: &ForeignLooper, id: i32) {
         unsafe {
             ffi::AInputQueue_attachLooper(
@@ -107,6 +112,7 @@ impl InputQueue {
     }
 
     /// Remove this input queue from the [`ForeignLooper`] it is currently attached to.
+    #[doc(alias = "AInputQueue_detachLooper")]
     pub fn detach_looper(&self) {
         unsafe { ffi::AInputQueue_detachLooper(self.ptr.as_ptr()) }
     }

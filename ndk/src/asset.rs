@@ -4,14 +4,18 @@
 //! [`AAssetDir`]: https://developer.android.com/ndk/reference/group/asset#aassetdir
 //! [`AAssetManager`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
 
-use std::ffi::{CStr, CString};
-use std::io;
-use std::ptr::NonNull;
+use std::{
+    ffi::{CStr, CString},
+    io,
+    os::fd::{FromRawFd, OwnedFd},
+    ptr::NonNull,
+};
 
 /// A native [`AAssetManager *`]
 ///
 /// [`AAssetManager *`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
 #[derive(Debug)]
+#[doc(alias = "AAssetManager")]
 pub struct AssetManager {
     ptr: NonNull<ffi::AAssetManager>,
 }
@@ -39,6 +43,7 @@ impl AssetManager {
     /// Open the asset. Returns [`None`] if opening the asset fails.
     ///
     /// This currently always opens the asset in the streaming mode.
+    #[doc(alias = "AAssetManager_open")]
     pub fn open(&self, filename: &CStr) -> Option<Asset> {
         unsafe {
             let ptr = ffi::AAssetManager_open(
@@ -51,6 +56,7 @@ impl AssetManager {
     }
 
     /// Open an asset directory. Returns [`None`] if opening the directory fails.
+    #[doc(alias = "AAssetManager_openDir")]
     pub fn open_dir(&self, filename: &CStr) -> Option<AssetDir> {
         unsafe {
             let ptr = ffi::AAssetManager_openDir(self.ptr.as_ptr(), filename.as_ptr());
@@ -87,6 +93,7 @@ impl AssetManager {
 ///
 /// [`AAssetDir *`]: https://developer.android.com/ndk/reference/group/asset#aassetdir
 #[derive(Debug)]
+#[doc(alias = "AAssetDir")]
 pub struct AssetDir {
     ptr: NonNull<ffi::AAssetDir>,
 }
@@ -95,6 +102,7 @@ pub struct AssetDir {
 // However, AAsset is not, so there's a good chance that AAssetDir is not either.
 
 impl Drop for AssetDir {
+    #[doc(alias = "AAssetDir_close")]
     fn drop(&mut self) {
         unsafe { ffi::AAssetDir_close(self.ptr.as_ptr()) }
     }
@@ -120,6 +128,7 @@ impl AssetDir {
     /// no additional allocation.
     ///
     /// The filenames are in the correct format to be passed to [`AssetManager::open()`].
+    #[doc(alias = "AAssetDir_getNextFileName")]
     pub fn with_next<T>(&mut self, f: impl for<'a> FnOnce(&'a CStr) -> T) -> Option<T> {
         unsafe {
             let next_name = ffi::AAssetDir_getNextFileName(self.ptr.as_ptr());
@@ -132,6 +141,7 @@ impl AssetDir {
     }
 
     /// Reset the iteration state
+    #[doc(alias = "AAssetDir_rewind")]
     pub fn rewind(&mut self) {
         unsafe {
             ffi::AAssetDir_rewind(self.ptr.as_ptr());
@@ -166,6 +176,7 @@ impl Iterator for AssetDir {
 ///
 /// [`AAsset *`]: https://developer.android.com/ndk/reference/group/asset#aasset
 #[derive(Debug)]
+#[doc(alias = "AAsset")]
 pub struct Asset {
     ptr: NonNull<ffi::AAsset>,
 }
@@ -174,6 +185,7 @@ pub struct Asset {
 // See https://developer.android.com/ndk/reference/group/asset#aasset
 
 impl Drop for Asset {
+    #[doc(alias = "AAsset_close")]
     fn drop(&mut self) {
         unsafe { ffi::AAsset_close(self.ptr.as_ptr()) }
     }
@@ -197,17 +209,20 @@ impl Asset {
     }
 
     /// Returns the total length of the asset, in bytes
-    pub fn get_length(&self) -> usize {
+    #[doc(alias = "AAsset_getLength64")]
+    pub fn length(&self) -> usize {
         unsafe { ffi::AAsset_getLength64(self.ptr.as_ptr()) as usize }
     }
 
     /// Returns the remaining length of the asset, in bytes
-    pub fn get_remaining_length(&self) -> usize {
+    #[doc(alias = "AAsset_getRemainingLength64")]
+    pub fn remaining_length(&self) -> usize {
         unsafe { ffi::AAsset_getRemainingLength64(self.ptr.as_ptr()) as usize }
     }
 
     /// Maps all data into a buffer and returns it
-    pub fn get_buffer(&mut self) -> io::Result<&[u8]> {
+    #[doc(alias = "AAsset_getBuffer")]
+    pub fn buffer(&mut self) -> io::Result<&[u8]> {
         unsafe {
             let buf_ptr = ffi::AAsset_getBuffer(self.ptr.as_ptr());
             if buf_ptr.is_null() {
@@ -218,16 +233,44 @@ impl Asset {
             } else {
                 Ok(std::slice::from_raw_parts(
                     buf_ptr as *const u8,
-                    self.get_length(),
+                    self.length(),
                 ))
             }
         }
     }
 
-    //pub fn open_file_descriptor(&self) -> TODO
+    /// Returns whether this asset's internal buffer is allocated in ordinary RAM (i.e. not `mmap`ped).
+    #[doc(alias = "AAsset_isAllocated")]
+    pub fn is_allocated(&self) -> bool {
+        unsafe { ffi::AAsset_isAllocated(self.ptr.as_ptr()) != 0 }
+    }
+
+    /// Open a new file descriptor that can be used to read the asset data.
+    ///
+    /// Returns an error if direct fd access is not possible (for example, if the asset is compressed).
+    #[doc(alias = "AAsset_openFileDescriptor64")]
+    pub fn open_file_descriptor(&self) -> io::Result<OpenedFileDescriptor> {
+        let mut offset = 0;
+        let mut size = 0;
+        let res =
+            unsafe { ffi::AAsset_openFileDescriptor64(self.ptr.as_ptr(), &mut offset, &mut size) };
+        if res >= 0 {
+            Ok(OpenedFileDescriptor {
+                fd: unsafe { OwnedFd::from_raw_fd(res) },
+                offset: offset as usize,
+                size: size as usize,
+            })
+        } else {
+            Err(io::Error::new(
+                io::ErrorKind::Other,
+                "Android Asset openFileDescriptor error",
+            ))
+        }
+    }
 }
 
 impl io::Read for Asset {
+    #[doc(alias = "AAsset_read")]
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         unsafe {
             let res = ffi::AAsset_read(self.ptr.as_ptr(), buf.as_mut_ptr() as *mut _, buf.len());
@@ -244,6 +287,7 @@ impl io::Read for Asset {
 }
 
 impl io::Seek for Asset {
+    #[doc(alias = "AAsset_seek64")]
     fn seek(&mut self, seek: io::SeekFrom) -> io::Result<u64> {
         unsafe {
             let res = match seek {
@@ -267,4 +311,13 @@ impl io::Seek for Asset {
             }
         }
     }
+}
+
+/// Contains the opened file descriptor returned by [`Asset::open_file_descriptor()`], together
+/// with the offset and size of the given asset within that file descriptor.
+#[derive(Debug)]
+pub struct OpenedFileDescriptor {
+    pub fd: OwnedFd,
+    pub offset: usize,
+    pub size: usize,
 }

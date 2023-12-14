@@ -2,12 +2,17 @@
 //!
 //! [`ANativeWindow`]: https://developer.android.com/ndk/reference/group/a-native-window#anativewindow
 
-use crate::utils::status_to_io_result;
+use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
 
-pub use super::hardware_buffer_format::HardwareBufferFormat;
 use jni_sys::{jobject, JNIEnv};
-use raw_window_handle::{AndroidNdkWindowHandle, HasRawWindowHandle, RawWindowHandle};
-use std::{ffi::c_void, io::Result, mem::MaybeUninit, ptr::NonNull};
+#[cfg(feature = "api-level-28")]
+use num_enum::{TryFromPrimitive, TryFromPrimitiveError};
+#[cfg(feature = "api-level-28")]
+use thiserror::Error;
+
+use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
+#[cfg(feature = "api-level-28")]
+use crate::data_space::DataSpace;
 
 pub type Rect = ffi::ARect;
 
@@ -39,11 +44,34 @@ impl Clone for NativeWindow {
     }
 }
 
-unsafe impl HasRawWindowHandle for NativeWindow {
-    fn raw_window_handle(&self) -> RawWindowHandle {
-        let mut handle = AndroidNdkWindowHandle::empty();
-        handle.a_native_window = self.ptr.as_ptr() as *mut c_void;
-        RawWindowHandle::AndroidNdk(handle)
+#[cfg(feature = "rwh_04")]
+unsafe impl rwh_04::HasRawWindowHandle for NativeWindow {
+    fn raw_window_handle(&self) -> rwh_04::RawWindowHandle {
+        let mut handle = rwh_04::AndroidNdkHandle::empty();
+        handle.a_native_window = self.ptr.as_ptr().cast();
+        rwh_04::RawWindowHandle::AndroidNdk(handle)
+    }
+}
+
+#[cfg(feature = "rwh_05")]
+unsafe impl rwh_05::HasRawWindowHandle for NativeWindow {
+    fn raw_window_handle(&self) -> rwh_05::RawWindowHandle {
+        let mut handle = rwh_05::AndroidNdkWindowHandle::empty();
+        handle.a_native_window = self.ptr.as_ptr().cast();
+        rwh_05::RawWindowHandle::AndroidNdk(handle)
+    }
+}
+
+#[cfg(feature = "rwh_06")]
+impl rwh_06::HasWindowHandle for NativeWindow {
+    fn window_handle(&self) -> Result<rwh_06::WindowHandle<'_>, rwh_06::HandleError> {
+        let handle = rwh_06::AndroidNdkWindowHandle::new(self.ptr.cast());
+        let handle = rwh_06::RawWindowHandle::AndroidNdk(handle);
+        // SAFETY: All fields of the "raw" `AndroidNdkWindowHandle` struct are filled out.  The
+        // returned pointer is also kept valid by `NativeWindow` (until `Drop`), which is lifetime-
+        // borrowed in the returned `WindowHandle<'_>` and cannot be outlived.  Its value won't
+        // change throughout the lifetime of this `NativeWindow`.
+        Ok(unsafe { rwh_06::WindowHandle::borrow_raw(handle) })
     }
 }
 
@@ -81,7 +109,7 @@ impl NativeWindow {
     pub fn format(&self) -> HardwareBufferFormat {
         let value = unsafe { ffi::ANativeWindow_getFormat(self.ptr.as_ptr()) };
         let value = u32::try_from(value).unwrap();
-        HardwareBufferFormat::from(ffi::AHardwareBuffer_Format(value))
+        value.into()
     }
 
     /// Change the format and size of the window buffers.
@@ -98,12 +126,144 @@ impl NativeWindow {
         width: i32,
         height: i32,
         format: Option<HardwareBufferFormat>,
-    ) -> Result<()> {
-        let format = format.map_or(0, |f| ffi::AHardwareBuffer_Format::from(f).0);
+    ) -> io::Result<()> {
+        let format = format.map_or(0, |f| {
+            u32::from(f)
+                .try_into()
+                .expect("i32 overflow in set_buffers_geometry")
+        });
         let status = unsafe {
-            ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format as i32)
+            ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format)
         };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
+    }
+
+    /// Set a transform that will be applied to future buffers posted to the window.
+    #[cfg(feature = "api-level-26")]
+    pub fn set_buffers_transform(&self, transform: NativeWindowTransform) -> io::Result<()> {
+        let status = unsafe {
+            ffi::ANativeWindow_setBuffersTransform(self.ptr.as_ptr(), transform.bits() as i32)
+        };
+        status_to_io_result(status)
+    }
+
+    /// All buffers queued after this call will be associated with the dataSpace parameter
+    /// specified.
+    ///
+    /// `data_space` specifies additional information about the buffer. For example, it can be used
+    /// to convey the color space of the image data in the buffer, or it can be used to indicate
+    /// that the buffers contain depth measurement data instead of color images. The default
+    /// dataSpace is `0`, [`DataSpace::Unknown`], unless it has been overridden by the producer.
+    #[cfg(feature = "api-level-28")]
+    #[doc(alias = "ANativeWindow_setBuffersDataSpace")]
+    pub fn set_buffers_data_space(&self, data_space: DataSpace) -> io::Result<()> {
+        let data_space = (data_space as u32)
+            .try_into()
+            .expect("Sign bit should be unused");
+        let status =
+            unsafe { ffi::ANativeWindow_setBuffersDataSpace(self.ptr.as_ptr(), data_space) };
+        status_to_io_result(status)
+    }
+
+    /// Get the dataspace of the buffers in this [`NativeWindow`].
+    #[cfg(feature = "api-level-28")]
+    #[doc(alias = "ANativeWindow_getBuffersDataSpace")]
+    pub fn buffers_data_space(&self) -> Result<DataSpace, GetDataSpaceError> {
+        let status = unsafe { ffi::ANativeWindow_getBuffersDataSpace(self.ptr.as_ptr()) };
+        if status >= 0 {
+            Ok(DataSpace::try_from_primitive(status as u32)?)
+        } else {
+            Err(status_to_io_result(status).unwrap_err().into())
+        }
+    }
+
+    /// Sets the intended frame rate for this window.
+    ///
+    /// Same as [`set_frame_rate_with_change_strategy(window, frame_rate, compatibility, ChangeFrameRateStrategy::OnlyIfSeamless)`][`NativeWindow::set_frame_rate_with_change_strategy()`].
+    ///
+    #[cfg_attr(
+        not(feature = "api-level-31"),
+        doc = "[`NativeWindow::set_frame_rate_with_change_strategy()`]: https://developer.android.com/ndk/reference/group/a-native-window#anativewindow_setframeratewithchangestrategy"
+    )]
+    #[cfg(feature = "api-level-30")]
+    #[doc(alias = "ANativeWindow_setFrameRate")]
+    pub fn set_frame_rate(
+        &self,
+        frame_rate: f32,
+        compatibility: FrameRateCompatibility,
+    ) -> io::Result<()> {
+        let compatibility = (compatibility as u32)
+            .try_into()
+            .expect("i8 overflow in FrameRateCompatibility");
+        let status = unsafe {
+            ffi::ANativeWindow_setFrameRate(self.ptr.as_ptr(), frame_rate, compatibility)
+        };
+        status_to_io_result(status)
+    }
+
+    /// Sets the intended frame rate for this window.
+    ///
+    /// On devices that are capable of running the display at different refresh rates, the system
+    /// may choose a display refresh rate to better match this window's frame rate. Usage of this
+    /// API won't introduce frame rate throttling, or affect other aspects of the application's
+    /// frame production pipeline. However, because the system may change the display refresh rate,
+    /// calls to this function may result in changes to Choreographer callback timings, and changes
+    /// to the time interval at which the system releases buffers back to the application.
+    ///
+    /// Note that this only has an effect for windows presented on the display. If this
+    /// [`NativeWindow`] is consumed by something other than the system compositor, e.g. a media
+    /// codec, this call has no effect.
+    ///
+    /// You can register for changes in the refresh rate using
+    /// [`ffi::AChoreographer_registerRefreshRateCallback()`].
+    ///
+    /// # Parameters
+    ///
+    /// - `frame_rate`: The intended frame rate of this window, in frames per second. `0` is a
+    ///   special value that indicates the app will accept the system's choice for the display
+    ///   frame rate, which is the default behavior if this function isn't called. The `frame_rate`
+    ///   param does not need to be a valid refresh rate for this device's display - e.g., it's
+    ///   fine to pass `30`fps to a device that can only run the display at `60`fps.
+    /// - `compatibility`: The frame rate compatibility of this window. The compatibility value may
+    ///   influence the system's choice of display refresh rate. See the [`FrameRateCompatibility`]
+    ///   values for more info. This parameter is ignored when `frame_rate` is `0`.
+    /// - `change_frame_rate_strategy`: Whether display refresh rate transitions caused by this
+    ///   window should be seamless. A seamless transition is one that doesn't have any visual
+    ///   interruptions, such as a black screen for a second or two. See the
+    ///   [`ChangeFrameRateStrategy`] values. This parameter is ignored when `frame_rate` is `0`.
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "ANativeWindow_setFrameRateWithChangeStrategy")]
+    pub fn set_frame_rate_with_change_strategy(
+        &self,
+        frame_rate: f32,
+        compatibility: FrameRateCompatibility,
+        change_frame_rate_strategy: ChangeFrameRateStrategy,
+    ) -> io::Result<()> {
+        let compatibility = (compatibility as u32)
+            .try_into()
+            .expect("i8 overflow in FrameRateCompatibility");
+        let strategy = (change_frame_rate_strategy as u32)
+            .try_into()
+            .expect("i8 overflow in ChangeFrameRateStrategy");
+        let status = unsafe {
+            ffi::ANativeWindow_setFrameRateWithChangeStrategy(
+                self.ptr.as_ptr(),
+                frame_rate,
+                compatibility,
+                strategy,
+            )
+        };
+        status_to_io_result(status)
+    }
+
+    /// Provides a hint to the window that buffers should be preallocated ahead of time.
+    ///
+    /// Note that the window implementation is not guaranteed to preallocate any buffers, for
+    /// instance if an implementation disallows allocation of new buffers, or if there is
+    /// insufficient memory in the system to preallocate additional buffers
+    #[cfg(feature = "api-level-30")]
+    pub fn try_allocate_buffers(&self) {
+        unsafe { ffi::ANativeWindow_tryAllocateBuffers(self.ptr.as_ptr()) }
     }
 
     /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
@@ -133,16 +293,19 @@ impl NativeWindow {
     ///
     /// Optionally pass the region you intend to draw into `dirty_bounds`.  When this function
     /// returns it is updated (commonly enlarged) with the actual area the caller needs to redraw.
-    pub fn lock(&self, dirty_bounds: Option<&mut Rect>) -> Result<NativeWindowBufferLockGuard<'_>> {
+    pub fn lock(
+        &self,
+        dirty_bounds: Option<&mut Rect>,
+    ) -> io::Result<NativeWindowBufferLockGuard<'_>> {
         let dirty_bounds = match dirty_bounds {
             Some(dirty_bounds) => dirty_bounds,
             None => std::ptr::null_mut(),
         };
         let mut buffer = MaybeUninit::uninit();
-        let ret = unsafe {
+        let status = unsafe {
             ffi::ANativeWindow_lock(self.ptr.as_ptr(), buffer.as_mut_ptr(), dirty_bounds)
         };
-        status_to_io_result(ret, ())?;
+        status_to_io_result(status)?;
 
         Ok(NativeWindowBufferLockGuard {
             window: self,
@@ -179,7 +342,7 @@ impl<'a> NativeWindowBufferLockGuard<'a> {
     /// The format of the buffer. One of [`HardwareBufferFormat`].
     pub fn format(&self) -> HardwareBufferFormat {
         let format = u32::try_from(self.buffer.format).unwrap();
-        HardwareBufferFormat::from(ffi::AHardwareBuffer_Format(format))
+        format.into()
     }
 
     /// The actual bits.
@@ -235,4 +398,85 @@ impl<'a> Drop for NativeWindowBufferLockGuard<'a> {
         let ret = unsafe { ffi::ANativeWindow_unlockAndPost(self.window.ptr.as_ptr()) };
         assert_eq!(ret, 0);
     }
+}
+
+#[cfg(feature = "api-level-26")]
+bitflags::bitflags! {
+    /// Transforms that can be applied to buffers as they are displayed to a window.
+    ///
+    /// Supported transforms are any combination of horizontal mirror, vertical mirror, and
+    /// clockwise 90 degree rotation, in that order. Rotations of 180 and 270 degrees are made up
+    /// of those basic transforms.
+    #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+    #[doc(alias = "ANativeWindowTransform")]
+    pub struct NativeWindowTransform : u32 {
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_IDENTITY")]
+        const TRANSFORM_IDENTITY = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_IDENTITY.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL")]
+        const TRANSFORM_MIRROR_HORIZONTAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL")]
+        const TRANSFORM_MIRROR_VERTICAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_90")]
+        const TRANSFORM_ROTATE_90 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_90.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_180")]
+        const TRANSFORM_ROTATE_180 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_180.0;
+        #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_270")]
+        const TRANSFORM_ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
+    }
+}
+
+#[cfg(feature = "api-level-28")]
+#[derive(Debug, Error)]
+pub enum GetDataSpaceError {
+    #[error(transparent)]
+    IoError(#[from] io::Error),
+    #[error(transparent)]
+    TryFromPrimitiveError(#[from] TryFromPrimitiveError<DataSpace>),
+}
+
+/// Compatibility value for [`NativeWindow::set_frame_rate()`]
+#[cfg_attr(
+    feature = "api-level-31",
+    doc = " and [`NativeWindow::set_frame_rate_with_change_strategy()`]"
+)]
+/// .
+#[cfg(feature = "api-level-30")]
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+#[doc(alias = "ANativeWindow_FrameRateCompatibility")]
+#[non_exhaustive]
+pub enum FrameRateCompatibility {
+    /// There are no inherent restrictions on the frame rate of this window.
+    ///
+    /// When the system selects a frame rate other than what the app requested, the app will be
+    /// able to run at the system frame rate without requiring pull down. This value should be used
+    /// when displaying game content, UIs, and anything that isn't video.
+    #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT")]
+    Default =
+        ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT.0,
+    /// This window is being used to display content with an inherently fixed frame rate, e.g. a
+    /// video that has a specific frame rate.
+    ///
+    /// When the system selects a frame rate other than what the app requested, the app will need
+    /// to do pull down or use some other technique to adapt to the system's frame rate. The user
+    /// experience is likely to be worse (e.g. more frame stuttering) than it would be if the
+    /// system had chosen the app's requested frame rate. This value should be used for video
+    /// content.
+    #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE")]
+    FixedSource = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE.0,
+}
+
+/// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
+#[cfg(feature = "api-level-31")]
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+#[doc(alias = "ANativeWindow_ChangeFrameRateStrategy")]
+#[non_exhaustive]
+pub enum ChangeFrameRateStrategy {
+    /// Change the frame rate only if the transition is going to be seamless.
+    #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS")]
+    OnlyIfSeamless = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS.0,
+    /// Change the frame rate even if the transition is going to be non-seamless, i.e. with visual interruptions for the user.
+    #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS")]
+    Always = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS.0,
 }

@@ -5,3 +5,4 @@
 
 pub mod image_reader;
 pub mod media_codec;
+pub mod media_format;

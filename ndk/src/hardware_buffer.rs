@@ -4,21 +4,20 @@
 
 #![cfg(feature = "api-level-26")]
 
-use crate::utils::status_to_io_result;
-
-pub use super::hardware_buffer_format::HardwareBufferFormat;
-use jni_sys::{jobject, JNIEnv};
 use std::{
     io::Result,
     mem::MaybeUninit,
     ops::Deref,
     os::{
+        fd::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
         raw::c_void,
-        // TODO: Import from std::os::fd::{} since Rust 1.66
-        unix::io::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
     },
     ptr::NonNull,
 };
+
+use jni_sys::{jobject, JNIEnv};
+
+use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct HardwareBufferUsage(pub ffi::AHardwareBuffer_UsageFlags);
@@ -108,7 +107,7 @@ pub type Rect = ffi::ARect;
 fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> Result<T> {
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
-    status_to_io_result(status, unsafe { result.assume_init() })
+    status_to_io_result(status).map(|()| unsafe { result.assume_init() })
 }
 
 /// A native [`AHardwareBuffer *`]
@@ -211,7 +210,7 @@ impl HardwareBuffer {
             width: desc.width,
             height: desc.height,
             layers: desc.layers,
-            format: ffi::AHardwareBuffer_Format(desc.format).into(),
+            format: desc.format.into(),
             usage: HardwareBufferUsage(ffi::AHardwareBuffer_UsageFlags(desc.usage)),
             stride: desc.stride,
         }
@@ -231,6 +230,13 @@ impl HardwareBuffer {
     pub fn is_supported(desc: HardwareBufferDesc) -> bool {
         let res = unsafe { ffi::AHardwareBuffer_isSupported(&desc.into_native()) };
         res == 1
+    }
+
+    /// Get the system-wide unique id for this [`HardwareBuffer`].
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "AHardwareBuffer_getId")]
+    pub fn id(&self) -> Result<u64> {
+        construct(|res| unsafe { ffi::AHardwareBuffer_getId(self.as_ptr(), res) })
     }
 
     /// Lock the [`HardwareBuffer`] for direct CPU access.
@@ -317,7 +323,7 @@ impl HardwareBuffer {
                 bytes_per_stride.as_mut_ptr(),
             )
         };
-        status_to_io_result(status, ()).map(|()| unsafe {
+        status_to_io_result(status).map(|()| unsafe {
             LockedPlaneInfo {
                 virtual_address: virtual_address.assume_init(),
                 bytes_per_pixel: bytes_per_pixel.assume_init() as u32,
@@ -372,7 +378,7 @@ impl HardwareBuffer {
     /// a non-blocking variant that returns a file descriptor to be signaled on unlocking instead.
     pub fn unlock(&self) -> Result<()> {
         let status = unsafe { ffi::AHardwareBuffer_unlock(self.as_ptr(), std::ptr::null_mut()) };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 
     /// Unlock the [`HardwareBuffer`] from direct CPU access.
@@ -413,7 +419,7 @@ impl HardwareBuffer {
         let status = unsafe {
             ffi::AHardwareBuffer_sendHandleToUnixSocket(self.as_ptr(), socket_fd.as_raw_fd())
         };
-        status_to_io_result(status, ())
+        status_to_io_result(status)
     }
 
     /// Acquire a reference on the given [`HardwareBuffer`] object.
@@ -490,7 +496,7 @@ impl HardwareBufferDesc {
             width: self.width,
             height: self.height,
             layers: self.layers,
-            format: ffi::AHardwareBuffer_Format::from(self.format).0,
+            format: self.format.into(),
             usage: self.usage.0 .0,
             stride: self.stride,
             rfu0: 0,

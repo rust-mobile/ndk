@@ -442,12 +442,12 @@ impl FontMatcher {
     /// Even if no font can render the given text, this function will return a non-null result for
     /// drawing Tofu character.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
-    /// * `family_name`: A font family name.
-    /// * `text`: A UTF-16 encoded text buffer to be rendered. If an empty string is given, this
+    /// - `family_name`: A font family name.
+    /// - `text`: A UTF-16 encoded text buffer to be rendered. If an empty string is given, this
     ///   function will panic.
-    /// * `run_length_out`: Set this to [`Some`] if you want to get the length of the text run with
+    /// - `run_length_out`: Set this to [`Some`] if you want to get the length of the text run with
     ///   the font returned.
     pub fn match_font(
         &mut self,
@@ -483,8 +483,9 @@ impl FontMatcher {
     ///
     /// If this function is not called, the match is performed with an empty locale list.
     ///
-    /// # Arguments
-    /// * `language_tags`: comma separated IETF BCP47 compliant language tags.
+    /// # Parameters
+    ///
+    /// - `language_tags`: comma separated IETF BCP47 compliant language tags.
     pub fn set_locales(&mut self, language_tags: &CStr) {
         unsafe { ffi::AFontMatcher_setLocales(self.ptr.as_ptr(), language_tags.as_ptr()) }
     }
