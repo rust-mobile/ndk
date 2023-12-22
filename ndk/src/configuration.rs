@@ -10,7 +10,7 @@
 //! [`AConfiguration`]: https://developer.android.com/ndk/reference/group/configuration#aconfiguration
 
 use crate::asset::AssetManager;
-use num_enum::{IntoPrimitive, TryFromPrimitive};
+use num_enum::{FromPrimitive, IntoPrimitive};
 use std::fmt;
 use std::ptr::NonNull;
 
@@ -162,20 +162,12 @@ impl Configuration {
 
     /// Returns the keyboard type.
     pub fn keyboard(&self) -> Keyboard {
-        unsafe {
-            (ffi::AConfiguration_getKeyboard(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getKeyboard(self.ptr.as_ptr()).into() }
     }
 
     /// Returns keyboard visibility/availability.
     pub fn keys_hidden(&self) -> KeysHidden {
-        unsafe {
-            (ffi::AConfiguration_getKeysHidden(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getKeysHidden(self.ptr.as_ptr()).into() }
     }
 
     /// Returns the language, as a [`String`] of two characters, if set
@@ -193,11 +185,7 @@ impl Configuration {
 
     /// Returns the layout direction
     pub fn layout_direction(&self) -> LayoutDir {
-        unsafe {
-            (ffi::AConfiguration_getLayoutDirection(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getLayoutDirection(self.ptr.as_ptr()).into() }
     }
 
     /// Returns the mobile country code.
@@ -217,27 +205,15 @@ impl Configuration {
     }
 
     pub fn nav_hidden(&self) -> NavHidden {
-        unsafe {
-            (ffi::AConfiguration_getNavHidden(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getNavHidden(self.ptr.as_ptr()).into() }
     }
 
     pub fn navigation(&self) -> Navigation {
-        unsafe {
-            (ffi::AConfiguration_getNavigation(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getNavigation(self.ptr.as_ptr()).into() }
     }
 
     pub fn orientation(&self) -> Orientation {
-        unsafe {
-            (ffi::AConfiguration_getOrientation(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getOrientation(self.ptr.as_ptr()).into() }
     }
 
     pub fn screen_height_dp(&self) -> Option<i32> {
@@ -263,28 +239,16 @@ impl Configuration {
     }
 
     pub fn screen_long(&self) -> ScreenLong {
-        unsafe {
-            (ffi::AConfiguration_getScreenLong(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getScreenLong(self.ptr.as_ptr()).into() }
     }
 
     #[cfg(feature = "api-level-30")]
     pub fn screen_round(&self) -> ScreenRound {
-        unsafe {
-            (ffi::AConfiguration_getScreenRound(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getScreenRound(self.ptr.as_ptr()).into() }
     }
 
     pub fn screen_size(&self) -> ScreenSize {
-        unsafe {
-            (ffi::AConfiguration_getScreenSize(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getScreenSize(self.ptr.as_ptr()).into() }
     }
 
     pub fn sdk_version(&self) -> i32 {
@@ -303,27 +267,15 @@ impl Configuration {
     }
 
     pub fn touchscreen(&self) -> Touchscreen {
-        unsafe {
-            (ffi::AConfiguration_getTouchscreen(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getTouchscreen(self.ptr.as_ptr()).into() }
     }
 
     pub fn ui_mode_night(&self) -> UiModeNight {
-        unsafe {
-            (ffi::AConfiguration_getUiModeNight(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getUiModeNight(self.ptr.as_ptr()).into() }
     }
 
     pub fn ui_mode_type(&self) -> UiModeType {
-        unsafe {
-            (ffi::AConfiguration_getUiModeType(self.ptr.as_ptr()) as u32)
-                .try_into()
-                .unwrap()
-        }
+        unsafe { ffi::AConfiguration_getUiModeType(self.ptr.as_ptr()).into() }
     }
 }
 
@@ -385,37 +337,52 @@ impl DiffResult {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Orientation {
-    Any = ffi::ACONFIGURATION_ORIENTATION_ANY,
-    Port = ffi::ACONFIGURATION_ORIENTATION_PORT,
-    Land = ffi::ACONFIGURATION_ORIENTATION_LAND,
-    Square = ffi::ACONFIGURATION_ORIENTATION_SQUARE,
+    Any = ffi::ACONFIGURATION_ORIENTATION_ANY as i32,
+    Port = ffi::ACONFIGURATION_ORIENTATION_PORT as i32,
+    Land = ffi::ACONFIGURATION_ORIENTATION_LAND as i32,
+    Square = ffi::ACONFIGURATION_ORIENTATION_SQUARE as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Touchscreen {
-    Any = ffi::ACONFIGURATION_TOUCHSCREEN_ANY,
-    NoTouch = ffi::ACONFIGURATION_TOUCHSCREEN_NOTOUCH,
-    Stylus = ffi::ACONFIGURATION_TOUCHSCREEN_STYLUS,
-    Finger = ffi::ACONFIGURATION_TOUCHSCREEN_FINGER,
+    Any = ffi::ACONFIGURATION_TOUCHSCREEN_ANY as i32,
+    NoTouch = ffi::ACONFIGURATION_TOUCHSCREEN_NOTOUCH as i32,
+    Stylus = ffi::ACONFIGURATION_TOUCHSCREEN_STYLUS as i32,
+    Finger = ffi::ACONFIGURATION_TOUCHSCREEN_FINGER as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Density {
-    Default = ffi::ACONFIGURATION_DENSITY_DEFAULT,
-    Low = ffi::ACONFIGURATION_DENSITY_LOW,
-    Medium = ffi::ACONFIGURATION_DENSITY_MEDIUM,
-    TV = ffi::ACONFIGURATION_DENSITY_TV,
-    High = ffi::ACONFIGURATION_DENSITY_HIGH,
-    XHigh = ffi::ACONFIGURATION_DENSITY_XHIGH,
-    XXHigh = ffi::ACONFIGURATION_DENSITY_XXHIGH,
-    XXXHigh = ffi::ACONFIGURATION_DENSITY_XXXHIGH,
-    Any = ffi::ACONFIGURATION_DENSITY_ANY,
-    None = ffi::ACONFIGURATION_DENSITY_NONE,
+    Default = ffi::ACONFIGURATION_DENSITY_DEFAULT as i32,
+    Low = ffi::ACONFIGURATION_DENSITY_LOW as i32,
+    Medium = ffi::ACONFIGURATION_DENSITY_MEDIUM as i32,
+    TV = ffi::ACONFIGURATION_DENSITY_TV as i32,
+    High = ffi::ACONFIGURATION_DENSITY_HIGH as i32,
+    XHigh = ffi::ACONFIGURATION_DENSITY_XHIGH as i32,
+    XXHigh = ffi::ACONFIGURATION_DENSITY_XXHIGH as i32,
+    XXXHigh = ffi::ACONFIGURATION_DENSITY_XXXHIGH as i32,
+    Any = ffi::ACONFIGURATION_DENSITY_ANY as i32,
+    None = ffi::ACONFIGURATION_DENSITY_NONE as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 impl Density {
@@ -423,7 +390,7 @@ impl Density {
     /// See [the Android screen density
     /// docs](https://developer.android.com/training/multiscreen/screendensities#TaskProvideAltBmp)
     ///
-    /// There are some `Density` values that have no associated DPI; these values return `None`.
+    /// There are some [`Density`] values that have no associated DPI; these values return [`None`].
     pub fn dpi(self) -> Option<u32> {
         match self {
             Self::Default => Some(160), // Or should it be None?
@@ -436,6 +403,8 @@ impl Density {
             Self::TV => Some(213),
             Self::Any => None,
             Self::None => None,
+            // TODO
+            Self::__Unknown(v) => Some(v as u32),
         }
     }
 
@@ -445,7 +414,7 @@ impl Density {
     /// See [the Android screen density
     /// docs](https://developer.android.com/training/multiscreen/screendensities#TaskProvideAltBmp)
     ///
-    /// There are some `Density` values that have no associated DPI; these values return `None`.
+    /// There are some [`Density`] values that have no associated DPI; these values return [`None`].
     pub fn approx_hidpi_factor(self) -> Option<f64> {
         match self {
             Self::Default => Some(1.), // Or should it be None?
@@ -458,115 +427,174 @@ impl Density {
             Self::TV => Some(4. / 3.),
             Self::Any => None,
             Self::None => None,
+            Self::__Unknown(_) => None,
         }
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Keyboard {
-    Any = ffi::ACONFIGURATION_KEYBOARD_ANY,
-    NoKeys = ffi::ACONFIGURATION_KEYBOARD_NOKEYS,
-    Qwerty = ffi::ACONFIGURATION_KEYBOARD_QWERTY,
-    TwelveKey = ffi::ACONFIGURATION_KEYBOARD_12KEY,
+    Any = ffi::ACONFIGURATION_KEYBOARD_ANY as i32,
+    NoKeys = ffi::ACONFIGURATION_KEYBOARD_NOKEYS as i32,
+    Qwerty = ffi::ACONFIGURATION_KEYBOARD_QWERTY as i32,
+    TwelveKey = ffi::ACONFIGURATION_KEYBOARD_12KEY as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-// FIXME is it a bitmask?
-// FIXME are they all bitmasks?
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Navigation {
-    Any = ffi::ACONFIGURATION_NAVIGATION_ANY,
-    NoNav = ffi::ACONFIGURATION_NAVIGATION_NONAV,
-    DPad = ffi::ACONFIGURATION_NAVIGATION_DPAD,
-    Trackball = ffi::ACONFIGURATION_NAVIGATION_TRACKBALL,
-    Wheel = ffi::ACONFIGURATION_NAVIGATION_WHEEL,
+    Any = ffi::ACONFIGURATION_NAVIGATION_ANY as i32,
+    NoNav = ffi::ACONFIGURATION_NAVIGATION_NONAV as i32,
+    DPad = ffi::ACONFIGURATION_NAVIGATION_DPAD as i32,
+    Trackball = ffi::ACONFIGURATION_NAVIGATION_TRACKBALL as i32,
+    Wheel = ffi::ACONFIGURATION_NAVIGATION_WHEEL as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum KeysHidden {
-    Any = ffi::ACONFIGURATION_KEYSHIDDEN_ANY,
-    No = ffi::ACONFIGURATION_KEYSHIDDEN_NO,
-    Yes = ffi::ACONFIGURATION_KEYSHIDDEN_YES,
-    Soft = ffi::ACONFIGURATION_KEYSHIDDEN_SOFT,
+    Any = ffi::ACONFIGURATION_KEYSHIDDEN_ANY as i32,
+    No = ffi::ACONFIGURATION_KEYSHIDDEN_NO as i32,
+    Yes = ffi::ACONFIGURATION_KEYSHIDDEN_YES as i32,
+    Soft = ffi::ACONFIGURATION_KEYSHIDDEN_SOFT as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum NavHidden {
-    Any = ffi::ACONFIGURATION_NAVHIDDEN_ANY,
-    No = ffi::ACONFIGURATION_NAVHIDDEN_NO,
-    Yes = ffi::ACONFIGURATION_NAVHIDDEN_YES,
+    Any = ffi::ACONFIGURATION_NAVHIDDEN_ANY as i32,
+    No = ffi::ACONFIGURATION_NAVHIDDEN_NO as i32,
+    Yes = ffi::ACONFIGURATION_NAVHIDDEN_YES as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum ScreenSize {
-    Any = ffi::ACONFIGURATION_SCREENSIZE_ANY,
-    Small = ffi::ACONFIGURATION_SCREENSIZE_SMALL,
-    Normal = ffi::ACONFIGURATION_SCREENSIZE_NORMAL,
-    Large = ffi::ACONFIGURATION_SCREENSIZE_LARGE,
-    XLarge = ffi::ACONFIGURATION_SCREENSIZE_XLARGE,
+    Any = ffi::ACONFIGURATION_SCREENSIZE_ANY as i32,
+    Small = ffi::ACONFIGURATION_SCREENSIZE_SMALL as i32,
+    Normal = ffi::ACONFIGURATION_SCREENSIZE_NORMAL as i32,
+    Large = ffi::ACONFIGURATION_SCREENSIZE_LARGE as i32,
+    XLarge = ffi::ACONFIGURATION_SCREENSIZE_XLARGE as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum ScreenLong {
-    Any = ffi::ACONFIGURATION_SCREENLONG_ANY,
-    No = ffi::ACONFIGURATION_SCREENLONG_NO,
-    Yes = ffi::ACONFIGURATION_SCREENLONG_YES,
+    Any = ffi::ACONFIGURATION_SCREENLONG_ANY as i32,
+    No = ffi::ACONFIGURATION_SCREENLONG_NO as i32,
+    Yes = ffi::ACONFIGURATION_SCREENLONG_YES as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum ScreenRound {
-    Any = ffi::ACONFIGURATION_SCREENROUND_ANY,
-    No = ffi::ACONFIGURATION_SCREENROUND_NO,
-    Yes = ffi::ACONFIGURATION_SCREENROUND_YES,
+    Any = ffi::ACONFIGURATION_SCREENROUND_ANY as i32,
+    No = ffi::ACONFIGURATION_SCREENROUND_NO as i32,
+    Yes = ffi::ACONFIGURATION_SCREENROUND_YES as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum WideColorGamut {
-    Any = ffi::ACONFIGURATION_WIDE_COLOR_GAMUT_ANY,
-    No = ffi::ACONFIGURATION_WIDE_COLOR_GAMUT_NO,
-    Yes = ffi::ACONFIGURATION_WIDE_COLOR_GAMUT_YES,
+    Any = ffi::ACONFIGURATION_WIDE_COLOR_GAMUT_ANY as i32,
+    No = ffi::ACONFIGURATION_WIDE_COLOR_GAMUT_NO as i32,
+    Yes = ffi::ACONFIGURATION_WIDE_COLOR_GAMUT_YES as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum HDR {
-    Any = ffi::ACONFIGURATION_HDR_ANY,
-    No = ffi::ACONFIGURATION_HDR_NO,
-    Yes = ffi::ACONFIGURATION_HDR_YES,
+    Any = ffi::ACONFIGURATION_HDR_ANY as i32,
+    No = ffi::ACONFIGURATION_HDR_NO as i32,
+    Yes = ffi::ACONFIGURATION_HDR_YES as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum LayoutDir {
-    Any = ffi::ACONFIGURATION_LAYOUTDIR_ANY,
-    Ltr = ffi::ACONFIGURATION_LAYOUTDIR_LTR,
-    Rtl = ffi::ACONFIGURATION_LAYOUTDIR_RTL,
+    Any = ffi::ACONFIGURATION_LAYOUTDIR_ANY as i32,
+    Ltr = ffi::ACONFIGURATION_LAYOUTDIR_LTR as i32,
+    Rtl = ffi::ACONFIGURATION_LAYOUTDIR_RTL as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum UiModeType {
-    Any = ffi::ACONFIGURATION_UI_MODE_TYPE_ANY,
-    Normal = ffi::ACONFIGURATION_UI_MODE_TYPE_NORMAL,
-    Desk = ffi::ACONFIGURATION_UI_MODE_TYPE_DESK,
-    Car = ffi::ACONFIGURATION_UI_MODE_TYPE_CAR,
-    Television = ffi::ACONFIGURATION_UI_MODE_TYPE_TELEVISION,
-    Applicance = ffi::ACONFIGURATION_UI_MODE_TYPE_APPLIANCE,
-    Watch = ffi::ACONFIGURATION_UI_MODE_TYPE_WATCH,
-    VrHeadset = ffi::ACONFIGURATION_UI_MODE_TYPE_VR_HEADSET,
+    Any = ffi::ACONFIGURATION_UI_MODE_TYPE_ANY as i32,
+    Normal = ffi::ACONFIGURATION_UI_MODE_TYPE_NORMAL as i32,
+    Desk = ffi::ACONFIGURATION_UI_MODE_TYPE_DESK as i32,
+    Car = ffi::ACONFIGURATION_UI_MODE_TYPE_CAR as i32,
+    Television = ffi::ACONFIGURATION_UI_MODE_TYPE_TELEVISION as i32,
+    Applicance = ffi::ACONFIGURATION_UI_MODE_TYPE_APPLIANCE as i32,
+    Watch = ffi::ACONFIGURATION_UI_MODE_TYPE_WATCH as i32,
+    VrHeadset = ffi::ACONFIGURATION_UI_MODE_TYPE_VR_HEADSET as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum UiModeNight {
-    Any = ffi::ACONFIGURATION_UI_MODE_NIGHT_ANY,
-    No = ffi::ACONFIGURATION_UI_MODE_NIGHT_NO,
-    Yes = ffi::ACONFIGURATION_UI_MODE_NIGHT_YES,
+    Any = ffi::ACONFIGURATION_UI_MODE_NIGHT_ANY as i32,
+    No = ffi::ACONFIGURATION_UI_MODE_NIGHT_NO as i32,
+    Yes = ffi::ACONFIGURATION_UI_MODE_NIGHT_YES as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }

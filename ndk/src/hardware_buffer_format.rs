@@ -8,6 +8,7 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
+#[non_exhaustive]
 pub enum HardwareBufferFormat {
     /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGBA_8888`].0.
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM")]
@@ -56,8 +57,10 @@ pub enum HardwareBufferFormat {
     YCbCr_P010 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_YCbCr_P010.0,
     #[cfg(feature = "api-level-26")]
     R8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8_UNORM.0,
+
+    #[doc(hidden)]
     #[num_enum(catch_all)]
-    Unknown(u32),
+    __Unknown(u32),
 }
 
 impl HardwareBufferFormat {
@@ -93,7 +96,7 @@ impl HardwareBufferFormat {
             Self::YCbCr_P010 => return None,
             #[cfg(feature = "api-level-26")]
             Self::R8_UNORM => 1,
-            Self::Unknown(_) => return None,
+            Self::__Unknown(_) => return None,
         })
     }
 }
