@@ -236,6 +236,18 @@ pub enum DataSpace {
     __Unknown(i32),
 }
 
+impl From<DataSpace> for ffi::ADataSpace {
+    fn from(val: DataSpace) -> Self {
+        Self(val.into())
+    }
+}
+
+impl From<ffi::ADataSpace> for DataSpace {
+    fn from(val: ffi::ADataSpace) -> Self {
+        Self::from(val.0)
+    }
+}
+
 impl fmt::Display for DataSpace {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(match self {
