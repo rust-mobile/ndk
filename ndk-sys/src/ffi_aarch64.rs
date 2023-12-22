@@ -12997,11 +12997,15 @@ extern "C" {
         new_parent: *mut ASurfaceControl,
     );
 }
-pub const ASurfaceTransactionVisibility_ASURFACE_TRANSACTION_VISIBILITY_HIDE:
-    ASurfaceTransactionVisibility = 0;
-pub const ASurfaceTransactionVisibility_ASURFACE_TRANSACTION_VISIBILITY_SHOW:
-    ASurfaceTransactionVisibility = 1;
-pub type ASurfaceTransactionVisibility = i8;
+impl ASurfaceTransactionVisibility {
+    pub const ASURFACE_TRANSACTION_VISIBILITY_HIDE: ASurfaceTransactionVisibility =
+        ASurfaceTransactionVisibility(0);
+    pub const ASURFACE_TRANSACTION_VISIBILITY_SHOW: ASurfaceTransactionVisibility =
+        ASurfaceTransactionVisibility(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ASurfaceTransactionVisibility(pub i8);
 extern "C" {
     pub fn ASurfaceTransaction_setVisibility(
         transaction: *mut ASurfaceTransaction,
@@ -13084,13 +13088,17 @@ extern "C" {
         yScale: f32,
     );
 }
-pub const ASurfaceTransactionTransparency_ASURFACE_TRANSACTION_TRANSPARENCY_TRANSPARENT:
-    ASurfaceTransactionTransparency = 0;
-pub const ASurfaceTransactionTransparency_ASURFACE_TRANSACTION_TRANSPARENCY_TRANSLUCENT:
-    ASurfaceTransactionTransparency = 1;
-pub const ASurfaceTransactionTransparency_ASURFACE_TRANSACTION_TRANSPARENCY_OPAQUE:
-    ASurfaceTransactionTransparency = 2;
-pub type ASurfaceTransactionTransparency = i8;
+impl ASurfaceTransactionTransparency {
+    pub const ASURFACE_TRANSACTION_TRANSPARENCY_TRANSPARENT: ASurfaceTransactionTransparency =
+        ASurfaceTransactionTransparency(0);
+    pub const ASURFACE_TRANSACTION_TRANSPARENCY_TRANSLUCENT: ASurfaceTransactionTransparency =
+        ASurfaceTransactionTransparency(1);
+    pub const ASURFACE_TRANSACTION_TRANSPARENCY_OPAQUE: ASurfaceTransactionTransparency =
+        ASurfaceTransactionTransparency(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ASurfaceTransactionTransparency(pub i8);
 extern "C" {
     pub fn ASurfaceTransaction_setBufferTransparency(
         transaction: *mut ASurfaceTransaction,
