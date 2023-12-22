@@ -55,8 +55,11 @@
 #include <android/sharedmem.h>
 #include <android/sharedmem_jni.h>
 #include <android/storage_manager.h>
-// #include <android/surface_control.h>
-// #include <android/surface_control_jni.h>
+// WARNING: This header is broken and requires manual changes to the NDK.
+// https://github.com/android/ndk/issues/1920
+// The same issue applies to the font bindings
+#include <android/surface_control.h>
+#include <android/surface_control_jni.h>
 #include <android/surface_texture.h>
 #include <android/surface_texture_jni.h>
 #include <android/sync.h>
