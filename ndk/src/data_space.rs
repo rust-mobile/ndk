@@ -283,6 +283,13 @@ impl fmt::Debug for DataSpace {
     }
 }
 
+// TODO: Remove if SurfaceControl is going to take an `int`: https://github.com/android/ndk/issues/1920#issuecomment-1877109800
+impl From<DataSpace> for ffi::ADataSpace {
+    fn from(value: DataSpace) -> Self {
+        Self(i32::from(value) as u32)
+    }
+}
+
 impl DataSpace {
     /// Construct a [`DataSpace`] from individual `standard`, `transfer` and `range` components.
     ///
