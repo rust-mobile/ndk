@@ -47,6 +47,8 @@ while read ARCH && read TARGET ; do
         --newtype-enum 'ANativeWindow_ChangeFrameRateStrategy' \
         --newtype-enum 'ANativeWindow_FrameRateCompatibility' \
         --newtype-enum 'ANativeWindow_LegacyFormat' \
+        --newtype-enum 'ASurfaceTransactionTransparency' \
+        --newtype-enum 'ASurfaceTransactionVisibility' \
         --newtype-enum 'AndroidBitmapCompressFormat' \
         --newtype-enum 'AndroidBitmapFormat' \
         --newtype-enum 'AppendMode' \

@@ -18249,6 +18249,325 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct ASurfaceControl {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn ASurfaceControl_createFromWindow(
+        parent: *mut ANativeWindow,
+        debug_name: *const ::std::os::raw::c_char,
+    ) -> *mut ASurfaceControl;
+}
+extern "C" {
+    pub fn ASurfaceControl_create(
+        parent: *mut ASurfaceControl,
+        debug_name: *const ::std::os::raw::c_char,
+    ) -> *mut ASurfaceControl;
+}
+extern "C" {
+    pub fn ASurfaceControl_acquire(surface_control: *mut ASurfaceControl);
+}
+extern "C" {
+    pub fn ASurfaceControl_release(surface_control: *mut ASurfaceControl);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASurfaceTransaction {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn ASurfaceTransaction_create() -> *mut ASurfaceTransaction;
+}
+extern "C" {
+    pub fn ASurfaceTransaction_delete(transaction: *mut ASurfaceTransaction);
+}
+extern "C" {
+    pub fn ASurfaceTransaction_apply(transaction: *mut ASurfaceTransaction);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASurfaceTransactionStats {
+    _unused: [u8; 0],
+}
+pub type ASurfaceTransaction_OnComplete = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        stats: *mut ASurfaceTransactionStats,
+    ),
+>;
+pub type ASurfaceTransaction_OnCommit = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        stats: *mut ASurfaceTransactionStats,
+    ),
+>;
+extern "C" {
+    pub fn ASurfaceTransactionStats_getLatchTime(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+    ) -> i64;
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getPresentFenceFd(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getASurfaceControls(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+        outASurfaceControls: *mut *mut *mut ASurfaceControl,
+        outASurfaceControlsSize: *mut usize,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_releaseASurfaceControls(
+        surface_controls: *mut *mut ASurfaceControl,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getAcquireTime(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+        surface_control: *mut ASurfaceControl,
+    ) -> i64;
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getPreviousReleaseFenceFd(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+        surface_control: *mut ASurfaceControl,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setOnComplete(
+        transaction: *mut ASurfaceTransaction,
+        context: *mut ::std::os::raw::c_void,
+        func: ASurfaceTransaction_OnComplete,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setOnCommit(
+        transaction: *mut ASurfaceTransaction,
+        context: *mut ::std::os::raw::c_void,
+        func: ASurfaceTransaction_OnCommit,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_reparent(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        new_parent: *mut ASurfaceControl,
+    );
+}
+impl ASurfaceTransactionVisibility {
+    pub const ASURFACE_TRANSACTION_VISIBILITY_HIDE: ASurfaceTransactionVisibility =
+        ASurfaceTransactionVisibility(0);
+}
+impl ASurfaceTransactionVisibility {
+    pub const ASURFACE_TRANSACTION_VISIBILITY_SHOW: ASurfaceTransactionVisibility =
+        ASurfaceTransactionVisibility(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ASurfaceTransactionVisibility(pub i8);
+extern "C" {
+    pub fn ASurfaceTransaction_setVisibility(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        visibility: ASurfaceTransactionVisibility,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setZOrder(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        z_order: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBuffer(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        buffer: *mut AHardwareBuffer,
+        acquire_fence_fd: ::std::os::raw::c_int,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setColor(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        r: f32,
+        g: f32,
+        b: f32,
+        alpha: f32,
+        dataspace: ADataSpace,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setGeometry(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        source: *const ARect,
+        destination: *const ARect,
+        transform: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setCrop(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        crop: *const ARect,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setPosition(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        x: i32,
+        y: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferTransform(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        transform: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setScale(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        xScale: f32,
+        yScale: f32,
+    );
+}
+impl ASurfaceTransactionTransparency {
+    pub const ASURFACE_TRANSACTION_TRANSPARENCY_TRANSPARENT: ASurfaceTransactionTransparency =
+        ASurfaceTransactionTransparency(0);
+}
+impl ASurfaceTransactionTransparency {
+    pub const ASURFACE_TRANSACTION_TRANSPARENCY_TRANSLUCENT: ASurfaceTransactionTransparency =
+        ASurfaceTransactionTransparency(1);
+}
+impl ASurfaceTransactionTransparency {
+    pub const ASURFACE_TRANSACTION_TRANSPARENCY_OPAQUE: ASurfaceTransactionTransparency =
+        ASurfaceTransactionTransparency(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ASurfaceTransactionTransparency(pub i8);
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferTransparency(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        transparency: ASurfaceTransactionTransparency,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setDamageRegion(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        rects: *const ARect,
+        count: u32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setDesiredPresentTime(
+        transaction: *mut ASurfaceTransaction,
+        desiredPresentTime: i64,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferAlpha(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        alpha: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferDataSpace(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        data_space: ADataSpace,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setHdrMetadata_smpte2086(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        metadata: *mut AHdrMetadata_smpte2086,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setHdrMetadata_cta861_3(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        metadata: *mut AHdrMetadata_cta861_3,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setExtendedRangeBrightness(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        currentBufferRatio: f32,
+        desiredRatio: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setDesiredHdrHeadroom(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        desiredHeadroom: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setFrameRate(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        frameRate: f32,
+        compatibility: i8,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setFrameRateWithChangeStrategy(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        frameRate: f32,
+        compatibility: i8,
+        changeFrameRateStrategy: i8,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_clearFrameRate(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setEnableBackPressure(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        enableBackPressure: bool,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setFrameTimeline(
+        transaction: *mut ASurfaceTransaction,
+        vsyncId: AVsyncId,
+    );
+}
+extern "C" {
+    pub fn ASurfaceControl_fromJava(
+        env: *mut JNIEnv,
+        surfaceControlObj: jobject,
+    ) -> *mut ASurfaceControl;
+}
+extern "C" {
+    pub fn ASurfaceTransaction_fromJava(
+        env: *mut JNIEnv,
+        transactionObj: jobject,
+    ) -> *mut ASurfaceTransaction;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct ASurfaceTexture {
     _unused: [u8; 0],
 }
