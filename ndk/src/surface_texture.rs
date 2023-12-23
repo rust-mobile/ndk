@@ -143,7 +143,7 @@ impl SurfaceTexture {
         Duration::from_nanos(
             unsafe { ffi::ASurfaceTexture_getTimestamp(self.ptr.as_ptr()) }
                 .try_into()
-                .unwrap(),
+                .expect("Timestamp cannot be negative"),
         )
     }
 

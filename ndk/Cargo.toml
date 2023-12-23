@@ -14,7 +14,7 @@ rust-version = "1.66"
 
 [features]
 default = ["rwh_06"]
-all = ["audio", "bitmap", "media", "nativewindow", "sync", "api-level-33", "rwh_04", "rwh_05", "rwh_06"]
+all = ["audio", "bitmap", "media", "nativewindow", "sync", "api-level-34", "rwh_04", "rwh_05", "rwh_06"]
 
 audio = ["ffi/audio", "api-level-26"]
 bitmap = ["ffi/bitmap"]
@@ -33,6 +33,7 @@ api-level-30 = ["api-level-29"]
 api-level-31 = ["api-level-30"]
 api-level-32 = ["api-level-31"]
 api-level-33 = ["api-level-32"]
+api-level-34 = ["api-level-33"]
 
 test = ["ffi/test", "jni", "all"]
 

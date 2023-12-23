@@ -4,22 +4,25 @@
 //! [`AImage`]: https://developer.android.com/ndk/reference/group/media#aimage
 #![cfg(feature = "api-level-24")]
 
-use crate::media_error::{construct, construct_never_null, MediaError, Result};
-use crate::native_window::NativeWindow;
-use crate::utils::abort_on_panic;
-use num_enum::{FromPrimitive, IntoPrimitive};
-use std::{ffi::c_void, fmt, mem::MaybeUninit, ptr::NonNull};
-
 #[cfg(feature = "api-level-26")]
 use std::os::fd::{FromRawFd, IntoRawFd, OwnedFd};
+use std::{ffi::c_void, fmt, mem::MaybeUninit, ptr::NonNull};
+
+use num_enum::{FromPrimitive, IntoPrimitive};
 
 #[cfg(feature = "api-level-26")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
+use crate::media_error::{construct, construct_never_null, MediaError, Result};
+use crate::native_window::NativeWindow;
+use crate::utils::abort_on_panic;
+#[cfg(feature = "api-level-34")]
+use crate::{data_space::DataSpace, hardware_buffer_format::HardwareBufferFormat};
 
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[non_exhaustive]
+#[doc(alias = "AIMAGE_FORMATS")]
 pub enum ImageFormat {
     RGBA_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_8888.0 as i32,
     RGBX_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBX_8888.0 as i32,
@@ -44,9 +47,13 @@ pub enum ImageFormat {
     __Unknown(i32),
 }
 
+#[doc(alias = "AImageReader_ImageCallback")]
+#[doc(alias = "AImageReader_ImageListener")]
 pub type ImageListener = Box<dyn FnMut(&ImageReader) + Send>;
 
 #[cfg(feature = "api-level-26")]
+#[doc(alias = "AImageReader_BufferRemovedCallback")]
+#[doc(alias = "AImageReader_BufferRemovedListener")]
 pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer) + Send>;
 
 /// Result returned by:
@@ -108,6 +115,7 @@ impl AcquireResult<Image> {
 /// A native [`AImageReader *`]
 ///
 /// [`AImageReader *`]: https://developer.android.com/ndk/reference/group/media#aimagereader
+#[doc(alias = "AImageReader")]
 pub struct ImageReader {
     inner: NonNull<ffi::AImageReader>,
     image_cb: Option<Box<ImageListener>>,
@@ -144,6 +152,7 @@ impl ImageReader {
         self.inner.as_ptr()
     }
 
+    #[doc(alias = "AImageReader_new")]
     pub fn new(width: i32, height: i32, format: ImageFormat, max_images: i32) -> Result<Self> {
         let inner = construct_never_null(|res| unsafe {
             ffi::AImageReader_new(width, height, format.into(), max_images, res)
@@ -153,6 +162,7 @@ impl ImageReader {
     }
 
     #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AImageReader_newWithUsage")]
     pub fn new_with_usage(
         width: i32,
         height: i32,
@@ -167,6 +177,33 @@ impl ImageReader {
                 format.into(),
                 usage.bits(),
                 max_images,
+                res,
+            )
+        })?;
+
+        Ok(Self::from_ptr(inner))
+    }
+
+    #[cfg(feature = "api-level-34")]
+    #[doc(alias = "AImageReader_newWithDataSpace")]
+    pub fn new_with_data_space(
+        width: i32,
+        height: i32,
+        usage: HardwareBufferUsage,
+        max_images: i32,
+        format: HardwareBufferFormat,
+        data_space: DataSpace,
+    ) -> Result<Self> {
+        let inner = construct_never_null(|res| unsafe {
+            ffi::AImageReader_newWithDataSpace(
+                width,
+                height,
+                usage.bits(),
+                max_images,
+                i32::from(format)
+                    .try_into()
+                    .expect("Unexpected sign bit in `format`"),
+                data_space.into(),
                 res,
             )
         })?;
@@ -443,6 +480,13 @@ impl Image {
     pub fn delete_async(self, release_fence_fd: OwnedFd) {
         unsafe { ffi::AImage_deleteAsync(self.as_ptr(), release_fence_fd.into_raw_fd()) };
         std::mem::forget(self);
+    }
+
+    #[cfg(feature = "api-level-34")]
+    #[doc(alias = "AImage_getDataSpace")]
+    pub fn data_space(&self) -> Result<DataSpace> {
+        construct(|res| unsafe { ffi::AImage_getDataSpace(self.as_ptr(), res) })
+            .map(DataSpace::from)
     }
 }
 
