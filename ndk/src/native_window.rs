@@ -191,11 +191,8 @@ impl NativeWindow {
         frame_rate: f32,
         compatibility: FrameRateCompatibility,
     ) -> io::Result<()> {
-        let compatibility = (compatibility as u32)
-            .try_into()
-            .expect("i8 overflow in FrameRateCompatibility");
         let status = unsafe {
-            ffi::ANativeWindow_setFrameRate(self.ptr.as_ptr(), frame_rate, compatibility)
+            ffi::ANativeWindow_setFrameRate(self.ptr.as_ptr(), frame_rate, compatibility as i8)
         };
         status_to_io_result(status)
     }
@@ -238,18 +235,12 @@ impl NativeWindow {
         compatibility: FrameRateCompatibility,
         change_frame_rate_strategy: ChangeFrameRateStrategy,
     ) -> io::Result<()> {
-        let compatibility = (compatibility as u32)
-            .try_into()
-            .expect("i8 overflow in FrameRateCompatibility");
-        let strategy = (change_frame_rate_strategy as u32)
-            .try_into()
-            .expect("i8 overflow in ChangeFrameRateStrategy");
         let status = unsafe {
             ffi::ANativeWindow_setFrameRateWithChangeStrategy(
                 self.ptr.as_ptr(),
                 frame_rate,
-                compatibility,
-                strategy,
+                compatibility as i8,
+                change_frame_rate_strategy as i8,
             )
         };
         status_to_io_result(status)
@@ -445,7 +436,7 @@ pub enum GetDataSpaceError {
 )]
 /// .
 #[cfg(feature = "api-level-30")]
-#[repr(u32)]
+#[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_FrameRateCompatibility")]
 #[non_exhaustive]
@@ -457,7 +448,7 @@ pub enum FrameRateCompatibility {
     /// when displaying game content, UIs, and anything that isn't video.
     #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT")]
     Default =
-        ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT.0,
+        ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT.0 as i8,
     /// This window is being used to display content with an inherently fixed frame rate, e.g. a
     /// video that has a specific frame rate.
     ///
@@ -467,20 +458,23 @@ pub enum FrameRateCompatibility {
     /// system had chosen the app's requested frame rate. This value should be used for video
     /// content.
     #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE")]
-    FixedSource = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE.0,
+    FixedSource = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE.0 as i8,
 }
 
 /// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
 #[cfg(feature = "api-level-31")]
-#[repr(u32)]
+#[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_ChangeFrameRateStrategy")]
 #[non_exhaustive]
 pub enum ChangeFrameRateStrategy {
     /// Change the frame rate only if the transition is going to be seamless.
     #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS")]
-    OnlyIfSeamless = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS.0,
+    OnlyIfSeamless =
+        ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS
+            .0 as i8,
     /// Change the frame rate even if the transition is going to be non-seamless, i.e. with visual interruptions for the user.
     #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS")]
-    Always = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS.0,
+    Always =
+        ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS.0 as i8,
 }
