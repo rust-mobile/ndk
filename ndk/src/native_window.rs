@@ -411,17 +411,19 @@ bitflags::bitflags! {
     #[doc(alias = "ANativeWindowTransform")]
     pub struct NativeWindowTransform : u32 {
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_IDENTITY")]
-        const TRANSFORM_IDENTITY = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_IDENTITY.0;
+        const IDENTITY = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_IDENTITY.0;
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL")]
-        const TRANSFORM_MIRROR_HORIZONTAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL.0;
+        const MIRROR_HORIZONTAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL.0;
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL")]
-        const TRANSFORM_MIRROR_VERTICAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL.0;
+        const MIRROR_VERTICAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL.0;
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_90")]
-        const TRANSFORM_ROTATE_90 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_90.0;
+        const ROTATE_90 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_90.0;
+        /// Defined as [`Self::MIRROR_HORIZONTAL`] `|` [`Self::MIRROR_VERTICAL`].
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_180")]
-        const TRANSFORM_ROTATE_180 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_180.0;
+        const ROTATE_180 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_180.0;
+        /// Defined as [`Self::ROTATE_180`] `|` [`Self::ROTATE_90`].
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_270")]
-        const TRANSFORM_ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
+        const ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
 
         // https://docs.rs/bitflags/latest/bitflags/#externally-defined-flags
         const _ = !0;
