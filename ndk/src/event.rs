@@ -6,12 +6,15 @@
 //! [`android.view.KeyEvent`].
 //!
 //! [`AInputEvent`, `AKeyEvent` and `AMotionEvent`]: https://developer.android.com/ndk/reference/group/input
-//! [`android.view.InputEvent`]: https://developer.android.com/reference/android/view/InputEvent.html
-//! [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent.html
+//! [`android.view.InputEvent`]: https://developer.android.com/reference/android/view/InputEvent
+//! [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent
 //! [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
 
-use num_enum::{IntoPrimitive, TryFromPrimitive};
 use std::ptr::NonNull;
+
+#[cfg(feature = "api-level-31")]
+use jni_sys::{jobject, JNIEnv};
+use num_enum::{IntoPrimitive, TryFromPrimitive};
 
 /// A native [`AInputEvent *`]
 ///
@@ -20,6 +23,28 @@ use std::ptr::NonNull;
 pub enum InputEvent {
     MotionEvent(MotionEvent),
     KeyEvent(KeyEvent),
+}
+
+/// Wraps a Java [`InputEvent`] acquired from [`KeyEvent::from_java()`] or
+/// [`MotionEvent::from_java()`] with respective [`Drop`] semantics.
+#[cfg(feature = "api-level-31")]
+#[derive(Debug)]
+pub struct InputEventJava(InputEvent);
+
+#[cfg(feature = "api-level-31")]
+impl Drop for InputEventJava {
+    /// Releases interface objects created by [`KeyEvent::from_java()`] or
+    /// [`MotionEvent::from_java()`].
+    ///
+    /// The underlying Java object remains valid and does not change its state.
+    #[doc(alias = "AInputEvent_release")]
+    fn drop(&mut self) {
+        let ptr = match self.0 {
+            InputEvent::MotionEvent(MotionEvent { ptr })
+            | InputEvent::KeyEvent(KeyEvent { ptr }) => ptr.as_ptr().cast(),
+        };
+        unsafe { ffi::AInputEvent_release(ptr) }
+    }
 }
 
 /// An enum representing the source of an [`InputEvent`].
@@ -373,7 +398,26 @@ impl MotionEvent {
         Self { ptr }
     }
 
-    /// Returns a pointer to the native [`ffi::AInputEvent`]
+    /// Creates a native [`InputEvent`] object that is a copy of the specified
+    /// Java [`android.view.MotionEvent`]. The result may be used with generic and
+    /// [`MotionEvent`]-specific functions.
+    ///
+    /// # Safety
+    ///
+    /// This function should be called with a healthy JVM pointer and with a non-null
+    /// [`android.view.MotionEvent`].
+    ///
+    /// [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "AMotionEvent_fromJava")]
+    pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<InputEventJava> {
+        let ptr = unsafe { ffi::AMotionEvent_fromJava(env, key_event) };
+        Some(InputEventJava(InputEvent::MotionEvent(Self::from_ptr(
+            NonNull::new(ptr.cast_mut())?,
+        ))))
+    }
+
+    /// Returns a pointer to the native [`ffi::AInputEvent`].
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr
@@ -1342,7 +1386,26 @@ impl KeyEvent {
         Self { ptr }
     }
 
-    /// Returns a pointer to the native [`ffi::AInputEvent`]
+    /// Creates a native [`InputEvent`] object that is a copy of the specified Java
+    /// [`android.view.KeyEvent`]. The result may be used with generic and [`KeyEvent`]-specific
+    /// functions.
+    ///
+    /// # Safety
+    ///
+    /// This function should be called with a healthy JVM pointer and with a non-null
+    /// [`android.view.KeyEvent`].
+    ///
+    /// [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "AKeyEvent_fromJava")]
+    pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<InputEventJava> {
+        let ptr = unsafe { ffi::AKeyEvent_fromJava(env, key_event) };
+        Some(InputEventJava(InputEvent::KeyEvent(Self::from_ptr(
+            NonNull::new(ptr.cast_mut())?,
+        ))))
+    }
+
+    /// Returns a pointer to the native [`ffi::AInputEvent`].
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         self.ptr
