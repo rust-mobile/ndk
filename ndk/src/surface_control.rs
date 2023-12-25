@@ -13,10 +13,15 @@ use std::{
     fmt,
     os::fd::{FromRawFd, IntoRawFd, OwnedFd},
     ptr::NonNull,
+    time::Duration,
 };
 
+#[cfg(feature = "api-level-34")]
+use jni_sys::{jobject, JNIEnv};
 use num_enum::{FromPrimitive, IntoPrimitive};
 
+#[cfg(all(doc, feature = "api-level-34"))]
+use crate::data_space::DataSpaceRange;
 #[cfg(doc)]
 use crate::hardware_buffer::HardwareBufferUsage;
 #[cfg(feature = "api-level-31")]
@@ -92,6 +97,22 @@ impl SurfaceControl {
         let s = NonNull::new(ptr)?;
         Some(unsafe { Self::from_ptr(s) })
     }
+
+    /// Return the [`SurfaceControl`] wrapped by a [Java `SurfaceControl`] object.
+    ///
+    /// # Safety
+    /// `surface_control_obj` must be a non-null instance of [`android.view.SurfaceControl`] and
+    /// [`isValid()`] must be [`true`].
+    ///
+    /// [`android.view.SurfaceControl`]: https://developer.android.com/reference/android/view/SurfaceControl
+    /// [`isValid()`]: https://developer.android.com/reference/android/view/SurfaceControl#isValid()
+    #[cfg(feature = "api-level-34")]
+    #[doc(alias = "ASurfaceControl_fromJava")]
+    pub unsafe fn from_java(env: *mut JNIEnv, surface_control_obj: jobject) -> Self {
+        let ptr = unsafe { ffi::ASurfaceControl_fromJava(env, surface_control_obj) };
+        let ptr = NonNull::new(ptr).expect("ASurfaceControl_fromJava should never return NULL");
+        unsafe { Self::from_ptr(ptr) }
+    }
 }
 
 impl Drop for SurfaceControl {
@@ -139,7 +160,25 @@ impl SurfaceTransaction {
 
     #[doc(alias = "ASurfaceTransaction_create")]
     pub fn new() -> Option<Self> {
-        NonNull::new(unsafe { ffi::ASurfaceTransaction_create() }).map(|ptr| Self { ptr })
+        NonNull::new(unsafe { ffi::ASurfaceTransaction_create() })
+            .map(|ptr| unsafe { Self::from_ptr(ptr) })
+    }
+
+    /// Return the [`SurfaceTransaction`] wrapped by a [Java Transaction object].
+    ///
+    /// The returned [`SurfaceTransaction`] is still owned by the [Java `Transaction` object] is only
+    /// valid while the Java Transaction object is alive. In particular, the returned transaction
+    /// must NOT be deleted with ASurfaceTransaction_delete.
+    ///
+    /// transactionObj must be a non-null instance of
+    /// android.view.SurfaceControl.Transaction and close() must not already be called.
+    #[cfg(feature = "api-level-34")]
+    #[doc(alias = "ASurfaceTransaction_fromJava")]
+    pub unsafe fn from_java(env: *mut JNIEnv, transaction_obj: jobject) -> Self {
+        let ptr = unsafe { ffi::ASurfaceTransaction_fromJava(env, transaction_obj) };
+        let ptr = NonNull::new(ptr).expect("ASurfaceTransaction_fromJava should never return NULL");
+        // TODO: Don't return an owned transaction!
+        unsafe { Self::from_ptr(ptr) }
     }
 
     /// Applies the updates accumulated in this transaction.
@@ -475,11 +514,11 @@ impl SurfaceTransaction {
     /// desired present time that is before x, the later transaction will not preempt the earlier
     /// transaction.
     #[doc(alias = "ASurfaceTransaction_setDesiredPresentTime")]
-    pub fn set_desired_present_time(
-        &self,
-        // TODO: Duration
-        desired_present_time: i64,
-    ) {
+    pub fn set_desired_present_time(&self, desired_present_time: Duration) {
+        let desired_present_time = desired_present_time
+            .as_nanos()
+            .try_into()
+            .expect("Duration should be convertible to i64 nanoseconds");
         unsafe {
             ffi::ASurfaceTransaction_setDesiredPresentTime(self.ptr.as_ptr(), desired_present_time)
         }
@@ -562,12 +601,68 @@ impl SurfaceTransaction {
         }
     }
 
+    /// Sets the desired extended range brightness for the layer. This only applies for layers whose
+    /// [`DataSpace`] has [`DataSpaceRange::Extended`] set on it.
+    ///
+    /// # Parameters
+    /// - `surface_control`: The layer whose extended range brightness is being specified
+    /// - `current_buffer_ratio`: The current hdr/sdr ratio of the current buffer as represented
+    ///                           as `peakHdrBrightnessInNits / targetSdrWhitePointInNits`. For
+    ///                           example if the buffer was rendered with a target SDR whitepoint of
+    ///                           `100nits` and a max display brightness of `200nits`, this should
+    ///                           be set to `2.0`. \
+    /// \
+    ///                           Default value is `1.0`. \
+    /// \
+    ///                           Transfer functions that encode their own brightness ranges,
+    ///                           such as HLG or PQ, should also set this to `1.0` and instead
+    ///                           communicate extended content brightness information via metadata
+    ///                           such as CTA861_3 or SMPTE2086. \
+    /// \
+    ///                           Must be `finite && >= 1.0`.
+    ///
+    /// - `desired_ratio`: The desired hdr/sdr ratio as represented as `peakHdrBrightnessInNits /
+    ///                    targetSdrWhitePointInNits`. This can be used to communicate the max
+    ///                    desired brightness range. This is similar to the "max luminance" value in
+    ///                    other HDR metadata formats, but represented as a ratio of the target SDR
+    ///                    whitepoint to the max display brightness. The system may not be able to,
+    ///                    or may choose not to, deliver the requested range. \
+    /// \
+    ///                    While requesting a large desired ratio will result in the most dynamic
+    ///                    range, voluntarily reducing the requested range can help improve battery
+    ///                    life as well as can improve quality by ensuring greater bit depth is
+    ///                    allocated to the luminance range in use. \
+    /// \
+    ///                    Default value is 1.0f and indicates that extended range brightness is
+    ///                    not being used, so the resulting SDR or HDR behavior will be determined
+    ///                    entirely by the dataspace being used (ie, typically SDR however PQ or HLG
+    ///                    transfer functions will still result in HDR). \
+    /// \
+    ///                     Must be `finite && >= 1.0`.
+    #[cfg(feature = "api-level-34")]
+    #[doc(alias = "ASurfaceTransaction_setExtendedRangeBrightness")]
+    pub fn set_extended_range_brightness(
+        &self,
+        surface_control: &SurfaceControl,
+        current_buffer_ratio: f32,
+        desired_ratio: f32,
+    ) {
+        unsafe {
+            ffi::ASurfaceTransaction_setExtendedRangeBrightness(
+                self.ptr.as_ptr(),
+                surface_control.ptr.as_ptr(),
+                current_buffer_ratio,
+                desired_ratio,
+            )
+        }
+    }
+
     /// Same as [`set_frame_rate_with_change_strategy(transaction, surface_control,
-    /// frame_rate, compatibility, ChangeFrameRateStrategy::OnlyIfSeamless)`][SurfaceTransaction::set_frame_rate_with_change_strategy()].
+    /// frame_rate, compatibility, ChangeFrameRateStrategy::OnlyIfSeamless)`][Self::set_frame_rate_with_change_strategy()].
     ///
     #[cfg_attr(
         not(feature = "api-level-31"),
-        doc = "[`SyrfaceTransaction::set_frame_rate_with_change_strategy()`]: https://developer.android.com/ndk/reference/group/native-activity#asurfacetransaction_setframeratewithchangestrategy"
+        doc = "[Self::set_frame_rate_with_change_strategy()]: https://developer.android.com/ndk/reference/group/native-activity#asurfacetransaction_setframeratewithchangestrategy"
     )]
     #[cfg(feature = "api-level-30")]
     #[doc(alias = "ASurfaceTransaction_setFrameRate")]
@@ -598,6 +693,11 @@ impl SurfaceTransaction {
     ///
     /// You can register for changes in the refresh rate using
     /// [`ffi::AChoreographer_registerRefreshRateCallback()`].
+    ///
+    #[cfg_attr(
+        feature = "api-level-34",
+        doc = "See [`SurfaceTransaction::clear_frame_rate()`]."
+    )]
     ///
     /// # Parameters
     /// - `frame_rate`: The intended frame rate of this surface, in frames per second. `0` is a
@@ -631,6 +731,26 @@ impl SurfaceTransaction {
                 compatibility as i8,
                 change_frame_rate_strategy as i8,
             )
+        }
+    }
+
+    /// Clears the frame rate which is set for `surface_control`.
+    ///
+    /// This is equivalent to calling [`set_frame_rate_with_change_strategy(transaction, 0,
+    /// compatibility, change_frame_rate_strategy)`][Self::set_frame_rate_with_change_strategy()].
+    ///
+    /// Usage of this API won't directly affect the application's frame production pipeline.
+    /// However, because the system may change the display refresh rate, calls to this function may
+    /// result in changes to `Choreographer` callback timings, and changes to the time interval at
+    /// which the system releases buffers back to the application.
+    ///
+    /// You can register for changes in the refresh rate using
+    /// [`ffi::AChoreographer_registerRefreshRateCallback()`].
+    #[cfg(feature = "api-level-34")]
+    #[doc(alias = "ASurfaceTransaction_clearFrameRate")]
+    pub fn clear_frame_rate(&self, surface_control: &SurfaceControl) {
+        unsafe {
+            ffi::ASurfaceTransaction_clearFrameRate(self.ptr.as_ptr(), surface_control.ptr.as_ptr())
         }
     }
 
@@ -709,7 +829,7 @@ impl Drop for SurfaceTransaction {
 /// # Parameters
 /// - `stats`: [`SurfaceTransactionStats`] handle to query information about the transaction.
 #[doc(alias = "ASurfaceTransaction_OnComplete")]
-pub type OnComplete = Box<dyn FnOnce(&SurfaceTransactionStatsOnComplete) + Send + Sync>;
+pub type OnComplete = Box<dyn FnOnce(&SurfaceTransactionStatsOnComplete) + Send>;
 
 /// The [`OnCommit`] callback is invoked when this transaction is applied and the updates are ready
 /// to be presented. This callback will be invoked before the [`OnComplete`] callback.
@@ -723,11 +843,9 @@ pub type OnComplete = Box<dyn FnOnce(&SurfaceTransactionStatsOnComplete) + Send 
 /// # Parameters
 /// - `stats`: [`SurfaceTransactionStats`] handle to query information about the
 ///   transaction. Present and release fences are not available for this callback.
-///   Querying them using [`SurfaceTransactionStats::present_fence_fd()`] and
-///   [`SurfaceTransactionStats::previous_release_fence_fd()`] will result in failure.
 #[cfg(feature = "api-level-31")]
 #[doc(alias = "ASurfaceTransaction_OnCommit")]
-pub type OnCommit = Box<dyn FnOnce(&SurfaceTransactionStats) + Send + Sync>;
+pub type OnCommit = Box<dyn FnOnce(&SurfaceTransactionStats) + Send>;
 
 /// An opaque handle returned during a callback that can be used to query general stats and stats
 /// for surfaces which were either removed or for which buffers were updated after this transaction
@@ -829,9 +947,12 @@ impl SurfaceTransactionStats {
     /// Returns the timestamp of when the frame was latched by the framework. Once a frame is
     /// latched by the framework, it is presented at the following hardware vsync.
     #[doc(alias = "ASurfaceTransactionStats_getLatchTime")]
-    // TODO Duration
-    pub fn latch_time(&self) -> i64 {
-        unsafe { ffi::ASurfaceTransactionStats_getLatchTime(self.ptr.as_ptr()) }
+    pub fn latch_time(&self) -> Duration {
+        let ts = unsafe { ffi::ASurfaceTransactionStats_getLatchTime(self.ptr.as_ptr()) };
+        Duration::from_nanos(
+            ts.try_into()
+                .expect("getLatchTime should not return a negative timestamp"),
+        )
     }
 
     /// Returns an array of [`SurfaceControl`] pointers that were updated during the transaction.
@@ -858,8 +979,7 @@ impl SurfaceTransactionStats {
     /// until it is acquired. If no `acquire_fence_fd` was provided, this timestamp will be set
     /// to [`None`].
     #[doc(alias = "ASurfaceTransactionStats_getAcquireTime")]
-    // TODO Duration
-    pub fn acquire_time(&self, surface_control: &SurfaceControl) -> Option<i64> {
+    pub fn acquire_time(&self, surface_control: &SurfaceControl) -> Option<Duration> {
         let ts = unsafe {
             ffi::ASurfaceTransactionStats_getAcquireTime(
                 self.ptr.as_ptr(),
@@ -868,7 +988,10 @@ impl SurfaceTransactionStats {
         };
         match ts {
             -1 => None,
-            ts => Some(ts),
+            ts => Some(Duration::from_nanos(
+                ts.try_into()
+                    .expect("getAcquireTime should not return a negative timestamp"),
+            )),
         }
     }
 }
