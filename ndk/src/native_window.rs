@@ -5,10 +5,6 @@
 use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
 
 use jni_sys::{jobject, JNIEnv};
-#[cfg(feature = "api-level-28")]
-use num_enum::{TryFromPrimitive, TryFromPrimitiveError};
-#[cfg(feature = "api-level-28")]
-use thiserror::Error;
 
 use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
 #[cfg(feature = "api-level-28")]
@@ -156,23 +152,20 @@ impl NativeWindow {
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "ANativeWindow_setBuffersDataSpace")]
     pub fn set_buffers_data_space(&self, data_space: DataSpace) -> io::Result<()> {
-        let data_space = (data_space as u32)
-            .try_into()
-            .expect("Sign bit should be unused");
         let status =
-            unsafe { ffi::ANativeWindow_setBuffersDataSpace(self.ptr.as_ptr(), data_space) };
+            unsafe { ffi::ANativeWindow_setBuffersDataSpace(self.ptr.as_ptr(), data_space.into()) };
         status_to_io_result(status)
     }
 
     /// Get the dataspace of the buffers in this [`NativeWindow`].
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "ANativeWindow_getBuffersDataSpace")]
-    pub fn buffers_data_space(&self) -> Result<DataSpace, GetDataSpaceError> {
+    pub fn buffers_data_space(&self) -> io::Result<DataSpace> {
         let status = unsafe { ffi::ANativeWindow_getBuffersDataSpace(self.ptr.as_ptr()) };
         if status >= 0 {
-            Ok(DataSpace::try_from_primitive(status as u32)?)
+            Ok(status.into())
         } else {
-            Err(status_to_io_result(status).unwrap_err().into())
+            Err(status_to_io_result(status).unwrap_err())
         }
     }
 
@@ -418,15 +411,6 @@ bitflags::bitflags! {
         // https://docs.rs/bitflags/latest/bitflags/#externally-defined-flags
         const _ = !0;
     }
-}
-
-#[cfg(feature = "api-level-28")]
-#[derive(Debug, Error)]
-pub enum GetDataSpaceError {
-    #[error(transparent)]
-    IoError(#[from] io::Error),
-    #[error(transparent)]
-    TryFromPrimitiveError(#[from] TryFromPrimitiveError<DataSpace>),
 }
 
 /// Compatibility value for [`NativeWindow::set_frame_rate()`]

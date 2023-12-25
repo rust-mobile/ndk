@@ -7,7 +7,7 @@
 #![cfg(feature = "bitmap")]
 
 use jni_sys::{jobject, JNIEnv};
-use num_enum::{FromPrimitive, IntoPrimitive, TryFromPrimitive, TryFromPrimitiveError};
+use num_enum::{FromPrimitive, IntoPrimitive};
 use std::{error, fmt, mem::MaybeUninit};
 
 #[cfg(feature = "api-level-30")]
@@ -123,13 +123,9 @@ impl Bitmap {
     /// even for Named ColorSpaces, if they have no corresponding [`DataSpace`].
     #[cfg(feature = "api-level-30")]
     #[doc(alias = "AndroidBitmap_getDataSpace")]
-    pub fn data_space(&self) -> Result<DataSpace, TryFromPrimitiveError<DataSpace>> {
+    pub fn data_space(&self) -> DataSpace {
         let value = unsafe { ffi::AndroidBitmap_getDataSpace(self.env, self.inner) };
-        DataSpace::try_from_primitive(
-            value
-                .try_into()
-                .expect("AndroidBitmap_getDataSpace returned negative value"),
-        )
+        value.into()
     }
 
     /// Attempt to lock the pixel address.
@@ -197,7 +193,7 @@ impl Bitmap {
         compress_callback: F,
     ) -> Result<(), BitmapCompressError> {
         let info = self.info()?;
-        let data_space = self.data_space()?;
+        let data_space = self.data_space();
         let pixels = self.lock_pixels()?;
         // SAFETY: When lock_pixels() succeeds, assume it returns a valid pointer that stays
         // valid until we call unlock_pixels().
@@ -283,9 +279,7 @@ impl Bitmap {
         let status = unsafe {
             ffi::AndroidBitmap_compress(
                 &info.inner,
-                u32::from(data_space)
-                    .try_into()
-                    .expect("i32 overflow in DataSpace"),
+                data_space.into(),
                 pixels,
                 format.into(),
                 quality,
@@ -446,7 +440,7 @@ impl BitmapInfo {
 /// [`Bitmap::compress_raw()`].
 #[cfg(feature = "api-level-30")]
 #[repr(i32)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "AndroidBitmapCompressFormat")]
 #[non_exhaustive]
 pub enum BitmapCompressFormat {
@@ -487,10 +481,6 @@ pub enum BitmapCompressFormat {
 pub enum BitmapCompressError {
     #[error(transparent)]
     BitmapError(#[from] BitmapError),
-    /// Only returned when [`Bitmap::compress()`] fails to read a valid [`DataSpace`] via
-    /// [`Bitmap::data_space()`].
-    #[error(transparent)]
-    DataSpaceFromPrimitiveError(#[from] TryFromPrimitiveError<DataSpace>),
     /// [`Bitmap`] compression requires a known [`DataSpace`].  [`DataSpace::Unknown`] is invalid
     /// even though it is typically treated as `sRGB`, for that [`DataSpace::Srgb`] has to be passed
     /// explicitly.
