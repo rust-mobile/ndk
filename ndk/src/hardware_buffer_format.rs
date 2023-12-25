@@ -5,62 +5,66 @@
 use num_enum::{FromPrimitive, IntoPrimitive};
 
 /// Buffer pixel formats.
-#[repr(u32)]
+#[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[non_exhaustive]
 pub enum HardwareBufferFormat {
     /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGBA_8888`].0.
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM")]
-    R8G8B8A8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM.0,
+    R8G8B8A8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM.0 as i32,
     /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGBX_8888`].0.
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R8G8B8X8_UNORM")]
-    R8G8B8X8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8X8_UNORM.0,
+    R8G8B8X8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8X8_UNORM.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM")]
-    R8G8B8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM.0,
+    R8G8B8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM.0 as i32,
     /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGB_565`].0.
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R5G6B5_UNORM")]
-    R5G6B5_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R5G6B5_UNORM.0,
+    R5G6B5_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R5G6B5_UNORM.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R16G16B16A16_FLOAT")]
-    R16G16B16A16_FLOAT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R16G16B16A16_FLOAT.0,
+    R16G16B16A16_FLOAT =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R16G16B16A16_FLOAT.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R10G10B10A2_UNORM")]
-    R10G10B10A2_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R10G10B10A2_UNORM.0,
+    R10G10B10A2_UNORM =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R10G10B10A2_UNORM.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_BLOB")]
-    BLOB = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_BLOB.0,
+    BLOB = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_BLOB.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_D16_UNORM")]
-    D16_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D16_UNORM.0,
+    D16_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D16_UNORM.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_D24_UNORM")]
-    D24_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D24_UNORM.0,
+    D24_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D24_UNORM.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_D24_UNORM_S8_UINT")]
-    D24_UNORM_S8_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D24_UNORM_S8_UINT.0,
+    D24_UNORM_S8_UINT =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D24_UNORM_S8_UINT.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_D32_FLOAT")]
-    D32_FLOAT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D32_FLOAT.0,
+    D32_FLOAT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D32_FLOAT.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_D32_FLOAT_S8_UINT")]
-    D32_FLOAT_S8_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D32_FLOAT_S8_UINT.0,
+    D32_FLOAT_S8_UINT =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_D32_FLOAT_S8_UINT.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_S8_UINT")]
-    S8_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_S8_UINT.0,
+    S8_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_S8_UINT.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_Y8Cb8Cr8_420")]
-    Y8Cb8Cr8_420 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_Y8Cb8Cr8_420.0,
+    Y8Cb8Cr8_420 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_Y8Cb8Cr8_420.0 as i32,
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_YCbCr_P010")]
-    YCbCr_P010 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_YCbCr_P010.0,
+    YCbCr_P010 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_YCbCr_P010.0 as i32,
     #[cfg(feature = "api-level-26")]
-    R8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8_UNORM.0,
+    R8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8_UNORM.0 as i32,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
-    __Unknown(u32),
+    __Unknown(i32),
 }
 
 impl HardwareBufferFormat {
