@@ -114,7 +114,7 @@ impl ImageReader {
                 width,
                 height,
                 format.into(),
-                usage.0 .0,
+                usage.bits(),
                 max_images,
                 res,
             )

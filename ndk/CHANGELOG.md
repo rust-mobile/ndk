@@ -19,6 +19,7 @@
 - Ensure all `bitflags` implementations consider all (including unknown) bits in negation and `all()`. (#458)
 - **Breaking:** Mark all enums as `non_exhaustive` and fix `repr` types. (#459)
 - **Breaking:** native_window: Remove redundant `TRANSFORM_` prefix from `NativeWindowTransform` variants. (#460)
+- **Breaking:** hardware_buffer: Convert `HardwareBufferUsage` to `bitflags`. (#461)
 - bitmap: Guard `BitmapCompressError` behind missing `api-level-30` feature. (#462)
 - data_space: Add missing `DataSpaceRange::Unspecified` variant. (#468)
 
