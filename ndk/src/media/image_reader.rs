@@ -54,6 +54,62 @@ pub type ImageListener = Box<dyn FnMut(&ImageReader) + Send>;
 #[cfg(feature = "api-level-26")]
 pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer) + Send>;
 
+/// Result returned by:
+/// - [`ImageReader::acquire_next_image()`]`
+/// - [`ImageReader::acquire_next_image_async()`]`
+/// - [`ImageReader::acquire_latest_image()`]`
+/// - [`ImageReader::acquire_latest_image_async()`]`
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+pub enum AcquireResult<T> {
+    /// Returned if there is no buffers currently available in the reader queue.
+    #[doc(alias = "AMEDIA_IMGREADER_NO_BUFFER_AVAILABLE")]
+    NoBufferAvailable,
+    /// Returned if the number of concurrently acquired images has reached the limit.
+    #[doc(alias = "AMEDIA_IMGREADER_MAX_IMAGES_ACQUIRED")]
+    MaxImagesAcquired,
+
+    /// Returned if an [`Image`] (optionally with fence) was successfully acquired.
+    Image(T),
+}
+
+impl<T> AcquireResult<T> {
+    fn map<U>(self, f: impl FnOnce(T) -> U) -> AcquireResult<U> {
+        match self {
+            AcquireResult::Image(img) => AcquireResult::Image(f(img)),
+            AcquireResult::NoBufferAvailable => AcquireResult::NoBufferAvailable,
+            AcquireResult::MaxImagesAcquired => AcquireResult::MaxImagesAcquired,
+        }
+    }
+}
+
+impl AcquireResult<Image> {
+    /// Inlined version of [`construct_never_null()`] with IMGREADER-specific result mapping.
+    fn construct_never_null(
+        with_ptr: impl FnOnce(*mut *mut ffi::AImage) -> ffi::media_status_t,
+    ) -> Result<Self> {
+        let mut result = MaybeUninit::uninit();
+        let status = with_ptr(result.as_mut_ptr());
+        match status {
+            ffi::media_status_t::AMEDIA_IMGREADER_NO_BUFFER_AVAILABLE => {
+                Ok(Self::NoBufferAvailable)
+            }
+            ffi::media_status_t::AMEDIA_IMGREADER_MAX_IMAGES_ACQUIRED => {
+                Ok(Self::MaxImagesAcquired)
+            }
+            status => MediaError::from_status(status).map(|()| {
+                let result = unsafe { result.assume_init() };
+                Self::Image(Image {
+                    inner: if cfg!(debug_assertions) {
+                        NonNull::new(result).expect("result should never be null")
+                    } else {
+                        unsafe { NonNull::new_unchecked(result) }
+                    },
+                })
+            }),
+        }
+    }
+}
+
 /// A native [`AImageReader *`]
 ///
 /// [`AImageReader *`]: https://developer.android.com/ndk/reference/group/media#aimagereader
@@ -218,16 +274,10 @@ impl ImageReader {
     }
 
     #[doc(alias = "AImageReader_acquireNextImage")]
-    pub fn acquire_next_image(&self) -> Result<Option<Image>> {
-        let res = construct_never_null(|res| unsafe {
+    pub fn acquire_next_image(&self) -> Result<AcquireResult<Image>> {
+        AcquireResult::construct_never_null(|res| unsafe {
             ffi::AImageReader_acquireNextImage(self.as_ptr(), res)
-        });
-
-        match res {
-            Ok(inner) => Ok(Some(Image { inner })),
-            Err(MediaError::ImgreaderNoBufferAvailable) => Ok(None),
-            Err(e) => Err(e),
-        }
+        })
     }
 
     /// Acquire the next [`Image`] from the image reader's queue asynchronously.
@@ -239,31 +289,26 @@ impl ImageReader {
     /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirenextimageasync>
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AImageReader_acquireNextImageAsync")]
-    pub unsafe fn acquire_next_image_async(&self) -> Result<(Image, Option<OwnedFd>)> {
+    pub unsafe fn acquire_next_image_async(
+        &self,
+    ) -> Result<AcquireResult<(Image, Option<OwnedFd>)>> {
         let mut fence = MaybeUninit::uninit();
-        let inner = construct_never_null(|res| {
+        AcquireResult::construct_never_null(|res| {
             ffi::AImageReader_acquireNextImageAsync(self.as_ptr(), res, fence.as_mut_ptr())
-        })?;
-
-        let image = Image { inner };
-
-        Ok(match fence.assume_init() {
-            -1 => (image, None),
-            fence => (image, Some(unsafe { OwnedFd::from_raw_fd(fence) })),
+        })
+        .map(|result| {
+            result.map(|image| match fence.assume_init() {
+                -1 => (image, None),
+                fence => (image, Some(unsafe { OwnedFd::from_raw_fd(fence) })),
+            })
         })
     }
 
     #[doc(alias = "AImageReader_acquireLatestImage")]
-    pub fn acquire_latest_image(&self) -> Result<Option<Image>> {
-        let res = construct_never_null(|res| unsafe {
+    pub fn acquire_latest_image(&self) -> Result<AcquireResult<Image>> {
+        AcquireResult::construct_never_null(|res| unsafe {
             ffi::AImageReader_acquireLatestImage(self.as_ptr(), res)
-        });
-
-        if let Err(MediaError::ImgreaderNoBufferAvailable) = res {
-            return Ok(None);
-        }
-
-        Ok(Some(Image { inner: res? }))
+        })
     }
 
     /// Acquire the latest [`Image`] from the image reader's queue asynchronously, dropping older images.
@@ -275,17 +320,18 @@ impl ImageReader {
     /// <https://developer.android.com/ndk/reference/group/media#aimagereader_acquirelatestimageasync>
     #[cfg(feature = "api-level-26")]
     #[doc(alias = "AImageReader_acquireLatestImageAsync")]
-    pub fn acquire_latest_image_async(&self) -> Result<(Image, Option<OwnedFd>)> {
+    pub unsafe fn acquire_latest_image_async(
+        &self,
+    ) -> Result<AcquireResult<(Image, Option<OwnedFd>)>> {
         let mut fence = MaybeUninit::uninit();
-        let inner = construct_never_null(|res| unsafe {
+        AcquireResult::construct_never_null(|res| {
             ffi::AImageReader_acquireLatestImageAsync(self.as_ptr(), res, fence.as_mut_ptr())
-        })?;
-
-        let image = Image { inner };
-
-        Ok(match unsafe { fence.assume_init() } {
-            -1 => (image, None),
-            fence => (image, Some(unsafe { OwnedFd::from_raw_fd(fence) })),
+        })
+        .map(|result| {
+            result.map(|image| match fence.assume_init() {
+                -1 => (image, None),
+                fence => (image, Some(unsafe { OwnedFd::from_raw_fd(fence) })),
+            })
         })
     }
 }
