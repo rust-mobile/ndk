@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 os=$(uname -s)
 
 if [[ "$os" == "Darwin" ]]; then
@@ -10,7 +12,16 @@ else
     host_tag="linux-x86_64"
 fi
 
-sysroot="${ANDROID_NDK_ROOT}"/toolchains/llvm/prebuilt/${host_tag}/sysroot/
+# Builds can be found at https://ci.android.com for the `ndk` component
+build_id=$(grep -oP 'version = "\d\.\d.\d\+\K\d+' ./Cargo.toml)
+# From https://cs.android.com/android/platform/superproject/main/+/main:development/python-packages/fetchartifact/fetchartifact/__init__.py
+target="ndk"
+artifact_name="ndk_platform.tar.bz2"
+url="https://androidbuildinternal.googleapis.com/android/internal/build/v3/builds/$build_id/$target/attempts/latest/artifacts/$artifact_name/url"
+echo "Downloading sysroot $build_id from $url"
+curl -L $url -o "$artifact_name"
+tar xvf "$artifact_name" "ndk/sysroot/usr/include"
+sysroot="$PWD/ndk/sysroot/"
 [ ! -d "$sysroot" ] && echo "Android sysroot $sysroot does not exist!" && exit 1
 
 while read ARCH && read TARGET ; do
