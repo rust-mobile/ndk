@@ -13,6 +13,24 @@ jobs:
 
   clippy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        api-level:
+          - api-level-23
+          - api-level-24
+          - api-level-25
+          - api-level-26
+          - api-level-27
+          - api-level-28
+          - api-level-29
+          - api-level-30
+          - api-level-31
+          # Some of these will turn on the minimum required API level
+          - audio
+          - bitmap
+          - media
+          - sync
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,9 +38,11 @@ jobs:
         with:
           target: aarch64-linux-android
 
-      - name: Clippy
-        # Use a cross-compilation target (that's typical for Android) to lint everything
+      - name: Clippy all-features
         run: cargo clippy --all --all-targets --all-features --target aarch64-linux-android -- -Dwarnings
+
+      - name: Clippy all-features
+        run: cargo clippy --all --all-targets -F ${{ matrix.api-level }} --target aarch64-linux-android -- -Dwarnings
 
   check_ndk_sys_msrv:
     name: Check ndk-sys MSRV (1.60.0)
