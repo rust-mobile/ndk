@@ -14,6 +14,7 @@
 pub mod asset;
 pub mod audio;
 pub mod bitmap;
+pub mod choreographer;
 pub mod configuration;
 pub mod data_space;
 pub mod event;
