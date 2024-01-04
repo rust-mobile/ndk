@@ -2,7 +2,7 @@
 
 - Move `MediaFormat` from `media::media_codec` to its own `media::media_format` module. (#442)
 - media_format: Expose `MediaFormat::copy()` and `MediaFormat::clear()` from API level 29. (#449)
-- ndk/bitmap: Fix missing `cfg(feature = "api-level-30")` on `BitmapCompressError` (#462)
+- ndk/bitmap: Guard `BitmapCompressError` behind missing `api-level-30` feature. (#462)
 
 # 0.8.0 (2023-10-15)
 
