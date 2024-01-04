@@ -20,14 +20,16 @@ use std::{
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{FromPrimitive, IntoPrimitive};
 
+#[cfg(all(doc, feature = "api-level-33"))]
+use crate::choreographer::ChoreographerFrameCallbackData;
 #[cfg(all(doc, feature = "api-level-34"))]
 use crate::data_space::DataSpaceRange;
-#[cfg(doc)]
-use crate::hardware_buffer::HardwareBufferUsage;
 #[cfg(feature = "api-level-31")]
 use crate::native_window::ChangeFrameRateStrategy;
 #[cfg(feature = "api-level-30")]
 use crate::native_window::FrameRateCompatibility;
+#[cfg(doc)]
+use crate::{choreographer::Choreographer, hardware_buffer::HardwareBufferUsage};
 use crate::{
     data_space::DataSpace,
     hardware_buffer::{HardwareBuffer, Rect},
@@ -688,11 +690,11 @@ impl SurfaceTransaction {
     /// may choose a display refresh rate to better match this surface's frame rate. Usage of this
     /// API won't directly affect the application's frame production pipeline. However, because the
     /// system may change the display refresh rate, calls to this function may result in changes
-    /// to `Choreographer` callback timings, and changes to the time interval at which the system
+    /// to [`Choreographer`] callback timings, and changes to the time interval at which the system
     /// releases buffers back to the application.
     ///
     /// You can register for changes in the refresh rate using
-    /// [`ffi::AChoreographer_registerRefreshRateCallback()`].
+    /// [`Choreographer::register_refresh_rate_callback()`].
     ///
     #[cfg_attr(
         feature = "api-level-34",
@@ -741,11 +743,11 @@ impl SurfaceTransaction {
     ///
     /// Usage of this API won't directly affect the application's frame production pipeline.
     /// However, because the system may change the display refresh rate, calls to this function may
-    /// result in changes to `Choreographer` callback timings, and changes to the time interval at
+    /// result in changes to [`Choreographer` ]callback timings, and changes to the time interval at
     /// which the system releases buffers back to the application.
     ///
     /// You can register for changes in the refresh rate using
-    /// [`ffi::AChoreographer_registerRefreshRateCallback()`].
+    /// [`Choreographer::register_refresh_rate_callback()`].
     #[cfg(feature = "api-level-34")]
     #[doc(alias = "ASurfaceTransaction_clearFrameRate")]
     pub fn clear_frame_rate(&self, surface_control: &SurfaceControl) {
@@ -798,14 +800,14 @@ impl SurfaceTransaction {
     /// frame timeline, `SurfaceFlinger` tries to present the frame at the corresponding expected
     /// presentation time.
     ///
-    /// To receive frame timelines, a callback must be posted to `Choreographer` using
-    /// [`ffi::AChoreographer_postVsyncCallback()`]. The `vsync_id` can then be extracted from the
-    /// callback payload using [`ffi::AChoreographerFrameCallbackData_getFrameTimelineVsyncId()`].
+    /// To receive frame timelines, a callback must be posted to [`Choreographer`] using
+    /// [`Choreographer::post_vsync_callback()`]. The `vsync_id` can then be extracted from the
+    /// callback payload using [`ChoreographerFrameCallbackData::frame_timeline_vsync_id()`].
     ///
     /// # Parameters
-    /// - `vsync_id`: The vsync ID received from [`ffi::AChoreographer`], setting the frame's
-    ///   presentation target to the corresponding expected presentation time and deadline from the
-    ///   frame to be rendered. A stale or invalid value will be ignored.
+    /// - `vsync_id`: The vsync ID received from [`Choreographer`], setting the frame's presentation
+    ///   target to the corresponding expected presentation time and deadline from the frame to be
+    ///   rendered. A stale or invalid value will be ignored.
     #[cfg(feature = "api-level-33")]
     #[doc(alias = "ASurfaceTransaction_setFrameTimeline")]
     pub fn set_frame_timeline(&self, vsync_id: ffi::AVsyncId) {
