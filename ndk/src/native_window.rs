@@ -6,9 +6,11 @@ use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
 
 use jni_sys::{jobject, JNIEnv};
 
-use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
+#[cfg(doc)]
+use crate::choreographer::Choreographer;
 #[cfg(all(feature = "nativewindow", feature = "api-level-28"))]
 use crate::data_space::DataSpace;
+use crate::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
 
 pub type Rect = ffi::ARect;
 
@@ -204,15 +206,15 @@ impl NativeWindow {
     /// may choose a display refresh rate to better match this window's frame rate. Usage of this
     /// API won't introduce frame rate throttling, or affect other aspects of the application's
     /// frame production pipeline. However, because the system may change the display refresh rate,
-    /// calls to this function may result in changes to `Choreographer` callback timings, and changes
-    /// to the time interval at which the system releases buffers back to the application.
+    /// calls to this function may result in changes to [`Choreographer`] callback timings, and
+    /// changes to the time interval at which the system releases buffers back to the application.
     ///
     /// Note that this only has an effect for windows presented on the display. If this
     /// [`NativeWindow`] is consumed by something other than the system compositor, e.g. a media
     /// codec, this call has no effect.
     ///
     /// You can register for changes in the refresh rate using
-    /// [`ffi::AChoreographer_registerRefreshRateCallback()`].
+    /// [`Choreographer::register_refresh_rate_callback()`].
     ///
     /// # Parameters
     ///
