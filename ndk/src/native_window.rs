@@ -7,7 +7,7 @@ use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
 use jni_sys::{jobject, JNIEnv};
 
 use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
-#[cfg(feature = "api-level-28")]
+#[cfg(all(feature = "nativewindow", feature = "api-level-28"))]
 use crate::data_space::DataSpace;
 
 pub type Rect = ffi::ARect;
@@ -130,7 +130,8 @@ impl NativeWindow {
     }
 
     /// Set a transform that will be applied to future buffers posted to the window.
-    #[cfg(feature = "api-level-26")]
+    #[cfg(all(feature = "nativewindow", feature = "api-level-26"))]
+    #[doc(alias = "ANativeWindow_setBuffersTransform")]
     pub fn set_buffers_transform(&self, transform: NativeWindowTransform) -> io::Result<()> {
         let status =
             unsafe { ffi::ANativeWindow_setBuffersTransform(self.ptr.as_ptr(), transform.bits()) };
@@ -144,7 +145,7 @@ impl NativeWindow {
     /// to convey the color space of the image data in the buffer, or it can be used to indicate
     /// that the buffers contain depth measurement data instead of color images. The default
     /// dataSpace is `0`, [`DataSpace::Unknown`], unless it has been overridden by the producer.
-    #[cfg(feature = "api-level-28")]
+    #[cfg(all(feature = "nativewindow", feature = "api-level-28"))]
     #[doc(alias = "ANativeWindow_setBuffersDataSpace")]
     pub fn set_buffers_data_space(&self, data_space: DataSpace) -> io::Result<()> {
         let status =
@@ -153,7 +154,7 @@ impl NativeWindow {
     }
 
     /// Get the dataspace of the buffers in this [`NativeWindow`].
-    #[cfg(feature = "api-level-28")]
+    #[cfg(all(feature = "nativewindow", feature = "api-level-28"))]
     #[doc(alias = "ANativeWindow_getBuffersDataSpace")]
     pub fn buffers_data_space(&self) -> io::Result<DataSpace> {
         let status = unsafe { ffi::ANativeWindow_getBuffersDataSpace(self.ptr.as_ptr()) };
@@ -172,7 +173,7 @@ impl NativeWindow {
         not(feature = "api-level-31"),
         doc = "[`NativeWindow::set_frame_rate_with_change_strategy()`]: https://developer.android.com/ndk/reference/group/a-native-window#anativewindow_setframeratewithchangestrategy"
     )]
-    #[cfg(feature = "api-level-30")]
+    #[cfg(all(feature = "nativewindow", feature = "api-level-30"))]
     #[doc(alias = "ANativeWindow_setFrameRate")]
     pub fn set_frame_rate(
         &self,
@@ -215,7 +216,7 @@ impl NativeWindow {
     ///   window should be seamless. A seamless transition is one that doesn't have any visual
     ///   interruptions, such as a black screen for a second or two. See the
     ///   [`ChangeFrameRateStrategy`] values. This parameter is ignored when `frame_rate` is `0`.
-    #[cfg(feature = "api-level-31")]
+    #[cfg(all(feature = "nativewindow", feature = "api-level-31"))]
     #[doc(alias = "ANativeWindow_setFrameRateWithChangeStrategy")]
     pub fn set_frame_rate_with_change_strategy(
         &self,
@@ -239,7 +240,7 @@ impl NativeWindow {
     /// Note that the window implementation is not guaranteed to preallocate any buffers, for
     /// instance if an implementation disallows allocation of new buffers, or if there is
     /// insufficient memory in the system to preallocate additional buffers
-    #[cfg(feature = "api-level-30")]
+    #[cfg(all(feature = "nativewindow", feature = "api-level-30"))]
     pub fn try_allocate_buffers(&self) {
         unsafe { ffi::ANativeWindow_tryAllocateBuffers(self.ptr.as_ptr()) }
     }
@@ -377,7 +378,7 @@ impl<'a> Drop for NativeWindowBufferLockGuard<'a> {
     }
 }
 
-#[cfg(feature = "api-level-26")]
+#[cfg(all(feature = "nativewindow", feature = "api-level-26"))]
 bitflags::bitflags! {
     /// Transforms that can be applied to buffers as they are displayed to a window.
     ///
@@ -413,7 +414,7 @@ bitflags::bitflags! {
     doc = " and [`NativeWindow::set_frame_rate_with_change_strategy()`]"
 )]
 /// .
-#[cfg(feature = "api-level-30")]
+#[cfg(all(feature = "nativewindow", feature = "api-level-30"))]
 #[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_FrameRateCompatibility")]
@@ -440,7 +441,7 @@ pub enum FrameRateCompatibility {
 }
 
 /// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
-#[cfg(feature = "api-level-31")]
+#[cfg(all(feature = "nativewindow", feature = "api-level-31"))]
 #[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_ChangeFrameRateStrategy")]
