@@ -15,11 +15,7 @@ use std::ptr::NonNull;
 
 /// An integer holding a valid font weight value between 1 and 1000.
 ///
-/// See the following definitions for more details:
-/// * [`AFONT_WEIGHT_*`]
-/// * [`Font::weight`]
-///
-/// [`AFONT_WEIGHT_*`]: https://developer.android.com/ndk/reference/group/font#anonymous-enum-33
+/// See the [`Font::weight`] definition for more details.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct FontWeight(u16);
 
