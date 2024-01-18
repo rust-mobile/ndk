@@ -211,6 +211,42 @@ impl ThreadLooper {
         )
     }
 
+    /// Adds a file descriptor to be polled, with a callback that is invoked when any of the
+    /// [`FdEvent`]s described in `events` is triggered.
+    ///
+    /// The callback receives the file descriptor it is associated with and a bitmask of the poll
+    /// events that were triggered (typically [`FdEvent::INPUT`]).  It should return [`true`] to
+    /// continue receiving callbacks, or [`false`] to have the callback unregistered.
+    ///
+    /// See also [the NDK
+    /// docs](https://developer.android.com/ndk/reference/group/looper.html#alooper_addfd).
+    ///
+    /// Note that this will leak a [`Box`] unless the callback returns [`false`] to unregister
+    /// itself.
+    ///
+    /// # Threading
+    /// This function will be called on the current thread when this [`ThreadLooper`] is
+    /// polled. A callback can also be registered from other threads via the equivalent
+    /// [`ForeignLooper::add_fd_with_callback()`] function, which requires a [`Send`] bound.
+    ///
+    /// # Safety
+    /// The caller should guarantee that this file descriptor stays open until it is removed via
+    /// [`remove_fd()`][ForeignLooper::remove_fd()] or by returning [`false`] from the callback,
+    /// and for however long the caller wishes to use this file descriptor inside and after the
+    /// callback.
+    #[doc(alias = "ALooper_addFd")]
+    pub fn add_fd_with_callback<F: FnMut(BorrowedFd<'_>, FdEvent) -> bool>(
+        &self,
+        fd: BorrowedFd<'_>,
+        events: FdEvent,
+        callback: F,
+    ) -> Result<(), LooperError> {
+        unsafe {
+            self.foreign
+                .add_fd_with_callback_assume_send(fd, events, callback)
+        }
+    }
+
     /// Returns a reference to the [`ForeignLooper`] that is associated with the current thread.
     pub fn as_foreign(&self) -> &ForeignLooper {
         &self.foreign
@@ -313,9 +349,11 @@ impl ForeignLooper {
         }
     }
 
-    /// Adds a file descriptor to be polled, with a callback.
+    /// Adds a file descriptor to be polled, with a callback that is invoked when any of the
+    /// [`FdEvent`]s described in `events` is triggered.
     ///
-    /// The callback takes as an argument the file descriptor, and should return [`true`] to
+    /// The callback receives the file descriptor it is associated with and a bitmask of the poll
+    /// events that were triggered (typically [`FdEvent::INPUT`]).  It should return [`true`] to
     /// continue receiving callbacks, or [`false`] to have the callback unregistered.
     ///
     /// See also [the NDK
@@ -324,12 +362,36 @@ impl ForeignLooper {
     /// Note that this will leak a [`Box`] unless the callback returns [`false`] to unregister
     /// itself.
     ///
+    /// # Threading
+    /// This function will be called on the looper thread where and when it is polled.
+    /// For registering callbacks without [`Send`] requirement, call the equivalent
+    /// [`ThreadLooper::add_fd_with_callback()`] function on the Looper thread.
+    ///
     /// # Safety
     /// The caller should guarantee that this file descriptor stays open until it is removed via
     /// [`remove_fd()`][Self::remove_fd()] or by returning [`false`] from the callback, and for
     /// however long the caller wishes to use this file descriptor inside and after the callback.
     #[doc(alias = "ALooper_addFd")]
-    pub fn add_fd_with_callback<F: FnMut(BorrowedFd<'_>, FdEvent) -> bool>(
+    pub fn add_fd_with_callback<F: FnMut(BorrowedFd<'_>, FdEvent) -> bool + Send>(
+        &self,
+        fd: BorrowedFd<'_>,
+        events: FdEvent,
+        callback: F,
+    ) -> Result<(), LooperError> {
+        unsafe { self.add_fd_with_callback_assume_send(fd, events, callback) }
+    }
+
+    /// Private helper to deduplicate/commonize the implementation behind
+    /// [`ForeignLooper::add_fd_with_callback()`] and [`ThreadLooper::add_fd_with_callback()`],
+    /// as both have their own way of guaranteeing thread-safety.  The former, [`ForeignLooper`],
+    /// requires the closure to be [`Send`]. The latter, [`ThreadLooper`], can only exist on the
+    /// thread where polling happens and where the closure will end up being invoked, and does not
+    /// require [`Send`].
+    ///
+    /// # Safety
+    /// The caller must guarantee that `F` is [`Send`] or that `F` will only run on the current
+    /// thread.  See the explanation above about why this function exists.
+    unsafe fn add_fd_with_callback_assume_send<F: FnMut(BorrowedFd<'_>, FdEvent) -> bool>(
         &self,
         fd: BorrowedFd<'_>,
         events: FdEvent,
