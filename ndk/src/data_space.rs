@@ -588,6 +588,17 @@ pub enum DataSpaceTransfer {
 #[doc(alias = "RANGE_MASK")]
 #[non_exhaustive]
 pub enum DataSpaceRange {
+    /// Range is unknown or are determined by the application.  Implementations shall use the
+    /// following suggested ranges:
+    ///
+    /// - All YCbCr formats: limited range.
+    /// - All RGB or RGBA formats (including RAW and Bayer): full range.
+    /// - All Y formats: full range
+    ///
+    /// For all other formats range is undefined, and implementations should use an appropriate
+    /// range for the data represented.
+    #[doc(alias = "RANGE_UNSPECIFIED")]
+    Unspecified = ffi::ADataSpace::RANGE_UNSPECIFIED.0,
     /// Full range uses all values for `Y`, `Cb` and `Cr` from `0` to `2^b-1`, where `b` is the bit
     /// depth of the color format.
     #[doc(alias = "RANGE_FULL")]
