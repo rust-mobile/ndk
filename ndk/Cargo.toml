@@ -36,7 +36,7 @@ api-level-33 = ["api-level-32"]
 test = ["ffi/test", "jni", "all"]
 
 [dependencies]
-bitflags = "2.2"
+bitflags = "2.4" # At least 2.4.0 for `const _ = !0`
 jni-sys = "0.3"
 log = "0.4.6"
 num_enum = "0.7"

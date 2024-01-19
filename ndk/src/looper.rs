@@ -9,7 +9,6 @@
 //!
 //! [`ALooper`]: https://developer.android.com/ndk/reference/group/looper#alooper
 
-use bitflags::bitflags;
 use std::mem::ManuallyDrop;
 use std::os::{
     fd::{AsRawFd, BorrowedFd, RawFd},
@@ -31,12 +30,12 @@ pub struct ThreadLooper {
     foreign: ForeignLooper,
 }
 
-bitflags! {
+bitflags::bitflags! {
     /// Flags for file descriptor events that a looper can monitor.
     ///
     /// These flag bits can be combined to monitor multiple events at once.
     #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-    pub struct FdEvent: u32 {
+    pub struct FdEvent : u32 {
         /// The file descriptor is available for read operations.
         #[doc(alias = "ALOOPER_EVENT_INPUT")]
         const INPUT = ffi::ALOOPER_EVENT_INPUT;
@@ -65,6 +64,9 @@ bitflags! {
         /// necessary to specify this event flag in the requested event set.
         #[doc(alias = "ALOOPER_EVENT_INVALID")]
         const INVALID = ffi::ALOOPER_EVENT_INVALID;
+
+        // https://docs.rs/bitflags/latest/bitflags/#externally-defined-flags
+        const _ = !0;
     }
 }
 

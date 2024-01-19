@@ -3,7 +3,6 @@
 //! [`ANativeActivity`]: https://developer.android.com/ndk/reference/group/native-activity#anativeactivity
 
 use super::hardware_buffer_format::HardwareBufferFormat;
-use bitflags::bitflags;
 use std::{
     ffi::{CStr, OsStr},
     os::{raw::c_void, unix::prelude::OsStrExt},
@@ -11,14 +10,14 @@ use std::{
     ptr::NonNull,
 };
 
-bitflags! {
+bitflags::bitflags! {
     /// Window flags, as per the Java API at [`android.view.WindowManager.LayoutParams`].
     ///
     /// <https://developer.android.com/ndk/reference/group/native-activity#group___native_activity_1ga2f1398dba5e4a5616b83437528bdb28e>
     ///
     /// [`android.view.WindowManager.LayoutParams`]: https://developer.android.com/reference/android/view/WindowManager.LayoutParams
     #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-    pub struct WindowFlags: u32 {
+    pub struct WindowFlags : u32 {
         const ALLOW_LOCK_WHILE_SCREEN_ON = ffi::AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
         const DIM_BEHIND = ffi::AWINDOW_FLAG_DIM_BEHIND;
         #[deprecated = "Deprecated. Blurring is no longer supported."]
@@ -48,6 +47,9 @@ bitflags! {
         #[cfg_attr(feature = "api-level-26", deprecated = "This constant was deprecated in API level 26. Use `SHOW_WHEN_LOCKED` instead.")]
         const DISMISS_KEYGUARD = ffi::AWINDOW_FLAG_DISMISS_KEYGUARD;
         const ATTACHED_IN_DECOR = 0x40000000;
+
+        // https://docs.rs/bitflags/latest/bitflags/#externally-defined-flags
+        const _ = !0;
     }
 }
 
