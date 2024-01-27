@@ -7,6 +7,7 @@
 - event: Implement `SourceClass` `bitflag` and provide `Source::class()` getter. (#458)
 - Ensure all `bitflags` implementations consider all (including unknown) bits in negation and `all()`. (#458)
 - bitmap: Guard `BitmapCompressError` behind missing `api-level-30` feature. (#462)
+- data_space: Add missing `DataSpaceRange::Unspecified` variant. (#468)
 
 # 0.8.0 (2023-10-15)
 
