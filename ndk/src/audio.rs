@@ -500,9 +500,9 @@ impl fmt::Debug for AudioStreamBuilder {
 
 #[doc(alias = "AAudioStream_dataCallback")]
 pub type AudioStreamDataCallback =
-    Box<dyn FnMut(&AudioStream, *mut c_void, i32) -> AudioCallbackResult>;
+    Box<dyn FnMut(&AudioStream, *mut c_void, i32) -> AudioCallbackResult + Send>;
 #[doc(alias = "AAudioStream_errorCallback")]
-pub type AudioStreamErrorCallback = Box<dyn FnMut(&AudioStream, AudioError)>;
+pub type AudioStreamErrorCallback = Box<dyn FnMut(&AudioStream, AudioError) + Send>;
 
 impl AudioStreamBuilder {
     fn from_ptr(inner: NonNull<ffi::AAudioStreamBuilder>) -> Self {
@@ -643,7 +643,6 @@ impl AudioStreamBuilder {
     pub fn data_callback(mut self, callback: AudioStreamDataCallback) -> Self {
         let mut boxed = Box::new(callback);
         let ptr: *mut AudioStreamDataCallback = &mut *boxed;
-        self.data_callback = Some(boxed);
 
         unsafe extern "C" fn ffi_callback(
             stream: *mut ffi::AAudioStreamStruct,
@@ -671,6 +670,8 @@ impl AudioStreamBuilder {
                 ptr as *mut c_void,
             )
         };
+
+        self.data_callback = Some(boxed);
 
         self
     }
@@ -727,7 +728,6 @@ impl AudioStreamBuilder {
     pub fn error_callback(mut self, callback: AudioStreamErrorCallback) -> Self {
         let mut boxed = Box::new(callback);
         let ptr: *mut AudioStreamErrorCallback = &mut *boxed;
-        self.error_callback = Some(boxed);
 
         unsafe extern "C" fn ffi_callback(
             stream: *mut ffi::AAudioStreamStruct,
@@ -754,6 +754,8 @@ impl AudioStreamBuilder {
                 ptr as *mut c_void,
             )
         };
+
+        self.error_callback = Some(boxed);
 
         self
     }

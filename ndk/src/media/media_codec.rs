@@ -94,10 +94,10 @@ impl fmt::Debug for AsyncNotifyCallback {
     }
 }
 
-pub type InputAvailableCallback = Box<dyn FnMut(usize)>;
-pub type OutputAvailableCallback = Box<dyn FnMut(usize, &BufferInfo)>;
-pub type FormatChangedCallback = Box<dyn FnMut(&MediaFormat)>;
-pub type ErrorCallback = Box<dyn FnMut(MediaError, ActionCode, &CStr)>;
+pub type InputAvailableCallback = Box<dyn FnMut(usize) + Send>;
+pub type OutputAvailableCallback = Box<dyn FnMut(usize, &BufferInfo) + Send>;
+pub type FormatChangedCallback = Box<dyn FnMut(&MediaFormat) + Send>;
+pub type ErrorCallback = Box<dyn FnMut(MediaError, ActionCode, &CStr) + Send>;
 
 impl MediaCodec {
     fn as_ptr(&self) -> *mut ffi::AMediaCodec {
