@@ -9,7 +9,6 @@
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{FromPrimitive, IntoPrimitive, TryFromPrimitive, TryFromPrimitiveError};
 use std::{error, fmt, mem::MaybeUninit};
-use thiserror::Error;
 
 #[cfg(feature = "api-level-30")]
 use crate::data_space::DataSpace;
@@ -481,7 +480,8 @@ pub enum BitmapCompressFormat {
 }
 
 /// Encapsulates possible errors returned by [`Bitmap::compress()`] or [`Bitmap::compress_raw()`].
-#[derive(Debug, Error)]
+#[cfg(feature = "api-level-30")]
+#[derive(Debug, thiserror::Error)]
 pub enum BitmapCompressError {
     #[error(transparent)]
     BitmapError(#[from] BitmapError),
