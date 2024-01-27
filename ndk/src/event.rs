@@ -48,8 +48,6 @@ impl Drop for InputEventJava {
 }
 
 /// An enum representing the source of an [`InputEvent`].
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-36)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
 pub enum Source {
@@ -145,8 +143,6 @@ impl InputEvent {
 }
 
 /// A bitfield representing the state of modifier keys during an event.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-25)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct MetaState(pub u32);
 
@@ -237,9 +233,6 @@ pub struct MotionEvent {
 // TODO: thread safety?
 
 /// A motion action.
-///
-/// See [the NDK
-/// docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-29)
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
 pub enum MotionAction {
@@ -259,8 +252,6 @@ pub enum MotionAction {
 }
 
 /// An axis of a motion event.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-32)
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
 pub enum Axis {
@@ -312,8 +303,6 @@ pub enum Axis {
 }
 
 /// The tool type of a pointer.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-48)
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
 pub enum ToolType {
@@ -326,8 +315,6 @@ pub enum ToolType {
 }
 
 /// A bitfield representing the state of buttons during a motion event.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-33)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct ButtonState(pub u32);
 
@@ -363,8 +350,6 @@ impl ButtonState {
 }
 
 /// A bitfield representing which edges were touched by a motion event.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-31)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct EdgeFlags(pub u32);
 
@@ -388,8 +373,6 @@ impl EdgeFlags {
 }
 
 /// Flags associated with this [`MotionEvent`].
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-30)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct MotionEventFlags(pub u32);
 
@@ -1082,8 +1065,6 @@ pub struct KeyEvent {
 // TODO: thread safety?
 
 /// Key actions.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-27)
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
 pub enum KeyAction {
@@ -1093,8 +1074,6 @@ pub enum KeyAction {
 }
 
 /// Key codes.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-39)
 #[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
 pub enum Keycode {
@@ -1504,8 +1483,6 @@ impl KeyEvent {
 }
 
 /// Flags associated with [`KeyEvent`].
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-28)
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct KeyEventFlags(pub u32);
 
