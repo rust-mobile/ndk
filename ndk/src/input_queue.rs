@@ -6,6 +6,9 @@ use std::io::Result;
 use std::os::raw::c_int;
 use std::ptr::{self, NonNull};
 
+#[cfg(feature = "api-level-33")]
+use jni_sys::{jobject, JNIEnv};
+
 use crate::event::InputEvent;
 #[cfg(doc)]
 use crate::event::KeyEvent;
@@ -33,6 +36,27 @@ impl InputQueue {
     /// By calling this function, you assert that the pointer is a valid pointer to an NDK [`ffi::AInputQueue`].
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputQueue>) -> Self {
         Self { ptr }
+    }
+
+    /// Returns the [`InputQueue`] object associated with the supplied
+    /// [Java `InputQueue`][`android.view.InputQueue`] object.
+    ///
+    /// # Safety
+    ///
+    /// This function should be called with a healthy JVM pointer and with a non-null
+    /// [`android.view.InputQueue`], which must be kept alive on the Java/Kotlin side.
+    ///
+    /// The returned native object holds a weak reference to the Java object, and is only valid as
+    /// long as the Java object has not yet been disposed. You should ensure that there is a strong
+    /// reference to the Java object and that it has not been disposed before using the returned
+    /// object.
+    ///
+    /// [`android.view.InputQueue`]: https://developer.android.com/reference/android/view/InputQueue
+    #[cfg(feature = "api-level-33")]
+    #[doc(alias = "AInputQueue_fromJava")]
+    pub unsafe fn from_java(env: *mut JNIEnv, input_queue: jobject) -> Option<Self> {
+        let ptr = unsafe { ffi::AInputQueue_fromJava(env, input_queue) };
+        Some(Self::from_ptr(NonNull::new(ptr)?))
     }
 
     pub fn ptr(&self) -> NonNull<ffi::AInputQueue> {

@@ -2,6 +2,10 @@
 
 - Move `MediaFormat` from `media::media_codec` to its own `media::media_format` module. (#442)
 - media_format: Expose `MediaFormat::copy()` and `MediaFormat::clear()` from API level 29. (#449)
+- input_queue: Add `from_java()` constructor, available since API level 33. (#456)
+- event: Add `from_java()` constructors to `KeyEvent` and `MotionEvent`, available since API level 31. (#456)
+- event: Implement `SourceClass` `bitflag` and provide `Source::class()` getter. (#458)
+- Ensure all `bitflags` implementations consider all (including unknown) bits in negation and `all()`. (#458)
 - bitmap: Guard `BitmapCompressError` behind missing `api-level-30` feature. (#462)
 
 # 0.8.0 (2023-10-15)

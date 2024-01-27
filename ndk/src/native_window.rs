@@ -422,6 +422,9 @@ bitflags::bitflags! {
         const TRANSFORM_ROTATE_180 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_180.0;
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_270")]
         const TRANSFORM_ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
+
+        // https://docs.rs/bitflags/latest/bitflags/#externally-defined-flags
+        const _ = !0;
     }
 }
 
