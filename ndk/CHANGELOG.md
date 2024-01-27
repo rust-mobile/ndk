@@ -2,6 +2,7 @@
 
 - Move `MediaFormat` from `media::media_codec` to its own `media::media_format` module. (#442)
 - media_format: Expose `MediaFormat::copy()` and `MediaFormat::clear()` from API level 29. (#449)
+- **Breaking:** media_format: Mark all `fn set_*()` and `fn str()` as taking `self` by `&mut`. (#452)
 - input_queue: Add `from_java()` constructor, available since API level 33. (#456)
 - event: Add `from_java()` constructors to `KeyEvent` and `MotionEvent`, available since API level 31. (#456)
 - event: Implement `SourceClass` `bitflag` and provide `Source::class()` getter. (#458)

@@ -122,8 +122,10 @@ impl MediaFormat {
         .then(|| unsafe { slice::from_raw_parts(out_buffer.cast(), out_size) })
     }
 
+    /// The returned `&str` borrow is only valid until the next call to [`MediaFormat::str()`] for
+    /// the same key.
     #[doc(alias = "AMediaFormat_getString")]
-    pub fn str(&self, key: &str) -> Option<&str> {
+    pub fn str(&mut self, key: &str) -> Option<&str> {
         let name = CString::new(key).unwrap();
         let mut out = ptr::null();
         unsafe { ffi::AMediaFormat_getString(self.as_ptr(), name.as_ptr(), &mut out) }
@@ -131,32 +133,32 @@ impl MediaFormat {
     }
 
     #[doc(alias = "AMediaFormat_setInt32")]
-    pub fn set_i32(&self, key: &str, value: i32) {
+    pub fn set_i32(&mut self, key: &str, value: i32) {
         let name = CString::new(key).unwrap();
         unsafe { ffi::AMediaFormat_setInt32(self.as_ptr(), name.as_ptr(), value) }
     }
 
     #[doc(alias = "AMediaFormat_setInt64")]
-    pub fn set_i64(&self, key: &str, value: i64) {
+    pub fn set_i64(&mut self, key: &str, value: i64) {
         let name = CString::new(key).unwrap();
         unsafe { ffi::AMediaFormat_setInt64(self.as_ptr(), name.as_ptr(), value) }
     }
 
     #[doc(alias = "AMediaFormat_setFloat")]
-    pub fn set_f32(&self, key: &str, value: f32) {
+    pub fn set_f32(&mut self, key: &str, value: f32) {
         let name = CString::new(key).unwrap();
         unsafe { ffi::AMediaFormat_setFloat(self.as_ptr(), name.as_ptr(), value) }
     }
 
     #[doc(alias = "AMediaFormat_setString")]
-    pub fn set_str(&self, key: &str, value: &str) {
+    pub fn set_str(&mut self, key: &str, value: &str) {
         let name = CString::new(key).unwrap();
         let c_string = CString::new(value).unwrap();
         unsafe { ffi::AMediaFormat_setString(self.as_ptr(), name.as_ptr(), c_string.as_ptr()) }
     }
 
     #[doc(alias = "AMediaFormat_setBuffer")]
-    pub fn set_buffer(&self, key: &str, value: &[u8]) {
+    pub fn set_buffer(&mut self, key: &str, value: &[u8]) {
         let name = CString::new(key).unwrap();
         unsafe {
             ffi::AMediaFormat_setBuffer(
@@ -207,21 +209,21 @@ impl MediaFormat {
 
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AMediaFormat_setDouble")]
-    pub fn set_f64(&self, key: &str, value: f64) {
+    pub fn set_f64(&mut self, key: &str, value: f64) {
         let name = CString::new(key).unwrap();
         unsafe { ffi::AMediaFormat_setDouble(self.as_ptr(), name.as_ptr(), value) }
     }
 
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AMediaFormat_setRect")]
-    pub fn set_rect(&self, key: &str, left: i32, top: i32, right: i32, bottom: i32) {
+    pub fn set_rect(&mut self, key: &str, left: i32, top: i32, right: i32, bottom: i32) {
         let name = CString::new(key).unwrap();
         unsafe { ffi::AMediaFormat_setRect(self.as_ptr(), name.as_ptr(), left, top, right, bottom) }
     }
 
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AMediaFormat_setSize")]
-    pub fn set_usize(&self, key: &str, value: usize) {
+    pub fn set_usize(&mut self, key: &str, value: usize) {
         let name = CString::new(key).unwrap();
         unsafe { ffi::AMediaFormat_setSize(self.as_ptr(), name.as_ptr(), value) }
     }
