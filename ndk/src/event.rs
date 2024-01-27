@@ -72,18 +72,32 @@ pub enum Source {
     Any = ffi::AINPUT_SOURCE_ANY,
 }
 
-/// An enum representing the class of an [`InputEvent`] source.
-///
-/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-35)
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
-enum Class {
-    None = ffi::AINPUT_SOURCE_CLASS_NONE,
-    Button = ffi::AINPUT_SOURCE_CLASS_BUTTON,
-    Pointer = ffi::AINPUT_SOURCE_CLASS_POINTER,
-    Navigation = ffi::AINPUT_SOURCE_CLASS_NAVIGATION,
-    Position = ffi::AINPUT_SOURCE_CLASS_POSITION,
-    Joystick = ffi::AINPUT_SOURCE_CLASS_JOYSTICK,
+impl Source {
+    pub fn class(self) -> SourceClass {
+        let class = u32::from(self) & ffi::AINPUT_SOURCE_CLASS_MASK;
+        // The mask fits in a u8.
+        SourceClass::from_bits_retain(class as u8)
+    }
+}
+
+bitflags::bitflags! {
+    /// Flags representing the class of an [`InputEvent`] [`Source`].
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    pub struct SourceClass : u8 {
+        #[doc(alias = "AINPUT_SOURCE_CLASS_BUTTON")]
+        const BUTTON = ffi::AINPUT_SOURCE_CLASS_BUTTON as u8;
+        #[doc(alias = "AINPUT_SOURCE_CLASS_POINTER")]
+        const POINTER = ffi::AINPUT_SOURCE_CLASS_POINTER as u8;
+        #[doc(alias = "AINPUT_SOURCE_CLASS_NAVIGATION")]
+        const NAVIGATION = ffi::AINPUT_SOURCE_CLASS_NAVIGATION as u8;
+        #[doc(alias = "AINPUT_SOURCE_CLASS_POSITION")]
+        const POSITION = ffi::AINPUT_SOURCE_CLASS_POSITION as u8;
+        #[doc(alias = "AINPUT_SOURCE_CLASS_JOYSTICK")]
+        const JOYSTICK = ffi::AINPUT_SOURCE_CLASS_JOYSTICK as u8;
+
+        // https://docs.rs/bitflags/latest/bitflags/#externally-defined-flags
+        const _ = ffi::AINPUT_SOURCE_CLASS_MASK as u8;
+    }
 }
 
 impl InputEvent {
