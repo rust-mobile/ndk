@@ -14,12 +14,13 @@ use std::ptr::NonNull;
 
 #[cfg(feature = "api-level-31")]
 use jni_sys::{jobject, JNIEnv};
-use num_enum::{IntoPrimitive, TryFromPrimitive};
+use num_enum::{FromPrimitive, IntoPrimitive};
 
 /// A native [`AInputEvent *`]
 ///
 /// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
 #[derive(Debug)]
+#[non_exhaustive]
 pub enum InputEvent {
     MotionEvent(MotionEvent),
     KeyEvent(KeyEvent),
@@ -48,31 +49,36 @@ impl Drop for InputEventJava {
 }
 
 /// An enum representing the source of an [`InputEvent`].
-#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Source {
-    Unknown = ffi::AINPUT_SOURCE_UNKNOWN,
-    Keyboard = ffi::AINPUT_SOURCE_KEYBOARD,
-    Dpad = ffi::AINPUT_SOURCE_DPAD,
-    Gamepad = ffi::AINPUT_SOURCE_GAMEPAD,
-    Touchscreen = ffi::AINPUT_SOURCE_TOUCHSCREEN,
-    Mouse = ffi::AINPUT_SOURCE_MOUSE,
-    Stylus = ffi::AINPUT_SOURCE_STYLUS,
-    BluetoothStylus = ffi::AINPUT_SOURCE_BLUETOOTH_STYLUS,
-    Trackball = ffi::AINPUT_SOURCE_TRACKBALL,
-    MouseRelative = ffi::AINPUT_SOURCE_MOUSE_RELATIVE,
-    Touchpad = ffi::AINPUT_SOURCE_TOUCHPAD,
-    TouchNavigation = ffi::AINPUT_SOURCE_TOUCH_NAVIGATION,
-    Joystick = ffi::AINPUT_SOURCE_JOYSTICK,
-    Hdmi = ffi::AINPUT_SOURCE_HDMI,
-    Sensor = ffi::AINPUT_SOURCE_SENSOR,
-    RotaryEncoder = ffi::AINPUT_SOURCE_ROTARY_ENCODER,
-    Any = ffi::AINPUT_SOURCE_ANY,
+    Unknown = ffi::AINPUT_SOURCE_UNKNOWN as i32,
+    Keyboard = ffi::AINPUT_SOURCE_KEYBOARD as i32,
+    Dpad = ffi::AINPUT_SOURCE_DPAD as i32,
+    Gamepad = ffi::AINPUT_SOURCE_GAMEPAD as i32,
+    Touchscreen = ffi::AINPUT_SOURCE_TOUCHSCREEN as i32,
+    Mouse = ffi::AINPUT_SOURCE_MOUSE as i32,
+    Stylus = ffi::AINPUT_SOURCE_STYLUS as i32,
+    BluetoothStylus = ffi::AINPUT_SOURCE_BLUETOOTH_STYLUS as i32,
+    Trackball = ffi::AINPUT_SOURCE_TRACKBALL as i32,
+    MouseRelative = ffi::AINPUT_SOURCE_MOUSE_RELATIVE as i32,
+    Touchpad = ffi::AINPUT_SOURCE_TOUCHPAD as i32,
+    TouchNavigation = ffi::AINPUT_SOURCE_TOUCH_NAVIGATION as i32,
+    Joystick = ffi::AINPUT_SOURCE_JOYSTICK as i32,
+    Hdmi = ffi::AINPUT_SOURCE_HDMI as i32,
+    Sensor = ffi::AINPUT_SOURCE_SENSOR as i32,
+    RotaryEncoder = ffi::AINPUT_SOURCE_ROTARY_ENCODER as i32,
+    Any = ffi::AINPUT_SOURCE_ANY as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 impl Source {
     pub fn class(self) -> SourceClass {
-        let class = u32::from(self) & ffi::AINPUT_SOURCE_CLASS_MASK;
+        let class = i32::from(self) & ffi::AINPUT_SOURCE_CLASS_MASK as i32;
         // The mask fits in a u8.
         SourceClass::from_bits_retain(class as u8)
     }
@@ -128,8 +134,8 @@ impl InputEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
     #[inline]
     pub fn source(&self) -> Source {
-        let source = unsafe { ffi::AInputEvent_getSource(self.ptr().as_ptr()) as u32 };
-        source.try_into().unwrap_or(Source::Unknown)
+        let source = unsafe { ffi::AInputEvent_getSource(self.ptr().as_ptr()) };
+        source.into()
     }
 
     /// Get the device id associated with the event.
@@ -233,85 +239,100 @@ pub struct MotionEvent {
 // TODO: thread safety?
 
 /// A motion action.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum MotionAction {
-    Down = ffi::AMOTION_EVENT_ACTION_DOWN,
-    Up = ffi::AMOTION_EVENT_ACTION_UP,
-    Move = ffi::AMOTION_EVENT_ACTION_MOVE,
-    Cancel = ffi::AMOTION_EVENT_ACTION_CANCEL,
-    Outside = ffi::AMOTION_EVENT_ACTION_OUTSIDE,
-    PointerDown = ffi::AMOTION_EVENT_ACTION_POINTER_DOWN,
-    PointerUp = ffi::AMOTION_EVENT_ACTION_POINTER_UP,
-    HoverMove = ffi::AMOTION_EVENT_ACTION_HOVER_MOVE,
-    Scroll = ffi::AMOTION_EVENT_ACTION_SCROLL,
-    HoverEnter = ffi::AMOTION_EVENT_ACTION_HOVER_ENTER,
-    HoverExit = ffi::AMOTION_EVENT_ACTION_HOVER_EXIT,
-    ButtonPress = ffi::AMOTION_EVENT_ACTION_BUTTON_PRESS,
-    ButtonRelease = ffi::AMOTION_EVENT_ACTION_BUTTON_RELEASE,
+    Down = ffi::AMOTION_EVENT_ACTION_DOWN as i32,
+    Up = ffi::AMOTION_EVENT_ACTION_UP as i32,
+    Move = ffi::AMOTION_EVENT_ACTION_MOVE as i32,
+    Cancel = ffi::AMOTION_EVENT_ACTION_CANCEL as i32,
+    Outside = ffi::AMOTION_EVENT_ACTION_OUTSIDE as i32,
+    PointerDown = ffi::AMOTION_EVENT_ACTION_POINTER_DOWN as i32,
+    PointerUp = ffi::AMOTION_EVENT_ACTION_POINTER_UP as i32,
+    HoverMove = ffi::AMOTION_EVENT_ACTION_HOVER_MOVE as i32,
+    Scroll = ffi::AMOTION_EVENT_ACTION_SCROLL as i32,
+    HoverEnter = ffi::AMOTION_EVENT_ACTION_HOVER_ENTER as i32,
+    HoverExit = ffi::AMOTION_EVENT_ACTION_HOVER_EXIT as i32,
+    ButtonPress = ffi::AMOTION_EVENT_ACTION_BUTTON_PRESS as i32,
+    ButtonRelease = ffi::AMOTION_EVENT_ACTION_BUTTON_RELEASE as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 /// An axis of a motion event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Axis {
-    X = ffi::AMOTION_EVENT_AXIS_X,
-    Y = ffi::AMOTION_EVENT_AXIS_Y,
-    Pressure = ffi::AMOTION_EVENT_AXIS_PRESSURE,
-    Size = ffi::AMOTION_EVENT_AXIS_SIZE,
-    TouchMajor = ffi::AMOTION_EVENT_AXIS_TOUCH_MAJOR,
-    TouchMinor = ffi::AMOTION_EVENT_AXIS_TOUCH_MINOR,
-    ToolMajor = ffi::AMOTION_EVENT_AXIS_TOOL_MAJOR,
-    ToolMinor = ffi::AMOTION_EVENT_AXIS_TOOL_MINOR,
-    Orientation = ffi::AMOTION_EVENT_AXIS_ORIENTATION,
-    Vscroll = ffi::AMOTION_EVENT_AXIS_VSCROLL,
-    Hscroll = ffi::AMOTION_EVENT_AXIS_HSCROLL,
-    Z = ffi::AMOTION_EVENT_AXIS_Z,
-    Rx = ffi::AMOTION_EVENT_AXIS_RX,
-    Ry = ffi::AMOTION_EVENT_AXIS_RY,
-    Rz = ffi::AMOTION_EVENT_AXIS_RZ,
-    HatX = ffi::AMOTION_EVENT_AXIS_HAT_X,
-    HatY = ffi::AMOTION_EVENT_AXIS_HAT_Y,
-    Ltrigger = ffi::AMOTION_EVENT_AXIS_LTRIGGER,
-    Rtrigger = ffi::AMOTION_EVENT_AXIS_RTRIGGER,
-    Throttle = ffi::AMOTION_EVENT_AXIS_THROTTLE,
-    Rudder = ffi::AMOTION_EVENT_AXIS_RUDDER,
-    Wheel = ffi::AMOTION_EVENT_AXIS_WHEEL,
-    Gas = ffi::AMOTION_EVENT_AXIS_GAS,
-    Brake = ffi::AMOTION_EVENT_AXIS_BRAKE,
-    Distance = ffi::AMOTION_EVENT_AXIS_DISTANCE,
-    Tilt = ffi::AMOTION_EVENT_AXIS_TILT,
-    Scroll = ffi::AMOTION_EVENT_AXIS_SCROLL,
-    RelativeX = ffi::AMOTION_EVENT_AXIS_RELATIVE_X,
-    RelativeY = ffi::AMOTION_EVENT_AXIS_RELATIVE_Y,
-    Generic1 = ffi::AMOTION_EVENT_AXIS_GENERIC_1,
-    Generic2 = ffi::AMOTION_EVENT_AXIS_GENERIC_2,
-    Generic3 = ffi::AMOTION_EVENT_AXIS_GENERIC_3,
-    Generic4 = ffi::AMOTION_EVENT_AXIS_GENERIC_4,
-    Generic5 = ffi::AMOTION_EVENT_AXIS_GENERIC_5,
-    Generic6 = ffi::AMOTION_EVENT_AXIS_GENERIC_6,
-    Generic7 = ffi::AMOTION_EVENT_AXIS_GENERIC_7,
-    Generic8 = ffi::AMOTION_EVENT_AXIS_GENERIC_8,
-    Generic9 = ffi::AMOTION_EVENT_AXIS_GENERIC_9,
-    Generic10 = ffi::AMOTION_EVENT_AXIS_GENERIC_10,
-    Generic11 = ffi::AMOTION_EVENT_AXIS_GENERIC_11,
-    Generic12 = ffi::AMOTION_EVENT_AXIS_GENERIC_12,
-    Generic13 = ffi::AMOTION_EVENT_AXIS_GENERIC_13,
-    Generic14 = ffi::AMOTION_EVENT_AXIS_GENERIC_14,
-    Generic15 = ffi::AMOTION_EVENT_AXIS_GENERIC_15,
-    Generic16 = ffi::AMOTION_EVENT_AXIS_GENERIC_16,
+    X = ffi::AMOTION_EVENT_AXIS_X as i32,
+    Y = ffi::AMOTION_EVENT_AXIS_Y as i32,
+    Pressure = ffi::AMOTION_EVENT_AXIS_PRESSURE as i32,
+    Size = ffi::AMOTION_EVENT_AXIS_SIZE as i32,
+    TouchMajor = ffi::AMOTION_EVENT_AXIS_TOUCH_MAJOR as i32,
+    TouchMinor = ffi::AMOTION_EVENT_AXIS_TOUCH_MINOR as i32,
+    ToolMajor = ffi::AMOTION_EVENT_AXIS_TOOL_MAJOR as i32,
+    ToolMinor = ffi::AMOTION_EVENT_AXIS_TOOL_MINOR as i32,
+    Orientation = ffi::AMOTION_EVENT_AXIS_ORIENTATION as i32,
+    Vscroll = ffi::AMOTION_EVENT_AXIS_VSCROLL as i32,
+    Hscroll = ffi::AMOTION_EVENT_AXIS_HSCROLL as i32,
+    Z = ffi::AMOTION_EVENT_AXIS_Z as i32,
+    Rx = ffi::AMOTION_EVENT_AXIS_RX as i32,
+    Ry = ffi::AMOTION_EVENT_AXIS_RY as i32,
+    Rz = ffi::AMOTION_EVENT_AXIS_RZ as i32,
+    HatX = ffi::AMOTION_EVENT_AXIS_HAT_X as i32,
+    HatY = ffi::AMOTION_EVENT_AXIS_HAT_Y as i32,
+    Ltrigger = ffi::AMOTION_EVENT_AXIS_LTRIGGER as i32,
+    Rtrigger = ffi::AMOTION_EVENT_AXIS_RTRIGGER as i32,
+    Throttle = ffi::AMOTION_EVENT_AXIS_THROTTLE as i32,
+    Rudder = ffi::AMOTION_EVENT_AXIS_RUDDER as i32,
+    Wheel = ffi::AMOTION_EVENT_AXIS_WHEEL as i32,
+    Gas = ffi::AMOTION_EVENT_AXIS_GAS as i32,
+    Brake = ffi::AMOTION_EVENT_AXIS_BRAKE as i32,
+    Distance = ffi::AMOTION_EVENT_AXIS_DISTANCE as i32,
+    Tilt = ffi::AMOTION_EVENT_AXIS_TILT as i32,
+    Scroll = ffi::AMOTION_EVENT_AXIS_SCROLL as i32,
+    RelativeX = ffi::AMOTION_EVENT_AXIS_RELATIVE_X as i32,
+    RelativeY = ffi::AMOTION_EVENT_AXIS_RELATIVE_Y as i32,
+    Generic1 = ffi::AMOTION_EVENT_AXIS_GENERIC_1 as i32,
+    Generic2 = ffi::AMOTION_EVENT_AXIS_GENERIC_2 as i32,
+    Generic3 = ffi::AMOTION_EVENT_AXIS_GENERIC_3 as i32,
+    Generic4 = ffi::AMOTION_EVENT_AXIS_GENERIC_4 as i32,
+    Generic5 = ffi::AMOTION_EVENT_AXIS_GENERIC_5 as i32,
+    Generic6 = ffi::AMOTION_EVENT_AXIS_GENERIC_6 as i32,
+    Generic7 = ffi::AMOTION_EVENT_AXIS_GENERIC_7 as i32,
+    Generic8 = ffi::AMOTION_EVENT_AXIS_GENERIC_8 as i32,
+    Generic9 = ffi::AMOTION_EVENT_AXIS_GENERIC_9 as i32,
+    Generic10 = ffi::AMOTION_EVENT_AXIS_GENERIC_10 as i32,
+    Generic11 = ffi::AMOTION_EVENT_AXIS_GENERIC_11 as i32,
+    Generic12 = ffi::AMOTION_EVENT_AXIS_GENERIC_12 as i32,
+    Generic13 = ffi::AMOTION_EVENT_AXIS_GENERIC_13 as i32,
+    Generic14 = ffi::AMOTION_EVENT_AXIS_GENERIC_14 as i32,
+    Generic15 = ffi::AMOTION_EVENT_AXIS_GENERIC_15 as i32,
+    Generic16 = ffi::AMOTION_EVENT_AXIS_GENERIC_16 as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 /// The tool type of a pointer.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum ToolType {
-    Unknown = ffi::AMOTION_EVENT_TOOL_TYPE_UNKNOWN,
-    Finger = ffi::AMOTION_EVENT_TOOL_TYPE_FINGER,
-    Stylus = ffi::AMOTION_EVENT_TOOL_TYPE_STYLUS,
-    Mouse = ffi::AMOTION_EVENT_TOOL_TYPE_MOUSE,
-    Eraser = ffi::AMOTION_EVENT_TOOL_TYPE_ERASER,
-    Palm = ffi::AMOTION_EVENT_TOOL_TYPE_PALM,
+    Unknown = ffi::AMOTION_EVENT_TOOL_TYPE_UNKNOWN as i32,
+    Finger = ffi::AMOTION_EVENT_TOOL_TYPE_FINGER as i32,
+    Stylus = ffi::AMOTION_EVENT_TOOL_TYPE_STYLUS as i32,
+    Mouse = ffi::AMOTION_EVENT_TOOL_TYPE_MOUSE as i32,
+    Eraser = ffi::AMOTION_EVENT_TOOL_TYPE_ERASER as i32,
+    Palm = ffi::AMOTION_EVENT_TOOL_TYPE_PALM as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 /// A bitfield representing the state of buttons during a motion event.
@@ -426,8 +447,8 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
     #[inline]
     pub fn source(&self) -> Source {
-        let source = unsafe { ffi::AInputEvent_getSource(self.ptr.as_ptr()) as u32 };
-        source.try_into().unwrap_or(Source::Unknown)
+        let source = unsafe { ffi::AInputEvent_getSource(self.ptr.as_ptr()) };
+        source.into()
     }
 
     /// Get the device id associated with the event.
@@ -445,10 +466,9 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getaction)
     #[inline]
     pub fn action(&self) -> MotionAction {
-        let action = unsafe {
-            ffi::AMotionEvent_getAction(self.ptr.as_ptr()) as u32 & ffi::AMOTION_EVENT_ACTION_MASK
-        };
-        action.try_into().unwrap()
+        let action = unsafe { ffi::AMotionEvent_getAction(self.ptr.as_ptr()) }
+            & ffi::AMOTION_EVENT_ACTION_MASK as i32;
+        action.into()
     }
 
     /// Returns the pointer index of an `Up` or `Down` event.
@@ -649,7 +669,7 @@ impl<'a> Pointer<'a> {
 
     #[inline]
     pub fn axis_value(&self, axis: Axis) -> f32 {
-        unsafe { ffi::AMotionEvent_getAxisValue(self.event.as_ptr(), axis as i32, self.index) }
+        unsafe { ffi::AMotionEvent_getAxisValue(self.event.as_ptr(), axis.into(), self.index) }
     }
 
     #[inline]
@@ -709,9 +729,8 @@ impl<'a> Pointer<'a> {
 
     #[inline]
     pub fn tool_type(&self) -> ToolType {
-        let tool_type =
-            unsafe { ffi::AMotionEvent_getToolType(self.event.as_ptr(), self.index) as u32 };
-        tool_type.try_into().unwrap()
+        let tool_type = unsafe { ffi::AMotionEvent_getToolType(self.event.as_ptr(), self.index) };
+        tool_type.into()
     }
 }
 
@@ -879,7 +898,7 @@ impl<'a> HistoricalPointer<'a> {
         unsafe {
             ffi::AMotionEvent_getHistoricalAxisValue(
                 self.event.as_ptr(),
-                axis as i32,
+                axis.into(),
                 self.pointer_index,
                 self.history_index,
             )
@@ -1065,307 +1084,318 @@ pub struct KeyEvent {
 // TODO: thread safety?
 
 /// Key actions.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+/// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-27)
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum KeyAction {
-    Down = ffi::AKEY_EVENT_ACTION_DOWN,
-    Up = ffi::AKEY_EVENT_ACTION_UP,
-    Multiple = ffi::AKEY_EVENT_ACTION_MULTIPLE,
+    Down = ffi::AKEY_EVENT_ACTION_DOWN as i32,
+    Up = ffi::AKEY_EVENT_ACTION_UP as i32,
+    Multiple = ffi::AKEY_EVENT_ACTION_MULTIPLE as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 /// Key codes.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[repr(u32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[non_exhaustive]
 pub enum Keycode {
-    Unknown = ffi::AKEYCODE_UNKNOWN,
-    SoftLeft = ffi::AKEYCODE_SOFT_LEFT,
-    SoftRight = ffi::AKEYCODE_SOFT_RIGHT,
-    Home = ffi::AKEYCODE_HOME,
-    Back = ffi::AKEYCODE_BACK,
-    Call = ffi::AKEYCODE_CALL,
-    Endcall = ffi::AKEYCODE_ENDCALL,
-    Keycode0 = ffi::AKEYCODE_0,
-    Keycode1 = ffi::AKEYCODE_1,
-    Keycode2 = ffi::AKEYCODE_2,
-    Keycode3 = ffi::AKEYCODE_3,
-    Keycode4 = ffi::AKEYCODE_4,
-    Keycode5 = ffi::AKEYCODE_5,
-    Keycode6 = ffi::AKEYCODE_6,
-    Keycode7 = ffi::AKEYCODE_7,
-    Keycode8 = ffi::AKEYCODE_8,
-    Keycode9 = ffi::AKEYCODE_9,
-    Star = ffi::AKEYCODE_STAR,
-    Pound = ffi::AKEYCODE_POUND,
-    DpadUp = ffi::AKEYCODE_DPAD_UP,
-    DpadDown = ffi::AKEYCODE_DPAD_DOWN,
-    DpadLeft = ffi::AKEYCODE_DPAD_LEFT,
-    DpadRight = ffi::AKEYCODE_DPAD_RIGHT,
-    DpadCenter = ffi::AKEYCODE_DPAD_CENTER,
-    VolumeUp = ffi::AKEYCODE_VOLUME_UP,
-    VolumeDown = ffi::AKEYCODE_VOLUME_DOWN,
-    Power = ffi::AKEYCODE_POWER,
-    Camera = ffi::AKEYCODE_CAMERA,
-    Clear = ffi::AKEYCODE_CLEAR,
-    A = ffi::AKEYCODE_A,
-    B = ffi::AKEYCODE_B,
-    C = ffi::AKEYCODE_C,
-    D = ffi::AKEYCODE_D,
-    E = ffi::AKEYCODE_E,
-    F = ffi::AKEYCODE_F,
-    G = ffi::AKEYCODE_G,
-    H = ffi::AKEYCODE_H,
-    I = ffi::AKEYCODE_I,
-    J = ffi::AKEYCODE_J,
-    K = ffi::AKEYCODE_K,
-    L = ffi::AKEYCODE_L,
-    M = ffi::AKEYCODE_M,
-    N = ffi::AKEYCODE_N,
-    O = ffi::AKEYCODE_O,
-    P = ffi::AKEYCODE_P,
-    Q = ffi::AKEYCODE_Q,
-    R = ffi::AKEYCODE_R,
-    S = ffi::AKEYCODE_S,
-    T = ffi::AKEYCODE_T,
-    U = ffi::AKEYCODE_U,
-    V = ffi::AKEYCODE_V,
-    W = ffi::AKEYCODE_W,
-    X = ffi::AKEYCODE_X,
-    Y = ffi::AKEYCODE_Y,
-    Z = ffi::AKEYCODE_Z,
-    Comma = ffi::AKEYCODE_COMMA,
-    Period = ffi::AKEYCODE_PERIOD,
-    AltLeft = ffi::AKEYCODE_ALT_LEFT,
-    AltRight = ffi::AKEYCODE_ALT_RIGHT,
-    ShiftLeft = ffi::AKEYCODE_SHIFT_LEFT,
-    ShiftRight = ffi::AKEYCODE_SHIFT_RIGHT,
-    Tab = ffi::AKEYCODE_TAB,
-    Space = ffi::AKEYCODE_SPACE,
-    Sym = ffi::AKEYCODE_SYM,
-    Explorer = ffi::AKEYCODE_EXPLORER,
-    Envelope = ffi::AKEYCODE_ENVELOPE,
-    Enter = ffi::AKEYCODE_ENTER,
-    Del = ffi::AKEYCODE_DEL,
-    Grave = ffi::AKEYCODE_GRAVE,
-    Minus = ffi::AKEYCODE_MINUS,
-    Equals = ffi::AKEYCODE_EQUALS,
-    LeftBracket = ffi::AKEYCODE_LEFT_BRACKET,
-    RightBracket = ffi::AKEYCODE_RIGHT_BRACKET,
-    Backslash = ffi::AKEYCODE_BACKSLASH,
-    Semicolon = ffi::AKEYCODE_SEMICOLON,
-    Apostrophe = ffi::AKEYCODE_APOSTROPHE,
-    Slash = ffi::AKEYCODE_SLASH,
-    At = ffi::AKEYCODE_AT,
-    Num = ffi::AKEYCODE_NUM,
-    Headsethook = ffi::AKEYCODE_HEADSETHOOK,
-    Focus = ffi::AKEYCODE_FOCUS,
-    Plus = ffi::AKEYCODE_PLUS,
-    Menu = ffi::AKEYCODE_MENU,
-    Notification = ffi::AKEYCODE_NOTIFICATION,
-    Search = ffi::AKEYCODE_SEARCH,
-    MediaPlayPause = ffi::AKEYCODE_MEDIA_PLAY_PAUSE,
-    MediaStop = ffi::AKEYCODE_MEDIA_STOP,
-    MediaNext = ffi::AKEYCODE_MEDIA_NEXT,
-    MediaPrevious = ffi::AKEYCODE_MEDIA_PREVIOUS,
-    MediaRewind = ffi::AKEYCODE_MEDIA_REWIND,
-    MediaFastForward = ffi::AKEYCODE_MEDIA_FAST_FORWARD,
-    Mute = ffi::AKEYCODE_MUTE,
-    PageUp = ffi::AKEYCODE_PAGE_UP,
-    PageDown = ffi::AKEYCODE_PAGE_DOWN,
-    Pictsymbols = ffi::AKEYCODE_PICTSYMBOLS,
-    SwitchCharset = ffi::AKEYCODE_SWITCH_CHARSET,
-    ButtonA = ffi::AKEYCODE_BUTTON_A,
-    ButtonB = ffi::AKEYCODE_BUTTON_B,
-    ButtonC = ffi::AKEYCODE_BUTTON_C,
-    ButtonX = ffi::AKEYCODE_BUTTON_X,
-    ButtonY = ffi::AKEYCODE_BUTTON_Y,
-    ButtonZ = ffi::AKEYCODE_BUTTON_Z,
-    ButtonL1 = ffi::AKEYCODE_BUTTON_L1,
-    ButtonR1 = ffi::AKEYCODE_BUTTON_R1,
-    ButtonL2 = ffi::AKEYCODE_BUTTON_L2,
-    ButtonR2 = ffi::AKEYCODE_BUTTON_R2,
-    ButtonThumbl = ffi::AKEYCODE_BUTTON_THUMBL,
-    ButtonThumbr = ffi::AKEYCODE_BUTTON_THUMBR,
-    ButtonStart = ffi::AKEYCODE_BUTTON_START,
-    ButtonSelect = ffi::AKEYCODE_BUTTON_SELECT,
-    ButtonMode = ffi::AKEYCODE_BUTTON_MODE,
-    Escape = ffi::AKEYCODE_ESCAPE,
-    ForwardDel = ffi::AKEYCODE_FORWARD_DEL,
-    CtrlLeft = ffi::AKEYCODE_CTRL_LEFT,
-    CtrlRight = ffi::AKEYCODE_CTRL_RIGHT,
-    CapsLock = ffi::AKEYCODE_CAPS_LOCK,
-    ScrollLock = ffi::AKEYCODE_SCROLL_LOCK,
-    MetaLeft = ffi::AKEYCODE_META_LEFT,
-    MetaRight = ffi::AKEYCODE_META_RIGHT,
-    Function = ffi::AKEYCODE_FUNCTION,
-    Sysrq = ffi::AKEYCODE_SYSRQ,
-    Break = ffi::AKEYCODE_BREAK,
-    MoveHome = ffi::AKEYCODE_MOVE_HOME,
-    MoveEnd = ffi::AKEYCODE_MOVE_END,
-    Insert = ffi::AKEYCODE_INSERT,
-    Forward = ffi::AKEYCODE_FORWARD,
-    MediaPlay = ffi::AKEYCODE_MEDIA_PLAY,
-    MediaPause = ffi::AKEYCODE_MEDIA_PAUSE,
-    MediaClose = ffi::AKEYCODE_MEDIA_CLOSE,
-    MediaEject = ffi::AKEYCODE_MEDIA_EJECT,
-    MediaRecord = ffi::AKEYCODE_MEDIA_RECORD,
-    F1 = ffi::AKEYCODE_F1,
-    F2 = ffi::AKEYCODE_F2,
-    F3 = ffi::AKEYCODE_F3,
-    F4 = ffi::AKEYCODE_F4,
-    F5 = ffi::AKEYCODE_F5,
-    F6 = ffi::AKEYCODE_F6,
-    F7 = ffi::AKEYCODE_F7,
-    F8 = ffi::AKEYCODE_F8,
-    F9 = ffi::AKEYCODE_F9,
-    F10 = ffi::AKEYCODE_F10,
-    F11 = ffi::AKEYCODE_F11,
-    F12 = ffi::AKEYCODE_F12,
-    NumLock = ffi::AKEYCODE_NUM_LOCK,
-    Numpad0 = ffi::AKEYCODE_NUMPAD_0,
-    Numpad1 = ffi::AKEYCODE_NUMPAD_1,
-    Numpad2 = ffi::AKEYCODE_NUMPAD_2,
-    Numpad3 = ffi::AKEYCODE_NUMPAD_3,
-    Numpad4 = ffi::AKEYCODE_NUMPAD_4,
-    Numpad5 = ffi::AKEYCODE_NUMPAD_5,
-    Numpad6 = ffi::AKEYCODE_NUMPAD_6,
-    Numpad7 = ffi::AKEYCODE_NUMPAD_7,
-    Numpad8 = ffi::AKEYCODE_NUMPAD_8,
-    Numpad9 = ffi::AKEYCODE_NUMPAD_9,
-    NumpadDivide = ffi::AKEYCODE_NUMPAD_DIVIDE,
-    NumpadMultiply = ffi::AKEYCODE_NUMPAD_MULTIPLY,
-    NumpadSubtract = ffi::AKEYCODE_NUMPAD_SUBTRACT,
-    NumpadAdd = ffi::AKEYCODE_NUMPAD_ADD,
-    NumpadDot = ffi::AKEYCODE_NUMPAD_DOT,
-    NumpadComma = ffi::AKEYCODE_NUMPAD_COMMA,
-    NumpadEnter = ffi::AKEYCODE_NUMPAD_ENTER,
-    NumpadEquals = ffi::AKEYCODE_NUMPAD_EQUALS,
-    NumpadLeftParen = ffi::AKEYCODE_NUMPAD_LEFT_PAREN,
-    NumpadRightParen = ffi::AKEYCODE_NUMPAD_RIGHT_PAREN,
-    VolumeMute = ffi::AKEYCODE_VOLUME_MUTE,
-    Info = ffi::AKEYCODE_INFO,
-    ChannelUp = ffi::AKEYCODE_CHANNEL_UP,
-    ChannelDown = ffi::AKEYCODE_CHANNEL_DOWN,
-    ZoomIn = ffi::AKEYCODE_ZOOM_IN,
-    ZoomOut = ffi::AKEYCODE_ZOOM_OUT,
-    Tv = ffi::AKEYCODE_TV,
-    Window = ffi::AKEYCODE_WINDOW,
-    Guide = ffi::AKEYCODE_GUIDE,
-    Dvr = ffi::AKEYCODE_DVR,
-    Bookmark = ffi::AKEYCODE_BOOKMARK,
-    Captions = ffi::AKEYCODE_CAPTIONS,
-    Settings = ffi::AKEYCODE_SETTINGS,
-    TvPower = ffi::AKEYCODE_TV_POWER,
-    TvInput = ffi::AKEYCODE_TV_INPUT,
-    StbPower = ffi::AKEYCODE_STB_POWER,
-    StbInput = ffi::AKEYCODE_STB_INPUT,
-    AvrPower = ffi::AKEYCODE_AVR_POWER,
-    AvrInput = ffi::AKEYCODE_AVR_INPUT,
-    ProgRed = ffi::AKEYCODE_PROG_RED,
-    ProgGreen = ffi::AKEYCODE_PROG_GREEN,
-    ProgYellow = ffi::AKEYCODE_PROG_YELLOW,
-    ProgBlue = ffi::AKEYCODE_PROG_BLUE,
-    AppSwitch = ffi::AKEYCODE_APP_SWITCH,
-    Button1 = ffi::AKEYCODE_BUTTON_1,
-    Button2 = ffi::AKEYCODE_BUTTON_2,
-    Button3 = ffi::AKEYCODE_BUTTON_3,
-    Button4 = ffi::AKEYCODE_BUTTON_4,
-    Button5 = ffi::AKEYCODE_BUTTON_5,
-    Button6 = ffi::AKEYCODE_BUTTON_6,
-    Button7 = ffi::AKEYCODE_BUTTON_7,
-    Button8 = ffi::AKEYCODE_BUTTON_8,
-    Button9 = ffi::AKEYCODE_BUTTON_9,
-    Button10 = ffi::AKEYCODE_BUTTON_10,
-    Button11 = ffi::AKEYCODE_BUTTON_11,
-    Button12 = ffi::AKEYCODE_BUTTON_12,
-    Button13 = ffi::AKEYCODE_BUTTON_13,
-    Button14 = ffi::AKEYCODE_BUTTON_14,
-    Button15 = ffi::AKEYCODE_BUTTON_15,
-    Button16 = ffi::AKEYCODE_BUTTON_16,
-    LanguageSwitch = ffi::AKEYCODE_LANGUAGE_SWITCH,
-    MannerMode = ffi::AKEYCODE_MANNER_MODE,
-    Keycode3dMode = ffi::AKEYCODE_3D_MODE,
-    Contacts = ffi::AKEYCODE_CONTACTS,
-    Calendar = ffi::AKEYCODE_CALENDAR,
-    Music = ffi::AKEYCODE_MUSIC,
-    Calculator = ffi::AKEYCODE_CALCULATOR,
-    ZenkakuHankaku = ffi::AKEYCODE_ZENKAKU_HANKAKU,
-    Eisu = ffi::AKEYCODE_EISU,
-    Muhenkan = ffi::AKEYCODE_MUHENKAN,
-    Henkan = ffi::AKEYCODE_HENKAN,
-    KatakanaHiragana = ffi::AKEYCODE_KATAKANA_HIRAGANA,
-    Yen = ffi::AKEYCODE_YEN,
-    Ro = ffi::AKEYCODE_RO,
-    Kana = ffi::AKEYCODE_KANA,
-    Assist = ffi::AKEYCODE_ASSIST,
-    BrightnessDown = ffi::AKEYCODE_BRIGHTNESS_DOWN,
-    BrightnessUp = ffi::AKEYCODE_BRIGHTNESS_UP,
-    MediaAudioTrack = ffi::AKEYCODE_MEDIA_AUDIO_TRACK,
-    Sleep = ffi::AKEYCODE_SLEEP,
-    Wakeup = ffi::AKEYCODE_WAKEUP,
-    Pairing = ffi::AKEYCODE_PAIRING,
-    MediaTopMenu = ffi::AKEYCODE_MEDIA_TOP_MENU,
-    Keycode11 = ffi::AKEYCODE_11,
-    Keycode12 = ffi::AKEYCODE_12,
-    LastChannel = ffi::AKEYCODE_LAST_CHANNEL,
-    TvDataService = ffi::AKEYCODE_TV_DATA_SERVICE,
-    VoiceAssist = ffi::AKEYCODE_VOICE_ASSIST,
-    TvRadioService = ffi::AKEYCODE_TV_RADIO_SERVICE,
-    TvTeletext = ffi::AKEYCODE_TV_TELETEXT,
-    TvNumberEntry = ffi::AKEYCODE_TV_NUMBER_ENTRY,
-    TvTerrestrialAnalog = ffi::AKEYCODE_TV_TERRESTRIAL_ANALOG,
-    TvTerrestrialDigital = ffi::AKEYCODE_TV_TERRESTRIAL_DIGITAL,
-    TvSatellite = ffi::AKEYCODE_TV_SATELLITE,
-    TvSatelliteBs = ffi::AKEYCODE_TV_SATELLITE_BS,
-    TvSatelliteCs = ffi::AKEYCODE_TV_SATELLITE_CS,
-    TvSatelliteService = ffi::AKEYCODE_TV_SATELLITE_SERVICE,
-    TvNetwork = ffi::AKEYCODE_TV_NETWORK,
-    TvAntennaCable = ffi::AKEYCODE_TV_ANTENNA_CABLE,
-    TvInputHdmi1 = ffi::AKEYCODE_TV_INPUT_HDMI_1,
-    TvInputHdmi2 = ffi::AKEYCODE_TV_INPUT_HDMI_2,
-    TvInputHdmi3 = ffi::AKEYCODE_TV_INPUT_HDMI_3,
-    TvInputHdmi4 = ffi::AKEYCODE_TV_INPUT_HDMI_4,
-    TvInputComposite1 = ffi::AKEYCODE_TV_INPUT_COMPOSITE_1,
-    TvInputComposite2 = ffi::AKEYCODE_TV_INPUT_COMPOSITE_2,
-    TvInputComponent1 = ffi::AKEYCODE_TV_INPUT_COMPONENT_1,
-    TvInputComponent2 = ffi::AKEYCODE_TV_INPUT_COMPONENT_2,
-    TvInputVga1 = ffi::AKEYCODE_TV_INPUT_VGA_1,
-    TvAudioDescription = ffi::AKEYCODE_TV_AUDIO_DESCRIPTION,
-    TvAudioDescriptionMixUp = ffi::AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP,
-    TvAudioDescriptionMixDown = ffi::AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN,
-    TvZoomMode = ffi::AKEYCODE_TV_ZOOM_MODE,
-    TvContentsMenu = ffi::AKEYCODE_TV_CONTENTS_MENU,
-    TvMediaContextMenu = ffi::AKEYCODE_TV_MEDIA_CONTEXT_MENU,
-    TvTimerProgramming = ffi::AKEYCODE_TV_TIMER_PROGRAMMING,
-    Help = ffi::AKEYCODE_HELP,
-    NavigatePrevious = ffi::AKEYCODE_NAVIGATE_PREVIOUS,
-    NavigateNext = ffi::AKEYCODE_NAVIGATE_NEXT,
-    NavigateIn = ffi::AKEYCODE_NAVIGATE_IN,
-    NavigateOut = ffi::AKEYCODE_NAVIGATE_OUT,
-    StemPrimary = ffi::AKEYCODE_STEM_PRIMARY,
-    Stem1 = ffi::AKEYCODE_STEM_1,
-    Stem2 = ffi::AKEYCODE_STEM_2,
-    Stem3 = ffi::AKEYCODE_STEM_3,
-    DpadUpLeft = ffi::AKEYCODE_DPAD_UP_LEFT,
-    DpadDownLeft = ffi::AKEYCODE_DPAD_DOWN_LEFT,
-    DpadUpRight = ffi::AKEYCODE_DPAD_UP_RIGHT,
-    DpadDownRight = ffi::AKEYCODE_DPAD_DOWN_RIGHT,
-    MediaSkipForward = ffi::AKEYCODE_MEDIA_SKIP_FORWARD,
-    MediaSkipBackward = ffi::AKEYCODE_MEDIA_SKIP_BACKWARD,
-    MediaStepForward = ffi::AKEYCODE_MEDIA_STEP_FORWARD,
-    MediaStepBackward = ffi::AKEYCODE_MEDIA_STEP_BACKWARD,
-    SoftSleep = ffi::AKEYCODE_SOFT_SLEEP,
-    Cut = ffi::AKEYCODE_CUT,
-    Copy = ffi::AKEYCODE_COPY,
-    Paste = ffi::AKEYCODE_PASTE,
-    SystemNavigationUp = ffi::AKEYCODE_SYSTEM_NAVIGATION_UP,
-    SystemNavigationDown = ffi::AKEYCODE_SYSTEM_NAVIGATION_DOWN,
-    SystemNavigationLeft = ffi::AKEYCODE_SYSTEM_NAVIGATION_LEFT,
-    SystemNavigationRight = ffi::AKEYCODE_SYSTEM_NAVIGATION_RIGHT,
-    AllApps = ffi::AKEYCODE_ALL_APPS,
-    Refresh = ffi::AKEYCODE_REFRESH,
-    ThumbsUp = ffi::AKEYCODE_THUMBS_UP,
-    ThumbsDown = ffi::AKEYCODE_THUMBS_DOWN,
-    ProfileSwitch = ffi::AKEYCODE_PROFILE_SWITCH,
+    Unknown = ffi::AKEYCODE_UNKNOWN as i32,
+    SoftLeft = ffi::AKEYCODE_SOFT_LEFT as i32,
+    SoftRight = ffi::AKEYCODE_SOFT_RIGHT as i32,
+    Home = ffi::AKEYCODE_HOME as i32,
+    Back = ffi::AKEYCODE_BACK as i32,
+    Call = ffi::AKEYCODE_CALL as i32,
+    Endcall = ffi::AKEYCODE_ENDCALL as i32,
+    Keycode0 = ffi::AKEYCODE_0 as i32,
+    Keycode1 = ffi::AKEYCODE_1 as i32,
+    Keycode2 = ffi::AKEYCODE_2 as i32,
+    Keycode3 = ffi::AKEYCODE_3 as i32,
+    Keycode4 = ffi::AKEYCODE_4 as i32,
+    Keycode5 = ffi::AKEYCODE_5 as i32,
+    Keycode6 = ffi::AKEYCODE_6 as i32,
+    Keycode7 = ffi::AKEYCODE_7 as i32,
+    Keycode8 = ffi::AKEYCODE_8 as i32,
+    Keycode9 = ffi::AKEYCODE_9 as i32,
+    Star = ffi::AKEYCODE_STAR as i32,
+    Pound = ffi::AKEYCODE_POUND as i32,
+    DpadUp = ffi::AKEYCODE_DPAD_UP as i32,
+    DpadDown = ffi::AKEYCODE_DPAD_DOWN as i32,
+    DpadLeft = ffi::AKEYCODE_DPAD_LEFT as i32,
+    DpadRight = ffi::AKEYCODE_DPAD_RIGHT as i32,
+    DpadCenter = ffi::AKEYCODE_DPAD_CENTER as i32,
+    VolumeUp = ffi::AKEYCODE_VOLUME_UP as i32,
+    VolumeDown = ffi::AKEYCODE_VOLUME_DOWN as i32,
+    Power = ffi::AKEYCODE_POWER as i32,
+    Camera = ffi::AKEYCODE_CAMERA as i32,
+    Clear = ffi::AKEYCODE_CLEAR as i32,
+    A = ffi::AKEYCODE_A as i32,
+    B = ffi::AKEYCODE_B as i32,
+    C = ffi::AKEYCODE_C as i32,
+    D = ffi::AKEYCODE_D as i32,
+    E = ffi::AKEYCODE_E as i32,
+    F = ffi::AKEYCODE_F as i32,
+    G = ffi::AKEYCODE_G as i32,
+    H = ffi::AKEYCODE_H as i32,
+    I = ffi::AKEYCODE_I as i32,
+    J = ffi::AKEYCODE_J as i32,
+    K = ffi::AKEYCODE_K as i32,
+    L = ffi::AKEYCODE_L as i32,
+    M = ffi::AKEYCODE_M as i32,
+    N = ffi::AKEYCODE_N as i32,
+    O = ffi::AKEYCODE_O as i32,
+    P = ffi::AKEYCODE_P as i32,
+    Q = ffi::AKEYCODE_Q as i32,
+    R = ffi::AKEYCODE_R as i32,
+    S = ffi::AKEYCODE_S as i32,
+    T = ffi::AKEYCODE_T as i32,
+    U = ffi::AKEYCODE_U as i32,
+    V = ffi::AKEYCODE_V as i32,
+    W = ffi::AKEYCODE_W as i32,
+    X = ffi::AKEYCODE_X as i32,
+    Y = ffi::AKEYCODE_Y as i32,
+    Z = ffi::AKEYCODE_Z as i32,
+    Comma = ffi::AKEYCODE_COMMA as i32,
+    Period = ffi::AKEYCODE_PERIOD as i32,
+    AltLeft = ffi::AKEYCODE_ALT_LEFT as i32,
+    AltRight = ffi::AKEYCODE_ALT_RIGHT as i32,
+    ShiftLeft = ffi::AKEYCODE_SHIFT_LEFT as i32,
+    ShiftRight = ffi::AKEYCODE_SHIFT_RIGHT as i32,
+    Tab = ffi::AKEYCODE_TAB as i32,
+    Space = ffi::AKEYCODE_SPACE as i32,
+    Sym = ffi::AKEYCODE_SYM as i32,
+    Explorer = ffi::AKEYCODE_EXPLORER as i32,
+    Envelope = ffi::AKEYCODE_ENVELOPE as i32,
+    Enter = ffi::AKEYCODE_ENTER as i32,
+    Del = ffi::AKEYCODE_DEL as i32,
+    Grave = ffi::AKEYCODE_GRAVE as i32,
+    Minus = ffi::AKEYCODE_MINUS as i32,
+    Equals = ffi::AKEYCODE_EQUALS as i32,
+    LeftBracket = ffi::AKEYCODE_LEFT_BRACKET as i32,
+    RightBracket = ffi::AKEYCODE_RIGHT_BRACKET as i32,
+    Backslash = ffi::AKEYCODE_BACKSLASH as i32,
+    Semicolon = ffi::AKEYCODE_SEMICOLON as i32,
+    Apostrophe = ffi::AKEYCODE_APOSTROPHE as i32,
+    Slash = ffi::AKEYCODE_SLASH as i32,
+    At = ffi::AKEYCODE_AT as i32,
+    Num = ffi::AKEYCODE_NUM as i32,
+    Headsethook = ffi::AKEYCODE_HEADSETHOOK as i32,
+    Focus = ffi::AKEYCODE_FOCUS as i32,
+    Plus = ffi::AKEYCODE_PLUS as i32,
+    Menu = ffi::AKEYCODE_MENU as i32,
+    Notification = ffi::AKEYCODE_NOTIFICATION as i32,
+    Search = ffi::AKEYCODE_SEARCH as i32,
+    MediaPlayPause = ffi::AKEYCODE_MEDIA_PLAY_PAUSE as i32,
+    MediaStop = ffi::AKEYCODE_MEDIA_STOP as i32,
+    MediaNext = ffi::AKEYCODE_MEDIA_NEXT as i32,
+    MediaPrevious = ffi::AKEYCODE_MEDIA_PREVIOUS as i32,
+    MediaRewind = ffi::AKEYCODE_MEDIA_REWIND as i32,
+    MediaFastForward = ffi::AKEYCODE_MEDIA_FAST_FORWARD as i32,
+    Mute = ffi::AKEYCODE_MUTE as i32,
+    PageUp = ffi::AKEYCODE_PAGE_UP as i32,
+    PageDown = ffi::AKEYCODE_PAGE_DOWN as i32,
+    Pictsymbols = ffi::AKEYCODE_PICTSYMBOLS as i32,
+    SwitchCharset = ffi::AKEYCODE_SWITCH_CHARSET as i32,
+    ButtonA = ffi::AKEYCODE_BUTTON_A as i32,
+    ButtonB = ffi::AKEYCODE_BUTTON_B as i32,
+    ButtonC = ffi::AKEYCODE_BUTTON_C as i32,
+    ButtonX = ffi::AKEYCODE_BUTTON_X as i32,
+    ButtonY = ffi::AKEYCODE_BUTTON_Y as i32,
+    ButtonZ = ffi::AKEYCODE_BUTTON_Z as i32,
+    ButtonL1 = ffi::AKEYCODE_BUTTON_L1 as i32,
+    ButtonR1 = ffi::AKEYCODE_BUTTON_R1 as i32,
+    ButtonL2 = ffi::AKEYCODE_BUTTON_L2 as i32,
+    ButtonR2 = ffi::AKEYCODE_BUTTON_R2 as i32,
+    ButtonThumbl = ffi::AKEYCODE_BUTTON_THUMBL as i32,
+    ButtonThumbr = ffi::AKEYCODE_BUTTON_THUMBR as i32,
+    ButtonStart = ffi::AKEYCODE_BUTTON_START as i32,
+    ButtonSelect = ffi::AKEYCODE_BUTTON_SELECT as i32,
+    ButtonMode = ffi::AKEYCODE_BUTTON_MODE as i32,
+    Escape = ffi::AKEYCODE_ESCAPE as i32,
+    ForwardDel = ffi::AKEYCODE_FORWARD_DEL as i32,
+    CtrlLeft = ffi::AKEYCODE_CTRL_LEFT as i32,
+    CtrlRight = ffi::AKEYCODE_CTRL_RIGHT as i32,
+    CapsLock = ffi::AKEYCODE_CAPS_LOCK as i32,
+    ScrollLock = ffi::AKEYCODE_SCROLL_LOCK as i32,
+    MetaLeft = ffi::AKEYCODE_META_LEFT as i32,
+    MetaRight = ffi::AKEYCODE_META_RIGHT as i32,
+    Function = ffi::AKEYCODE_FUNCTION as i32,
+    Sysrq = ffi::AKEYCODE_SYSRQ as i32,
+    Break = ffi::AKEYCODE_BREAK as i32,
+    MoveHome = ffi::AKEYCODE_MOVE_HOME as i32,
+    MoveEnd = ffi::AKEYCODE_MOVE_END as i32,
+    Insert = ffi::AKEYCODE_INSERT as i32,
+    Forward = ffi::AKEYCODE_FORWARD as i32,
+    MediaPlay = ffi::AKEYCODE_MEDIA_PLAY as i32,
+    MediaPause = ffi::AKEYCODE_MEDIA_PAUSE as i32,
+    MediaClose = ffi::AKEYCODE_MEDIA_CLOSE as i32,
+    MediaEject = ffi::AKEYCODE_MEDIA_EJECT as i32,
+    MediaRecord = ffi::AKEYCODE_MEDIA_RECORD as i32,
+    F1 = ffi::AKEYCODE_F1 as i32,
+    F2 = ffi::AKEYCODE_F2 as i32,
+    F3 = ffi::AKEYCODE_F3 as i32,
+    F4 = ffi::AKEYCODE_F4 as i32,
+    F5 = ffi::AKEYCODE_F5 as i32,
+    F6 = ffi::AKEYCODE_F6 as i32,
+    F7 = ffi::AKEYCODE_F7 as i32,
+    F8 = ffi::AKEYCODE_F8 as i32,
+    F9 = ffi::AKEYCODE_F9 as i32,
+    F10 = ffi::AKEYCODE_F10 as i32,
+    F11 = ffi::AKEYCODE_F11 as i32,
+    F12 = ffi::AKEYCODE_F12 as i32,
+    NumLock = ffi::AKEYCODE_NUM_LOCK as i32,
+    Numpad0 = ffi::AKEYCODE_NUMPAD_0 as i32,
+    Numpad1 = ffi::AKEYCODE_NUMPAD_1 as i32,
+    Numpad2 = ffi::AKEYCODE_NUMPAD_2 as i32,
+    Numpad3 = ffi::AKEYCODE_NUMPAD_3 as i32,
+    Numpad4 = ffi::AKEYCODE_NUMPAD_4 as i32,
+    Numpad5 = ffi::AKEYCODE_NUMPAD_5 as i32,
+    Numpad6 = ffi::AKEYCODE_NUMPAD_6 as i32,
+    Numpad7 = ffi::AKEYCODE_NUMPAD_7 as i32,
+    Numpad8 = ffi::AKEYCODE_NUMPAD_8 as i32,
+    Numpad9 = ffi::AKEYCODE_NUMPAD_9 as i32,
+    NumpadDivide = ffi::AKEYCODE_NUMPAD_DIVIDE as i32,
+    NumpadMultiply = ffi::AKEYCODE_NUMPAD_MULTIPLY as i32,
+    NumpadSubtract = ffi::AKEYCODE_NUMPAD_SUBTRACT as i32,
+    NumpadAdd = ffi::AKEYCODE_NUMPAD_ADD as i32,
+    NumpadDot = ffi::AKEYCODE_NUMPAD_DOT as i32,
+    NumpadComma = ffi::AKEYCODE_NUMPAD_COMMA as i32,
+    NumpadEnter = ffi::AKEYCODE_NUMPAD_ENTER as i32,
+    NumpadEquals = ffi::AKEYCODE_NUMPAD_EQUALS as i32,
+    NumpadLeftParen = ffi::AKEYCODE_NUMPAD_LEFT_PAREN as i32,
+    NumpadRightParen = ffi::AKEYCODE_NUMPAD_RIGHT_PAREN as i32,
+    VolumeMute = ffi::AKEYCODE_VOLUME_MUTE as i32,
+    Info = ffi::AKEYCODE_INFO as i32,
+    ChannelUp = ffi::AKEYCODE_CHANNEL_UP as i32,
+    ChannelDown = ffi::AKEYCODE_CHANNEL_DOWN as i32,
+    ZoomIn = ffi::AKEYCODE_ZOOM_IN as i32,
+    ZoomOut = ffi::AKEYCODE_ZOOM_OUT as i32,
+    Tv = ffi::AKEYCODE_TV as i32,
+    Window = ffi::AKEYCODE_WINDOW as i32,
+    Guide = ffi::AKEYCODE_GUIDE as i32,
+    Dvr = ffi::AKEYCODE_DVR as i32,
+    Bookmark = ffi::AKEYCODE_BOOKMARK as i32,
+    Captions = ffi::AKEYCODE_CAPTIONS as i32,
+    Settings = ffi::AKEYCODE_SETTINGS as i32,
+    TvPower = ffi::AKEYCODE_TV_POWER as i32,
+    TvInput = ffi::AKEYCODE_TV_INPUT as i32,
+    StbPower = ffi::AKEYCODE_STB_POWER as i32,
+    StbInput = ffi::AKEYCODE_STB_INPUT as i32,
+    AvrPower = ffi::AKEYCODE_AVR_POWER as i32,
+    AvrInput = ffi::AKEYCODE_AVR_INPUT as i32,
+    ProgRed = ffi::AKEYCODE_PROG_RED as i32,
+    ProgGreen = ffi::AKEYCODE_PROG_GREEN as i32,
+    ProgYellow = ffi::AKEYCODE_PROG_YELLOW as i32,
+    ProgBlue = ffi::AKEYCODE_PROG_BLUE as i32,
+    AppSwitch = ffi::AKEYCODE_APP_SWITCH as i32,
+    Button1 = ffi::AKEYCODE_BUTTON_1 as i32,
+    Button2 = ffi::AKEYCODE_BUTTON_2 as i32,
+    Button3 = ffi::AKEYCODE_BUTTON_3 as i32,
+    Button4 = ffi::AKEYCODE_BUTTON_4 as i32,
+    Button5 = ffi::AKEYCODE_BUTTON_5 as i32,
+    Button6 = ffi::AKEYCODE_BUTTON_6 as i32,
+    Button7 = ffi::AKEYCODE_BUTTON_7 as i32,
+    Button8 = ffi::AKEYCODE_BUTTON_8 as i32,
+    Button9 = ffi::AKEYCODE_BUTTON_9 as i32,
+    Button10 = ffi::AKEYCODE_BUTTON_10 as i32,
+    Button11 = ffi::AKEYCODE_BUTTON_11 as i32,
+    Button12 = ffi::AKEYCODE_BUTTON_12 as i32,
+    Button13 = ffi::AKEYCODE_BUTTON_13 as i32,
+    Button14 = ffi::AKEYCODE_BUTTON_14 as i32,
+    Button15 = ffi::AKEYCODE_BUTTON_15 as i32,
+    Button16 = ffi::AKEYCODE_BUTTON_16 as i32,
+    LanguageSwitch = ffi::AKEYCODE_LANGUAGE_SWITCH as i32,
+    MannerMode = ffi::AKEYCODE_MANNER_MODE as i32,
+    Keycode3dMode = ffi::AKEYCODE_3D_MODE as i32,
+    Contacts = ffi::AKEYCODE_CONTACTS as i32,
+    Calendar = ffi::AKEYCODE_CALENDAR as i32,
+    Music = ffi::AKEYCODE_MUSIC as i32,
+    Calculator = ffi::AKEYCODE_CALCULATOR as i32,
+    ZenkakuHankaku = ffi::AKEYCODE_ZENKAKU_HANKAKU as i32,
+    Eisu = ffi::AKEYCODE_EISU as i32,
+    Muhenkan = ffi::AKEYCODE_MUHENKAN as i32,
+    Henkan = ffi::AKEYCODE_HENKAN as i32,
+    KatakanaHiragana = ffi::AKEYCODE_KATAKANA_HIRAGANA as i32,
+    Yen = ffi::AKEYCODE_YEN as i32,
+    Ro = ffi::AKEYCODE_RO as i32,
+    Kana = ffi::AKEYCODE_KANA as i32,
+    Assist = ffi::AKEYCODE_ASSIST as i32,
+    BrightnessDown = ffi::AKEYCODE_BRIGHTNESS_DOWN as i32,
+    BrightnessUp = ffi::AKEYCODE_BRIGHTNESS_UP as i32,
+    MediaAudioTrack = ffi::AKEYCODE_MEDIA_AUDIO_TRACK as i32,
+    Sleep = ffi::AKEYCODE_SLEEP as i32,
+    Wakeup = ffi::AKEYCODE_WAKEUP as i32,
+    Pairing = ffi::AKEYCODE_PAIRING as i32,
+    MediaTopMenu = ffi::AKEYCODE_MEDIA_TOP_MENU as i32,
+    Keycode11 = ffi::AKEYCODE_11 as i32,
+    Keycode12 = ffi::AKEYCODE_12 as i32,
+    LastChannel = ffi::AKEYCODE_LAST_CHANNEL as i32,
+    TvDataService = ffi::AKEYCODE_TV_DATA_SERVICE as i32,
+    VoiceAssist = ffi::AKEYCODE_VOICE_ASSIST as i32,
+    TvRadioService = ffi::AKEYCODE_TV_RADIO_SERVICE as i32,
+    TvTeletext = ffi::AKEYCODE_TV_TELETEXT as i32,
+    TvNumberEntry = ffi::AKEYCODE_TV_NUMBER_ENTRY as i32,
+    TvTerrestrialAnalog = ffi::AKEYCODE_TV_TERRESTRIAL_ANALOG as i32,
+    TvTerrestrialDigital = ffi::AKEYCODE_TV_TERRESTRIAL_DIGITAL as i32,
+    TvSatellite = ffi::AKEYCODE_TV_SATELLITE as i32,
+    TvSatelliteBs = ffi::AKEYCODE_TV_SATELLITE_BS as i32,
+    TvSatelliteCs = ffi::AKEYCODE_TV_SATELLITE_CS as i32,
+    TvSatelliteService = ffi::AKEYCODE_TV_SATELLITE_SERVICE as i32,
+    TvNetwork = ffi::AKEYCODE_TV_NETWORK as i32,
+    TvAntennaCable = ffi::AKEYCODE_TV_ANTENNA_CABLE as i32,
+    TvInputHdmi1 = ffi::AKEYCODE_TV_INPUT_HDMI_1 as i32,
+    TvInputHdmi2 = ffi::AKEYCODE_TV_INPUT_HDMI_2 as i32,
+    TvInputHdmi3 = ffi::AKEYCODE_TV_INPUT_HDMI_3 as i32,
+    TvInputHdmi4 = ffi::AKEYCODE_TV_INPUT_HDMI_4 as i32,
+    TvInputComposite1 = ffi::AKEYCODE_TV_INPUT_COMPOSITE_1 as i32,
+    TvInputComposite2 = ffi::AKEYCODE_TV_INPUT_COMPOSITE_2 as i32,
+    TvInputComponent1 = ffi::AKEYCODE_TV_INPUT_COMPONENT_1 as i32,
+    TvInputComponent2 = ffi::AKEYCODE_TV_INPUT_COMPONENT_2 as i32,
+    TvInputVga1 = ffi::AKEYCODE_TV_INPUT_VGA_1 as i32,
+    TvAudioDescription = ffi::AKEYCODE_TV_AUDIO_DESCRIPTION as i32,
+    TvAudioDescriptionMixUp = ffi::AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP as i32,
+    TvAudioDescriptionMixDown = ffi::AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN as i32,
+    TvZoomMode = ffi::AKEYCODE_TV_ZOOM_MODE as i32,
+    TvContentsMenu = ffi::AKEYCODE_TV_CONTENTS_MENU as i32,
+    TvMediaContextMenu = ffi::AKEYCODE_TV_MEDIA_CONTEXT_MENU as i32,
+    TvTimerProgramming = ffi::AKEYCODE_TV_TIMER_PROGRAMMING as i32,
+    Help = ffi::AKEYCODE_HELP as i32,
+    NavigatePrevious = ffi::AKEYCODE_NAVIGATE_PREVIOUS as i32,
+    NavigateNext = ffi::AKEYCODE_NAVIGATE_NEXT as i32,
+    NavigateIn = ffi::AKEYCODE_NAVIGATE_IN as i32,
+    NavigateOut = ffi::AKEYCODE_NAVIGATE_OUT as i32,
+    StemPrimary = ffi::AKEYCODE_STEM_PRIMARY as i32,
+    Stem1 = ffi::AKEYCODE_STEM_1 as i32,
+    Stem2 = ffi::AKEYCODE_STEM_2 as i32,
+    Stem3 = ffi::AKEYCODE_STEM_3 as i32,
+    DpadUpLeft = ffi::AKEYCODE_DPAD_UP_LEFT as i32,
+    DpadDownLeft = ffi::AKEYCODE_DPAD_DOWN_LEFT as i32,
+    DpadUpRight = ffi::AKEYCODE_DPAD_UP_RIGHT as i32,
+    DpadDownRight = ffi::AKEYCODE_DPAD_DOWN_RIGHT as i32,
+    MediaSkipForward = ffi::AKEYCODE_MEDIA_SKIP_FORWARD as i32,
+    MediaSkipBackward = ffi::AKEYCODE_MEDIA_SKIP_BACKWARD as i32,
+    MediaStepForward = ffi::AKEYCODE_MEDIA_STEP_FORWARD as i32,
+    MediaStepBackward = ffi::AKEYCODE_MEDIA_STEP_BACKWARD as i32,
+    SoftSleep = ffi::AKEYCODE_SOFT_SLEEP as i32,
+    Cut = ffi::AKEYCODE_CUT as i32,
+    Copy = ffi::AKEYCODE_COPY as i32,
+    Paste = ffi::AKEYCODE_PASTE as i32,
+    SystemNavigationUp = ffi::AKEYCODE_SYSTEM_NAVIGATION_UP as i32,
+    SystemNavigationDown = ffi::AKEYCODE_SYSTEM_NAVIGATION_DOWN as i32,
+    SystemNavigationLeft = ffi::AKEYCODE_SYSTEM_NAVIGATION_LEFT as i32,
+    SystemNavigationRight = ffi::AKEYCODE_SYSTEM_NAVIGATION_RIGHT as i32,
+    AllApps = ffi::AKEYCODE_ALL_APPS as i32,
+    Refresh = ffi::AKEYCODE_REFRESH as i32,
+    ThumbsUp = ffi::AKEYCODE_THUMBS_UP as i32,
+    ThumbsDown = ffi::AKEYCODE_THUMBS_DOWN as i32,
+    ProfileSwitch = ffi::AKEYCODE_PROFILE_SWITCH as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 impl KeyEvent {
@@ -1410,8 +1440,8 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getaction)
     #[inline]
     pub fn action(&self) -> KeyAction {
-        let action = unsafe { ffi::AKeyEvent_getAction(self.ptr.as_ptr()) as u32 };
-        action.try_into().unwrap()
+        let action = unsafe { ffi::AKeyEvent_getAction(self.ptr.as_ptr()) };
+        action.into()
     }
 
     /// Get the source of the event.
@@ -1420,8 +1450,8 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
     #[inline]
     pub fn source(&self) -> Source {
-        let source = unsafe { ffi::AInputEvent_getSource(self.ptr.as_ptr()) as u32 };
-        source.try_into().unwrap_or(Source::Unknown)
+        let source = unsafe { ffi::AInputEvent_getSource(self.ptr.as_ptr()) };
+        source.into()
     }
 
     /// Get the device id associated with the event.
@@ -1459,8 +1489,8 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getkeycode)
     #[inline]
     pub fn key_code(&self) -> Keycode {
-        let keycode = unsafe { ffi::AKeyEvent_getKeyCode(self.ptr.as_ptr()) as u32 };
-        keycode.try_into().unwrap_or(Keycode::Unknown)
+        let keycode = unsafe { ffi::AKeyEvent_getKeyCode(self.ptr.as_ptr()) };
+        keycode.into()
     }
 
     /// Returns the number of repeats of a key.

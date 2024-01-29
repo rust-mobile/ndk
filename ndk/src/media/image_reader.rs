@@ -7,7 +7,7 @@
 use crate::media_error::{construct, construct_never_null, MediaError, Result};
 use crate::native_window::NativeWindow;
 use crate::utils::abort_on_panic;
-use num_enum::{IntoPrimitive, TryFromPrimitive};
+use num_enum::{FromPrimitive, IntoPrimitive};
 use std::{
     ffi::c_void,
     fmt::{self, Debug, Formatter},
@@ -21,27 +21,32 @@ use std::os::fd::{FromRawFd, IntoRawFd, OwnedFd};
 #[cfg(feature = "api-level-26")]
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
 
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
+#[non_exhaustive]
 pub enum ImageFormat {
-    RGBA_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_8888.0,
-    RGBX_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBX_8888.0,
-    RGB_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_888.0,
-    RGB_565 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_565.0,
-    RGBA_FP16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_FP16.0,
-    YUV_420_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_YUV_420_888.0,
-    JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_JPEG.0,
-    RAW16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW16.0,
-    RAW_PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW_PRIVATE.0,
-    RAW10 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW10.0,
-    RAW12 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW12.0,
-    DEPTH16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH16.0,
-    DEPTH_POINT_CLOUD = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_POINT_CLOUD.0,
-    PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_PRIVATE.0,
-    Y8 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_Y8.0,
-    HEIC = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_HEIC.0,
-    DEPTH_JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_JPEG.0,
+    RGBA_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_8888.0 as i32,
+    RGBX_8888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBX_8888.0 as i32,
+    RGB_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_888.0 as i32,
+    RGB_565 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGB_565.0 as i32,
+    RGBA_FP16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RGBA_FP16.0 as i32,
+    YUV_420_888 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_YUV_420_888.0 as i32,
+    JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_JPEG.0 as i32,
+    RAW16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW16.0 as i32,
+    RAW_PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW_PRIVATE.0 as i32,
+    RAW10 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW10.0 as i32,
+    RAW12 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW12.0 as i32,
+    DEPTH16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH16.0 as i32,
+    DEPTH_POINT_CLOUD = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_POINT_CLOUD.0 as i32,
+    PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_PRIVATE.0 as i32,
+    Y8 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_Y8.0 as i32,
+    HEIC = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_HEIC.0 as i32,
+    DEPTH_JPEG = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_JPEG.0 as i32,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 pub type ImageListener = Box<dyn FnMut(&ImageReader) + Send>;
@@ -90,7 +95,7 @@ impl ImageReader {
 
     pub fn new(width: i32, height: i32, format: ImageFormat, max_images: i32) -> Result<Self> {
         let inner = construct_never_null(|res| unsafe {
-            ffi::AImageReader_new(width, height, format as i32, max_images, res)
+            ffi::AImageReader_new(width, height, format.into(), max_images, res)
         })?;
 
         Ok(Self::from_ptr(inner))
@@ -108,7 +113,7 @@ impl ImageReader {
             ffi::AImageReader_newWithUsage(
                 width,
                 height,
-                format as i32,
+                format.into(),
                 usage.0 .0,
                 max_images,
                 res,
@@ -204,7 +209,7 @@ impl ImageReader {
     #[doc(alias = "AImageReader_getFormat")]
     pub fn format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImageReader_getFormat(self.as_ptr(), res) })?;
-        Ok((format as u32).try_into().unwrap())
+        Ok(format.into())
     }
 
     #[doc(alias = "AImageReader_getMaxImages")]
@@ -355,7 +360,7 @@ impl Image {
     #[doc(alias = "AImage_getFormat")]
     pub fn format(&self) -> Result<ImageFormat> {
         let format = construct(|res| unsafe { ffi::AImage_getFormat(self.as_ptr(), res) })?;
-        Ok((format as u32).try_into().unwrap())
+        Ok(format.into())
     }
 
     #[doc(alias = "AImage_getTimestamp")]

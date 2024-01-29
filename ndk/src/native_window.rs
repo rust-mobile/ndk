@@ -5,10 +5,6 @@
 use std::{ffi::c_void, io, mem::MaybeUninit, ptr::NonNull};
 
 use jni_sys::{jobject, JNIEnv};
-#[cfg(feature = "api-level-28")]
-use num_enum::{TryFromPrimitive, TryFromPrimitiveError};
-#[cfg(feature = "api-level-28")]
-use thiserror::Error;
 
 use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_result};
 #[cfg(feature = "api-level-28")]
@@ -108,7 +104,6 @@ impl NativeWindow {
     /// Return the current pixel format ([`HardwareBufferFormat`]) of the window surface.
     pub fn format(&self) -> HardwareBufferFormat {
         let value = unsafe { ffi::ANativeWindow_getFormat(self.ptr.as_ptr()) };
-        let value = u32::try_from(value).unwrap();
         value.into()
     }
 
@@ -127,11 +122,7 @@ impl NativeWindow {
         height: i32,
         format: Option<HardwareBufferFormat>,
     ) -> io::Result<()> {
-        let format = format.map_or(0, |f| {
-            u32::from(f)
-                .try_into()
-                .expect("i32 overflow in set_buffers_geometry")
-        });
+        let format = format.map_or(0i32, |f| f.into());
         let status = unsafe {
             ffi::ANativeWindow_setBuffersGeometry(self.ptr.as_ptr(), width, height, format)
         };
@@ -141,9 +132,8 @@ impl NativeWindow {
     /// Set a transform that will be applied to future buffers posted to the window.
     #[cfg(feature = "api-level-26")]
     pub fn set_buffers_transform(&self, transform: NativeWindowTransform) -> io::Result<()> {
-        let status = unsafe {
-            ffi::ANativeWindow_setBuffersTransform(self.ptr.as_ptr(), transform.bits() as i32)
-        };
+        let status =
+            unsafe { ffi::ANativeWindow_setBuffersTransform(self.ptr.as_ptr(), transform.bits()) };
         status_to_io_result(status)
     }
 
@@ -157,23 +147,20 @@ impl NativeWindow {
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "ANativeWindow_setBuffersDataSpace")]
     pub fn set_buffers_data_space(&self, data_space: DataSpace) -> io::Result<()> {
-        let data_space = (data_space as u32)
-            .try_into()
-            .expect("Sign bit should be unused");
         let status =
-            unsafe { ffi::ANativeWindow_setBuffersDataSpace(self.ptr.as_ptr(), data_space) };
+            unsafe { ffi::ANativeWindow_setBuffersDataSpace(self.ptr.as_ptr(), data_space.into()) };
         status_to_io_result(status)
     }
 
     /// Get the dataspace of the buffers in this [`NativeWindow`].
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "ANativeWindow_getBuffersDataSpace")]
-    pub fn buffers_data_space(&self) -> Result<DataSpace, GetDataSpaceError> {
+    pub fn buffers_data_space(&self) -> io::Result<DataSpace> {
         let status = unsafe { ffi::ANativeWindow_getBuffersDataSpace(self.ptr.as_ptr()) };
         if status >= 0 {
-            Ok(DataSpace::try_from_primitive(status as u32)?)
+            Ok(status.into())
         } else {
-            Err(status_to_io_result(status).unwrap_err().into())
+            Err(status_to_io_result(status).unwrap_err())
         }
     }
 
@@ -192,11 +179,8 @@ impl NativeWindow {
         frame_rate: f32,
         compatibility: FrameRateCompatibility,
     ) -> io::Result<()> {
-        let compatibility = (compatibility as u32)
-            .try_into()
-            .expect("i8 overflow in FrameRateCompatibility");
         let status = unsafe {
-            ffi::ANativeWindow_setFrameRate(self.ptr.as_ptr(), frame_rate, compatibility)
+            ffi::ANativeWindow_setFrameRate(self.ptr.as_ptr(), frame_rate, compatibility as i8)
         };
         status_to_io_result(status)
     }
@@ -239,18 +223,12 @@ impl NativeWindow {
         compatibility: FrameRateCompatibility,
         change_frame_rate_strategy: ChangeFrameRateStrategy,
     ) -> io::Result<()> {
-        let compatibility = (compatibility as u32)
-            .try_into()
-            .expect("i8 overflow in FrameRateCompatibility");
-        let strategy = (change_frame_rate_strategy as u32)
-            .try_into()
-            .expect("i8 overflow in ChangeFrameRateStrategy");
         let status = unsafe {
             ffi::ANativeWindow_setFrameRateWithChangeStrategy(
                 self.ptr.as_ptr(),
                 frame_rate,
-                compatibility,
-                strategy,
+                compatibility as i8,
+                change_frame_rate_strategy as i8,
             )
         };
         status_to_io_result(status)
@@ -341,8 +319,7 @@ impl<'a> NativeWindowBufferLockGuard<'a> {
 
     /// The format of the buffer. One of [`HardwareBufferFormat`].
     pub fn format(&self) -> HardwareBufferFormat {
-        let format = u32::try_from(self.buffer.format).unwrap();
-        format.into()
+        self.buffer.format.into()
     }
 
     /// The actual bits.
@@ -409,34 +386,25 @@ bitflags::bitflags! {
     /// of those basic transforms.
     #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
     #[doc(alias = "ANativeWindowTransform")]
-    pub struct NativeWindowTransform : u32 {
+    pub struct NativeWindowTransform : i32 {
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_IDENTITY")]
-        const IDENTITY = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_IDENTITY.0;
+        const IDENTITY = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_IDENTITY.0 as i32;
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL")]
-        const MIRROR_HORIZONTAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL.0;
+        const MIRROR_HORIZONTAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL.0 as i32;
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL")]
-        const MIRROR_VERTICAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL.0;
+        const MIRROR_VERTICAL = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL.0 as i32;
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_90")]
-        const ROTATE_90 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_90.0;
+        const ROTATE_90 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_90.0 as i32;
         /// Defined as [`Self::MIRROR_HORIZONTAL`] `|` [`Self::MIRROR_VERTICAL`].
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_180")]
-        const ROTATE_180 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_180.0;
+        const ROTATE_180 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_180.0 as i32;
         /// Defined as [`Self::ROTATE_180`] `|` [`Self::ROTATE_90`].
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_ROTATE_270")]
-        const ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0;
+        const ROTATE_270 = ffi::ANativeWindowTransform::ANATIVEWINDOW_TRANSFORM_ROTATE_270.0 as i32;
 
         // https://docs.rs/bitflags/latest/bitflags/#externally-defined-flags
         const _ = !0;
     }
-}
-
-#[cfg(feature = "api-level-28")]
-#[derive(Debug, Error)]
-pub enum GetDataSpaceError {
-    #[error(transparent)]
-    IoError(#[from] io::Error),
-    #[error(transparent)]
-    TryFromPrimitiveError(#[from] TryFromPrimitiveError<DataSpace>),
 }
 
 /// Compatibility value for [`NativeWindow::set_frame_rate()`]
@@ -446,7 +414,7 @@ pub enum GetDataSpaceError {
 )]
 /// .
 #[cfg(feature = "api-level-30")]
-#[repr(u32)]
+#[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_FrameRateCompatibility")]
 #[non_exhaustive]
@@ -458,7 +426,7 @@ pub enum FrameRateCompatibility {
     /// when displaying game content, UIs, and anything that isn't video.
     #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT")]
     Default =
-        ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT.0,
+        ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT.0 as i8,
     /// This window is being used to display content with an inherently fixed frame rate, e.g. a
     /// video that has a specific frame rate.
     ///
@@ -468,20 +436,23 @@ pub enum FrameRateCompatibility {
     /// system had chosen the app's requested frame rate. This value should be used for video
     /// content.
     #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE")]
-    FixedSource = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE.0,
+    FixedSource = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE.0 as i8,
 }
 
 /// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
 #[cfg(feature = "api-level-31")]
-#[repr(u32)]
+#[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_ChangeFrameRateStrategy")]
 #[non_exhaustive]
 pub enum ChangeFrameRateStrategy {
     /// Change the frame rate only if the transition is going to be seamless.
     #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS")]
-    OnlyIfSeamless = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS.0,
+    OnlyIfSeamless =
+        ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS
+            .0 as i8,
     /// Change the frame rate even if the transition is going to be non-seamless, i.e. with visual interruptions for the user.
     #[doc(alias = "ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS")]
-    Always = ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS.0,
+    Always =
+        ffi::ANativeWindow_ChangeFrameRateStrategy::ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS.0 as i8,
 }

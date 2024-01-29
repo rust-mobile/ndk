@@ -17,7 +17,7 @@ use std::{
     ptr::NonNull,
 };
 
-use num_enum::{FromPrimitive, IntoPrimitive, TryFromPrimitive};
+use num_enum::{FromPrimitive, IntoPrimitive};
 use thiserror::Error;
 
 use crate::utils::abort_on_panic;
@@ -29,9 +29,10 @@ use crate::utils::abort_on_panic;
 ///
 /// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-29")]
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_allowed_capture_policy_t")]
+#[non_exhaustive]
 pub enum AudioAllowedCapturePolicy {
     /// Indicates that the audio may be captured by any app.
     ///
@@ -44,7 +45,7 @@ pub enum AudioAllowedCapturePolicy {
     ///
     /// [`MediaProjection`]: https://developer.android.com/reference/android/media/projection/MediaProjection
     #[doc(alias = "AAUDIO_ALLOW_CAPTURE_BY_ALL")]
-    AllowCaptureByAll = ffi::AAUDIO_ALLOW_CAPTURE_BY_ALL,
+    AllowCaptureByAll = ffi::AAUDIO_ALLOW_CAPTURE_BY_ALL as ffi::aaudio_allowed_capture_policy_t,
     /// Indicates that the audio may only be captured by system apps.
     ///
     /// System apps can capture for many purposes like accessibility, live captions, user
@@ -55,14 +56,19 @@ pub enum AudioAllowedCapturePolicy {
     ///
     /// See [`AudioStreamBuilder::allowed_capture_policy()`].
     #[doc(alias = "AAUDIO_ALLOW_CAPTURE_BY_SYSTEM")]
-    AllowCaptureBySystem = ffi::AAUDIO_ALLOW_CAPTURE_BY_SYSTEM,
+    AllowCaptureBySystem =
+        ffi::AAUDIO_ALLOW_CAPTURE_BY_SYSTEM as ffi::aaudio_allowed_capture_policy_t,
     /// Indicates that the audio may not be recorded by any app, even if it is a system app.
     ///
     /// It is encouraged to use [`AllowCaptureBySystem`][Self::AllowCaptureBySystem] instead of
     /// this value as system apps provide significant and useful features for the user (such as
     /// live captioning and accessibility).
     #[doc(alias = "AAUDIO_ALLOW_CAPTURE_BY_NONE")]
-    AllowCaptureByNone = ffi::AAUDIO_ALLOW_CAPTURE_BY_NONE,
+    AllowCaptureByNone = ffi::AAUDIO_ALLOW_CAPTURE_BY_NONE as ffi::aaudio_allowed_capture_policy_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 /// The ContentType attribute describes "what" you are playing.
@@ -77,42 +83,62 @@ pub enum AudioAllowedCapturePolicy {
 ///
 /// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-28")]
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_content_type_t")]
+#[non_exhaustive]
 pub enum AudioContentType {
     /// Use this for spoken voice, audio books, etcetera.
     #[doc(alias = "AAUDIO_CONTENT_TYPE_SPEECH")]
-    Speech = ffi::AAUDIO_CONTENT_TYPE_SPEECH,
+    Speech = ffi::AAUDIO_CONTENT_TYPE_SPEECH as ffi::aaudio_content_type_t,
     /// Use this for pre-recorded or live music.
     #[doc(alias = "AAUDIO_CONTENT_TYPE_MUSIC")]
-    Music = ffi::AAUDIO_CONTENT_TYPE_MUSIC,
+    Music = ffi::AAUDIO_CONTENT_TYPE_MUSIC as ffi::aaudio_content_type_t,
     /// Use this for a movie or video soundtrack.
     #[doc(alias = "AAUDIO_CONTENT_TYPE_MOVIE")]
-    Movie = ffi::AAUDIO_CONTENT_TYPE_MOVIE,
+    Movie = ffi::AAUDIO_CONTENT_TYPE_MOVIE as ffi::aaudio_content_type_t,
     /// Use this for sound is designed to accompany a user action,
     /// such as a click or beep sound made when the user presses a button.
     #[doc(alias = "AAUDIO_CONTENT_TYPE_SONIFICATION")]
-    Sonification = ffi::AAUDIO_CONTENT_TYPE_SONIFICATION,
-}
+    Sonification = ffi::AAUDIO_CONTENT_TYPE_SONIFICATION as ffi::aaudio_content_type_t,
 
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
-#[doc(alias = "aaudio_direction_t")]
-pub enum AudioDirection {
-    /// Audio data will travel out of the device, for example through a speaker.
-    #[doc(alias = "AAUDIO_DIRECTION_INPUT")]
-    Input = ffi::AAUDIO_DIRECTION_INPUT,
-    /// Audio data will travel into the device, for example from a microphone.
-    #[doc(alias = "AAUDIO_DIRECTION_OUTPUT")]
-    Output = ffi::AAUDIO_DIRECTION_OUTPUT,
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[doc(alias = "aaudio_direction_t")]
+#[non_exhaustive]
+pub enum AudioDirection {
+    /// Audio data will travel into the device, for example from a microphone.
+    #[doc(alias = "AAUDIO_DIRECTION_OUTPUT")]
+    Output = ffi::AAUDIO_DIRECTION_OUTPUT as ffi::aaudio_direction_t,
+    /// Audio data will travel out of the device, for example through a speaker.
+    #[doc(alias = "AAUDIO_DIRECTION_INPUT")]
+    Input = ffi::AAUDIO_DIRECTION_INPUT as ffi::aaudio_direction_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
+}
+
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[doc(alias = "aaudio_format_t")]
+#[non_exhaustive]
 pub enum AudioFormat {
+    #[doc(alias = "AAUDIO_FORMAT_INVALID")]
+    Invalid = ffi::AAUDIO_FORMAT_INVALID as ffi::aaudio_format_t,
+    #[doc(alias = "AAUDIO_FORMAT_UNSPECIFIED")]
+    Unspecified = ffi::AAUDIO_FORMAT_UNSPECIFIED as ffi::aaudio_format_t,
+
+    /// This format uses the i16 data type.
+    /// The maximum range of the data is -32768 to 32767.
+    #[doc(alias = "AAUDIO_FORMAT_PCM_I16")]
+    PCM_I16 = ffi::AAUDIO_FORMAT_PCM_I16 as ffi::aaudio_format_t,
     /// This format uses the float data type.
     /// The nominal range of the data is [-1.0f32, 1.0f32).
     /// Values outside that range may be clipped.
@@ -120,15 +146,11 @@ pub enum AudioFormat {
     /// See also `audioData` at
     /// <a href="https://developer.android.com/reference/android/media/AudioTrack#write(float[], int, int, int)"><code>AudioTrack#write(float[], int, int, int)</code></a>.
     #[doc(alias = "AAUDIO_FORMAT_PCM_FLOAT")]
-    PCM_Float = ffi::AAUDIO_FORMAT_PCM_FLOAT,
-    /// This format uses the i16 data type.
-    /// The maximum range of the data is -32768 to 32767.
-    #[doc(alias = "AAUDIO_FORMAT_PCM_I16")]
-    PCM_I16 = ffi::AAUDIO_FORMAT_PCM_I16,
-    #[doc(alias = "AAUDIO_FORMAT_INVALID")]
-    Invalid = ffi::AAUDIO_FORMAT_INVALID,
-    #[doc(alias = "AAUDIO_FORMAT_UNSPECIFIED")]
-    Unspecified = ffi::AAUDIO_FORMAT_UNSPECIFIED,
+    PCM_Float = ffi::AAUDIO_FORMAT_PCM_FLOAT as ffi::aaudio_format_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 /// Defines the audio source.
@@ -137,66 +159,81 @@ pub enum AudioFormat {
 ///
 /// Note that these match the equivalent values in MediaRecorder.AudioSource in the Android Java API.
 #[cfg(feature = "api-level-28")]
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_input_preset_t")]
+#[non_exhaustive]
 pub enum AudioInputPreset {
     /// Use this preset when other presets do not apply.
     #[doc(alias = "AAUDIO_INPUT_PRESET_GENERIC")]
-    Generic = ffi::AAUDIO_INPUT_PRESET_GENERIC,
+    Generic = ffi::AAUDIO_INPUT_PRESET_GENERIC as ffi::aaudio_input_preset_t,
     /// Use this preset when recording video.
     #[doc(alias = "AAUDIO_INPUT_PRESET_CAMCORDER")]
-    Camcorder = ffi::AAUDIO_INPUT_PRESET_CAMCORDER,
+    Camcorder = ffi::AAUDIO_INPUT_PRESET_CAMCORDER as ffi::aaudio_input_preset_t,
     /// Use this preset when doing speech recognition.
     #[doc(alias = "AAUDIO_INPUT_PRESET_VOICE_RECOGNITION")]
-    VoiceRecognition = ffi::AAUDIO_INPUT_PRESET_VOICE_RECOGNITION,
+    VoiceRecognition = ffi::AAUDIO_INPUT_PRESET_VOICE_RECOGNITION as ffi::aaudio_input_preset_t,
     /// Use this preset when doing telephony or voice messaging.
     #[doc(alias = "AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION")]
-    VoiceCommunication = ffi::AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION,
+    VoiceCommunication = ffi::AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION as ffi::aaudio_input_preset_t,
     /// Use this preset to obtain an input with no effects.
     /// Note that this input will not have automatic gain control
     /// so the recorded volume may be very low.
     #[doc(alias = "AAUDIO_INPUT_PRESET_UNPROCESSED")]
-    Unprocessed = ffi::AAUDIO_INPUT_PRESET_UNPROCESSED,
+    Unprocessed = ffi::AAUDIO_INPUT_PRESET_UNPROCESSED as ffi::aaudio_input_preset_t,
     /// Use this preset for capturing audio meant to be processed in real time
     /// and played back for live performance (e.g karaoke).
     /// The capture path will minimize latency and coupling with playback path.
     #[cfg(feature = "api-level-29")]
     #[doc(alias = "AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE")]
-    VoicePerformance = ffi::AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE,
+    VoicePerformance = ffi::AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE as ffi::aaudio_input_preset_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_performance_mode_t")]
+#[non_exhaustive]
 pub enum AudioPerformanceMode {
     /// No particular performance needs. Default.
     #[doc(alias = "AAUDIO_PERFORMANCE_MODE_NONE")]
-    None = ffi::AAUDIO_PERFORMANCE_MODE_NONE,
+    None = ffi::AAUDIO_PERFORMANCE_MODE_NONE as ffi::aaudio_performance_mode_t,
     /// Extending battery life is more important than low latency.
     ///
     /// This mode is not supported in input streams.
     /// For input, mode NONE will be used if this is requested.
     #[doc(alias = "AAUDIO_PERFORMANCE_MODE_POWER_SAVING")]
-    PowerSaving = ffi::AAUDIO_PERFORMANCE_MODE_POWER_SAVING,
+    PowerSaving = ffi::AAUDIO_PERFORMANCE_MODE_POWER_SAVING as ffi::aaudio_performance_mode_t,
     /// Reducing latency is more important than battery life.
     #[doc(alias = "AAUDIO_PERFORMANCE_MODE_LOW_LATENCY")]
-    LowLatency = ffi::AAUDIO_PERFORMANCE_MODE_LOW_LATENCY,
+    LowLatency = ffi::AAUDIO_PERFORMANCE_MODE_LOW_LATENCY as ffi::aaudio_performance_mode_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_sharing_mode_t")]
+#[non_exhaustive]
 pub enum AudioSharingMode {
     /// This will be the only stream using a particular source or sink.
     /// This mode will provide the lowest possible latency.
     /// You should close Exclusive streams immediately when you are not using them.
     #[doc(alias = "AAUDIO_SHARING_MODE_EXCLUSIVE")]
-    Exclusive = ffi::AAUDIO_SHARING_MODE_EXCLUSIVE,
+    Exclusive = ffi::AAUDIO_SHARING_MODE_EXCLUSIVE as ffi::aaudio_sharing_mode_t,
     /// Multiple applications will be mixed by the AAudio Server.
     /// This will have higher latency than the Exclusive mode.
     #[doc(alias = "AAUDIO_SHARING_MODE_SHARED")]
-    Shared = ffi::AAUDIO_SHARING_MODE_SHARED,
+    Shared = ffi::AAUDIO_SHARING_MODE_SHARED as ffi::aaudio_sharing_mode_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 /// The Usage attribute expresses "why" you are playing a sound, what is this sound used for.
@@ -208,108 +245,116 @@ pub enum AudioSharingMode {
 ///
 /// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-28")]
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_usage_t")]
+#[non_exhaustive]
 pub enum AudioUsage {
     /// Use this for streaming media, music performance, video, podcasts, etcetera.
     #[doc(alias = "AAUDIO_USAGE_MEDIA")]
-    Media = ffi::AAUDIO_USAGE_MEDIA,
+    Media = ffi::AAUDIO_USAGE_MEDIA as ffi::aaudio_usage_t,
     /// Use this for voice over IP, telephony, etcetera.
     #[doc(alias = "AAUDIO_USAGE_VOICE_COMMUNICATION")]
-    VoiceCommunication = ffi::AAUDIO_USAGE_VOICE_COMMUNICATION,
+    VoiceCommunication = ffi::AAUDIO_USAGE_VOICE_COMMUNICATION as ffi::aaudio_usage_t,
     /// Use this for sounds associated with telephony such as busy tones, DTMF, etcetera.
     #[doc(alias = "AAUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING")]
-    VoiceCommunicationSignalling = ffi::AAUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING,
+    VoiceCommunicationSignalling =
+        ffi::AAUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING as ffi::aaudio_usage_t,
     /// Use this to demand the users attention.
     #[doc(alias = "AAUDIO_USAGE_ALARM")]
-    Alarm = ffi::AAUDIO_USAGE_ALARM,
+    Alarm = ffi::AAUDIO_USAGE_ALARM as ffi::aaudio_usage_t,
     /// Use this for notifying the user when a message has arrived or some
     /// other background event has occured.
     #[doc(alias = "AAUDIO_USAGE_NOTIFICATION")]
-    Notification = ffi::AAUDIO_USAGE_NOTIFICATION,
+    Notification = ffi::AAUDIO_USAGE_NOTIFICATION as ffi::aaudio_usage_t,
     /// Use this when the phone rings.
     #[doc(alias = "AAUDIO_USAGE_NOTIFICATION_RINGTONE")]
-    NotificationRingtone = ffi::AAUDIO_USAGE_NOTIFICATION_RINGTONE,
+    NotificationRingtone = ffi::AAUDIO_USAGE_NOTIFICATION_RINGTONE as ffi::aaudio_usage_t,
     /// Use this to attract the users attention when, for example, the battery is low.
     #[doc(alias = "AAUDIO_USAGE_NOTIFICATION_EVENT")]
-    NotificationEvent = ffi::AAUDIO_USAGE_NOTIFICATION_EVENT,
+    NotificationEvent = ffi::AAUDIO_USAGE_NOTIFICATION_EVENT as ffi::aaudio_usage_t,
     /// Use this for screen readers, etcetera.
     #[doc(alias = "AAUDIO_USAGE_ASSISTANCE_ACCESSIBILITY")]
-    AssistanceAccessibility = ffi::AAUDIO_USAGE_ASSISTANCE_ACCESSIBILITY,
+    AssistanceAccessibility = ffi::AAUDIO_USAGE_ASSISTANCE_ACCESSIBILITY as ffi::aaudio_usage_t,
     /// Use this for driving or navigation directions.
     #[doc(alias = "AAUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE")]
-    AssistanceNavigationGuidance = ffi::AAUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE,
+    AssistanceNavigationGuidance =
+        ffi::AAUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE as ffi::aaudio_usage_t,
     /// Use this for user interface sounds, beeps, etcetera.
     #[doc(alias = "AAUDIO_USAGE_ASSISTANCE_SONIFICATION")]
-    AssistanceSonification = ffi::AAUDIO_USAGE_ASSISTANCE_SONIFICATION,
+    AssistanceSonification = ffi::AAUDIO_USAGE_ASSISTANCE_SONIFICATION as ffi::aaudio_usage_t,
     /// Use this for game audio and sound effects.
     #[doc(alias = "AAUDIO_USAGE_GAME")]
-    Game = ffi::AAUDIO_USAGE_GAME,
+    Game = ffi::AAUDIO_USAGE_GAME as ffi::aaudio_usage_t,
     /// Use this for audio responses to user queries, audio instructions or help utterances.
     #[doc(alias = "AAUDIO_USAGE_ASSISTANT")]
-    Assistant = ffi::AAUDIO_USAGE_ASSISTANT,
+    Assistant = ffi::AAUDIO_USAGE_ASSISTANT as ffi::aaudio_usage_t,
     /// Use this in case of playing sounds in an emergency.
     /// Privileged MODIFY_AUDIO_ROUTING permission required.
     #[doc(alias = "AAUDIO_SYSTEM_USAGE_EMERGENCY")]
-    SystemEmergency = ffi::AAUDIO_SYSTEM_USAGE_EMERGENCY,
+    SystemEmergency = ffi::AAUDIO_SYSTEM_USAGE_EMERGENCY as ffi::aaudio_usage_t,
     /// Use this for safety sounds and alerts, for example backup camera obstacle detection.
     /// Privileged MODIFY_AUDIO_ROUTING permission required.
     #[doc(alias = "AAUDIO_SYSTEM_USAGE_SAFETY")]
-    SystemSafety = ffi::AAUDIO_SYSTEM_USAGE_SAFETY,
+    SystemSafety = ffi::AAUDIO_SYSTEM_USAGE_SAFETY as ffi::aaudio_usage_t,
     /// Use this for vehicle status alerts and information, for example the check engine light.
     /// Privileged MODIFY_AUDIO_ROUTING permission required.
     #[doc(alias = "AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS")]
-    SystemVehicleStatus = ffi::AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS,
+    SystemVehicleStatus = ffi::AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS as ffi::aaudio_usage_t,
     #[doc(alias = "announcements")]
-    /// Use this for traffic announcements, etc.
+    /// Use this for traffic announcements as ffi::aaudio_usage_t, etc.
     /// Privileged MODIFY_AUDIO_ROUTING permission required.
     #[doc(alias = "AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT")]
-    SystemAnnouncement = ffi::AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT,
+    SystemAnnouncement = ffi::AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT as ffi::aaudio_usage_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_stream_state_t")]
+#[non_exhaustive]
 pub enum AudioStreamState {
     #[doc(alias = "AAUDIO_STREAM_STATE_UNINITIALIZED")]
-    Uninitialized = ffi::AAUDIO_STREAM_STATE_UNINITIALIZED,
+    Uninitialized = ffi::AAUDIO_STREAM_STATE_UNINITIALIZED as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_UNKNOWN")]
-    Unknown = ffi::AAUDIO_STREAM_STATE_UNKNOWN,
+    Unknown = ffi::AAUDIO_STREAM_STATE_UNKNOWN as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_OPEN")]
-    Open = ffi::AAUDIO_STREAM_STATE_OPEN,
+    Open = ffi::AAUDIO_STREAM_STATE_OPEN as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_STARTING")]
-    Starting = ffi::AAUDIO_STREAM_STATE_STARTING,
+    Starting = ffi::AAUDIO_STREAM_STATE_STARTING as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_STARTED")]
-    Started = ffi::AAUDIO_STREAM_STATE_STARTED,
+    Started = ffi::AAUDIO_STREAM_STATE_STARTED as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_PAUSING")]
-    Pausing = ffi::AAUDIO_STREAM_STATE_PAUSING,
+    Pausing = ffi::AAUDIO_STREAM_STATE_PAUSING as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_PAUSED")]
-    Paused = ffi::AAUDIO_STREAM_STATE_PAUSED,
+    Paused = ffi::AAUDIO_STREAM_STATE_PAUSED as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_FLUSHING")]
-    Flushing = ffi::AAUDIO_STREAM_STATE_FLUSHING,
+    Flushing = ffi::AAUDIO_STREAM_STATE_FLUSHING as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_FLUSHED")]
-    Flushed = ffi::AAUDIO_STREAM_STATE_FLUSHED,
+    Flushed = ffi::AAUDIO_STREAM_STATE_FLUSHED as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_STOPPING")]
-    Stopping = ffi::AAUDIO_STREAM_STATE_STOPPING,
+    Stopping = ffi::AAUDIO_STREAM_STATE_STOPPING as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_STOPPED")]
-    Stopped = ffi::AAUDIO_STREAM_STATE_STOPPED,
+    Stopped = ffi::AAUDIO_STREAM_STATE_STOPPED as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_CLOSING")]
-    Closing = ffi::AAUDIO_STREAM_STATE_CLOSING,
+    Closing = ffi::AAUDIO_STREAM_STATE_CLOSING as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_CLOSED")]
-    Closed = ffi::AAUDIO_STREAM_STATE_CLOSED,
+    Closed = ffi::AAUDIO_STREAM_STATE_CLOSED as ffi::aaudio_stream_state_t,
     #[doc(alias = "AAUDIO_STREAM_STATE_DISCONNECTED")]
-    Disconnected = ffi::AAUDIO_STREAM_STATE_DISCONNECTED,
+    Disconnected = ffi::AAUDIO_STREAM_STATE_DISCONNECTED as ffi::aaudio_stream_state_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
 }
 
 impl AudioStreamState {
     #[doc(alias = "AAudio_convertStreamStateToText")]
     pub fn to_text(self) -> Cow<'static, str> {
-        let ptr = unsafe {
-            CStr::from_ptr(ffi::AAudio_convertStreamStateToText(
-                self as ffi::aaudio_stream_state_t,
-            ))
-        };
+        let ptr = unsafe { CStr::from_ptr(ffi::AAudio_convertStreamStateToText(self.into())) };
         ptr.to_string_lossy()
     }
 }
@@ -329,6 +374,7 @@ pub struct Timestamp {
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum Clockid {
     #[doc(alias = "CLOCK_MONOTONIC")]
     Monotonic = ffi::CLOCK_MONOTONIC,
@@ -337,25 +383,26 @@ pub enum Clockid {
 }
 
 /// Value returned the data callback function.
-#[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, IntoPrimitive)]
 #[doc(alias = "aaudio_data_callback_result_t")]
+#[non_exhaustive]
 pub enum AudioCallbackResult {
     /// Continue calling the callback.
     #[doc(alias = "AAUDIO_CALLBACK_RESULT_CONTINUE")]
-    Continue = ffi::AAUDIO_CALLBACK_RESULT_CONTINUE,
+    Continue = ffi::AAUDIO_CALLBACK_RESULT_CONTINUE as ffi::aaudio_data_callback_result_t,
     /// Stop calling the callback.
     ///
     /// The application will still need to call [`AudioStream::request_pause()`]
     /// or [`AudioStream::request_stop()`].
     #[doc(alias = "AAUDIO_CALLBACK_RESULT_STOP")]
-    Stop = ffi::AAUDIO_CALLBACK_RESULT_STOP,
+    Stop = ffi::AAUDIO_CALLBACK_RESULT_STOP as ffi::aaudio_data_callback_result_t,
 }
 
 #[repr(i32)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
-#[non_exhaustive]
 #[doc(alias = "aaudio_result_t")]
+#[non_exhaustive]
 pub enum AudioResult {
     #[doc(alias = "AAUDIO_ERROR_BASE")]
     Base = ffi::AAUDIO_ERROR_BASE,
@@ -410,10 +457,12 @@ pub enum AudioResult {
     /// The requested sample rate was not supported.
     #[doc(alias = "AAUDIO_ERROR_INVALID_RATE")]
     InvalidRate = ffi::AAUDIO_ERROR_INVALID_RATE,
+
     // Use the OK discriminant, as no-one will be able to call `as i32` and only has access to the
     // constants via `From` provided by `IntoPrimitive` which reads the contained value.
+    #[doc(hidden)]
     #[num_enum(catch_all)]
-    Unknown(i32) = ffi::AAUDIO_OK,
+    __Unknown(i32),
 }
 
 impl AudioResult {
@@ -434,20 +483,17 @@ impl AudioResult {
     }
 }
 
+// TODO: Delete this and `impl Error for AudioResult`, just like `MediaError`!
 #[derive(Debug, Error)]
-pub enum AudioError {
-    #[error("error Audio result ({0:?})")]
-    ErrorResult(AudioResult),
-    #[error("unsupported AAudio result value received ({0})")]
-    UnsupportedValue(i32),
-}
+#[error("error Audio result ({0:?})")]
+pub struct AudioError(pub AudioResult);
 
 impl AudioError {
     /// Returns [`Ok`] on [`ffi::AAUDIO_OK`], [`Err`] otherwise (including positive values).
     ///
     /// Note that some known error codes (currently only for `AMediaCodec`) are positive.
     pub(crate) fn from_result(status: ffi::aaudio_result_t) -> Result<()> {
-        AudioResult::from_result(status).map_err(Self::ErrorResult)
+        AudioResult::from_result(status).map_err(Self)
     }
 }
 
@@ -457,13 +503,6 @@ fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::aaudio_result_t) -> Result
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
     AudioError::from_result(status).map(|()| unsafe { result.assume_init() })
-}
-
-fn enum_return_value<T: TryFrom<u32>>(return_value: i32) -> Result<T> {
-    u32::try_from(return_value)
-        .ok()
-        .and_then(|value| T::try_from(value).ok())
-        .ok_or(AudioError::UnsupportedValue(return_value))
 }
 
 /// A native [`AAudioStreamBuilder *`]
@@ -541,10 +580,7 @@ impl AudioStreamBuilder {
     #[doc(alias = "AAudioStreamBuilder_setAllowedCapturePolicy")]
     pub fn allowed_capture_policy(self, capture_policy: AudioAllowedCapturePolicy) -> Self {
         unsafe {
-            ffi::AAudioStreamBuilder_setAllowedCapturePolicy(
-                self.as_ptr(),
-                capture_policy as ffi::aaudio_allowed_capture_policy_t,
-            )
+            ffi::AAudioStreamBuilder_setAllowedCapturePolicy(self.as_ptr(), capture_policy.into())
         };
         self
     }
@@ -596,12 +632,7 @@ impl AudioStreamBuilder {
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AAudioStreamBuilder_setContentType")]
     pub fn content_type(self, content_type: AudioContentType) -> Self {
-        unsafe {
-            ffi::AAudioStreamBuilder_setContentType(
-                self.as_ptr(),
-                content_type as ffi::aaudio_content_type_t,
-            )
-        };
+        unsafe { ffi::AAudioStreamBuilder_setContentType(self.as_ptr(), content_type.into()) };
         self
     }
 
@@ -659,7 +690,7 @@ impl AudioStreamBuilder {
                 };
                 let result = (*callback)(&stream, audio_data, num_frames);
                 std::mem::forget(stream);
-                result as ffi::aaudio_data_callback_result_t
+                result.into()
             })
         }
 
@@ -700,12 +731,7 @@ impl AudioStreamBuilder {
     /// - `direction`: [`Output`][AudioDirection::Output] or [`Input`][AudioDirection::Input]
     #[doc(alias = "AAudioStreamBuilder_setDirection")]
     pub fn direction(self, direction: AudioDirection) -> Self {
-        unsafe {
-            ffi::AAudioStreamBuilder_setDirection(
-                self.as_ptr(),
-                direction as ffi::aaudio_direction_t,
-            )
-        };
+        unsafe { ffi::AAudioStreamBuilder_setDirection(self.as_ptr(), direction.into()) };
         self
     }
 
@@ -775,9 +801,7 @@ impl AudioStreamBuilder {
     /// - `format`: the sample data format.
     #[doc(alias = "AAudioStreamBuilder_setFormat")]
     pub fn format(self, format: AudioFormat) -> Self {
-        unsafe {
-            ffi::AAudioStreamBuilder_setFormat(self.as_ptr(), format as ffi::aaudio_format_t)
-        };
+        unsafe { ffi::AAudioStreamBuilder_setFormat(self.as_ptr(), format.into()) };
         self
     }
 
@@ -824,12 +848,7 @@ impl AudioStreamBuilder {
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AAudioStreamBuilder_setInputPreset")]
     pub fn input_preset(self, input_preset: AudioInputPreset) -> Self {
-        unsafe {
-            ffi::AAudioStreamBuilder_setInputPreset(
-                self.as_ptr(),
-                input_preset as ffi::aaudio_input_preset_t,
-            )
-        };
+        unsafe { ffi::AAudioStreamBuilder_setInputPreset(self.as_ptr(), input_preset.into()) };
         self
     }
 
@@ -848,12 +867,7 @@ impl AudioStreamBuilder {
     /// - `mode`: the desired performance mode, eg. [`AudioPerformanceMode::LowLatency`]
     #[doc(alias = "AAudioStreamBuilder_setPerformanceMode")]
     pub fn performance_mode(self, mode: AudioPerformanceMode) -> Self {
-        unsafe {
-            ffi::AAudioStreamBuilder_setPerformanceMode(
-                self.as_ptr(),
-                mode as ffi::aaudio_performance_mode_t,
-            )
-        };
+        unsafe { ffi::AAudioStreamBuilder_setPerformanceMode(self.as_ptr(), mode.into()) };
         self
     }
 
@@ -929,12 +943,7 @@ impl AudioStreamBuilder {
     /// - `sharing_mode`: [`AudioSharingMode::Shared`] or [`AudioSharingMode::Exclusive`]
     #[doc(alias = "AAudioStreamBuilder_setSharingMode")]
     pub fn sharing_mode(self, sharing_mode: AudioSharingMode) -> Self {
-        unsafe {
-            ffi::AAudioStreamBuilder_setSharingMode(
-                self.as_ptr(),
-                sharing_mode as ffi::aaudio_sharing_mode_t,
-            )
-        };
+        unsafe { ffi::AAudioStreamBuilder_setSharingMode(self.as_ptr(), sharing_mode.into()) };
         self
     }
 
@@ -950,7 +959,7 @@ impl AudioStreamBuilder {
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AAudioStreamBuilder_setUsage")]
     pub fn usage(self, usage: AudioUsage) -> Self {
-        unsafe { ffi::AAudioStreamBuilder_setUsage(self.as_ptr(), usage as ffi::aaudio_usage_t) };
+        unsafe { ffi::AAudioStreamBuilder_setUsage(self.as_ptr(), usage.into()) };
         self
     }
 
@@ -1018,8 +1027,8 @@ impl AudioStream {
     /// may not be captured by other apps or the system.
     #[cfg(feature = "api-level-29")]
     #[doc(alias = "AAudioStream_getAllowedCapturePolicy")]
-    pub fn allowed_capture_policy(self) -> Result<AudioAllowedCapturePolicy> {
-        enum_return_value(unsafe { ffi::AAudioStream_getAllowedCapturePolicy(self.as_ptr()) })
+    pub fn allowed_capture_policy(self) -> AudioAllowedCapturePolicy {
+        unsafe { ffi::AAudioStream_getAllowedCapturePolicy(self.as_ptr()) }.into()
     }
 
     /// Query maximum buffer capacity in frames.
@@ -1043,9 +1052,8 @@ impl AudioStream {
 
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AAudioStream_getContentType")]
-    pub fn content_type(&self) -> Result<AudioContentType> {
-        let value = unsafe { ffi::AAudioStream_getContentType(self.as_ptr()) };
-        enum_return_value(value)
+    pub fn content_type(&self) -> AudioContentType {
+        unsafe { ffi::AAudioStream_getContentType(self.as_ptr()) }.into()
     }
 
     /// Returns the actual device ID.
@@ -1056,16 +1064,14 @@ impl AudioStream {
 
     /// Available since API level 26.
     #[doc(alias = "AAudioStream_getDirection")]
-    pub fn direction(&self) -> Result<AudioDirection> {
-        let value = unsafe { ffi::AAudioStream_getDirection(self.as_ptr()) };
-        enum_return_value(value)
+    pub fn direction(&self) -> AudioDirection {
+        unsafe { ffi::AAudioStream_getDirection(self.as_ptr()) }.into()
     }
 
     /// Returns the actual data format.
     #[doc(alias = "AAudioStream_getFormat")]
-    pub fn format(&self) -> Result<AudioFormat> {
-        let value = unsafe { ffi::AAudioStream_getFormat(self.as_ptr()) };
-        AudioFormat::try_from(value).map_err(|_| AudioError::UnsupportedValue(value))
+    pub fn format(&self) -> AudioFormat {
+        unsafe { ffi::AAudioStream_getFormat(self.as_ptr()) }.into()
     }
 
     /// Query the number of frames that the application should read or write at
@@ -1126,16 +1132,14 @@ impl AudioStream {
 
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AAudioStream_getInputPreset")]
-    pub fn input_preset(&self) -> Result<AudioInputPreset> {
-        let value = unsafe { ffi::AAudioStream_getInputPreset(self.as_ptr()) };
-        enum_return_value(value)
+    pub fn input_preset(&self) -> AudioInputPreset {
+        unsafe { ffi::AAudioStream_getInputPreset(self.as_ptr()) }.into()
     }
 
     /// Get the performance mode used by the stream.
     #[doc(alias = "AAudioStream_getPerformanceMode")]
-    pub fn performance_mode(&self) -> Result<AudioPerformanceMode> {
-        let value = unsafe { ffi::AAudioStream_getPerformanceMode(self.as_ptr()) };
-        enum_return_value(value)
+    pub fn performance_mode(&self) -> AudioPerformanceMode {
+        unsafe { ffi::AAudioStream_getPerformanceMode(self.as_ptr()) }.into()
     }
 
     /// Returns the actual sample rate.
@@ -1176,9 +1180,8 @@ impl AudioStream {
 
     /// Provide actual sharing mode.
     #[doc(alias = "AAudioStream_getSharingMode")]
-    pub fn sharing_mode(&self) -> Result<AudioSharingMode> {
-        let value = unsafe { ffi::AAudioStream_getSharingMode(self.as_ptr()) };
-        enum_return_value(value)
+    pub fn sharing_mode(&self) -> AudioSharingMode {
+        unsafe { ffi::AAudioStream_getSharingMode(self.as_ptr()) }.into()
     }
 
     /// Query the current state of the client, eg. [`Pausing`][AudioStreamState::Pausing].
@@ -1188,9 +1191,8 @@ impl AudioStream {
     /// call [`AudioStream::wait_for_state_change()`] with currentState
     /// set to [`Unknown`][AudioStreamState::Unknown] and a zero timeout.
     #[doc(alias = "AAudioStream_getState")]
-    pub fn state(&self) -> Result<AudioStreamState> {
-        let value = unsafe { ffi::AAudioStream_getState(self.as_ptr()) };
-        enum_return_value(value)
+    pub fn state(&self) -> AudioStreamState {
+        unsafe { ffi::AAudioStream_getState(self.as_ptr()) }.into()
     }
 
     /// Returns the time at which a particular frame was presented.
@@ -1234,9 +1236,8 @@ impl AudioStream {
 
     #[cfg(feature = "api-level-28")]
     #[doc(alias = "AAudioStream_getUsage")]
-    pub fn usage(&self) -> Result<AudioUsage> {
-        let value = unsafe { ffi::AAudioStream_getUsage(self.as_ptr()) };
-        enum_return_value(value)
+    pub fn usage(&self) -> AudioUsage {
+        unsafe { ffi::AAudioStream_getUsage(self.as_ptr()) }.into()
     }
 
     /// An XRun is an Underrun or an Overrun.
@@ -1372,12 +1373,12 @@ impl AudioStream {
         let value = construct(|ptr| unsafe {
             ffi::AAudioStream_waitForStateChange(
                 self.as_ptr(),
-                input_state as ffi::aaudio_stream_state_t,
+                input_state.into(),
                 ptr,
                 timeout_nanoseconds,
             )
         })?;
-        enum_return_value(value)
+        Ok(value.into())
     }
 
     /// Write data to the stream.

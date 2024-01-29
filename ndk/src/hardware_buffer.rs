@@ -210,7 +210,9 @@ impl HardwareBuffer {
             width: desc.width,
             height: desc.height,
             layers: desc.layers,
-            format: desc.format.into(),
+            format: i32::try_from(desc.format)
+                .expect("i32->u32 overflow in HardwareBuffer::describe()")
+                .into(),
             usage: HardwareBufferUsage(ffi::AHardwareBuffer_UsageFlags(desc.usage)),
             stride: desc.stride,
         }
@@ -496,7 +498,9 @@ impl HardwareBufferDesc {
             width: self.width,
             height: self.height,
             layers: self.layers,
-            format: self.format.into(),
+            format: i32::from(self.format)
+                .try_into()
+                .expect("i32->u32 overflow in HardwareBufferDesc::into_native()"),
             usage: self.usage.0 .0,
             stride: self.stride,
             rfu0: 0,
