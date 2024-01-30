@@ -184,6 +184,13 @@ impl ImageReader {
         Ok(Self::from_ptr(inner))
     }
 
+    /// [`ImageReader`] constructor similar to [`ImageReader::new_with_usage()`] that takes two
+    /// additional parameters to build the format of the [`Image`]. All other parameters and the
+    /// return values are identical to those passed to [`ImageReader::new_with_usage()`].
+    ///
+    /// Instead of passing an [`ImageFormat`] parameter, this constructor accepts the combination
+    /// of [`HardwareBufferFormat`] and [`DataSpace`] for the format of the Image that the reader
+    /// will produce.
     #[cfg(feature = "api-level-34")]
     #[doc(alias = "AImageReader_newWithDataSpace")]
     pub fn new_with_data_space(
@@ -482,6 +489,7 @@ impl Image {
         std::mem::forget(self);
     }
 
+    /// Query the [`DataSpace`] of the input [`Image`].
     #[cfg(feature = "api-level-34")]
     #[doc(alias = "AImage_getDataSpace")]
     pub fn data_space(&self) -> Result<DataSpace> {
