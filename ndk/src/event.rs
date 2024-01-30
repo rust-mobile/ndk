@@ -21,6 +21,7 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 /// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
 #[derive(Debug)]
 #[non_exhaustive]
+#[doc(alias = "AInputEvent")]
 pub enum InputEvent {
     MotionEvent(MotionEvent),
     KeyEvent(KeyEvent),
@@ -30,6 +31,7 @@ pub enum InputEvent {
 /// [`MotionEvent::from_java()`] with respective [`Drop`] semantics.
 #[cfg(feature = "api-level-31")]
 #[derive(Debug)]
+#[doc(alias = "AInputEvent")]
 pub struct InputEventJava(InputEvent);
 
 #[cfg(feature = "api-level-31")]
@@ -53,22 +55,39 @@ impl Drop for InputEventJava {
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Source {
+    #[doc(alias = "AINPUT_SOURCE_UNKNOWN")]
     Unknown = ffi::AINPUT_SOURCE_UNKNOWN as i32,
+    #[doc(alias = "AINPUT_SOURCE_KEYBOARD")]
     Keyboard = ffi::AINPUT_SOURCE_KEYBOARD as i32,
+    #[doc(alias = "AINPUT_SOURCE_DPAD")]
     Dpad = ffi::AINPUT_SOURCE_DPAD as i32,
+    #[doc(alias = "AINPUT_SOURCE_GAMEPAD")]
     Gamepad = ffi::AINPUT_SOURCE_GAMEPAD as i32,
+    #[doc(alias = "AINPUT_SOURCE_TOUCHSCREEN")]
     Touchscreen = ffi::AINPUT_SOURCE_TOUCHSCREEN as i32,
+    #[doc(alias = "AINPUT_SOURCE_MOUSE")]
     Mouse = ffi::AINPUT_SOURCE_MOUSE as i32,
+    #[doc(alias = "AINPUT_SOURCE_STYLUS")]
     Stylus = ffi::AINPUT_SOURCE_STYLUS as i32,
+    #[doc(alias = "AINPUT_SOURCE_BLUETOOTH_STYLUS")]
     BluetoothStylus = ffi::AINPUT_SOURCE_BLUETOOTH_STYLUS as i32,
+    #[doc(alias = "AINPUT_SOURCE_TRACKBALL")]
     Trackball = ffi::AINPUT_SOURCE_TRACKBALL as i32,
+    #[doc(alias = "AINPUT_SOURCE_MOUSE_RELATIVE")]
     MouseRelative = ffi::AINPUT_SOURCE_MOUSE_RELATIVE as i32,
+    #[doc(alias = "AINPUT_SOURCE_TOUCHPAD")]
     Touchpad = ffi::AINPUT_SOURCE_TOUCHPAD as i32,
+    #[doc(alias = "AINPUT_SOURCE_TOUCH_NAVIGATION")]
     TouchNavigation = ffi::AINPUT_SOURCE_TOUCH_NAVIGATION as i32,
+    #[doc(alias = "AINPUT_SOURCE_JOYSTICK")]
     Joystick = ffi::AINPUT_SOURCE_JOYSTICK as i32,
+    #[doc(alias = "AINPUT_SOURCE_HDMI")]
     Hdmi = ffi::AINPUT_SOURCE_HDMI as i32,
+    #[doc(alias = "AINPUT_SOURCE_SENSOR")]
     Sensor = ffi::AINPUT_SOURCE_SENSOR as i32,
+    #[doc(alias = "AINPUT_SOURCE_ROTARY_ENCODER")]
     RotaryEncoder = ffi::AINPUT_SOURCE_ROTARY_ENCODER as i32,
+    #[doc(alias = "AINPUT_SOURCE_ANY")]
     Any = ffi::AINPUT_SOURCE_ANY as i32,
 
     #[doc(hidden)]
@@ -111,6 +130,7 @@ impl InputEvent {
     /// By calling this function, you assert that the pointer is a valid pointer to a
     /// native [`ffi::AInputEvent`].
     #[inline]
+    #[doc(alias = "AInputEvent_getType")]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         match ffi::AInputEvent_getType(ptr.as_ptr()) as u32 {
             ffi::AINPUT_EVENT_TYPE_KEY => InputEvent::KeyEvent(KeyEvent::from_ptr(ptr)),
@@ -133,6 +153,7 @@ impl InputEvent {
     /// See [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getsource)
     #[inline]
+    #[doc(alias = "AInputEvent_getSource")]
     pub fn source(&self) -> Source {
         let source = unsafe { ffi::AInputEvent_getSource(self.ptr().as_ptr()) };
         source.into()
@@ -143,6 +164,7 @@ impl InputEvent {
     /// See [the NDK
     /// docs](https://developer.android.com/ndk/reference/group/input#ainputevent_getdeviceid)
     #[inline]
+    #[doc(alias = "AInputEvent_getDeviceId")]
     pub fn device_id(&self) -> i32 {
         unsafe { ffi::AInputEvent_getDeviceId(self.ptr().as_ptr()) }
     }
@@ -154,70 +176,87 @@ pub struct MetaState(pub u32);
 
 impl MetaState {
     #[inline]
+    #[doc(alias = "AMETA_ALT_ON")]
     pub fn alt_on(self) -> bool {
         self.0 & ffi::AMETA_ALT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_ALT_LEFT_ON")]
     pub fn alt_left_on(self) -> bool {
         self.0 & ffi::AMETA_ALT_LEFT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_ALT_RIGHT_ON")]
     pub fn alt_right_on(self) -> bool {
         self.0 & ffi::AMETA_ALT_RIGHT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_SHIFT_ON")]
     pub fn shift_on(self) -> bool {
         self.0 & ffi::AMETA_SHIFT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_SHIFT_LEFT_ON")]
     pub fn shift_left_on(self) -> bool {
         self.0 & ffi::AMETA_SHIFT_LEFT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_SHIFT_RIGHT_ON")]
     pub fn shift_right_on(self) -> bool {
         self.0 & ffi::AMETA_SHIFT_RIGHT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_SYM_ON")]
     pub fn sym_on(self) -> bool {
         self.0 & ffi::AMETA_SYM_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_FUNCTION_ON")]
     pub fn function_on(self) -> bool {
         self.0 & ffi::AMETA_FUNCTION_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_CTRL_ON")]
     pub fn ctrl_on(self) -> bool {
         self.0 & ffi::AMETA_CTRL_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_CTRL_LEFT_ON")]
     pub fn ctrl_left_on(self) -> bool {
         self.0 & ffi::AMETA_CTRL_LEFT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_CTRL_RIGHT_ON")]
     pub fn ctrl_right_on(self) -> bool {
         self.0 & ffi::AMETA_CTRL_RIGHT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_META_ON")]
     pub fn meta_on(self) -> bool {
         self.0 & ffi::AMETA_META_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_META_LEFT_ON")]
     pub fn meta_left_on(self) -> bool {
         self.0 & ffi::AMETA_META_LEFT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_META_RIGHT_ON")]
     pub fn meta_right_on(self) -> bool {
         self.0 & ffi::AMETA_META_RIGHT_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_CAPS_LOCK_ON")]
     pub fn caps_lock_on(self) -> bool {
         self.0 & ffi::AMETA_CAPS_LOCK_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_NUM_LOCK_ON")]
     pub fn num_lock_on(self) -> bool {
         self.0 & ffi::AMETA_NUM_LOCK_ON != 0
     }
     #[inline]
+    #[doc(alias = "AMETA_SCROLL_LOCK_ON")]
     pub fn scroll_lock_on(self) -> bool {
         self.0 & ffi::AMETA_SCROLL_LOCK_ON != 0
     }
@@ -232,6 +271,8 @@ impl MetaState {
 ///
 /// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
 #[derive(Clone, Debug)]
+#[doc(alias = "AMotionEvent")]
+#[doc(alias = "AINPUT_EVENT_TYPE_MOTION")]
 pub struct MotionEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
@@ -243,18 +284,31 @@ pub struct MotionEvent {
 #[repr(i32)]
 #[non_exhaustive]
 pub enum MotionAction {
+    #[doc(alias = "AMOTION_EVENT_ACTION_DOWN")]
     Down = ffi::AMOTION_EVENT_ACTION_DOWN as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_UP")]
     Up = ffi::AMOTION_EVENT_ACTION_UP as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_MOVE")]
     Move = ffi::AMOTION_EVENT_ACTION_MOVE as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_CANCEL")]
     Cancel = ffi::AMOTION_EVENT_ACTION_CANCEL as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_OUTSIDE")]
     Outside = ffi::AMOTION_EVENT_ACTION_OUTSIDE as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_POINTER_DOWN")]
     PointerDown = ffi::AMOTION_EVENT_ACTION_POINTER_DOWN as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_POINTER_UP")]
     PointerUp = ffi::AMOTION_EVENT_ACTION_POINTER_UP as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_HOVER_MOVE")]
     HoverMove = ffi::AMOTION_EVENT_ACTION_HOVER_MOVE as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_SCROLL")]
     Scroll = ffi::AMOTION_EVENT_ACTION_SCROLL as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_HOVER_ENTER")]
     HoverEnter = ffi::AMOTION_EVENT_ACTION_HOVER_ENTER as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_HOVER_EXIT")]
     HoverExit = ffi::AMOTION_EVENT_ACTION_HOVER_EXIT as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_BUTTON_PRESS")]
     ButtonPress = ffi::AMOTION_EVENT_ACTION_BUTTON_PRESS as i32,
+    #[doc(alias = "AMOTION_EVENT_ACTION_BUTTON_RELEASE")]
     ButtonRelease = ffi::AMOTION_EVENT_ACTION_BUTTON_RELEASE as i32,
 
     #[doc(hidden)]
@@ -266,52 +320,155 @@ pub enum MotionAction {
 #[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
+#[doc(alias = "AMOTION_EVENT_AXIS")]
 pub enum Axis {
+    #[doc(alias = "AMOTION_EVENT_AXIS_X")]
     X = ffi::AMOTION_EVENT_AXIS_X as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_Y")]
     Y = ffi::AMOTION_EVENT_AXIS_Y as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_PRESSURE")]
     Pressure = ffi::AMOTION_EVENT_AXIS_PRESSURE as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_SIZE")]
     Size = ffi::AMOTION_EVENT_AXIS_SIZE as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_TOUCH_MAJOR")]
     TouchMajor = ffi::AMOTION_EVENT_AXIS_TOUCH_MAJOR as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_TOUCH_MINOR")]
     TouchMinor = ffi::AMOTION_EVENT_AXIS_TOUCH_MINOR as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_TOOL_MAJOR")]
     ToolMajor = ffi::AMOTION_EVENT_AXIS_TOOL_MAJOR as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_TOOL_MINOR")]
     ToolMinor = ffi::AMOTION_EVENT_AXIS_TOOL_MINOR as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_ORIENTATION")]
     Orientation = ffi::AMOTION_EVENT_AXIS_ORIENTATION as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_VSCROLL")]
     Vscroll = ffi::AMOTION_EVENT_AXIS_VSCROLL as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_HSCROLL")]
     Hscroll = ffi::AMOTION_EVENT_AXIS_HSCROLL as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_Z")]
     Z = ffi::AMOTION_EVENT_AXIS_Z as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_RX")]
     Rx = ffi::AMOTION_EVENT_AXIS_RX as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_RY")]
     Ry = ffi::AMOTION_EVENT_AXIS_RY as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_RZ")]
     Rz = ffi::AMOTION_EVENT_AXIS_RZ as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_HAT_X")]
     HatX = ffi::AMOTION_EVENT_AXIS_HAT_X as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_HAT_Y")]
     HatY = ffi::AMOTION_EVENT_AXIS_HAT_Y as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_LTRIGGER")]
     Ltrigger = ffi::AMOTION_EVENT_AXIS_LTRIGGER as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_RTRIGGER")]
     Rtrigger = ffi::AMOTION_EVENT_AXIS_RTRIGGER as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_THROTTLE")]
     Throttle = ffi::AMOTION_EVENT_AXIS_THROTTLE as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_RUDDER")]
     Rudder = ffi::AMOTION_EVENT_AXIS_RUDDER as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_WHEEL")]
     Wheel = ffi::AMOTION_EVENT_AXIS_WHEEL as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GAS")]
     Gas = ffi::AMOTION_EVENT_AXIS_GAS as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_BRAKE")]
     Brake = ffi::AMOTION_EVENT_AXIS_BRAKE as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_DISTANCE")]
     Distance = ffi::AMOTION_EVENT_AXIS_DISTANCE as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_TILT")]
     Tilt = ffi::AMOTION_EVENT_AXIS_TILT as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_SCROLL")]
     Scroll = ffi::AMOTION_EVENT_AXIS_SCROLL as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_RELATIVE_X")]
     RelativeX = ffi::AMOTION_EVENT_AXIS_RELATIVE_X as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_RELATIVE_Y")]
     RelativeY = ffi::AMOTION_EVENT_AXIS_RELATIVE_Y as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_1")]
     Generic1 = ffi::AMOTION_EVENT_AXIS_GENERIC_1 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_2")]
     Generic2 = ffi::AMOTION_EVENT_AXIS_GENERIC_2 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_3")]
     Generic3 = ffi::AMOTION_EVENT_AXIS_GENERIC_3 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_4")]
     Generic4 = ffi::AMOTION_EVENT_AXIS_GENERIC_4 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_5")]
     Generic5 = ffi::AMOTION_EVENT_AXIS_GENERIC_5 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_6")]
     Generic6 = ffi::AMOTION_EVENT_AXIS_GENERIC_6 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_7")]
     Generic7 = ffi::AMOTION_EVENT_AXIS_GENERIC_7 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_8")]
     Generic8 = ffi::AMOTION_EVENT_AXIS_GENERIC_8 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_9")]
     Generic9 = ffi::AMOTION_EVENT_AXIS_GENERIC_9 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_10")]
     Generic10 = ffi::AMOTION_EVENT_AXIS_GENERIC_10 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_11")]
     Generic11 = ffi::AMOTION_EVENT_AXIS_GENERIC_11 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_12")]
     Generic12 = ffi::AMOTION_EVENT_AXIS_GENERIC_12 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_13")]
     Generic13 = ffi::AMOTION_EVENT_AXIS_GENERIC_13 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_14")]
     Generic14 = ffi::AMOTION_EVENT_AXIS_GENERIC_14 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_15")]
     Generic15 = ffi::AMOTION_EVENT_AXIS_GENERIC_15 as i32,
+    #[doc(alias = "AMOTION_EVENT_AXIS_GENERIC_16")]
     Generic16 = ffi::AMOTION_EVENT_AXIS_GENERIC_16 as i32,
+
+    /// Axis constant: X gesture offset axis of a motion event.
+    ///
+    /// - For a touch pad, reports the distance that a swipe gesture has moved in the X axis, as a
+    ///   proportion of the touch pad's size. For example, if a touch pad is `1000` units wide, and
+    ///   a swipe gesture starts at `X = 500` then moves to `X = 400`, this axis would have a value
+    ///   of `-0.1`.
+    ///
+    /// These values are relative to the state from the last event, not accumulated, so developers
+    /// should make sure to process this axis value for all batched historical events.
+    ///
+    /// This axis is only set on the first pointer in a motion event.
+    #[doc(alias = "AMOTION_EVENT_AXIS_GESTURE_X_OFFSET")]
+    GestureXOffset = ffi::AMOTION_EVENT_AXIS_GESTURE_X_OFFSET as i32,
+    /// Axis constant: Y gesture offset axis of a motion event.
+    ///
+    /// The same as [`Axis::GestureXOffset`], but for the Y axis.
+    #[doc(alias = "AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET")]
+    GestureYOffset = ffi::AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET as i32,
+    /// Axis constant: X scroll distance axis of a motion event.
+    ///
+    /// - For a touch pad, reports the distance that should be scrolled in the X axis as a result of
+    ///   the user's two-finger scroll gesture, in display pixels.
+    ///
+    /// These values are relative to the state from the last event, not accumulated, so developers
+    /// should make sure to process this axis value for all batched historical events.
+    ///
+    /// This axis is only set on the first pointer in a motion event.
+    #[doc(alias = "AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE")]
+    GestureScrollXDistance = ffi::AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE as i32,
+    /// Axis constant: Y scroll distance axis of a motion event.
+    ///
+    /// The same as [`Axis::GestureScrollXDistance`], but for the Y axis.
+    #[doc(alias = "AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE")]
+    GestureScrollYDistance = ffi::AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE as i32,
+    /// Axis constant: pinch scale factor of a motion event.
+    ///
+    /// - For a touch pad, reports the change in distance between the fingers when the user is
+    ///   making a pinch gesture, as a proportion of that distance when the gesture was last
+    ///   reported. For example, if the fingers were `50` units apart and are now `52` units apart,
+    ///   the scale factor would be `1.04`.
+    ///
+    /// These values are relative to the state from the last event, not accumulated, so developers
+    /// should make sure to process this axis value for all batched historical events.
+    ///
+    /// This axis is only set on the first pointer in a motion event.
+    #[doc(alias = "AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR")]
+    GesturePinchScaleFactor = ffi::AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR as i32,
+    /// Axis constant: the number of fingers being used in a multi-finger swipe gesture.
+    ///
+    /// - For a touch pad, reports the number of fingers being used in a multi-finger swipe gesture
+    ///   (with [`MotionClassification::MultiFingerSwipe`]).
+    ///
+    /// Since [`MotionClassification::MultiFingerSwipe`] is a hidden API, so is this axis. It is
+    /// only set on the first pointer in a motion event.
+    #[doc(alias = "AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT")]
+    GestureSwipeFingerCount = ffi::AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT as i32,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
@@ -323,16 +480,60 @@ pub enum Axis {
 #[repr(i32)]
 #[non_exhaustive]
 pub enum ToolType {
+    #[doc(alias = "AMOTION_EVENT_TOOL_TYPE_UNKNOWN")]
     Unknown = ffi::AMOTION_EVENT_TOOL_TYPE_UNKNOWN as i32,
+    #[doc(alias = "AMOTION_EVENT_TOOL_TYPE_FINGER")]
     Finger = ffi::AMOTION_EVENT_TOOL_TYPE_FINGER as i32,
+    #[doc(alias = "AMOTION_EVENT_TOOL_TYPE_STYLUS")]
     Stylus = ffi::AMOTION_EVENT_TOOL_TYPE_STYLUS as i32,
+    #[doc(alias = "AMOTION_EVENT_TOOL_TYPE_MOUSE")]
     Mouse = ffi::AMOTION_EVENT_TOOL_TYPE_MOUSE as i32,
+    #[doc(alias = "AMOTION_EVENT_TOOL_TYPE_ERASER")]
     Eraser = ffi::AMOTION_EVENT_TOOL_TYPE_ERASER as i32,
+    #[doc(alias = "AMOTION_EVENT_TOOL_TYPE_PALM")]
     Palm = ffi::AMOTION_EVENT_TOOL_TYPE_PALM as i32,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
     __Unknown(i32),
+}
+
+/// Constants that identify different gesture classification types.
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[repr(u32)]
+#[non_exhaustive]
+#[doc(alias = "AMotionClassification")]
+pub enum MotionClassification {
+    /// No additional information is available about the current motion event stream.
+    #[doc(alias = "AMOTION_EVENT_CLASSIFICATION_NONE")]
+    None = 0,
+    /// The user's intent with respect to the current event stream is not yet determined. Events
+    /// starting in #AMOTION_EVENT_CLASSIFICATION_AMBIGUOUS_GESTURE will eventually resolve into
+    /// either [`MotionClassification::DeepPress`] or [`MotionClassification::None`].
+    /// Gestural actions, such as scrolling, should be inhibited until the classification resolves
+    /// to another value or the event stream ends.
+    #[doc(alias = "AMOTION_EVENT_CLASSIFICATION_AMBIGUOUS_GESTURE")]
+    AmbiguousGesture = 1,
+    /// The current event stream represents the user intentionally pressing harder on the screen.
+    /// This classification type should be used to accelerate the long press behaviour.
+    #[doc(alias = "AMOTION_EVENT_CLASSIFICATION_DEEP_PRESS")]
+    DeepPress = 2,
+    /// The current event stream represents the user swiping with two fingers on a touchpad.
+    #[doc(alias = "AMOTION_EVENT_CLASSIFICATION_TWO_FINGER_SWIPE")]
+    TwoFingerSwipe = 3,
+    /// The current event stream represents the user swiping with three or more fingers on a
+    /// touchpad. Unlike two-finger swipes, these are only to be handled by the system UI, which is
+    /// why they have a separate constant from two-finger swipes.
+    #[doc(alias = "AMOTION_EVENT_CLASSIFICATION_MULTI_FINGER_SWIPE")]
+    MultiFingerSwipe = 4,
+    /// The current event stream represents the user pinching with two fingers on a touchpad. The
+    /// gesture is centered around the current cursor position.
+    #[doc(alias = "AMOTION_EVENT_CLASSIFICATION_PINCH")]
+    Pinch = 5,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(u32),
 }
 
 /// A bitfield representing the state of buttons during a motion event.
@@ -341,30 +542,37 @@ pub struct ButtonState(pub u32);
 
 impl ButtonState {
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_BUTTON_PRIMARY")]
     pub fn primary(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_BUTTON_PRIMARY != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_BUTTON_SECONDARY")]
     pub fn secondary(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_BUTTON_SECONDARY != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_BUTTON_TERTIARY")]
     pub fn teriary(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_BUTTON_TERTIARY != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_BUTTON_BACK")]
     pub fn back(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_BUTTON_BACK != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_BUTTON_FORWARD")]
     pub fn forward(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_BUTTON_FORWARD != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_BUTTON_STYLUS_PRIMARY")]
     pub fn stylus_primary(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_BUTTON_STYLUS_PRIMARY != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_BUTTON_STYLUS_SECONDARY")]
     pub fn stylus_secondary(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_BUTTON_STYLUS_SECONDARY != 0
     }
@@ -376,18 +584,22 @@ pub struct EdgeFlags(pub u32);
 
 impl EdgeFlags {
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_TOP")]
     pub fn top(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_TOP != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_BOTTOM")]
     pub fn bottom(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_BOTTOM != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_LEFT")]
     pub fn left(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_LEFT != 0
     }
     #[inline]
+    #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_RIGHT")]
     pub fn right(self) -> bool {
         self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_RIGHT != 0
     }
@@ -560,7 +772,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getmetastate)
     #[inline]
     pub fn meta_state(&self) -> MetaState {
-        unsafe { MetaState(ffi::AMotionEvent_getMetaState(self.ptr.as_ptr()) as u32) }
+        MetaState(unsafe { ffi::AMotionEvent_getMetaState(self.ptr.as_ptr()) } as u32)
     }
 
     /// Returns the button state during this event, as a bitfield.
@@ -569,7 +781,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getbuttonstate)
     #[inline]
     pub fn button_state(&self) -> ButtonState {
-        unsafe { ButtonState(ffi::AMotionEvent_getButtonState(self.ptr.as_ptr()) as u32) }
+        ButtonState(unsafe { ffi::AMotionEvent_getButtonState(self.ptr.as_ptr()) } as u32)
     }
 
     /// Returns the time of the start of this gesture, in the `java.lang.System.nanoTime()` time
@@ -588,7 +800,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getedgeflags)
     #[inline]
     pub fn edge_flags(&self) -> EdgeFlags {
-        unsafe { EdgeFlags(ffi::AMotionEvent_getEdgeFlags(self.ptr.as_ptr()) as u32) }
+        EdgeFlags(unsafe { ffi::AMotionEvent_getEdgeFlags(self.ptr.as_ptr()) } as u32)
     }
 
     /// Returns the time of this event, in the `java.lang.System.nanoTime()` time base
@@ -606,7 +818,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getflags)
     #[inline]
     pub fn flags(&self) -> MotionEventFlags {
-        unsafe { MotionEventFlags(ffi::AMotionEvent_getFlags(self.ptr.as_ptr()) as u32) }
+        MotionEventFlags(unsafe { ffi::AMotionEvent_getFlags(self.ptr.as_ptr()) } as u32)
     }
 
     /// Returns the offset in the x direction between the coordinates and the raw coordinates
@@ -643,6 +855,25 @@ impl MotionEvent {
     #[inline]
     pub fn y_precision(&self) -> f32 {
         unsafe { ffi::AMotionEvent_getYPrecision(self.ptr.as_ptr()) }
+    }
+
+    /// Get the action button for the motion event. Returns a valid action button when the event is
+    /// associated with a button press or button release action. For other actions the return value
+    /// is undefined.
+    #[cfg(feature = "api-level-33")]
+    #[doc(alias = "AMotionEvent_getActionButton")]
+    pub fn action_button(&self) -> ButtonState {
+        ButtonState(unsafe { ffi::AMotionEvent_getActionButton(self.ptr.as_ptr()) } as u32)
+    }
+
+    /// Returns the classification for the current gesture. The classification may change as more
+    /// events become available for the same gesture.
+    #[cfg(feature = "api-level-33")]
+    #[doc(alias = "AMotionEvent_getClassification")]
+    pub fn classification(&self) -> MotionClassification {
+        u32::try_from(unsafe { ffi::AMotionEvent_getClassification(self.ptr.as_ptr()) })
+            .unwrap()
+            .into()
     }
 }
 
