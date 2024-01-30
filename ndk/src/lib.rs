@@ -24,6 +24,7 @@ pub mod input_queue;
 pub mod looper;
 pub mod media;
 pub mod media_error;
+pub mod midi;
 pub mod native_activity;
 pub mod native_window;
 pub mod shared_memory;
