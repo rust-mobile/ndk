@@ -128,15 +128,14 @@ bitflags::bitflags! {
         #[doc(alias = "AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE")]
         const GPU_MIPMAP_COMPLETE = ffi::AHardwareBuffer_UsageFlags::AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE.0;
 
-        // TODO: Only available in a newer NDK
-        // /// Usage: The buffer is used for front-buffer rendering. When front-buffering rendering
-        // /// is specified, different usages may adjust their behavior as a result. For example, when
-        // /// used as [`HardwareBufferFormat::GPU_COLOR_OUTPUT`] the buffer will behave similar to a
-        // /// single-buffered window. When used with [`HardwareBufferFormat::COMPOSER_OVERLAY`], the
-        // /// system will try to prioritize the buffer receiving an overlay plane & avoid caching it
-        // /// in intermediate composition buffers.
-        // #[doc(alias = "AHARDWAREBUFFER_USAGE_FRONT_BUFFER")]
-        // const USAGE_FRONT_BUFFER = ffi::AHardwareBuffer_UsageFlags::AHARDWAREBUFFER_USAGE_FRONT_BUFFER.0;
+        /// Usage: The buffer is used for front-buffer rendering. When front-buffering rendering
+        /// is specified, different usages may adjust their behavior as a result. For example, when
+        /// used as [`HardwareBufferFormat::GPU_COLOR_OUTPUT`] the buffer will behave similar to a
+        /// single-buffered window. When used with [`HardwareBufferFormat::COMPOSER_OVERLAY`], the
+        /// system will try to prioritize the buffer receiving an overlay plane & avoid caching it
+        /// in intermediate composition buffers.
+        #[doc(alias = "AHARDWAREBUFFER_USAGE_FRONT_BUFFER")]
+        const USAGE_FRONT_BUFFER = ffi::AHardwareBuffer_UsageFlags::AHARDWAREBUFFER_USAGE_FRONT_BUFFER.0;
 
         #[doc(alias = "AHARDWAREBUFFER_USAGE_VENDOR_0")]
         const VENDOR_0 = ffi::AHardwareBuffer_UsageFlags::AHARDWAREBUFFER_USAGE_VENDOR_0.0;
