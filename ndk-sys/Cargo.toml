@@ -20,6 +20,7 @@ test = []
 audio = []
 bitmap = []
 media = []
+nativewindow = []
 sync = []
 
 [package.metadata.docs.rs]

@@ -40,6 +40,10 @@ include!("ffi_x86_64.rs");
 #[link(name = "android")]
 extern "C" {}
 
+#[cfg(all(feature = "nativewindow", target_os = "android"))]
+#[link(name = "nativewindow")]
+extern "C" {}
+
 #[cfg(all(feature = "media", target_os = "android"))]
 #[link(name = "mediandk")]
 extern "C" {}

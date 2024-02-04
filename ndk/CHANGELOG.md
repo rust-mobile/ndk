@@ -21,6 +21,7 @@
 - **Breaking:** native_window: Remove redundant `TRANSFORM_` prefix from `NativeWindowTransform` variants. (#460)
 - **Breaking:** hardware_buffer: Convert `HardwareBufferUsage` to `bitflags`. (#461)
 - bitmap: Guard `BitmapCompressError` behind missing `api-level-30` feature. (#462)
+- native_window: Require linking against `libnativewindow` for most API >= 26 functions. (#465)
 - data_space: Add missing `DataSpaceRange::Unspecified` variant. (#468)
 
 # 0.8.0 (2023-10-15)
