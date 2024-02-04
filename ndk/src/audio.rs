@@ -18,7 +18,6 @@ use std::{
 };
 
 use num_enum::{FromPrimitive, IntoPrimitive};
-use thiserror::Error;
 
 use crate::utils::abort_on_panic;
 
@@ -403,7 +402,7 @@ pub enum AudioCallbackResult {
 #[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_result_t")]
 #[non_exhaustive]
-pub enum AudioResult {
+pub enum AudioError {
     #[doc(alias = "AAUDIO_ERROR_BASE")]
     Base = ffi::AAUDIO_ERROR_BASE,
     /// The audio device was disconnected. This could occur, for example, when headphones
@@ -465,7 +464,15 @@ pub enum AudioResult {
     __Unknown(i32),
 }
 
-impl AudioResult {
+impl fmt::Display for AudioError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+impl std::error::Error for AudioError {}
+
+impl AudioError {
     #[doc(alias = "AAudio_convertStreamStateToText")]
     pub fn to_text(self) -> Cow<'static, str> {
         let ptr = unsafe { CStr::from_ptr(ffi::AAudio_convertStreamStateToText(self.into())) };
@@ -475,25 +482,11 @@ impl AudioResult {
     /// Returns [`Ok`] on [`ffi::AAUDIO_OK`], [`Err`] otherwise (including positive values).
     ///
     /// Note that some known error codes (currently only for `AMediaCodec`) are positive.
-    pub(crate) fn from_result(status: ffi::aaudio_result_t) -> Result<(), Self> {
+    pub(crate) fn from_result(status: ffi::aaudio_result_t) -> Result<()> {
         match status {
             ffi::AAUDIO_OK => Ok(()),
             x => Err(Self::from(x)),
         }
-    }
-}
-
-// TODO: Delete this and `impl Error for AudioResult`, just like `MediaError`!
-#[derive(Debug, Error)]
-#[error("error Audio result ({0:?})")]
-pub struct AudioError(pub AudioResult);
-
-impl AudioError {
-    /// Returns [`Ok`] on [`ffi::AAUDIO_OK`], [`Err`] otherwise (including positive values).
-    ///
-    /// Note that some known error codes (currently only for `AMediaCodec`) are positive.
-    pub(crate) fn from_result(status: ffi::aaudio_result_t) -> Result<()> {
-        AudioResult::from_result(status).map_err(Self)
     }
 }
 
@@ -1200,12 +1193,12 @@ impl AudioStream {
     /// It can also be used to align a recorded stream with a playback stream.
     ///
     /// Timestamps are only valid when the stream is in `Started` state.
-    /// [`InvalidState`][AudioResult::InvalidState] will be returned
+    /// [`InvalidState`][AudioError::InvalidState] will be returned
     /// if the stream is not started.
     /// Note that because [`AudioStream::request_start()`] is asynchronous,
     /// timestamps will not be valid until a short time after calling
     /// [`AudioStream::request_start()`].
-    /// So [`InvalidState`][AudioResult::InvalidState] should not be
+    /// So [`InvalidState`][AudioError::InvalidState] should not be
     /// considered a fatal error.
     /// Just try calling again later.
     ///
@@ -1296,7 +1289,7 @@ impl AudioStream {
     /// After this call the state will be in [`Flushing`][AudioStreamState::Flushing] or
     /// [`Flushed`][AudioStreamState::Flushed].
     ///
-    /// This will return [`Unimplemented`][AudioResult::Unimplemented] for input streams.
+    /// This will return [`Unimplemented`][AudioError::Unimplemented] for input streams.
     #[doc(alias = "AAudioStream_requestFlush")]
     pub fn request_flush(&self) -> Result<()> {
         let result = unsafe { ffi::AAudioStream_requestFlush(self.as_ptr()) };
@@ -1309,7 +1302,7 @@ impl AudioStream {
     /// After this call the state will be in [`Pausing`][AudioStreamState::Pausing] or
     /// [`Paused`][AudioStreamState::Paused].
     ///
-    /// This will return [`Unimplemented`][AudioResult::Unimplemented] for input streams.
+    /// This will return [`Unimplemented`][AudioError::Unimplemented] for input streams.
     /// For input streams use [`AudioStream::request_stop()`].
     #[doc(alias = "AAudioStream_requestPause")]
     pub fn request_pause(&self) -> Result<()> {
