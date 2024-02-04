@@ -217,20 +217,21 @@ impl ImageReader {
         construct(|res| unsafe { ffi::AImageReader_getMaxImages(self.as_ptr(), res) })
     }
 
+    /// Returns [`MediaError::ImgreaderNoBufferAvailable`] when no [`Image`] is being rendered to by
+    /// a producer.
     #[doc(alias = "AImageReader_acquireNextImage")]
-    pub fn acquire_next_image(&self) -> Result<Option<Image>> {
-        let res = construct_never_null(|res| unsafe {
+    pub fn acquire_next_image(&self) -> Result<Image> {
+        let inner = construct_never_null(|res| unsafe {
             ffi::AImageReader_acquireNextImage(self.as_ptr(), res)
-        });
+        })?;
 
-        match res {
-            Ok(inner) => Ok(Some(Image { inner })),
-            Err(MediaError::ImgreaderNoBufferAvailable) => Ok(None),
-            Err(e) => Err(e),
-        }
+        Ok(Image { inner })
     }
 
     /// Acquire the next [`Image`] from the image reader's queue asynchronously.
+    ///
+    /// Returns [`MediaError::ImgreaderNoBufferAvailable`] when no [`Image`] is being rendered to by
+    /// a producer.
     ///
     /// # Safety
     /// If the returned file descriptor is not [`None`], it must be awaited before attempting to
@@ -253,20 +254,21 @@ impl ImageReader {
         })
     }
 
+    /// Returns [`MediaError::ImgreaderNoBufferAvailable`] when no [`Image`] is being rendered to by
+    /// a producer.
     #[doc(alias = "AImageReader_acquireLatestImage")]
-    pub fn acquire_latest_image(&self) -> Result<Option<Image>> {
-        let res = construct_never_null(|res| unsafe {
+    pub fn acquire_latest_image(&self) -> Result<Image> {
+        let inner = construct_never_null(|res| unsafe {
             ffi::AImageReader_acquireLatestImage(self.as_ptr(), res)
-        });
+        })?;
 
-        if let Err(MediaError::ImgreaderNoBufferAvailable) = res {
-            return Ok(None);
-        }
-
-        Ok(Some(Image { inner: res? }))
+        Ok(Image { inner })
     }
 
     /// Acquire the latest [`Image`] from the image reader's queue asynchronously, dropping older images.
+    ///
+    /// Returns [`MediaError::ImgreaderNoBufferAvailable`] when no [`Image`] is being rendered to by
+    /// a producer.
     ///
     /// # Safety
     /// If the returned file descriptor is not [`None`], it must be awaited before attempting to
