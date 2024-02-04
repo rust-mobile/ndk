@@ -24,6 +24,7 @@
 - native_window: Require linking against `libnativewindow` for most API >= 26 functions. (#465)
 - **Breaking:** audio: Merge `AudioResult` variant enum into `AudioError`. (#467)
 - data_space: Add missing `DataSpaceRange::Unspecified` variant. (#468)
+- **Breaking:** looper: Require `Send` marker when adding fd event callbacks on `ForeignLooper`. (#469)
 
 # 0.8.0 (2023-10-15)
 
