@@ -89,7 +89,7 @@ impl ImageReader {
         }
     }
 
-    fn as_ptr(&self) -> *mut ffi::AImageReader {
+    pub fn as_ptr(&self) -> *mut ffi::AImageReader {
         self.inner.as_ptr()
     }
 
@@ -310,7 +310,7 @@ pub struct Image {
 pub type CropRect = ffi::AImageCropRect;
 
 impl Image {
-    fn as_ptr(&self) -> *mut ffi::AImage {
+    pub fn as_ptr(&self) -> *mut ffi::AImage {
         self.inner.as_ptr()
     }
 
