@@ -89,7 +89,7 @@ impl ImageReader {
         }
     }
 
-    fn as_ptr(&self) -> *mut ffi::AImageReader {
+    pub fn as_ptr(&self) -> *mut ffi::AImageReader {
         self.inner.as_ptr()
     }
 
