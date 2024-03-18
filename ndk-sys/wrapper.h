@@ -27,6 +27,7 @@ typedef struct AFont AFont;
 typedef struct AFontMatcher AFontMatcher;
 #include <android/font_matcher.h>
 #include <android/hardware_buffer.h>
+#include <android/hardware_buffer_aidl.h>
 #include <android/hardware_buffer_jni.h>
 #include <android/hdr_metadata.h>
 #include <android/imagedecoder.h>
@@ -37,6 +38,7 @@ typedef struct AFontMatcher AFontMatcher;
 #include <android/multinetwork.h>
 #include <android/native_activity.h>
 #include <android/native_window.h>
+#include <android/native_window_aidl.h>
 #include <android/native_window_jni.h>
 #include <android/ndk-version.h>
 #include <android/NeuralNetworks.h>

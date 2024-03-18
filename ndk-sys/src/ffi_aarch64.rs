@@ -5029,6 +5029,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn AHardwareBuffer_readFromParcel(
+        parcel: *const AParcel,
+        outBuffer: *mut *mut AHardwareBuffer,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AHardwareBuffer_writeToParcel(
+        buffer: *const AHardwareBuffer,
+        parcel: *mut AParcel,
+    ) -> binder_status_t;
+}
+extern "C" {
     pub fn AHardwareBuffer_fromHardwareBuffer(
         env: *mut JNIEnv,
         hardwareBufferObj: jobject,
@@ -9378,6 +9390,18 @@ pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_38 = 2;
 pub type _bindgen_ty_38 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ANativeActivity_hideSoftInput(activity: *mut ANativeActivity, flags: u32);
+}
+extern "C" {
+    pub fn ANativeWindow_readFromParcel(
+        parcel: *const AParcel,
+        outWindow: *mut *mut ANativeWindow,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn ANativeWindow_writeToParcel(
+        window: *mut ANativeWindow,
+        parcel: *mut AParcel,
+    ) -> binder_status_t;
 }
 extern "C" {
     pub fn ANativeWindow_fromSurface(env: *mut JNIEnv, surface: jobject) -> *mut ANativeWindow;
