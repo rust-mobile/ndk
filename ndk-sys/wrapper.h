@@ -3,15 +3,15 @@
 #include <android/asset_manager_jni.h>
 // #include <android/binder_auto_utils.h>
 // #include <android/binder_enums.h>
-// #include <android/binder_ibinder.h>
-// #include <android/binder_ibinder_jni.h>
+#include <android/binder_ibinder.h>
+#include <android/binder_ibinder_jni.h>
 // #include <android/binder_interface_utils.h>
-// #include <android/binder_internal_logging.h>
+#include <android/binder_internal_logging.h>
 // #include <android/binder_parcelable_utils.h>
-// #include <android/binder_parcel.h>
-// #include <android/binder_parcel_jni.h>
+#include <android/binder_parcel.h>
+#include <android/binder_parcel_jni.h>
 // #include <android/binder_parcel_utils.h>
-// #include <android/binder_status.h>
+#include <android/binder_status.h>
 // #include <android/binder_to_string.h>
 #include <android/bitmap.h>
 #include <android/choreographer.h>

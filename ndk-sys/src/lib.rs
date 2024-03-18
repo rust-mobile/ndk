@@ -48,6 +48,10 @@ extern "C" {}
 #[link(name = "mediandk")]
 extern "C" {}
 
+#[cfg(all(feature = "binder", target_os = "android"))]
+#[link(name = "binder_ndk")]
+extern "C" {}
+
 #[cfg(all(feature = "bitmap", target_os = "android"))]
 #[link(name = "jnigraphics")]
 extern "C" {}

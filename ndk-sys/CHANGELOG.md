@@ -1,6 +1,7 @@
 # Unreleased
 
 - Add `nativewindow` feature to link against `libnativewindow`. (#465)
+- Add `AIBinder` and `AParcel` bindings, requires linking with `binder` feature. (#TODO)
 
 # 0.5.0 (2023-10-15)
 
