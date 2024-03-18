@@ -527,6 +527,36 @@ impl HardwareBuffer {
             HardwareBufferRef::from_ptr(self.inner)
         }
     }
+
+    #[cfg(all(feature = "binder", feature = "api-level-34"))]
+    pub fn read_from_parcel(
+        parcel: android_binder::binder_impl::BorrowedParcel<'_>,
+    ) -> std::result::Result<HardwareBufferRef, android_binder::StatusCode> {
+        use android_binder::unstable_api::AsNative;
+
+        let mut out = MaybeUninit::uninit();
+        let status =
+            unsafe { ffi::AHardwareBuffer_readFromParcel(parcel.as_native(), out.as_mut_ptr()) };
+        android_binder::unstable_api::status_result(status)
+            .and_then(|()| {
+                NonNull::new(unsafe { out.assume_init() })
+                    .ok_or(android_binder::StatusCode::UNEXPECTED_NULL)
+            })
+            .map(|p| unsafe { HardwareBufferRef::from_ptr(p) })
+    }
+
+    #[cfg(all(feature = "binder", feature = "api-level-34"))]
+    pub fn write_to_parcel(
+        &self,
+        // TODO: mut parcel borrows? This API seems to allow writing either way.
+        mut parcel: android_binder::binder_impl::BorrowedParcel<'_>,
+    ) -> std::result::Result<(), android_binder::StatusCode> {
+        use android_binder::unstable_api::AsNative;
+
+        let status =
+            unsafe { ffi::AHardwareBuffer_writeToParcel(self.as_ptr(), parcel.as_native_mut()) };
+        android_binder::unstable_api::status_result(status)
+    }
 }
 
 /// A [`HardwareBuffer`] with an owned reference, that is released when dropped.

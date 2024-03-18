@@ -1,6 +1,8 @@
 #include <android/api-level.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
+// XXX: Binder APIs are included/reexported/forwarded to official crate:
+// https://cs.android.com/android/platform/superproject/main/+/main:frameworks/native/libs/binder/rust/sys/
 // #include <android/binder_auto_utils.h>
 // #include <android/binder_enums.h>
 // #include <android/binder_ibinder.h>

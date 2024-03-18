@@ -15,10 +15,14 @@ categories = ["os", "os::android-apis", "external-ffi-bindings"]
 
 [dependencies]
 jni-sys = "0.3.0"
+# Official crate from https://cs.android.com/android/platform/superproject/main/+/main:frameworks/native/libs/binder/rust/sys/
+android-binder-ndk-sys = { version = "0.1.0", optional = true }
 
 [features]
 test = []
+
 audio = []
+binder = ["android-binder-ndk-sys"]
 bitmap = []
 media = []
 nativewindow = []

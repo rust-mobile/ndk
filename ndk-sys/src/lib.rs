@@ -45,6 +45,11 @@ extern "C" {}
 #[link(name = "mediandk")]
 extern "C" {}
 
+// TODO: Delete. Taken care of in android-binder-ndk-sys
+// #[cfg(all(feature = "binder", target_os = "android"))]
+// #[link(name = "binder_ndk")]
+// extern "C" {}
+
 #[cfg(all(feature = "bitmap", target_os = "android"))]
 #[link(name = "jnigraphics")]
 extern "C" {}
@@ -56,3 +61,6 @@ extern "C" {}
 #[cfg(all(feature = "sync", target_os = "android"))]
 #[link(name = "sync")]
 extern "C" {}
+
+#[cfg(all(feature = "binder", target_os = "android"))]
+pub use android_binder_ndk_sys::*;
