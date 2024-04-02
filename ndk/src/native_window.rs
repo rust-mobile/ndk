@@ -165,6 +165,18 @@ impl NativeWindow {
         }
     }
 
+    /// Get the default dataspace of the buffers in this [`NativeWindow`] as set by the consumer.
+    #[cfg(all(feature = "nativewindow", feature = "api-level-34"))]
+    #[doc(alias = "ANativeWindow_getBuffersDefaultDataSpace")]
+    pub fn buffers_default_data_space(&self) -> io::Result<DataSpace> {
+        let status = unsafe { ffi::ANativeWindow_getBuffersDefaultDataSpace(self.ptr.as_ptr()) };
+        if status >= 0 {
+            Ok(status.into())
+        } else {
+            Err(status_to_io_result(status).unwrap_err())
+        }
+    }
+
     /// Sets the intended frame rate for this window.
     ///
     /// Same as [`set_frame_rate_with_change_strategy(window, frame_rate, compatibility, ChangeFrameRateStrategy::OnlyIfSeamless)`][`NativeWindow::set_frame_rate_with_change_strategy()`].
