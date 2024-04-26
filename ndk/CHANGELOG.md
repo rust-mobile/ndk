@@ -15,6 +15,8 @@
 - Drop previous `Box`ed callbacks _after_ registering new ones, instead of before. (#455)
 - input_queue: Add `from_java()` constructor, available since API level 33. (#456)
 - event: Add `from_java()` constructors to `KeyEvent` and `MotionEvent`, available since API level 31. (#456)
+- **Breaking:** image_reader: Special-case return statuses in `Image`-acquire functions. (#457)
+- **Breaking:** image_reader: Mark `ImageReader::acquire_latest_image_async()` `unsafe` to match the safety requirements on `ImageReader::acquire_next_image_async()`. (#457)
 - event: Implement `SourceClass` `bitflag` and provide `Source::class()` getter. (#458)
 - Ensure all `bitflags` implementations consider all (including unknown) bits in negation and `all()`. (#458)
 - **Breaking:** Mark all enums as `non_exhaustive` and fix `repr` types. (#459)

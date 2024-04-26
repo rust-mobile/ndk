@@ -62,10 +62,6 @@ pub enum MediaError {
     DrmLicenseExpired = ffi::media_status_t::AMEDIA_DRM_LICENSE_EXPIRED.0,
     #[doc(alias = "AMEDIA_IMGREADER_ERROR_BASE")]
     ImgreaderErrorBase = ffi::media_status_t::AMEDIA_IMGREADER_ERROR_BASE.0,
-    #[doc(alias = "AMEDIA_IMGREADER_NO_BUFFER_AVAILABLE")]
-    ImgreaderNoBufferAvailable = ffi::media_status_t::AMEDIA_IMGREADER_NO_BUFFER_AVAILABLE.0,
-    #[doc(alias = "AMEDIA_IMGREADER_MAX_IMAGES_ACQUIRED")]
-    ImgreaderMaxImagesAcquired = ffi::media_status_t::AMEDIA_IMGREADER_MAX_IMAGES_ACQUIRED.0,
     #[doc(alias = "AMEDIA_IMGREADER_CANNOT_LOCK_IMAGE")]
     ImgreaderCannotLockImage = ffi::media_status_t::AMEDIA_IMGREADER_CANNOT_LOCK_IMAGE.0,
     #[doc(alias = "AMEDIA_IMGREADER_CANNOT_UNLOCK_IMAGE")]
@@ -136,10 +132,9 @@ pub(crate) fn construct_never_null<T>(
     with_ptr: impl FnOnce(*mut *mut T) -> ffi::media_status_t,
 ) -> Result<NonNull<T>> {
     let result = construct(with_ptr)?;
-    let non_null = if cfg!(debug_assertions) {
+    Ok(if cfg!(debug_assertions) {
         NonNull::new(result).expect("result should never be null")
     } else {
         unsafe { NonNull::new_unchecked(result) }
-    };
-    Ok(non_null)
+    })
 }
