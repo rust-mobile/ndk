@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.9.0 (2024-04-26)
+
 - Move `MediaFormat` from `media::media_codec` to its own `media::media_format` module. (#442)
 - media_format: Expose `MediaFormat::copy()` and `MediaFormat::clear()` from API level 29. (#449)
 - **Breaking:** media_format: Mark all `fn set_*()` and `fn str()` as taking `self` by `&mut`. (#452)
@@ -27,6 +29,7 @@
 - **Breaking:** audio: Merge `AudioResult` variant enum into `AudioError`. (#467)
 - data_space: Add missing `DataSpaceRange::Unspecified` variant. (#468)
 - **Breaking:** looper: Require `Send` marker when adding fd event callbacks on `ForeignLooper`. (#469)
+- **Breaking:** Upgrade to [`ndk-sys 0.6.0`](../ndk-sys/CHANGELOG.md#060-2024-04-26). (#472)
 
 # 0.8.0 (2023-10-15)
 

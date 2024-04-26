@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.6.0 (2024-04-26)
+
 - Generate against upstream NDK build `11769913`. (#471)
 - Add `nativewindow` feature to link against `libnativewindow`. (#465)
 
