@@ -8,12 +8,7 @@ use crate::media_error::{construct, construct_never_null, MediaError, Result};
 use crate::native_window::NativeWindow;
 use crate::utils::abort_on_panic;
 use num_enum::{FromPrimitive, IntoPrimitive};
-use std::{
-    ffi::c_void,
-    fmt::{self, Debug, Formatter},
-    mem::MaybeUninit,
-    ptr::NonNull,
-};
+use std::{ffi::c_void, fmt, mem::MaybeUninit, ptr::NonNull};
 
 #[cfg(feature = "api-level-26")]
 use std::os::fd::{FromRawFd, IntoRawFd, OwnedFd};
@@ -120,8 +115,8 @@ pub struct ImageReader {
     buffer_removed_cb: Option<Box<BufferRemovedListener>>,
 }
 
-impl Debug for ImageReader {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+impl fmt::Debug for ImageReader {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("ImageReader")
             .field("inner", &self.inner)
             .field(

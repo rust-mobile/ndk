@@ -325,8 +325,8 @@ pub enum BitmapInfoFlagsAlpha {
 pub struct BitmapInfoFlags(u32);
 
 #[cfg(feature = "api-level-30")]
-impl std::fmt::Debug for BitmapInfoFlags {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Debug for BitmapInfoFlags {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
             "BitmapInfoFlags({:#x}, alpha: {:?}, is_hardware: {})",
@@ -365,8 +365,8 @@ pub struct BitmapInfo {
     inner: ffi::AndroidBitmapInfo,
 }
 
-impl std::fmt::Debug for BitmapInfo {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Debug for BitmapInfo {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut f = f.debug_struct("BitmapInfo");
         f.field("width", &self.width())
             .field("height", &self.height())

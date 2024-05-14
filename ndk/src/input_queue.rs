@@ -130,7 +130,7 @@ impl InputQueue {
                 looper.ptr().as_ptr(),
                 id,
                 None,
-                std::ptr::null_mut(),
+                ptr::null_mut(),
             )
         }
     }
