@@ -236,6 +236,19 @@ pub enum DataSpace {
     __Unknown(i32),
 }
 
+// TODO: Newtyped FFI enums are inconvenient with repr(c)
+impl From<DataSpace> for ffi::ADataSpace {
+    fn from(val: DataSpace) -> Self {
+        ffi::ADataSpace(val.into())
+    }
+}
+
+impl From<ffi::ADataSpace> for DataSpace {
+    fn from(val: ffi::ADataSpace) -> Self {
+        DataSpace::from(val.0)
+    }
+}
+
 impl fmt::Display for DataSpace {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(match self {
@@ -280,13 +293,6 @@ impl fmt::Debug for DataSpace {
             self.transfer(),
             self.range(),
         )
-    }
-}
-
-// TODO: Remove if SurfaceControl is going to take an `int`: https://github.com/android/ndk/issues/1920#issuecomment-1877109800
-impl From<DataSpace> for ffi::ADataSpace {
-    fn from(value: DataSpace) -> Self {
-        Self(i32::from(value) as u32)
     }
 }
 

@@ -15,7 +15,7 @@ use std::{
     ptr::NonNull,
 };
 
-use num_enum::{IntoPrimitive, TryFromPrimitive};
+use num_enum::{FromPrimitive, IntoPrimitive};
 
 #[cfg(doc)]
 use crate::hardware_buffer::HardwareBufferUsage;
@@ -554,7 +554,10 @@ impl SurfaceTransaction {
                 self.ptr.as_ptr(),
                 surface_control.ptr.as_ptr(),
                 // FFI missing const
-                <*const _>::cast_mut(metadata),
+                match metadata {
+                    Some(metadata) => <*const _>::cast_mut(metadata),
+                    None => std::ptr::null_mut(),
+                },
             )
         }
     }
@@ -970,26 +973,52 @@ impl Drop for SurfaceControls {
 
 /// Parameter for [`SurfaceTransaction::set_visibility()`].
 #[repr(i8)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "ASURFACE_TRANSACTION_VISIBILITY")]
 #[non_exhaustive]
 pub enum Visibility {
     #[doc(alias = "ASURFACE_TRANSACTION_VISIBILITY_HIDE")]
-    Hide = ffi::ASURFACE_TRANSACTION_VISIBILITY_HIDE as i8,
+    Hide = ffi::ASurfaceTransactionVisibility::ASURFACE_TRANSACTION_VISIBILITY_HIDE.0,
     #[doc(alias = "ASURFACE_TRANSACTION_VISIBILITY_SHOW")]
-    Show = ffi::ASURFACE_TRANSACTION_VISIBILITY_SHOW as i8,
+    Show = ffi::ASurfaceTransactionVisibility::ASURFACE_TRANSACTION_VISIBILITY_SHOW.0,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i8),
 }
+
+// TODO: Newtyped FFI enums are inconvenient with repr(c)
+impl From<Visibility> for ffi::ASurfaceTransactionVisibility {
+    fn from(val: Visibility) -> Self {
+        ffi::ASurfaceTransactionVisibility(val.into())
+    }
+}
+// TODO: implement opposite conversion?
 
 /// Parameter for [`SurfaceTransaction::set_buffer_transparency()`].
 #[repr(i8)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "ASURFACE_TRANSACTION_TRANSPARENCY")]
 #[non_exhaustive]
 pub enum Transparency {
     #[doc(alias = "ASURFACE_TRANSACTION_TRANSPARENCY_TRANSPARENT")]
-    Transparent = ffi::ASURFACE_TRANSACTION_TRANSPARENCY_TRANSPARENT as i8,
+    Transparent =
+        ffi::ASurfaceTransactionTransparency::ASURFACE_TRANSACTION_TRANSPARENCY_TRANSPARENT.0,
     #[doc(alias = "ASURFACE_TRANSACTION_TRANSPARENCY_TRANSLUCENT")]
-    Translucent = ffi::ASURFACE_TRANSACTION_TRANSPARENCY_TRANSLUCENT as i8,
+    Translucent =
+        ffi::ASurfaceTransactionTransparency::ASURFACE_TRANSACTION_TRANSPARENCY_TRANSLUCENT.0,
     #[doc(alias = "ASURFACE_TRANSACTION_TRANSPARENCY_OPAQUE")]
-    Opaque = ffi::ASURFACE_TRANSACTION_TRANSPARENCY_OPAQUE as i8,
+    Opaque = ffi::ASurfaceTransactionTransparency::ASURFACE_TRANSACTION_TRANSPARENCY_OPAQUE.0,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i8),
 }
+
+// TODO: Newtyped FFI enums are inconvenient with repr(c)
+impl From<Transparency> for ffi::ASurfaceTransactionTransparency {
+    fn from(val: Transparency) -> Self {
+        ffi::ASurfaceTransactionTransparency(val.into())
+    }
+}
+// TODO: implement opposite conversion?
