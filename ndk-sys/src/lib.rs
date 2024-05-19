@@ -21,10 +21,7 @@ use jni_sys::*;
 #[cfg(not(any(target_os = "android", feature = "test")))]
 compile_error!("ndk-sys only supports compiling for Android");
 
-#[cfg(all(
-    any(target_os = "android", feature = "test"),
-    any(target_arch = "arm", target_arch = "armv7")
-))]
+#[cfg(all(any(target_os = "android", feature = "test"), target_arch = "arm"))]
 include!("ffi_arm.rs");
 
 #[cfg(all(any(target_os = "android", feature = "test"), target_arch = "aarch64"))]
