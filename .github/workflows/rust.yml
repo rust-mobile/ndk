@@ -70,17 +70,17 @@ jobs:
         os: [ubuntu-latest]
         rust-channel: [stable, nightly]
         rust-target:
-          - { triple: "armv7-linux-androideabi", abi: armeabi-v7a }
-          - { triple: "aarch64-linux-android", abi: arm64-v8a }
-          - { triple: "i686-linux-android", abi: x86 }
-          - { triple: "x86_64-linux-android", abi: x86_64 }
+          - armv7-linux-androideabi
+          - aarch64-linux-android
+          - i686-linux-android
+          - x86_64-linux-android
         include:
           - os: windows-latest
             rust-channel: stable
-            rust-target: { triple: "aarch64-linux-android", abi: arm64-v8a }
+            rust-target: aarch64-linux-android
           - os: windows-latest
             rust-channel: stable
-            rust-target: { triple: "x86_64-linux-android", abi: x86_64 }
+            rust-target: x86_64-linux-android
 
     runs-on: ${{ matrix.os }}
     name: Cross-compile
@@ -88,20 +88,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-
-      - name: Install cargo-ndk
-        run: cargo install cargo-ndk
-
-      - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target.triple }}
+      - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target }}
         uses: dtolnay/rust-toolchain@master
         with:
-          target: ${{ matrix.rust-target.triple }}
+          target: ${{ matrix.rust-target }}
           toolchain: ${{ matrix.rust-channel }}
 
-      - name: Compile for ${{ matrix.rust-target.triple }}
-        run: cargo ndk -t ${{ matrix.rust-target.abi }} build
+      - name: Compile for ${{ matrix.rust-target }}
+        run: cargo build --target ${{ matrix.rust-target }}
 
   build-host:
     strategy:
