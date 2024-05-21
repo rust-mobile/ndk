@@ -100,7 +100,7 @@ impl Configuration {
         self.ptr
     }
 
-    pub fn from_asset_manager(am: &AssetManager) -> Self {
+    pub fn from_asset_manager(am: &AssetManager<'_>) -> Self {
         let config = Self::new();
         unsafe {
             ffi::AConfiguration_fromAssetManager(config.ptr().as_mut(), am.ptr().as_mut());

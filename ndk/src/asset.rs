@@ -7,6 +7,7 @@
 use std::{
     ffi::{CStr, CString},
     io,
+    marker::PhantomData,
     os::fd::{FromRawFd, OwnedFd},
     ptr::NonNull,
 };
@@ -16,16 +17,17 @@ use std::{
 /// [`AAssetManager *`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
 #[derive(Debug)]
 #[doc(alias = "AAssetManager")]
-pub struct AssetManager {
+pub struct AssetManager<'a> {
     ptr: NonNull<ffi::AAssetManager>,
+    _marker: PhantomData<&'a ()>,
 }
 
 // AAssetManager is thread safe.
 // See https://developer.android.com/ndk/reference/group/asset#aassetmanager
-unsafe impl Send for AssetManager {}
-unsafe impl Sync for AssetManager {}
+unsafe impl<'a> Send for AssetManager<'a> {}
+unsafe impl<'a> Sync for AssetManager<'a> {}
 
-impl AssetManager {
+impl<'a> AssetManager<'a> {
     /// Wraps a pointer to [`ffi::AssetManager`]
     ///
     /// # Safety
@@ -33,7 +35,10 @@ impl AssetManager {
     /// responsible for guaranteeing the lifetime of this pointer, and should drop the structure
     /// _before_ the pointer becomes invalid.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AAssetManager>) -> Self {
-        Self { ptr }
+        Self {
+            ptr,
+            _marker: PhantomData,
+        }
     }
 
     /// Returns the pointer to the native [`ffi::AAssetManager`].
