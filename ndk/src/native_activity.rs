@@ -107,7 +107,9 @@ impl NativeActivity {
     }
 
     /// This app's asset manager, which can be used to access assets from the `.apk` file.
-    pub fn asset_manager(&self) -> crate::asset::AssetManager {
+    pub fn asset_manager(&self) -> crate::asset::AssetManager<'_> {
+        // SAFETY: Android initializes this field to a valid pointer, and the lifetime of the
+        // returned AssetManager is constrained to the lifetime of Self.
         unsafe {
             crate::asset::AssetManager::from_ptr(
                 NonNull::new(self.ptr.as_ref().assetManager).unwrap(),
