@@ -26,16 +26,17 @@ unsafe impl Send for AssetManager {}
 unsafe impl Sync for AssetManager {}
 
 impl AssetManager {
-    /// Create an `AssetManager` from a pointer
+    /// Wraps a pointer to [`ffi::AssetManager`]
     ///
     /// # Safety
-    /// By calling this function, you assert that the pointer is a valid pointer to a native
-    /// `AAssetManager`.
+    /// `ptr` must be a valid pointer to an Android [`ffi::AAssetManager`]. The caller is
+    /// responsible for guaranteeing the lifetime of this pointer, and should drop the structure
+    /// _before_ the pointer becomes invalid.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AAssetManager>) -> Self {
         Self { ptr }
     }
 
-    /// Returns the pointer to the native `AAssetManager`.
+    /// Returns the pointer to the native [`ffi::AAssetManager`].
     pub fn ptr(&self) -> NonNull<ffi::AAssetManager> {
         self.ptr
     }
