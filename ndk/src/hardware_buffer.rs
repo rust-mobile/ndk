@@ -593,7 +593,7 @@ impl HardwareBufferDesc {
             layers: self.layers,
             format: i32::from(self.format)
                 .try_into()
-                .expect("i32->u32 overflow in HardwareBufferDesc::into_native()"),
+                .expect("Unexpected sign bit in `format`"),
             usage: self.usage.bits(),
             stride: self.stride,
             rfu0: 0,
