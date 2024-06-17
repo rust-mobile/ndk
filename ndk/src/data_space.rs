@@ -236,16 +236,15 @@ pub enum DataSpace {
     __Unknown(i32),
 }
 
-// TODO: Newtyped FFI enums are inconvenient with repr(c)
 impl From<DataSpace> for ffi::ADataSpace {
     fn from(val: DataSpace) -> Self {
-        ffi::ADataSpace(val.into())
+        Self(val.into())
     }
 }
 
 impl From<ffi::ADataSpace> for DataSpace {
     fn from(val: ffi::ADataSpace) -> Self {
-        DataSpace::from(val.0)
+        Self::from(val.0)
     }
 }
 

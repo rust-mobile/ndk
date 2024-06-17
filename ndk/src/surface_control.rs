@@ -22,8 +22,6 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 
 #[cfg(all(doc, feature = "api-level-34"))]
 use crate::data_space::DataSpaceRange;
-#[cfg(doc)]
-use crate::hardware_buffer::HardwareBufferUsage;
 #[cfg(feature = "api-level-31")]
 use crate::native_window::ChangeFrameRateStrategy;
 #[cfg(feature = "api-level-30")]
@@ -34,6 +32,8 @@ use crate::{
     native_window::{NativeWindow, NativeWindowTransform},
     utils::abort_on_panic,
 };
+#[cfg(doc)]
+use crate::{hardware_buffer::HardwareBufferUsage, native_activity::NativeActivity};
 
 pub type HdrMetadataSMPTE2086 = ffi::AHdrMetadata_smpte2086;
 pub type HdrMetadataCTA861_3 = ffi::AHdrMetadata_cta861_3;
@@ -76,8 +76,18 @@ impl SurfaceControl {
     /// a debug name associated with this surface. It can be used to identify this surface in
     /// SurfaceFlinger's layer tree.
     ///
-    /// Appears to return [`None`] when you are not allowed to create new [`SurfaceControl`]
-    /// children for this [`NativeWindow`].
+    /// By default the [`SurfaceControl`] will be visible and display any buffer
+    /// submitted. In addition, the default buffer submission control may release
+    /// and not display all buffers that are submitted before receiving a callback
+    /// for the previous buffer. See [`SurfaceTransaction::set_visibility()`] and
+    /// [`SurfaceTransaction::set_enable_back_pressure()`] to change the default behaviors after
+    /// creation.
+    ///
+    /// Returns [`None`] when you are not allowed to create new [`SurfaceControl`] children for
+    /// this [`NativeWindow`].  On the root window from [`NativeActivity`] this is only allowed from
+    /// Android 15 onwards [^cite].
+    ///
+    /// [^cite]: TODO
     #[doc(alias = "ASurfaceControl_createFromWindow")]
     pub fn create_from_window(parent: &NativeWindow, debug_name: &CStr) -> Option<Self> {
         let ptr = unsafe {
@@ -91,7 +101,6 @@ impl SurfaceControl {
     /// a debug name associated with this surface. It can be used to identify this surface in
     /// SurfaceFlinger's layer tree.
     #[doc(alias = "ASurfaceControl_create")]
-    // TODO: Check upstream nullability
     pub fn create(parent: &Self, debug_name: &CStr) -> Option<Self> {
         let ptr = unsafe { ffi::ASurfaceControl_create(parent.ptr.as_ptr(), debug_name.as_ptr()) };
         let s = NonNull::new(ptr)?;
@@ -110,7 +119,7 @@ impl SurfaceControl {
     #[doc(alias = "ASurfaceControl_fromJava")]
     pub unsafe fn from_java(env: *mut JNIEnv, surface_control_obj: jobject) -> Self {
         let ptr = unsafe { ffi::ASurfaceControl_fromJava(env, surface_control_obj) };
-        let ptr = NonNull::new(ptr).expect("ASurfaceControl_fromJava should never return NULL");
+        let ptr = NonNull::new(ptr).expect("ASurfaceControl_fromJava() should never return NULL");
         unsafe { Self::from_ptr(ptr) }
     }
 }
@@ -159,9 +168,10 @@ impl SurfaceTransaction {
     }
 
     #[doc(alias = "ASurfaceTransaction_create")]
-    pub fn new() -> Option<Self> {
-        NonNull::new(unsafe { ffi::ASurfaceTransaction_create() })
-            .map(|ptr| unsafe { Self::from_ptr(ptr) })
+    pub fn new() -> Self {
+        let ptr = NonNull::new(unsafe { ffi::ASurfaceTransaction_create() })
+            .expect("ASurfaceTransaction_create() should never return NULL");
+        unsafe { Self::from_ptr(ptr) }
     }
 
     /// Return the [`SurfaceTransaction`] wrapped by a [Java Transaction object].
@@ -176,8 +186,9 @@ impl SurfaceTransaction {
     #[doc(alias = "ASurfaceTransaction_fromJava")]
     pub unsafe fn from_java(env: *mut JNIEnv, transaction_obj: jobject) -> Self {
         let ptr = unsafe { ffi::ASurfaceTransaction_fromJava(env, transaction_obj) };
-        let ptr = NonNull::new(ptr).expect("ASurfaceTransaction_fromJava should never return NULL");
-        // TODO: Don't return an owned transaction!
+        let ptr =
+            NonNull::new(ptr).expect("ASurfaceTransaction_fromJava() should never return NULL");
+        todo!("Don't return an owned transaction!");
         unsafe { Self::from_ptr(ptr) }
     }
 
@@ -453,7 +464,7 @@ impl SurfaceTransaction {
         }
     }
 
-    /// Sets an x and y scale of a surface with `(0, 0)` as the centerpoint of the scale.
+    /// Sets an `x` and `y` scale of a surface with `(0, 0)` as the centerpoint of the scale.
     ///
     /// # Parameters
     /// - `x_scale`: The scale in the x direction. Must be greater than `0`.
@@ -491,14 +502,19 @@ impl SurfaceTransaction {
 
     /// Updates the region for the content on this surface updated in this transaction. If
     /// unspecified, the complete surface is assumed to be damaged.
+    ///
+    /// TODO: Provide an empty slice to reset.
     #[doc(alias = "ASurfaceTransaction_setDamageRegion")]
-    // TODO: None or 0-length slice to unset?
     pub fn set_damage_region(&self, surface_control: &SurfaceControl, rects: &[Rect]) {
         unsafe {
             ffi::ASurfaceTransaction_setDamageRegion(
                 self.ptr.as_ptr(),
                 surface_control.ptr.as_ptr(),
-                rects.as_ptr(),
+                if rects.is_empty() {
+                    std::ptr::null()
+                } else {
+                    rects.as_ptr()
+                },
                 rects.len() as u32,
             )
         }
@@ -510,8 +526,8 @@ impl SurfaceTransaction {
     /// Transactions will not be presented until all of their acquire fences have signaled even if
     /// the app requests an earlier present time.
     ///
-    /// If an earlier transaction has a desired present time of x, and a later transaction has a
-    /// desired present time that is before x, the later transaction will not preempt the earlier
+    /// If an earlier transaction has a desired present time of `x`, and a later transaction has a
+    /// desired present time that is before `x`, the later transaction will not preempt the earlier
     /// transaction.
     #[doc(alias = "ASurfaceTransaction_setDesiredPresentTime")]
     pub fn set_desired_present_time(&self, desired_present_time: Duration) {
@@ -837,7 +853,7 @@ pub type OnComplete = Box<dyn FnOnce(&SurfaceTransactionStatsOnComplete) + Send>
 /// This callback does not mean buffers have been released! It simply means that any new
 /// transactions applied will not overwrite the transaction for which we are receiving a callback
 /// and instead will be included in the next frame. If you are trying to avoid dropping frames
-/// (overwriting transactions), and unable to use timestamps (Which provide a more efficient
+/// (overwriting transactions), and unable to use timestamps (which provide a more efficient
 /// solution), then this method provides a method to pace your transaction application.
 ///
 /// # Parameters
@@ -855,7 +871,8 @@ pub struct SurfaceTransactionStats {
     ptr: NonNull<ffi::ASurfaceTransactionStats>,
 }
 
-/// [`SurfaceTransactionStats`] with extra that are only valid to call in the [`OnComplete`]
+// TODO: Document extra getters
+/// [`SurfaceTransactionStats`] with extra getters that are only valid to call in the [`OnComplete`]
 /// callback, but not in the [`OnCommit`] callback.
 ///
 #[cfg_attr(
@@ -863,7 +880,7 @@ pub struct SurfaceTransactionStats {
     doc = "[`OnCommit`]: https://developer.android.com/ndk/reference/group/native-activity#group___native_activity_1ga3465b02096890aba8011a71efe0241f2"
 )]
 #[doc(alias = "ASurfaceTransactionStats")]
-#[doc(alias = "SurfaceTransactionStatst")]
+#[doc(alias = "SurfaceTransactionStats")]
 pub struct SurfaceTransactionStatsOnComplete(SurfaceTransactionStats);
 
 impl std::ops::Deref for SurfaceTransactionStatsOnComplete {
@@ -951,7 +968,7 @@ impl SurfaceTransactionStats {
         let ts = unsafe { ffi::ASurfaceTransactionStats_getLatchTime(self.ptr.as_ptr()) };
         Duration::from_nanos(
             ts.try_into()
-                .expect("getLatchTime should not return a negative timestamp"),
+                .expect("getLatchTime() should not return a negative timestamp"),
         )
     }
 
@@ -974,7 +991,7 @@ impl SurfaceTransactionStats {
         }
     }
 
-    /// Returns the timestamp of when the CURRENT buffer was acquired. A buffer is considered
+    /// Returns the timestamp of when the *CURRENT* buffer was acquired. A buffer is considered
     /// acquired when its `acquire_fence_fd` has signaled. A buffer cannot be latched or presented
     /// until it is acquired. If no `acquire_fence_fd` was provided, this timestamp will be set
     /// to [`None`].
@@ -990,7 +1007,7 @@ impl SurfaceTransactionStats {
             -1 => None,
             ts => Some(Duration::from_nanos(
                 ts.try_into()
-                    .expect("getAcquireTime should not return a negative timestamp"),
+                    .expect("getAcquireTime() should not return a negative timestamp"),
             )),
         }
     }
@@ -1110,13 +1127,17 @@ pub enum Visibility {
     __Unknown(i8),
 }
 
-// TODO: Newtyped FFI enums are inconvenient with repr(c)
 impl From<Visibility> for ffi::ASurfaceTransactionVisibility {
     fn from(val: Visibility) -> Self {
-        ffi::ASurfaceTransactionVisibility(val.into())
+        Self(val.into())
     }
 }
-// TODO: implement opposite conversion?
+
+impl From<ffi::ASurfaceTransactionVisibility> for Visibility {
+    fn from(val: ffi::ASurfaceTransactionVisibility) -> Self {
+        Self::from(val.0)
+    }
+}
 
 /// Parameter for [`SurfaceTransaction::set_buffer_transparency()`].
 #[repr(i8)]
@@ -1138,10 +1159,14 @@ pub enum Transparency {
     __Unknown(i8),
 }
 
-// TODO: Newtyped FFI enums are inconvenient with repr(c)
 impl From<Transparency> for ffi::ASurfaceTransactionTransparency {
     fn from(val: Transparency) -> Self {
-        ffi::ASurfaceTransactionTransparency(val.into())
+        Self(val.into())
     }
 }
-// TODO: implement opposite conversion?
+
+impl From<ffi::ASurfaceTransactionTransparency> for Transparency {
+    fn from(val: ffi::ASurfaceTransactionTransparency) -> Self {
+        Self::from(val.0)
+    }
+}
