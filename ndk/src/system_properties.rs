@@ -64,8 +64,7 @@ pub fn get_raw(name: &CStr) -> Result<CString, GetRawError> {
 }
 
 /// Possible failures returned by [`get()`].
-#[allow(missing_debug_implementations)] // Our MSRV is too low for derive(Debug) to emit bounds on T.
-#[derive(Error)]
+#[derive(Debug, Error)]
 pub enum GetError<T> {
     #[error("Property is missing or empty")]
     MissingOrEmpty,

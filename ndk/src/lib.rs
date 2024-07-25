@@ -11,6 +11,7 @@
 )]
 #![cfg_attr(docsrs, feature(doc_cfg, doc_auto_cfg))]
 
+pub mod api_level;
 pub mod asset;
 pub mod audio;
 pub mod bitmap;

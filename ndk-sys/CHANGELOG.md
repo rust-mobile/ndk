@@ -1,5 +1,6 @@
 # Unreleased
 
+- **Breaking:** Removed `__ANDROID_API__` constant as it is always defined to the value of `__ANDROID_API_FUTURE__`. (#479)
 - Regenerate bindings with `bindgen 0.71.1`. (#487)
 - Include API bindings from `sys/system_properties.h`. (#495)
 
