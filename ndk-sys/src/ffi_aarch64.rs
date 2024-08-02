@@ -85,6 +85,7 @@ pub const SIG_ATOMIC_MIN: i32 = -2147483648;
 pub const WINT_MAX: u32 = 4294967295;
 pub const WINT_MIN: u32 = 0;
 pub const __BITS_PER_LONG: u32 = 64;
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const __FD_SETSIZE: u32 = 1024;
 pub const __bool_true_false_are_defined: u32 = 1;
 pub const true_: u32 = 1;
@@ -814,6 +815,7 @@ pub const EXTRA_MAGIC: u32 = 1163416577;
 pub const SVE_MAGIC: u32 = 1398162689;
 pub const SVE_SIG_FLAG_SM: u32 = 1;
 pub const TPIDR2_MAGIC: u32 = 1414547714;
+pub const FPMR_MAGIC: u32 = 1179667794;
 pub const ZA_MAGIC: u32 = 1412850501;
 pub const ZT_MAGIC: u32 = 1515474433;
 pub const __SVE_VQ_BYTES: u32 = 16;
@@ -2785,88 +2787,88 @@ impl ADataSpace {
     pub const ADATASPACE_UNKNOWN: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const STANDARD_MASK: ADataSpace = ADataSpace(4128768);
+    pub const ADATASPACE_STANDARD_MASK: ADataSpace = ADataSpace(4128768);
 }
 impl ADataSpace {
-    pub const STANDARD_UNSPECIFIED: ADataSpace = ADataSpace(0);
+    pub const ADATASPACE_STANDARD_UNSPECIFIED: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const STANDARD_BT709: ADataSpace = ADataSpace(65536);
+    pub const ADATASPACE_STANDARD_BT709: ADataSpace = ADataSpace(65536);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_625: ADataSpace = ADataSpace(131072);
+    pub const ADATASPACE_STANDARD_BT601_625: ADataSpace = ADataSpace(131072);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_625_UNADJUSTED: ADataSpace = ADataSpace(196608);
+    pub const ADATASPACE_STANDARD_BT601_625_UNADJUSTED: ADataSpace = ADataSpace(196608);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_525: ADataSpace = ADataSpace(262144);
+    pub const ADATASPACE_STANDARD_BT601_525: ADataSpace = ADataSpace(262144);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_525_UNADJUSTED: ADataSpace = ADataSpace(327680);
+    pub const ADATASPACE_STANDARD_BT601_525_UNADJUSTED: ADataSpace = ADataSpace(327680);
 }
 impl ADataSpace {
-    pub const STANDARD_BT2020: ADataSpace = ADataSpace(393216);
+    pub const ADATASPACE_STANDARD_BT2020: ADataSpace = ADataSpace(393216);
 }
 impl ADataSpace {
-    pub const STANDARD_BT2020_CONSTANT_LUMINANCE: ADataSpace = ADataSpace(458752);
+    pub const ADATASPACE_STANDARD_BT2020_CONSTANT_LUMINANCE: ADataSpace = ADataSpace(458752);
 }
 impl ADataSpace {
-    pub const STANDARD_BT470M: ADataSpace = ADataSpace(524288);
+    pub const ADATASPACE_STANDARD_BT470M: ADataSpace = ADataSpace(524288);
 }
 impl ADataSpace {
-    pub const STANDARD_FILM: ADataSpace = ADataSpace(589824);
+    pub const ADATASPACE_STANDARD_FILM: ADataSpace = ADataSpace(589824);
 }
 impl ADataSpace {
-    pub const STANDARD_DCI_P3: ADataSpace = ADataSpace(655360);
+    pub const ADATASPACE_STANDARD_DCI_P3: ADataSpace = ADataSpace(655360);
 }
 impl ADataSpace {
-    pub const STANDARD_ADOBE_RGB: ADataSpace = ADataSpace(720896);
+    pub const ADATASPACE_STANDARD_ADOBE_RGB: ADataSpace = ADataSpace(720896);
 }
 impl ADataSpace {
-    pub const TRANSFER_MASK: ADataSpace = ADataSpace(130023424);
+    pub const ADATASPACE_TRANSFER_MASK: ADataSpace = ADataSpace(130023424);
 }
 impl ADataSpace {
-    pub const TRANSFER_UNSPECIFIED: ADataSpace = ADataSpace(0);
+    pub const ADATASPACE_TRANSFER_UNSPECIFIED: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const TRANSFER_LINEAR: ADataSpace = ADataSpace(4194304);
+    pub const ADATASPACE_TRANSFER_LINEAR: ADataSpace = ADataSpace(4194304);
 }
 impl ADataSpace {
-    pub const TRANSFER_SRGB: ADataSpace = ADataSpace(8388608);
+    pub const ADATASPACE_TRANSFER_SRGB: ADataSpace = ADataSpace(8388608);
 }
 impl ADataSpace {
-    pub const TRANSFER_SMPTE_170M: ADataSpace = ADataSpace(12582912);
+    pub const ADATASPACE_TRANSFER_SMPTE_170M: ADataSpace = ADataSpace(12582912);
 }
 impl ADataSpace {
-    pub const TRANSFER_GAMMA2_2: ADataSpace = ADataSpace(16777216);
+    pub const ADATASPACE_TRANSFER_GAMMA2_2: ADataSpace = ADataSpace(16777216);
 }
 impl ADataSpace {
-    pub const TRANSFER_GAMMA2_6: ADataSpace = ADataSpace(20971520);
+    pub const ADATASPACE_TRANSFER_GAMMA2_6: ADataSpace = ADataSpace(20971520);
 }
 impl ADataSpace {
-    pub const TRANSFER_GAMMA2_8: ADataSpace = ADataSpace(25165824);
+    pub const ADATASPACE_TRANSFER_GAMMA2_8: ADataSpace = ADataSpace(25165824);
 }
 impl ADataSpace {
-    pub const TRANSFER_ST2084: ADataSpace = ADataSpace(29360128);
+    pub const ADATASPACE_TRANSFER_ST2084: ADataSpace = ADataSpace(29360128);
 }
 impl ADataSpace {
-    pub const TRANSFER_HLG: ADataSpace = ADataSpace(33554432);
+    pub const ADATASPACE_TRANSFER_HLG: ADataSpace = ADataSpace(33554432);
 }
 impl ADataSpace {
-    pub const RANGE_MASK: ADataSpace = ADataSpace(939524096);
+    pub const ADATASPACE_RANGE_MASK: ADataSpace = ADataSpace(939524096);
 }
 impl ADataSpace {
-    pub const RANGE_UNSPECIFIED: ADataSpace = ADataSpace(0);
+    pub const ADATASPACE_RANGE_UNSPECIFIED: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const RANGE_FULL: ADataSpace = ADataSpace(134217728);
+    pub const ADATASPACE_RANGE_FULL: ADataSpace = ADataSpace(134217728);
 }
 impl ADataSpace {
-    pub const RANGE_LIMITED: ADataSpace = ADataSpace(268435456);
+    pub const ADATASPACE_RANGE_LIMITED: ADataSpace = ADataSpace(268435456);
 }
 impl ADataSpace {
-    pub const RANGE_EXTENDED: ADataSpace = ADataSpace(402653184);
+    pub const ADATASPACE_RANGE_EXTENDED: ADataSpace = ADataSpace(402653184);
 }
 impl ADataSpace {
     pub const ADATASPACE_SCRGB_LINEAR: ADataSpace = ADataSpace(406913024);
@@ -2921,6 +2923,87 @@ impl ADataSpace {
 }
 impl ADataSpace {
     pub const ADATASPACE_DYNAMIC_DEPTH: ADataSpace = ADataSpace(4098);
+}
+impl ADataSpace {
+    pub const STANDARD_MASK: ADataSpace = ADataSpace(4128768);
+}
+impl ADataSpace {
+    pub const STANDARD_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const STANDARD_BT709: ADataSpace = ADataSpace(65536);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_625: ADataSpace = ADataSpace(131072);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_625_UNADJUSTED: ADataSpace = ADataSpace(196608);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_525: ADataSpace = ADataSpace(262144);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_525_UNADJUSTED: ADataSpace = ADataSpace(327680);
+}
+impl ADataSpace {
+    pub const STANDARD_BT470M: ADataSpace = ADataSpace(524288);
+}
+impl ADataSpace {
+    pub const STANDARD_BT2020: ADataSpace = ADataSpace(393216);
+}
+impl ADataSpace {
+    pub const STANDARD_FILM: ADataSpace = ADataSpace(589824);
+}
+impl ADataSpace {
+    pub const STANDARD_DCI_P3: ADataSpace = ADataSpace(655360);
+}
+impl ADataSpace {
+    pub const STANDARD_ADOBE_RGB: ADataSpace = ADataSpace(720896);
+}
+impl ADataSpace {
+    pub const TRANSFER_MASK: ADataSpace = ADataSpace(130023424);
+}
+impl ADataSpace {
+    pub const TRANSFER_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const TRANSFER_LINEAR: ADataSpace = ADataSpace(4194304);
+}
+impl ADataSpace {
+    pub const TRANSFER_SMPTE_170M: ADataSpace = ADataSpace(12582912);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_2: ADataSpace = ADataSpace(16777216);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_6: ADataSpace = ADataSpace(20971520);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_8: ADataSpace = ADataSpace(25165824);
+}
+impl ADataSpace {
+    pub const TRANSFER_SRGB: ADataSpace = ADataSpace(8388608);
+}
+impl ADataSpace {
+    pub const TRANSFER_ST2084: ADataSpace = ADataSpace(29360128);
+}
+impl ADataSpace {
+    pub const TRANSFER_HLG: ADataSpace = ADataSpace(33554432);
+}
+impl ADataSpace {
+    pub const RANGE_MASK: ADataSpace = ADataSpace(939524096);
+}
+impl ADataSpace {
+    pub const RANGE_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const RANGE_FULL: ADataSpace = ADataSpace(134217728);
+}
+impl ADataSpace {
+    pub const RANGE_LIMITED: ADataSpace = ADataSpace(268435456);
+}
+impl ADataSpace {
+    pub const RANGE_EXTENDED: ADataSpace = ADataSpace(402653184);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -4529,6 +4612,8 @@ pub const AKEYCODE_MACRO_1: _bindgen_ty_13 = 313;
 pub const AKEYCODE_MACRO_2: _bindgen_ty_13 = 314;
 pub const AKEYCODE_MACRO_3: _bindgen_ty_13 = 315;
 pub const AKEYCODE_MACRO_4: _bindgen_ty_13 = 316;
+pub const AKEYCODE_EMOJI_PICKER: _bindgen_ty_13 = 317;
+pub const AKEYCODE_SCREENSHOT: _bindgen_ty_13 = 318;
 pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -5046,6 +5131,9 @@ extern "C" {
 }
 extern "C" {
     pub fn AMotionEvent_fromJava(env: *mut JNIEnv, motionEvent: jobject) -> *const AInputEvent;
+}
+extern "C" {
+    pub fn AInputEvent_toJava(env: *mut JNIEnv, aInputEvent: *const AInputEvent) -> jobject;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -7618,8 +7706,8 @@ extern "C" {
 }
 extern "C" {
     pub fn qsort(
-        __base: *mut ::std::os::raw::c_void,
-        __nmemb: usize,
+        __array: *mut ::std::os::raw::c_void,
+        __n: usize,
         __size: usize,
         __comparator: ::std::option::Option<
             unsafe extern "C" fn(
@@ -7627,6 +7715,21 @@ extern "C" {
                 __rhs: *const ::std::os::raw::c_void,
             ) -> ::std::os::raw::c_int,
         >,
+    );
+}
+extern "C" {
+    pub fn qsort_r(
+        __array: *mut ::std::os::raw::c_void,
+        __n: usize,
+        __size: usize,
+        __comparator: ::std::option::Option<
+            unsafe extern "C" fn(
+                __lhs: *const ::std::os::raw::c_void,
+                __rhs: *const ::std::os::raw::c_void,
+                __context: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+        __context: *mut ::std::os::raw::c_void,
     );
 }
 extern "C" {
@@ -10559,6 +10662,47 @@ fn bindgen_test_layout_tpidr2_context() {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct fpmr_context {
+    pub head: _aarch64_ctx,
+    pub fpmr: __u64,
+}
+#[test]
+fn bindgen_test_layout_fpmr_context() {
+    const UNINIT: ::std::mem::MaybeUninit<fpmr_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<fpmr_context>(),
+        16usize,
+        concat!("Size of: ", stringify!(fpmr_context))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<fpmr_context>(),
+        8usize,
+        concat!("Alignment of ", stringify!(fpmr_context))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(fpmr_context),
+            "::",
+            stringify!(head)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fpmr) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(fpmr_context),
+            "::",
+            stringify!(fpmr)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct za_context {
     pub head: _aarch64_ctx,
     pub vl: __u16,
@@ -13195,7 +13339,7 @@ extern "C" {
     pub fn AWorkDuration_create() -> *mut AWorkDuration;
 }
 extern "C" {
-    pub fn AWorkDuration_release(WorkDuration: *mut AWorkDuration);
+    pub fn AWorkDuration_release(aWorkDuration: *mut AWorkDuration);
 }
 extern "C" {
     pub fn AWorkDuration_setWorkPeriodStartTimestampNanos(
@@ -13752,12 +13896,6 @@ extern "C" {
 }
 extern "C" {
     pub fn fmal(__x: u128, __y: u128, __z: u128) -> u128;
-}
-extern "C" {
-    pub fn isinf(__x: f64) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn isnan(__x: f64) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub static mut signgam: ::std::os::raw::c_int;
@@ -17675,7 +17813,10 @@ impl acamera_metadata_section {
     pub const ACAMERA_JPEGR: acamera_metadata_section = acamera_metadata_section(33);
 }
 impl acamera_metadata_section {
-    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(34);
+    pub const ACAMERA_EFV: acamera_metadata_section = acamera_metadata_section(34);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(35);
 }
 impl acamera_metadata_section {
     pub const ACAMERA_VENDOR: acamera_metadata_section = acamera_metadata_section(32768);
@@ -17819,6 +17960,10 @@ impl acamera_metadata_section_start {
 impl acamera_metadata_section_start {
     pub const ACAMERA_JPEGR_START: acamera_metadata_section_start =
         acamera_metadata_section_start(2162688);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_EFV_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2228224);
 }
 impl acamera_metadata_section_start {
     pub const ACAMERA_VENDOR_START: acamera_metadata_section_start =
@@ -21246,7 +21391,7 @@ pub struct ACaptureRequest {
 }
 extern "C" {
     pub fn ACameraOutputTarget_create(
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
         output: *mut *mut ACameraOutputTarget,
     ) -> camera_status_t;
 }
@@ -21488,7 +21633,7 @@ fn bindgen_test_layout_ACameraCaptureSession_stateCallbacks() {
 pub type ACameraCaptureSession_prepareCallback = ::std::option::Option<
     unsafe extern "C" fn(
         context: *mut ::std::os::raw::c_void,
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
         session: *mut ACameraCaptureSession,
     ),
 >;
@@ -21603,7 +21748,7 @@ pub type ACameraCaptureSession_captureCallback_bufferLost = ::std::option::Optio
         context: *mut ::std::os::raw::c_void,
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
         frameNumber: i64,
     ),
 >;
@@ -22260,7 +22405,7 @@ extern "C" {
 extern "C" {
     pub fn ACameraCaptureSession_prepareWindow(
         session: *mut ACameraCaptureSession,
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
     ) -> camera_status_t;
 }
 #[repr(C)]
@@ -22426,7 +22571,7 @@ extern "C" {
 }
 extern "C" {
     pub fn ACaptureSessionOutput_create(
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
         output: *mut *mut ACaptureSessionOutput,
     ) -> camera_status_t;
 }
@@ -22455,20 +22600,20 @@ extern "C" {
 }
 extern "C" {
     pub fn ACaptureSessionSharedOutput_create(
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
         output: *mut *mut ACaptureSessionOutput,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACaptureSessionSharedOutput_add(
         output: *mut ACaptureSessionOutput,
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACaptureSessionSharedOutput_remove(
         output: *mut ACaptureSessionOutput,
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
     ) -> camera_status_t;
 }
 extern "C" {
@@ -22482,7 +22627,7 @@ extern "C" {
 }
 extern "C" {
     pub fn ACaptureSessionPhysicalOutput_create(
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
         physicalId: *const ::std::os::raw::c_char,
         output: *mut *mut ACaptureSessionOutput,
     ) -> camera_status_t;
