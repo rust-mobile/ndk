@@ -1,6 +1,6 @@
 [package]
 name = "ndk-sys"
-version = "0.6.0+11769913"
+version = "0.6.0+12211873"
 authors = ["The Rust Windowing contributors"]
 edition = "2021"
 description = "FFI bindings for the Android NDK"

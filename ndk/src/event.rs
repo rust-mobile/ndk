@@ -128,6 +128,16 @@ impl InputEvent {
         }
     }
 
+    /// Creates a Java [`android.view.InputEvent`] object that is a copy of this native
+    /// [`InputEvent`].
+    ///
+    /// [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
+    #[cfg(feature = "api-level-35")]
+    #[doc(alias = "AInputEvent_toJava")]
+    pub unsafe fn to_java(&self, env: *mut JNIEnv) -> jobject {
+        ffi::AInputEvent_toJava(env, self.ptr().as_ptr())
+    }
+
     /// Get the source of the event.
     ///
     /// See [the NDK
@@ -1392,6 +1402,11 @@ pub enum Keycode {
     ThumbsUp = ffi::AKEYCODE_THUMBS_UP as i32,
     ThumbsDown = ffi::AKEYCODE_THUMBS_DOWN as i32,
     ProfileSwitch = ffi::AKEYCODE_PROFILE_SWITCH as i32,
+    // TODO: Still missing a bunch here
+    /// Open Emoji picker
+    EmojiPicker = ffi::AKEYCODE_EMOJI_PICKER as i32,
+    /// Take Screenshot
+    Screenshot = ffi::AKEYCODE_SCREENSHOT as i32,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]

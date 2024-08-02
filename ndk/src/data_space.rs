@@ -425,7 +425,7 @@ pub enum DataSpaceStandard {
     /// Use the unadjusted `KR = 0.2627`, `KB = 0.0593` luminance interpretation for `RGB`
     /// conversion using the linear domain.
     #[doc(alias = "STANDARD_BT2020_CONSTANT_LUMINANCE")]
-    Bt2020ConstantLuminance = ffi::ADataSpace::STANDARD_BT2020_CONSTANT_LUMINANCE.0,
+    Bt2020ConstantLuminance = ffi::ADataSpace::ADATASPACE_STANDARD_BT2020_CONSTANT_LUMINANCE.0,
     /// | Primaries | x     | y    |
     /// | --------- | ----- | ---- |
     /// | green     | 0.21  |0.71  |
