@@ -180,6 +180,9 @@ impl InputEvent {
     /// [`InputEvent`].
     ///
     /// [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
+    ///
+    /// # Safety
+    /// TODO
     #[cfg(feature = "api-level-35")]
     #[doc(alias = "AInputEvent_toJava")]
     pub unsafe fn to_java(&self, env: *mut JNIEnv) -> jobject {
