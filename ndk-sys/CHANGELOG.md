@@ -1,6 +1,7 @@
 # Unreleased
 
 - Regenerate bindings with `bindgen 0.71.1`. (#487)
+- Regenerate with definitions from `thermal.h`. (#481)
 
 # 0.6.0 (2024-04-26)
 
