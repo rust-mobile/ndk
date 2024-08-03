@@ -16811,6 +16811,119 @@ extern "C" {
 extern "C" {
     pub fn ASystemFontIterator_next(iterator: *mut ASystemFontIterator) -> *mut AFont;
 }
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_ERROR: AThermalStatus = AThermalStatus(-1);
+}
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_NONE: AThermalStatus = AThermalStatus(0);
+}
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_LIGHT: AThermalStatus = AThermalStatus(1);
+}
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_MODERATE: AThermalStatus = AThermalStatus(2);
+}
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_SEVERE: AThermalStatus = AThermalStatus(3);
+}
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_CRITICAL: AThermalStatus = AThermalStatus(4);
+}
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_EMERGENCY: AThermalStatus = AThermalStatus(5);
+}
+impl AThermalStatus {
+    pub const ATHERMAL_STATUS_SHUTDOWN: AThermalStatus = AThermalStatus(6);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct AThermalStatus(pub ::std::os::raw::c_int);
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AThermalManager {
+    _unused: [u8; 0],
+}
+pub type AThermal_StatusCallback = ::std::option::Option<
+    unsafe extern "C" fn(data: *mut ::std::os::raw::c_void, status: AThermalStatus),
+>;
+extern "C" {
+    pub fn AThermal_acquireManager() -> *mut AThermalManager;
+}
+extern "C" {
+    pub fn AThermal_releaseManager(manager: *mut AThermalManager);
+}
+extern "C" {
+    pub fn AThermal_getCurrentThermalStatus(manager: *mut AThermalManager) -> AThermalStatus;
+}
+extern "C" {
+    pub fn AThermal_registerThermalStatusListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_StatusCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn AThermal_unregisterThermalStatusListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_StatusCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn AThermal_getThermalHeadroom(
+        manager: *mut AThermalManager,
+        forecastSeconds: ::std::os::raw::c_int,
+    ) -> f32;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AThermalHeadroomThreshold {
+    pub headroom: f32,
+    pub thermalStatus: AThermalStatus,
+}
+#[test]
+fn bindgen_test_layout_AThermalHeadroomThreshold() {
+    const UNINIT: ::std::mem::MaybeUninit<AThermalHeadroomThreshold> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<AThermalHeadroomThreshold>(),
+        8usize,
+        concat!("Size of: ", stringify!(AThermalHeadroomThreshold))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<AThermalHeadroomThreshold>(),
+        4usize,
+        concat!("Alignment of ", stringify!(AThermalHeadroomThreshold))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).headroom) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AThermalHeadroomThreshold),
+            "::",
+            stringify!(headroom)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).thermalStatus) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(AThermalHeadroomThreshold),
+            "::",
+            stringify!(thermalStatus)
+        )
+    );
+}
+extern "C" {
+    pub fn AThermal_getThermalHeadroomThresholds(
+        manager: *mut AThermalManager,
+        outThresholds: *mut *const AThermalHeadroomThreshold,
+        size: *mut usize,
+    ) -> ::std::os::raw::c_int;
+}
 extern "C" {
     pub fn ATrace_isEnabled() -> bool;
 }
