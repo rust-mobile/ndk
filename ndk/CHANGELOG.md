@@ -1,6 +1,7 @@
 # Unreleased
 
 - image_reader: Add `ImageReader::new_with_data_space()` constructor and `ImageReader::data_space()` getter from API level 34. (#474)
+- Add bindings for Performance Hint manager (`APerformanceHintManager`, `APerformanceHintSession`, `AWorkDuration`). (#480)
 
 # 0.9.0 (2024-04-26)
 
