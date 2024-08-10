@@ -24,7 +24,7 @@ use crate::utils::abort_on_panic;
 /// current thread.
 ///
 /// [`ALooper *`]: https://developer.android.com/ndk/reference/group/looper#alooper
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct ThreadLooper {
     _marker: std::marker::PhantomData<*mut ()>, // Not send or sync
     foreign: ForeignLooper,
@@ -34,7 +34,7 @@ bitflags::bitflags! {
     /// Flags for file descriptor events that a looper can monitor.
     ///
     /// These flag bits can be combined to monitor multiple events at once.
-    #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     pub struct FdEvent : u32 {
         /// The file descriptor is available for read operations.
         #[doc(alias = "ALOOPER_EVENT_INPUT")]
@@ -91,7 +91,7 @@ pub enum Poll<'fd> {
     },
 }
 
-#[derive(Debug, Copy, Clone, Error)]
+#[derive(Clone, Copy, Debug, Error)]
 #[error("Android Looper error")]
 pub struct LooperError;
 
@@ -260,7 +260,7 @@ impl ThreadLooper {
 /// A native [`ALooper *`], not necessarily allocated with the current thread.
 ///
 /// [`ALooper *`]: https://developer.android.com/ndk/reference/group/looper#alooper
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct ForeignLooper {
     ptr: ptr::NonNull<ffi::ALooper>,
 }

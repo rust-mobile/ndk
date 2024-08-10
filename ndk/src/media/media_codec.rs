@@ -10,14 +10,14 @@ use crate::utils::abort_on_panic;
 use std::{
     ffi::{c_char, c_void, CStr, CString},
     fmt,
+    hash::Hash,
     mem::MaybeUninit,
     pin::Pin,
-    ptr::{self, NonNull},
-    slice,
+    ptr, slice,
     time::Duration,
 };
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub enum MediaCodecDirection {
     Decoder,
     Encoder,
@@ -28,8 +28,23 @@ pub enum MediaCodecDirection {
 /// [`AMediaCodec *`]: https://developer.android.com/ndk/reference/group/media#amediacodec
 #[derive(Debug)]
 pub struct MediaCodec {
-    inner: NonNull<ffi::AMediaCodec>,
+    inner: ptr::NonNull<ffi::AMediaCodec>,
     async_notify_callback: Option<Pin<Box<AsyncNotifyCallback>>>,
+}
+
+// `MediaCodec` is the sole owner of a unique `AMediaCodec` pointer without refcounting semantics
+// (i.e. besides borrowing, two `MediaCodec`s can never be the same).  Implementing common traits on
+// the `inner` pointer value alone is sound.
+impl PartialEq for MediaCodec {
+    fn eq(&self, other: &Self) -> bool {
+        self.inner.eq(&other.inner)
+    }
+}
+impl Eq for MediaCodec {}
+impl Hash for MediaCodec {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.inner.hash(state)
+    }
 }
 
 pub struct AsyncNotifyCallback {
@@ -107,7 +122,9 @@ impl MediaCodec {
     pub fn from_codec_name(name: &str) -> Option<Self> {
         let c_string = CString::new(name).unwrap();
         Some(Self {
-            inner: NonNull::new(unsafe { ffi::AMediaCodec_createCodecByName(c_string.as_ptr()) })?,
+            inner: ptr::NonNull::new(unsafe {
+                ffi::AMediaCodec_createCodecByName(c_string.as_ptr())
+            })?,
             async_notify_callback: None,
         })
     }
@@ -115,7 +132,7 @@ impl MediaCodec {
     pub fn from_decoder_type(mime_type: &str) -> Option<Self> {
         let c_string = CString::new(mime_type).unwrap();
         Some(Self {
-            inner: NonNull::new(unsafe {
+            inner: ptr::NonNull::new(unsafe {
                 ffi::AMediaCodec_createDecoderByType(c_string.as_ptr())
             })?,
             async_notify_callback: None,
@@ -125,7 +142,7 @@ impl MediaCodec {
     pub fn from_encoder_type(mime_type: &str) -> Option<Self> {
         let c_string = CString::new(mime_type).unwrap();
         Some(Self {
-            inner: NonNull::new(unsafe {
+            inner: ptr::NonNull::new(unsafe {
                 ffi::AMediaCodec_createEncoderByType(c_string.as_ptr())
             })?,
             async_notify_callback: None,
@@ -199,7 +216,7 @@ impl MediaCodec {
                 // Ownership of the format is not documented, but the implementation allocates a new instance and does
                 // not free it, so assume it is ok for us to do so
                 // https://cs.android.com/android/platform/superproject/main/+/refs/heads/main:frameworks/av/media/ndk/NdkMediaCodec.cpp;l=248-254;drc=5e15c3e22f3fa32d64e57302201123ce41589adf
-                let format = MediaFormat::from_ptr(NonNull::new_unchecked(format));
+                let format = MediaFormat::from_ptr(ptr::NonNull::new_unchecked(format));
 
                 let callback = &mut *(user_data as *mut AsyncNotifyCallback);
                 if let Some(f) = callback.on_format_changed.as_mut() {
@@ -401,13 +418,13 @@ impl MediaCodec {
 
     #[cfg(feature = "api-level-28")]
     pub fn input_format(&self) -> MediaFormat {
-        let inner = NonNull::new(unsafe { ffi::AMediaCodec_getInputFormat(self.as_ptr()) })
+        let inner = ptr::NonNull::new(unsafe { ffi::AMediaCodec_getInputFormat(self.as_ptr()) })
             .expect("AMediaCodec_getInputFormat returned NULL");
         unsafe { MediaFormat::from_ptr(inner) }
     }
 
     pub fn output_format(&self) -> MediaFormat {
-        let inner = NonNull::new(unsafe { ffi::AMediaCodec_getOutputFormat(self.as_ptr()) })
+        let inner = ptr::NonNull::new(unsafe { ffi::AMediaCodec_getOutputFormat(self.as_ptr()) })
             .expect("AMediaCodec_getOutputFormat returned NULL");
         unsafe { MediaFormat::from_ptr(inner) }
     }
@@ -432,7 +449,7 @@ impl MediaCodec {
         time: u64,
         flags: u32,
     ) -> Result<()> {
-        debug_assert!(ptr::eq(self, buffer.codec));
+        debug_assert_eq!(self, buffer.codec);
         self.queue_input_buffer_by_index(buffer.index, offset, size, time, flags)
     }
 
@@ -458,7 +475,7 @@ impl MediaCodec {
     }
 
     pub fn release_output_buffer(&self, buffer: OutputBuffer<'_>, render: bool) -> Result<()> {
-        debug_assert!(ptr::eq(self, buffer.codec));
+        debug_assert_eq!(self, buffer.codec);
         self.release_output_buffer_by_index(buffer.index, render)
     }
 
@@ -473,7 +490,7 @@ impl MediaCodec {
         buffer: OutputBuffer<'_>,
         timestamp_ns: i64,
     ) -> Result<()> {
-        debug_assert!(ptr::eq(self, buffer.codec));
+        debug_assert_eq!(self, buffer.codec);
         self.release_output_buffer_at_time_by_index(buffer.index, timestamp_ns)
     }
 
@@ -573,7 +590,7 @@ impl OutputBuffer<'_> {
 
     #[cfg(feature = "api-level-28")]
     pub fn format(&self) -> MediaFormat {
-        let inner = NonNull::new(unsafe {
+        let inner = ptr::NonNull::new(unsafe {
             ffi::AMediaCodec_getBufferFormat(self.codec.as_ptr(), self.index)
         })
         .expect("AMediaCodec_getBufferFormat returned NULL");
@@ -593,7 +610,7 @@ pub enum DequeuedOutputBufferInfoResult<'a> {
     OutputBuffersChanged,
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Clone, Copy, Debug)]
 pub struct BufferInfo {
     inner: ffi::AMediaCodecBufferInfo,
 }
@@ -616,7 +633,7 @@ impl BufferInfo {
     }
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct ActionCode(pub i32);
 
 impl ActionCode {

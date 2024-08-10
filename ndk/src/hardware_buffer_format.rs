@@ -6,7 +6,7 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 
 /// Buffer pixel formats.
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[non_exhaustive]
 pub enum HardwareBufferFormat {

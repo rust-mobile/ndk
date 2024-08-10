@@ -29,7 +29,7 @@ use crate::utils::abort_on_panic;
 /// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-29")]
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_allowed_capture_policy_t")]
 #[non_exhaustive]
 pub enum AudioAllowedCapturePolicy {
@@ -83,7 +83,7 @@ pub enum AudioAllowedCapturePolicy {
 /// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-28")]
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_content_type_t")]
 #[non_exhaustive]
 pub enum AudioContentType {
@@ -107,7 +107,7 @@ pub enum AudioContentType {
 }
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_direction_t")]
 #[non_exhaustive]
 pub enum AudioDirection {
@@ -124,7 +124,7 @@ pub enum AudioDirection {
 }
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[doc(alias = "aaudio_format_t")]
 #[non_exhaustive]
@@ -159,7 +159,7 @@ pub enum AudioFormat {
 /// Note that these match the equivalent values in MediaRecorder.AudioSource in the Android Java API.
 #[cfg(feature = "api-level-28")]
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_input_preset_t")]
 #[non_exhaustive]
 pub enum AudioInputPreset {
@@ -193,7 +193,7 @@ pub enum AudioInputPreset {
 }
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_performance_mode_t")]
 #[non_exhaustive]
 pub enum AudioPerformanceMode {
@@ -216,7 +216,7 @@ pub enum AudioPerformanceMode {
 }
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_sharing_mode_t")]
 #[non_exhaustive]
 pub enum AudioSharingMode {
@@ -245,7 +245,7 @@ pub enum AudioSharingMode {
 /// [`android.media.AudioAttributes`]: https://developer.android.com/reference/android/media/AudioAttributes
 #[cfg(feature = "api-level-28")]
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_usage_t")]
 #[non_exhaustive]
 pub enum AudioUsage {
@@ -312,7 +312,7 @@ pub enum AudioUsage {
 }
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_stream_state_t")]
 #[non_exhaustive]
 pub enum AudioStreamState {
@@ -358,21 +358,21 @@ impl AudioStreamState {
     }
 }
 
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[doc(alias = "aaudio_session_id_t")]
 pub enum SessionId {
     None,
     Allocated(NonZeroI32),
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Timestamp {
     pub frame_position: i64,
     pub time_nanoseconds: i64,
 }
 
 #[repr(u32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[non_exhaustive]
 pub enum Clockid {
     #[doc(alias = "CLOCK_MONOTONIC")]
@@ -383,7 +383,7 @@ pub enum Clockid {
 
 /// Value returned the data callback function.
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, IntoPrimitive)]
 #[doc(alias = "aaudio_data_callback_result_t")]
 #[non_exhaustive]
 pub enum AudioCallbackResult {
@@ -399,7 +399,7 @@ pub enum AudioCallbackResult {
 }
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "aaudio_result_t")]
 #[non_exhaustive]
 pub enum AudioError {
@@ -983,6 +983,7 @@ impl Drop for AudioStreamBuilder {
 ///
 /// [`AAudioStream *`]: https://developer.android.com/ndk/reference/group/audio#aaudiostream
 #[doc(alias = "AAudioStream")]
+// #[derive(Debug, PartialEq, Eq, Hash)]
 pub struct AudioStream {
     inner: NonNull<ffi::AAudioStream>,
     data_callback: Option<AudioStreamDataCallback>,

@@ -19,7 +19,7 @@ use crate::utils::abort_on_panic;
 use crate::{data_space::DataSpace, hardware_buffer_format::HardwareBufferFormat};
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[non_exhaustive]
 #[doc(alias = "AIMAGE_FORMATS")]
@@ -61,7 +61,7 @@ pub type BufferRemovedListener = Box<dyn FnMut(&ImageReader, &HardwareBuffer) + 
 /// - [`ImageReader::acquire_next_image_async()`]`
 /// - [`ImageReader::acquire_latest_image()`]`
 /// - [`ImageReader::acquire_latest_image_async()`]`
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AcquireResult<T> {
     /// Returned if there is no buffers currently available in the reader queue.
     #[doc(alias = "AMEDIA_IMGREADER_NO_BUFFER_AVAILABLE")]
@@ -378,7 +378,7 @@ impl Drop for ImageReader {
 /// A native [`AImage *`]
 ///
 /// [`AImage *`]: https://developer.android.com/ndk/reference/group/media#aimage
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 #[doc(alias = "AImage")]
 pub struct Image {
     inner: NonNull<ffi::AImage>,
