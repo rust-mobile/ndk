@@ -1,5 +1,7 @@
 # Unreleased
 
+- Regenerate with bindgen definitions from `thermal.h`. (#481)
+
 # 0.6.0 (2024-04-26)
 
 - Generate against upstream NDK build `11769913`. (#471)
