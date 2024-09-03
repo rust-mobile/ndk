@@ -9,6 +9,7 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 #[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[non_exhaustive]
+#[doc(alias = "AHardwareBuffer_Format")]
 pub enum HardwareBufferFormat {
     /// Matches deprecated [`ffi::ANativeWindow_LegacyFormat::WINDOW_FORMAT_RGBA_8888`].0.
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM")]
@@ -60,11 +61,25 @@ pub enum HardwareBufferFormat {
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_YCbCr_P010")]
     YCbCr_P010 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_YCbCr_P010.0 as i32,
     #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_YCbCr_P210")]
+    YCbCr_P210 = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_YCbCr_P210.0 as i32,
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R8_UNORM")]
     R8_UNORM = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R8_UNORM.0 as i32,
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R16_UINT")]
+    R16_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R16_UINT.0 as i32,
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R16G16_UINT")]
+    R16G16_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R16G16_UINT.0 as i32,
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R10G10B10A10_UNORM")]
+    R10G10B10A10_UNORM =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R10G10B10A10_UNORM.0 as i32,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
-    __Unknown(i32),
+    __Unknown(i32) = 0,
 }
 
 impl HardwareBufferFormat {
@@ -99,7 +114,15 @@ impl HardwareBufferFormat {
             #[cfg(feature = "api-level-26")]
             Self::YCbCr_P010 => return None,
             #[cfg(feature = "api-level-26")]
+            Self::YCbCr_P210 => return None,
+            #[cfg(feature = "api-level-26")]
             Self::R8_UNORM => 1,
+            #[cfg(feature = "api-level-26")]
+            Self::R16_UINT => 2,
+            #[cfg(feature = "api-level-26")]
+            Self::R16G16_UINT => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::R10G10B10A10_UNORM => return None, // TODO: 5?
             Self::__Unknown(_) => return None,
         })
     }

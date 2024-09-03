@@ -12,16 +12,14 @@ else
     host_tag="linux-x86_64"
 fi
 
-# Builds can be found at https://ci.android.com for the `ndk` component
-build_id=$(grep -oP 'version = "\d\.\d.\d\+\K\d+' ./Cargo.toml)
-# From https://cs.android.com/android/platform/superproject/main/+/main:development/python-packages/fetchartifact/fetchartifact/__init__.py
-target="ndk"
-artifact_name="ndk_platform.tar.bz2"
-url="https://androidbuildinternal.googleapis.com/android/internal/build/v3/builds/$build_id/$target/attempts/latest/artifacts/$artifact_name/url"
-echo "Downloading sysroot $build_id from $url"
+# Releases can be found at https://developer.android.com/ndk/downloads
+release=r$(grep -oP 'version = "\d\.\d.\d\+\K\d+' ./Cargo.toml)
+artifact_name="android-ndk-$release-linux.zip"
+url="https://dl.google.com/android/repository/$artifact_name"
+echo "Downloading NDK $release from $url"
 curl -L $url -o "$artifact_name"
-tar xvf "$artifact_name" "ndk/sysroot/usr/include"
-sysroot="$PWD/ndk/sysroot/"
+unzip -o "$artifact_name" "android-ndk-$release/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/*"
+sysroot="$PWD/android-ndk-$release/toolchains/llvm/prebuilt/linux-x86_64/sysroot/"
 [ ! -d "$sysroot" ] && echo "Android sysroot $sysroot does not exist!" && exit 1
 
 while read ARCH && read TARGET ; do
@@ -73,7 +71,7 @@ while read ARCH && read TARGET ; do
         --newtype-enum 'cryptoinfo_mode_t' \
         --newtype-enum 'log_id' \
         -- \
-        --sysroot="$sysroot" --target=$TARGET
+        --sysroot="$sysroot" --target=${TARGET}10000
 done << EOF
 arm
 arm-linux-androideabi

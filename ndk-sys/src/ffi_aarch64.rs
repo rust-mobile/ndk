@@ -40,8 +40,13 @@ impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
         fmt.write_str("__IncompleteArrayField")
     }
 }
+pub const __ANDROID_NDK__: u32 = 1;
+pub const __NDK_MAJOR__: u32 = 30;
+pub const __NDK_MINOR__: u32 = 0;
+pub const __NDK_BETA__: u32 = 0;
+pub const __NDK_BUILD__: u32 = 16248370;
+pub const __NDK_CANARY__: u32 = 0;
 pub const __ANDROID_API_FUTURE__: u32 = 10000;
-pub const __ANDROID_API__: u32 = 10000;
 pub const __ANDROID_API_G__: u32 = 9;
 pub const __ANDROID_API_I__: u32 = 14;
 pub const __ANDROID_API_J__: u32 = 16;
@@ -119,11 +124,11 @@ pub struct AAssetDir {
 pub struct AAsset {
     _unused: [u8; 0],
 }
-pub const AASSET_MODE_UNKNOWN: _bindgen_ty_1 = 0;
-pub const AASSET_MODE_RANDOM: _bindgen_ty_1 = 1;
-pub const AASSET_MODE_STREAMING: _bindgen_ty_1 = 2;
-pub const AASSET_MODE_BUFFER: _bindgen_ty_1 = 3;
-pub type _bindgen_ty_1 = ::std::os::raw::c_uint;
+pub const AASSET_MODE_UNKNOWN: _bindgen_ty_2 = 0;
+pub const AASSET_MODE_RANDOM: _bindgen_ty_2 = 1;
+pub const AASSET_MODE_STREAMING: _bindgen_ty_2 = 2;
+pub const AASSET_MODE_BUFFER: _bindgen_ty_2 = 3;
+pub type _bindgen_ty_2 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AAssetManager_openDir(
         mgr: *mut AAssetManager,
@@ -202,11 +207,11 @@ pub type va_list = __BindgenOpaqueArray<u64, 4usize>;
 extern "C" {
     pub fn AAssetManager_fromJava(env: *mut JNIEnv, assetManager: jobject) -> *mut AAssetManager;
 }
-pub const ANDROID_BITMAP_RESULT_SUCCESS: _bindgen_ty_2 = 0;
-pub const ANDROID_BITMAP_RESULT_BAD_PARAMETER: _bindgen_ty_2 = -1;
-pub const ANDROID_BITMAP_RESULT_JNI_EXCEPTION: _bindgen_ty_2 = -2;
-pub const ANDROID_BITMAP_RESULT_ALLOCATION_FAILED: _bindgen_ty_2 = -3;
-pub type _bindgen_ty_2 = ::std::os::raw::c_int;
+pub const ANDROID_BITMAP_RESULT_SUCCESS: _bindgen_ty_3 = 0;
+pub const ANDROID_BITMAP_RESULT_BAD_PARAMETER: _bindgen_ty_3 = -1;
+pub const ANDROID_BITMAP_RESULT_JNI_EXCEPTION: _bindgen_ty_3 = -2;
+pub const ANDROID_BITMAP_RESULT_ALLOCATION_FAILED: _bindgen_ty_3 = -3;
+pub type _bindgen_ty_3 = ::std::os::raw::c_int;
 impl AndroidBitmapFormat {
     pub const ANDROID_BITMAP_FORMAT_NONE: AndroidBitmapFormat = AndroidBitmapFormat(0);
 }
@@ -231,14 +236,14 @@ impl AndroidBitmapFormat {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AndroidBitmapFormat(pub ::std::os::raw::c_uint);
-pub const ANDROID_BITMAP_FLAGS_ALPHA_PREMUL: _bindgen_ty_3 = 0;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_OPAQUE: _bindgen_ty_3 = 1;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_UNPREMUL: _bindgen_ty_3 = 2;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_MASK: _bindgen_ty_3 = 3;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_SHIFT: _bindgen_ty_3 = 0;
-pub type _bindgen_ty_3 = ::std::os::raw::c_uint;
-pub const ANDROID_BITMAP_FLAGS_IS_HARDWARE: _bindgen_ty_4 = -2147483648;
-pub type _bindgen_ty_4 = ::std::os::raw::c_int;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_PREMUL: _bindgen_ty_4 = 0;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_OPAQUE: _bindgen_ty_4 = 1;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_UNPREMUL: _bindgen_ty_4 = 2;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_MASK: _bindgen_ty_4 = 3;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_SHIFT: _bindgen_ty_4 = 0;
+pub type _bindgen_ty_4 = ::std::os::raw::c_uint;
+pub const ANDROID_BITMAP_FLAGS_IS_HARDWARE: _bindgen_ty_5 = -2147483648;
+pub type _bindgen_ty_5 = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AndroidBitmapInfo {
@@ -475,98 +480,98 @@ extern "C" {
 pub struct AConfiguration {
     _unused: [u8; 0],
 }
-pub const ACONFIGURATION_ORIENTATION_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_ORIENTATION_PORT: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_ORIENTATION_LAND: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_ORIENTATION_SQUARE: _bindgen_ty_5 = 3;
-pub const ACONFIGURATION_TOUCHSCREEN_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_TOUCHSCREEN_NOTOUCH: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_TOUCHSCREEN_STYLUS: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_TOUCHSCREEN_FINGER: _bindgen_ty_5 = 3;
-pub const ACONFIGURATION_DENSITY_DEFAULT: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_DENSITY_LOW: _bindgen_ty_5 = 120;
-pub const ACONFIGURATION_DENSITY_MEDIUM: _bindgen_ty_5 = 160;
-pub const ACONFIGURATION_DENSITY_TV: _bindgen_ty_5 = 213;
-pub const ACONFIGURATION_DENSITY_HIGH: _bindgen_ty_5 = 240;
-pub const ACONFIGURATION_DENSITY_XHIGH: _bindgen_ty_5 = 320;
-pub const ACONFIGURATION_DENSITY_XXHIGH: _bindgen_ty_5 = 480;
-pub const ACONFIGURATION_DENSITY_XXXHIGH: _bindgen_ty_5 = 640;
-pub const ACONFIGURATION_DENSITY_ANY: _bindgen_ty_5 = 65534;
-pub const ACONFIGURATION_DENSITY_NONE: _bindgen_ty_5 = 65535;
-pub const ACONFIGURATION_KEYBOARD_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_KEYBOARD_NOKEYS: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_KEYBOARD_QWERTY: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_KEYBOARD_12KEY: _bindgen_ty_5 = 3;
-pub const ACONFIGURATION_NAVIGATION_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_NAVIGATION_NONAV: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_NAVIGATION_DPAD: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_NAVIGATION_TRACKBALL: _bindgen_ty_5 = 3;
-pub const ACONFIGURATION_NAVIGATION_WHEEL: _bindgen_ty_5 = 4;
-pub const ACONFIGURATION_KEYSHIDDEN_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_KEYSHIDDEN_NO: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_KEYSHIDDEN_YES: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_KEYSHIDDEN_SOFT: _bindgen_ty_5 = 3;
-pub const ACONFIGURATION_NAVHIDDEN_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_NAVHIDDEN_NO: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_NAVHIDDEN_YES: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_SCREENSIZE_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_SCREENSIZE_SMALL: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_SCREENSIZE_NORMAL: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_SCREENSIZE_LARGE: _bindgen_ty_5 = 3;
-pub const ACONFIGURATION_SCREENSIZE_XLARGE: _bindgen_ty_5 = 4;
-pub const ACONFIGURATION_SCREENLONG_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_SCREENLONG_NO: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_SCREENLONG_YES: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_SCREENROUND_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_SCREENROUND_NO: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_SCREENROUND_YES: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_WIDE_COLOR_GAMUT_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_WIDE_COLOR_GAMUT_NO: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_WIDE_COLOR_GAMUT_YES: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_HDR_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_HDR_NO: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_HDR_YES: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_UI_MODE_TYPE_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_UI_MODE_TYPE_NORMAL: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_UI_MODE_TYPE_DESK: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_UI_MODE_TYPE_CAR: _bindgen_ty_5 = 3;
-pub const ACONFIGURATION_UI_MODE_TYPE_TELEVISION: _bindgen_ty_5 = 4;
-pub const ACONFIGURATION_UI_MODE_TYPE_APPLIANCE: _bindgen_ty_5 = 5;
-pub const ACONFIGURATION_UI_MODE_TYPE_WATCH: _bindgen_ty_5 = 6;
-pub const ACONFIGURATION_UI_MODE_TYPE_VR_HEADSET: _bindgen_ty_5 = 7;
-pub const ACONFIGURATION_UI_MODE_NIGHT_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_UI_MODE_NIGHT_NO: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_UI_MODE_NIGHT_YES: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_SCREEN_WIDTH_DP_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_SCREEN_HEIGHT_DP_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_SMALLEST_SCREEN_WIDTH_DP_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_LAYOUTDIR_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_LAYOUTDIR_LTR: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_LAYOUTDIR_RTL: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_MCC: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_MNC: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_LOCALE: _bindgen_ty_5 = 4;
-pub const ACONFIGURATION_TOUCHSCREEN: _bindgen_ty_5 = 8;
-pub const ACONFIGURATION_KEYBOARD: _bindgen_ty_5 = 16;
-pub const ACONFIGURATION_KEYBOARD_HIDDEN: _bindgen_ty_5 = 32;
-pub const ACONFIGURATION_NAVIGATION: _bindgen_ty_5 = 64;
-pub const ACONFIGURATION_ORIENTATION: _bindgen_ty_5 = 128;
-pub const ACONFIGURATION_DENSITY: _bindgen_ty_5 = 256;
-pub const ACONFIGURATION_SCREEN_SIZE: _bindgen_ty_5 = 512;
-pub const ACONFIGURATION_VERSION: _bindgen_ty_5 = 1024;
-pub const ACONFIGURATION_SCREEN_LAYOUT: _bindgen_ty_5 = 2048;
-pub const ACONFIGURATION_UI_MODE: _bindgen_ty_5 = 4096;
-pub const ACONFIGURATION_SMALLEST_SCREEN_SIZE: _bindgen_ty_5 = 8192;
-pub const ACONFIGURATION_LAYOUTDIR: _bindgen_ty_5 = 16384;
-pub const ACONFIGURATION_SCREEN_ROUND: _bindgen_ty_5 = 32768;
-pub const ACONFIGURATION_COLOR_MODE: _bindgen_ty_5 = 65536;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER: _bindgen_ty_5 = 131072;
-pub const ACONFIGURATION_MNC_ZERO: _bindgen_ty_5 = 65535;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_ANY: _bindgen_ty_5 = 0;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_NEUTER: _bindgen_ty_5 = 1;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_FEMININE: _bindgen_ty_5 = 2;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_MASCULINE: _bindgen_ty_5 = 3;
-pub type _bindgen_ty_5 = ::std::os::raw::c_uint;
+pub const ACONFIGURATION_ORIENTATION_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_ORIENTATION_PORT: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_ORIENTATION_LAND: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_ORIENTATION_SQUARE: _bindgen_ty_6 = 3;
+pub const ACONFIGURATION_TOUCHSCREEN_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_TOUCHSCREEN_NOTOUCH: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_TOUCHSCREEN_STYLUS: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_TOUCHSCREEN_FINGER: _bindgen_ty_6 = 3;
+pub const ACONFIGURATION_DENSITY_DEFAULT: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_DENSITY_LOW: _bindgen_ty_6 = 120;
+pub const ACONFIGURATION_DENSITY_MEDIUM: _bindgen_ty_6 = 160;
+pub const ACONFIGURATION_DENSITY_TV: _bindgen_ty_6 = 213;
+pub const ACONFIGURATION_DENSITY_HIGH: _bindgen_ty_6 = 240;
+pub const ACONFIGURATION_DENSITY_XHIGH: _bindgen_ty_6 = 320;
+pub const ACONFIGURATION_DENSITY_XXHIGH: _bindgen_ty_6 = 480;
+pub const ACONFIGURATION_DENSITY_XXXHIGH: _bindgen_ty_6 = 640;
+pub const ACONFIGURATION_DENSITY_ANY: _bindgen_ty_6 = 65534;
+pub const ACONFIGURATION_DENSITY_NONE: _bindgen_ty_6 = 65535;
+pub const ACONFIGURATION_KEYBOARD_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_KEYBOARD_NOKEYS: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_KEYBOARD_QWERTY: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_KEYBOARD_12KEY: _bindgen_ty_6 = 3;
+pub const ACONFIGURATION_NAVIGATION_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_NAVIGATION_NONAV: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_NAVIGATION_DPAD: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_NAVIGATION_TRACKBALL: _bindgen_ty_6 = 3;
+pub const ACONFIGURATION_NAVIGATION_WHEEL: _bindgen_ty_6 = 4;
+pub const ACONFIGURATION_KEYSHIDDEN_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_KEYSHIDDEN_NO: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_KEYSHIDDEN_YES: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_KEYSHIDDEN_SOFT: _bindgen_ty_6 = 3;
+pub const ACONFIGURATION_NAVHIDDEN_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_NAVHIDDEN_NO: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_NAVHIDDEN_YES: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_SCREENSIZE_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_SCREENSIZE_SMALL: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_SCREENSIZE_NORMAL: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_SCREENSIZE_LARGE: _bindgen_ty_6 = 3;
+pub const ACONFIGURATION_SCREENSIZE_XLARGE: _bindgen_ty_6 = 4;
+pub const ACONFIGURATION_SCREENLONG_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_SCREENLONG_NO: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_SCREENLONG_YES: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_SCREENROUND_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_SCREENROUND_NO: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_SCREENROUND_YES: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_WIDE_COLOR_GAMUT_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_WIDE_COLOR_GAMUT_NO: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_WIDE_COLOR_GAMUT_YES: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_HDR_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_HDR_NO: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_HDR_YES: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_UI_MODE_TYPE_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_UI_MODE_TYPE_NORMAL: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_UI_MODE_TYPE_DESK: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_UI_MODE_TYPE_CAR: _bindgen_ty_6 = 3;
+pub const ACONFIGURATION_UI_MODE_TYPE_TELEVISION: _bindgen_ty_6 = 4;
+pub const ACONFIGURATION_UI_MODE_TYPE_APPLIANCE: _bindgen_ty_6 = 5;
+pub const ACONFIGURATION_UI_MODE_TYPE_WATCH: _bindgen_ty_6 = 6;
+pub const ACONFIGURATION_UI_MODE_TYPE_VR_HEADSET: _bindgen_ty_6 = 7;
+pub const ACONFIGURATION_UI_MODE_NIGHT_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_UI_MODE_NIGHT_NO: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_UI_MODE_NIGHT_YES: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_SCREEN_WIDTH_DP_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_SCREEN_HEIGHT_DP_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_SMALLEST_SCREEN_WIDTH_DP_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_LAYOUTDIR_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_LAYOUTDIR_LTR: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_LAYOUTDIR_RTL: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_MCC: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_MNC: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_LOCALE: _bindgen_ty_6 = 4;
+pub const ACONFIGURATION_TOUCHSCREEN: _bindgen_ty_6 = 8;
+pub const ACONFIGURATION_KEYBOARD: _bindgen_ty_6 = 16;
+pub const ACONFIGURATION_KEYBOARD_HIDDEN: _bindgen_ty_6 = 32;
+pub const ACONFIGURATION_NAVIGATION: _bindgen_ty_6 = 64;
+pub const ACONFIGURATION_ORIENTATION: _bindgen_ty_6 = 128;
+pub const ACONFIGURATION_DENSITY: _bindgen_ty_6 = 256;
+pub const ACONFIGURATION_SCREEN_SIZE: _bindgen_ty_6 = 512;
+pub const ACONFIGURATION_VERSION: _bindgen_ty_6 = 1024;
+pub const ACONFIGURATION_SCREEN_LAYOUT: _bindgen_ty_6 = 2048;
+pub const ACONFIGURATION_UI_MODE: _bindgen_ty_6 = 4096;
+pub const ACONFIGURATION_SMALLEST_SCREEN_SIZE: _bindgen_ty_6 = 8192;
+pub const ACONFIGURATION_LAYOUTDIR: _bindgen_ty_6 = 16384;
+pub const ACONFIGURATION_SCREEN_ROUND: _bindgen_ty_6 = 32768;
+pub const ACONFIGURATION_COLOR_MODE: _bindgen_ty_6 = 65536;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER: _bindgen_ty_6 = 131072;
+pub const ACONFIGURATION_MNC_ZERO: _bindgen_ty_6 = 65535;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_ANY: _bindgen_ty_6 = 0;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_NEUTER: _bindgen_ty_6 = 1;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_FEMININE: _bindgen_ty_6 = 2;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_MASCULINE: _bindgen_ty_6 = 3;
+pub type _bindgen_ty_6 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AConfiguration_new() -> *mut AConfiguration;
 }
@@ -736,92 +741,122 @@ extern "C" {
         requested: *mut AConfiguration,
     ) -> i32;
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct crash_detail_t {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn android_crash_detail_register(
+        name: *const ::std::os::raw::c_void,
+        name_size: usize,
+        data: *const ::std::os::raw::c_void,
+        data_size: usize,
+    ) -> *mut crash_detail_t;
+}
+extern "C" {
+    pub fn android_crash_detail_unregister(crash_detail: *mut crash_detail_t);
+}
+extern "C" {
+    pub fn android_crash_detail_replace_data(
+        crash_detail: *mut crash_detail_t,
+        data: *const ::std::os::raw::c_void,
+        data_size: usize,
+    );
+}
+extern "C" {
+    pub fn android_crash_detail_replace_name(
+        crash_detail: *mut crash_detail_t,
+        name: *const ::std::os::raw::c_void,
+        name_size: usize,
+    );
+}
 impl ADataSpace {
     pub const ADATASPACE_UNKNOWN: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const STANDARD_MASK: ADataSpace = ADataSpace(4128768);
+    pub const ADATASPACE_STANDARD_MASK: ADataSpace = ADataSpace(4128768);
 }
 impl ADataSpace {
-    pub const STANDARD_UNSPECIFIED: ADataSpace = ADataSpace(0);
+    pub const ADATASPACE_STANDARD_UNSPECIFIED: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const STANDARD_BT709: ADataSpace = ADataSpace(65536);
+    pub const ADATASPACE_STANDARD_BT709: ADataSpace = ADataSpace(65536);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_625: ADataSpace = ADataSpace(131072);
+    pub const ADATASPACE_STANDARD_BT601_625: ADataSpace = ADataSpace(131072);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_625_UNADJUSTED: ADataSpace = ADataSpace(196608);
+    pub const ADATASPACE_STANDARD_BT601_625_UNADJUSTED: ADataSpace = ADataSpace(196608);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_525: ADataSpace = ADataSpace(262144);
+    pub const ADATASPACE_STANDARD_BT601_525: ADataSpace = ADataSpace(262144);
 }
 impl ADataSpace {
-    pub const STANDARD_BT601_525_UNADJUSTED: ADataSpace = ADataSpace(327680);
+    pub const ADATASPACE_STANDARD_BT601_525_UNADJUSTED: ADataSpace = ADataSpace(327680);
 }
 impl ADataSpace {
-    pub const STANDARD_BT2020: ADataSpace = ADataSpace(393216);
+    pub const ADATASPACE_STANDARD_BT2020: ADataSpace = ADataSpace(393216);
 }
 impl ADataSpace {
-    pub const STANDARD_BT2020_CONSTANT_LUMINANCE: ADataSpace = ADataSpace(458752);
+    pub const ADATASPACE_STANDARD_BT2020_CONSTANT_LUMINANCE: ADataSpace = ADataSpace(458752);
 }
 impl ADataSpace {
-    pub const STANDARD_BT470M: ADataSpace = ADataSpace(524288);
+    pub const ADATASPACE_STANDARD_BT470M: ADataSpace = ADataSpace(524288);
 }
 impl ADataSpace {
-    pub const STANDARD_FILM: ADataSpace = ADataSpace(589824);
+    pub const ADATASPACE_STANDARD_FILM: ADataSpace = ADataSpace(589824);
 }
 impl ADataSpace {
-    pub const STANDARD_DCI_P3: ADataSpace = ADataSpace(655360);
+    pub const ADATASPACE_STANDARD_DCI_P3: ADataSpace = ADataSpace(655360);
 }
 impl ADataSpace {
-    pub const STANDARD_ADOBE_RGB: ADataSpace = ADataSpace(720896);
+    pub const ADATASPACE_STANDARD_ADOBE_RGB: ADataSpace = ADataSpace(720896);
 }
 impl ADataSpace {
-    pub const TRANSFER_MASK: ADataSpace = ADataSpace(130023424);
+    pub const ADATASPACE_TRANSFER_MASK: ADataSpace = ADataSpace(130023424);
 }
 impl ADataSpace {
-    pub const TRANSFER_UNSPECIFIED: ADataSpace = ADataSpace(0);
+    pub const ADATASPACE_TRANSFER_UNSPECIFIED: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const TRANSFER_LINEAR: ADataSpace = ADataSpace(4194304);
+    pub const ADATASPACE_TRANSFER_LINEAR: ADataSpace = ADataSpace(4194304);
 }
 impl ADataSpace {
-    pub const TRANSFER_SRGB: ADataSpace = ADataSpace(8388608);
+    pub const ADATASPACE_TRANSFER_SRGB: ADataSpace = ADataSpace(8388608);
 }
 impl ADataSpace {
-    pub const TRANSFER_SMPTE_170M: ADataSpace = ADataSpace(12582912);
+    pub const ADATASPACE_TRANSFER_SMPTE_170M: ADataSpace = ADataSpace(12582912);
 }
 impl ADataSpace {
-    pub const TRANSFER_GAMMA2_2: ADataSpace = ADataSpace(16777216);
+    pub const ADATASPACE_TRANSFER_GAMMA2_2: ADataSpace = ADataSpace(16777216);
 }
 impl ADataSpace {
-    pub const TRANSFER_GAMMA2_6: ADataSpace = ADataSpace(20971520);
+    pub const ADATASPACE_TRANSFER_GAMMA2_6: ADataSpace = ADataSpace(20971520);
 }
 impl ADataSpace {
-    pub const TRANSFER_GAMMA2_8: ADataSpace = ADataSpace(25165824);
+    pub const ADATASPACE_TRANSFER_GAMMA2_8: ADataSpace = ADataSpace(25165824);
 }
 impl ADataSpace {
-    pub const TRANSFER_ST2084: ADataSpace = ADataSpace(29360128);
+    pub const ADATASPACE_TRANSFER_ST2084: ADataSpace = ADataSpace(29360128);
 }
 impl ADataSpace {
-    pub const TRANSFER_HLG: ADataSpace = ADataSpace(33554432);
+    pub const ADATASPACE_TRANSFER_HLG: ADataSpace = ADataSpace(33554432);
 }
 impl ADataSpace {
-    pub const RANGE_MASK: ADataSpace = ADataSpace(939524096);
+    pub const ADATASPACE_RANGE_MASK: ADataSpace = ADataSpace(939524096);
 }
 impl ADataSpace {
-    pub const RANGE_UNSPECIFIED: ADataSpace = ADataSpace(0);
+    pub const ADATASPACE_RANGE_UNSPECIFIED: ADataSpace = ADataSpace(0);
 }
 impl ADataSpace {
-    pub const RANGE_FULL: ADataSpace = ADataSpace(134217728);
+    pub const ADATASPACE_RANGE_FULL: ADataSpace = ADataSpace(134217728);
 }
 impl ADataSpace {
-    pub const RANGE_LIMITED: ADataSpace = ADataSpace(268435456);
+    pub const ADATASPACE_RANGE_LIMITED: ADataSpace = ADataSpace(268435456);
 }
 impl ADataSpace {
-    pub const RANGE_EXTENDED: ADataSpace = ADataSpace(402653184);
+    pub const ADATASPACE_RANGE_EXTENDED: ADataSpace = ADataSpace(402653184);
 }
 impl ADataSpace {
     pub const ADATASPACE_SCRGB_LINEAR: ADataSpace = ADataSpace(406913024);
@@ -872,25 +907,109 @@ impl ADataSpace {
     pub const ADATASPACE_BT2020_ITU_HLG: ADataSpace = ADataSpace(302383104);
 }
 impl ADataSpace {
+    pub const ADATASPACE_DISPLAY_BT2020: ADataSpace = ADataSpace(142999552);
+}
+impl ADataSpace {
     pub const ADATASPACE_DEPTH: ADataSpace = ADataSpace(4096);
 }
 impl ADataSpace {
     pub const ADATASPACE_DYNAMIC_DEPTH: ADataSpace = ADataSpace(4098);
 }
+impl ADataSpace {
+    pub const STANDARD_MASK: ADataSpace = ADataSpace(4128768);
+}
+impl ADataSpace {
+    pub const STANDARD_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const STANDARD_BT709: ADataSpace = ADataSpace(65536);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_625: ADataSpace = ADataSpace(131072);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_625_UNADJUSTED: ADataSpace = ADataSpace(196608);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_525: ADataSpace = ADataSpace(262144);
+}
+impl ADataSpace {
+    pub const STANDARD_BT601_525_UNADJUSTED: ADataSpace = ADataSpace(327680);
+}
+impl ADataSpace {
+    pub const STANDARD_BT470M: ADataSpace = ADataSpace(524288);
+}
+impl ADataSpace {
+    pub const STANDARD_BT2020: ADataSpace = ADataSpace(393216);
+}
+impl ADataSpace {
+    pub const STANDARD_FILM: ADataSpace = ADataSpace(589824);
+}
+impl ADataSpace {
+    pub const STANDARD_DCI_P3: ADataSpace = ADataSpace(655360);
+}
+impl ADataSpace {
+    pub const STANDARD_ADOBE_RGB: ADataSpace = ADataSpace(720896);
+}
+impl ADataSpace {
+    pub const TRANSFER_MASK: ADataSpace = ADataSpace(130023424);
+}
+impl ADataSpace {
+    pub const TRANSFER_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const TRANSFER_LINEAR: ADataSpace = ADataSpace(4194304);
+}
+impl ADataSpace {
+    pub const TRANSFER_SMPTE_170M: ADataSpace = ADataSpace(12582912);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_2: ADataSpace = ADataSpace(16777216);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_6: ADataSpace = ADataSpace(20971520);
+}
+impl ADataSpace {
+    pub const TRANSFER_GAMMA2_8: ADataSpace = ADataSpace(25165824);
+}
+impl ADataSpace {
+    pub const TRANSFER_SRGB: ADataSpace = ADataSpace(8388608);
+}
+impl ADataSpace {
+    pub const TRANSFER_ST2084: ADataSpace = ADataSpace(29360128);
+}
+impl ADataSpace {
+    pub const TRANSFER_HLG: ADataSpace = ADataSpace(33554432);
+}
+impl ADataSpace {
+    pub const RANGE_MASK: ADataSpace = ADataSpace(939524096);
+}
+impl ADataSpace {
+    pub const RANGE_UNSPECIFIED: ADataSpace = ADataSpace(0);
+}
+impl ADataSpace {
+    pub const RANGE_FULL: ADataSpace = ADataSpace(134217728);
+}
+impl ADataSpace {
+    pub const RANGE_LIMITED: ADataSpace = ADataSpace(268435456);
+}
+impl ADataSpace {
+    pub const RANGE_EXTENDED: ADataSpace = ADataSpace(402653184);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct ADataSpace(pub i32);
-pub const ANDROID_DLEXT_RESERVED_ADDRESS: _bindgen_ty_6 = 1;
-pub const ANDROID_DLEXT_RESERVED_ADDRESS_HINT: _bindgen_ty_6 = 2;
-pub const ANDROID_DLEXT_WRITE_RELRO: _bindgen_ty_6 = 4;
-pub const ANDROID_DLEXT_USE_RELRO: _bindgen_ty_6 = 8;
-pub const ANDROID_DLEXT_USE_LIBRARY_FD: _bindgen_ty_6 = 16;
-pub const ANDROID_DLEXT_USE_LIBRARY_FD_OFFSET: _bindgen_ty_6 = 32;
-pub const ANDROID_DLEXT_FORCE_LOAD: _bindgen_ty_6 = 64;
-pub const ANDROID_DLEXT_USE_NAMESPACE: _bindgen_ty_6 = 512;
-pub const ANDROID_DLEXT_RESERVED_ADDRESS_RECURSIVE: _bindgen_ty_6 = 1024;
-pub const ANDROID_DLEXT_VALID_FLAG_BITS: _bindgen_ty_6 = 1663;
-pub type _bindgen_ty_6 = ::std::os::raw::c_uint;
+pub const ANDROID_DLEXT_RESERVED_ADDRESS: _bindgen_ty_7 = 1;
+pub const ANDROID_DLEXT_RESERVED_ADDRESS_HINT: _bindgen_ty_7 = 2;
+pub const ANDROID_DLEXT_WRITE_RELRO: _bindgen_ty_7 = 4;
+pub const ANDROID_DLEXT_USE_RELRO: _bindgen_ty_7 = 8;
+pub const ANDROID_DLEXT_USE_LIBRARY_FD: _bindgen_ty_7 = 16;
+pub const ANDROID_DLEXT_USE_LIBRARY_FD_OFFSET: _bindgen_ty_7 = 32;
+pub const ANDROID_DLEXT_FORCE_LOAD: _bindgen_ty_7 = 64;
+pub const ANDROID_DLEXT_USE_NAMESPACE: _bindgen_ty_7 = 512;
+pub const ANDROID_DLEXT_RESERVED_ADDRESS_RECURSIVE: _bindgen_ty_7 = 1024;
+pub const ANDROID_DLEXT_VALID_FLAG_BITS: _bindgen_ty_7 = 1663;
+pub type _bindgen_ty_7 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct android_namespace_t {
@@ -1102,18 +1221,18 @@ extern "C" {
         fd: ::std::os::raw::c_int,
     );
 }
-pub const AFONT_WEIGHT_MIN: _bindgen_ty_7 = 0;
-pub const AFONT_WEIGHT_THIN: _bindgen_ty_7 = 100;
-pub const AFONT_WEIGHT_EXTRA_LIGHT: _bindgen_ty_7 = 200;
-pub const AFONT_WEIGHT_LIGHT: _bindgen_ty_7 = 300;
-pub const AFONT_WEIGHT_NORMAL: _bindgen_ty_7 = 400;
-pub const AFONT_WEIGHT_MEDIUM: _bindgen_ty_7 = 500;
-pub const AFONT_WEIGHT_SEMI_BOLD: _bindgen_ty_7 = 600;
-pub const AFONT_WEIGHT_BOLD: _bindgen_ty_7 = 700;
-pub const AFONT_WEIGHT_EXTRA_BOLD: _bindgen_ty_7 = 800;
-pub const AFONT_WEIGHT_BLACK: _bindgen_ty_7 = 900;
-pub const AFONT_WEIGHT_MAX: _bindgen_ty_7 = 1000;
-pub type _bindgen_ty_7 = ::std::os::raw::c_uint;
+pub const AFONT_WEIGHT_MIN: _bindgen_ty_8 = 0;
+pub const AFONT_WEIGHT_THIN: _bindgen_ty_8 = 100;
+pub const AFONT_WEIGHT_EXTRA_LIGHT: _bindgen_ty_8 = 200;
+pub const AFONT_WEIGHT_LIGHT: _bindgen_ty_8 = 300;
+pub const AFONT_WEIGHT_NORMAL: _bindgen_ty_8 = 400;
+pub const AFONT_WEIGHT_MEDIUM: _bindgen_ty_8 = 500;
+pub const AFONT_WEIGHT_SEMI_BOLD: _bindgen_ty_8 = 600;
+pub const AFONT_WEIGHT_BOLD: _bindgen_ty_8 = 700;
+pub const AFONT_WEIGHT_EXTRA_BOLD: _bindgen_ty_8 = 800;
+pub const AFONT_WEIGHT_BLACK: _bindgen_ty_8 = 900;
+pub const AFONT_WEIGHT_MAX: _bindgen_ty_8 = 1000;
+pub type _bindgen_ty_8 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AFont {
@@ -1146,10 +1265,10 @@ extern "C" {
 extern "C" {
     pub fn AFont_getAxisValue(font: *const AFont, axisIndex: u32) -> f32;
 }
-pub const AFAMILY_VARIANT_DEFAULT: _bindgen_ty_8 = 0;
-pub const AFAMILY_VARIANT_COMPACT: _bindgen_ty_8 = 1;
-pub const AFAMILY_VARIANT_ELEGANT: _bindgen_ty_8 = 2;
-pub type _bindgen_ty_8 = ::std::os::raw::c_uint;
+pub const AFAMILY_VARIANT_DEFAULT: _bindgen_ty_9 = 0;
+pub const AFAMILY_VARIANT_COMPACT: _bindgen_ty_9 = 1;
+pub const AFAMILY_VARIANT_ELEGANT: _bindgen_ty_9 = 2;
+pub type _bindgen_ty_9 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AFontMatcher {
@@ -1277,6 +1396,10 @@ impl AHardwareBuffer_Format {
         AHardwareBuffer_Format(54);
 }
 impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_YCbCr_P210: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(60);
+}
+impl AHardwareBuffer_Format {
     pub const AHARDWAREBUFFER_FORMAT_R8_UNORM: AHardwareBuffer_Format = AHardwareBuffer_Format(56);
 }
 impl AHardwareBuffer_Format {
@@ -1289,6 +1412,36 @@ impl AHardwareBuffer_Format {
 impl AHardwareBuffer_Format {
     pub const AHARDWAREBUFFER_FORMAT_R10G10B10A10_UNORM: AHardwareBuffer_Format =
         AHardwareBuffer_Format(59);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_R12_UINT: AHardwareBuffer_Format = AHardwareBuffer_Format(61);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_R14_UINT: AHardwareBuffer_Format = AHardwareBuffer_Format(62);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_R12G12_UINT: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(63);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_R14G14_UINT: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(64);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_R12G12B12A12_UINT: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(65);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_R14G14B14A14_UINT: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(66);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_B10G10R10A2_UNORM: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(67);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_B10G10R10X2_UNORM: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(68);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -1806,19 +1959,19 @@ fn bindgen_test_layout_AHdrMetadata_cta861_3() {
         "Offset of field: AHdrMetadata_cta861_3::maxFrameAverageLightLevel"
     );
 }
-pub const ANDROID_IMAGE_DECODER_SUCCESS: _bindgen_ty_9 = 0;
-pub const ANDROID_IMAGE_DECODER_INCOMPLETE: _bindgen_ty_9 = -1;
-pub const ANDROID_IMAGE_DECODER_ERROR: _bindgen_ty_9 = -2;
-pub const ANDROID_IMAGE_DECODER_INVALID_CONVERSION: _bindgen_ty_9 = -3;
-pub const ANDROID_IMAGE_DECODER_INVALID_SCALE: _bindgen_ty_9 = -4;
-pub const ANDROID_IMAGE_DECODER_BAD_PARAMETER: _bindgen_ty_9 = -5;
-pub const ANDROID_IMAGE_DECODER_INVALID_INPUT: _bindgen_ty_9 = -6;
-pub const ANDROID_IMAGE_DECODER_SEEK_ERROR: _bindgen_ty_9 = -7;
-pub const ANDROID_IMAGE_DECODER_INTERNAL_ERROR: _bindgen_ty_9 = -8;
-pub const ANDROID_IMAGE_DECODER_UNSUPPORTED_FORMAT: _bindgen_ty_9 = -9;
-pub const ANDROID_IMAGE_DECODER_FINISHED: _bindgen_ty_9 = -10;
-pub const ANDROID_IMAGE_DECODER_INVALID_STATE: _bindgen_ty_9 = -11;
-pub type _bindgen_ty_9 = ::std::os::raw::c_int;
+pub const ANDROID_IMAGE_DECODER_SUCCESS: _bindgen_ty_10 = 0;
+pub const ANDROID_IMAGE_DECODER_INCOMPLETE: _bindgen_ty_10 = -1;
+pub const ANDROID_IMAGE_DECODER_ERROR: _bindgen_ty_10 = -2;
+pub const ANDROID_IMAGE_DECODER_INVALID_CONVERSION: _bindgen_ty_10 = -3;
+pub const ANDROID_IMAGE_DECODER_INVALID_SCALE: _bindgen_ty_10 = -4;
+pub const ANDROID_IMAGE_DECODER_BAD_PARAMETER: _bindgen_ty_10 = -5;
+pub const ANDROID_IMAGE_DECODER_INVALID_INPUT: _bindgen_ty_10 = -6;
+pub const ANDROID_IMAGE_DECODER_SEEK_ERROR: _bindgen_ty_10 = -7;
+pub const ANDROID_IMAGE_DECODER_INTERNAL_ERROR: _bindgen_ty_10 = -8;
+pub const ANDROID_IMAGE_DECODER_UNSUPPORTED_FORMAT: _bindgen_ty_10 = -9;
+pub const ANDROID_IMAGE_DECODER_FINISHED: _bindgen_ty_10 = -10;
+pub const ANDROID_IMAGE_DECODER_INVALID_STATE: _bindgen_ty_10 = -11;
+pub type _bindgen_ty_10 = ::std::os::raw::c_int;
 extern "C" {
     pub fn AImageDecoder_resultToString(
         arg1: ::std::os::raw::c_int,
@@ -1936,8 +2089,8 @@ extern "C" {
 extern "C" {
     pub fn AImageDecoder_isAnimated(decoder: *mut AImageDecoder) -> bool;
 }
-pub const ANDROID_IMAGE_DECODER_INFINITE: _bindgen_ty_10 = 2147483647;
-pub type _bindgen_ty_10 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_INFINITE: _bindgen_ty_11 = 2147483647;
+pub type _bindgen_ty_11 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoder_getRepeatCount(decoder: *mut AImageDecoder) -> i32;
 }
@@ -1974,16 +2127,16 @@ extern "C" {
     pub fn AImageDecoderFrameInfo_hasAlphaWithinBounds(info: *const AImageDecoderFrameInfo)
         -> bool;
 }
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_NONE: _bindgen_ty_11 = 1;
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_BACKGROUND: _bindgen_ty_11 = 2;
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_PREVIOUS: _bindgen_ty_11 = 3;
-pub type _bindgen_ty_11 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_NONE: _bindgen_ty_12 = 1;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_BACKGROUND: _bindgen_ty_12 = 2;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_PREVIOUS: _bindgen_ty_12 = 3;
+pub type _bindgen_ty_12 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getDisposeOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
-pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC: _bindgen_ty_12 = 1;
-pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC_OVER: _bindgen_ty_12 = 2;
-pub type _bindgen_ty_12 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC: _bindgen_ty_13 = 1;
+pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC_OVER: _bindgen_ty_13 = 2;
+pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getBlendOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
@@ -1993,324 +2146,348 @@ extern "C" {
         handleInternally: bool,
     );
 }
-pub const AKEYCODE_UNKNOWN: _bindgen_ty_13 = 0;
-pub const AKEYCODE_SOFT_LEFT: _bindgen_ty_13 = 1;
-pub const AKEYCODE_SOFT_RIGHT: _bindgen_ty_13 = 2;
-pub const AKEYCODE_HOME: _bindgen_ty_13 = 3;
-pub const AKEYCODE_BACK: _bindgen_ty_13 = 4;
-pub const AKEYCODE_CALL: _bindgen_ty_13 = 5;
-pub const AKEYCODE_ENDCALL: _bindgen_ty_13 = 6;
-pub const AKEYCODE_0: _bindgen_ty_13 = 7;
-pub const AKEYCODE_1: _bindgen_ty_13 = 8;
-pub const AKEYCODE_2: _bindgen_ty_13 = 9;
-pub const AKEYCODE_3: _bindgen_ty_13 = 10;
-pub const AKEYCODE_4: _bindgen_ty_13 = 11;
-pub const AKEYCODE_5: _bindgen_ty_13 = 12;
-pub const AKEYCODE_6: _bindgen_ty_13 = 13;
-pub const AKEYCODE_7: _bindgen_ty_13 = 14;
-pub const AKEYCODE_8: _bindgen_ty_13 = 15;
-pub const AKEYCODE_9: _bindgen_ty_13 = 16;
-pub const AKEYCODE_STAR: _bindgen_ty_13 = 17;
-pub const AKEYCODE_POUND: _bindgen_ty_13 = 18;
-pub const AKEYCODE_DPAD_UP: _bindgen_ty_13 = 19;
-pub const AKEYCODE_DPAD_DOWN: _bindgen_ty_13 = 20;
-pub const AKEYCODE_DPAD_LEFT: _bindgen_ty_13 = 21;
-pub const AKEYCODE_DPAD_RIGHT: _bindgen_ty_13 = 22;
-pub const AKEYCODE_DPAD_CENTER: _bindgen_ty_13 = 23;
-pub const AKEYCODE_VOLUME_UP: _bindgen_ty_13 = 24;
-pub const AKEYCODE_VOLUME_DOWN: _bindgen_ty_13 = 25;
-pub const AKEYCODE_POWER: _bindgen_ty_13 = 26;
-pub const AKEYCODE_CAMERA: _bindgen_ty_13 = 27;
-pub const AKEYCODE_CLEAR: _bindgen_ty_13 = 28;
-pub const AKEYCODE_A: _bindgen_ty_13 = 29;
-pub const AKEYCODE_B: _bindgen_ty_13 = 30;
-pub const AKEYCODE_C: _bindgen_ty_13 = 31;
-pub const AKEYCODE_D: _bindgen_ty_13 = 32;
-pub const AKEYCODE_E: _bindgen_ty_13 = 33;
-pub const AKEYCODE_F: _bindgen_ty_13 = 34;
-pub const AKEYCODE_G: _bindgen_ty_13 = 35;
-pub const AKEYCODE_H: _bindgen_ty_13 = 36;
-pub const AKEYCODE_I: _bindgen_ty_13 = 37;
-pub const AKEYCODE_J: _bindgen_ty_13 = 38;
-pub const AKEYCODE_K: _bindgen_ty_13 = 39;
-pub const AKEYCODE_L: _bindgen_ty_13 = 40;
-pub const AKEYCODE_M: _bindgen_ty_13 = 41;
-pub const AKEYCODE_N: _bindgen_ty_13 = 42;
-pub const AKEYCODE_O: _bindgen_ty_13 = 43;
-pub const AKEYCODE_P: _bindgen_ty_13 = 44;
-pub const AKEYCODE_Q: _bindgen_ty_13 = 45;
-pub const AKEYCODE_R: _bindgen_ty_13 = 46;
-pub const AKEYCODE_S: _bindgen_ty_13 = 47;
-pub const AKEYCODE_T: _bindgen_ty_13 = 48;
-pub const AKEYCODE_U: _bindgen_ty_13 = 49;
-pub const AKEYCODE_V: _bindgen_ty_13 = 50;
-pub const AKEYCODE_W: _bindgen_ty_13 = 51;
-pub const AKEYCODE_X: _bindgen_ty_13 = 52;
-pub const AKEYCODE_Y: _bindgen_ty_13 = 53;
-pub const AKEYCODE_Z: _bindgen_ty_13 = 54;
-pub const AKEYCODE_COMMA: _bindgen_ty_13 = 55;
-pub const AKEYCODE_PERIOD: _bindgen_ty_13 = 56;
-pub const AKEYCODE_ALT_LEFT: _bindgen_ty_13 = 57;
-pub const AKEYCODE_ALT_RIGHT: _bindgen_ty_13 = 58;
-pub const AKEYCODE_SHIFT_LEFT: _bindgen_ty_13 = 59;
-pub const AKEYCODE_SHIFT_RIGHT: _bindgen_ty_13 = 60;
-pub const AKEYCODE_TAB: _bindgen_ty_13 = 61;
-pub const AKEYCODE_SPACE: _bindgen_ty_13 = 62;
-pub const AKEYCODE_SYM: _bindgen_ty_13 = 63;
-pub const AKEYCODE_EXPLORER: _bindgen_ty_13 = 64;
-pub const AKEYCODE_ENVELOPE: _bindgen_ty_13 = 65;
-pub const AKEYCODE_ENTER: _bindgen_ty_13 = 66;
-pub const AKEYCODE_DEL: _bindgen_ty_13 = 67;
-pub const AKEYCODE_GRAVE: _bindgen_ty_13 = 68;
-pub const AKEYCODE_MINUS: _bindgen_ty_13 = 69;
-pub const AKEYCODE_EQUALS: _bindgen_ty_13 = 70;
-pub const AKEYCODE_LEFT_BRACKET: _bindgen_ty_13 = 71;
-pub const AKEYCODE_RIGHT_BRACKET: _bindgen_ty_13 = 72;
-pub const AKEYCODE_BACKSLASH: _bindgen_ty_13 = 73;
-pub const AKEYCODE_SEMICOLON: _bindgen_ty_13 = 74;
-pub const AKEYCODE_APOSTROPHE: _bindgen_ty_13 = 75;
-pub const AKEYCODE_SLASH: _bindgen_ty_13 = 76;
-pub const AKEYCODE_AT: _bindgen_ty_13 = 77;
-pub const AKEYCODE_NUM: _bindgen_ty_13 = 78;
-pub const AKEYCODE_HEADSETHOOK: _bindgen_ty_13 = 79;
-pub const AKEYCODE_FOCUS: _bindgen_ty_13 = 80;
-pub const AKEYCODE_PLUS: _bindgen_ty_13 = 81;
-pub const AKEYCODE_MENU: _bindgen_ty_13 = 82;
-pub const AKEYCODE_NOTIFICATION: _bindgen_ty_13 = 83;
-pub const AKEYCODE_SEARCH: _bindgen_ty_13 = 84;
-pub const AKEYCODE_MEDIA_PLAY_PAUSE: _bindgen_ty_13 = 85;
-pub const AKEYCODE_MEDIA_STOP: _bindgen_ty_13 = 86;
-pub const AKEYCODE_MEDIA_NEXT: _bindgen_ty_13 = 87;
-pub const AKEYCODE_MEDIA_PREVIOUS: _bindgen_ty_13 = 88;
-pub const AKEYCODE_MEDIA_REWIND: _bindgen_ty_13 = 89;
-pub const AKEYCODE_MEDIA_FAST_FORWARD: _bindgen_ty_13 = 90;
-pub const AKEYCODE_MUTE: _bindgen_ty_13 = 91;
-pub const AKEYCODE_PAGE_UP: _bindgen_ty_13 = 92;
-pub const AKEYCODE_PAGE_DOWN: _bindgen_ty_13 = 93;
-pub const AKEYCODE_PICTSYMBOLS: _bindgen_ty_13 = 94;
-pub const AKEYCODE_SWITCH_CHARSET: _bindgen_ty_13 = 95;
-pub const AKEYCODE_BUTTON_A: _bindgen_ty_13 = 96;
-pub const AKEYCODE_BUTTON_B: _bindgen_ty_13 = 97;
-pub const AKEYCODE_BUTTON_C: _bindgen_ty_13 = 98;
-pub const AKEYCODE_BUTTON_X: _bindgen_ty_13 = 99;
-pub const AKEYCODE_BUTTON_Y: _bindgen_ty_13 = 100;
-pub const AKEYCODE_BUTTON_Z: _bindgen_ty_13 = 101;
-pub const AKEYCODE_BUTTON_L1: _bindgen_ty_13 = 102;
-pub const AKEYCODE_BUTTON_R1: _bindgen_ty_13 = 103;
-pub const AKEYCODE_BUTTON_L2: _bindgen_ty_13 = 104;
-pub const AKEYCODE_BUTTON_R2: _bindgen_ty_13 = 105;
-pub const AKEYCODE_BUTTON_THUMBL: _bindgen_ty_13 = 106;
-pub const AKEYCODE_BUTTON_THUMBR: _bindgen_ty_13 = 107;
-pub const AKEYCODE_BUTTON_START: _bindgen_ty_13 = 108;
-pub const AKEYCODE_BUTTON_SELECT: _bindgen_ty_13 = 109;
-pub const AKEYCODE_BUTTON_MODE: _bindgen_ty_13 = 110;
-pub const AKEYCODE_ESCAPE: _bindgen_ty_13 = 111;
-pub const AKEYCODE_FORWARD_DEL: _bindgen_ty_13 = 112;
-pub const AKEYCODE_CTRL_LEFT: _bindgen_ty_13 = 113;
-pub const AKEYCODE_CTRL_RIGHT: _bindgen_ty_13 = 114;
-pub const AKEYCODE_CAPS_LOCK: _bindgen_ty_13 = 115;
-pub const AKEYCODE_SCROLL_LOCK: _bindgen_ty_13 = 116;
-pub const AKEYCODE_META_LEFT: _bindgen_ty_13 = 117;
-pub const AKEYCODE_META_RIGHT: _bindgen_ty_13 = 118;
-pub const AKEYCODE_FUNCTION: _bindgen_ty_13 = 119;
-pub const AKEYCODE_SYSRQ: _bindgen_ty_13 = 120;
-pub const AKEYCODE_BREAK: _bindgen_ty_13 = 121;
-pub const AKEYCODE_MOVE_HOME: _bindgen_ty_13 = 122;
-pub const AKEYCODE_MOVE_END: _bindgen_ty_13 = 123;
-pub const AKEYCODE_INSERT: _bindgen_ty_13 = 124;
-pub const AKEYCODE_FORWARD: _bindgen_ty_13 = 125;
-pub const AKEYCODE_MEDIA_PLAY: _bindgen_ty_13 = 126;
-pub const AKEYCODE_MEDIA_PAUSE: _bindgen_ty_13 = 127;
-pub const AKEYCODE_MEDIA_CLOSE: _bindgen_ty_13 = 128;
-pub const AKEYCODE_MEDIA_EJECT: _bindgen_ty_13 = 129;
-pub const AKEYCODE_MEDIA_RECORD: _bindgen_ty_13 = 130;
-pub const AKEYCODE_F1: _bindgen_ty_13 = 131;
-pub const AKEYCODE_F2: _bindgen_ty_13 = 132;
-pub const AKEYCODE_F3: _bindgen_ty_13 = 133;
-pub const AKEYCODE_F4: _bindgen_ty_13 = 134;
-pub const AKEYCODE_F5: _bindgen_ty_13 = 135;
-pub const AKEYCODE_F6: _bindgen_ty_13 = 136;
-pub const AKEYCODE_F7: _bindgen_ty_13 = 137;
-pub const AKEYCODE_F8: _bindgen_ty_13 = 138;
-pub const AKEYCODE_F9: _bindgen_ty_13 = 139;
-pub const AKEYCODE_F10: _bindgen_ty_13 = 140;
-pub const AKEYCODE_F11: _bindgen_ty_13 = 141;
-pub const AKEYCODE_F12: _bindgen_ty_13 = 142;
-pub const AKEYCODE_NUM_LOCK: _bindgen_ty_13 = 143;
-pub const AKEYCODE_NUMPAD_0: _bindgen_ty_13 = 144;
-pub const AKEYCODE_NUMPAD_1: _bindgen_ty_13 = 145;
-pub const AKEYCODE_NUMPAD_2: _bindgen_ty_13 = 146;
-pub const AKEYCODE_NUMPAD_3: _bindgen_ty_13 = 147;
-pub const AKEYCODE_NUMPAD_4: _bindgen_ty_13 = 148;
-pub const AKEYCODE_NUMPAD_5: _bindgen_ty_13 = 149;
-pub const AKEYCODE_NUMPAD_6: _bindgen_ty_13 = 150;
-pub const AKEYCODE_NUMPAD_7: _bindgen_ty_13 = 151;
-pub const AKEYCODE_NUMPAD_8: _bindgen_ty_13 = 152;
-pub const AKEYCODE_NUMPAD_9: _bindgen_ty_13 = 153;
-pub const AKEYCODE_NUMPAD_DIVIDE: _bindgen_ty_13 = 154;
-pub const AKEYCODE_NUMPAD_MULTIPLY: _bindgen_ty_13 = 155;
-pub const AKEYCODE_NUMPAD_SUBTRACT: _bindgen_ty_13 = 156;
-pub const AKEYCODE_NUMPAD_ADD: _bindgen_ty_13 = 157;
-pub const AKEYCODE_NUMPAD_DOT: _bindgen_ty_13 = 158;
-pub const AKEYCODE_NUMPAD_COMMA: _bindgen_ty_13 = 159;
-pub const AKEYCODE_NUMPAD_ENTER: _bindgen_ty_13 = 160;
-pub const AKEYCODE_NUMPAD_EQUALS: _bindgen_ty_13 = 161;
-pub const AKEYCODE_NUMPAD_LEFT_PAREN: _bindgen_ty_13 = 162;
-pub const AKEYCODE_NUMPAD_RIGHT_PAREN: _bindgen_ty_13 = 163;
-pub const AKEYCODE_VOLUME_MUTE: _bindgen_ty_13 = 164;
-pub const AKEYCODE_INFO: _bindgen_ty_13 = 165;
-pub const AKEYCODE_CHANNEL_UP: _bindgen_ty_13 = 166;
-pub const AKEYCODE_CHANNEL_DOWN: _bindgen_ty_13 = 167;
-pub const AKEYCODE_ZOOM_IN: _bindgen_ty_13 = 168;
-pub const AKEYCODE_ZOOM_OUT: _bindgen_ty_13 = 169;
-pub const AKEYCODE_TV: _bindgen_ty_13 = 170;
-pub const AKEYCODE_WINDOW: _bindgen_ty_13 = 171;
-pub const AKEYCODE_GUIDE: _bindgen_ty_13 = 172;
-pub const AKEYCODE_DVR: _bindgen_ty_13 = 173;
-pub const AKEYCODE_BOOKMARK: _bindgen_ty_13 = 174;
-pub const AKEYCODE_CAPTIONS: _bindgen_ty_13 = 175;
-pub const AKEYCODE_SETTINGS: _bindgen_ty_13 = 176;
-pub const AKEYCODE_TV_POWER: _bindgen_ty_13 = 177;
-pub const AKEYCODE_TV_INPUT: _bindgen_ty_13 = 178;
-pub const AKEYCODE_STB_POWER: _bindgen_ty_13 = 179;
-pub const AKEYCODE_STB_INPUT: _bindgen_ty_13 = 180;
-pub const AKEYCODE_AVR_POWER: _bindgen_ty_13 = 181;
-pub const AKEYCODE_AVR_INPUT: _bindgen_ty_13 = 182;
-pub const AKEYCODE_PROG_RED: _bindgen_ty_13 = 183;
-pub const AKEYCODE_PROG_GREEN: _bindgen_ty_13 = 184;
-pub const AKEYCODE_PROG_YELLOW: _bindgen_ty_13 = 185;
-pub const AKEYCODE_PROG_BLUE: _bindgen_ty_13 = 186;
-pub const AKEYCODE_APP_SWITCH: _bindgen_ty_13 = 187;
-pub const AKEYCODE_BUTTON_1: _bindgen_ty_13 = 188;
-pub const AKEYCODE_BUTTON_2: _bindgen_ty_13 = 189;
-pub const AKEYCODE_BUTTON_3: _bindgen_ty_13 = 190;
-pub const AKEYCODE_BUTTON_4: _bindgen_ty_13 = 191;
-pub const AKEYCODE_BUTTON_5: _bindgen_ty_13 = 192;
-pub const AKEYCODE_BUTTON_6: _bindgen_ty_13 = 193;
-pub const AKEYCODE_BUTTON_7: _bindgen_ty_13 = 194;
-pub const AKEYCODE_BUTTON_8: _bindgen_ty_13 = 195;
-pub const AKEYCODE_BUTTON_9: _bindgen_ty_13 = 196;
-pub const AKEYCODE_BUTTON_10: _bindgen_ty_13 = 197;
-pub const AKEYCODE_BUTTON_11: _bindgen_ty_13 = 198;
-pub const AKEYCODE_BUTTON_12: _bindgen_ty_13 = 199;
-pub const AKEYCODE_BUTTON_13: _bindgen_ty_13 = 200;
-pub const AKEYCODE_BUTTON_14: _bindgen_ty_13 = 201;
-pub const AKEYCODE_BUTTON_15: _bindgen_ty_13 = 202;
-pub const AKEYCODE_BUTTON_16: _bindgen_ty_13 = 203;
-pub const AKEYCODE_LANGUAGE_SWITCH: _bindgen_ty_13 = 204;
-pub const AKEYCODE_MANNER_MODE: _bindgen_ty_13 = 205;
-pub const AKEYCODE_3D_MODE: _bindgen_ty_13 = 206;
-pub const AKEYCODE_CONTACTS: _bindgen_ty_13 = 207;
-pub const AKEYCODE_CALENDAR: _bindgen_ty_13 = 208;
-pub const AKEYCODE_MUSIC: _bindgen_ty_13 = 209;
-pub const AKEYCODE_CALCULATOR: _bindgen_ty_13 = 210;
-pub const AKEYCODE_ZENKAKU_HANKAKU: _bindgen_ty_13 = 211;
-pub const AKEYCODE_EISU: _bindgen_ty_13 = 212;
-pub const AKEYCODE_MUHENKAN: _bindgen_ty_13 = 213;
-pub const AKEYCODE_HENKAN: _bindgen_ty_13 = 214;
-pub const AKEYCODE_KATAKANA_HIRAGANA: _bindgen_ty_13 = 215;
-pub const AKEYCODE_YEN: _bindgen_ty_13 = 216;
-pub const AKEYCODE_RO: _bindgen_ty_13 = 217;
-pub const AKEYCODE_KANA: _bindgen_ty_13 = 218;
-pub const AKEYCODE_ASSIST: _bindgen_ty_13 = 219;
-pub const AKEYCODE_BRIGHTNESS_DOWN: _bindgen_ty_13 = 220;
-pub const AKEYCODE_BRIGHTNESS_UP: _bindgen_ty_13 = 221;
-pub const AKEYCODE_MEDIA_AUDIO_TRACK: _bindgen_ty_13 = 222;
-pub const AKEYCODE_SLEEP: _bindgen_ty_13 = 223;
-pub const AKEYCODE_WAKEUP: _bindgen_ty_13 = 224;
-pub const AKEYCODE_PAIRING: _bindgen_ty_13 = 225;
-pub const AKEYCODE_MEDIA_TOP_MENU: _bindgen_ty_13 = 226;
-pub const AKEYCODE_11: _bindgen_ty_13 = 227;
-pub const AKEYCODE_12: _bindgen_ty_13 = 228;
-pub const AKEYCODE_LAST_CHANNEL: _bindgen_ty_13 = 229;
-pub const AKEYCODE_TV_DATA_SERVICE: _bindgen_ty_13 = 230;
-pub const AKEYCODE_VOICE_ASSIST: _bindgen_ty_13 = 231;
-pub const AKEYCODE_TV_RADIO_SERVICE: _bindgen_ty_13 = 232;
-pub const AKEYCODE_TV_TELETEXT: _bindgen_ty_13 = 233;
-pub const AKEYCODE_TV_NUMBER_ENTRY: _bindgen_ty_13 = 234;
-pub const AKEYCODE_TV_TERRESTRIAL_ANALOG: _bindgen_ty_13 = 235;
-pub const AKEYCODE_TV_TERRESTRIAL_DIGITAL: _bindgen_ty_13 = 236;
-pub const AKEYCODE_TV_SATELLITE: _bindgen_ty_13 = 237;
-pub const AKEYCODE_TV_SATELLITE_BS: _bindgen_ty_13 = 238;
-pub const AKEYCODE_TV_SATELLITE_CS: _bindgen_ty_13 = 239;
-pub const AKEYCODE_TV_SATELLITE_SERVICE: _bindgen_ty_13 = 240;
-pub const AKEYCODE_TV_NETWORK: _bindgen_ty_13 = 241;
-pub const AKEYCODE_TV_ANTENNA_CABLE: _bindgen_ty_13 = 242;
-pub const AKEYCODE_TV_INPUT_HDMI_1: _bindgen_ty_13 = 243;
-pub const AKEYCODE_TV_INPUT_HDMI_2: _bindgen_ty_13 = 244;
-pub const AKEYCODE_TV_INPUT_HDMI_3: _bindgen_ty_13 = 245;
-pub const AKEYCODE_TV_INPUT_HDMI_4: _bindgen_ty_13 = 246;
-pub const AKEYCODE_TV_INPUT_COMPOSITE_1: _bindgen_ty_13 = 247;
-pub const AKEYCODE_TV_INPUT_COMPOSITE_2: _bindgen_ty_13 = 248;
-pub const AKEYCODE_TV_INPUT_COMPONENT_1: _bindgen_ty_13 = 249;
-pub const AKEYCODE_TV_INPUT_COMPONENT_2: _bindgen_ty_13 = 250;
-pub const AKEYCODE_TV_INPUT_VGA_1: _bindgen_ty_13 = 251;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION: _bindgen_ty_13 = 252;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP: _bindgen_ty_13 = 253;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN: _bindgen_ty_13 = 254;
-pub const AKEYCODE_TV_ZOOM_MODE: _bindgen_ty_13 = 255;
-pub const AKEYCODE_TV_CONTENTS_MENU: _bindgen_ty_13 = 256;
-pub const AKEYCODE_TV_MEDIA_CONTEXT_MENU: _bindgen_ty_13 = 257;
-pub const AKEYCODE_TV_TIMER_PROGRAMMING: _bindgen_ty_13 = 258;
-pub const AKEYCODE_HELP: _bindgen_ty_13 = 259;
-pub const AKEYCODE_NAVIGATE_PREVIOUS: _bindgen_ty_13 = 260;
-pub const AKEYCODE_NAVIGATE_NEXT: _bindgen_ty_13 = 261;
-pub const AKEYCODE_NAVIGATE_IN: _bindgen_ty_13 = 262;
-pub const AKEYCODE_NAVIGATE_OUT: _bindgen_ty_13 = 263;
-pub const AKEYCODE_STEM_PRIMARY: _bindgen_ty_13 = 264;
-pub const AKEYCODE_STEM_1: _bindgen_ty_13 = 265;
-pub const AKEYCODE_STEM_2: _bindgen_ty_13 = 266;
-pub const AKEYCODE_STEM_3: _bindgen_ty_13 = 267;
-pub const AKEYCODE_DPAD_UP_LEFT: _bindgen_ty_13 = 268;
-pub const AKEYCODE_DPAD_DOWN_LEFT: _bindgen_ty_13 = 269;
-pub const AKEYCODE_DPAD_UP_RIGHT: _bindgen_ty_13 = 270;
-pub const AKEYCODE_DPAD_DOWN_RIGHT: _bindgen_ty_13 = 271;
-pub const AKEYCODE_MEDIA_SKIP_FORWARD: _bindgen_ty_13 = 272;
-pub const AKEYCODE_MEDIA_SKIP_BACKWARD: _bindgen_ty_13 = 273;
-pub const AKEYCODE_MEDIA_STEP_FORWARD: _bindgen_ty_13 = 274;
-pub const AKEYCODE_MEDIA_STEP_BACKWARD: _bindgen_ty_13 = 275;
-pub const AKEYCODE_SOFT_SLEEP: _bindgen_ty_13 = 276;
-pub const AKEYCODE_CUT: _bindgen_ty_13 = 277;
-pub const AKEYCODE_COPY: _bindgen_ty_13 = 278;
-pub const AKEYCODE_PASTE: _bindgen_ty_13 = 279;
-pub const AKEYCODE_SYSTEM_NAVIGATION_UP: _bindgen_ty_13 = 280;
-pub const AKEYCODE_SYSTEM_NAVIGATION_DOWN: _bindgen_ty_13 = 281;
-pub const AKEYCODE_SYSTEM_NAVIGATION_LEFT: _bindgen_ty_13 = 282;
-pub const AKEYCODE_SYSTEM_NAVIGATION_RIGHT: _bindgen_ty_13 = 283;
-pub const AKEYCODE_ALL_APPS: _bindgen_ty_13 = 284;
-pub const AKEYCODE_REFRESH: _bindgen_ty_13 = 285;
-pub const AKEYCODE_THUMBS_UP: _bindgen_ty_13 = 286;
-pub const AKEYCODE_THUMBS_DOWN: _bindgen_ty_13 = 287;
-pub const AKEYCODE_PROFILE_SWITCH: _bindgen_ty_13 = 288;
-pub const AKEYCODE_VIDEO_APP_1: _bindgen_ty_13 = 289;
-pub const AKEYCODE_VIDEO_APP_2: _bindgen_ty_13 = 290;
-pub const AKEYCODE_VIDEO_APP_3: _bindgen_ty_13 = 291;
-pub const AKEYCODE_VIDEO_APP_4: _bindgen_ty_13 = 292;
-pub const AKEYCODE_VIDEO_APP_5: _bindgen_ty_13 = 293;
-pub const AKEYCODE_VIDEO_APP_6: _bindgen_ty_13 = 294;
-pub const AKEYCODE_VIDEO_APP_7: _bindgen_ty_13 = 295;
-pub const AKEYCODE_VIDEO_APP_8: _bindgen_ty_13 = 296;
-pub const AKEYCODE_FEATURED_APP_1: _bindgen_ty_13 = 297;
-pub const AKEYCODE_FEATURED_APP_2: _bindgen_ty_13 = 298;
-pub const AKEYCODE_FEATURED_APP_3: _bindgen_ty_13 = 299;
-pub const AKEYCODE_FEATURED_APP_4: _bindgen_ty_13 = 300;
-pub const AKEYCODE_DEMO_APP_1: _bindgen_ty_13 = 301;
-pub const AKEYCODE_DEMO_APP_2: _bindgen_ty_13 = 302;
-pub const AKEYCODE_DEMO_APP_3: _bindgen_ty_13 = 303;
-pub const AKEYCODE_DEMO_APP_4: _bindgen_ty_13 = 304;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_DOWN: _bindgen_ty_13 = 305;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_UP: _bindgen_ty_13 = 306;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE: _bindgen_ty_13 = 307;
-pub const AKEYCODE_STYLUS_BUTTON_PRIMARY: _bindgen_ty_13 = 308;
-pub const AKEYCODE_STYLUS_BUTTON_SECONDARY: _bindgen_ty_13 = 309;
-pub const AKEYCODE_STYLUS_BUTTON_TERTIARY: _bindgen_ty_13 = 310;
-pub const AKEYCODE_STYLUS_BUTTON_TAIL: _bindgen_ty_13 = 311;
-pub const AKEYCODE_RECENT_APPS: _bindgen_ty_13 = 312;
-pub const AKEYCODE_MACRO_1: _bindgen_ty_13 = 313;
-pub const AKEYCODE_MACRO_2: _bindgen_ty_13 = 314;
-pub const AKEYCODE_MACRO_3: _bindgen_ty_13 = 315;
-pub const AKEYCODE_MACRO_4: _bindgen_ty_13 = 316;
-pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
+pub const AKEYCODE_UNKNOWN: _bindgen_ty_14 = 0;
+pub const AKEYCODE_SOFT_LEFT: _bindgen_ty_14 = 1;
+pub const AKEYCODE_SOFT_RIGHT: _bindgen_ty_14 = 2;
+pub const AKEYCODE_HOME: _bindgen_ty_14 = 3;
+pub const AKEYCODE_BACK: _bindgen_ty_14 = 4;
+pub const AKEYCODE_CALL: _bindgen_ty_14 = 5;
+pub const AKEYCODE_ENDCALL: _bindgen_ty_14 = 6;
+pub const AKEYCODE_0: _bindgen_ty_14 = 7;
+pub const AKEYCODE_1: _bindgen_ty_14 = 8;
+pub const AKEYCODE_2: _bindgen_ty_14 = 9;
+pub const AKEYCODE_3: _bindgen_ty_14 = 10;
+pub const AKEYCODE_4: _bindgen_ty_14 = 11;
+pub const AKEYCODE_5: _bindgen_ty_14 = 12;
+pub const AKEYCODE_6: _bindgen_ty_14 = 13;
+pub const AKEYCODE_7: _bindgen_ty_14 = 14;
+pub const AKEYCODE_8: _bindgen_ty_14 = 15;
+pub const AKEYCODE_9: _bindgen_ty_14 = 16;
+pub const AKEYCODE_STAR: _bindgen_ty_14 = 17;
+pub const AKEYCODE_POUND: _bindgen_ty_14 = 18;
+pub const AKEYCODE_DPAD_UP: _bindgen_ty_14 = 19;
+pub const AKEYCODE_DPAD_DOWN: _bindgen_ty_14 = 20;
+pub const AKEYCODE_DPAD_LEFT: _bindgen_ty_14 = 21;
+pub const AKEYCODE_DPAD_RIGHT: _bindgen_ty_14 = 22;
+pub const AKEYCODE_DPAD_CENTER: _bindgen_ty_14 = 23;
+pub const AKEYCODE_VOLUME_UP: _bindgen_ty_14 = 24;
+pub const AKEYCODE_VOLUME_DOWN: _bindgen_ty_14 = 25;
+pub const AKEYCODE_POWER: _bindgen_ty_14 = 26;
+pub const AKEYCODE_CAMERA: _bindgen_ty_14 = 27;
+pub const AKEYCODE_CLEAR: _bindgen_ty_14 = 28;
+pub const AKEYCODE_A: _bindgen_ty_14 = 29;
+pub const AKEYCODE_B: _bindgen_ty_14 = 30;
+pub const AKEYCODE_C: _bindgen_ty_14 = 31;
+pub const AKEYCODE_D: _bindgen_ty_14 = 32;
+pub const AKEYCODE_E: _bindgen_ty_14 = 33;
+pub const AKEYCODE_F: _bindgen_ty_14 = 34;
+pub const AKEYCODE_G: _bindgen_ty_14 = 35;
+pub const AKEYCODE_H: _bindgen_ty_14 = 36;
+pub const AKEYCODE_I: _bindgen_ty_14 = 37;
+pub const AKEYCODE_J: _bindgen_ty_14 = 38;
+pub const AKEYCODE_K: _bindgen_ty_14 = 39;
+pub const AKEYCODE_L: _bindgen_ty_14 = 40;
+pub const AKEYCODE_M: _bindgen_ty_14 = 41;
+pub const AKEYCODE_N: _bindgen_ty_14 = 42;
+pub const AKEYCODE_O: _bindgen_ty_14 = 43;
+pub const AKEYCODE_P: _bindgen_ty_14 = 44;
+pub const AKEYCODE_Q: _bindgen_ty_14 = 45;
+pub const AKEYCODE_R: _bindgen_ty_14 = 46;
+pub const AKEYCODE_S: _bindgen_ty_14 = 47;
+pub const AKEYCODE_T: _bindgen_ty_14 = 48;
+pub const AKEYCODE_U: _bindgen_ty_14 = 49;
+pub const AKEYCODE_V: _bindgen_ty_14 = 50;
+pub const AKEYCODE_W: _bindgen_ty_14 = 51;
+pub const AKEYCODE_X: _bindgen_ty_14 = 52;
+pub const AKEYCODE_Y: _bindgen_ty_14 = 53;
+pub const AKEYCODE_Z: _bindgen_ty_14 = 54;
+pub const AKEYCODE_COMMA: _bindgen_ty_14 = 55;
+pub const AKEYCODE_PERIOD: _bindgen_ty_14 = 56;
+pub const AKEYCODE_ALT_LEFT: _bindgen_ty_14 = 57;
+pub const AKEYCODE_ALT_RIGHT: _bindgen_ty_14 = 58;
+pub const AKEYCODE_SHIFT_LEFT: _bindgen_ty_14 = 59;
+pub const AKEYCODE_SHIFT_RIGHT: _bindgen_ty_14 = 60;
+pub const AKEYCODE_TAB: _bindgen_ty_14 = 61;
+pub const AKEYCODE_SPACE: _bindgen_ty_14 = 62;
+pub const AKEYCODE_SYM: _bindgen_ty_14 = 63;
+pub const AKEYCODE_EXPLORER: _bindgen_ty_14 = 64;
+pub const AKEYCODE_ENVELOPE: _bindgen_ty_14 = 65;
+pub const AKEYCODE_ENTER: _bindgen_ty_14 = 66;
+pub const AKEYCODE_DEL: _bindgen_ty_14 = 67;
+pub const AKEYCODE_GRAVE: _bindgen_ty_14 = 68;
+pub const AKEYCODE_MINUS: _bindgen_ty_14 = 69;
+pub const AKEYCODE_EQUALS: _bindgen_ty_14 = 70;
+pub const AKEYCODE_LEFT_BRACKET: _bindgen_ty_14 = 71;
+pub const AKEYCODE_RIGHT_BRACKET: _bindgen_ty_14 = 72;
+pub const AKEYCODE_BACKSLASH: _bindgen_ty_14 = 73;
+pub const AKEYCODE_SEMICOLON: _bindgen_ty_14 = 74;
+pub const AKEYCODE_APOSTROPHE: _bindgen_ty_14 = 75;
+pub const AKEYCODE_SLASH: _bindgen_ty_14 = 76;
+pub const AKEYCODE_AT: _bindgen_ty_14 = 77;
+pub const AKEYCODE_NUM: _bindgen_ty_14 = 78;
+pub const AKEYCODE_HEADSETHOOK: _bindgen_ty_14 = 79;
+pub const AKEYCODE_FOCUS: _bindgen_ty_14 = 80;
+pub const AKEYCODE_PLUS: _bindgen_ty_14 = 81;
+pub const AKEYCODE_MENU: _bindgen_ty_14 = 82;
+pub const AKEYCODE_NOTIFICATION: _bindgen_ty_14 = 83;
+pub const AKEYCODE_SEARCH: _bindgen_ty_14 = 84;
+pub const AKEYCODE_MEDIA_PLAY_PAUSE: _bindgen_ty_14 = 85;
+pub const AKEYCODE_MEDIA_STOP: _bindgen_ty_14 = 86;
+pub const AKEYCODE_MEDIA_NEXT: _bindgen_ty_14 = 87;
+pub const AKEYCODE_MEDIA_PREVIOUS: _bindgen_ty_14 = 88;
+pub const AKEYCODE_MEDIA_REWIND: _bindgen_ty_14 = 89;
+pub const AKEYCODE_MEDIA_FAST_FORWARD: _bindgen_ty_14 = 90;
+pub const AKEYCODE_MUTE: _bindgen_ty_14 = 91;
+pub const AKEYCODE_PAGE_UP: _bindgen_ty_14 = 92;
+pub const AKEYCODE_PAGE_DOWN: _bindgen_ty_14 = 93;
+pub const AKEYCODE_PICTSYMBOLS: _bindgen_ty_14 = 94;
+pub const AKEYCODE_SWITCH_CHARSET: _bindgen_ty_14 = 95;
+pub const AKEYCODE_BUTTON_A: _bindgen_ty_14 = 96;
+pub const AKEYCODE_BUTTON_B: _bindgen_ty_14 = 97;
+pub const AKEYCODE_BUTTON_C: _bindgen_ty_14 = 98;
+pub const AKEYCODE_BUTTON_X: _bindgen_ty_14 = 99;
+pub const AKEYCODE_BUTTON_Y: _bindgen_ty_14 = 100;
+pub const AKEYCODE_BUTTON_Z: _bindgen_ty_14 = 101;
+pub const AKEYCODE_BUTTON_L1: _bindgen_ty_14 = 102;
+pub const AKEYCODE_BUTTON_R1: _bindgen_ty_14 = 103;
+pub const AKEYCODE_BUTTON_L2: _bindgen_ty_14 = 104;
+pub const AKEYCODE_BUTTON_R2: _bindgen_ty_14 = 105;
+pub const AKEYCODE_BUTTON_THUMBL: _bindgen_ty_14 = 106;
+pub const AKEYCODE_BUTTON_THUMBR: _bindgen_ty_14 = 107;
+pub const AKEYCODE_BUTTON_START: _bindgen_ty_14 = 108;
+pub const AKEYCODE_BUTTON_SELECT: _bindgen_ty_14 = 109;
+pub const AKEYCODE_BUTTON_MODE: _bindgen_ty_14 = 110;
+pub const AKEYCODE_ESCAPE: _bindgen_ty_14 = 111;
+pub const AKEYCODE_FORWARD_DEL: _bindgen_ty_14 = 112;
+pub const AKEYCODE_CTRL_LEFT: _bindgen_ty_14 = 113;
+pub const AKEYCODE_CTRL_RIGHT: _bindgen_ty_14 = 114;
+pub const AKEYCODE_CAPS_LOCK: _bindgen_ty_14 = 115;
+pub const AKEYCODE_SCROLL_LOCK: _bindgen_ty_14 = 116;
+pub const AKEYCODE_META_LEFT: _bindgen_ty_14 = 117;
+pub const AKEYCODE_META_RIGHT: _bindgen_ty_14 = 118;
+pub const AKEYCODE_FUNCTION: _bindgen_ty_14 = 119;
+pub const AKEYCODE_SYSRQ: _bindgen_ty_14 = 120;
+pub const AKEYCODE_BREAK: _bindgen_ty_14 = 121;
+pub const AKEYCODE_MOVE_HOME: _bindgen_ty_14 = 122;
+pub const AKEYCODE_MOVE_END: _bindgen_ty_14 = 123;
+pub const AKEYCODE_INSERT: _bindgen_ty_14 = 124;
+pub const AKEYCODE_FORWARD: _bindgen_ty_14 = 125;
+pub const AKEYCODE_MEDIA_PLAY: _bindgen_ty_14 = 126;
+pub const AKEYCODE_MEDIA_PAUSE: _bindgen_ty_14 = 127;
+pub const AKEYCODE_MEDIA_CLOSE: _bindgen_ty_14 = 128;
+pub const AKEYCODE_MEDIA_EJECT: _bindgen_ty_14 = 129;
+pub const AKEYCODE_MEDIA_RECORD: _bindgen_ty_14 = 130;
+pub const AKEYCODE_F1: _bindgen_ty_14 = 131;
+pub const AKEYCODE_F2: _bindgen_ty_14 = 132;
+pub const AKEYCODE_F3: _bindgen_ty_14 = 133;
+pub const AKEYCODE_F4: _bindgen_ty_14 = 134;
+pub const AKEYCODE_F5: _bindgen_ty_14 = 135;
+pub const AKEYCODE_F6: _bindgen_ty_14 = 136;
+pub const AKEYCODE_F7: _bindgen_ty_14 = 137;
+pub const AKEYCODE_F8: _bindgen_ty_14 = 138;
+pub const AKEYCODE_F9: _bindgen_ty_14 = 139;
+pub const AKEYCODE_F10: _bindgen_ty_14 = 140;
+pub const AKEYCODE_F11: _bindgen_ty_14 = 141;
+pub const AKEYCODE_F12: _bindgen_ty_14 = 142;
+pub const AKEYCODE_NUM_LOCK: _bindgen_ty_14 = 143;
+pub const AKEYCODE_NUMPAD_0: _bindgen_ty_14 = 144;
+pub const AKEYCODE_NUMPAD_1: _bindgen_ty_14 = 145;
+pub const AKEYCODE_NUMPAD_2: _bindgen_ty_14 = 146;
+pub const AKEYCODE_NUMPAD_3: _bindgen_ty_14 = 147;
+pub const AKEYCODE_NUMPAD_4: _bindgen_ty_14 = 148;
+pub const AKEYCODE_NUMPAD_5: _bindgen_ty_14 = 149;
+pub const AKEYCODE_NUMPAD_6: _bindgen_ty_14 = 150;
+pub const AKEYCODE_NUMPAD_7: _bindgen_ty_14 = 151;
+pub const AKEYCODE_NUMPAD_8: _bindgen_ty_14 = 152;
+pub const AKEYCODE_NUMPAD_9: _bindgen_ty_14 = 153;
+pub const AKEYCODE_NUMPAD_DIVIDE: _bindgen_ty_14 = 154;
+pub const AKEYCODE_NUMPAD_MULTIPLY: _bindgen_ty_14 = 155;
+pub const AKEYCODE_NUMPAD_SUBTRACT: _bindgen_ty_14 = 156;
+pub const AKEYCODE_NUMPAD_ADD: _bindgen_ty_14 = 157;
+pub const AKEYCODE_NUMPAD_DOT: _bindgen_ty_14 = 158;
+pub const AKEYCODE_NUMPAD_COMMA: _bindgen_ty_14 = 159;
+pub const AKEYCODE_NUMPAD_ENTER: _bindgen_ty_14 = 160;
+pub const AKEYCODE_NUMPAD_EQUALS: _bindgen_ty_14 = 161;
+pub const AKEYCODE_NUMPAD_LEFT_PAREN: _bindgen_ty_14 = 162;
+pub const AKEYCODE_NUMPAD_RIGHT_PAREN: _bindgen_ty_14 = 163;
+pub const AKEYCODE_VOLUME_MUTE: _bindgen_ty_14 = 164;
+pub const AKEYCODE_INFO: _bindgen_ty_14 = 165;
+pub const AKEYCODE_CHANNEL_UP: _bindgen_ty_14 = 166;
+pub const AKEYCODE_CHANNEL_DOWN: _bindgen_ty_14 = 167;
+pub const AKEYCODE_ZOOM_IN: _bindgen_ty_14 = 168;
+pub const AKEYCODE_ZOOM_OUT: _bindgen_ty_14 = 169;
+pub const AKEYCODE_TV: _bindgen_ty_14 = 170;
+pub const AKEYCODE_WINDOW: _bindgen_ty_14 = 171;
+pub const AKEYCODE_GUIDE: _bindgen_ty_14 = 172;
+pub const AKEYCODE_DVR: _bindgen_ty_14 = 173;
+pub const AKEYCODE_BOOKMARK: _bindgen_ty_14 = 174;
+pub const AKEYCODE_CAPTIONS: _bindgen_ty_14 = 175;
+pub const AKEYCODE_SETTINGS: _bindgen_ty_14 = 176;
+pub const AKEYCODE_TV_POWER: _bindgen_ty_14 = 177;
+pub const AKEYCODE_TV_INPUT: _bindgen_ty_14 = 178;
+pub const AKEYCODE_STB_POWER: _bindgen_ty_14 = 179;
+pub const AKEYCODE_STB_INPUT: _bindgen_ty_14 = 180;
+pub const AKEYCODE_AVR_POWER: _bindgen_ty_14 = 181;
+pub const AKEYCODE_AVR_INPUT: _bindgen_ty_14 = 182;
+pub const AKEYCODE_PROG_RED: _bindgen_ty_14 = 183;
+pub const AKEYCODE_PROG_GREEN: _bindgen_ty_14 = 184;
+pub const AKEYCODE_PROG_YELLOW: _bindgen_ty_14 = 185;
+pub const AKEYCODE_PROG_BLUE: _bindgen_ty_14 = 186;
+pub const AKEYCODE_APP_SWITCH: _bindgen_ty_14 = 187;
+pub const AKEYCODE_BUTTON_1: _bindgen_ty_14 = 188;
+pub const AKEYCODE_BUTTON_2: _bindgen_ty_14 = 189;
+pub const AKEYCODE_BUTTON_3: _bindgen_ty_14 = 190;
+pub const AKEYCODE_BUTTON_4: _bindgen_ty_14 = 191;
+pub const AKEYCODE_BUTTON_5: _bindgen_ty_14 = 192;
+pub const AKEYCODE_BUTTON_6: _bindgen_ty_14 = 193;
+pub const AKEYCODE_BUTTON_7: _bindgen_ty_14 = 194;
+pub const AKEYCODE_BUTTON_8: _bindgen_ty_14 = 195;
+pub const AKEYCODE_BUTTON_9: _bindgen_ty_14 = 196;
+pub const AKEYCODE_BUTTON_10: _bindgen_ty_14 = 197;
+pub const AKEYCODE_BUTTON_11: _bindgen_ty_14 = 198;
+pub const AKEYCODE_BUTTON_12: _bindgen_ty_14 = 199;
+pub const AKEYCODE_BUTTON_13: _bindgen_ty_14 = 200;
+pub const AKEYCODE_BUTTON_14: _bindgen_ty_14 = 201;
+pub const AKEYCODE_BUTTON_15: _bindgen_ty_14 = 202;
+pub const AKEYCODE_BUTTON_16: _bindgen_ty_14 = 203;
+pub const AKEYCODE_LANGUAGE_SWITCH: _bindgen_ty_14 = 204;
+pub const AKEYCODE_MANNER_MODE: _bindgen_ty_14 = 205;
+pub const AKEYCODE_3D_MODE: _bindgen_ty_14 = 206;
+pub const AKEYCODE_CONTACTS: _bindgen_ty_14 = 207;
+pub const AKEYCODE_CALENDAR: _bindgen_ty_14 = 208;
+pub const AKEYCODE_MUSIC: _bindgen_ty_14 = 209;
+pub const AKEYCODE_CALCULATOR: _bindgen_ty_14 = 210;
+pub const AKEYCODE_ZENKAKU_HANKAKU: _bindgen_ty_14 = 211;
+pub const AKEYCODE_EISU: _bindgen_ty_14 = 212;
+pub const AKEYCODE_MUHENKAN: _bindgen_ty_14 = 213;
+pub const AKEYCODE_HENKAN: _bindgen_ty_14 = 214;
+pub const AKEYCODE_KATAKANA_HIRAGANA: _bindgen_ty_14 = 215;
+pub const AKEYCODE_YEN: _bindgen_ty_14 = 216;
+pub const AKEYCODE_RO: _bindgen_ty_14 = 217;
+pub const AKEYCODE_KANA: _bindgen_ty_14 = 218;
+pub const AKEYCODE_ASSIST: _bindgen_ty_14 = 219;
+pub const AKEYCODE_BRIGHTNESS_DOWN: _bindgen_ty_14 = 220;
+pub const AKEYCODE_BRIGHTNESS_UP: _bindgen_ty_14 = 221;
+pub const AKEYCODE_MEDIA_AUDIO_TRACK: _bindgen_ty_14 = 222;
+pub const AKEYCODE_SLEEP: _bindgen_ty_14 = 223;
+pub const AKEYCODE_WAKEUP: _bindgen_ty_14 = 224;
+pub const AKEYCODE_PAIRING: _bindgen_ty_14 = 225;
+pub const AKEYCODE_MEDIA_TOP_MENU: _bindgen_ty_14 = 226;
+pub const AKEYCODE_11: _bindgen_ty_14 = 227;
+pub const AKEYCODE_12: _bindgen_ty_14 = 228;
+pub const AKEYCODE_LAST_CHANNEL: _bindgen_ty_14 = 229;
+pub const AKEYCODE_TV_DATA_SERVICE: _bindgen_ty_14 = 230;
+pub const AKEYCODE_VOICE_ASSIST: _bindgen_ty_14 = 231;
+pub const AKEYCODE_TV_RADIO_SERVICE: _bindgen_ty_14 = 232;
+pub const AKEYCODE_TV_TELETEXT: _bindgen_ty_14 = 233;
+pub const AKEYCODE_TV_NUMBER_ENTRY: _bindgen_ty_14 = 234;
+pub const AKEYCODE_TV_TERRESTRIAL_ANALOG: _bindgen_ty_14 = 235;
+pub const AKEYCODE_TV_TERRESTRIAL_DIGITAL: _bindgen_ty_14 = 236;
+pub const AKEYCODE_TV_SATELLITE: _bindgen_ty_14 = 237;
+pub const AKEYCODE_TV_SATELLITE_BS: _bindgen_ty_14 = 238;
+pub const AKEYCODE_TV_SATELLITE_CS: _bindgen_ty_14 = 239;
+pub const AKEYCODE_TV_SATELLITE_SERVICE: _bindgen_ty_14 = 240;
+pub const AKEYCODE_TV_NETWORK: _bindgen_ty_14 = 241;
+pub const AKEYCODE_TV_ANTENNA_CABLE: _bindgen_ty_14 = 242;
+pub const AKEYCODE_TV_INPUT_HDMI_1: _bindgen_ty_14 = 243;
+pub const AKEYCODE_TV_INPUT_HDMI_2: _bindgen_ty_14 = 244;
+pub const AKEYCODE_TV_INPUT_HDMI_3: _bindgen_ty_14 = 245;
+pub const AKEYCODE_TV_INPUT_HDMI_4: _bindgen_ty_14 = 246;
+pub const AKEYCODE_TV_INPUT_COMPOSITE_1: _bindgen_ty_14 = 247;
+pub const AKEYCODE_TV_INPUT_COMPOSITE_2: _bindgen_ty_14 = 248;
+pub const AKEYCODE_TV_INPUT_COMPONENT_1: _bindgen_ty_14 = 249;
+pub const AKEYCODE_TV_INPUT_COMPONENT_2: _bindgen_ty_14 = 250;
+pub const AKEYCODE_TV_INPUT_VGA_1: _bindgen_ty_14 = 251;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION: _bindgen_ty_14 = 252;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP: _bindgen_ty_14 = 253;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN: _bindgen_ty_14 = 254;
+pub const AKEYCODE_TV_ZOOM_MODE: _bindgen_ty_14 = 255;
+pub const AKEYCODE_TV_CONTENTS_MENU: _bindgen_ty_14 = 256;
+pub const AKEYCODE_TV_MEDIA_CONTEXT_MENU: _bindgen_ty_14 = 257;
+pub const AKEYCODE_TV_TIMER_PROGRAMMING: _bindgen_ty_14 = 258;
+pub const AKEYCODE_HELP: _bindgen_ty_14 = 259;
+pub const AKEYCODE_NAVIGATE_PREVIOUS: _bindgen_ty_14 = 260;
+pub const AKEYCODE_NAVIGATE_NEXT: _bindgen_ty_14 = 261;
+pub const AKEYCODE_NAVIGATE_IN: _bindgen_ty_14 = 262;
+pub const AKEYCODE_NAVIGATE_OUT: _bindgen_ty_14 = 263;
+pub const AKEYCODE_STEM_PRIMARY: _bindgen_ty_14 = 264;
+pub const AKEYCODE_STEM_1: _bindgen_ty_14 = 265;
+pub const AKEYCODE_STEM_2: _bindgen_ty_14 = 266;
+pub const AKEYCODE_STEM_3: _bindgen_ty_14 = 267;
+pub const AKEYCODE_DPAD_UP_LEFT: _bindgen_ty_14 = 268;
+pub const AKEYCODE_DPAD_DOWN_LEFT: _bindgen_ty_14 = 269;
+pub const AKEYCODE_DPAD_UP_RIGHT: _bindgen_ty_14 = 270;
+pub const AKEYCODE_DPAD_DOWN_RIGHT: _bindgen_ty_14 = 271;
+pub const AKEYCODE_MEDIA_SKIP_FORWARD: _bindgen_ty_14 = 272;
+pub const AKEYCODE_MEDIA_SKIP_BACKWARD: _bindgen_ty_14 = 273;
+pub const AKEYCODE_MEDIA_STEP_FORWARD: _bindgen_ty_14 = 274;
+pub const AKEYCODE_MEDIA_STEP_BACKWARD: _bindgen_ty_14 = 275;
+pub const AKEYCODE_SOFT_SLEEP: _bindgen_ty_14 = 276;
+pub const AKEYCODE_CUT: _bindgen_ty_14 = 277;
+pub const AKEYCODE_COPY: _bindgen_ty_14 = 278;
+pub const AKEYCODE_PASTE: _bindgen_ty_14 = 279;
+pub const AKEYCODE_SYSTEM_NAVIGATION_UP: _bindgen_ty_14 = 280;
+pub const AKEYCODE_SYSTEM_NAVIGATION_DOWN: _bindgen_ty_14 = 281;
+pub const AKEYCODE_SYSTEM_NAVIGATION_LEFT: _bindgen_ty_14 = 282;
+pub const AKEYCODE_SYSTEM_NAVIGATION_RIGHT: _bindgen_ty_14 = 283;
+pub const AKEYCODE_ALL_APPS: _bindgen_ty_14 = 284;
+pub const AKEYCODE_REFRESH: _bindgen_ty_14 = 285;
+pub const AKEYCODE_THUMBS_UP: _bindgen_ty_14 = 286;
+pub const AKEYCODE_THUMBS_DOWN: _bindgen_ty_14 = 287;
+pub const AKEYCODE_PROFILE_SWITCH: _bindgen_ty_14 = 288;
+pub const AKEYCODE_VIDEO_APP_1: _bindgen_ty_14 = 289;
+pub const AKEYCODE_VIDEO_APP_2: _bindgen_ty_14 = 290;
+pub const AKEYCODE_VIDEO_APP_3: _bindgen_ty_14 = 291;
+pub const AKEYCODE_VIDEO_APP_4: _bindgen_ty_14 = 292;
+pub const AKEYCODE_VIDEO_APP_5: _bindgen_ty_14 = 293;
+pub const AKEYCODE_VIDEO_APP_6: _bindgen_ty_14 = 294;
+pub const AKEYCODE_VIDEO_APP_7: _bindgen_ty_14 = 295;
+pub const AKEYCODE_VIDEO_APP_8: _bindgen_ty_14 = 296;
+pub const AKEYCODE_FEATURED_APP_1: _bindgen_ty_14 = 297;
+pub const AKEYCODE_FEATURED_APP_2: _bindgen_ty_14 = 298;
+pub const AKEYCODE_FEATURED_APP_3: _bindgen_ty_14 = 299;
+pub const AKEYCODE_FEATURED_APP_4: _bindgen_ty_14 = 300;
+pub const AKEYCODE_DEMO_APP_1: _bindgen_ty_14 = 301;
+pub const AKEYCODE_DEMO_APP_2: _bindgen_ty_14 = 302;
+pub const AKEYCODE_DEMO_APP_3: _bindgen_ty_14 = 303;
+pub const AKEYCODE_DEMO_APP_4: _bindgen_ty_14 = 304;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_DOWN: _bindgen_ty_14 = 305;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_UP: _bindgen_ty_14 = 306;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE: _bindgen_ty_14 = 307;
+pub const AKEYCODE_STYLUS_BUTTON_PRIMARY: _bindgen_ty_14 = 308;
+pub const AKEYCODE_STYLUS_BUTTON_SECONDARY: _bindgen_ty_14 = 309;
+pub const AKEYCODE_STYLUS_BUTTON_TERTIARY: _bindgen_ty_14 = 310;
+pub const AKEYCODE_STYLUS_BUTTON_TAIL: _bindgen_ty_14 = 311;
+pub const AKEYCODE_RECENT_APPS: _bindgen_ty_14 = 312;
+pub const AKEYCODE_MACRO_1: _bindgen_ty_14 = 313;
+pub const AKEYCODE_MACRO_2: _bindgen_ty_14 = 314;
+pub const AKEYCODE_MACRO_3: _bindgen_ty_14 = 315;
+pub const AKEYCODE_MACRO_4: _bindgen_ty_14 = 316;
+pub const AKEYCODE_EMOJI_PICKER: _bindgen_ty_14 = 317;
+pub const AKEYCODE_SCREENSHOT: _bindgen_ty_14 = 318;
+pub const AKEYCODE_DICTATE: _bindgen_ty_14 = 319;
+pub const AKEYCODE_NEW: _bindgen_ty_14 = 320;
+pub const AKEYCODE_CLOSE: _bindgen_ty_14 = 321;
+pub const AKEYCODE_DO_NOT_DISTURB: _bindgen_ty_14 = 322;
+pub const AKEYCODE_PRINT: _bindgen_ty_14 = 323;
+pub const AKEYCODE_LOCK: _bindgen_ty_14 = 324;
+pub const AKEYCODE_FULLSCREEN: _bindgen_ty_14 = 325;
+pub const AKEYCODE_F13: _bindgen_ty_14 = 326;
+pub const AKEYCODE_F14: _bindgen_ty_14 = 327;
+pub const AKEYCODE_F15: _bindgen_ty_14 = 328;
+pub const AKEYCODE_F16: _bindgen_ty_14 = 329;
+pub const AKEYCODE_F17: _bindgen_ty_14 = 330;
+pub const AKEYCODE_F18: _bindgen_ty_14 = 331;
+pub const AKEYCODE_F19: _bindgen_ty_14 = 332;
+pub const AKEYCODE_F20: _bindgen_ty_14 = 333;
+pub const AKEYCODE_F21: _bindgen_ty_14 = 334;
+pub const AKEYCODE_F22: _bindgen_ty_14 = 335;
+pub const AKEYCODE_F23: _bindgen_ty_14 = 336;
+pub const AKEYCODE_F24: _bindgen_ty_14 = 337;
+pub const AKEYCODE_ACCESSIBILITY: _bindgen_ty_14 = 338;
+pub const AKEYCODE_CONTEXTUAL_SEARCH: _bindgen_ty_14 = 339;
+pub const AKEYCODE_CONTEXTUAL_INSERT: _bindgen_ty_14 = 340;
+pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ALooper {
@@ -2319,28 +2496,28 @@ pub struct ALooper {
 extern "C" {
     pub fn ALooper_forThread() -> *mut ALooper;
 }
-pub const ALOOPER_PREPARE_ALLOW_NON_CALLBACKS: _bindgen_ty_14 = 1;
-pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
+pub const ALOOPER_PREPARE_ALLOW_NON_CALLBACKS: _bindgen_ty_15 = 1;
+pub type _bindgen_ty_15 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ALooper_prepare(opts: ::std::os::raw::c_int) -> *mut ALooper;
 }
-pub const ALOOPER_POLL_WAKE: _bindgen_ty_15 = -1;
-pub const ALOOPER_POLL_CALLBACK: _bindgen_ty_15 = -2;
-pub const ALOOPER_POLL_TIMEOUT: _bindgen_ty_15 = -3;
-pub const ALOOPER_POLL_ERROR: _bindgen_ty_15 = -4;
-pub type _bindgen_ty_15 = ::std::os::raw::c_int;
+pub const ALOOPER_POLL_WAKE: _bindgen_ty_16 = -1;
+pub const ALOOPER_POLL_CALLBACK: _bindgen_ty_16 = -2;
+pub const ALOOPER_POLL_TIMEOUT: _bindgen_ty_16 = -3;
+pub const ALOOPER_POLL_ERROR: _bindgen_ty_16 = -4;
+pub type _bindgen_ty_16 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ALooper_acquire(looper: *mut ALooper);
 }
 extern "C" {
     pub fn ALooper_release(looper: *mut ALooper);
 }
-pub const ALOOPER_EVENT_INPUT: _bindgen_ty_16 = 1;
-pub const ALOOPER_EVENT_OUTPUT: _bindgen_ty_16 = 2;
-pub const ALOOPER_EVENT_ERROR: _bindgen_ty_16 = 4;
-pub const ALOOPER_EVENT_HANGUP: _bindgen_ty_16 = 8;
-pub const ALOOPER_EVENT_INVALID: _bindgen_ty_16 = 16;
-pub type _bindgen_ty_16 = ::std::os::raw::c_uint;
+pub const ALOOPER_EVENT_INPUT: _bindgen_ty_17 = 1;
+pub const ALOOPER_EVENT_OUTPUT: _bindgen_ty_17 = 2;
+pub const ALOOPER_EVENT_ERROR: _bindgen_ty_17 = 4;
+pub const ALOOPER_EVENT_HANGUP: _bindgen_ty_17 = 8;
+pub const ALOOPER_EVENT_INVALID: _bindgen_ty_17 = 16;
+pub type _bindgen_ty_17 = ::std::os::raw::c_uint;
 pub type ALooper_callbackFunc = ::std::option::Option<
     unsafe extern "C" fn(
         fd: ::std::os::raw::c_int,
@@ -2383,150 +2560,150 @@ extern "C" {
         fd: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
-pub const AKEY_STATE_UNKNOWN: _bindgen_ty_17 = -1;
-pub const AKEY_STATE_UP: _bindgen_ty_17 = 0;
-pub const AKEY_STATE_DOWN: _bindgen_ty_17 = 1;
-pub const AKEY_STATE_VIRTUAL: _bindgen_ty_17 = 2;
-pub type _bindgen_ty_17 = ::std::os::raw::c_int;
-pub const AMETA_NONE: _bindgen_ty_18 = 0;
-pub const AMETA_ALT_ON: _bindgen_ty_18 = 2;
-pub const AMETA_ALT_LEFT_ON: _bindgen_ty_18 = 16;
-pub const AMETA_ALT_RIGHT_ON: _bindgen_ty_18 = 32;
-pub const AMETA_SHIFT_ON: _bindgen_ty_18 = 1;
-pub const AMETA_SHIFT_LEFT_ON: _bindgen_ty_18 = 64;
-pub const AMETA_SHIFT_RIGHT_ON: _bindgen_ty_18 = 128;
-pub const AMETA_SYM_ON: _bindgen_ty_18 = 4;
-pub const AMETA_FUNCTION_ON: _bindgen_ty_18 = 8;
-pub const AMETA_CTRL_ON: _bindgen_ty_18 = 4096;
-pub const AMETA_CTRL_LEFT_ON: _bindgen_ty_18 = 8192;
-pub const AMETA_CTRL_RIGHT_ON: _bindgen_ty_18 = 16384;
-pub const AMETA_META_ON: _bindgen_ty_18 = 65536;
-pub const AMETA_META_LEFT_ON: _bindgen_ty_18 = 131072;
-pub const AMETA_META_RIGHT_ON: _bindgen_ty_18 = 262144;
-pub const AMETA_CAPS_LOCK_ON: _bindgen_ty_18 = 1048576;
-pub const AMETA_NUM_LOCK_ON: _bindgen_ty_18 = 2097152;
-pub const AMETA_SCROLL_LOCK_ON: _bindgen_ty_18 = 4194304;
-pub type _bindgen_ty_18 = ::std::os::raw::c_uint;
+pub const AKEY_STATE_UNKNOWN: _bindgen_ty_18 = -1;
+pub const AKEY_STATE_UP: _bindgen_ty_18 = 0;
+pub const AKEY_STATE_DOWN: _bindgen_ty_18 = 1;
+pub const AKEY_STATE_VIRTUAL: _bindgen_ty_18 = 2;
+pub type _bindgen_ty_18 = ::std::os::raw::c_int;
+pub const AMETA_NONE: _bindgen_ty_19 = 0;
+pub const AMETA_ALT_ON: _bindgen_ty_19 = 2;
+pub const AMETA_ALT_LEFT_ON: _bindgen_ty_19 = 16;
+pub const AMETA_ALT_RIGHT_ON: _bindgen_ty_19 = 32;
+pub const AMETA_SHIFT_ON: _bindgen_ty_19 = 1;
+pub const AMETA_SHIFT_LEFT_ON: _bindgen_ty_19 = 64;
+pub const AMETA_SHIFT_RIGHT_ON: _bindgen_ty_19 = 128;
+pub const AMETA_SYM_ON: _bindgen_ty_19 = 4;
+pub const AMETA_FUNCTION_ON: _bindgen_ty_19 = 8;
+pub const AMETA_CTRL_ON: _bindgen_ty_19 = 4096;
+pub const AMETA_CTRL_LEFT_ON: _bindgen_ty_19 = 8192;
+pub const AMETA_CTRL_RIGHT_ON: _bindgen_ty_19 = 16384;
+pub const AMETA_META_ON: _bindgen_ty_19 = 65536;
+pub const AMETA_META_LEFT_ON: _bindgen_ty_19 = 131072;
+pub const AMETA_META_RIGHT_ON: _bindgen_ty_19 = 262144;
+pub const AMETA_CAPS_LOCK_ON: _bindgen_ty_19 = 1048576;
+pub const AMETA_NUM_LOCK_ON: _bindgen_ty_19 = 2097152;
+pub const AMETA_SCROLL_LOCK_ON: _bindgen_ty_19 = 4194304;
+pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AInputEvent {
     _unused: [u8; 0],
 }
-pub const AINPUT_EVENT_TYPE_KEY: _bindgen_ty_19 = 1;
-pub const AINPUT_EVENT_TYPE_MOTION: _bindgen_ty_19 = 2;
-pub const AINPUT_EVENT_TYPE_FOCUS: _bindgen_ty_19 = 3;
-pub const AINPUT_EVENT_TYPE_CAPTURE: _bindgen_ty_19 = 4;
-pub const AINPUT_EVENT_TYPE_DRAG: _bindgen_ty_19 = 5;
-pub const AINPUT_EVENT_TYPE_TOUCH_MODE: _bindgen_ty_19 = 6;
-pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
-pub const AKEY_EVENT_ACTION_DOWN: _bindgen_ty_20 = 0;
-pub const AKEY_EVENT_ACTION_UP: _bindgen_ty_20 = 1;
-pub const AKEY_EVENT_ACTION_MULTIPLE: _bindgen_ty_20 = 2;
+pub const AINPUT_EVENT_TYPE_KEY: _bindgen_ty_20 = 1;
+pub const AINPUT_EVENT_TYPE_MOTION: _bindgen_ty_20 = 2;
+pub const AINPUT_EVENT_TYPE_FOCUS: _bindgen_ty_20 = 3;
+pub const AINPUT_EVENT_TYPE_CAPTURE: _bindgen_ty_20 = 4;
+pub const AINPUT_EVENT_TYPE_DRAG: _bindgen_ty_20 = 5;
+pub const AINPUT_EVENT_TYPE_TOUCH_MODE: _bindgen_ty_20 = 6;
 pub type _bindgen_ty_20 = ::std::os::raw::c_uint;
-pub const AKEY_EVENT_FLAG_WOKE_HERE: _bindgen_ty_21 = 1;
-pub const AKEY_EVENT_FLAG_SOFT_KEYBOARD: _bindgen_ty_21 = 2;
-pub const AKEY_EVENT_FLAG_KEEP_TOUCH_MODE: _bindgen_ty_21 = 4;
-pub const AKEY_EVENT_FLAG_FROM_SYSTEM: _bindgen_ty_21 = 8;
-pub const AKEY_EVENT_FLAG_EDITOR_ACTION: _bindgen_ty_21 = 16;
-pub const AKEY_EVENT_FLAG_CANCELED: _bindgen_ty_21 = 32;
-pub const AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY: _bindgen_ty_21 = 64;
-pub const AKEY_EVENT_FLAG_LONG_PRESS: _bindgen_ty_21 = 128;
-pub const AKEY_EVENT_FLAG_CANCELED_LONG_PRESS: _bindgen_ty_21 = 256;
-pub const AKEY_EVENT_FLAG_TRACKING: _bindgen_ty_21 = 512;
-pub const AKEY_EVENT_FLAG_FALLBACK: _bindgen_ty_21 = 1024;
+pub const AKEY_EVENT_ACTION_DOWN: _bindgen_ty_21 = 0;
+pub const AKEY_EVENT_ACTION_UP: _bindgen_ty_21 = 1;
+pub const AKEY_EVENT_ACTION_MULTIPLE: _bindgen_ty_21 = 2;
 pub type _bindgen_ty_21 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_ACTION_MASK: _bindgen_ty_22 = 255;
-pub const AMOTION_EVENT_ACTION_POINTER_INDEX_MASK: _bindgen_ty_22 = 65280;
-pub const AMOTION_EVENT_ACTION_DOWN: _bindgen_ty_22 = 0;
-pub const AMOTION_EVENT_ACTION_UP: _bindgen_ty_22 = 1;
-pub const AMOTION_EVENT_ACTION_MOVE: _bindgen_ty_22 = 2;
-pub const AMOTION_EVENT_ACTION_CANCEL: _bindgen_ty_22 = 3;
-pub const AMOTION_EVENT_ACTION_OUTSIDE: _bindgen_ty_22 = 4;
-pub const AMOTION_EVENT_ACTION_POINTER_DOWN: _bindgen_ty_22 = 5;
-pub const AMOTION_EVENT_ACTION_POINTER_UP: _bindgen_ty_22 = 6;
-pub const AMOTION_EVENT_ACTION_HOVER_MOVE: _bindgen_ty_22 = 7;
-pub const AMOTION_EVENT_ACTION_SCROLL: _bindgen_ty_22 = 8;
-pub const AMOTION_EVENT_ACTION_HOVER_ENTER: _bindgen_ty_22 = 9;
-pub const AMOTION_EVENT_ACTION_HOVER_EXIT: _bindgen_ty_22 = 10;
-pub const AMOTION_EVENT_ACTION_BUTTON_PRESS: _bindgen_ty_22 = 11;
-pub const AMOTION_EVENT_ACTION_BUTTON_RELEASE: _bindgen_ty_22 = 12;
+pub const AKEY_EVENT_FLAG_WOKE_HERE: _bindgen_ty_22 = 1;
+pub const AKEY_EVENT_FLAG_SOFT_KEYBOARD: _bindgen_ty_22 = 2;
+pub const AKEY_EVENT_FLAG_KEEP_TOUCH_MODE: _bindgen_ty_22 = 4;
+pub const AKEY_EVENT_FLAG_FROM_SYSTEM: _bindgen_ty_22 = 8;
+pub const AKEY_EVENT_FLAG_EDITOR_ACTION: _bindgen_ty_22 = 16;
+pub const AKEY_EVENT_FLAG_CANCELED: _bindgen_ty_22 = 32;
+pub const AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY: _bindgen_ty_22 = 64;
+pub const AKEY_EVENT_FLAG_LONG_PRESS: _bindgen_ty_22 = 128;
+pub const AKEY_EVENT_FLAG_CANCELED_LONG_PRESS: _bindgen_ty_22 = 256;
+pub const AKEY_EVENT_FLAG_TRACKING: _bindgen_ty_22 = 512;
+pub const AKEY_EVENT_FLAG_FALLBACK: _bindgen_ty_22 = 1024;
 pub type _bindgen_ty_22 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED: _bindgen_ty_23 = 1;
+pub const AMOTION_EVENT_ACTION_MASK: _bindgen_ty_23 = 255;
+pub const AMOTION_EVENT_ACTION_POINTER_INDEX_MASK: _bindgen_ty_23 = 65280;
+pub const AMOTION_EVENT_ACTION_DOWN: _bindgen_ty_23 = 0;
+pub const AMOTION_EVENT_ACTION_UP: _bindgen_ty_23 = 1;
+pub const AMOTION_EVENT_ACTION_MOVE: _bindgen_ty_23 = 2;
+pub const AMOTION_EVENT_ACTION_CANCEL: _bindgen_ty_23 = 3;
+pub const AMOTION_EVENT_ACTION_OUTSIDE: _bindgen_ty_23 = 4;
+pub const AMOTION_EVENT_ACTION_POINTER_DOWN: _bindgen_ty_23 = 5;
+pub const AMOTION_EVENT_ACTION_POINTER_UP: _bindgen_ty_23 = 6;
+pub const AMOTION_EVENT_ACTION_HOVER_MOVE: _bindgen_ty_23 = 7;
+pub const AMOTION_EVENT_ACTION_SCROLL: _bindgen_ty_23 = 8;
+pub const AMOTION_EVENT_ACTION_HOVER_ENTER: _bindgen_ty_23 = 9;
+pub const AMOTION_EVENT_ACTION_HOVER_EXIT: _bindgen_ty_23 = 10;
+pub const AMOTION_EVENT_ACTION_BUTTON_PRESS: _bindgen_ty_23 = 11;
+pub const AMOTION_EVENT_ACTION_BUTTON_RELEASE: _bindgen_ty_23 = 12;
 pub type _bindgen_ty_23 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_EDGE_FLAG_NONE: _bindgen_ty_24 = 0;
-pub const AMOTION_EVENT_EDGE_FLAG_TOP: _bindgen_ty_24 = 1;
-pub const AMOTION_EVENT_EDGE_FLAG_BOTTOM: _bindgen_ty_24 = 2;
-pub const AMOTION_EVENT_EDGE_FLAG_LEFT: _bindgen_ty_24 = 4;
-pub const AMOTION_EVENT_EDGE_FLAG_RIGHT: _bindgen_ty_24 = 8;
+pub const AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED: _bindgen_ty_24 = 1;
 pub type _bindgen_ty_24 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_AXIS_X: _bindgen_ty_25 = 0;
-pub const AMOTION_EVENT_AXIS_Y: _bindgen_ty_25 = 1;
-pub const AMOTION_EVENT_AXIS_PRESSURE: _bindgen_ty_25 = 2;
-pub const AMOTION_EVENT_AXIS_SIZE: _bindgen_ty_25 = 3;
-pub const AMOTION_EVENT_AXIS_TOUCH_MAJOR: _bindgen_ty_25 = 4;
-pub const AMOTION_EVENT_AXIS_TOUCH_MINOR: _bindgen_ty_25 = 5;
-pub const AMOTION_EVENT_AXIS_TOOL_MAJOR: _bindgen_ty_25 = 6;
-pub const AMOTION_EVENT_AXIS_TOOL_MINOR: _bindgen_ty_25 = 7;
-pub const AMOTION_EVENT_AXIS_ORIENTATION: _bindgen_ty_25 = 8;
-pub const AMOTION_EVENT_AXIS_VSCROLL: _bindgen_ty_25 = 9;
-pub const AMOTION_EVENT_AXIS_HSCROLL: _bindgen_ty_25 = 10;
-pub const AMOTION_EVENT_AXIS_Z: _bindgen_ty_25 = 11;
-pub const AMOTION_EVENT_AXIS_RX: _bindgen_ty_25 = 12;
-pub const AMOTION_EVENT_AXIS_RY: _bindgen_ty_25 = 13;
-pub const AMOTION_EVENT_AXIS_RZ: _bindgen_ty_25 = 14;
-pub const AMOTION_EVENT_AXIS_HAT_X: _bindgen_ty_25 = 15;
-pub const AMOTION_EVENT_AXIS_HAT_Y: _bindgen_ty_25 = 16;
-pub const AMOTION_EVENT_AXIS_LTRIGGER: _bindgen_ty_25 = 17;
-pub const AMOTION_EVENT_AXIS_RTRIGGER: _bindgen_ty_25 = 18;
-pub const AMOTION_EVENT_AXIS_THROTTLE: _bindgen_ty_25 = 19;
-pub const AMOTION_EVENT_AXIS_RUDDER: _bindgen_ty_25 = 20;
-pub const AMOTION_EVENT_AXIS_WHEEL: _bindgen_ty_25 = 21;
-pub const AMOTION_EVENT_AXIS_GAS: _bindgen_ty_25 = 22;
-pub const AMOTION_EVENT_AXIS_BRAKE: _bindgen_ty_25 = 23;
-pub const AMOTION_EVENT_AXIS_DISTANCE: _bindgen_ty_25 = 24;
-pub const AMOTION_EVENT_AXIS_TILT: _bindgen_ty_25 = 25;
-pub const AMOTION_EVENT_AXIS_SCROLL: _bindgen_ty_25 = 26;
-pub const AMOTION_EVENT_AXIS_RELATIVE_X: _bindgen_ty_25 = 27;
-pub const AMOTION_EVENT_AXIS_RELATIVE_Y: _bindgen_ty_25 = 28;
-pub const AMOTION_EVENT_AXIS_GENERIC_1: _bindgen_ty_25 = 32;
-pub const AMOTION_EVENT_AXIS_GENERIC_2: _bindgen_ty_25 = 33;
-pub const AMOTION_EVENT_AXIS_GENERIC_3: _bindgen_ty_25 = 34;
-pub const AMOTION_EVENT_AXIS_GENERIC_4: _bindgen_ty_25 = 35;
-pub const AMOTION_EVENT_AXIS_GENERIC_5: _bindgen_ty_25 = 36;
-pub const AMOTION_EVENT_AXIS_GENERIC_6: _bindgen_ty_25 = 37;
-pub const AMOTION_EVENT_AXIS_GENERIC_7: _bindgen_ty_25 = 38;
-pub const AMOTION_EVENT_AXIS_GENERIC_8: _bindgen_ty_25 = 39;
-pub const AMOTION_EVENT_AXIS_GENERIC_9: _bindgen_ty_25 = 40;
-pub const AMOTION_EVENT_AXIS_GENERIC_10: _bindgen_ty_25 = 41;
-pub const AMOTION_EVENT_AXIS_GENERIC_11: _bindgen_ty_25 = 42;
-pub const AMOTION_EVENT_AXIS_GENERIC_12: _bindgen_ty_25 = 43;
-pub const AMOTION_EVENT_AXIS_GENERIC_13: _bindgen_ty_25 = 44;
-pub const AMOTION_EVENT_AXIS_GENERIC_14: _bindgen_ty_25 = 45;
-pub const AMOTION_EVENT_AXIS_GENERIC_15: _bindgen_ty_25 = 46;
-pub const AMOTION_EVENT_AXIS_GENERIC_16: _bindgen_ty_25 = 47;
-pub const AMOTION_EVENT_AXIS_GESTURE_X_OFFSET: _bindgen_ty_25 = 48;
-pub const AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET: _bindgen_ty_25 = 49;
-pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE: _bindgen_ty_25 = 50;
-pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE: _bindgen_ty_25 = 51;
-pub const AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR: _bindgen_ty_25 = 52;
-pub const AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT: _bindgen_ty_25 = 53;
-pub const AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE: _bindgen_ty_25 = 53;
+pub const AMOTION_EVENT_EDGE_FLAG_NONE: _bindgen_ty_25 = 0;
+pub const AMOTION_EVENT_EDGE_FLAG_TOP: _bindgen_ty_25 = 1;
+pub const AMOTION_EVENT_EDGE_FLAG_BOTTOM: _bindgen_ty_25 = 2;
+pub const AMOTION_EVENT_EDGE_FLAG_LEFT: _bindgen_ty_25 = 4;
+pub const AMOTION_EVENT_EDGE_FLAG_RIGHT: _bindgen_ty_25 = 8;
 pub type _bindgen_ty_25 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_BUTTON_PRIMARY: _bindgen_ty_26 = 1;
-pub const AMOTION_EVENT_BUTTON_SECONDARY: _bindgen_ty_26 = 2;
-pub const AMOTION_EVENT_BUTTON_TERTIARY: _bindgen_ty_26 = 4;
-pub const AMOTION_EVENT_BUTTON_BACK: _bindgen_ty_26 = 8;
-pub const AMOTION_EVENT_BUTTON_FORWARD: _bindgen_ty_26 = 16;
-pub const AMOTION_EVENT_BUTTON_STYLUS_PRIMARY: _bindgen_ty_26 = 32;
-pub const AMOTION_EVENT_BUTTON_STYLUS_SECONDARY: _bindgen_ty_26 = 64;
+pub const AMOTION_EVENT_AXIS_X: _bindgen_ty_26 = 0;
+pub const AMOTION_EVENT_AXIS_Y: _bindgen_ty_26 = 1;
+pub const AMOTION_EVENT_AXIS_PRESSURE: _bindgen_ty_26 = 2;
+pub const AMOTION_EVENT_AXIS_SIZE: _bindgen_ty_26 = 3;
+pub const AMOTION_EVENT_AXIS_TOUCH_MAJOR: _bindgen_ty_26 = 4;
+pub const AMOTION_EVENT_AXIS_TOUCH_MINOR: _bindgen_ty_26 = 5;
+pub const AMOTION_EVENT_AXIS_TOOL_MAJOR: _bindgen_ty_26 = 6;
+pub const AMOTION_EVENT_AXIS_TOOL_MINOR: _bindgen_ty_26 = 7;
+pub const AMOTION_EVENT_AXIS_ORIENTATION: _bindgen_ty_26 = 8;
+pub const AMOTION_EVENT_AXIS_VSCROLL: _bindgen_ty_26 = 9;
+pub const AMOTION_EVENT_AXIS_HSCROLL: _bindgen_ty_26 = 10;
+pub const AMOTION_EVENT_AXIS_Z: _bindgen_ty_26 = 11;
+pub const AMOTION_EVENT_AXIS_RX: _bindgen_ty_26 = 12;
+pub const AMOTION_EVENT_AXIS_RY: _bindgen_ty_26 = 13;
+pub const AMOTION_EVENT_AXIS_RZ: _bindgen_ty_26 = 14;
+pub const AMOTION_EVENT_AXIS_HAT_X: _bindgen_ty_26 = 15;
+pub const AMOTION_EVENT_AXIS_HAT_Y: _bindgen_ty_26 = 16;
+pub const AMOTION_EVENT_AXIS_LTRIGGER: _bindgen_ty_26 = 17;
+pub const AMOTION_EVENT_AXIS_RTRIGGER: _bindgen_ty_26 = 18;
+pub const AMOTION_EVENT_AXIS_THROTTLE: _bindgen_ty_26 = 19;
+pub const AMOTION_EVENT_AXIS_RUDDER: _bindgen_ty_26 = 20;
+pub const AMOTION_EVENT_AXIS_WHEEL: _bindgen_ty_26 = 21;
+pub const AMOTION_EVENT_AXIS_GAS: _bindgen_ty_26 = 22;
+pub const AMOTION_EVENT_AXIS_BRAKE: _bindgen_ty_26 = 23;
+pub const AMOTION_EVENT_AXIS_DISTANCE: _bindgen_ty_26 = 24;
+pub const AMOTION_EVENT_AXIS_TILT: _bindgen_ty_26 = 25;
+pub const AMOTION_EVENT_AXIS_SCROLL: _bindgen_ty_26 = 26;
+pub const AMOTION_EVENT_AXIS_RELATIVE_X: _bindgen_ty_26 = 27;
+pub const AMOTION_EVENT_AXIS_RELATIVE_Y: _bindgen_ty_26 = 28;
+pub const AMOTION_EVENT_AXIS_GENERIC_1: _bindgen_ty_26 = 32;
+pub const AMOTION_EVENT_AXIS_GENERIC_2: _bindgen_ty_26 = 33;
+pub const AMOTION_EVENT_AXIS_GENERIC_3: _bindgen_ty_26 = 34;
+pub const AMOTION_EVENT_AXIS_GENERIC_4: _bindgen_ty_26 = 35;
+pub const AMOTION_EVENT_AXIS_GENERIC_5: _bindgen_ty_26 = 36;
+pub const AMOTION_EVENT_AXIS_GENERIC_6: _bindgen_ty_26 = 37;
+pub const AMOTION_EVENT_AXIS_GENERIC_7: _bindgen_ty_26 = 38;
+pub const AMOTION_EVENT_AXIS_GENERIC_8: _bindgen_ty_26 = 39;
+pub const AMOTION_EVENT_AXIS_GENERIC_9: _bindgen_ty_26 = 40;
+pub const AMOTION_EVENT_AXIS_GENERIC_10: _bindgen_ty_26 = 41;
+pub const AMOTION_EVENT_AXIS_GENERIC_11: _bindgen_ty_26 = 42;
+pub const AMOTION_EVENT_AXIS_GENERIC_12: _bindgen_ty_26 = 43;
+pub const AMOTION_EVENT_AXIS_GENERIC_13: _bindgen_ty_26 = 44;
+pub const AMOTION_EVENT_AXIS_GENERIC_14: _bindgen_ty_26 = 45;
+pub const AMOTION_EVENT_AXIS_GENERIC_15: _bindgen_ty_26 = 46;
+pub const AMOTION_EVENT_AXIS_GENERIC_16: _bindgen_ty_26 = 47;
+pub const AMOTION_EVENT_AXIS_GESTURE_X_OFFSET: _bindgen_ty_26 = 48;
+pub const AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET: _bindgen_ty_26 = 49;
+pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE: _bindgen_ty_26 = 50;
+pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE: _bindgen_ty_26 = 51;
+pub const AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR: _bindgen_ty_26 = 52;
+pub const AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT: _bindgen_ty_26 = 53;
+pub const AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE: _bindgen_ty_26 = 53;
 pub type _bindgen_ty_26 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_TOOL_TYPE_UNKNOWN: _bindgen_ty_27 = 0;
-pub const AMOTION_EVENT_TOOL_TYPE_FINGER: _bindgen_ty_27 = 1;
-pub const AMOTION_EVENT_TOOL_TYPE_STYLUS: _bindgen_ty_27 = 2;
-pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: _bindgen_ty_27 = 3;
-pub const AMOTION_EVENT_TOOL_TYPE_ERASER: _bindgen_ty_27 = 4;
-pub const AMOTION_EVENT_TOOL_TYPE_PALM: _bindgen_ty_27 = 5;
+pub const AMOTION_EVENT_BUTTON_PRIMARY: _bindgen_ty_27 = 1;
+pub const AMOTION_EVENT_BUTTON_SECONDARY: _bindgen_ty_27 = 2;
+pub const AMOTION_EVENT_BUTTON_TERTIARY: _bindgen_ty_27 = 4;
+pub const AMOTION_EVENT_BUTTON_BACK: _bindgen_ty_27 = 8;
+pub const AMOTION_EVENT_BUTTON_FORWARD: _bindgen_ty_27 = 16;
+pub const AMOTION_EVENT_BUTTON_STYLUS_PRIMARY: _bindgen_ty_27 = 32;
+pub const AMOTION_EVENT_BUTTON_STYLUS_SECONDARY: _bindgen_ty_27 = 64;
 pub type _bindgen_ty_27 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_TOOL_TYPE_UNKNOWN: _bindgen_ty_28 = 0;
+pub const AMOTION_EVENT_TOOL_TYPE_FINGER: _bindgen_ty_28 = 1;
+pub const AMOTION_EVENT_TOOL_TYPE_STYLUS: _bindgen_ty_28 = 2;
+pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: _bindgen_ty_28 = 3;
+pub const AMOTION_EVENT_TOOL_TYPE_ERASER: _bindgen_ty_28 = 4;
+pub const AMOTION_EVENT_TOOL_TYPE_PALM: _bindgen_ty_28 = 5;
+pub type _bindgen_ty_28 = ::std::os::raw::c_uint;
 impl AMotionClassification {
     pub const AMOTION_EVENT_CLASSIFICATION_NONE: AMotionClassification = AMotionClassification(0);
 }
@@ -2552,46 +2729,46 @@ impl AMotionClassification {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AMotionClassification(pub u32);
-pub const AINPUT_SOURCE_CLASS_MASK: _bindgen_ty_28 = 255;
-pub const AINPUT_SOURCE_CLASS_NONE: _bindgen_ty_28 = 0;
-pub const AINPUT_SOURCE_CLASS_BUTTON: _bindgen_ty_28 = 1;
-pub const AINPUT_SOURCE_CLASS_POINTER: _bindgen_ty_28 = 2;
-pub const AINPUT_SOURCE_CLASS_NAVIGATION: _bindgen_ty_28 = 4;
-pub const AINPUT_SOURCE_CLASS_POSITION: _bindgen_ty_28 = 8;
-pub const AINPUT_SOURCE_CLASS_JOYSTICK: _bindgen_ty_28 = 16;
-pub type _bindgen_ty_28 = ::std::os::raw::c_uint;
-pub const AINPUT_SOURCE_UNKNOWN: _bindgen_ty_29 = 0;
-pub const AINPUT_SOURCE_KEYBOARD: _bindgen_ty_29 = 257;
-pub const AINPUT_SOURCE_DPAD: _bindgen_ty_29 = 513;
-pub const AINPUT_SOURCE_GAMEPAD: _bindgen_ty_29 = 1025;
-pub const AINPUT_SOURCE_TOUCHSCREEN: _bindgen_ty_29 = 4098;
-pub const AINPUT_SOURCE_MOUSE: _bindgen_ty_29 = 8194;
-pub const AINPUT_SOURCE_STYLUS: _bindgen_ty_29 = 16386;
-pub const AINPUT_SOURCE_BLUETOOTH_STYLUS: _bindgen_ty_29 = 49154;
-pub const AINPUT_SOURCE_TRACKBALL: _bindgen_ty_29 = 65540;
-pub const AINPUT_SOURCE_MOUSE_RELATIVE: _bindgen_ty_29 = 131076;
-pub const AINPUT_SOURCE_TOUCHPAD: _bindgen_ty_29 = 1048584;
-pub const AINPUT_SOURCE_TOUCH_NAVIGATION: _bindgen_ty_29 = 2097152;
-pub const AINPUT_SOURCE_JOYSTICK: _bindgen_ty_29 = 16777232;
-pub const AINPUT_SOURCE_HDMI: _bindgen_ty_29 = 33554433;
-pub const AINPUT_SOURCE_SENSOR: _bindgen_ty_29 = 67108864;
-pub const AINPUT_SOURCE_ROTARY_ENCODER: _bindgen_ty_29 = 4194304;
-pub const AINPUT_SOURCE_ANY: _bindgen_ty_29 = 4294967040;
+pub const AINPUT_SOURCE_CLASS_MASK: _bindgen_ty_29 = 255;
+pub const AINPUT_SOURCE_CLASS_NONE: _bindgen_ty_29 = 0;
+pub const AINPUT_SOURCE_CLASS_BUTTON: _bindgen_ty_29 = 1;
+pub const AINPUT_SOURCE_CLASS_POINTER: _bindgen_ty_29 = 2;
+pub const AINPUT_SOURCE_CLASS_NAVIGATION: _bindgen_ty_29 = 4;
+pub const AINPUT_SOURCE_CLASS_POSITION: _bindgen_ty_29 = 8;
+pub const AINPUT_SOURCE_CLASS_JOYSTICK: _bindgen_ty_29 = 16;
 pub type _bindgen_ty_29 = ::std::os::raw::c_uint;
-pub const AINPUT_KEYBOARD_TYPE_NONE: _bindgen_ty_30 = 0;
-pub const AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC: _bindgen_ty_30 = 1;
-pub const AINPUT_KEYBOARD_TYPE_ALPHABETIC: _bindgen_ty_30 = 2;
+pub const AINPUT_SOURCE_UNKNOWN: _bindgen_ty_30 = 0;
+pub const AINPUT_SOURCE_KEYBOARD: _bindgen_ty_30 = 257;
+pub const AINPUT_SOURCE_DPAD: _bindgen_ty_30 = 513;
+pub const AINPUT_SOURCE_GAMEPAD: _bindgen_ty_30 = 1025;
+pub const AINPUT_SOURCE_TOUCHSCREEN: _bindgen_ty_30 = 4098;
+pub const AINPUT_SOURCE_MOUSE: _bindgen_ty_30 = 8194;
+pub const AINPUT_SOURCE_STYLUS: _bindgen_ty_30 = 16386;
+pub const AINPUT_SOURCE_BLUETOOTH_STYLUS: _bindgen_ty_30 = 49154;
+pub const AINPUT_SOURCE_TRACKBALL: _bindgen_ty_30 = 65540;
+pub const AINPUT_SOURCE_MOUSE_RELATIVE: _bindgen_ty_30 = 131076;
+pub const AINPUT_SOURCE_TOUCHPAD: _bindgen_ty_30 = 1048584;
+pub const AINPUT_SOURCE_TOUCH_NAVIGATION: _bindgen_ty_30 = 2097152;
+pub const AINPUT_SOURCE_JOYSTICK: _bindgen_ty_30 = 16777232;
+pub const AINPUT_SOURCE_HDMI: _bindgen_ty_30 = 33554433;
+pub const AINPUT_SOURCE_SENSOR: _bindgen_ty_30 = 67108864;
+pub const AINPUT_SOURCE_ROTARY_ENCODER: _bindgen_ty_30 = 4194304;
+pub const AINPUT_SOURCE_ANY: _bindgen_ty_30 = 4294967040;
 pub type _bindgen_ty_30 = ::std::os::raw::c_uint;
-pub const AINPUT_MOTION_RANGE_X: _bindgen_ty_31 = 0;
-pub const AINPUT_MOTION_RANGE_Y: _bindgen_ty_31 = 1;
-pub const AINPUT_MOTION_RANGE_PRESSURE: _bindgen_ty_31 = 2;
-pub const AINPUT_MOTION_RANGE_SIZE: _bindgen_ty_31 = 3;
-pub const AINPUT_MOTION_RANGE_TOUCH_MAJOR: _bindgen_ty_31 = 4;
-pub const AINPUT_MOTION_RANGE_TOUCH_MINOR: _bindgen_ty_31 = 5;
-pub const AINPUT_MOTION_RANGE_TOOL_MAJOR: _bindgen_ty_31 = 6;
-pub const AINPUT_MOTION_RANGE_TOOL_MINOR: _bindgen_ty_31 = 7;
-pub const AINPUT_MOTION_RANGE_ORIENTATION: _bindgen_ty_31 = 8;
+pub const AINPUT_KEYBOARD_TYPE_NONE: _bindgen_ty_31 = 0;
+pub const AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC: _bindgen_ty_31 = 1;
+pub const AINPUT_KEYBOARD_TYPE_ALPHABETIC: _bindgen_ty_31 = 2;
 pub type _bindgen_ty_31 = ::std::os::raw::c_uint;
+pub const AINPUT_MOTION_RANGE_X: _bindgen_ty_32 = 0;
+pub const AINPUT_MOTION_RANGE_Y: _bindgen_ty_32 = 1;
+pub const AINPUT_MOTION_RANGE_PRESSURE: _bindgen_ty_32 = 2;
+pub const AINPUT_MOTION_RANGE_SIZE: _bindgen_ty_32 = 3;
+pub const AINPUT_MOTION_RANGE_TOUCH_MAJOR: _bindgen_ty_32 = 4;
+pub const AINPUT_MOTION_RANGE_TOUCH_MINOR: _bindgen_ty_32 = 5;
+pub const AINPUT_MOTION_RANGE_TOOL_MAJOR: _bindgen_ty_32 = 6;
+pub const AINPUT_MOTION_RANGE_TOOL_MINOR: _bindgen_ty_32 = 7;
+pub const AINPUT_MOTION_RANGE_ORIENTATION: _bindgen_ty_32 = 8;
+pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AInputEvent_getType(event: *const AInputEvent) -> i32;
 }
@@ -2828,6 +3005,9 @@ extern "C" {
 extern "C" {
     pub fn AMotionEvent_fromJava(env: *mut JNIEnv, motionEvent: jobject) -> *const AInputEvent;
 }
+extern "C" {
+    pub fn AInputEvent_toJava(env: *mut JNIEnv, aInputEvent: *const AInputEvent) -> jobject;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AInputQueue {
@@ -2864,6 +3044,57 @@ extern "C" {
 extern "C" {
     pub fn AInputQueue_fromJava(env: *mut JNIEnv, inputQueue: jobject) -> *mut AInputQueue;
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AInputTransferToken {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn AInputTransferToken_fromJava(
+        env: *mut JNIEnv,
+        inputTransferTokenObj: jobject,
+    ) -> *mut AInputTransferToken;
+}
+extern "C" {
+    pub fn AInputTransferToken_toJava(
+        env: *mut JNIEnv,
+        aInputTransferToken: *const AInputTransferToken,
+    ) -> jobject;
+}
+extern "C" {
+    pub fn AInputTransferToken_release(aInputTransferToken: *mut AInputTransferToken);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct timespec {
+    pub tv_sec: time_t,
+    pub tv_nsec: ::std::os::raw::c_long,
+}
+#[test]
+fn bindgen_test_layout_timespec() {
+    const UNINIT: ::std::mem::MaybeUninit<timespec> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<timespec>(),
+        16usize,
+        "Size of timespec"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<timespec>(),
+        8usize,
+        "Alignment of timespec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        0usize,
+        "Offset of field: timespec::tv_sec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
+        8usize,
+        "Offset of field: timespec::tv_nsec"
+    );
+}
 impl android_LogPriority {
     pub const ANDROID_LOG_UNKNOWN: android_LogPriority = android_LogPriority(0);
 }
@@ -2894,37 +3125,6 @@ impl android_LogPriority {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct android_LogPriority(pub ::std::os::raw::c_uint);
-extern "C" {
-    pub fn __android_log_write(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        text: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_print(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_vprint(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
-        ap: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_assert(
-        cond: *const ::std::os::raw::c_char,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> !;
-}
 impl log_id {
     pub const LOG_ID_MIN: log_id = log_id(0);
 }
@@ -2963,21 +3163,52 @@ impl log_id {
 pub struct log_id(pub ::std::os::raw::c_uint);
 pub use self::log_id as log_id_t;
 extern "C" {
-    pub fn __android_log_buf_write(
-        bufID: ::std::os::raw::c_int,
+    pub fn __android_log_write(
         prio: ::std::os::raw::c_int,
         tag: *const ::std::os::raw::c_char,
         text: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn __android_log_buf_print(
-        bufID: ::std::os::raw::c_int,
+    pub fn __android_log_buf_write(
+        log_id: ::std::os::raw::c_int,
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        text: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_print(
         prio: ::std::os::raw::c_int,
         tag: *const ::std::os::raw::c_char,
         fmt: *const ::std::os::raw::c_char,
         ...
     ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_buf_print(
+        log_id: ::std::os::raw::c_int,
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_vprint(
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ap: va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_assert(
+        cond: *const ::std::os::raw::c_char,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> !;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3053,6 +3284,12 @@ extern "C" {
 }
 extern "C" {
     pub fn __android_log_logd_logger(log_message: *const __android_log_message);
+}
+extern "C" {
+    pub fn __android_log_logd_logger_with_timestamp(
+        log_message: *const __android_log_message,
+        timestamp: *const timespec,
+    );
 }
 extern "C" {
     pub fn __android_log_stderr_logger(log_message: *const __android_log_message);
@@ -3270,6 +3507,12 @@ extern "C" {
 extern "C" {
     pub fn android_untag_socket(sockfd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
+pub const NetworkBlockedReason_ANDROID_NETWORK_BLOCKED_REASON_NONE: NetworkBlockedReason = 0;
+pub const NetworkBlockedReason_ANDROID_NETWORK_BLOCKED_REASON_LNP: NetworkBlockedReason = 1;
+pub type NetworkBlockedReason = i32;
+extern "C" {
+    pub fn android_getnetworkblockedreason(sockfd: ::std::os::raw::c_int) -> i32;
+}
 impl ANativeWindow_LegacyFormat {
     pub const WINDOW_FORMAT_RGBA_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(1);
 }
@@ -3420,6 +3663,10 @@ impl ANativeWindow_FrameRateCompatibility {
     pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE:
         ANativeWindow_FrameRateCompatibility = ANativeWindow_FrameRateCompatibility(1);
 }
+impl ANativeWindow_FrameRateCompatibility {
+    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_AT_LEAST:
+        ANativeWindow_FrameRateCompatibility = ANativeWindow_FrameRateCompatibility(2);
+}
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct ANativeWindow_FrameRateCompatibility(pub ::std::os::raw::c_uint);
@@ -3450,6 +3697,18 @@ extern "C" {
         frameRate: f32,
         compatibility: i8,
         changeFrameRateStrategy: i8,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_setProducerThrottlingEnabled(
+        window: *mut ANativeWindow,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_isProducerThrottlingEnabled(
+        window: *mut ANativeWindow,
+        outEnabled: *mut bool,
     ) -> i32;
 }
 #[repr(C)]
@@ -3533,50 +3792,10 @@ fn bindgen_test_layout_ANativeActivity() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ANativeActivityCallbacks {
-    pub onStart: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onResume: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onSaveInstanceState: ::std::option::Option<
-        unsafe extern "C" fn(
-            activity: *mut ANativeActivity,
-            outSize: *mut usize,
-        ) -> *mut ::std::os::raw::c_void,
-    >,
-    pub onPause: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onStop: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onDestroy: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onWindowFocusChanged: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, hasFocus: ::std::os::raw::c_int),
-    >,
-    pub onNativeWindowCreated: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onNativeWindowResized: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onNativeWindowRedrawNeeded: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onNativeWindowDestroyed: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onInputQueueCreated: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
-    >,
-    pub onInputQueueDestroyed: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
-    >,
-    pub onContentRectChanged: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, rect: *const ARect),
-    >,
-    pub onConfigurationChanged:
-        ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onLowMemory: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub _address: u8,
 }
 #[test]
 fn bindgen_test_layout_ANativeActivityCallbacks() {
-    const UNINIT: ::std::mem::MaybeUninit<ANativeActivityCallbacks> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<ANativeActivityCallbacks>(),
         128usize,
@@ -3586,86 +3805,6 @@ fn bindgen_test_layout_ANativeActivityCallbacks() {
         ::std::mem::align_of::<ANativeActivityCallbacks>(),
         8usize,
         "Alignment of ANativeActivityCallbacks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onStart) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ANativeActivityCallbacks::onStart"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onResume) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ANativeActivityCallbacks::onResume"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onSaveInstanceState) as usize - ptr as usize },
-        16usize,
-        "Offset of field: ANativeActivityCallbacks::onSaveInstanceState"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onPause) as usize - ptr as usize },
-        24usize,
-        "Offset of field: ANativeActivityCallbacks::onPause"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onStop) as usize - ptr as usize },
-        32usize,
-        "Offset of field: ANativeActivityCallbacks::onStop"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onDestroy) as usize - ptr as usize },
-        40usize,
-        "Offset of field: ANativeActivityCallbacks::onDestroy"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onWindowFocusChanged) as usize - ptr as usize },
-        48usize,
-        "Offset of field: ANativeActivityCallbacks::onWindowFocusChanged"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowCreated) as usize - ptr as usize },
-        56usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowCreated"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowResized) as usize - ptr as usize },
-        64usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowResized"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowRedrawNeeded) as usize - ptr as usize },
-        72usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowRedrawNeeded"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowDestroyed) as usize - ptr as usize },
-        80usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowDestroyed"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueCreated) as usize - ptr as usize },
-        88usize,
-        "Offset of field: ANativeActivityCallbacks::onInputQueueCreated"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueDestroyed) as usize - ptr as usize },
-        96usize,
-        "Offset of field: ANativeActivityCallbacks::onInputQueueDestroyed"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onContentRectChanged) as usize - ptr as usize },
-        104usize,
-        "Offset of field: ANativeActivityCallbacks::onContentRectChanged"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onConfigurationChanged) as usize - ptr as usize },
-        112usize,
-        "Offset of field: ANativeActivityCallbacks::onConfigurationChanged"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onLowMemory) as usize - ptr as usize },
-        120usize,
-        "Offset of field: ANativeActivityCallbacks::onLowMemory"
     );
 }
 pub type ANativeActivity_createFunc = ::std::option::Option<
@@ -4821,37 +4960,6 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct timespec {
-    pub tv_sec: time_t,
-    pub tv_nsec: ::std::os::raw::c_long,
-}
-#[test]
-fn bindgen_test_layout_timespec() {
-    const UNINIT: ::std::mem::MaybeUninit<timespec> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<timespec>(),
-        16usize,
-        "Size of timespec"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<timespec>(),
-        8usize,
-        "Alignment of timespec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
-        0usize,
-        "Offset of field: timespec::tv_sec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
-        8usize,
-        "Offset of field: timespec::tv_nsec"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct APerformanceHintManager {
     _unused: [u8; 0],
 }
@@ -4863,6 +4971,16 @@ pub struct APerformanceHintSession {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AWorkDuration {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASurfaceControl {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASessionCreationConfig {
     _unused: [u8; 0],
 }
 extern "C" {
@@ -4877,9 +4995,21 @@ extern "C" {
     ) -> *mut APerformanceHintSession;
 }
 extern "C" {
+    pub fn APerformanceHint_createSessionUsingConfig(
+        manager: *mut APerformanceHintManager,
+        config: *mut ASessionCreationConfig,
+        sessionOut: *mut *mut APerformanceHintSession,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     pub fn APerformanceHint_getPreferredUpdateRateNanos(
         manager: *mut APerformanceHintManager,
     ) -> i64;
+}
+extern "C" {
+    pub fn APerformanceHint_getMaxGraphicsPipelineThreadsCount(
+        manager: *mut APerformanceHintManager,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn APerformanceHint_updateTargetWorkDuration(
@@ -4916,10 +5046,53 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn APerformanceHint_notifyWorkloadIncrease(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        identifier: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_notifyWorkloadReset(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        identifier: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_notifyWorkloadSpike(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        identifier: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_setNativeSurfaces(
+        session: *mut APerformanceHintSession,
+        nativeWindows: *mut *mut ANativeWindow,
+        nativeWindowsSize: usize,
+        surfaceControls: *mut *mut ASurfaceControl,
+        surfaceControlsSize: usize,
+    ) -> ::std::os::raw::c_int;
+}
+pub const APerformanceHintFeature_APERF_HINT_SESSIONS: APerformanceHintFeature = 0;
+pub const APerformanceHintFeature_APERF_HINT_POWER_EFFICIENCY: APerformanceHintFeature = 1;
+pub const APerformanceHintFeature_APERF_HINT_SURFACE_BINDING: APerformanceHintFeature = 2;
+pub const APerformanceHintFeature_APERF_HINT_GRAPHICS_PIPELINE: APerformanceHintFeature = 3;
+pub const APerformanceHintFeature_APERF_HINT_AUTO_CPU: APerformanceHintFeature = 4;
+pub const APerformanceHintFeature_APERF_HINT_AUTO_GPU: APerformanceHintFeature = 5;
+pub type APerformanceHintFeature = i32;
+extern "C" {
+    pub fn APerformanceHint_isFeatureSupported(feature: APerformanceHintFeature) -> bool;
+}
+extern "C" {
     pub fn AWorkDuration_create() -> *mut AWorkDuration;
 }
 extern "C" {
-    pub fn AWorkDuration_release(WorkDuration: *mut AWorkDuration);
+    pub fn AWorkDuration_release(aWorkDuration: *mut AWorkDuration);
 }
 extern "C" {
     pub fn AWorkDuration_setWorkPeriodStartTimestampNanos(
@@ -4943,6 +5116,59 @@ extern "C" {
     pub fn AWorkDuration_setActualGpuDurationNanos(
         aWorkDuration: *mut AWorkDuration,
         actualGpuDurationNanos: i64,
+    );
+}
+extern "C" {
+    pub fn APerformanceHint_borrowSessionFromJava(
+        env: *mut JNIEnv,
+        sessionObj: jobject,
+    ) -> *mut APerformanceHintSession;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_create() -> *mut ASessionCreationConfig;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_release(config: *mut ASessionCreationConfig);
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setTids(
+        config: *mut ASessionCreationConfig,
+        tids: *const pid_t,
+        size: usize,
+    );
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setTargetWorkDurationNanos(
+        config: *mut ASessionCreationConfig,
+        targetWorkDurationNanos: i64,
+    );
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setPreferPowerEfficiency(
+        config: *mut ASessionCreationConfig,
+        enabled: bool,
+    );
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setGraphicsPipeline(
+        config: *mut ASessionCreationConfig,
+        enabled: bool,
+    );
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setNativeSurfaces(
+        config: *mut ASessionCreationConfig,
+        nativeWindows: *mut *mut ANativeWindow,
+        nativeWindowsSize: usize,
+        surfaceControls: *mut *mut ASurfaceControl,
+        surfaceControlsSize: usize,
+    );
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setUseAutoTiming(
+        config: *mut ASessionCreationConfig,
+        cpu: bool,
+        gpu: bool,
     );
 }
 pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_38 = 0;
@@ -4995,6 +5221,7 @@ pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES: _bindgen_ty_40 = 39;
 pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 40;
 pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 41;
 pub const ASENSOR_TYPE_HEADING: _bindgen_ty_40 = 42;
+pub const ASENSOR_TYPE_MOISTURE_INTRUSION: _bindgen_ty_40 = 43;
 pub type _bindgen_ty_40 = ::std::os::raw::c_int;
 pub const ASENSOR_STATUS_NO_CONTACT: _bindgen_ty_41 = -1;
 pub const ASENSOR_STATUS_UNRELIABLE: _bindgen_ty_41 = 0;
@@ -6361,11 +6588,6 @@ extern "C" {
 extern "C" {
     pub fn ASensor_getHandle(sensor: *const ASensor) -> ::std::os::raw::c_int;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct crash_detail_t {
-    _unused: [u8; 0],
-}
 extern "C" {
     pub fn android_set_abort_message(__msg: *const ::std::os::raw::c_char);
 }
@@ -6446,6 +6668,449 @@ extern "C" {
         mgr: *mut AStorageManager,
         filename: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
+}
+pub const ADisplayLuts_Dimension_ADISPLAYLUTS_ONE_DIMENSION: ADisplayLuts_Dimension = 1;
+pub const ADisplayLuts_Dimension_ADISPLAYLUTS_THREE_DIMENSION: ADisplayLuts_Dimension = 3;
+pub type ADisplayLuts_Dimension = i32;
+pub const ADisplayLuts_SamplingKey_ADISPLAYLUTS_SAMPLINGKEY_RGB: ADisplayLuts_SamplingKey = 0;
+pub const ADisplayLuts_SamplingKey_ADISPLAYLUTS_SAMPLINGKEY_MAX_RGB: ADisplayLuts_SamplingKey = 1;
+pub const ADisplayLuts_SamplingKey_ADISPLAYLUTS_SAMPLINGKEY_CIE_Y: ADisplayLuts_SamplingKey = 2;
+pub type ADisplayLuts_SamplingKey = i32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ADisplayLutsEntry {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ADisplayLuts {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn ADisplayLutsEntry_createEntry(
+        buffer: *mut f32,
+        length: i32,
+        dimension: ADisplayLuts_Dimension,
+        key: ADisplayLuts_SamplingKey,
+    ) -> *mut ADisplayLutsEntry;
+}
+extern "C" {
+    pub fn ADisplayLutsEntry_destroy(entry: *mut ADisplayLutsEntry);
+}
+extern "C" {
+    pub fn ADisplayLutsEntry_getDimension(
+        entry: *const ADisplayLutsEntry,
+    ) -> ADisplayLuts_Dimension;
+}
+extern "C" {
+    pub fn ADisplayLutsEntry_getSize(entry: *const ADisplayLutsEntry) -> i32;
+}
+extern "C" {
+    pub fn ADisplayLutsEntry_getSamplingKey(
+        entry: *const ADisplayLutsEntry,
+    ) -> ADisplayLuts_SamplingKey;
+}
+extern "C" {
+    pub fn ADisplayLutsEntry_getBuffer(entry: *const ADisplayLutsEntry) -> *const f32;
+}
+extern "C" {
+    pub fn ADisplayLuts_create() -> *mut ADisplayLuts;
+}
+extern "C" {
+    pub fn ADisplayLuts_setEntries(
+        luts: *mut ADisplayLuts,
+        entries: *mut *mut ADisplayLutsEntry,
+        numEntries: i32,
+    );
+}
+extern "C" {
+    pub fn ADisplayLuts_destroy(luts: *mut ADisplayLuts);
+}
+extern "C" {
+    pub fn ASurfaceControl_createFromWindow(
+        parent: *mut ANativeWindow,
+        debug_name: *const ::std::os::raw::c_char,
+    ) -> *mut ASurfaceControl;
+}
+extern "C" {
+    pub fn ASurfaceControl_create(
+        parent: *mut ASurfaceControl,
+        debug_name: *const ::std::os::raw::c_char,
+    ) -> *mut ASurfaceControl;
+}
+extern "C" {
+    pub fn ASurfaceControl_acquire(surface_control: *mut ASurfaceControl);
+}
+extern "C" {
+    pub fn ASurfaceControl_release(surface_control: *mut ASurfaceControl);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASurfaceTransaction {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn ASurfaceTransaction_create() -> *mut ASurfaceTransaction;
+}
+extern "C" {
+    pub fn ASurfaceTransaction_delete(transaction: *mut ASurfaceTransaction);
+}
+extern "C" {
+    pub fn ASurfaceTransaction_apply(transaction: *mut ASurfaceTransaction);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASurfaceTransactionStats {
+    _unused: [u8; 0],
+}
+pub type ASurfaceTransaction_OnComplete = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        stats: *mut ASurfaceTransactionStats,
+    ),
+>;
+pub type ASurfaceTransaction_OnCommit = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        stats: *mut ASurfaceTransactionStats,
+    ),
+>;
+pub type ASurfaceTransaction_OnBufferRelease = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        release_fence_fd: ::std::os::raw::c_int,
+    ),
+>;
+extern "C" {
+    pub fn ASurfaceTransactionStats_getLatchTime(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+    ) -> i64;
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getPresentFenceFd(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getASurfaceControls(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+        outASurfaceControls: *mut *mut *mut ASurfaceControl,
+        outASurfaceControlsSize: *mut usize,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_releaseASurfaceControls(
+        surface_controls: *mut *mut ASurfaceControl,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getAcquireTime(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+        surface_control: *mut ASurfaceControl,
+    ) -> i64;
+}
+extern "C" {
+    pub fn ASurfaceTransactionStats_getPreviousReleaseFenceFd(
+        surface_transaction_stats: *mut ASurfaceTransactionStats,
+        surface_control: *mut ASurfaceControl,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setOnComplete(
+        transaction: *mut ASurfaceTransaction,
+        context: *mut ::std::os::raw::c_void,
+        func: ASurfaceTransaction_OnComplete,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setOnCommit(
+        transaction: *mut ASurfaceTransaction,
+        context: *mut ::std::os::raw::c_void,
+        func: ASurfaceTransaction_OnCommit,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_reparent(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        new_parent: *mut ASurfaceControl,
+    );
+}
+pub const ASurfaceTransactionVisibility_ASURFACE_TRANSACTION_VISIBILITY_HIDE:
+    ASurfaceTransactionVisibility = 0;
+pub const ASurfaceTransactionVisibility_ASURFACE_TRANSACTION_VISIBILITY_SHOW:
+    ASurfaceTransactionVisibility = 1;
+pub type ASurfaceTransactionVisibility = i8;
+extern "C" {
+    pub fn ASurfaceTransaction_setVisibility(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        visibility: ASurfaceTransactionVisibility,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setZOrder(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        z_order: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBuffer(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        buffer: *mut AHardwareBuffer,
+        acquire_fence_fd: ::std::os::raw::c_int,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferWithRelease(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        buffer: *mut AHardwareBuffer,
+        acquire_fence_fd: ::std::os::raw::c_int,
+        context: *mut ::std::os::raw::c_void,
+        func: ASurfaceTransaction_OnBufferRelease,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setColor(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        r: f32,
+        g: f32,
+        b: f32,
+        alpha: f32,
+        dataspace: ADataSpace,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setGeometry(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        source: *const ARect,
+        destination: *const ARect,
+        transform: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setCrop(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        crop: *const ARect,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setPosition(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        x: i32,
+        y: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferTransform(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        transform: i32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setScale(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        xScale: f32,
+        yScale: f32,
+    );
+}
+pub const ASurfaceTransactionTransparency_ASURFACE_TRANSACTION_TRANSPARENCY_TRANSPARENT:
+    ASurfaceTransactionTransparency = 0;
+pub const ASurfaceTransactionTransparency_ASURFACE_TRANSACTION_TRANSPARENCY_TRANSLUCENT:
+    ASurfaceTransactionTransparency = 1;
+pub const ASurfaceTransactionTransparency_ASURFACE_TRANSACTION_TRANSPARENCY_OPAQUE:
+    ASurfaceTransactionTransparency = 2;
+pub type ASurfaceTransactionTransparency = i8;
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferTransparency(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        transparency: ASurfaceTransactionTransparency,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setDamageRegion(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        rects: *const ARect,
+        count: u32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setDesiredPresentTime(
+        transaction: *mut ASurfaceTransaction,
+        desiredPresentTime: i64,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferAlpha(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        alpha: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setBufferDataSpace(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        data_space: ADataSpace,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setHdrMetadata_smpte2086(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        metadata: *mut AHdrMetadata_smpte2086,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setHdrMetadata_cta861_3(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        metadata: *mut AHdrMetadata_cta861_3,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setExtendedRangeBrightness(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        currentBufferRatio: f32,
+        desiredRatio: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setDesiredHdrHeadroom(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        desiredHeadroom: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setLuts(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        luts: *const ADisplayLuts,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setFrameRate(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        frameRate: f32,
+        compatibility: i8,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setFrameRateWithChangeStrategy(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        frameRate: f32,
+        compatibility: i8,
+        changeFrameRateStrategy: i8,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_clearFrameRate(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setEnableBackPressure(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        enableBackPressure: bool,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setFrameTimeline(
+        transaction: *mut ASurfaceTransaction,
+        vsyncId: AVsyncId,
+    );
+}
+pub type AInputReceiver_onMotionEvent = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        motionEvent: *mut AInputEvent,
+    ) -> bool,
+>;
+pub type AInputReceiver_onKeyEvent = ::std::option::Option<
+    unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, keyEvent: *mut AInputEvent) -> bool,
+>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AInputReceiverCallbacks {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AInputReceiver {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn AInputReceiver_createBatchedInputReceiver(
+        aChoreographer: *mut AChoreographer,
+        hostInputTransferToken: *const AInputTransferToken,
+        aSurfaceControl: *const ASurfaceControl,
+        aInputReceiverCallbacks: *mut AInputReceiverCallbacks,
+    ) -> *mut AInputReceiver;
+}
+extern "C" {
+    pub fn AInputReceiver_createUnbatchedInputReceiver(
+        aLooper: *mut ALooper,
+        hostInputTransferToken: *const AInputTransferToken,
+        aSurfaceControl: *const ASurfaceControl,
+        aInputReceiverCallbacks: *mut AInputReceiverCallbacks,
+    ) -> *mut AInputReceiver;
+}
+extern "C" {
+    pub fn AInputReceiver_getInputTransferToken(
+        aInputReceiver: *mut AInputReceiver,
+    ) -> *const AInputTransferToken;
+}
+extern "C" {
+    pub fn AInputReceiver_release(aInputReceiver: *mut AInputReceiver);
+}
+extern "C" {
+    pub fn AInputReceiverCallbacks_create(
+        context: *mut ::std::os::raw::c_void,
+    ) -> *mut AInputReceiverCallbacks;
+}
+extern "C" {
+    pub fn AInputReceiverCallbacks_release(callbacks: *mut AInputReceiverCallbacks);
+}
+extern "C" {
+    pub fn AInputReceiverCallbacks_setMotionEventCallback(
+        callbacks: *mut AInputReceiverCallbacks,
+        onMotionEvent: AInputReceiver_onMotionEvent,
+    );
+}
+extern "C" {
+    pub fn AInputReceiverCallbacks_setKeyEventCallback(
+        callbacks: *mut AInputReceiverCallbacks,
+        onKeyEvent: AInputReceiver_onKeyEvent,
+    );
+}
+extern "C" {
+    pub fn ASurfaceControl_fromJava(
+        env: *mut JNIEnv,
+        surfaceControlObj: jobject,
+    ) -> *mut ASurfaceControl;
+}
+extern "C" {
+    pub fn ASurfaceTransaction_fromJava(
+        env: *mut JNIEnv,
+        transactionObj: jobject,
+    ) -> *mut ASurfaceTransaction;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -6609,6 +7274,115 @@ extern "C" {
 extern "C" {
     pub fn ASystemFontIterator_next(iterator: *mut ASystemFontIterator) -> *mut AFont;
 }
+pub const AThermalStatus_ATHERMAL_STATUS_ERROR: AThermalStatus = -1;
+pub const AThermalStatus_ATHERMAL_STATUS_NONE: AThermalStatus = 0;
+pub const AThermalStatus_ATHERMAL_STATUS_LIGHT: AThermalStatus = 1;
+pub const AThermalStatus_ATHERMAL_STATUS_MODERATE: AThermalStatus = 2;
+pub const AThermalStatus_ATHERMAL_STATUS_SEVERE: AThermalStatus = 3;
+pub const AThermalStatus_ATHERMAL_STATUS_CRITICAL: AThermalStatus = 4;
+pub const AThermalStatus_ATHERMAL_STATUS_EMERGENCY: AThermalStatus = 5;
+pub const AThermalStatus_ATHERMAL_STATUS_SHUTDOWN: AThermalStatus = 6;
+pub type AThermalStatus = ::std::os::raw::c_int;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AThermalManager {
+    _unused: [u8; 0],
+}
+pub type AThermal_StatusCallback = ::std::option::Option<
+    unsafe extern "C" fn(data: *mut ::std::os::raw::c_void, status: AThermalStatus),
+>;
+extern "C" {
+    pub fn AThermal_acquireManager() -> *mut AThermalManager;
+}
+extern "C" {
+    pub fn AThermal_releaseManager(manager: *mut AThermalManager);
+}
+extern "C" {
+    pub fn AThermal_getCurrentThermalStatus(manager: *mut AThermalManager) -> AThermalStatus;
+}
+extern "C" {
+    pub fn AThermal_registerThermalStatusListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_StatusCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn AThermal_unregisterThermalStatusListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_StatusCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn AThermal_getThermalHeadroom(
+        manager: *mut AThermalManager,
+        forecastSeconds: ::std::os::raw::c_int,
+    ) -> f32;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AThermalHeadroomThreshold {
+    pub headroom: f32,
+    pub thermalStatus: AThermalStatus,
+}
+#[test]
+fn bindgen_test_layout_AThermalHeadroomThreshold() {
+    const UNINIT: ::std::mem::MaybeUninit<AThermalHeadroomThreshold> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<AThermalHeadroomThreshold>(),
+        8usize,
+        "Size of AThermalHeadroomThreshold"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<AThermalHeadroomThreshold>(),
+        4usize,
+        "Alignment of AThermalHeadroomThreshold"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).headroom) as usize - ptr as usize },
+        0usize,
+        "Offset of field: AThermalHeadroomThreshold::headroom"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).thermalStatus) as usize - ptr as usize },
+        4usize,
+        "Offset of field: AThermalHeadroomThreshold::thermalStatus"
+    );
+}
+extern "C" {
+    pub fn AThermal_getThermalHeadroomThresholds(
+        manager: *mut AThermalManager,
+        outThresholds: *mut *const AThermalHeadroomThreshold,
+        size: *mut usize,
+    ) -> ::std::os::raw::c_int;
+}
+pub type AThermal_HeadroomCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        data: *mut ::std::os::raw::c_void,
+        headroom: f32,
+        forecastHeadroom: f32,
+        forecastSeconds: ::std::os::raw::c_int,
+        thresholds: *const AThermalHeadroomThreshold,
+        thresholdsCount: usize,
+    ),
+>;
+extern "C" {
+    pub fn AThermal_registerThermalHeadroomListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_HeadroomCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn AThermal_unregisterThermalHeadroomListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_HeadroomCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
 extern "C" {
     pub fn ATrace_isEnabled() -> bool;
 }
@@ -6662,6 +7436,13 @@ pub const AAUDIO_FORMAT_PCM_FLOAT: _bindgen_ty_49 = 2;
 pub const AAUDIO_FORMAT_PCM_I24_PACKED: _bindgen_ty_49 = 3;
 pub const AAUDIO_FORMAT_PCM_I32: _bindgen_ty_49 = 4;
 pub const AAUDIO_FORMAT_IEC61937: _bindgen_ty_49 = 5;
+pub const AAUDIO_FORMAT_MP3: _bindgen_ty_49 = 6;
+pub const AAUDIO_FORMAT_AAC_LC: _bindgen_ty_49 = 7;
+pub const AAUDIO_FORMAT_AAC_HE_V1: _bindgen_ty_49 = 8;
+pub const AAUDIO_FORMAT_AAC_HE_V2: _bindgen_ty_49 = 9;
+pub const AAUDIO_FORMAT_AAC_ELD: _bindgen_ty_49 = 10;
+pub const AAUDIO_FORMAT_AAC_XHE: _bindgen_ty_49 = 11;
+pub const AAUDIO_FORMAT_OPUS: _bindgen_ty_49 = 12;
 pub type _bindgen_ty_49 = ::std::os::raw::c_int;
 pub type aaudio_format_t = i32;
 pub const AAUDIO_OK: _bindgen_ty_50 = 0;
@@ -6707,6 +7488,7 @@ pub type aaudio_sharing_mode_t = i32;
 pub const AAUDIO_PERFORMANCE_MODE_NONE: _bindgen_ty_53 = 10;
 pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING: _bindgen_ty_53 = 11;
 pub const AAUDIO_PERFORMANCE_MODE_LOW_LATENCY: _bindgen_ty_53 = 12;
+pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING_OFFLOADED: _bindgen_ty_53 = 13;
 pub type _bindgen_ty_53 = ::std::os::raw::c_uint;
 pub type aaudio_performance_mode_t = i32;
 pub const AAUDIO_USAGE_MEDIA: _bindgen_ty_54 = 1;
@@ -6805,11 +7587,51 @@ pub const AAUDIO_CHANNEL_5POINT1POINT2: _bindgen_ty_60 = 786495;
 pub const AAUDIO_CHANNEL_5POINT1POINT4: _bindgen_ty_60 = 184383;
 pub const AAUDIO_CHANNEL_7POINT1POINT2: _bindgen_ty_60 = 788031;
 pub const AAUDIO_CHANNEL_7POINT1POINT4: _bindgen_ty_60 = 185919;
+pub const AAUDIO_CHANNEL_13POINT0: _bindgen_ty_60 = 7534087;
 pub const AAUDIO_CHANNEL_9POINT1POINT4: _bindgen_ty_60 = 50517567;
 pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_60 = 51303999;
 pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_60 = 260;
 pub type _bindgen_ty_60 = ::std::os::raw::c_int;
 pub type aaudio_channel_mask_t = u32;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_EARPIECE: AAudio_DeviceType = 1;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER: AAudio_DeviceType = 2;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADSET: AAudio_DeviceType = 3;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADPHONES: AAudio_DeviceType = 4;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_LINE_ANALOG: AAudio_DeviceType = 5;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_LINE_DIGITAL: AAudio_DeviceType = 6;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_SCO: AAudio_DeviceType = 7;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_A2DP: AAudio_DeviceType = 8;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI: AAudio_DeviceType = 9;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI_ARC: AAudio_DeviceType = 10;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_DEVICE: AAudio_DeviceType = 11;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_ACCESSORY: AAudio_DeviceType = 12;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_DOCK: AAudio_DeviceType = 13;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_FM: AAudio_DeviceType = 14;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_MIC: AAudio_DeviceType = 15;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_FM_TUNER: AAudio_DeviceType = 16;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_TV_TUNER: AAudio_DeviceType = 17;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_TELEPHONY: AAudio_DeviceType = 18;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_AUX_LINE: AAudio_DeviceType = 19;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_IP: AAudio_DeviceType = 20;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUS: AAudio_DeviceType = 21;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_HEADSET: AAudio_DeviceType = 22;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HEARING_AID: AAudio_DeviceType = 23;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER_SAFE: AAudio_DeviceType = 24;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_REMOTE_SUBMIX: AAudio_DeviceType = 25;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_HEADSET: AAudio_DeviceType = 26;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_SPEAKER: AAudio_DeviceType = 27;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI_EARC: AAudio_DeviceType = 29;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_BROADCAST: AAudio_DeviceType = 30;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_DOCK_ANALOG: AAudio_DeviceType = 31;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_HEARING_AID: AAudio_DeviceType = 32;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_CENTRAL: AAudio_DeviceType = 33;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_CENTRAL_BROADCAST: AAudio_DeviceType = 34;
+pub type AAudio_DeviceType = i32;
+pub const AAudio_FlushFromFrameSupport_AAUDIO_FLUSH_FROM_FRAME_UNSUPPORTED:
+    AAudio_FlushFromFrameSupport = 0;
+pub const AAudio_FlushFromFrameSupport_AAUDIO_FLUSH_FROM_FRAME_SUPPORTED:
+    AAudio_FlushFromFrameSupport = 1;
+pub type AAudio_FlushFromFrameSupport = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AAudioStreamStruct {
@@ -6830,6 +7652,11 @@ extern "C" {
     pub fn AAudio_convertStreamStateToText(
         state: aaudio_stream_state_t,
     ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn AAudio_getFlushFromFrameSupport(
+        builder: *const AAudioStreamBuilder,
+    ) -> AAudio_FlushFromFrameSupport;
 }
 extern "C" {
     pub fn AAudio_createStreamBuilder(builder: *mut *mut AAudioStreamBuilder) -> aaudio_result_t;
@@ -6958,6 +7785,21 @@ extern "C" {
         userData: *mut ::std::os::raw::c_void,
     );
 }
+pub type AAudioStream_partialDataCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        stream: *mut AAudioStream,
+        userData: *mut ::std::os::raw::c_void,
+        audioData: *mut ::std::os::raw::c_void,
+        numFrames: i32,
+    ) -> i32,
+>;
+extern "C" {
+    pub fn AAudioStreamBuilder_setPartialDataCallback(
+        builder: *mut AAudioStreamBuilder,
+        callback: AAudioStream_partialDataCallback,
+        userData: *mut ::std::os::raw::c_void,
+    ) -> aaudio_result_t;
+}
 extern "C" {
     pub fn AAudioStreamBuilder_setFramesPerDataCallback(
         builder: *mut AAudioStreamBuilder,
@@ -6975,6 +7817,31 @@ extern "C" {
     pub fn AAudioStreamBuilder_setErrorCallback(
         builder: *mut AAudioStreamBuilder,
         callback: AAudioStream_errorCallback,
+        userData: *mut ::std::os::raw::c_void,
+    );
+}
+pub type AAudioStream_presentationEndCallback = ::std::option::Option<
+    unsafe extern "C" fn(stream: *mut AAudioStream, userData: *mut ::std::os::raw::c_void),
+>;
+extern "C" {
+    pub fn AAudioStreamBuilder_setPresentationEndCallback(
+        builder: *mut AAudioStreamBuilder,
+        callback: AAudioStream_presentationEndCallback,
+        userData: *mut ::std::os::raw::c_void,
+    );
+}
+pub type AAudioStream_routingChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        stream: *mut AAudioStream,
+        userData: *mut ::std::os::raw::c_void,
+        deviceIds: *const i32,
+        numDevices: i32,
+    ),
+>;
+extern "C" {
+    pub fn AAudioStreamBuilder_setRoutingChangedCallback(
+        builder: *mut AAudioStreamBuilder,
+        callback: AAudioStream_routingChangedCallback,
         userData: *mut ::std::os::raw::c_void,
     );
 }
@@ -7078,6 +7945,13 @@ extern "C" {
     pub fn AAudioStream_getDeviceId(stream: *mut AAudioStream) -> i32;
 }
 extern "C" {
+    pub fn AAudioStream_getDeviceIds(
+        stream: *mut AAudioStream,
+        ids: *mut i32,
+        numIds: *mut i32,
+    ) -> aaudio_result_t;
+}
+extern "C" {
     pub fn AAudioStream_getFormat(stream: *mut AAudioStream) -> aaudio_format_t;
 }
 extern "C" {
@@ -7136,6 +8010,122 @@ extern "C" {
 }
 extern "C" {
     pub fn AAudioStream_getChannelMask(stream: *mut AAudioStream) -> aaudio_channel_mask_t;
+}
+extern "C" {
+    pub fn AAudioStream_setOffloadDelayPadding(
+        stream: *mut AAudioStream,
+        delayInFrames: i32,
+        paddingInFrames: i32,
+    ) -> aaudio_result_t;
+}
+extern "C" {
+    pub fn AAudioStream_getOffloadDelay(stream: *mut AAudioStream) -> i32;
+}
+extern "C" {
+    pub fn AAudioStream_getOffloadPadding(stream: *mut AAudioStream) -> i32;
+}
+extern "C" {
+    pub fn AAudioStream_setOffloadEndOfStream(stream: *mut AAudioStream) -> aaudio_result_t;
+}
+pub const AAudio_FlushFromAccuracy_AAUDIO_FLUSH_FROM_ACCURACY_UNDEFINED: AAudio_FlushFromAccuracy =
+    0;
+pub const AAudio_FlushFromAccuracy_AAUDIO_FLUSH_FROM_FRAME_ACCURATE: AAudio_FlushFromAccuracy = 1;
+pub type AAudio_FlushFromAccuracy = i32;
+extern "C" {
+    pub fn AAudioStream_flushFromFrame(
+        stream: *mut AAudioStream,
+        accuracy: AAudio_FlushFromAccuracy,
+        inOutPosition: *mut i64,
+    ) -> aaudio_result_t;
+}
+pub const AAudio_FallbackMode_AAUDIO_FALLBACK_MODE_DEFAULT: AAudio_FallbackMode = 0;
+pub const AAudio_FallbackMode_AAUDIO_FALLBACK_MODE_MUTE: AAudio_FallbackMode = 1;
+pub const AAudio_FallbackMode_AAUDIO_FALLBACK_MODE_FAIL: AAudio_FallbackMode = 2;
+pub type AAudio_FallbackMode = i32;
+pub const AAudio_StretchMode_AAUDIO_STRETCH_MODE_DEFAULT: AAudio_StretchMode = 0;
+pub const AAudio_StretchMode_AAUDIO_STRETCH_MODE_VOICE: AAudio_StretchMode = 1;
+pub type AAudio_StretchMode = i32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AAudioPlaybackParameters {
+    pub fallbackMode: AAudio_FallbackMode,
+    pub stretchMode: AAudio_StretchMode,
+    pub pitch: f32,
+    pub speed: f32,
+}
+#[test]
+fn bindgen_test_layout_AAudioPlaybackParameters() {
+    const UNINIT: ::std::mem::MaybeUninit<AAudioPlaybackParameters> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<AAudioPlaybackParameters>(),
+        16usize,
+        "Size of AAudioPlaybackParameters"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<AAudioPlaybackParameters>(),
+        4usize,
+        "Alignment of AAudioPlaybackParameters"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fallbackMode) as usize - ptr as usize },
+        0usize,
+        "Offset of field: AAudioPlaybackParameters::fallbackMode"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).stretchMode) as usize - ptr as usize },
+        4usize,
+        "Offset of field: AAudioPlaybackParameters::stretchMode"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pitch) as usize - ptr as usize },
+        8usize,
+        "Offset of field: AAudioPlaybackParameters::pitch"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).speed) as usize - ptr as usize },
+        12usize,
+        "Offset of field: AAudioPlaybackParameters::speed"
+    );
+}
+extern "C" {
+    pub fn AAudioStream_setPlaybackParameters(
+        stream: *mut AAudioStream,
+        parameters: *const AAudioPlaybackParameters,
+    ) -> aaudio_result_t;
+}
+extern "C" {
+    pub fn AAudioStream_getPlaybackParameters(
+        stream: *mut AAudioStream,
+        outParameters: *mut AAudioPlaybackParameters,
+    ) -> aaudio_result_t;
+}
+pub const AAUDIO_POLICY_NEVER: _bindgen_ty_62 = 1;
+pub const AAUDIO_POLICY_AUTO: _bindgen_ty_62 = 2;
+pub const AAUDIO_POLICY_ALWAYS: _bindgen_ty_62 = 3;
+pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
+pub type aaudio_policy_t = i32;
+extern "C" {
+    pub fn AAudio_getPlatformMMapPolicy(
+        device: AAudio_DeviceType,
+        direction: aaudio_direction_t,
+    ) -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudio_getPlatformMMapExclusivePolicy(
+        device: AAudio_DeviceType,
+        direction: aaudio_direction_t,
+    ) -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudio_setMMapPolicy(policy: aaudio_policy_t) -> aaudio_result_t;
+}
+extern "C" {
+    pub fn AAudio_getMMapPolicy() -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudioStream_isMMapUsed(stream: *mut AAudioStream) -> bool;
 }
 impl media_status_t {
     pub const AMEDIA_OK: media_status_t = media_status_t(0);
@@ -7242,13 +8232,13 @@ pub struct AMidiInputPort {
 pub struct AMidiOutputPort {
     _unused: [u8; 0],
 }
-pub const AMIDI_OPCODE_DATA: _bindgen_ty_62 = 1;
-pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_62 = 2;
-pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
-pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_63 = 1;
-pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_63 = 2;
-pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_63 = 3;
+pub const AMIDI_OPCODE_DATA: _bindgen_ty_63 = 1;
+pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_63 = 2;
 pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
+pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_64 = 1;
+pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_64 = 2;
+pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_64 = 3;
+pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
 impl AMidiDevice_Protocol {
     pub const AMIDI_DEVICE_PROTOCOL_UMP_USE_MIDI_CI: AMidiDevice_Protocol = AMidiDevice_Protocol(0);
 }
@@ -7509,7 +8499,13 @@ impl acamera_metadata_section {
     pub const ACAMERA_JPEGR: acamera_metadata_section = acamera_metadata_section(33);
 }
 impl acamera_metadata_section {
-    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(34);
+    pub const ACAMERA_SHARED_SESSION: acamera_metadata_section = acamera_metadata_section(34);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_DESKTOP_EFFECTS: acamera_metadata_section = acamera_metadata_section(35);
+}
+impl acamera_metadata_section {
+    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(36);
 }
 impl acamera_metadata_section {
     pub const ACAMERA_VENDOR: acamera_metadata_section = acamera_metadata_section(32768);
@@ -7655,6 +8651,14 @@ impl acamera_metadata_section_start {
         acamera_metadata_section_start(2162688);
 }
 impl acamera_metadata_section_start {
+    pub const ACAMERA_SHARED_SESSION_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2228224);
+}
+impl acamera_metadata_section_start {
+    pub const ACAMERA_DESKTOP_EFFECTS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2293760);
+}
+impl acamera_metadata_section_start {
     pub const ACAMERA_VENDOR_START: acamera_metadata_section_start =
         acamera_metadata_section_start(-2147483648);
 }
@@ -7680,7 +8684,22 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(4);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = acamera_metadata_tag(5);
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TEMPERATURE: acamera_metadata_tag =
+        acamera_metadata_tag(5);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TINT: acamera_metadata_tag = acamera_metadata_tag(6);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TEMPERATURE_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(7);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_AVAILABLE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(8);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = acamera_metadata_tag(9);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE: acamera_metadata_tag =
@@ -7860,7 +8879,17 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(65595);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_CONTROL_END: acamera_metadata_tag = acamera_metadata_tag(65596);
+    pub const ACAMERA_CONTROL_ZOOM_METHOD: acamera_metadata_tag = acamera_metadata_tag(65596);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE: acamera_metadata_tag = acamera_metadata_tag(65597);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_AE_AVAILABLE_PRIORITY_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65598);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_CONTROL_END: acamera_metadata_tag = acamera_metadata_tag(65599);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_EDGE_MODE: acamera_metadata_tag = acamera_metadata_tag(196608);
@@ -8172,7 +9201,11 @@ impl acamera_metadata_tag {
     pub const ACAMERA_SCALER_RAW_CROP_REGION: acamera_metadata_tag = acamera_metadata_tag(851995);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_SCALER_END: acamera_metadata_tag = acamera_metadata_tag(851996);
+    pub const ACAMERA_SCALER_CONCURRENT_MULTI_RESOLUTION_FORMATS: acamera_metadata_tag =
+        acamera_metadata_tag(851996);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_SCALER_END: acamera_metadata_tag = acamera_metadata_tag(851997);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_SENSOR_EXPOSURE_TIME: acamera_metadata_tag = acamera_metadata_tag(917504);
@@ -8469,7 +9502,10 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(1376259);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_INFO_END: acamera_metadata_tag = acamera_metadata_tag(1376260);
+    pub const ACAMERA_INFO_DEVICE_TYPE: acamera_metadata_tag = acamera_metadata_tag(1376262);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_INFO_END: acamera_metadata_tag = acamera_metadata_tag(1376263);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_BLACK_LEVEL_LOCK: acamera_metadata_tag = acamera_metadata_tag(1441792);
@@ -8562,8 +9598,12 @@ impl acamera_metadata_tag {
         acamera_metadata_tag = acamera_metadata_tag(1703939);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_LOGICAL_MULTI_CAMERA_END: acamera_metadata_tag =
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_ADDITIONAL_RESULTS: acamera_metadata_tag =
         acamera_metadata_tag(1703940);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_END: acamera_metadata_tag =
+        acamera_metadata_tag(1703941);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_DISTORTION_CORRECTION_MODE: acamera_metadata_tag =
@@ -8602,7 +9642,31 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(1835013);
 }
 impl acamera_metadata_tag {
-    pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835014);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835014);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_MIN_FRAME_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835015);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STALL_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835016);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835017);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835018);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835019);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835020);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_AUTOMOTIVE_LOCATION: acamera_metadata_tag = acamera_metadata_tag(1966080);
@@ -8615,6 +9679,13 @@ impl acamera_metadata_tag {
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_AUTOMOTIVE_LENS_END: acamera_metadata_tag = acamera_metadata_tag(2031617);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR: acamera_metadata_tag =
+        acamera_metadata_tag(2097154);
+}
+impl acamera_metadata_tag {
+    pub const ACAMERA_EXTENSION_END: acamera_metadata_tag = acamera_metadata_tag(2097155);
 }
 impl acamera_metadata_tag {
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_STREAM_CONFIGURATIONS: acamera_metadata_tag =
@@ -8661,6 +9732,11 @@ impl acamera_metadata_enum_acamera_color_correction_mode {
     pub const ACAMERA_COLOR_CORRECTION_MODE_HIGH_QUALITY:
         acamera_metadata_enum_acamera_color_correction_mode =
         acamera_metadata_enum_acamera_color_correction_mode(2);
+}
+impl acamera_metadata_enum_acamera_color_correction_mode {
+    pub const ACAMERA_COLOR_CORRECTION_MODE_CCT:
+        acamera_metadata_enum_acamera_color_correction_mode =
+        acamera_metadata_enum_acamera_color_correction_mode(3);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -9329,6 +10405,38 @@ impl acamera_metadata_enum_acamera_control_low_light_boost_state {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_control_low_light_boost_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_low_light_boost_state as acamera_metadata_enum_android_control_low_light_boost_state_t;
+impl acamera_metadata_enum_acamera_control_zoom_method {
+    pub const ACAMERA_CONTROL_ZOOM_METHOD_AUTO: acamera_metadata_enum_acamera_control_zoom_method =
+        acamera_metadata_enum_acamera_control_zoom_method(0);
+}
+impl acamera_metadata_enum_acamera_control_zoom_method {
+    pub const ACAMERA_CONTROL_ZOOM_METHOD_ZOOM_RATIO:
+        acamera_metadata_enum_acamera_control_zoom_method =
+        acamera_metadata_enum_acamera_control_zoom_method(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_zoom_method(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_control_zoom_method as acamera_metadata_enum_android_control_zoom_method_t;
+impl acamera_metadata_enum_acamera_control_ae_priority_mode {
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_OFF:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(0);
+}
+impl acamera_metadata_enum_acamera_control_ae_priority_mode {
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_SENSOR_SENSITIVITY_PRIORITY:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(1);
+}
+impl acamera_metadata_enum_acamera_control_ae_priority_mode {
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_SENSOR_EXPOSURE_TIME_PRIORITY:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_priority_mode(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_control_ae_priority_mode as acamera_metadata_enum_android_control_ae_priority_mode_t;
 impl acamera_metadata_enum_acamera_edge_mode {
     pub const ACAMERA_EDGE_MODE_OFF: acamera_metadata_enum_acamera_edge_mode =
         acamera_metadata_enum_acamera_edge_mode(0);
@@ -9674,6 +10782,55 @@ impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map 
     pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_MAX:
         acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
         acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(4096);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_STANDARD_SMPTE_2094_50:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(8192);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HLG10_SMPTE_2094_50:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(16384);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10_SMPTE_2094_50:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(32768);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10_PLUS_SMPTE_2094_50:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(65536);
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (131072) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF_PO_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (262144) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (524288) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM_PO_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (1048576) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (2097152) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF_PO_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (4194304) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (8388608) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM_PO_SMPTE_2094_50 : acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map = acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map (16777216) ;
+}
+impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
+    pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_MAX_312:
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map =
+        acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(33554432);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -10316,6 +11473,26 @@ impl acamera_metadata_enum_acamera_info_supported_hardware_level {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_info_supported_hardware_level(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_info_supported_hardware_level as acamera_metadata_enum_android_info_supported_hardware_level_t;
+impl acamera_metadata_enum_acamera_info_device_type {
+    pub const ACAMERA_INFO_DEVICE_TYPE_BUILT_IN: acamera_metadata_enum_acamera_info_device_type =
+        acamera_metadata_enum_acamera_info_device_type(0);
+}
+impl acamera_metadata_enum_acamera_info_device_type {
+    pub const ACAMERA_INFO_DEVICE_TYPE_EXTERNAL: acamera_metadata_enum_acamera_info_device_type =
+        acamera_metadata_enum_acamera_info_device_type(1);
+}
+impl acamera_metadata_enum_acamera_info_device_type {
+    pub const ACAMERA_INFO_DEVICE_TYPE_VIRTUAL: acamera_metadata_enum_acamera_info_device_type =
+        acamera_metadata_enum_acamera_info_device_type(2);
+}
+impl acamera_metadata_enum_acamera_info_device_type {
+    pub const ACAMERA_INFO_DEVICE_TYPE_UNKNOWN: acamera_metadata_enum_acamera_info_device_type =
+        acamera_metadata_enum_acamera_info_device_type(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_info_device_type(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_info_device_type as acamera_metadata_enum_android_info_device_type_t;
 impl acamera_metadata_enum_acamera_black_level_lock {
     pub const ACAMERA_BLACK_LEVEL_LOCK_OFF: acamera_metadata_enum_acamera_black_level_lock =
         acamera_metadata_enum_acamera_black_level_lock(0);
@@ -10444,6 +11621,22 @@ pub struct acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type(
     pub ::std::os::raw::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type as acamera_metadata_enum_android_logical_multi_camera_sensor_sync_type_t;
+impl acamera_metadata_enum_acamera_logical_multi_camera_additional_results {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_ADDITIONAL_RESULTS_OFF:
+        acamera_metadata_enum_acamera_logical_multi_camera_additional_results =
+        acamera_metadata_enum_acamera_logical_multi_camera_additional_results(0);
+}
+impl acamera_metadata_enum_acamera_logical_multi_camera_additional_results {
+    pub const ACAMERA_LOGICAL_MULTI_CAMERA_ADDITIONAL_RESULTS_ON:
+        acamera_metadata_enum_acamera_logical_multi_camera_additional_results =
+        acamera_metadata_enum_acamera_logical_multi_camera_additional_results(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_logical_multi_camera_additional_results(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_logical_multi_camera_additional_results as acamera_metadata_enum_android_logical_multi_camera_additional_results_t;
 impl acamera_metadata_enum_acamera_distortion_correction_mode {
     pub const ACAMERA_DISTORTION_CORRECTION_MODE_OFF:
         acamera_metadata_enum_acamera_distortion_correction_mode =
@@ -10499,6 +11692,30 @@ pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configuratio
     pub ::std::os::raw::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_stream_configurations_maximum_resolution_t;
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(0);
+}
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations as acamera_metadata_enum_android_heic_available_heic_ultra_hdr_stream_configurations_t;
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution { pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution (0) ; }
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution { pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution (1) ; }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution_t;
 impl acamera_metadata_enum_acamera_automotive_location {
     pub const ACAMERA_AUTOMOTIVE_LOCATION_INTERIOR:
         acamera_metadata_enum_acamera_automotive_location =
@@ -10637,6 +11854,25 @@ impl acamera_metadata_enum_acamera_automotive_lens_facing {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_automotive_lens_facing(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_automotive_lens_facing as acamera_metadata_enum_android_automotive_lens_facing_t;
+impl acamera_metadata_enum_acamera_extension_night_mode_indicator {
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_UNKNOWN:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(0);
+}
+impl acamera_metadata_enum_acamera_extension_night_mode_indicator {
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_OFF:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(1);
+}
+impl acamera_metadata_enum_acamera_extension_night_mode_indicator {
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_ON:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_extension_night_mode_indicator(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_extension_night_mode_indicator as acamera_metadata_enum_android_extension_night_mode_indicator_t;
 impl acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations {
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_STREAM_CONFIGURATIONS_OUTPUT:
         acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations =
@@ -10670,14 +11906,14 @@ pub use self::acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_config
 pub struct ACameraMetadata {
     _unused: [u8; 0],
 }
-pub const ACAMERA_TYPE_BYTE: _bindgen_ty_64 = 0;
-pub const ACAMERA_TYPE_INT32: _bindgen_ty_64 = 1;
-pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_64 = 2;
-pub const ACAMERA_TYPE_INT64: _bindgen_ty_64 = 3;
-pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_64 = 4;
-pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_64 = 5;
-pub const ACAMERA_NUM_TYPES: _bindgen_ty_64 = 6;
-pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
+pub const ACAMERA_TYPE_BYTE: _bindgen_ty_65 = 0;
+pub const ACAMERA_TYPE_INT32: _bindgen_ty_65 = 1;
+pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_65 = 2;
+pub const ACAMERA_TYPE_INT64: _bindgen_ty_65 = 3;
+pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_65 = 4;
+pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_65 = 5;
+pub const ACAMERA_NUM_TYPES: _bindgen_ty_65 = 6;
+pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata_rational {
@@ -10925,6 +12161,13 @@ extern "C" {
     ) -> camera_status_t;
 }
 extern "C" {
+    pub fn ACameraMetadata_getTagFromName(
+        metadata: *const ACameraMetadata,
+        name: *const ::std::os::raw::c_char,
+        tag: *mut u32,
+    ) -> camera_status_t;
+}
+extern "C" {
     pub fn ACameraMetadata_copy(src: *const ACameraMetadata) -> *mut ACameraMetadata;
 }
 extern "C" {
@@ -10961,7 +12204,7 @@ pub struct ACaptureRequest {
 }
 extern "C" {
     pub fn ACameraOutputTarget_create(
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
         output: *mut *mut ACameraOutputTarget,
     ) -> camera_status_t;
 }
@@ -11177,13 +12420,13 @@ fn bindgen_test_layout_ACameraCaptureSession_stateCallbacks() {
 pub type ACameraCaptureSession_prepareCallback = ::std::option::Option<
     unsafe extern "C" fn(
         context: *mut ::std::os::raw::c_void,
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
         session: *mut ACameraCaptureSession,
     ),
 >;
-pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_65 = 0;
-pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_65 = 1;
-pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
+pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_66 = 0;
+pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_66 = 1;
+pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureFailure {
@@ -11272,7 +12515,7 @@ pub type ACameraCaptureSession_captureCallback_bufferLost = ::std::option::Optio
         context: *mut ::std::os::raw::c_void,
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
         frameNumber: i64,
     ),
 >;
@@ -11344,8 +12587,8 @@ fn bindgen_test_layout_ACameraCaptureSession_captureCallbacks() {
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureBufferLost"
     );
 }
-pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_66 = -1;
-pub type _bindgen_ty_66 = ::std::os::raw::c_int;
+pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_67 = -1;
+pub type _bindgen_ty_67 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ACameraCaptureSession_close(session: *mut ACameraCaptureSession);
 }
@@ -11679,7 +12922,30 @@ extern "C" {
 extern "C" {
     pub fn ACameraCaptureSession_prepareWindow(
         session: *mut ACameraCaptureSession,
-        window: *mut ACameraWindowType,
+        window: *mut ANativeWindow,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSessionShared_startStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_captureCallbacksV2,
+        numOutputWindows: ::std::os::raw::c_int,
+        window: *mut *mut ANativeWindow,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSessionShared_logicalCamera_startStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacksV2,
+        numOutputWindows: ::std::os::raw::c_int,
+        windows: *mut *mut ANativeWindow,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSessionShared_stopStreaming(
+        sharedSession: *mut ACameraCaptureSession,
     ) -> camera_status_t;
 }
 #[repr(C)]
@@ -11713,12 +12979,12 @@ fn bindgen_test_layout_ACameraIdList() {
         "Offset of field: ACameraIdList::cameraIds"
     );
 }
-pub const ERROR_CAMERA_IN_USE: _bindgen_ty_67 = 1;
-pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_67 = 2;
-pub const ERROR_CAMERA_DISABLED: _bindgen_ty_67 = 3;
-pub const ERROR_CAMERA_DEVICE: _bindgen_ty_67 = 4;
-pub const ERROR_CAMERA_SERVICE: _bindgen_ty_67 = 5;
-pub type _bindgen_ty_67 = ::std::os::raw::c_uint;
+pub const ERROR_CAMERA_IN_USE: _bindgen_ty_68 = 1;
+pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_68 = 2;
+pub const ERROR_CAMERA_DISABLED: _bindgen_ty_68 = 3;
+pub const ERROR_CAMERA_DEVICE: _bindgen_ty_68 = 4;
+pub const ERROR_CAMERA_SERVICE: _bindgen_ty_68 = 5;
+pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
 pub type ACameraDevice_StateCallback = ::std::option::Option<
     unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, device: *mut ACameraDevice),
 >;
@@ -11729,12 +12995,21 @@ pub type ACameraDevice_ErrorStateCallback = ::std::option::Option<
         error: ::std::os::raw::c_int,
     ),
 >;
+pub type ACameraDevice_ClientSharedAccessPriorityChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        device: *mut ACameraDevice,
+        isPrimaryClient: bool,
+    ),
+>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraDevice_StateCallbacks {
     pub context: *mut ::std::os::raw::c_void,
     pub onDisconnected: ACameraDevice_StateCallback,
     pub onError: ACameraDevice_ErrorStateCallback,
+    pub onClientSharedAccessPriorityChanged:
+        ACameraDevice_ClientSharedAccessPriorityChangedCallback,
 }
 #[test]
 fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
@@ -11743,7 +13018,7 @@ fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<ACameraDevice_StateCallbacks>(),
-        24usize,
+        32usize,
         "Size of ACameraDevice_StateCallbacks"
     );
     assert_eq!(
@@ -11765,6 +13040,13 @@ fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
         unsafe { ::std::ptr::addr_of!((*ptr).onError) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraDevice_StateCallbacks::onError"
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).onClientSharedAccessPriorityChanged) as usize - ptr as usize
+        },
+        24usize,
+        "Offset of field: ACameraDevice_StateCallbacks::onClientSharedAccessPriorityChanged"
     );
 }
 pub type ACameraDevice_stateCallbacks = ACameraDevice_StateCallbacks;
@@ -11820,7 +13102,7 @@ extern "C" {
 }
 extern "C" {
     pub fn ACaptureSessionOutput_create(
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
         output: *mut *mut ACaptureSessionOutput,
     ) -> camera_status_t;
 }
@@ -11849,20 +13131,20 @@ extern "C" {
 }
 extern "C" {
     pub fn ACaptureSessionSharedOutput_create(
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
         output: *mut *mut ACaptureSessionOutput,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACaptureSessionSharedOutput_add(
         output: *mut ACaptureSessionOutput,
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACaptureSessionSharedOutput_remove(
         output: *mut ACaptureSessionOutput,
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
     ) -> camera_status_t;
 }
 extern "C" {
@@ -11876,7 +13158,7 @@ extern "C" {
 }
 extern "C" {
     pub fn ACaptureSessionPhysicalOutput_create(
-        anw: *mut ACameraWindowType,
+        anw: *mut ANativeWindow,
         physicalId: *const ::std::os::raw::c_char,
         output: *mut *mut ACaptureSessionOutput,
     ) -> camera_status_t;
@@ -11994,6 +13276,15 @@ extern "C" {
         device: *mut *mut ACameraDevice,
     ) -> camera_status_t;
 }
+extern "C" {
+    pub fn ACameraManager_openSharedCamera(
+        manager: *mut ACameraManager,
+        cameraId: *const ::std::os::raw::c_char,
+        callback: *mut ACameraDevice_StateCallbacks,
+        device: *mut *mut ACameraDevice,
+        isPrimaryClient: *mut bool,
+    ) -> camera_status_t;
+}
 pub type ACameraManager_AccessPrioritiesChangedCallback =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
 #[repr(C)]
@@ -12055,6 +13346,13 @@ extern "C" {
         callback: *const ACameraManager_ExtendedAvailabilityCallbacks,
     ) -> camera_status_t;
 }
+extern "C" {
+    pub fn ACameraManager_isCameraDeviceSharingSupported(
+        manager: *mut ACameraManager,
+        cameraId: *const ::std::os::raw::c_char,
+        isSharingSupported: *mut bool,
+    ) -> camera_status_t;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AImage {
@@ -12092,6 +13390,9 @@ impl AIMAGE_FORMATS {
 }
 impl AIMAGE_FORMATS {
     pub const AIMAGE_FORMAT_RAW12: AIMAGE_FORMATS = AIMAGE_FORMATS(38);
+}
+impl AIMAGE_FORMATS {
+    pub const AIMAGE_FORMAT_RAW14: AIMAGE_FORMATS = AIMAGE_FORMATS(44);
 }
 impl AIMAGE_FORMATS {
     pub const AIMAGE_FORMAT_DEPTH16: AIMAGE_FORMATS = AIMAGE_FORMATS(1144402265);
@@ -12211,6 +13512,9 @@ extern "C" {
 }
 extern "C" {
     pub fn AImage_getDataSpace(image: *const AImage, dataSpace: *mut i32) -> media_status_t;
+}
+extern "C" {
+    pub fn AImage_getTransform(image: *mut AImage, transform: *mut i32) -> media_status_t;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -12381,6 +13685,25 @@ extern "C" {
     pub fn AImageReader_setBufferRemovedListener(
         reader: *mut AImageReader,
         listener: *mut AImageReader_BufferRemovedListener,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AImageReader_setDefaultBufferSize(
+        reader: *mut AImageReader,
+        width: i32,
+        height: i32,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AImageReader_setDefaultBufferDataSpace(
+        reader: *mut AImageReader,
+        dataSpace: i32,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AImageReader_setDefaultAHardwareBufferFormat(
+        reader: *mut AImageReader,
+        format: i32,
     ) -> media_status_t;
 }
 #[repr(C)]
@@ -12602,6 +13925,9 @@ extern "C" {
     pub static mut AMEDIAFORMAT_KEY_HEIGHT: *const ::std::os::raw::c_char;
 }
 extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_HORIZONTAL_FLIP: *const ::std::os::raw::c_char;
+}
+extern "C" {
     pub static mut AMEDIAFORMAT_KEY_IMPORTANCE: *const ::std::os::raw::c_char;
 }
 extern "C" {
@@ -12709,6 +14035,9 @@ extern "C" {
 }
 extern "C" {
     pub static mut AMEDIAFORMAT_KEY_TRACK_INDEX: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_VIDEO_BITRATE_LAYERING: *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub static mut AMEDIAFORMAT_KEY_WIDTH: *const ::std::os::raw::c_char;
@@ -12831,6 +14160,9 @@ extern "C" {
     pub static mut AMEDIAFORMAT_KEY_CSD_HEVC: *const ::std::os::raw::c_char;
 }
 extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_CSD_VVC: *const ::std::os::raw::c_char;
+}
+extern "C" {
     pub static mut AMEDIAFORMAT_KEY_D263: *const ::std::os::raw::c_char;
 }
 extern "C" {
@@ -12937,6 +14269,9 @@ extern "C" {
 }
 extern "C" {
     pub static mut AMEDIAFORMAT_KEY_LOW_LATENCY: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMEDIAFORMAT_KEY_HDR_ST2094_50_INFO: *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub static mut AMEDIAFORMAT_KEY_HDR10_PLUS_INFO: *const ::std::os::raw::c_char;
@@ -13058,18 +14393,18 @@ fn bindgen_test_layout_AMediaCodecBufferInfo() {
 pub struct AMediaCodecCryptoInfo {
     _unused: [u8; 0],
 }
-pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_68 = 1;
-pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_68 = 2;
-pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_68 = 4;
-pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_68 = 8;
-pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_68 = 16;
-pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_68 = 32;
-pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
-pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_69 = 1;
-pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_69 = -3;
-pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_69 = -2;
-pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_69 = -1;
-pub type _bindgen_ty_69 = ::std::os::raw::c_int;
+pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_69 = 1;
+pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_69 = 2;
+pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_69 = 4;
+pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_69 = 8;
+pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_69 = 16;
+pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_69 = 32;
+pub type _bindgen_ty_69 = ::std::os::raw::c_uint;
+pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_70 = 1;
+pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_70 = -3;
+pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_70 = -2;
+pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_70 = -1;
+pub type _bindgen_ty_70 = ::std::os::raw::c_int;
 pub type AMediaCodecOnAsyncInputAvailable = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
@@ -13433,6 +14768,453 @@ extern "C" {
 }
 extern "C" {
     pub static mut AMEDIACODEC_KEY_VIDEO_BITRATE: *const ::std::os::raw::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ACodecAudioCapabilities {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ACodecPerformancePoint {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ACodecVideoCapabilities {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ACodecEncoderCapabilities {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AMediaCodecInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AIntRange {
+    pub mLower: i32,
+    pub mUpper: i32,
+}
+#[test]
+fn bindgen_test_layout_AIntRange() {
+    const UNINIT: ::std::mem::MaybeUninit<AIntRange> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<AIntRange>(),
+        8usize,
+        "Size of AIntRange"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<AIntRange>(),
+        4usize,
+        "Alignment of AIntRange"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).mLower) as usize - ptr as usize },
+        0usize,
+        "Offset of field: AIntRange::mLower"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).mUpper) as usize - ptr as usize },
+        4usize,
+        "Offset of field: AIntRange::mUpper"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ADoubleRange {
+    pub mLower: f64,
+    pub mUpper: f64,
+}
+#[test]
+fn bindgen_test_layout_ADoubleRange() {
+    const UNINIT: ::std::mem::MaybeUninit<ADoubleRange> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ADoubleRange>(),
+        16usize,
+        "Size of ADoubleRange"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ADoubleRange>(),
+        8usize,
+        "Alignment of ADoubleRange"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).mLower) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ADoubleRange::mLower"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).mUpper) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ADoubleRange::mUpper"
+    );
+}
+extern "C" {
+    pub fn AMediaCodecInfo_getCanonicalName(
+        info: *const AMediaCodecInfo,
+    ) -> *const ::std::os::raw::c_char;
+}
+pub const AMediaCodecKind_AMediaCodecKind_INVALID: AMediaCodecKind = 0;
+pub const AMediaCodecKind_AMediaCodecKind_DECODER: AMediaCodecKind = 1;
+pub const AMediaCodecKind_AMediaCodecKind_ENCODER: AMediaCodecKind = 2;
+pub type AMediaCodecKind = i32;
+extern "C" {
+    pub fn AMediaCodecInfo_getKind(info: *const AMediaCodecInfo) -> AMediaCodecKind;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_isVendor(info: *const AMediaCodecInfo) -> i32;
+}
+pub const AMediaCodecType_AMediaCodecType_INVALID_CODEC_INFO: AMediaCodecType = 0;
+pub const AMediaCodecType_AMediaCodecType_SOFTWARE_ONLY: AMediaCodecType = 1;
+pub const AMediaCodecType_AMediaCodecType_HARDWARE_ACCELERATED: AMediaCodecType = 2;
+pub const AMediaCodecType_AMediaCodecType_SOFTWARE_WITH_DEVICE_ACCESS: AMediaCodecType = 3;
+pub type AMediaCodecType = i32;
+extern "C" {
+    pub fn AMediaCodecInfo_getMediaCodecInfoType(info: *const AMediaCodecInfo) -> AMediaCodecType;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_getMediaType(
+        info: *const AMediaCodecInfo,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_getMaxSupportedInstances(info: *const AMediaCodecInfo) -> i32;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_isFeatureSupported(
+        info: *const AMediaCodecInfo,
+        featureName: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_isFeatureRequired(
+        info: *const AMediaCodecInfo,
+        featureName: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_isFormatSupported(
+        info: *const AMediaCodecInfo,
+        format: *const AMediaFormat,
+    ) -> i32;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_getAudioCapabilities(
+        info: *const AMediaCodecInfo,
+        outAudioCaps: *mut *const ACodecAudioCapabilities,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_getVideoCapabilities(
+        info: *const AMediaCodecInfo,
+        outVideoCaps: *mut *const ACodecVideoCapabilities,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AMediaCodecInfo_getEncoderCapabilities(
+        info: *const AMediaCodecInfo,
+        outEncoderCaps: *mut *const ACodecEncoderCapabilities,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecAudioCapabilities_getBitrateRange(
+        audioCaps: *const ACodecAudioCapabilities,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecAudioCapabilities_getSupportedSampleRates(
+        audioCaps: *const ACodecAudioCapabilities,
+        outArrayPtr: *mut *const ::std::os::raw::c_int,
+        outCount: *mut usize,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecAudioCapabilities_getSupportedSampleRateRanges(
+        audioCaps: *const ACodecAudioCapabilities,
+        outArrayPtr: *mut *const AIntRange,
+        outCount: *mut usize,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecAudioCapabilities_getMaxInputChannelCount(
+        audioCaps: *const ACodecAudioCapabilities,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecAudioCapabilities_getMinInputChannelCount(
+        audioCaps: *const ACodecAudioCapabilities,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecAudioCapabilities_getInputChannelCountRanges(
+        audioCaps: *const ACodecAudioCapabilities,
+        outArrayPtr: *mut *const AIntRange,
+        outCount: *mut usize,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecAudioCapabilities_isSampleRateSupported(
+        audioCaps: *const ACodecAudioCapabilities,
+        sampleRate: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecPerformancePoint_create(
+        width: i32,
+        height: i32,
+        frameRate: i32,
+    ) -> *mut ACodecPerformancePoint;
+}
+extern "C" {
+    pub fn ACodecPerformancePoint_destroy(performancePoint: *mut ACodecPerformancePoint);
+}
+extern "C" {
+    pub fn ACodecPerformancePoint_coversFormat(
+        performancePoint: *const ACodecPerformancePoint,
+        format: *const AMediaFormat,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecPerformancePoint_covers(
+        one: *const ACodecPerformancePoint,
+        another: *const ACodecPerformancePoint,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecPerformancePoint_equals(
+        one: *const ACodecPerformancePoint,
+        another: *const ACodecPerformancePoint,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getBitrateRange(
+        videoCaps: *const ACodecVideoCapabilities,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getSupportedWidths(
+        videoCaps: *const ACodecVideoCapabilities,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getSupportedHeights(
+        videoCaps: *const ACodecVideoCapabilities,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getWidthAlignment(
+        videoCaps: *const ACodecVideoCapabilities,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getHeightAlignment(
+        videoCaps: *const ACodecVideoCapabilities,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getSupportedFrameRates(
+        videoCaps: *const ACodecVideoCapabilities,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getSupportedWidthsFor(
+        videoCaps: *const ACodecVideoCapabilities,
+        height: i32,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getSupportedHeightsFor(
+        videoCaps: *const ACodecVideoCapabilities,
+        width: i32,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getSupportedFrameRatesFor(
+        videoCaps: *const ACodecVideoCapabilities,
+        width: i32,
+        height: i32,
+        outRange: *mut ADoubleRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getAchievableFrameRatesFor(
+        videoCaps: *const ACodecVideoCapabilities,
+        width: i32,
+        height: i32,
+        outRange: *mut ADoubleRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_getNextSupportedPerformancePoint(
+        videoCaps: *const ACodecVideoCapabilities,
+        outPerformancePoint: *mut *const ACodecPerformancePoint,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_areSizeAndRateSupported(
+        videoCaps: *const ACodecVideoCapabilities,
+        width: i32,
+        height: i32,
+        frameRate: f64,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecVideoCapabilities_isSizeSupported(
+        videoCaps: *const ACodecVideoCapabilities,
+        width: i32,
+        height: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecEncoderCapabilities_getQualityRange(
+        encoderCaps: *const ACodecEncoderCapabilities,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn ACodecEncoderCapabilities_getComplexityRange(
+        encoderCaps: *const ACodecEncoderCapabilities,
+        outRange: *mut AIntRange,
+    ) -> media_status_t;
+}
+pub const ABitrateMode_ABITRATE_MODE_CQ: ABitrateMode = 0;
+pub const ABitrateMode_ABITRATE_MODE_VBR: ABitrateMode = 1;
+pub const ABitrateMode_ABITRATE_MODE_CBR: ABitrateMode = 2;
+pub const ABitrateMode_ABITRATE_MODE_CBR_FD: ABitrateMode = 3;
+pub type ABitrateMode = i32;
+extern "C" {
+    pub fn ACodecEncoderCapabilities_isBitrateModeSupported(
+        encoderCaps: *const ACodecEncoderCapabilities,
+        mode: ABitrateMode,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ACodecEncoderCapabilities_getSupportedLayeringSchemas(
+        encoderCaps: *const ACodecEncoderCapabilities,
+        outSupportedLayeringSchemaArrayPtr: *mut *const *const ::std::os::raw::c_char,
+        outCount: *mut usize,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_AdaptivePlayback: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_SecurePlayback: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_TunneledPlayback: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_DynamicTimestamp: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_FrameParsing: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_MultipleFrames: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_PartialFrame: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_IntraRefresh: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_LowLatency: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_QpBounds: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_EncodingStatistics: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_HdrEditing: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_HlgEditing: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_DynamicColorAspects: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_Roi: *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut AMediaCodecInfo_FEATURE_DetachedSurface: *const ::std::os::raw::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AMediaCodecSupportedMediaType {
+    pub mMediaType: *const ::std::os::raw::c_char,
+    pub mMode: u32,
+}
+pub const AMediaCodecSupportedMediaType_Mode_FLAG_DECODER: AMediaCodecSupportedMediaType_Mode = 1;
+pub const AMediaCodecSupportedMediaType_Mode_FLAG_ENCODER: AMediaCodecSupportedMediaType_Mode = 2;
+pub type AMediaCodecSupportedMediaType_Mode = u32;
+#[test]
+fn bindgen_test_layout_AMediaCodecSupportedMediaType() {
+    const UNINIT: ::std::mem::MaybeUninit<AMediaCodecSupportedMediaType> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<AMediaCodecSupportedMediaType>(),
+        16usize,
+        "Size of AMediaCodecSupportedMediaType"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<AMediaCodecSupportedMediaType>(),
+        8usize,
+        "Alignment of AMediaCodecSupportedMediaType"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).mMediaType) as usize - ptr as usize },
+        0usize,
+        "Offset of field: AMediaCodecSupportedMediaType::mMediaType"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).mMode) as usize - ptr as usize },
+        8usize,
+        "Offset of field: AMediaCodecSupportedMediaType::mMode"
+    );
+}
+extern "C" {
+    pub fn AMediaCodecStore_getSupportedMediaTypes(
+        outMediaTypes: *mut *const AMediaCodecSupportedMediaType,
+        outCount: *mut usize,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AMediaCodecStore_findNextDecoderForFormat(
+        format: *const AMediaFormat,
+        outCodecInfo: *mut *const AMediaCodecInfo,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AMediaCodecStore_findNextEncoderForFormat(
+        format: *const AMediaFormat,
+        outCodecInfo: *mut *const AMediaCodecInfo,
+    ) -> media_status_t;
+}
+extern "C" {
+    pub fn AMediaCodecStore_getCodecInfo(
+        name: *const ::std::os::raw::c_char,
+        outCodecInfo: *mut *const AMediaCodecInfo,
+    ) -> media_status_t;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -14057,9 +15839,9 @@ extern "C" {
         arg1: *mut AMediaExtractor,
     ) -> *mut AMediaCodecCryptoInfo;
 }
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_70 = 1;
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_70 = 2;
-pub type _bindgen_ty_70 = ::std::os::raw::c_uint;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_71 = 1;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_71 = 2;
+pub type _bindgen_ty_71 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }
