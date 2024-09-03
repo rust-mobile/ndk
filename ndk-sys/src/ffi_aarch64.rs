@@ -7959,41 +7959,13 @@ pub struct fpmr_context {
     pub head: _aarch64_ctx,
     pub fpmr: __u64,
 }
-#[test]
-fn bindgen_test_layout_fpmr_context() {
-    const UNINIT: ::std::mem::MaybeUninit<fpmr_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<fpmr_context>(),
-        16usize,
-        concat!("Size of: ", stringify!(fpmr_context))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<fpmr_context>(),
-        8usize,
-        concat!("Alignment of ", stringify!(fpmr_context))
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(fpmr_context),
-            "::",
-            stringify!(head)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpmr) as usize - ptr as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(fpmr_context),
-            "::",
-            stringify!(fpmr)
-        )
-    );
-}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of fpmr_context"][::std::mem::size_of::<fpmr_context>() - 16usize];
+    ["Alignment of fpmr_context"][::std::mem::align_of::<fpmr_context>() - 8usize];
+    ["Offset of field: fpmr_context::head"][::std::mem::offset_of!(fpmr_context, head) - 0usize];
+    ["Offset of field: fpmr_context::fpmr"][::std::mem::offset_of!(fpmr_context, fpmr) - 8usize];
+};
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct za_context {
