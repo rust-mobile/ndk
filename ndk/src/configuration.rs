@@ -42,7 +42,7 @@ impl Clone for Configuration {
 
 impl PartialEq for Configuration {
     fn eq(&self, other: &Self) -> bool {
-        self.diff(other).0 == 0
+        self.diff(other) != DiffResult::empty()
     }
 }
 impl Eq for Configuration {}
@@ -125,7 +125,10 @@ impl Configuration {
     /// Information about what fields differ between the two configurations
     pub fn diff(&self, other: &Self) -> DiffResult {
         unsafe {
-            DiffResult(ffi::AConfiguration_diff(self.ptr.as_ptr(), other.ptr.as_ptr()) as u32)
+            DiffResult::from_bits_retain(ffi::AConfiguration_diff(
+                self.ptr.as_ptr(),
+                other.ptr.as_ptr(),
+            ))
         }
     }
 
@@ -279,61 +282,46 @@ impl Configuration {
     }
 }
 
-/// A bitfield representing the differences between two [`Configuration`]s
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct DiffResult(pub u32);
-
-impl DiffResult {
-    pub fn mcc(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_MCC != 0
-    }
-    pub fn mnc(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_MNC != 0
-    }
-    pub fn locale(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_LOCALE != 0
-    }
-    pub fn touchscreen(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_TOUCHSCREEN != 0
-    }
-    pub fn keyboard(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_KEYBOARD != 0
-    }
-    pub fn keyboard_hidden(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_KEYBOARD_HIDDEN != 0
-    }
-    pub fn navigation(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_NAVIGATION != 0
-    }
-    pub fn orientation(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_ORIENTATION != 0
-    }
-    pub fn density(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_DENSITY != 0
-    }
-    pub fn screen_size(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_SCREEN_SIZE != 0
-    }
-    pub fn version(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_VERSION != 0
-    }
-    pub fn screen_layout(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_SCREEN_LAYOUT != 0
-    }
-    pub fn ui_mode(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_UI_MODE != 0
-    }
-    pub fn smallest_screen_size(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_SMALLEST_SCREEN_SIZE != 0
-    }
-    pub fn layout_dir(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_LAYOUTDIR != 0
-    }
-    pub fn screen_round(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_SCREEN_ROUND != 0
-    }
-    pub fn color_mode(self) -> bool {
-        self.0 & ffi::ACONFIGURATION_COLOR_MODE != 0
+bitflags::bitflags! {
+    /// A bitfield representing the differences between two [`Configuration`]s
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct DiffResult : i32 {
+        #[doc(alias = "ACONFIGURATION_MCC")]
+        const MCC = ffi::ACONFIGURATION_MCC as i32;
+        #[doc(alias = "ACONFIGURATION_MNC")]
+        const MNC = ffi::ACONFIGURATION_MNC as i32;
+        #[doc(alias = "ACONFIGURATION_LOCALE")]
+        const LOCALE = ffi::ACONFIGURATION_LOCALE as i32;
+        #[doc(alias = "ACONFIGURATION_TOUCHSCREEN")]
+        const TOUCHSCREEN = ffi::ACONFIGURATION_TOUCHSCREEN as i32;
+        #[doc(alias = "ACONFIGURATION_KEYBOARD")]
+        const KEYBOARD = ffi::ACONFIGURATION_KEYBOARD as i32;
+        #[doc(alias = "ACONFIGURATION_KEYBOARD_HIDDEN")]
+        const KEYBOARD_HIDDEN = ffi::ACONFIGURATION_KEYBOARD_HIDDEN as i32;
+        #[doc(alias = "ACONFIGURATION_NAVIGATION")]
+        const NAVIGATION = ffi::ACONFIGURATION_NAVIGATION as i32;
+        #[doc(alias = "ACONFIGURATION_ORIENTATION")]
+        const ORIENTATION = ffi::ACONFIGURATION_ORIENTATION as i32;
+        #[doc(alias = "ACONFIGURATION_DENSITY")]
+        const DENSITY = ffi::ACONFIGURATION_DENSITY as i32;
+        #[doc(alias = "ACONFIGURATION_SCREEN_SIZE")]
+        const SCREEN_SIZE = ffi::ACONFIGURATION_SCREEN_SIZE as i32;
+        #[doc(alias = "ACONFIGURATION_VERSION")]
+        const VERSION = ffi::ACONFIGURATION_VERSION as i32;
+        #[doc(alias = "ACONFIGURATION_SCREEN_LAYOUT")]
+        const SCREEN_LAYOUT = ffi::ACONFIGURATION_SCREEN_LAYOUT as i32;
+        #[doc(alias = "ACONFIGURATION_UI_MODE")]
+        const UI_MODE = ffi::ACONFIGURATION_UI_MODE as i32;
+        #[doc(alias = "ACONFIGURATION_SMALLEST_SCREEN_SIZE")]
+        const SMALLEST_SCREEN_SIZE = ffi::ACONFIGURATION_SMALLEST_SCREEN_SIZE as i32;
+        #[doc(alias = "ACONFIGURATION_LAYOUTDIR")]
+        const LAYOUTDIR = ffi::ACONFIGURATION_LAYOUTDIR as i32;
+        #[doc(alias = "ACONFIGURATION_SCREEN_ROUND")]
+        const SCREEN_ROUND = ffi::ACONFIGURATION_SCREEN_ROUND as i32;
+        #[doc(alias = "ACONFIGURATION_COLOR_MODE")]
+        const COLOR_MODE = ffi::ACONFIGURATION_COLOR_MODE as i32;
+        #[doc(alias = "ACONFIGURATION_GRAMMATICAL_GENDER")]
+        const GRAMMATICAL_GENDER = ffi::ACONFIGURATION_GRAMMATICAL_GENDER as i32;
     }
 }
 
