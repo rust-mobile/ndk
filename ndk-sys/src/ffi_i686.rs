@@ -1085,6 +1085,7 @@ pub const NSIG: u32 = 65;
 pub const PAGE_SIZE: u32 = 4096;
 pub const PAGE_MASK: i32 = -4096;
 pub const UPAGES: u32 = 1;
+pub const SIG2STR_MAX: u32 = 32;
 pub const FD_SETSIZE: u32 = 1024;
 pub const F_ULOCK: u32 = 0;
 pub const F_LOCK: u32 = 1;
@@ -5797,34 +5798,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn strtol(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn strtoll(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn strtoul(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn strtoull(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
-}
-extern "C" {
     pub fn posix_memalign(
         __memptr: *mut *mut ::std::os::raw::c_void,
         __alignment: usize,
@@ -5836,35 +5809,6 @@ extern "C" {
         __alignment: ::std::os::raw::c_uint,
         __size: ::std::os::raw::c_uint,
     ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn strtod(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
-}
-extern "C" {
-    pub fn strtold(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
-}
-extern "C" {
-    pub fn strtoul_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-        __l: locale_t,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn atoi(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn atol(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn atoll(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_longlong;
 }
 extern "C" {
     pub fn realpath(
@@ -6086,15 +6030,6 @@ extern "C" {
     pub fn llabs(__x: ::std::os::raw::c_longlong) -> ::std::os::raw::c_longlong;
 }
 extern "C" {
-    pub fn strtof(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f32;
-}
-extern "C" {
-    pub fn atof(__s: *const ::std::os::raw::c_char) -> f64;
-}
-extern "C" {
     pub fn rand() -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -6110,6 +6045,32 @@ extern "C" {
     pub fn grantpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn atof(__s: *const ::std::os::raw::c_char) -> f64;
+}
+extern "C" {
+    pub fn atoi(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn atol(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn atoll(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn strtol(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn strtoll(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
     pub fn strtoll_l(
         __s: *const ::std::os::raw::c_char,
         __end_ptr: *mut *mut ::std::os::raw::c_char,
@@ -6118,12 +6079,44 @@ extern "C" {
     ) -> ::std::os::raw::c_longlong;
 }
 extern "C" {
+    pub fn strtoul(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn strtoull(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_ulonglong;
+}
+extern "C" {
     pub fn strtoull_l(
         __s: *const ::std::os::raw::c_char,
         __end_ptr: *mut *mut ::std::os::raw::c_char,
         __base: ::std::os::raw::c_int,
         __l: locale_t,
     ) -> ::std::os::raw::c_ulonglong;
+}
+extern "C" {
+    pub fn strtof(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f32;
+}
+extern "C" {
+    pub fn strtod(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f64;
+}
+extern "C" {
+    pub fn strtold(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f64;
 }
 extern "C" {
     pub fn strtold_l(
@@ -6145,14 +6138,6 @@ extern "C" {
         __end_ptr: *mut *mut ::std::os::raw::c_char,
         __l: locale_t,
     ) -> f32;
-}
-extern "C" {
-    pub fn strtol_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        arg1: ::std::os::raw::c_int,
-        __l: locale_t,
-    ) -> ::std::os::raw::c_long;
 }
 pub type net_handle_t = u64;
 extern "C" {
@@ -9286,6 +9271,18 @@ extern "C" {
     pub fn sigwaitinfo64(__set: *const sigset64_t, __info: *mut siginfo_t)
         -> ::std::os::raw::c_int;
 }
+extern "C" {
+    pub fn sig2str(
+        __signal: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn str2sig(
+        __name: *const ::std::os::raw::c_char,
+        __signal: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
 pub type fd_mask = ::std::os::raw::c_ulong;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11619,12 +11616,6 @@ extern "C" {
     pub fn strerror(__errno_value: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn strerror_l(
-        __errno_value: ::std::os::raw::c_int,
-        __l: locale_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
     pub fn strerror_r(
         __errno_value: ::std::os::raw::c_int,
         __buf: *mut ::std::os::raw::c_char,
@@ -12136,14 +12127,6 @@ extern "C" {
         __s: *const ::std::os::raw::c_char,
         __fmt: *const ::std::os::raw::c_char,
         __tm: *mut tm,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strptime_l(
-        __s: *const ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
-        __tm: *mut tm,
-        __l: locale_t,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
