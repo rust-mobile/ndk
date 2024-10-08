@@ -16432,6 +16432,13 @@ extern "C" {
     ) -> camera_status_t;
 }
 extern "C" {
+    pub fn ACameraMetadata_getTagFromName(
+        metadata: *const ACameraMetadata,
+        name: *const ::std::os::raw::c_char,
+        tag: *mut u32,
+    ) -> camera_status_t;
+}
+extern "C" {
     pub fn ACameraMetadata_copy(src: *const ACameraMetadata) -> *mut ACameraMetadata;
 }
 extern "C" {
