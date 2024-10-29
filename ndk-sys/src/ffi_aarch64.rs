@@ -2798,6 +2798,21 @@ extern "C" {
         runLengthOut: *mut u32,
     ) -> *mut AFont;
 }
+extern "C" {
+    pub fn __assert(
+        __file: *const ::std::os::raw::c_char,
+        __line: ::std::os::raw::c_int,
+        __msg: *const ::std::os::raw::c_char,
+    ) -> !;
+}
+extern "C" {
+    pub fn __assert2(
+        __file: *const ::std::os::raw::c_char,
+        __line: ::std::os::raw::c_int,
+        __function: *const ::std::os::raw::c_char,
+        __msg: *const ::std::os::raw::c_char,
+    ) -> !;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ARect {
@@ -3189,6 +3204,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn AHardwareBuffer_readFromParcel(
+        parcel: *const AParcel,
+        outBuffer: *mut *mut AHardwareBuffer,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AHardwareBuffer_writeToParcel(
+        buffer: *const AHardwareBuffer,
+        parcel: *mut AParcel,
+    ) -> binder_status_t;
+}
+extern "C" {
     pub fn AHardwareBuffer_fromHardwareBuffer(
         env: *mut JNIEnv,
         hardwareBufferObj: jobject,
@@ -3269,19 +3296,19 @@ const _: () = {
     ["Offset of field: AHdrMetadata_cta861_3::maxFrameAverageLightLevel"]
         [::std::mem::offset_of!(AHdrMetadata_cta861_3, maxFrameAverageLightLevel) - 4usize];
 };
-pub const ANDROID_IMAGE_DECODER_SUCCESS: _bindgen_ty_9 = 0;
-pub const ANDROID_IMAGE_DECODER_INCOMPLETE: _bindgen_ty_9 = -1;
-pub const ANDROID_IMAGE_DECODER_ERROR: _bindgen_ty_9 = -2;
-pub const ANDROID_IMAGE_DECODER_INVALID_CONVERSION: _bindgen_ty_9 = -3;
-pub const ANDROID_IMAGE_DECODER_INVALID_SCALE: _bindgen_ty_9 = -4;
-pub const ANDROID_IMAGE_DECODER_BAD_PARAMETER: _bindgen_ty_9 = -5;
-pub const ANDROID_IMAGE_DECODER_INVALID_INPUT: _bindgen_ty_9 = -6;
-pub const ANDROID_IMAGE_DECODER_SEEK_ERROR: _bindgen_ty_9 = -7;
-pub const ANDROID_IMAGE_DECODER_INTERNAL_ERROR: _bindgen_ty_9 = -8;
-pub const ANDROID_IMAGE_DECODER_UNSUPPORTED_FORMAT: _bindgen_ty_9 = -9;
-pub const ANDROID_IMAGE_DECODER_FINISHED: _bindgen_ty_9 = -10;
-pub const ANDROID_IMAGE_DECODER_INVALID_STATE: _bindgen_ty_9 = -11;
-pub type _bindgen_ty_9 = ::std::os::raw::c_int;
+pub const ANDROID_IMAGE_DECODER_SUCCESS: _bindgen_ty_12 = 0;
+pub const ANDROID_IMAGE_DECODER_INCOMPLETE: _bindgen_ty_12 = -1;
+pub const ANDROID_IMAGE_DECODER_ERROR: _bindgen_ty_12 = -2;
+pub const ANDROID_IMAGE_DECODER_INVALID_CONVERSION: _bindgen_ty_12 = -3;
+pub const ANDROID_IMAGE_DECODER_INVALID_SCALE: _bindgen_ty_12 = -4;
+pub const ANDROID_IMAGE_DECODER_BAD_PARAMETER: _bindgen_ty_12 = -5;
+pub const ANDROID_IMAGE_DECODER_INVALID_INPUT: _bindgen_ty_12 = -6;
+pub const ANDROID_IMAGE_DECODER_SEEK_ERROR: _bindgen_ty_12 = -7;
+pub const ANDROID_IMAGE_DECODER_INTERNAL_ERROR: _bindgen_ty_12 = -8;
+pub const ANDROID_IMAGE_DECODER_UNSUPPORTED_FORMAT: _bindgen_ty_12 = -9;
+pub const ANDROID_IMAGE_DECODER_FINISHED: _bindgen_ty_12 = -10;
+pub const ANDROID_IMAGE_DECODER_INVALID_STATE: _bindgen_ty_12 = -11;
+pub type _bindgen_ty_12 = ::std::os::raw::c_int;
 extern "C" {
     pub fn AImageDecoder_resultToString(
         arg1: ::std::os::raw::c_int,
@@ -3399,8 +3426,8 @@ extern "C" {
 extern "C" {
     pub fn AImageDecoder_isAnimated(decoder: *mut AImageDecoder) -> bool;
 }
-pub const ANDROID_IMAGE_DECODER_INFINITE: _bindgen_ty_10 = 2147483647;
-pub type _bindgen_ty_10 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_INFINITE: _bindgen_ty_13 = 2147483647;
+pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoder_getRepeatCount(decoder: *mut AImageDecoder) -> i32;
 }
@@ -3437,16 +3464,16 @@ extern "C" {
     pub fn AImageDecoderFrameInfo_hasAlphaWithinBounds(info: *const AImageDecoderFrameInfo)
         -> bool;
 }
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_NONE: _bindgen_ty_11 = 1;
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_BACKGROUND: _bindgen_ty_11 = 2;
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_PREVIOUS: _bindgen_ty_11 = 3;
-pub type _bindgen_ty_11 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_NONE: _bindgen_ty_14 = 1;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_BACKGROUND: _bindgen_ty_14 = 2;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_PREVIOUS: _bindgen_ty_14 = 3;
+pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getDisposeOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
-pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC: _bindgen_ty_12 = 1;
-pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC_OVER: _bindgen_ty_12 = 2;
-pub type _bindgen_ty_12 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC: _bindgen_ty_15 = 1;
+pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC_OVER: _bindgen_ty_15 = 2;
+pub type _bindgen_ty_15 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getBlendOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
@@ -3456,324 +3483,324 @@ extern "C" {
         handleInternally: bool,
     );
 }
-pub const AKEYCODE_UNKNOWN: _bindgen_ty_13 = 0;
-pub const AKEYCODE_SOFT_LEFT: _bindgen_ty_13 = 1;
-pub const AKEYCODE_SOFT_RIGHT: _bindgen_ty_13 = 2;
-pub const AKEYCODE_HOME: _bindgen_ty_13 = 3;
-pub const AKEYCODE_BACK: _bindgen_ty_13 = 4;
-pub const AKEYCODE_CALL: _bindgen_ty_13 = 5;
-pub const AKEYCODE_ENDCALL: _bindgen_ty_13 = 6;
-pub const AKEYCODE_0: _bindgen_ty_13 = 7;
-pub const AKEYCODE_1: _bindgen_ty_13 = 8;
-pub const AKEYCODE_2: _bindgen_ty_13 = 9;
-pub const AKEYCODE_3: _bindgen_ty_13 = 10;
-pub const AKEYCODE_4: _bindgen_ty_13 = 11;
-pub const AKEYCODE_5: _bindgen_ty_13 = 12;
-pub const AKEYCODE_6: _bindgen_ty_13 = 13;
-pub const AKEYCODE_7: _bindgen_ty_13 = 14;
-pub const AKEYCODE_8: _bindgen_ty_13 = 15;
-pub const AKEYCODE_9: _bindgen_ty_13 = 16;
-pub const AKEYCODE_STAR: _bindgen_ty_13 = 17;
-pub const AKEYCODE_POUND: _bindgen_ty_13 = 18;
-pub const AKEYCODE_DPAD_UP: _bindgen_ty_13 = 19;
-pub const AKEYCODE_DPAD_DOWN: _bindgen_ty_13 = 20;
-pub const AKEYCODE_DPAD_LEFT: _bindgen_ty_13 = 21;
-pub const AKEYCODE_DPAD_RIGHT: _bindgen_ty_13 = 22;
-pub const AKEYCODE_DPAD_CENTER: _bindgen_ty_13 = 23;
-pub const AKEYCODE_VOLUME_UP: _bindgen_ty_13 = 24;
-pub const AKEYCODE_VOLUME_DOWN: _bindgen_ty_13 = 25;
-pub const AKEYCODE_POWER: _bindgen_ty_13 = 26;
-pub const AKEYCODE_CAMERA: _bindgen_ty_13 = 27;
-pub const AKEYCODE_CLEAR: _bindgen_ty_13 = 28;
-pub const AKEYCODE_A: _bindgen_ty_13 = 29;
-pub const AKEYCODE_B: _bindgen_ty_13 = 30;
-pub const AKEYCODE_C: _bindgen_ty_13 = 31;
-pub const AKEYCODE_D: _bindgen_ty_13 = 32;
-pub const AKEYCODE_E: _bindgen_ty_13 = 33;
-pub const AKEYCODE_F: _bindgen_ty_13 = 34;
-pub const AKEYCODE_G: _bindgen_ty_13 = 35;
-pub const AKEYCODE_H: _bindgen_ty_13 = 36;
-pub const AKEYCODE_I: _bindgen_ty_13 = 37;
-pub const AKEYCODE_J: _bindgen_ty_13 = 38;
-pub const AKEYCODE_K: _bindgen_ty_13 = 39;
-pub const AKEYCODE_L: _bindgen_ty_13 = 40;
-pub const AKEYCODE_M: _bindgen_ty_13 = 41;
-pub const AKEYCODE_N: _bindgen_ty_13 = 42;
-pub const AKEYCODE_O: _bindgen_ty_13 = 43;
-pub const AKEYCODE_P: _bindgen_ty_13 = 44;
-pub const AKEYCODE_Q: _bindgen_ty_13 = 45;
-pub const AKEYCODE_R: _bindgen_ty_13 = 46;
-pub const AKEYCODE_S: _bindgen_ty_13 = 47;
-pub const AKEYCODE_T: _bindgen_ty_13 = 48;
-pub const AKEYCODE_U: _bindgen_ty_13 = 49;
-pub const AKEYCODE_V: _bindgen_ty_13 = 50;
-pub const AKEYCODE_W: _bindgen_ty_13 = 51;
-pub const AKEYCODE_X: _bindgen_ty_13 = 52;
-pub const AKEYCODE_Y: _bindgen_ty_13 = 53;
-pub const AKEYCODE_Z: _bindgen_ty_13 = 54;
-pub const AKEYCODE_COMMA: _bindgen_ty_13 = 55;
-pub const AKEYCODE_PERIOD: _bindgen_ty_13 = 56;
-pub const AKEYCODE_ALT_LEFT: _bindgen_ty_13 = 57;
-pub const AKEYCODE_ALT_RIGHT: _bindgen_ty_13 = 58;
-pub const AKEYCODE_SHIFT_LEFT: _bindgen_ty_13 = 59;
-pub const AKEYCODE_SHIFT_RIGHT: _bindgen_ty_13 = 60;
-pub const AKEYCODE_TAB: _bindgen_ty_13 = 61;
-pub const AKEYCODE_SPACE: _bindgen_ty_13 = 62;
-pub const AKEYCODE_SYM: _bindgen_ty_13 = 63;
-pub const AKEYCODE_EXPLORER: _bindgen_ty_13 = 64;
-pub const AKEYCODE_ENVELOPE: _bindgen_ty_13 = 65;
-pub const AKEYCODE_ENTER: _bindgen_ty_13 = 66;
-pub const AKEYCODE_DEL: _bindgen_ty_13 = 67;
-pub const AKEYCODE_GRAVE: _bindgen_ty_13 = 68;
-pub const AKEYCODE_MINUS: _bindgen_ty_13 = 69;
-pub const AKEYCODE_EQUALS: _bindgen_ty_13 = 70;
-pub const AKEYCODE_LEFT_BRACKET: _bindgen_ty_13 = 71;
-pub const AKEYCODE_RIGHT_BRACKET: _bindgen_ty_13 = 72;
-pub const AKEYCODE_BACKSLASH: _bindgen_ty_13 = 73;
-pub const AKEYCODE_SEMICOLON: _bindgen_ty_13 = 74;
-pub const AKEYCODE_APOSTROPHE: _bindgen_ty_13 = 75;
-pub const AKEYCODE_SLASH: _bindgen_ty_13 = 76;
-pub const AKEYCODE_AT: _bindgen_ty_13 = 77;
-pub const AKEYCODE_NUM: _bindgen_ty_13 = 78;
-pub const AKEYCODE_HEADSETHOOK: _bindgen_ty_13 = 79;
-pub const AKEYCODE_FOCUS: _bindgen_ty_13 = 80;
-pub const AKEYCODE_PLUS: _bindgen_ty_13 = 81;
-pub const AKEYCODE_MENU: _bindgen_ty_13 = 82;
-pub const AKEYCODE_NOTIFICATION: _bindgen_ty_13 = 83;
-pub const AKEYCODE_SEARCH: _bindgen_ty_13 = 84;
-pub const AKEYCODE_MEDIA_PLAY_PAUSE: _bindgen_ty_13 = 85;
-pub const AKEYCODE_MEDIA_STOP: _bindgen_ty_13 = 86;
-pub const AKEYCODE_MEDIA_NEXT: _bindgen_ty_13 = 87;
-pub const AKEYCODE_MEDIA_PREVIOUS: _bindgen_ty_13 = 88;
-pub const AKEYCODE_MEDIA_REWIND: _bindgen_ty_13 = 89;
-pub const AKEYCODE_MEDIA_FAST_FORWARD: _bindgen_ty_13 = 90;
-pub const AKEYCODE_MUTE: _bindgen_ty_13 = 91;
-pub const AKEYCODE_PAGE_UP: _bindgen_ty_13 = 92;
-pub const AKEYCODE_PAGE_DOWN: _bindgen_ty_13 = 93;
-pub const AKEYCODE_PICTSYMBOLS: _bindgen_ty_13 = 94;
-pub const AKEYCODE_SWITCH_CHARSET: _bindgen_ty_13 = 95;
-pub const AKEYCODE_BUTTON_A: _bindgen_ty_13 = 96;
-pub const AKEYCODE_BUTTON_B: _bindgen_ty_13 = 97;
-pub const AKEYCODE_BUTTON_C: _bindgen_ty_13 = 98;
-pub const AKEYCODE_BUTTON_X: _bindgen_ty_13 = 99;
-pub const AKEYCODE_BUTTON_Y: _bindgen_ty_13 = 100;
-pub const AKEYCODE_BUTTON_Z: _bindgen_ty_13 = 101;
-pub const AKEYCODE_BUTTON_L1: _bindgen_ty_13 = 102;
-pub const AKEYCODE_BUTTON_R1: _bindgen_ty_13 = 103;
-pub const AKEYCODE_BUTTON_L2: _bindgen_ty_13 = 104;
-pub const AKEYCODE_BUTTON_R2: _bindgen_ty_13 = 105;
-pub const AKEYCODE_BUTTON_THUMBL: _bindgen_ty_13 = 106;
-pub const AKEYCODE_BUTTON_THUMBR: _bindgen_ty_13 = 107;
-pub const AKEYCODE_BUTTON_START: _bindgen_ty_13 = 108;
-pub const AKEYCODE_BUTTON_SELECT: _bindgen_ty_13 = 109;
-pub const AKEYCODE_BUTTON_MODE: _bindgen_ty_13 = 110;
-pub const AKEYCODE_ESCAPE: _bindgen_ty_13 = 111;
-pub const AKEYCODE_FORWARD_DEL: _bindgen_ty_13 = 112;
-pub const AKEYCODE_CTRL_LEFT: _bindgen_ty_13 = 113;
-pub const AKEYCODE_CTRL_RIGHT: _bindgen_ty_13 = 114;
-pub const AKEYCODE_CAPS_LOCK: _bindgen_ty_13 = 115;
-pub const AKEYCODE_SCROLL_LOCK: _bindgen_ty_13 = 116;
-pub const AKEYCODE_META_LEFT: _bindgen_ty_13 = 117;
-pub const AKEYCODE_META_RIGHT: _bindgen_ty_13 = 118;
-pub const AKEYCODE_FUNCTION: _bindgen_ty_13 = 119;
-pub const AKEYCODE_SYSRQ: _bindgen_ty_13 = 120;
-pub const AKEYCODE_BREAK: _bindgen_ty_13 = 121;
-pub const AKEYCODE_MOVE_HOME: _bindgen_ty_13 = 122;
-pub const AKEYCODE_MOVE_END: _bindgen_ty_13 = 123;
-pub const AKEYCODE_INSERT: _bindgen_ty_13 = 124;
-pub const AKEYCODE_FORWARD: _bindgen_ty_13 = 125;
-pub const AKEYCODE_MEDIA_PLAY: _bindgen_ty_13 = 126;
-pub const AKEYCODE_MEDIA_PAUSE: _bindgen_ty_13 = 127;
-pub const AKEYCODE_MEDIA_CLOSE: _bindgen_ty_13 = 128;
-pub const AKEYCODE_MEDIA_EJECT: _bindgen_ty_13 = 129;
-pub const AKEYCODE_MEDIA_RECORD: _bindgen_ty_13 = 130;
-pub const AKEYCODE_F1: _bindgen_ty_13 = 131;
-pub const AKEYCODE_F2: _bindgen_ty_13 = 132;
-pub const AKEYCODE_F3: _bindgen_ty_13 = 133;
-pub const AKEYCODE_F4: _bindgen_ty_13 = 134;
-pub const AKEYCODE_F5: _bindgen_ty_13 = 135;
-pub const AKEYCODE_F6: _bindgen_ty_13 = 136;
-pub const AKEYCODE_F7: _bindgen_ty_13 = 137;
-pub const AKEYCODE_F8: _bindgen_ty_13 = 138;
-pub const AKEYCODE_F9: _bindgen_ty_13 = 139;
-pub const AKEYCODE_F10: _bindgen_ty_13 = 140;
-pub const AKEYCODE_F11: _bindgen_ty_13 = 141;
-pub const AKEYCODE_F12: _bindgen_ty_13 = 142;
-pub const AKEYCODE_NUM_LOCK: _bindgen_ty_13 = 143;
-pub const AKEYCODE_NUMPAD_0: _bindgen_ty_13 = 144;
-pub const AKEYCODE_NUMPAD_1: _bindgen_ty_13 = 145;
-pub const AKEYCODE_NUMPAD_2: _bindgen_ty_13 = 146;
-pub const AKEYCODE_NUMPAD_3: _bindgen_ty_13 = 147;
-pub const AKEYCODE_NUMPAD_4: _bindgen_ty_13 = 148;
-pub const AKEYCODE_NUMPAD_5: _bindgen_ty_13 = 149;
-pub const AKEYCODE_NUMPAD_6: _bindgen_ty_13 = 150;
-pub const AKEYCODE_NUMPAD_7: _bindgen_ty_13 = 151;
-pub const AKEYCODE_NUMPAD_8: _bindgen_ty_13 = 152;
-pub const AKEYCODE_NUMPAD_9: _bindgen_ty_13 = 153;
-pub const AKEYCODE_NUMPAD_DIVIDE: _bindgen_ty_13 = 154;
-pub const AKEYCODE_NUMPAD_MULTIPLY: _bindgen_ty_13 = 155;
-pub const AKEYCODE_NUMPAD_SUBTRACT: _bindgen_ty_13 = 156;
-pub const AKEYCODE_NUMPAD_ADD: _bindgen_ty_13 = 157;
-pub const AKEYCODE_NUMPAD_DOT: _bindgen_ty_13 = 158;
-pub const AKEYCODE_NUMPAD_COMMA: _bindgen_ty_13 = 159;
-pub const AKEYCODE_NUMPAD_ENTER: _bindgen_ty_13 = 160;
-pub const AKEYCODE_NUMPAD_EQUALS: _bindgen_ty_13 = 161;
-pub const AKEYCODE_NUMPAD_LEFT_PAREN: _bindgen_ty_13 = 162;
-pub const AKEYCODE_NUMPAD_RIGHT_PAREN: _bindgen_ty_13 = 163;
-pub const AKEYCODE_VOLUME_MUTE: _bindgen_ty_13 = 164;
-pub const AKEYCODE_INFO: _bindgen_ty_13 = 165;
-pub const AKEYCODE_CHANNEL_UP: _bindgen_ty_13 = 166;
-pub const AKEYCODE_CHANNEL_DOWN: _bindgen_ty_13 = 167;
-pub const AKEYCODE_ZOOM_IN: _bindgen_ty_13 = 168;
-pub const AKEYCODE_ZOOM_OUT: _bindgen_ty_13 = 169;
-pub const AKEYCODE_TV: _bindgen_ty_13 = 170;
-pub const AKEYCODE_WINDOW: _bindgen_ty_13 = 171;
-pub const AKEYCODE_GUIDE: _bindgen_ty_13 = 172;
-pub const AKEYCODE_DVR: _bindgen_ty_13 = 173;
-pub const AKEYCODE_BOOKMARK: _bindgen_ty_13 = 174;
-pub const AKEYCODE_CAPTIONS: _bindgen_ty_13 = 175;
-pub const AKEYCODE_SETTINGS: _bindgen_ty_13 = 176;
-pub const AKEYCODE_TV_POWER: _bindgen_ty_13 = 177;
-pub const AKEYCODE_TV_INPUT: _bindgen_ty_13 = 178;
-pub const AKEYCODE_STB_POWER: _bindgen_ty_13 = 179;
-pub const AKEYCODE_STB_INPUT: _bindgen_ty_13 = 180;
-pub const AKEYCODE_AVR_POWER: _bindgen_ty_13 = 181;
-pub const AKEYCODE_AVR_INPUT: _bindgen_ty_13 = 182;
-pub const AKEYCODE_PROG_RED: _bindgen_ty_13 = 183;
-pub const AKEYCODE_PROG_GREEN: _bindgen_ty_13 = 184;
-pub const AKEYCODE_PROG_YELLOW: _bindgen_ty_13 = 185;
-pub const AKEYCODE_PROG_BLUE: _bindgen_ty_13 = 186;
-pub const AKEYCODE_APP_SWITCH: _bindgen_ty_13 = 187;
-pub const AKEYCODE_BUTTON_1: _bindgen_ty_13 = 188;
-pub const AKEYCODE_BUTTON_2: _bindgen_ty_13 = 189;
-pub const AKEYCODE_BUTTON_3: _bindgen_ty_13 = 190;
-pub const AKEYCODE_BUTTON_4: _bindgen_ty_13 = 191;
-pub const AKEYCODE_BUTTON_5: _bindgen_ty_13 = 192;
-pub const AKEYCODE_BUTTON_6: _bindgen_ty_13 = 193;
-pub const AKEYCODE_BUTTON_7: _bindgen_ty_13 = 194;
-pub const AKEYCODE_BUTTON_8: _bindgen_ty_13 = 195;
-pub const AKEYCODE_BUTTON_9: _bindgen_ty_13 = 196;
-pub const AKEYCODE_BUTTON_10: _bindgen_ty_13 = 197;
-pub const AKEYCODE_BUTTON_11: _bindgen_ty_13 = 198;
-pub const AKEYCODE_BUTTON_12: _bindgen_ty_13 = 199;
-pub const AKEYCODE_BUTTON_13: _bindgen_ty_13 = 200;
-pub const AKEYCODE_BUTTON_14: _bindgen_ty_13 = 201;
-pub const AKEYCODE_BUTTON_15: _bindgen_ty_13 = 202;
-pub const AKEYCODE_BUTTON_16: _bindgen_ty_13 = 203;
-pub const AKEYCODE_LANGUAGE_SWITCH: _bindgen_ty_13 = 204;
-pub const AKEYCODE_MANNER_MODE: _bindgen_ty_13 = 205;
-pub const AKEYCODE_3D_MODE: _bindgen_ty_13 = 206;
-pub const AKEYCODE_CONTACTS: _bindgen_ty_13 = 207;
-pub const AKEYCODE_CALENDAR: _bindgen_ty_13 = 208;
-pub const AKEYCODE_MUSIC: _bindgen_ty_13 = 209;
-pub const AKEYCODE_CALCULATOR: _bindgen_ty_13 = 210;
-pub const AKEYCODE_ZENKAKU_HANKAKU: _bindgen_ty_13 = 211;
-pub const AKEYCODE_EISU: _bindgen_ty_13 = 212;
-pub const AKEYCODE_MUHENKAN: _bindgen_ty_13 = 213;
-pub const AKEYCODE_HENKAN: _bindgen_ty_13 = 214;
-pub const AKEYCODE_KATAKANA_HIRAGANA: _bindgen_ty_13 = 215;
-pub const AKEYCODE_YEN: _bindgen_ty_13 = 216;
-pub const AKEYCODE_RO: _bindgen_ty_13 = 217;
-pub const AKEYCODE_KANA: _bindgen_ty_13 = 218;
-pub const AKEYCODE_ASSIST: _bindgen_ty_13 = 219;
-pub const AKEYCODE_BRIGHTNESS_DOWN: _bindgen_ty_13 = 220;
-pub const AKEYCODE_BRIGHTNESS_UP: _bindgen_ty_13 = 221;
-pub const AKEYCODE_MEDIA_AUDIO_TRACK: _bindgen_ty_13 = 222;
-pub const AKEYCODE_SLEEP: _bindgen_ty_13 = 223;
-pub const AKEYCODE_WAKEUP: _bindgen_ty_13 = 224;
-pub const AKEYCODE_PAIRING: _bindgen_ty_13 = 225;
-pub const AKEYCODE_MEDIA_TOP_MENU: _bindgen_ty_13 = 226;
-pub const AKEYCODE_11: _bindgen_ty_13 = 227;
-pub const AKEYCODE_12: _bindgen_ty_13 = 228;
-pub const AKEYCODE_LAST_CHANNEL: _bindgen_ty_13 = 229;
-pub const AKEYCODE_TV_DATA_SERVICE: _bindgen_ty_13 = 230;
-pub const AKEYCODE_VOICE_ASSIST: _bindgen_ty_13 = 231;
-pub const AKEYCODE_TV_RADIO_SERVICE: _bindgen_ty_13 = 232;
-pub const AKEYCODE_TV_TELETEXT: _bindgen_ty_13 = 233;
-pub const AKEYCODE_TV_NUMBER_ENTRY: _bindgen_ty_13 = 234;
-pub const AKEYCODE_TV_TERRESTRIAL_ANALOG: _bindgen_ty_13 = 235;
-pub const AKEYCODE_TV_TERRESTRIAL_DIGITAL: _bindgen_ty_13 = 236;
-pub const AKEYCODE_TV_SATELLITE: _bindgen_ty_13 = 237;
-pub const AKEYCODE_TV_SATELLITE_BS: _bindgen_ty_13 = 238;
-pub const AKEYCODE_TV_SATELLITE_CS: _bindgen_ty_13 = 239;
-pub const AKEYCODE_TV_SATELLITE_SERVICE: _bindgen_ty_13 = 240;
-pub const AKEYCODE_TV_NETWORK: _bindgen_ty_13 = 241;
-pub const AKEYCODE_TV_ANTENNA_CABLE: _bindgen_ty_13 = 242;
-pub const AKEYCODE_TV_INPUT_HDMI_1: _bindgen_ty_13 = 243;
-pub const AKEYCODE_TV_INPUT_HDMI_2: _bindgen_ty_13 = 244;
-pub const AKEYCODE_TV_INPUT_HDMI_3: _bindgen_ty_13 = 245;
-pub const AKEYCODE_TV_INPUT_HDMI_4: _bindgen_ty_13 = 246;
-pub const AKEYCODE_TV_INPUT_COMPOSITE_1: _bindgen_ty_13 = 247;
-pub const AKEYCODE_TV_INPUT_COMPOSITE_2: _bindgen_ty_13 = 248;
-pub const AKEYCODE_TV_INPUT_COMPONENT_1: _bindgen_ty_13 = 249;
-pub const AKEYCODE_TV_INPUT_COMPONENT_2: _bindgen_ty_13 = 250;
-pub const AKEYCODE_TV_INPUT_VGA_1: _bindgen_ty_13 = 251;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION: _bindgen_ty_13 = 252;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP: _bindgen_ty_13 = 253;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN: _bindgen_ty_13 = 254;
-pub const AKEYCODE_TV_ZOOM_MODE: _bindgen_ty_13 = 255;
-pub const AKEYCODE_TV_CONTENTS_MENU: _bindgen_ty_13 = 256;
-pub const AKEYCODE_TV_MEDIA_CONTEXT_MENU: _bindgen_ty_13 = 257;
-pub const AKEYCODE_TV_TIMER_PROGRAMMING: _bindgen_ty_13 = 258;
-pub const AKEYCODE_HELP: _bindgen_ty_13 = 259;
-pub const AKEYCODE_NAVIGATE_PREVIOUS: _bindgen_ty_13 = 260;
-pub const AKEYCODE_NAVIGATE_NEXT: _bindgen_ty_13 = 261;
-pub const AKEYCODE_NAVIGATE_IN: _bindgen_ty_13 = 262;
-pub const AKEYCODE_NAVIGATE_OUT: _bindgen_ty_13 = 263;
-pub const AKEYCODE_STEM_PRIMARY: _bindgen_ty_13 = 264;
-pub const AKEYCODE_STEM_1: _bindgen_ty_13 = 265;
-pub const AKEYCODE_STEM_2: _bindgen_ty_13 = 266;
-pub const AKEYCODE_STEM_3: _bindgen_ty_13 = 267;
-pub const AKEYCODE_DPAD_UP_LEFT: _bindgen_ty_13 = 268;
-pub const AKEYCODE_DPAD_DOWN_LEFT: _bindgen_ty_13 = 269;
-pub const AKEYCODE_DPAD_UP_RIGHT: _bindgen_ty_13 = 270;
-pub const AKEYCODE_DPAD_DOWN_RIGHT: _bindgen_ty_13 = 271;
-pub const AKEYCODE_MEDIA_SKIP_FORWARD: _bindgen_ty_13 = 272;
-pub const AKEYCODE_MEDIA_SKIP_BACKWARD: _bindgen_ty_13 = 273;
-pub const AKEYCODE_MEDIA_STEP_FORWARD: _bindgen_ty_13 = 274;
-pub const AKEYCODE_MEDIA_STEP_BACKWARD: _bindgen_ty_13 = 275;
-pub const AKEYCODE_SOFT_SLEEP: _bindgen_ty_13 = 276;
-pub const AKEYCODE_CUT: _bindgen_ty_13 = 277;
-pub const AKEYCODE_COPY: _bindgen_ty_13 = 278;
-pub const AKEYCODE_PASTE: _bindgen_ty_13 = 279;
-pub const AKEYCODE_SYSTEM_NAVIGATION_UP: _bindgen_ty_13 = 280;
-pub const AKEYCODE_SYSTEM_NAVIGATION_DOWN: _bindgen_ty_13 = 281;
-pub const AKEYCODE_SYSTEM_NAVIGATION_LEFT: _bindgen_ty_13 = 282;
-pub const AKEYCODE_SYSTEM_NAVIGATION_RIGHT: _bindgen_ty_13 = 283;
-pub const AKEYCODE_ALL_APPS: _bindgen_ty_13 = 284;
-pub const AKEYCODE_REFRESH: _bindgen_ty_13 = 285;
-pub const AKEYCODE_THUMBS_UP: _bindgen_ty_13 = 286;
-pub const AKEYCODE_THUMBS_DOWN: _bindgen_ty_13 = 287;
-pub const AKEYCODE_PROFILE_SWITCH: _bindgen_ty_13 = 288;
-pub const AKEYCODE_VIDEO_APP_1: _bindgen_ty_13 = 289;
-pub const AKEYCODE_VIDEO_APP_2: _bindgen_ty_13 = 290;
-pub const AKEYCODE_VIDEO_APP_3: _bindgen_ty_13 = 291;
-pub const AKEYCODE_VIDEO_APP_4: _bindgen_ty_13 = 292;
-pub const AKEYCODE_VIDEO_APP_5: _bindgen_ty_13 = 293;
-pub const AKEYCODE_VIDEO_APP_6: _bindgen_ty_13 = 294;
-pub const AKEYCODE_VIDEO_APP_7: _bindgen_ty_13 = 295;
-pub const AKEYCODE_VIDEO_APP_8: _bindgen_ty_13 = 296;
-pub const AKEYCODE_FEATURED_APP_1: _bindgen_ty_13 = 297;
-pub const AKEYCODE_FEATURED_APP_2: _bindgen_ty_13 = 298;
-pub const AKEYCODE_FEATURED_APP_3: _bindgen_ty_13 = 299;
-pub const AKEYCODE_FEATURED_APP_4: _bindgen_ty_13 = 300;
-pub const AKEYCODE_DEMO_APP_1: _bindgen_ty_13 = 301;
-pub const AKEYCODE_DEMO_APP_2: _bindgen_ty_13 = 302;
-pub const AKEYCODE_DEMO_APP_3: _bindgen_ty_13 = 303;
-pub const AKEYCODE_DEMO_APP_4: _bindgen_ty_13 = 304;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_DOWN: _bindgen_ty_13 = 305;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_UP: _bindgen_ty_13 = 306;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE: _bindgen_ty_13 = 307;
-pub const AKEYCODE_STYLUS_BUTTON_PRIMARY: _bindgen_ty_13 = 308;
-pub const AKEYCODE_STYLUS_BUTTON_SECONDARY: _bindgen_ty_13 = 309;
-pub const AKEYCODE_STYLUS_BUTTON_TERTIARY: _bindgen_ty_13 = 310;
-pub const AKEYCODE_STYLUS_BUTTON_TAIL: _bindgen_ty_13 = 311;
-pub const AKEYCODE_RECENT_APPS: _bindgen_ty_13 = 312;
-pub const AKEYCODE_MACRO_1: _bindgen_ty_13 = 313;
-pub const AKEYCODE_MACRO_2: _bindgen_ty_13 = 314;
-pub const AKEYCODE_MACRO_3: _bindgen_ty_13 = 315;
-pub const AKEYCODE_MACRO_4: _bindgen_ty_13 = 316;
-pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
+pub const AKEYCODE_UNKNOWN: _bindgen_ty_16 = 0;
+pub const AKEYCODE_SOFT_LEFT: _bindgen_ty_16 = 1;
+pub const AKEYCODE_SOFT_RIGHT: _bindgen_ty_16 = 2;
+pub const AKEYCODE_HOME: _bindgen_ty_16 = 3;
+pub const AKEYCODE_BACK: _bindgen_ty_16 = 4;
+pub const AKEYCODE_CALL: _bindgen_ty_16 = 5;
+pub const AKEYCODE_ENDCALL: _bindgen_ty_16 = 6;
+pub const AKEYCODE_0: _bindgen_ty_16 = 7;
+pub const AKEYCODE_1: _bindgen_ty_16 = 8;
+pub const AKEYCODE_2: _bindgen_ty_16 = 9;
+pub const AKEYCODE_3: _bindgen_ty_16 = 10;
+pub const AKEYCODE_4: _bindgen_ty_16 = 11;
+pub const AKEYCODE_5: _bindgen_ty_16 = 12;
+pub const AKEYCODE_6: _bindgen_ty_16 = 13;
+pub const AKEYCODE_7: _bindgen_ty_16 = 14;
+pub const AKEYCODE_8: _bindgen_ty_16 = 15;
+pub const AKEYCODE_9: _bindgen_ty_16 = 16;
+pub const AKEYCODE_STAR: _bindgen_ty_16 = 17;
+pub const AKEYCODE_POUND: _bindgen_ty_16 = 18;
+pub const AKEYCODE_DPAD_UP: _bindgen_ty_16 = 19;
+pub const AKEYCODE_DPAD_DOWN: _bindgen_ty_16 = 20;
+pub const AKEYCODE_DPAD_LEFT: _bindgen_ty_16 = 21;
+pub const AKEYCODE_DPAD_RIGHT: _bindgen_ty_16 = 22;
+pub const AKEYCODE_DPAD_CENTER: _bindgen_ty_16 = 23;
+pub const AKEYCODE_VOLUME_UP: _bindgen_ty_16 = 24;
+pub const AKEYCODE_VOLUME_DOWN: _bindgen_ty_16 = 25;
+pub const AKEYCODE_POWER: _bindgen_ty_16 = 26;
+pub const AKEYCODE_CAMERA: _bindgen_ty_16 = 27;
+pub const AKEYCODE_CLEAR: _bindgen_ty_16 = 28;
+pub const AKEYCODE_A: _bindgen_ty_16 = 29;
+pub const AKEYCODE_B: _bindgen_ty_16 = 30;
+pub const AKEYCODE_C: _bindgen_ty_16 = 31;
+pub const AKEYCODE_D: _bindgen_ty_16 = 32;
+pub const AKEYCODE_E: _bindgen_ty_16 = 33;
+pub const AKEYCODE_F: _bindgen_ty_16 = 34;
+pub const AKEYCODE_G: _bindgen_ty_16 = 35;
+pub const AKEYCODE_H: _bindgen_ty_16 = 36;
+pub const AKEYCODE_I: _bindgen_ty_16 = 37;
+pub const AKEYCODE_J: _bindgen_ty_16 = 38;
+pub const AKEYCODE_K: _bindgen_ty_16 = 39;
+pub const AKEYCODE_L: _bindgen_ty_16 = 40;
+pub const AKEYCODE_M: _bindgen_ty_16 = 41;
+pub const AKEYCODE_N: _bindgen_ty_16 = 42;
+pub const AKEYCODE_O: _bindgen_ty_16 = 43;
+pub const AKEYCODE_P: _bindgen_ty_16 = 44;
+pub const AKEYCODE_Q: _bindgen_ty_16 = 45;
+pub const AKEYCODE_R: _bindgen_ty_16 = 46;
+pub const AKEYCODE_S: _bindgen_ty_16 = 47;
+pub const AKEYCODE_T: _bindgen_ty_16 = 48;
+pub const AKEYCODE_U: _bindgen_ty_16 = 49;
+pub const AKEYCODE_V: _bindgen_ty_16 = 50;
+pub const AKEYCODE_W: _bindgen_ty_16 = 51;
+pub const AKEYCODE_X: _bindgen_ty_16 = 52;
+pub const AKEYCODE_Y: _bindgen_ty_16 = 53;
+pub const AKEYCODE_Z: _bindgen_ty_16 = 54;
+pub const AKEYCODE_COMMA: _bindgen_ty_16 = 55;
+pub const AKEYCODE_PERIOD: _bindgen_ty_16 = 56;
+pub const AKEYCODE_ALT_LEFT: _bindgen_ty_16 = 57;
+pub const AKEYCODE_ALT_RIGHT: _bindgen_ty_16 = 58;
+pub const AKEYCODE_SHIFT_LEFT: _bindgen_ty_16 = 59;
+pub const AKEYCODE_SHIFT_RIGHT: _bindgen_ty_16 = 60;
+pub const AKEYCODE_TAB: _bindgen_ty_16 = 61;
+pub const AKEYCODE_SPACE: _bindgen_ty_16 = 62;
+pub const AKEYCODE_SYM: _bindgen_ty_16 = 63;
+pub const AKEYCODE_EXPLORER: _bindgen_ty_16 = 64;
+pub const AKEYCODE_ENVELOPE: _bindgen_ty_16 = 65;
+pub const AKEYCODE_ENTER: _bindgen_ty_16 = 66;
+pub const AKEYCODE_DEL: _bindgen_ty_16 = 67;
+pub const AKEYCODE_GRAVE: _bindgen_ty_16 = 68;
+pub const AKEYCODE_MINUS: _bindgen_ty_16 = 69;
+pub const AKEYCODE_EQUALS: _bindgen_ty_16 = 70;
+pub const AKEYCODE_LEFT_BRACKET: _bindgen_ty_16 = 71;
+pub const AKEYCODE_RIGHT_BRACKET: _bindgen_ty_16 = 72;
+pub const AKEYCODE_BACKSLASH: _bindgen_ty_16 = 73;
+pub const AKEYCODE_SEMICOLON: _bindgen_ty_16 = 74;
+pub const AKEYCODE_APOSTROPHE: _bindgen_ty_16 = 75;
+pub const AKEYCODE_SLASH: _bindgen_ty_16 = 76;
+pub const AKEYCODE_AT: _bindgen_ty_16 = 77;
+pub const AKEYCODE_NUM: _bindgen_ty_16 = 78;
+pub const AKEYCODE_HEADSETHOOK: _bindgen_ty_16 = 79;
+pub const AKEYCODE_FOCUS: _bindgen_ty_16 = 80;
+pub const AKEYCODE_PLUS: _bindgen_ty_16 = 81;
+pub const AKEYCODE_MENU: _bindgen_ty_16 = 82;
+pub const AKEYCODE_NOTIFICATION: _bindgen_ty_16 = 83;
+pub const AKEYCODE_SEARCH: _bindgen_ty_16 = 84;
+pub const AKEYCODE_MEDIA_PLAY_PAUSE: _bindgen_ty_16 = 85;
+pub const AKEYCODE_MEDIA_STOP: _bindgen_ty_16 = 86;
+pub const AKEYCODE_MEDIA_NEXT: _bindgen_ty_16 = 87;
+pub const AKEYCODE_MEDIA_PREVIOUS: _bindgen_ty_16 = 88;
+pub const AKEYCODE_MEDIA_REWIND: _bindgen_ty_16 = 89;
+pub const AKEYCODE_MEDIA_FAST_FORWARD: _bindgen_ty_16 = 90;
+pub const AKEYCODE_MUTE: _bindgen_ty_16 = 91;
+pub const AKEYCODE_PAGE_UP: _bindgen_ty_16 = 92;
+pub const AKEYCODE_PAGE_DOWN: _bindgen_ty_16 = 93;
+pub const AKEYCODE_PICTSYMBOLS: _bindgen_ty_16 = 94;
+pub const AKEYCODE_SWITCH_CHARSET: _bindgen_ty_16 = 95;
+pub const AKEYCODE_BUTTON_A: _bindgen_ty_16 = 96;
+pub const AKEYCODE_BUTTON_B: _bindgen_ty_16 = 97;
+pub const AKEYCODE_BUTTON_C: _bindgen_ty_16 = 98;
+pub const AKEYCODE_BUTTON_X: _bindgen_ty_16 = 99;
+pub const AKEYCODE_BUTTON_Y: _bindgen_ty_16 = 100;
+pub const AKEYCODE_BUTTON_Z: _bindgen_ty_16 = 101;
+pub const AKEYCODE_BUTTON_L1: _bindgen_ty_16 = 102;
+pub const AKEYCODE_BUTTON_R1: _bindgen_ty_16 = 103;
+pub const AKEYCODE_BUTTON_L2: _bindgen_ty_16 = 104;
+pub const AKEYCODE_BUTTON_R2: _bindgen_ty_16 = 105;
+pub const AKEYCODE_BUTTON_THUMBL: _bindgen_ty_16 = 106;
+pub const AKEYCODE_BUTTON_THUMBR: _bindgen_ty_16 = 107;
+pub const AKEYCODE_BUTTON_START: _bindgen_ty_16 = 108;
+pub const AKEYCODE_BUTTON_SELECT: _bindgen_ty_16 = 109;
+pub const AKEYCODE_BUTTON_MODE: _bindgen_ty_16 = 110;
+pub const AKEYCODE_ESCAPE: _bindgen_ty_16 = 111;
+pub const AKEYCODE_FORWARD_DEL: _bindgen_ty_16 = 112;
+pub const AKEYCODE_CTRL_LEFT: _bindgen_ty_16 = 113;
+pub const AKEYCODE_CTRL_RIGHT: _bindgen_ty_16 = 114;
+pub const AKEYCODE_CAPS_LOCK: _bindgen_ty_16 = 115;
+pub const AKEYCODE_SCROLL_LOCK: _bindgen_ty_16 = 116;
+pub const AKEYCODE_META_LEFT: _bindgen_ty_16 = 117;
+pub const AKEYCODE_META_RIGHT: _bindgen_ty_16 = 118;
+pub const AKEYCODE_FUNCTION: _bindgen_ty_16 = 119;
+pub const AKEYCODE_SYSRQ: _bindgen_ty_16 = 120;
+pub const AKEYCODE_BREAK: _bindgen_ty_16 = 121;
+pub const AKEYCODE_MOVE_HOME: _bindgen_ty_16 = 122;
+pub const AKEYCODE_MOVE_END: _bindgen_ty_16 = 123;
+pub const AKEYCODE_INSERT: _bindgen_ty_16 = 124;
+pub const AKEYCODE_FORWARD: _bindgen_ty_16 = 125;
+pub const AKEYCODE_MEDIA_PLAY: _bindgen_ty_16 = 126;
+pub const AKEYCODE_MEDIA_PAUSE: _bindgen_ty_16 = 127;
+pub const AKEYCODE_MEDIA_CLOSE: _bindgen_ty_16 = 128;
+pub const AKEYCODE_MEDIA_EJECT: _bindgen_ty_16 = 129;
+pub const AKEYCODE_MEDIA_RECORD: _bindgen_ty_16 = 130;
+pub const AKEYCODE_F1: _bindgen_ty_16 = 131;
+pub const AKEYCODE_F2: _bindgen_ty_16 = 132;
+pub const AKEYCODE_F3: _bindgen_ty_16 = 133;
+pub const AKEYCODE_F4: _bindgen_ty_16 = 134;
+pub const AKEYCODE_F5: _bindgen_ty_16 = 135;
+pub const AKEYCODE_F6: _bindgen_ty_16 = 136;
+pub const AKEYCODE_F7: _bindgen_ty_16 = 137;
+pub const AKEYCODE_F8: _bindgen_ty_16 = 138;
+pub const AKEYCODE_F9: _bindgen_ty_16 = 139;
+pub const AKEYCODE_F10: _bindgen_ty_16 = 140;
+pub const AKEYCODE_F11: _bindgen_ty_16 = 141;
+pub const AKEYCODE_F12: _bindgen_ty_16 = 142;
+pub const AKEYCODE_NUM_LOCK: _bindgen_ty_16 = 143;
+pub const AKEYCODE_NUMPAD_0: _bindgen_ty_16 = 144;
+pub const AKEYCODE_NUMPAD_1: _bindgen_ty_16 = 145;
+pub const AKEYCODE_NUMPAD_2: _bindgen_ty_16 = 146;
+pub const AKEYCODE_NUMPAD_3: _bindgen_ty_16 = 147;
+pub const AKEYCODE_NUMPAD_4: _bindgen_ty_16 = 148;
+pub const AKEYCODE_NUMPAD_5: _bindgen_ty_16 = 149;
+pub const AKEYCODE_NUMPAD_6: _bindgen_ty_16 = 150;
+pub const AKEYCODE_NUMPAD_7: _bindgen_ty_16 = 151;
+pub const AKEYCODE_NUMPAD_8: _bindgen_ty_16 = 152;
+pub const AKEYCODE_NUMPAD_9: _bindgen_ty_16 = 153;
+pub const AKEYCODE_NUMPAD_DIVIDE: _bindgen_ty_16 = 154;
+pub const AKEYCODE_NUMPAD_MULTIPLY: _bindgen_ty_16 = 155;
+pub const AKEYCODE_NUMPAD_SUBTRACT: _bindgen_ty_16 = 156;
+pub const AKEYCODE_NUMPAD_ADD: _bindgen_ty_16 = 157;
+pub const AKEYCODE_NUMPAD_DOT: _bindgen_ty_16 = 158;
+pub const AKEYCODE_NUMPAD_COMMA: _bindgen_ty_16 = 159;
+pub const AKEYCODE_NUMPAD_ENTER: _bindgen_ty_16 = 160;
+pub const AKEYCODE_NUMPAD_EQUALS: _bindgen_ty_16 = 161;
+pub const AKEYCODE_NUMPAD_LEFT_PAREN: _bindgen_ty_16 = 162;
+pub const AKEYCODE_NUMPAD_RIGHT_PAREN: _bindgen_ty_16 = 163;
+pub const AKEYCODE_VOLUME_MUTE: _bindgen_ty_16 = 164;
+pub const AKEYCODE_INFO: _bindgen_ty_16 = 165;
+pub const AKEYCODE_CHANNEL_UP: _bindgen_ty_16 = 166;
+pub const AKEYCODE_CHANNEL_DOWN: _bindgen_ty_16 = 167;
+pub const AKEYCODE_ZOOM_IN: _bindgen_ty_16 = 168;
+pub const AKEYCODE_ZOOM_OUT: _bindgen_ty_16 = 169;
+pub const AKEYCODE_TV: _bindgen_ty_16 = 170;
+pub const AKEYCODE_WINDOW: _bindgen_ty_16 = 171;
+pub const AKEYCODE_GUIDE: _bindgen_ty_16 = 172;
+pub const AKEYCODE_DVR: _bindgen_ty_16 = 173;
+pub const AKEYCODE_BOOKMARK: _bindgen_ty_16 = 174;
+pub const AKEYCODE_CAPTIONS: _bindgen_ty_16 = 175;
+pub const AKEYCODE_SETTINGS: _bindgen_ty_16 = 176;
+pub const AKEYCODE_TV_POWER: _bindgen_ty_16 = 177;
+pub const AKEYCODE_TV_INPUT: _bindgen_ty_16 = 178;
+pub const AKEYCODE_STB_POWER: _bindgen_ty_16 = 179;
+pub const AKEYCODE_STB_INPUT: _bindgen_ty_16 = 180;
+pub const AKEYCODE_AVR_POWER: _bindgen_ty_16 = 181;
+pub const AKEYCODE_AVR_INPUT: _bindgen_ty_16 = 182;
+pub const AKEYCODE_PROG_RED: _bindgen_ty_16 = 183;
+pub const AKEYCODE_PROG_GREEN: _bindgen_ty_16 = 184;
+pub const AKEYCODE_PROG_YELLOW: _bindgen_ty_16 = 185;
+pub const AKEYCODE_PROG_BLUE: _bindgen_ty_16 = 186;
+pub const AKEYCODE_APP_SWITCH: _bindgen_ty_16 = 187;
+pub const AKEYCODE_BUTTON_1: _bindgen_ty_16 = 188;
+pub const AKEYCODE_BUTTON_2: _bindgen_ty_16 = 189;
+pub const AKEYCODE_BUTTON_3: _bindgen_ty_16 = 190;
+pub const AKEYCODE_BUTTON_4: _bindgen_ty_16 = 191;
+pub const AKEYCODE_BUTTON_5: _bindgen_ty_16 = 192;
+pub const AKEYCODE_BUTTON_6: _bindgen_ty_16 = 193;
+pub const AKEYCODE_BUTTON_7: _bindgen_ty_16 = 194;
+pub const AKEYCODE_BUTTON_8: _bindgen_ty_16 = 195;
+pub const AKEYCODE_BUTTON_9: _bindgen_ty_16 = 196;
+pub const AKEYCODE_BUTTON_10: _bindgen_ty_16 = 197;
+pub const AKEYCODE_BUTTON_11: _bindgen_ty_16 = 198;
+pub const AKEYCODE_BUTTON_12: _bindgen_ty_16 = 199;
+pub const AKEYCODE_BUTTON_13: _bindgen_ty_16 = 200;
+pub const AKEYCODE_BUTTON_14: _bindgen_ty_16 = 201;
+pub const AKEYCODE_BUTTON_15: _bindgen_ty_16 = 202;
+pub const AKEYCODE_BUTTON_16: _bindgen_ty_16 = 203;
+pub const AKEYCODE_LANGUAGE_SWITCH: _bindgen_ty_16 = 204;
+pub const AKEYCODE_MANNER_MODE: _bindgen_ty_16 = 205;
+pub const AKEYCODE_3D_MODE: _bindgen_ty_16 = 206;
+pub const AKEYCODE_CONTACTS: _bindgen_ty_16 = 207;
+pub const AKEYCODE_CALENDAR: _bindgen_ty_16 = 208;
+pub const AKEYCODE_MUSIC: _bindgen_ty_16 = 209;
+pub const AKEYCODE_CALCULATOR: _bindgen_ty_16 = 210;
+pub const AKEYCODE_ZENKAKU_HANKAKU: _bindgen_ty_16 = 211;
+pub const AKEYCODE_EISU: _bindgen_ty_16 = 212;
+pub const AKEYCODE_MUHENKAN: _bindgen_ty_16 = 213;
+pub const AKEYCODE_HENKAN: _bindgen_ty_16 = 214;
+pub const AKEYCODE_KATAKANA_HIRAGANA: _bindgen_ty_16 = 215;
+pub const AKEYCODE_YEN: _bindgen_ty_16 = 216;
+pub const AKEYCODE_RO: _bindgen_ty_16 = 217;
+pub const AKEYCODE_KANA: _bindgen_ty_16 = 218;
+pub const AKEYCODE_ASSIST: _bindgen_ty_16 = 219;
+pub const AKEYCODE_BRIGHTNESS_DOWN: _bindgen_ty_16 = 220;
+pub const AKEYCODE_BRIGHTNESS_UP: _bindgen_ty_16 = 221;
+pub const AKEYCODE_MEDIA_AUDIO_TRACK: _bindgen_ty_16 = 222;
+pub const AKEYCODE_SLEEP: _bindgen_ty_16 = 223;
+pub const AKEYCODE_WAKEUP: _bindgen_ty_16 = 224;
+pub const AKEYCODE_PAIRING: _bindgen_ty_16 = 225;
+pub const AKEYCODE_MEDIA_TOP_MENU: _bindgen_ty_16 = 226;
+pub const AKEYCODE_11: _bindgen_ty_16 = 227;
+pub const AKEYCODE_12: _bindgen_ty_16 = 228;
+pub const AKEYCODE_LAST_CHANNEL: _bindgen_ty_16 = 229;
+pub const AKEYCODE_TV_DATA_SERVICE: _bindgen_ty_16 = 230;
+pub const AKEYCODE_VOICE_ASSIST: _bindgen_ty_16 = 231;
+pub const AKEYCODE_TV_RADIO_SERVICE: _bindgen_ty_16 = 232;
+pub const AKEYCODE_TV_TELETEXT: _bindgen_ty_16 = 233;
+pub const AKEYCODE_TV_NUMBER_ENTRY: _bindgen_ty_16 = 234;
+pub const AKEYCODE_TV_TERRESTRIAL_ANALOG: _bindgen_ty_16 = 235;
+pub const AKEYCODE_TV_TERRESTRIAL_DIGITAL: _bindgen_ty_16 = 236;
+pub const AKEYCODE_TV_SATELLITE: _bindgen_ty_16 = 237;
+pub const AKEYCODE_TV_SATELLITE_BS: _bindgen_ty_16 = 238;
+pub const AKEYCODE_TV_SATELLITE_CS: _bindgen_ty_16 = 239;
+pub const AKEYCODE_TV_SATELLITE_SERVICE: _bindgen_ty_16 = 240;
+pub const AKEYCODE_TV_NETWORK: _bindgen_ty_16 = 241;
+pub const AKEYCODE_TV_ANTENNA_CABLE: _bindgen_ty_16 = 242;
+pub const AKEYCODE_TV_INPUT_HDMI_1: _bindgen_ty_16 = 243;
+pub const AKEYCODE_TV_INPUT_HDMI_2: _bindgen_ty_16 = 244;
+pub const AKEYCODE_TV_INPUT_HDMI_3: _bindgen_ty_16 = 245;
+pub const AKEYCODE_TV_INPUT_HDMI_4: _bindgen_ty_16 = 246;
+pub const AKEYCODE_TV_INPUT_COMPOSITE_1: _bindgen_ty_16 = 247;
+pub const AKEYCODE_TV_INPUT_COMPOSITE_2: _bindgen_ty_16 = 248;
+pub const AKEYCODE_TV_INPUT_COMPONENT_1: _bindgen_ty_16 = 249;
+pub const AKEYCODE_TV_INPUT_COMPONENT_2: _bindgen_ty_16 = 250;
+pub const AKEYCODE_TV_INPUT_VGA_1: _bindgen_ty_16 = 251;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION: _bindgen_ty_16 = 252;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP: _bindgen_ty_16 = 253;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN: _bindgen_ty_16 = 254;
+pub const AKEYCODE_TV_ZOOM_MODE: _bindgen_ty_16 = 255;
+pub const AKEYCODE_TV_CONTENTS_MENU: _bindgen_ty_16 = 256;
+pub const AKEYCODE_TV_MEDIA_CONTEXT_MENU: _bindgen_ty_16 = 257;
+pub const AKEYCODE_TV_TIMER_PROGRAMMING: _bindgen_ty_16 = 258;
+pub const AKEYCODE_HELP: _bindgen_ty_16 = 259;
+pub const AKEYCODE_NAVIGATE_PREVIOUS: _bindgen_ty_16 = 260;
+pub const AKEYCODE_NAVIGATE_NEXT: _bindgen_ty_16 = 261;
+pub const AKEYCODE_NAVIGATE_IN: _bindgen_ty_16 = 262;
+pub const AKEYCODE_NAVIGATE_OUT: _bindgen_ty_16 = 263;
+pub const AKEYCODE_STEM_PRIMARY: _bindgen_ty_16 = 264;
+pub const AKEYCODE_STEM_1: _bindgen_ty_16 = 265;
+pub const AKEYCODE_STEM_2: _bindgen_ty_16 = 266;
+pub const AKEYCODE_STEM_3: _bindgen_ty_16 = 267;
+pub const AKEYCODE_DPAD_UP_LEFT: _bindgen_ty_16 = 268;
+pub const AKEYCODE_DPAD_DOWN_LEFT: _bindgen_ty_16 = 269;
+pub const AKEYCODE_DPAD_UP_RIGHT: _bindgen_ty_16 = 270;
+pub const AKEYCODE_DPAD_DOWN_RIGHT: _bindgen_ty_16 = 271;
+pub const AKEYCODE_MEDIA_SKIP_FORWARD: _bindgen_ty_16 = 272;
+pub const AKEYCODE_MEDIA_SKIP_BACKWARD: _bindgen_ty_16 = 273;
+pub const AKEYCODE_MEDIA_STEP_FORWARD: _bindgen_ty_16 = 274;
+pub const AKEYCODE_MEDIA_STEP_BACKWARD: _bindgen_ty_16 = 275;
+pub const AKEYCODE_SOFT_SLEEP: _bindgen_ty_16 = 276;
+pub const AKEYCODE_CUT: _bindgen_ty_16 = 277;
+pub const AKEYCODE_COPY: _bindgen_ty_16 = 278;
+pub const AKEYCODE_PASTE: _bindgen_ty_16 = 279;
+pub const AKEYCODE_SYSTEM_NAVIGATION_UP: _bindgen_ty_16 = 280;
+pub const AKEYCODE_SYSTEM_NAVIGATION_DOWN: _bindgen_ty_16 = 281;
+pub const AKEYCODE_SYSTEM_NAVIGATION_LEFT: _bindgen_ty_16 = 282;
+pub const AKEYCODE_SYSTEM_NAVIGATION_RIGHT: _bindgen_ty_16 = 283;
+pub const AKEYCODE_ALL_APPS: _bindgen_ty_16 = 284;
+pub const AKEYCODE_REFRESH: _bindgen_ty_16 = 285;
+pub const AKEYCODE_THUMBS_UP: _bindgen_ty_16 = 286;
+pub const AKEYCODE_THUMBS_DOWN: _bindgen_ty_16 = 287;
+pub const AKEYCODE_PROFILE_SWITCH: _bindgen_ty_16 = 288;
+pub const AKEYCODE_VIDEO_APP_1: _bindgen_ty_16 = 289;
+pub const AKEYCODE_VIDEO_APP_2: _bindgen_ty_16 = 290;
+pub const AKEYCODE_VIDEO_APP_3: _bindgen_ty_16 = 291;
+pub const AKEYCODE_VIDEO_APP_4: _bindgen_ty_16 = 292;
+pub const AKEYCODE_VIDEO_APP_5: _bindgen_ty_16 = 293;
+pub const AKEYCODE_VIDEO_APP_6: _bindgen_ty_16 = 294;
+pub const AKEYCODE_VIDEO_APP_7: _bindgen_ty_16 = 295;
+pub const AKEYCODE_VIDEO_APP_8: _bindgen_ty_16 = 296;
+pub const AKEYCODE_FEATURED_APP_1: _bindgen_ty_16 = 297;
+pub const AKEYCODE_FEATURED_APP_2: _bindgen_ty_16 = 298;
+pub const AKEYCODE_FEATURED_APP_3: _bindgen_ty_16 = 299;
+pub const AKEYCODE_FEATURED_APP_4: _bindgen_ty_16 = 300;
+pub const AKEYCODE_DEMO_APP_1: _bindgen_ty_16 = 301;
+pub const AKEYCODE_DEMO_APP_2: _bindgen_ty_16 = 302;
+pub const AKEYCODE_DEMO_APP_3: _bindgen_ty_16 = 303;
+pub const AKEYCODE_DEMO_APP_4: _bindgen_ty_16 = 304;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_DOWN: _bindgen_ty_16 = 305;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_UP: _bindgen_ty_16 = 306;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE: _bindgen_ty_16 = 307;
+pub const AKEYCODE_STYLUS_BUTTON_PRIMARY: _bindgen_ty_16 = 308;
+pub const AKEYCODE_STYLUS_BUTTON_SECONDARY: _bindgen_ty_16 = 309;
+pub const AKEYCODE_STYLUS_BUTTON_TERTIARY: _bindgen_ty_16 = 310;
+pub const AKEYCODE_STYLUS_BUTTON_TAIL: _bindgen_ty_16 = 311;
+pub const AKEYCODE_RECENT_APPS: _bindgen_ty_16 = 312;
+pub const AKEYCODE_MACRO_1: _bindgen_ty_16 = 313;
+pub const AKEYCODE_MACRO_2: _bindgen_ty_16 = 314;
+pub const AKEYCODE_MACRO_3: _bindgen_ty_16 = 315;
+pub const AKEYCODE_MACRO_4: _bindgen_ty_16 = 316;
+pub type _bindgen_ty_16 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ALooper {
@@ -3782,28 +3809,28 @@ pub struct ALooper {
 extern "C" {
     pub fn ALooper_forThread() -> *mut ALooper;
 }
-pub const ALOOPER_PREPARE_ALLOW_NON_CALLBACKS: _bindgen_ty_14 = 1;
-pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
+pub const ALOOPER_PREPARE_ALLOW_NON_CALLBACKS: _bindgen_ty_17 = 1;
+pub type _bindgen_ty_17 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ALooper_prepare(opts: ::std::os::raw::c_int) -> *mut ALooper;
 }
-pub const ALOOPER_POLL_WAKE: _bindgen_ty_15 = -1;
-pub const ALOOPER_POLL_CALLBACK: _bindgen_ty_15 = -2;
-pub const ALOOPER_POLL_TIMEOUT: _bindgen_ty_15 = -3;
-pub const ALOOPER_POLL_ERROR: _bindgen_ty_15 = -4;
-pub type _bindgen_ty_15 = ::std::os::raw::c_int;
+pub const ALOOPER_POLL_WAKE: _bindgen_ty_18 = -1;
+pub const ALOOPER_POLL_CALLBACK: _bindgen_ty_18 = -2;
+pub const ALOOPER_POLL_TIMEOUT: _bindgen_ty_18 = -3;
+pub const ALOOPER_POLL_ERROR: _bindgen_ty_18 = -4;
+pub type _bindgen_ty_18 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ALooper_acquire(looper: *mut ALooper);
 }
 extern "C" {
     pub fn ALooper_release(looper: *mut ALooper);
 }
-pub const ALOOPER_EVENT_INPUT: _bindgen_ty_16 = 1;
-pub const ALOOPER_EVENT_OUTPUT: _bindgen_ty_16 = 2;
-pub const ALOOPER_EVENT_ERROR: _bindgen_ty_16 = 4;
-pub const ALOOPER_EVENT_HANGUP: _bindgen_ty_16 = 8;
-pub const ALOOPER_EVENT_INVALID: _bindgen_ty_16 = 16;
-pub type _bindgen_ty_16 = ::std::os::raw::c_uint;
+pub const ALOOPER_EVENT_INPUT: _bindgen_ty_19 = 1;
+pub const ALOOPER_EVENT_OUTPUT: _bindgen_ty_19 = 2;
+pub const ALOOPER_EVENT_ERROR: _bindgen_ty_19 = 4;
+pub const ALOOPER_EVENT_HANGUP: _bindgen_ty_19 = 8;
+pub const ALOOPER_EVENT_INVALID: _bindgen_ty_19 = 16;
+pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
 pub type ALooper_callbackFunc = ::std::option::Option<
     unsafe extern "C" fn(
         fd: ::std::os::raw::c_int,
@@ -3846,150 +3873,150 @@ extern "C" {
         fd: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
-pub const AKEY_STATE_UNKNOWN: _bindgen_ty_17 = -1;
-pub const AKEY_STATE_UP: _bindgen_ty_17 = 0;
-pub const AKEY_STATE_DOWN: _bindgen_ty_17 = 1;
-pub const AKEY_STATE_VIRTUAL: _bindgen_ty_17 = 2;
-pub type _bindgen_ty_17 = ::std::os::raw::c_int;
-pub const AMETA_NONE: _bindgen_ty_18 = 0;
-pub const AMETA_ALT_ON: _bindgen_ty_18 = 2;
-pub const AMETA_ALT_LEFT_ON: _bindgen_ty_18 = 16;
-pub const AMETA_ALT_RIGHT_ON: _bindgen_ty_18 = 32;
-pub const AMETA_SHIFT_ON: _bindgen_ty_18 = 1;
-pub const AMETA_SHIFT_LEFT_ON: _bindgen_ty_18 = 64;
-pub const AMETA_SHIFT_RIGHT_ON: _bindgen_ty_18 = 128;
-pub const AMETA_SYM_ON: _bindgen_ty_18 = 4;
-pub const AMETA_FUNCTION_ON: _bindgen_ty_18 = 8;
-pub const AMETA_CTRL_ON: _bindgen_ty_18 = 4096;
-pub const AMETA_CTRL_LEFT_ON: _bindgen_ty_18 = 8192;
-pub const AMETA_CTRL_RIGHT_ON: _bindgen_ty_18 = 16384;
-pub const AMETA_META_ON: _bindgen_ty_18 = 65536;
-pub const AMETA_META_LEFT_ON: _bindgen_ty_18 = 131072;
-pub const AMETA_META_RIGHT_ON: _bindgen_ty_18 = 262144;
-pub const AMETA_CAPS_LOCK_ON: _bindgen_ty_18 = 1048576;
-pub const AMETA_NUM_LOCK_ON: _bindgen_ty_18 = 2097152;
-pub const AMETA_SCROLL_LOCK_ON: _bindgen_ty_18 = 4194304;
-pub type _bindgen_ty_18 = ::std::os::raw::c_uint;
+pub const AKEY_STATE_UNKNOWN: _bindgen_ty_20 = -1;
+pub const AKEY_STATE_UP: _bindgen_ty_20 = 0;
+pub const AKEY_STATE_DOWN: _bindgen_ty_20 = 1;
+pub const AKEY_STATE_VIRTUAL: _bindgen_ty_20 = 2;
+pub type _bindgen_ty_20 = ::std::os::raw::c_int;
+pub const AMETA_NONE: _bindgen_ty_21 = 0;
+pub const AMETA_ALT_ON: _bindgen_ty_21 = 2;
+pub const AMETA_ALT_LEFT_ON: _bindgen_ty_21 = 16;
+pub const AMETA_ALT_RIGHT_ON: _bindgen_ty_21 = 32;
+pub const AMETA_SHIFT_ON: _bindgen_ty_21 = 1;
+pub const AMETA_SHIFT_LEFT_ON: _bindgen_ty_21 = 64;
+pub const AMETA_SHIFT_RIGHT_ON: _bindgen_ty_21 = 128;
+pub const AMETA_SYM_ON: _bindgen_ty_21 = 4;
+pub const AMETA_FUNCTION_ON: _bindgen_ty_21 = 8;
+pub const AMETA_CTRL_ON: _bindgen_ty_21 = 4096;
+pub const AMETA_CTRL_LEFT_ON: _bindgen_ty_21 = 8192;
+pub const AMETA_CTRL_RIGHT_ON: _bindgen_ty_21 = 16384;
+pub const AMETA_META_ON: _bindgen_ty_21 = 65536;
+pub const AMETA_META_LEFT_ON: _bindgen_ty_21 = 131072;
+pub const AMETA_META_RIGHT_ON: _bindgen_ty_21 = 262144;
+pub const AMETA_CAPS_LOCK_ON: _bindgen_ty_21 = 1048576;
+pub const AMETA_NUM_LOCK_ON: _bindgen_ty_21 = 2097152;
+pub const AMETA_SCROLL_LOCK_ON: _bindgen_ty_21 = 4194304;
+pub type _bindgen_ty_21 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AInputEvent {
     _unused: [u8; 0],
 }
-pub const AINPUT_EVENT_TYPE_KEY: _bindgen_ty_19 = 1;
-pub const AINPUT_EVENT_TYPE_MOTION: _bindgen_ty_19 = 2;
-pub const AINPUT_EVENT_TYPE_FOCUS: _bindgen_ty_19 = 3;
-pub const AINPUT_EVENT_TYPE_CAPTURE: _bindgen_ty_19 = 4;
-pub const AINPUT_EVENT_TYPE_DRAG: _bindgen_ty_19 = 5;
-pub const AINPUT_EVENT_TYPE_TOUCH_MODE: _bindgen_ty_19 = 6;
-pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
-pub const AKEY_EVENT_ACTION_DOWN: _bindgen_ty_20 = 0;
-pub const AKEY_EVENT_ACTION_UP: _bindgen_ty_20 = 1;
-pub const AKEY_EVENT_ACTION_MULTIPLE: _bindgen_ty_20 = 2;
-pub type _bindgen_ty_20 = ::std::os::raw::c_uint;
-pub const AKEY_EVENT_FLAG_WOKE_HERE: _bindgen_ty_21 = 1;
-pub const AKEY_EVENT_FLAG_SOFT_KEYBOARD: _bindgen_ty_21 = 2;
-pub const AKEY_EVENT_FLAG_KEEP_TOUCH_MODE: _bindgen_ty_21 = 4;
-pub const AKEY_EVENT_FLAG_FROM_SYSTEM: _bindgen_ty_21 = 8;
-pub const AKEY_EVENT_FLAG_EDITOR_ACTION: _bindgen_ty_21 = 16;
-pub const AKEY_EVENT_FLAG_CANCELED: _bindgen_ty_21 = 32;
-pub const AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY: _bindgen_ty_21 = 64;
-pub const AKEY_EVENT_FLAG_LONG_PRESS: _bindgen_ty_21 = 128;
-pub const AKEY_EVENT_FLAG_CANCELED_LONG_PRESS: _bindgen_ty_21 = 256;
-pub const AKEY_EVENT_FLAG_TRACKING: _bindgen_ty_21 = 512;
-pub const AKEY_EVENT_FLAG_FALLBACK: _bindgen_ty_21 = 1024;
-pub type _bindgen_ty_21 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_ACTION_MASK: _bindgen_ty_22 = 255;
-pub const AMOTION_EVENT_ACTION_POINTER_INDEX_MASK: _bindgen_ty_22 = 65280;
-pub const AMOTION_EVENT_ACTION_DOWN: _bindgen_ty_22 = 0;
-pub const AMOTION_EVENT_ACTION_UP: _bindgen_ty_22 = 1;
-pub const AMOTION_EVENT_ACTION_MOVE: _bindgen_ty_22 = 2;
-pub const AMOTION_EVENT_ACTION_CANCEL: _bindgen_ty_22 = 3;
-pub const AMOTION_EVENT_ACTION_OUTSIDE: _bindgen_ty_22 = 4;
-pub const AMOTION_EVENT_ACTION_POINTER_DOWN: _bindgen_ty_22 = 5;
-pub const AMOTION_EVENT_ACTION_POINTER_UP: _bindgen_ty_22 = 6;
-pub const AMOTION_EVENT_ACTION_HOVER_MOVE: _bindgen_ty_22 = 7;
-pub const AMOTION_EVENT_ACTION_SCROLL: _bindgen_ty_22 = 8;
-pub const AMOTION_EVENT_ACTION_HOVER_ENTER: _bindgen_ty_22 = 9;
-pub const AMOTION_EVENT_ACTION_HOVER_EXIT: _bindgen_ty_22 = 10;
-pub const AMOTION_EVENT_ACTION_BUTTON_PRESS: _bindgen_ty_22 = 11;
-pub const AMOTION_EVENT_ACTION_BUTTON_RELEASE: _bindgen_ty_22 = 12;
+pub const AINPUT_EVENT_TYPE_KEY: _bindgen_ty_22 = 1;
+pub const AINPUT_EVENT_TYPE_MOTION: _bindgen_ty_22 = 2;
+pub const AINPUT_EVENT_TYPE_FOCUS: _bindgen_ty_22 = 3;
+pub const AINPUT_EVENT_TYPE_CAPTURE: _bindgen_ty_22 = 4;
+pub const AINPUT_EVENT_TYPE_DRAG: _bindgen_ty_22 = 5;
+pub const AINPUT_EVENT_TYPE_TOUCH_MODE: _bindgen_ty_22 = 6;
 pub type _bindgen_ty_22 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED: _bindgen_ty_23 = 1;
+pub const AKEY_EVENT_ACTION_DOWN: _bindgen_ty_23 = 0;
+pub const AKEY_EVENT_ACTION_UP: _bindgen_ty_23 = 1;
+pub const AKEY_EVENT_ACTION_MULTIPLE: _bindgen_ty_23 = 2;
 pub type _bindgen_ty_23 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_EDGE_FLAG_NONE: _bindgen_ty_24 = 0;
-pub const AMOTION_EVENT_EDGE_FLAG_TOP: _bindgen_ty_24 = 1;
-pub const AMOTION_EVENT_EDGE_FLAG_BOTTOM: _bindgen_ty_24 = 2;
-pub const AMOTION_EVENT_EDGE_FLAG_LEFT: _bindgen_ty_24 = 4;
-pub const AMOTION_EVENT_EDGE_FLAG_RIGHT: _bindgen_ty_24 = 8;
+pub const AKEY_EVENT_FLAG_WOKE_HERE: _bindgen_ty_24 = 1;
+pub const AKEY_EVENT_FLAG_SOFT_KEYBOARD: _bindgen_ty_24 = 2;
+pub const AKEY_EVENT_FLAG_KEEP_TOUCH_MODE: _bindgen_ty_24 = 4;
+pub const AKEY_EVENT_FLAG_FROM_SYSTEM: _bindgen_ty_24 = 8;
+pub const AKEY_EVENT_FLAG_EDITOR_ACTION: _bindgen_ty_24 = 16;
+pub const AKEY_EVENT_FLAG_CANCELED: _bindgen_ty_24 = 32;
+pub const AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY: _bindgen_ty_24 = 64;
+pub const AKEY_EVENT_FLAG_LONG_PRESS: _bindgen_ty_24 = 128;
+pub const AKEY_EVENT_FLAG_CANCELED_LONG_PRESS: _bindgen_ty_24 = 256;
+pub const AKEY_EVENT_FLAG_TRACKING: _bindgen_ty_24 = 512;
+pub const AKEY_EVENT_FLAG_FALLBACK: _bindgen_ty_24 = 1024;
 pub type _bindgen_ty_24 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_AXIS_X: _bindgen_ty_25 = 0;
-pub const AMOTION_EVENT_AXIS_Y: _bindgen_ty_25 = 1;
-pub const AMOTION_EVENT_AXIS_PRESSURE: _bindgen_ty_25 = 2;
-pub const AMOTION_EVENT_AXIS_SIZE: _bindgen_ty_25 = 3;
-pub const AMOTION_EVENT_AXIS_TOUCH_MAJOR: _bindgen_ty_25 = 4;
-pub const AMOTION_EVENT_AXIS_TOUCH_MINOR: _bindgen_ty_25 = 5;
-pub const AMOTION_EVENT_AXIS_TOOL_MAJOR: _bindgen_ty_25 = 6;
-pub const AMOTION_EVENT_AXIS_TOOL_MINOR: _bindgen_ty_25 = 7;
-pub const AMOTION_EVENT_AXIS_ORIENTATION: _bindgen_ty_25 = 8;
-pub const AMOTION_EVENT_AXIS_VSCROLL: _bindgen_ty_25 = 9;
-pub const AMOTION_EVENT_AXIS_HSCROLL: _bindgen_ty_25 = 10;
-pub const AMOTION_EVENT_AXIS_Z: _bindgen_ty_25 = 11;
-pub const AMOTION_EVENT_AXIS_RX: _bindgen_ty_25 = 12;
-pub const AMOTION_EVENT_AXIS_RY: _bindgen_ty_25 = 13;
-pub const AMOTION_EVENT_AXIS_RZ: _bindgen_ty_25 = 14;
-pub const AMOTION_EVENT_AXIS_HAT_X: _bindgen_ty_25 = 15;
-pub const AMOTION_EVENT_AXIS_HAT_Y: _bindgen_ty_25 = 16;
-pub const AMOTION_EVENT_AXIS_LTRIGGER: _bindgen_ty_25 = 17;
-pub const AMOTION_EVENT_AXIS_RTRIGGER: _bindgen_ty_25 = 18;
-pub const AMOTION_EVENT_AXIS_THROTTLE: _bindgen_ty_25 = 19;
-pub const AMOTION_EVENT_AXIS_RUDDER: _bindgen_ty_25 = 20;
-pub const AMOTION_EVENT_AXIS_WHEEL: _bindgen_ty_25 = 21;
-pub const AMOTION_EVENT_AXIS_GAS: _bindgen_ty_25 = 22;
-pub const AMOTION_EVENT_AXIS_BRAKE: _bindgen_ty_25 = 23;
-pub const AMOTION_EVENT_AXIS_DISTANCE: _bindgen_ty_25 = 24;
-pub const AMOTION_EVENT_AXIS_TILT: _bindgen_ty_25 = 25;
-pub const AMOTION_EVENT_AXIS_SCROLL: _bindgen_ty_25 = 26;
-pub const AMOTION_EVENT_AXIS_RELATIVE_X: _bindgen_ty_25 = 27;
-pub const AMOTION_EVENT_AXIS_RELATIVE_Y: _bindgen_ty_25 = 28;
-pub const AMOTION_EVENT_AXIS_GENERIC_1: _bindgen_ty_25 = 32;
-pub const AMOTION_EVENT_AXIS_GENERIC_2: _bindgen_ty_25 = 33;
-pub const AMOTION_EVENT_AXIS_GENERIC_3: _bindgen_ty_25 = 34;
-pub const AMOTION_EVENT_AXIS_GENERIC_4: _bindgen_ty_25 = 35;
-pub const AMOTION_EVENT_AXIS_GENERIC_5: _bindgen_ty_25 = 36;
-pub const AMOTION_EVENT_AXIS_GENERIC_6: _bindgen_ty_25 = 37;
-pub const AMOTION_EVENT_AXIS_GENERIC_7: _bindgen_ty_25 = 38;
-pub const AMOTION_EVENT_AXIS_GENERIC_8: _bindgen_ty_25 = 39;
-pub const AMOTION_EVENT_AXIS_GENERIC_9: _bindgen_ty_25 = 40;
-pub const AMOTION_EVENT_AXIS_GENERIC_10: _bindgen_ty_25 = 41;
-pub const AMOTION_EVENT_AXIS_GENERIC_11: _bindgen_ty_25 = 42;
-pub const AMOTION_EVENT_AXIS_GENERIC_12: _bindgen_ty_25 = 43;
-pub const AMOTION_EVENT_AXIS_GENERIC_13: _bindgen_ty_25 = 44;
-pub const AMOTION_EVENT_AXIS_GENERIC_14: _bindgen_ty_25 = 45;
-pub const AMOTION_EVENT_AXIS_GENERIC_15: _bindgen_ty_25 = 46;
-pub const AMOTION_EVENT_AXIS_GENERIC_16: _bindgen_ty_25 = 47;
-pub const AMOTION_EVENT_AXIS_GESTURE_X_OFFSET: _bindgen_ty_25 = 48;
-pub const AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET: _bindgen_ty_25 = 49;
-pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE: _bindgen_ty_25 = 50;
-pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE: _bindgen_ty_25 = 51;
-pub const AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR: _bindgen_ty_25 = 52;
-pub const AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT: _bindgen_ty_25 = 53;
-pub const AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE: _bindgen_ty_25 = 53;
+pub const AMOTION_EVENT_ACTION_MASK: _bindgen_ty_25 = 255;
+pub const AMOTION_EVENT_ACTION_POINTER_INDEX_MASK: _bindgen_ty_25 = 65280;
+pub const AMOTION_EVENT_ACTION_DOWN: _bindgen_ty_25 = 0;
+pub const AMOTION_EVENT_ACTION_UP: _bindgen_ty_25 = 1;
+pub const AMOTION_EVENT_ACTION_MOVE: _bindgen_ty_25 = 2;
+pub const AMOTION_EVENT_ACTION_CANCEL: _bindgen_ty_25 = 3;
+pub const AMOTION_EVENT_ACTION_OUTSIDE: _bindgen_ty_25 = 4;
+pub const AMOTION_EVENT_ACTION_POINTER_DOWN: _bindgen_ty_25 = 5;
+pub const AMOTION_EVENT_ACTION_POINTER_UP: _bindgen_ty_25 = 6;
+pub const AMOTION_EVENT_ACTION_HOVER_MOVE: _bindgen_ty_25 = 7;
+pub const AMOTION_EVENT_ACTION_SCROLL: _bindgen_ty_25 = 8;
+pub const AMOTION_EVENT_ACTION_HOVER_ENTER: _bindgen_ty_25 = 9;
+pub const AMOTION_EVENT_ACTION_HOVER_EXIT: _bindgen_ty_25 = 10;
+pub const AMOTION_EVENT_ACTION_BUTTON_PRESS: _bindgen_ty_25 = 11;
+pub const AMOTION_EVENT_ACTION_BUTTON_RELEASE: _bindgen_ty_25 = 12;
 pub type _bindgen_ty_25 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_BUTTON_PRIMARY: _bindgen_ty_26 = 1;
-pub const AMOTION_EVENT_BUTTON_SECONDARY: _bindgen_ty_26 = 2;
-pub const AMOTION_EVENT_BUTTON_TERTIARY: _bindgen_ty_26 = 4;
-pub const AMOTION_EVENT_BUTTON_BACK: _bindgen_ty_26 = 8;
-pub const AMOTION_EVENT_BUTTON_FORWARD: _bindgen_ty_26 = 16;
-pub const AMOTION_EVENT_BUTTON_STYLUS_PRIMARY: _bindgen_ty_26 = 32;
-pub const AMOTION_EVENT_BUTTON_STYLUS_SECONDARY: _bindgen_ty_26 = 64;
+pub const AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED: _bindgen_ty_26 = 1;
 pub type _bindgen_ty_26 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_TOOL_TYPE_UNKNOWN: _bindgen_ty_27 = 0;
-pub const AMOTION_EVENT_TOOL_TYPE_FINGER: _bindgen_ty_27 = 1;
-pub const AMOTION_EVENT_TOOL_TYPE_STYLUS: _bindgen_ty_27 = 2;
-pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: _bindgen_ty_27 = 3;
-pub const AMOTION_EVENT_TOOL_TYPE_ERASER: _bindgen_ty_27 = 4;
-pub const AMOTION_EVENT_TOOL_TYPE_PALM: _bindgen_ty_27 = 5;
+pub const AMOTION_EVENT_EDGE_FLAG_NONE: _bindgen_ty_27 = 0;
+pub const AMOTION_EVENT_EDGE_FLAG_TOP: _bindgen_ty_27 = 1;
+pub const AMOTION_EVENT_EDGE_FLAG_BOTTOM: _bindgen_ty_27 = 2;
+pub const AMOTION_EVENT_EDGE_FLAG_LEFT: _bindgen_ty_27 = 4;
+pub const AMOTION_EVENT_EDGE_FLAG_RIGHT: _bindgen_ty_27 = 8;
 pub type _bindgen_ty_27 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_AXIS_X: _bindgen_ty_28 = 0;
+pub const AMOTION_EVENT_AXIS_Y: _bindgen_ty_28 = 1;
+pub const AMOTION_EVENT_AXIS_PRESSURE: _bindgen_ty_28 = 2;
+pub const AMOTION_EVENT_AXIS_SIZE: _bindgen_ty_28 = 3;
+pub const AMOTION_EVENT_AXIS_TOUCH_MAJOR: _bindgen_ty_28 = 4;
+pub const AMOTION_EVENT_AXIS_TOUCH_MINOR: _bindgen_ty_28 = 5;
+pub const AMOTION_EVENT_AXIS_TOOL_MAJOR: _bindgen_ty_28 = 6;
+pub const AMOTION_EVENT_AXIS_TOOL_MINOR: _bindgen_ty_28 = 7;
+pub const AMOTION_EVENT_AXIS_ORIENTATION: _bindgen_ty_28 = 8;
+pub const AMOTION_EVENT_AXIS_VSCROLL: _bindgen_ty_28 = 9;
+pub const AMOTION_EVENT_AXIS_HSCROLL: _bindgen_ty_28 = 10;
+pub const AMOTION_EVENT_AXIS_Z: _bindgen_ty_28 = 11;
+pub const AMOTION_EVENT_AXIS_RX: _bindgen_ty_28 = 12;
+pub const AMOTION_EVENT_AXIS_RY: _bindgen_ty_28 = 13;
+pub const AMOTION_EVENT_AXIS_RZ: _bindgen_ty_28 = 14;
+pub const AMOTION_EVENT_AXIS_HAT_X: _bindgen_ty_28 = 15;
+pub const AMOTION_EVENT_AXIS_HAT_Y: _bindgen_ty_28 = 16;
+pub const AMOTION_EVENT_AXIS_LTRIGGER: _bindgen_ty_28 = 17;
+pub const AMOTION_EVENT_AXIS_RTRIGGER: _bindgen_ty_28 = 18;
+pub const AMOTION_EVENT_AXIS_THROTTLE: _bindgen_ty_28 = 19;
+pub const AMOTION_EVENT_AXIS_RUDDER: _bindgen_ty_28 = 20;
+pub const AMOTION_EVENT_AXIS_WHEEL: _bindgen_ty_28 = 21;
+pub const AMOTION_EVENT_AXIS_GAS: _bindgen_ty_28 = 22;
+pub const AMOTION_EVENT_AXIS_BRAKE: _bindgen_ty_28 = 23;
+pub const AMOTION_EVENT_AXIS_DISTANCE: _bindgen_ty_28 = 24;
+pub const AMOTION_EVENT_AXIS_TILT: _bindgen_ty_28 = 25;
+pub const AMOTION_EVENT_AXIS_SCROLL: _bindgen_ty_28 = 26;
+pub const AMOTION_EVENT_AXIS_RELATIVE_X: _bindgen_ty_28 = 27;
+pub const AMOTION_EVENT_AXIS_RELATIVE_Y: _bindgen_ty_28 = 28;
+pub const AMOTION_EVENT_AXIS_GENERIC_1: _bindgen_ty_28 = 32;
+pub const AMOTION_EVENT_AXIS_GENERIC_2: _bindgen_ty_28 = 33;
+pub const AMOTION_EVENT_AXIS_GENERIC_3: _bindgen_ty_28 = 34;
+pub const AMOTION_EVENT_AXIS_GENERIC_4: _bindgen_ty_28 = 35;
+pub const AMOTION_EVENT_AXIS_GENERIC_5: _bindgen_ty_28 = 36;
+pub const AMOTION_EVENT_AXIS_GENERIC_6: _bindgen_ty_28 = 37;
+pub const AMOTION_EVENT_AXIS_GENERIC_7: _bindgen_ty_28 = 38;
+pub const AMOTION_EVENT_AXIS_GENERIC_8: _bindgen_ty_28 = 39;
+pub const AMOTION_EVENT_AXIS_GENERIC_9: _bindgen_ty_28 = 40;
+pub const AMOTION_EVENT_AXIS_GENERIC_10: _bindgen_ty_28 = 41;
+pub const AMOTION_EVENT_AXIS_GENERIC_11: _bindgen_ty_28 = 42;
+pub const AMOTION_EVENT_AXIS_GENERIC_12: _bindgen_ty_28 = 43;
+pub const AMOTION_EVENT_AXIS_GENERIC_13: _bindgen_ty_28 = 44;
+pub const AMOTION_EVENT_AXIS_GENERIC_14: _bindgen_ty_28 = 45;
+pub const AMOTION_EVENT_AXIS_GENERIC_15: _bindgen_ty_28 = 46;
+pub const AMOTION_EVENT_AXIS_GENERIC_16: _bindgen_ty_28 = 47;
+pub const AMOTION_EVENT_AXIS_GESTURE_X_OFFSET: _bindgen_ty_28 = 48;
+pub const AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET: _bindgen_ty_28 = 49;
+pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE: _bindgen_ty_28 = 50;
+pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE: _bindgen_ty_28 = 51;
+pub const AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR: _bindgen_ty_28 = 52;
+pub const AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT: _bindgen_ty_28 = 53;
+pub const AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE: _bindgen_ty_28 = 53;
+pub type _bindgen_ty_28 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_BUTTON_PRIMARY: _bindgen_ty_29 = 1;
+pub const AMOTION_EVENT_BUTTON_SECONDARY: _bindgen_ty_29 = 2;
+pub const AMOTION_EVENT_BUTTON_TERTIARY: _bindgen_ty_29 = 4;
+pub const AMOTION_EVENT_BUTTON_BACK: _bindgen_ty_29 = 8;
+pub const AMOTION_EVENT_BUTTON_FORWARD: _bindgen_ty_29 = 16;
+pub const AMOTION_EVENT_BUTTON_STYLUS_PRIMARY: _bindgen_ty_29 = 32;
+pub const AMOTION_EVENT_BUTTON_STYLUS_SECONDARY: _bindgen_ty_29 = 64;
+pub type _bindgen_ty_29 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_TOOL_TYPE_UNKNOWN: _bindgen_ty_30 = 0;
+pub const AMOTION_EVENT_TOOL_TYPE_FINGER: _bindgen_ty_30 = 1;
+pub const AMOTION_EVENT_TOOL_TYPE_STYLUS: _bindgen_ty_30 = 2;
+pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: _bindgen_ty_30 = 3;
+pub const AMOTION_EVENT_TOOL_TYPE_ERASER: _bindgen_ty_30 = 4;
+pub const AMOTION_EVENT_TOOL_TYPE_PALM: _bindgen_ty_30 = 5;
+pub type _bindgen_ty_30 = ::std::os::raw::c_uint;
 impl AMotionClassification {
     pub const AMOTION_EVENT_CLASSIFICATION_NONE: AMotionClassification = AMotionClassification(0);
 }
@@ -4015,46 +4042,46 @@ impl AMotionClassification {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AMotionClassification(pub u32);
-pub const AINPUT_SOURCE_CLASS_MASK: _bindgen_ty_28 = 255;
-pub const AINPUT_SOURCE_CLASS_NONE: _bindgen_ty_28 = 0;
-pub const AINPUT_SOURCE_CLASS_BUTTON: _bindgen_ty_28 = 1;
-pub const AINPUT_SOURCE_CLASS_POINTER: _bindgen_ty_28 = 2;
-pub const AINPUT_SOURCE_CLASS_NAVIGATION: _bindgen_ty_28 = 4;
-pub const AINPUT_SOURCE_CLASS_POSITION: _bindgen_ty_28 = 8;
-pub const AINPUT_SOURCE_CLASS_JOYSTICK: _bindgen_ty_28 = 16;
-pub type _bindgen_ty_28 = ::std::os::raw::c_uint;
-pub const AINPUT_SOURCE_UNKNOWN: _bindgen_ty_29 = 0;
-pub const AINPUT_SOURCE_KEYBOARD: _bindgen_ty_29 = 257;
-pub const AINPUT_SOURCE_DPAD: _bindgen_ty_29 = 513;
-pub const AINPUT_SOURCE_GAMEPAD: _bindgen_ty_29 = 1025;
-pub const AINPUT_SOURCE_TOUCHSCREEN: _bindgen_ty_29 = 4098;
-pub const AINPUT_SOURCE_MOUSE: _bindgen_ty_29 = 8194;
-pub const AINPUT_SOURCE_STYLUS: _bindgen_ty_29 = 16386;
-pub const AINPUT_SOURCE_BLUETOOTH_STYLUS: _bindgen_ty_29 = 49154;
-pub const AINPUT_SOURCE_TRACKBALL: _bindgen_ty_29 = 65540;
-pub const AINPUT_SOURCE_MOUSE_RELATIVE: _bindgen_ty_29 = 131076;
-pub const AINPUT_SOURCE_TOUCHPAD: _bindgen_ty_29 = 1048584;
-pub const AINPUT_SOURCE_TOUCH_NAVIGATION: _bindgen_ty_29 = 2097152;
-pub const AINPUT_SOURCE_JOYSTICK: _bindgen_ty_29 = 16777232;
-pub const AINPUT_SOURCE_HDMI: _bindgen_ty_29 = 33554433;
-pub const AINPUT_SOURCE_SENSOR: _bindgen_ty_29 = 67108864;
-pub const AINPUT_SOURCE_ROTARY_ENCODER: _bindgen_ty_29 = 4194304;
-pub const AINPUT_SOURCE_ANY: _bindgen_ty_29 = 4294967040;
-pub type _bindgen_ty_29 = ::std::os::raw::c_uint;
-pub const AINPUT_KEYBOARD_TYPE_NONE: _bindgen_ty_30 = 0;
-pub const AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC: _bindgen_ty_30 = 1;
-pub const AINPUT_KEYBOARD_TYPE_ALPHABETIC: _bindgen_ty_30 = 2;
-pub type _bindgen_ty_30 = ::std::os::raw::c_uint;
-pub const AINPUT_MOTION_RANGE_X: _bindgen_ty_31 = 0;
-pub const AINPUT_MOTION_RANGE_Y: _bindgen_ty_31 = 1;
-pub const AINPUT_MOTION_RANGE_PRESSURE: _bindgen_ty_31 = 2;
-pub const AINPUT_MOTION_RANGE_SIZE: _bindgen_ty_31 = 3;
-pub const AINPUT_MOTION_RANGE_TOUCH_MAJOR: _bindgen_ty_31 = 4;
-pub const AINPUT_MOTION_RANGE_TOUCH_MINOR: _bindgen_ty_31 = 5;
-pub const AINPUT_MOTION_RANGE_TOOL_MAJOR: _bindgen_ty_31 = 6;
-pub const AINPUT_MOTION_RANGE_TOOL_MINOR: _bindgen_ty_31 = 7;
-pub const AINPUT_MOTION_RANGE_ORIENTATION: _bindgen_ty_31 = 8;
+pub const AINPUT_SOURCE_CLASS_MASK: _bindgen_ty_31 = 255;
+pub const AINPUT_SOURCE_CLASS_NONE: _bindgen_ty_31 = 0;
+pub const AINPUT_SOURCE_CLASS_BUTTON: _bindgen_ty_31 = 1;
+pub const AINPUT_SOURCE_CLASS_POINTER: _bindgen_ty_31 = 2;
+pub const AINPUT_SOURCE_CLASS_NAVIGATION: _bindgen_ty_31 = 4;
+pub const AINPUT_SOURCE_CLASS_POSITION: _bindgen_ty_31 = 8;
+pub const AINPUT_SOURCE_CLASS_JOYSTICK: _bindgen_ty_31 = 16;
 pub type _bindgen_ty_31 = ::std::os::raw::c_uint;
+pub const AINPUT_SOURCE_UNKNOWN: _bindgen_ty_32 = 0;
+pub const AINPUT_SOURCE_KEYBOARD: _bindgen_ty_32 = 257;
+pub const AINPUT_SOURCE_DPAD: _bindgen_ty_32 = 513;
+pub const AINPUT_SOURCE_GAMEPAD: _bindgen_ty_32 = 1025;
+pub const AINPUT_SOURCE_TOUCHSCREEN: _bindgen_ty_32 = 4098;
+pub const AINPUT_SOURCE_MOUSE: _bindgen_ty_32 = 8194;
+pub const AINPUT_SOURCE_STYLUS: _bindgen_ty_32 = 16386;
+pub const AINPUT_SOURCE_BLUETOOTH_STYLUS: _bindgen_ty_32 = 49154;
+pub const AINPUT_SOURCE_TRACKBALL: _bindgen_ty_32 = 65540;
+pub const AINPUT_SOURCE_MOUSE_RELATIVE: _bindgen_ty_32 = 131076;
+pub const AINPUT_SOURCE_TOUCHPAD: _bindgen_ty_32 = 1048584;
+pub const AINPUT_SOURCE_TOUCH_NAVIGATION: _bindgen_ty_32 = 2097152;
+pub const AINPUT_SOURCE_JOYSTICK: _bindgen_ty_32 = 16777232;
+pub const AINPUT_SOURCE_HDMI: _bindgen_ty_32 = 33554433;
+pub const AINPUT_SOURCE_SENSOR: _bindgen_ty_32 = 67108864;
+pub const AINPUT_SOURCE_ROTARY_ENCODER: _bindgen_ty_32 = 4194304;
+pub const AINPUT_SOURCE_ANY: _bindgen_ty_32 = 4294967040;
+pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
+pub const AINPUT_KEYBOARD_TYPE_NONE: _bindgen_ty_33 = 0;
+pub const AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC: _bindgen_ty_33 = 1;
+pub const AINPUT_KEYBOARD_TYPE_ALPHABETIC: _bindgen_ty_33 = 2;
+pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
+pub const AINPUT_MOTION_RANGE_X: _bindgen_ty_34 = 0;
+pub const AINPUT_MOTION_RANGE_Y: _bindgen_ty_34 = 1;
+pub const AINPUT_MOTION_RANGE_PRESSURE: _bindgen_ty_34 = 2;
+pub const AINPUT_MOTION_RANGE_SIZE: _bindgen_ty_34 = 3;
+pub const AINPUT_MOTION_RANGE_TOUCH_MAJOR: _bindgen_ty_34 = 4;
+pub const AINPUT_MOTION_RANGE_TOUCH_MINOR: _bindgen_ty_34 = 5;
+pub const AINPUT_MOTION_RANGE_TOOL_MAJOR: _bindgen_ty_34 = 6;
+pub const AINPUT_MOTION_RANGE_TOOL_MINOR: _bindgen_ty_34 = 7;
+pub const AINPUT_MOTION_RANGE_ORIENTATION: _bindgen_ty_34 = 8;
+pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AInputEvent_getType(event: *const AInputEvent) -> i32;
 }
@@ -4629,10 +4656,10 @@ const _: () = {
     ["Size of sockaddr_storage"][::std::mem::size_of::<sockaddr_storage>() - 128usize];
     ["Alignment of sockaddr_storage"][::std::mem::align_of::<sockaddr_storage>() - 8usize];
 };
-pub const SHUT_RD: _bindgen_ty_32 = 0;
-pub const SHUT_WR: _bindgen_ty_32 = 1;
-pub const SHUT_RDWR: _bindgen_ty_32 = 2;
-pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
+pub const SHUT_RD: _bindgen_ty_35 = 0;
+pub const SHUT_WR: _bindgen_ty_35 = 1;
+pub const SHUT_RDWR: _bindgen_ty_35 = 2;
+pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr {
@@ -6511,17 +6538,29 @@ extern "C" {
         removeFlags: u32,
     );
 }
-pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_IMPLICIT: _bindgen_ty_33 = 1;
-pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_FORCED: _bindgen_ty_33 = 2;
-pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
+pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_IMPLICIT: _bindgen_ty_36 = 1;
+pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_FORCED: _bindgen_ty_36 = 2;
+pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ANativeActivity_showSoftInput(activity: *mut ANativeActivity, flags: u32);
 }
-pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_IMPLICIT_ONLY: _bindgen_ty_34 = 1;
-pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_34 = 2;
-pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
+pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_IMPLICIT_ONLY: _bindgen_ty_37 = 1;
+pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_37 = 2;
+pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ANativeActivity_hideSoftInput(activity: *mut ANativeActivity, flags: u32);
+}
+extern "C" {
+    pub fn ANativeWindow_readFromParcel(
+        parcel: *const AParcel,
+        outWindow: *mut *mut ANativeWindow,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn ANativeWindow_writeToParcel(
+        window: *mut ANativeWindow,
+        parcel: *mut AParcel,
+    ) -> binder_status_t;
 }
 extern "C" {
     pub fn ANativeWindow_fromSurface(env: *mut JNIEnv, surface: jobject) -> *mut ANativeWindow;
@@ -7030,10 +7069,10 @@ impl ResultCode {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct ResultCode(pub ::std::os::raw::c_uint);
-pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: _bindgen_ty_35 = 128;
-pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
-pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: _bindgen_ty_36 = 32;
-pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
+pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: _bindgen_ty_38 = 128;
+pub type _bindgen_ty_38 = ::std::os::raw::c_uint;
+pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: _bindgen_ty_39 = 32;
+pub type _bindgen_ty_39 = ::std::os::raw::c_uint;
 impl DurationCode {
     pub const ANEURALNETWORKS_DURATION_ON_HARDWARE: DurationCode = DurationCode(0);
 }
@@ -7576,8 +7615,8 @@ extern "C" {
 pub struct AObbInfo {
     _unused: [u8; 0],
 }
-pub const AOBBINFO_OVERLAY: _bindgen_ty_37 = 1;
-pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
+pub const AOBBINFO_OVERLAY: _bindgen_ty_40 = 1;
+pub type _bindgen_ty_40 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AObbScanner_getObbInfo(filename: *const ::std::os::raw::c_char) -> *mut AObbInfo;
 }
@@ -9405,13 +9444,13 @@ extern "C" {
         actualGpuDurationNanos: i64,
     );
 }
-pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_38 = 0;
-pub const PERMISSION_MANAGER_PERMISSION_DENIED: _bindgen_ty_38 = -1;
-pub type _bindgen_ty_38 = ::std::os::raw::c_int;
-pub const PERMISSION_MANAGER_STATUS_OK: _bindgen_ty_39 = 0;
-pub const PERMISSION_MANAGER_STATUS_ERROR_UNKNOWN: _bindgen_ty_39 = -1;
-pub const PERMISSION_MANAGER_STATUS_SERVICE_UNAVAILABLE: _bindgen_ty_39 = -2;
-pub type _bindgen_ty_39 = ::std::os::raw::c_int;
+pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_41 = 0;
+pub const PERMISSION_MANAGER_PERMISSION_DENIED: _bindgen_ty_41 = -1;
+pub type _bindgen_ty_41 = ::std::os::raw::c_int;
+pub const PERMISSION_MANAGER_STATUS_OK: _bindgen_ty_42 = 0;
+pub const PERMISSION_MANAGER_STATUS_ERROR_UNKNOWN: _bindgen_ty_42 = -1;
+pub const PERMISSION_MANAGER_STATUS_SERVICE_UNAVAILABLE: _bindgen_ty_42 = -2;
+pub type _bindgen_ty_42 = ::std::os::raw::c_int;
 extern "C" {
     pub fn APermissionManager_checkPermission(
         permission: *const ::std::os::raw::c_char,
@@ -9955,70 +9994,70 @@ extern "C" {
 extern "C" {
     pub fn yn(__n: ::std::os::raw::c_int, __x: f64) -> f64;
 }
-pub const ASENSOR_TYPE_INVALID: _bindgen_ty_40 = -1;
-pub const ASENSOR_TYPE_ACCELEROMETER: _bindgen_ty_40 = 1;
-pub const ASENSOR_TYPE_MAGNETIC_FIELD: _bindgen_ty_40 = 2;
-pub const ASENSOR_TYPE_GYROSCOPE: _bindgen_ty_40 = 4;
-pub const ASENSOR_TYPE_LIGHT: _bindgen_ty_40 = 5;
-pub const ASENSOR_TYPE_PRESSURE: _bindgen_ty_40 = 6;
-pub const ASENSOR_TYPE_PROXIMITY: _bindgen_ty_40 = 8;
-pub const ASENSOR_TYPE_GRAVITY: _bindgen_ty_40 = 9;
-pub const ASENSOR_TYPE_LINEAR_ACCELERATION: _bindgen_ty_40 = 10;
-pub const ASENSOR_TYPE_ROTATION_VECTOR: _bindgen_ty_40 = 11;
-pub const ASENSOR_TYPE_RELATIVE_HUMIDITY: _bindgen_ty_40 = 12;
-pub const ASENSOR_TYPE_AMBIENT_TEMPERATURE: _bindgen_ty_40 = 13;
-pub const ASENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED: _bindgen_ty_40 = 14;
-pub const ASENSOR_TYPE_GAME_ROTATION_VECTOR: _bindgen_ty_40 = 15;
-pub const ASENSOR_TYPE_GYROSCOPE_UNCALIBRATED: _bindgen_ty_40 = 16;
-pub const ASENSOR_TYPE_SIGNIFICANT_MOTION: _bindgen_ty_40 = 17;
-pub const ASENSOR_TYPE_STEP_DETECTOR: _bindgen_ty_40 = 18;
-pub const ASENSOR_TYPE_STEP_COUNTER: _bindgen_ty_40 = 19;
-pub const ASENSOR_TYPE_GEOMAGNETIC_ROTATION_VECTOR: _bindgen_ty_40 = 20;
-pub const ASENSOR_TYPE_HEART_RATE: _bindgen_ty_40 = 21;
-pub const ASENSOR_TYPE_POSE_6DOF: _bindgen_ty_40 = 28;
-pub const ASENSOR_TYPE_STATIONARY_DETECT: _bindgen_ty_40 = 29;
-pub const ASENSOR_TYPE_MOTION_DETECT: _bindgen_ty_40 = 30;
-pub const ASENSOR_TYPE_HEART_BEAT: _bindgen_ty_40 = 31;
-pub const ASENSOR_TYPE_DYNAMIC_SENSOR_META: _bindgen_ty_40 = 32;
-pub const ASENSOR_TYPE_ADDITIONAL_INFO: _bindgen_ty_40 = 33;
-pub const ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT: _bindgen_ty_40 = 34;
-pub const ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED: _bindgen_ty_40 = 35;
-pub const ASENSOR_TYPE_HINGE_ANGLE: _bindgen_ty_40 = 36;
-pub const ASENSOR_TYPE_HEAD_TRACKER: _bindgen_ty_40 = 37;
-pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES: _bindgen_ty_40 = 38;
-pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES: _bindgen_ty_40 = 39;
-pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 40;
-pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 41;
-pub const ASENSOR_TYPE_HEADING: _bindgen_ty_40 = 42;
-pub type _bindgen_ty_40 = ::std::os::raw::c_int;
-pub const ASENSOR_STATUS_NO_CONTACT: _bindgen_ty_41 = -1;
-pub const ASENSOR_STATUS_UNRELIABLE: _bindgen_ty_41 = 0;
-pub const ASENSOR_STATUS_ACCURACY_LOW: _bindgen_ty_41 = 1;
-pub const ASENSOR_STATUS_ACCURACY_MEDIUM: _bindgen_ty_41 = 2;
-pub const ASENSOR_STATUS_ACCURACY_HIGH: _bindgen_ty_41 = 3;
-pub type _bindgen_ty_41 = ::std::os::raw::c_int;
-pub const AREPORTING_MODE_INVALID: _bindgen_ty_42 = -1;
-pub const AREPORTING_MODE_CONTINUOUS: _bindgen_ty_42 = 0;
-pub const AREPORTING_MODE_ON_CHANGE: _bindgen_ty_42 = 1;
-pub const AREPORTING_MODE_ONE_SHOT: _bindgen_ty_42 = 2;
-pub const AREPORTING_MODE_SPECIAL_TRIGGER: _bindgen_ty_42 = 3;
-pub type _bindgen_ty_42 = ::std::os::raw::c_int;
-pub const ASENSOR_DIRECT_RATE_STOP: _bindgen_ty_43 = 0;
-pub const ASENSOR_DIRECT_RATE_NORMAL: _bindgen_ty_43 = 1;
-pub const ASENSOR_DIRECT_RATE_FAST: _bindgen_ty_43 = 2;
-pub const ASENSOR_DIRECT_RATE_VERY_FAST: _bindgen_ty_43 = 3;
-pub type _bindgen_ty_43 = ::std::os::raw::c_uint;
-pub const ASENSOR_DIRECT_CHANNEL_TYPE_SHARED_MEMORY: _bindgen_ty_44 = 1;
-pub const ASENSOR_DIRECT_CHANNEL_TYPE_HARDWARE_BUFFER: _bindgen_ty_44 = 2;
-pub type _bindgen_ty_44 = ::std::os::raw::c_uint;
-pub const ASENSOR_ADDITIONAL_INFO_BEGIN: _bindgen_ty_45 = 0;
-pub const ASENSOR_ADDITIONAL_INFO_END: _bindgen_ty_45 = 1;
-pub const ASENSOR_ADDITIONAL_INFO_UNTRACKED_DELAY: _bindgen_ty_45 = 65536;
-pub const ASENSOR_ADDITIONAL_INFO_INTERNAL_TEMPERATURE: _bindgen_ty_45 = 65537;
-pub const ASENSOR_ADDITIONAL_INFO_VEC3_CALIBRATION: _bindgen_ty_45 = 65538;
-pub const ASENSOR_ADDITIONAL_INFO_SENSOR_PLACEMENT: _bindgen_ty_45 = 65539;
-pub const ASENSOR_ADDITIONAL_INFO_SAMPLING: _bindgen_ty_45 = 65540;
-pub type _bindgen_ty_45 = ::std::os::raw::c_uint;
+pub const ASENSOR_TYPE_INVALID: _bindgen_ty_43 = -1;
+pub const ASENSOR_TYPE_ACCELEROMETER: _bindgen_ty_43 = 1;
+pub const ASENSOR_TYPE_MAGNETIC_FIELD: _bindgen_ty_43 = 2;
+pub const ASENSOR_TYPE_GYROSCOPE: _bindgen_ty_43 = 4;
+pub const ASENSOR_TYPE_LIGHT: _bindgen_ty_43 = 5;
+pub const ASENSOR_TYPE_PRESSURE: _bindgen_ty_43 = 6;
+pub const ASENSOR_TYPE_PROXIMITY: _bindgen_ty_43 = 8;
+pub const ASENSOR_TYPE_GRAVITY: _bindgen_ty_43 = 9;
+pub const ASENSOR_TYPE_LINEAR_ACCELERATION: _bindgen_ty_43 = 10;
+pub const ASENSOR_TYPE_ROTATION_VECTOR: _bindgen_ty_43 = 11;
+pub const ASENSOR_TYPE_RELATIVE_HUMIDITY: _bindgen_ty_43 = 12;
+pub const ASENSOR_TYPE_AMBIENT_TEMPERATURE: _bindgen_ty_43 = 13;
+pub const ASENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED: _bindgen_ty_43 = 14;
+pub const ASENSOR_TYPE_GAME_ROTATION_VECTOR: _bindgen_ty_43 = 15;
+pub const ASENSOR_TYPE_GYROSCOPE_UNCALIBRATED: _bindgen_ty_43 = 16;
+pub const ASENSOR_TYPE_SIGNIFICANT_MOTION: _bindgen_ty_43 = 17;
+pub const ASENSOR_TYPE_STEP_DETECTOR: _bindgen_ty_43 = 18;
+pub const ASENSOR_TYPE_STEP_COUNTER: _bindgen_ty_43 = 19;
+pub const ASENSOR_TYPE_GEOMAGNETIC_ROTATION_VECTOR: _bindgen_ty_43 = 20;
+pub const ASENSOR_TYPE_HEART_RATE: _bindgen_ty_43 = 21;
+pub const ASENSOR_TYPE_POSE_6DOF: _bindgen_ty_43 = 28;
+pub const ASENSOR_TYPE_STATIONARY_DETECT: _bindgen_ty_43 = 29;
+pub const ASENSOR_TYPE_MOTION_DETECT: _bindgen_ty_43 = 30;
+pub const ASENSOR_TYPE_HEART_BEAT: _bindgen_ty_43 = 31;
+pub const ASENSOR_TYPE_DYNAMIC_SENSOR_META: _bindgen_ty_43 = 32;
+pub const ASENSOR_TYPE_ADDITIONAL_INFO: _bindgen_ty_43 = 33;
+pub const ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT: _bindgen_ty_43 = 34;
+pub const ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED: _bindgen_ty_43 = 35;
+pub const ASENSOR_TYPE_HINGE_ANGLE: _bindgen_ty_43 = 36;
+pub const ASENSOR_TYPE_HEAD_TRACKER: _bindgen_ty_43 = 37;
+pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES: _bindgen_ty_43 = 38;
+pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES: _bindgen_ty_43 = 39;
+pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_43 = 40;
+pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_43 = 41;
+pub const ASENSOR_TYPE_HEADING: _bindgen_ty_43 = 42;
+pub type _bindgen_ty_43 = ::std::os::raw::c_int;
+pub const ASENSOR_STATUS_NO_CONTACT: _bindgen_ty_44 = -1;
+pub const ASENSOR_STATUS_UNRELIABLE: _bindgen_ty_44 = 0;
+pub const ASENSOR_STATUS_ACCURACY_LOW: _bindgen_ty_44 = 1;
+pub const ASENSOR_STATUS_ACCURACY_MEDIUM: _bindgen_ty_44 = 2;
+pub const ASENSOR_STATUS_ACCURACY_HIGH: _bindgen_ty_44 = 3;
+pub type _bindgen_ty_44 = ::std::os::raw::c_int;
+pub const AREPORTING_MODE_INVALID: _bindgen_ty_45 = -1;
+pub const AREPORTING_MODE_CONTINUOUS: _bindgen_ty_45 = 0;
+pub const AREPORTING_MODE_ON_CHANGE: _bindgen_ty_45 = 1;
+pub const AREPORTING_MODE_ONE_SHOT: _bindgen_ty_45 = 2;
+pub const AREPORTING_MODE_SPECIAL_TRIGGER: _bindgen_ty_45 = 3;
+pub type _bindgen_ty_45 = ::std::os::raw::c_int;
+pub const ASENSOR_DIRECT_RATE_STOP: _bindgen_ty_46 = 0;
+pub const ASENSOR_DIRECT_RATE_NORMAL: _bindgen_ty_46 = 1;
+pub const ASENSOR_DIRECT_RATE_FAST: _bindgen_ty_46 = 2;
+pub const ASENSOR_DIRECT_RATE_VERY_FAST: _bindgen_ty_46 = 3;
+pub type _bindgen_ty_46 = ::std::os::raw::c_uint;
+pub const ASENSOR_DIRECT_CHANNEL_TYPE_SHARED_MEMORY: _bindgen_ty_47 = 1;
+pub const ASENSOR_DIRECT_CHANNEL_TYPE_HARDWARE_BUFFER: _bindgen_ty_47 = 2;
+pub type _bindgen_ty_47 = ::std::os::raw::c_uint;
+pub const ASENSOR_ADDITIONAL_INFO_BEGIN: _bindgen_ty_48 = 0;
+pub const ASENSOR_ADDITIONAL_INFO_END: _bindgen_ty_48 = 1;
+pub const ASENSOR_ADDITIONAL_INFO_UNTRACKED_DELAY: _bindgen_ty_48 = 65536;
+pub const ASENSOR_ADDITIONAL_INFO_INTERNAL_TEMPERATURE: _bindgen_ty_48 = 65537;
+pub const ASENSOR_ADDITIONAL_INFO_VEC3_CALIBRATION: _bindgen_ty_48 = 65538;
+pub const ASENSOR_ADDITIONAL_INFO_SENSOR_PLACEMENT: _bindgen_ty_48 = 65539;
+pub const ASENSOR_ADDITIONAL_INFO_SAMPLING: _bindgen_ty_48 = 65540;
+pub type _bindgen_ty_48 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ASensorVector {
@@ -11196,15 +11235,15 @@ extern "C" {
 pub struct AStorageManager {
     _unused: [u8; 0],
 }
-pub const AOBB_STATE_MOUNTED: _bindgen_ty_46 = 1;
-pub const AOBB_STATE_UNMOUNTED: _bindgen_ty_46 = 2;
-pub const AOBB_STATE_ERROR_INTERNAL: _bindgen_ty_46 = 20;
-pub const AOBB_STATE_ERROR_COULD_NOT_MOUNT: _bindgen_ty_46 = 21;
-pub const AOBB_STATE_ERROR_COULD_NOT_UNMOUNT: _bindgen_ty_46 = 22;
-pub const AOBB_STATE_ERROR_NOT_MOUNTED: _bindgen_ty_46 = 23;
-pub const AOBB_STATE_ERROR_ALREADY_MOUNTED: _bindgen_ty_46 = 24;
-pub const AOBB_STATE_ERROR_PERMISSION_DENIED: _bindgen_ty_46 = 25;
-pub type _bindgen_ty_46 = ::std::os::raw::c_uint;
+pub const AOBB_STATE_MOUNTED: _bindgen_ty_49 = 1;
+pub const AOBB_STATE_UNMOUNTED: _bindgen_ty_49 = 2;
+pub const AOBB_STATE_ERROR_INTERNAL: _bindgen_ty_49 = 20;
+pub const AOBB_STATE_ERROR_COULD_NOT_MOUNT: _bindgen_ty_49 = 21;
+pub const AOBB_STATE_ERROR_COULD_NOT_UNMOUNT: _bindgen_ty_49 = 22;
+pub const AOBB_STATE_ERROR_NOT_MOUNTED: _bindgen_ty_49 = 23;
+pub const AOBB_STATE_ERROR_ALREADY_MOUNTED: _bindgen_ty_49 = 24;
+pub const AOBB_STATE_ERROR_PERMISSION_DENIED: _bindgen_ty_49 = 25;
+pub type _bindgen_ty_49 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AStorageManager_new() -> *mut AStorageManager;
 }
@@ -11413,30 +11452,30 @@ extern "C" {
 extern "C" {
     pub fn ATrace_setCounter(counterName: *const ::std::os::raw::c_char, counterValue: i64);
 }
-pub const AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON: _bindgen_ty_47 = 1;
-pub const AWINDOW_FLAG_DIM_BEHIND: _bindgen_ty_47 = 2;
-pub const AWINDOW_FLAG_BLUR_BEHIND: _bindgen_ty_47 = 4;
-pub const AWINDOW_FLAG_NOT_FOCUSABLE: _bindgen_ty_47 = 8;
-pub const AWINDOW_FLAG_NOT_TOUCHABLE: _bindgen_ty_47 = 16;
-pub const AWINDOW_FLAG_NOT_TOUCH_MODAL: _bindgen_ty_47 = 32;
-pub const AWINDOW_FLAG_TOUCHABLE_WHEN_WAKING: _bindgen_ty_47 = 64;
-pub const AWINDOW_FLAG_KEEP_SCREEN_ON: _bindgen_ty_47 = 128;
-pub const AWINDOW_FLAG_LAYOUT_IN_SCREEN: _bindgen_ty_47 = 256;
-pub const AWINDOW_FLAG_LAYOUT_NO_LIMITS: _bindgen_ty_47 = 512;
-pub const AWINDOW_FLAG_FULLSCREEN: _bindgen_ty_47 = 1024;
-pub const AWINDOW_FLAG_FORCE_NOT_FULLSCREEN: _bindgen_ty_47 = 2048;
-pub const AWINDOW_FLAG_DITHER: _bindgen_ty_47 = 4096;
-pub const AWINDOW_FLAG_SECURE: _bindgen_ty_47 = 8192;
-pub const AWINDOW_FLAG_SCALED: _bindgen_ty_47 = 16384;
-pub const AWINDOW_FLAG_IGNORE_CHEEK_PRESSES: _bindgen_ty_47 = 32768;
-pub const AWINDOW_FLAG_LAYOUT_INSET_DECOR: _bindgen_ty_47 = 65536;
-pub const AWINDOW_FLAG_ALT_FOCUSABLE_IM: _bindgen_ty_47 = 131072;
-pub const AWINDOW_FLAG_WATCH_OUTSIDE_TOUCH: _bindgen_ty_47 = 262144;
-pub const AWINDOW_FLAG_SHOW_WHEN_LOCKED: _bindgen_ty_47 = 524288;
-pub const AWINDOW_FLAG_SHOW_WALLPAPER: _bindgen_ty_47 = 1048576;
-pub const AWINDOW_FLAG_TURN_SCREEN_ON: _bindgen_ty_47 = 2097152;
-pub const AWINDOW_FLAG_DISMISS_KEYGUARD: _bindgen_ty_47 = 4194304;
-pub type _bindgen_ty_47 = ::std::os::raw::c_uint;
+pub const AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON: _bindgen_ty_50 = 1;
+pub const AWINDOW_FLAG_DIM_BEHIND: _bindgen_ty_50 = 2;
+pub const AWINDOW_FLAG_BLUR_BEHIND: _bindgen_ty_50 = 4;
+pub const AWINDOW_FLAG_NOT_FOCUSABLE: _bindgen_ty_50 = 8;
+pub const AWINDOW_FLAG_NOT_TOUCHABLE: _bindgen_ty_50 = 16;
+pub const AWINDOW_FLAG_NOT_TOUCH_MODAL: _bindgen_ty_50 = 32;
+pub const AWINDOW_FLAG_TOUCHABLE_WHEN_WAKING: _bindgen_ty_50 = 64;
+pub const AWINDOW_FLAG_KEEP_SCREEN_ON: _bindgen_ty_50 = 128;
+pub const AWINDOW_FLAG_LAYOUT_IN_SCREEN: _bindgen_ty_50 = 256;
+pub const AWINDOW_FLAG_LAYOUT_NO_LIMITS: _bindgen_ty_50 = 512;
+pub const AWINDOW_FLAG_FULLSCREEN: _bindgen_ty_50 = 1024;
+pub const AWINDOW_FLAG_FORCE_NOT_FULLSCREEN: _bindgen_ty_50 = 2048;
+pub const AWINDOW_FLAG_DITHER: _bindgen_ty_50 = 4096;
+pub const AWINDOW_FLAG_SECURE: _bindgen_ty_50 = 8192;
+pub const AWINDOW_FLAG_SCALED: _bindgen_ty_50 = 16384;
+pub const AWINDOW_FLAG_IGNORE_CHEEK_PRESSES: _bindgen_ty_50 = 32768;
+pub const AWINDOW_FLAG_LAYOUT_INSET_DECOR: _bindgen_ty_50 = 65536;
+pub const AWINDOW_FLAG_ALT_FOCUSABLE_IM: _bindgen_ty_50 = 131072;
+pub const AWINDOW_FLAG_WATCH_OUTSIDE_TOUCH: _bindgen_ty_50 = 262144;
+pub const AWINDOW_FLAG_SHOW_WHEN_LOCKED: _bindgen_ty_50 = 524288;
+pub const AWINDOW_FLAG_SHOW_WALLPAPER: _bindgen_ty_50 = 1048576;
+pub const AWINDOW_FLAG_TURN_SCREEN_ON: _bindgen_ty_50 = 2097152;
+pub const AWINDOW_FLAG_DISMISS_KEYGUARD: _bindgen_ty_50 = 4194304;
+pub type _bindgen_ty_50 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn gettimeofday(__tv: *mut timeval, __tz: *mut timezone) -> ::std::os::raw::c_int;
 }
@@ -11665,164 +11704,164 @@ extern "C" {
         __base: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
-pub const AAUDIO_DIRECTION_OUTPUT: _bindgen_ty_48 = 0;
-pub const AAUDIO_DIRECTION_INPUT: _bindgen_ty_48 = 1;
-pub type _bindgen_ty_48 = ::std::os::raw::c_uint;
-pub type aaudio_direction_t = i32;
-pub const AAUDIO_FORMAT_INVALID: _bindgen_ty_49 = -1;
-pub const AAUDIO_FORMAT_UNSPECIFIED: _bindgen_ty_49 = 0;
-pub const AAUDIO_FORMAT_PCM_I16: _bindgen_ty_49 = 1;
-pub const AAUDIO_FORMAT_PCM_FLOAT: _bindgen_ty_49 = 2;
-pub const AAUDIO_FORMAT_PCM_I24_PACKED: _bindgen_ty_49 = 3;
-pub const AAUDIO_FORMAT_PCM_I32: _bindgen_ty_49 = 4;
-pub const AAUDIO_FORMAT_IEC61937: _bindgen_ty_49 = 5;
-pub type _bindgen_ty_49 = ::std::os::raw::c_int;
-pub type aaudio_format_t = i32;
-pub const AAUDIO_OK: _bindgen_ty_50 = 0;
-pub const AAUDIO_ERROR_BASE: _bindgen_ty_50 = -900;
-pub const AAUDIO_ERROR_DISCONNECTED: _bindgen_ty_50 = -899;
-pub const AAUDIO_ERROR_ILLEGAL_ARGUMENT: _bindgen_ty_50 = -898;
-pub const AAUDIO_ERROR_INTERNAL: _bindgen_ty_50 = -896;
-pub const AAUDIO_ERROR_INVALID_STATE: _bindgen_ty_50 = -895;
-pub const AAUDIO_ERROR_INVALID_HANDLE: _bindgen_ty_50 = -892;
-pub const AAUDIO_ERROR_UNIMPLEMENTED: _bindgen_ty_50 = -890;
-pub const AAUDIO_ERROR_UNAVAILABLE: _bindgen_ty_50 = -889;
-pub const AAUDIO_ERROR_NO_FREE_HANDLES: _bindgen_ty_50 = -888;
-pub const AAUDIO_ERROR_NO_MEMORY: _bindgen_ty_50 = -887;
-pub const AAUDIO_ERROR_NULL: _bindgen_ty_50 = -886;
-pub const AAUDIO_ERROR_TIMEOUT: _bindgen_ty_50 = -885;
-pub const AAUDIO_ERROR_WOULD_BLOCK: _bindgen_ty_50 = -884;
-pub const AAUDIO_ERROR_INVALID_FORMAT: _bindgen_ty_50 = -883;
-pub const AAUDIO_ERROR_OUT_OF_RANGE: _bindgen_ty_50 = -882;
-pub const AAUDIO_ERROR_NO_SERVICE: _bindgen_ty_50 = -881;
-pub const AAUDIO_ERROR_INVALID_RATE: _bindgen_ty_50 = -880;
-pub type _bindgen_ty_50 = ::std::os::raw::c_int;
-pub type aaudio_result_t = i32;
-pub const AAUDIO_STREAM_STATE_UNINITIALIZED: _bindgen_ty_51 = 0;
-pub const AAUDIO_STREAM_STATE_UNKNOWN: _bindgen_ty_51 = 1;
-pub const AAUDIO_STREAM_STATE_OPEN: _bindgen_ty_51 = 2;
-pub const AAUDIO_STREAM_STATE_STARTING: _bindgen_ty_51 = 3;
-pub const AAUDIO_STREAM_STATE_STARTED: _bindgen_ty_51 = 4;
-pub const AAUDIO_STREAM_STATE_PAUSING: _bindgen_ty_51 = 5;
-pub const AAUDIO_STREAM_STATE_PAUSED: _bindgen_ty_51 = 6;
-pub const AAUDIO_STREAM_STATE_FLUSHING: _bindgen_ty_51 = 7;
-pub const AAUDIO_STREAM_STATE_FLUSHED: _bindgen_ty_51 = 8;
-pub const AAUDIO_STREAM_STATE_STOPPING: _bindgen_ty_51 = 9;
-pub const AAUDIO_STREAM_STATE_STOPPED: _bindgen_ty_51 = 10;
-pub const AAUDIO_STREAM_STATE_CLOSING: _bindgen_ty_51 = 11;
-pub const AAUDIO_STREAM_STATE_CLOSED: _bindgen_ty_51 = 12;
-pub const AAUDIO_STREAM_STATE_DISCONNECTED: _bindgen_ty_51 = 13;
+pub const AAUDIO_DIRECTION_OUTPUT: _bindgen_ty_51 = 0;
+pub const AAUDIO_DIRECTION_INPUT: _bindgen_ty_51 = 1;
 pub type _bindgen_ty_51 = ::std::os::raw::c_uint;
-pub type aaudio_stream_state_t = i32;
-pub const AAUDIO_SHARING_MODE_EXCLUSIVE: _bindgen_ty_52 = 0;
-pub const AAUDIO_SHARING_MODE_SHARED: _bindgen_ty_52 = 1;
-pub type _bindgen_ty_52 = ::std::os::raw::c_uint;
-pub type aaudio_sharing_mode_t = i32;
-pub const AAUDIO_PERFORMANCE_MODE_NONE: _bindgen_ty_53 = 10;
-pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING: _bindgen_ty_53 = 11;
-pub const AAUDIO_PERFORMANCE_MODE_LOW_LATENCY: _bindgen_ty_53 = 12;
-pub type _bindgen_ty_53 = ::std::os::raw::c_uint;
-pub type aaudio_performance_mode_t = i32;
-pub const AAUDIO_USAGE_MEDIA: _bindgen_ty_54 = 1;
-pub const AAUDIO_USAGE_VOICE_COMMUNICATION: _bindgen_ty_54 = 2;
-pub const AAUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING: _bindgen_ty_54 = 3;
-pub const AAUDIO_USAGE_ALARM: _bindgen_ty_54 = 4;
-pub const AAUDIO_USAGE_NOTIFICATION: _bindgen_ty_54 = 5;
-pub const AAUDIO_USAGE_NOTIFICATION_RINGTONE: _bindgen_ty_54 = 6;
-pub const AAUDIO_USAGE_NOTIFICATION_EVENT: _bindgen_ty_54 = 10;
-pub const AAUDIO_USAGE_ASSISTANCE_ACCESSIBILITY: _bindgen_ty_54 = 11;
-pub const AAUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE: _bindgen_ty_54 = 12;
-pub const AAUDIO_USAGE_ASSISTANCE_SONIFICATION: _bindgen_ty_54 = 13;
-pub const AAUDIO_USAGE_GAME: _bindgen_ty_54 = 14;
-pub const AAUDIO_USAGE_ASSISTANT: _bindgen_ty_54 = 16;
-pub const AAUDIO_SYSTEM_USAGE_EMERGENCY: _bindgen_ty_54 = 1000;
-pub const AAUDIO_SYSTEM_USAGE_SAFETY: _bindgen_ty_54 = 1001;
-pub const AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS: _bindgen_ty_54 = 1002;
-pub const AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT: _bindgen_ty_54 = 1003;
+pub type aaudio_direction_t = i32;
+pub const AAUDIO_FORMAT_INVALID: _bindgen_ty_52 = -1;
+pub const AAUDIO_FORMAT_UNSPECIFIED: _bindgen_ty_52 = 0;
+pub const AAUDIO_FORMAT_PCM_I16: _bindgen_ty_52 = 1;
+pub const AAUDIO_FORMAT_PCM_FLOAT: _bindgen_ty_52 = 2;
+pub const AAUDIO_FORMAT_PCM_I24_PACKED: _bindgen_ty_52 = 3;
+pub const AAUDIO_FORMAT_PCM_I32: _bindgen_ty_52 = 4;
+pub const AAUDIO_FORMAT_IEC61937: _bindgen_ty_52 = 5;
+pub type _bindgen_ty_52 = ::std::os::raw::c_int;
+pub type aaudio_format_t = i32;
+pub const AAUDIO_OK: _bindgen_ty_53 = 0;
+pub const AAUDIO_ERROR_BASE: _bindgen_ty_53 = -900;
+pub const AAUDIO_ERROR_DISCONNECTED: _bindgen_ty_53 = -899;
+pub const AAUDIO_ERROR_ILLEGAL_ARGUMENT: _bindgen_ty_53 = -898;
+pub const AAUDIO_ERROR_INTERNAL: _bindgen_ty_53 = -896;
+pub const AAUDIO_ERROR_INVALID_STATE: _bindgen_ty_53 = -895;
+pub const AAUDIO_ERROR_INVALID_HANDLE: _bindgen_ty_53 = -892;
+pub const AAUDIO_ERROR_UNIMPLEMENTED: _bindgen_ty_53 = -890;
+pub const AAUDIO_ERROR_UNAVAILABLE: _bindgen_ty_53 = -889;
+pub const AAUDIO_ERROR_NO_FREE_HANDLES: _bindgen_ty_53 = -888;
+pub const AAUDIO_ERROR_NO_MEMORY: _bindgen_ty_53 = -887;
+pub const AAUDIO_ERROR_NULL: _bindgen_ty_53 = -886;
+pub const AAUDIO_ERROR_TIMEOUT: _bindgen_ty_53 = -885;
+pub const AAUDIO_ERROR_WOULD_BLOCK: _bindgen_ty_53 = -884;
+pub const AAUDIO_ERROR_INVALID_FORMAT: _bindgen_ty_53 = -883;
+pub const AAUDIO_ERROR_OUT_OF_RANGE: _bindgen_ty_53 = -882;
+pub const AAUDIO_ERROR_NO_SERVICE: _bindgen_ty_53 = -881;
+pub const AAUDIO_ERROR_INVALID_RATE: _bindgen_ty_53 = -880;
+pub type _bindgen_ty_53 = ::std::os::raw::c_int;
+pub type aaudio_result_t = i32;
+pub const AAUDIO_STREAM_STATE_UNINITIALIZED: _bindgen_ty_54 = 0;
+pub const AAUDIO_STREAM_STATE_UNKNOWN: _bindgen_ty_54 = 1;
+pub const AAUDIO_STREAM_STATE_OPEN: _bindgen_ty_54 = 2;
+pub const AAUDIO_STREAM_STATE_STARTING: _bindgen_ty_54 = 3;
+pub const AAUDIO_STREAM_STATE_STARTED: _bindgen_ty_54 = 4;
+pub const AAUDIO_STREAM_STATE_PAUSING: _bindgen_ty_54 = 5;
+pub const AAUDIO_STREAM_STATE_PAUSED: _bindgen_ty_54 = 6;
+pub const AAUDIO_STREAM_STATE_FLUSHING: _bindgen_ty_54 = 7;
+pub const AAUDIO_STREAM_STATE_FLUSHED: _bindgen_ty_54 = 8;
+pub const AAUDIO_STREAM_STATE_STOPPING: _bindgen_ty_54 = 9;
+pub const AAUDIO_STREAM_STATE_STOPPED: _bindgen_ty_54 = 10;
+pub const AAUDIO_STREAM_STATE_CLOSING: _bindgen_ty_54 = 11;
+pub const AAUDIO_STREAM_STATE_CLOSED: _bindgen_ty_54 = 12;
+pub const AAUDIO_STREAM_STATE_DISCONNECTED: _bindgen_ty_54 = 13;
 pub type _bindgen_ty_54 = ::std::os::raw::c_uint;
-pub type aaudio_usage_t = i32;
-pub const AAUDIO_CONTENT_TYPE_SPEECH: _bindgen_ty_55 = 1;
-pub const AAUDIO_CONTENT_TYPE_MUSIC: _bindgen_ty_55 = 2;
-pub const AAUDIO_CONTENT_TYPE_MOVIE: _bindgen_ty_55 = 3;
-pub const AAUDIO_CONTENT_TYPE_SONIFICATION: _bindgen_ty_55 = 4;
+pub type aaudio_stream_state_t = i32;
+pub const AAUDIO_SHARING_MODE_EXCLUSIVE: _bindgen_ty_55 = 0;
+pub const AAUDIO_SHARING_MODE_SHARED: _bindgen_ty_55 = 1;
 pub type _bindgen_ty_55 = ::std::os::raw::c_uint;
-pub type aaudio_content_type_t = i32;
-pub const AAUDIO_SPATIALIZATION_BEHAVIOR_AUTO: _bindgen_ty_56 = 1;
-pub const AAUDIO_SPATIALIZATION_BEHAVIOR_NEVER: _bindgen_ty_56 = 2;
+pub type aaudio_sharing_mode_t = i32;
+pub const AAUDIO_PERFORMANCE_MODE_NONE: _bindgen_ty_56 = 10;
+pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING: _bindgen_ty_56 = 11;
+pub const AAUDIO_PERFORMANCE_MODE_LOW_LATENCY: _bindgen_ty_56 = 12;
 pub type _bindgen_ty_56 = ::std::os::raw::c_uint;
-pub type aaudio_spatialization_behavior_t = i32;
-pub const AAUDIO_INPUT_PRESET_GENERIC: _bindgen_ty_57 = 1;
-pub const AAUDIO_INPUT_PRESET_CAMCORDER: _bindgen_ty_57 = 5;
-pub const AAUDIO_INPUT_PRESET_VOICE_RECOGNITION: _bindgen_ty_57 = 6;
-pub const AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION: _bindgen_ty_57 = 7;
-pub const AAUDIO_INPUT_PRESET_UNPROCESSED: _bindgen_ty_57 = 9;
-pub const AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE: _bindgen_ty_57 = 10;
-pub const AAUDIO_INPUT_PRESET_SYSTEM_ECHO_REFERENCE: _bindgen_ty_57 = 1997;
-pub const AAUDIO_INPUT_PRESET_SYSTEM_HOTWORD: _bindgen_ty_57 = 1999;
+pub type aaudio_performance_mode_t = i32;
+pub const AAUDIO_USAGE_MEDIA: _bindgen_ty_57 = 1;
+pub const AAUDIO_USAGE_VOICE_COMMUNICATION: _bindgen_ty_57 = 2;
+pub const AAUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING: _bindgen_ty_57 = 3;
+pub const AAUDIO_USAGE_ALARM: _bindgen_ty_57 = 4;
+pub const AAUDIO_USAGE_NOTIFICATION: _bindgen_ty_57 = 5;
+pub const AAUDIO_USAGE_NOTIFICATION_RINGTONE: _bindgen_ty_57 = 6;
+pub const AAUDIO_USAGE_NOTIFICATION_EVENT: _bindgen_ty_57 = 10;
+pub const AAUDIO_USAGE_ASSISTANCE_ACCESSIBILITY: _bindgen_ty_57 = 11;
+pub const AAUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE: _bindgen_ty_57 = 12;
+pub const AAUDIO_USAGE_ASSISTANCE_SONIFICATION: _bindgen_ty_57 = 13;
+pub const AAUDIO_USAGE_GAME: _bindgen_ty_57 = 14;
+pub const AAUDIO_USAGE_ASSISTANT: _bindgen_ty_57 = 16;
+pub const AAUDIO_SYSTEM_USAGE_EMERGENCY: _bindgen_ty_57 = 1000;
+pub const AAUDIO_SYSTEM_USAGE_SAFETY: _bindgen_ty_57 = 1001;
+pub const AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS: _bindgen_ty_57 = 1002;
+pub const AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT: _bindgen_ty_57 = 1003;
 pub type _bindgen_ty_57 = ::std::os::raw::c_uint;
-pub type aaudio_input_preset_t = i32;
-pub const AAUDIO_ALLOW_CAPTURE_BY_ALL: _bindgen_ty_58 = 1;
-pub const AAUDIO_ALLOW_CAPTURE_BY_SYSTEM: _bindgen_ty_58 = 2;
-pub const AAUDIO_ALLOW_CAPTURE_BY_NONE: _bindgen_ty_58 = 3;
+pub type aaudio_usage_t = i32;
+pub const AAUDIO_CONTENT_TYPE_SPEECH: _bindgen_ty_58 = 1;
+pub const AAUDIO_CONTENT_TYPE_MUSIC: _bindgen_ty_58 = 2;
+pub const AAUDIO_CONTENT_TYPE_MOVIE: _bindgen_ty_58 = 3;
+pub const AAUDIO_CONTENT_TYPE_SONIFICATION: _bindgen_ty_58 = 4;
 pub type _bindgen_ty_58 = ::std::os::raw::c_uint;
+pub type aaudio_content_type_t = i32;
+pub const AAUDIO_SPATIALIZATION_BEHAVIOR_AUTO: _bindgen_ty_59 = 1;
+pub const AAUDIO_SPATIALIZATION_BEHAVIOR_NEVER: _bindgen_ty_59 = 2;
+pub type _bindgen_ty_59 = ::std::os::raw::c_uint;
+pub type aaudio_spatialization_behavior_t = i32;
+pub const AAUDIO_INPUT_PRESET_GENERIC: _bindgen_ty_60 = 1;
+pub const AAUDIO_INPUT_PRESET_CAMCORDER: _bindgen_ty_60 = 5;
+pub const AAUDIO_INPUT_PRESET_VOICE_RECOGNITION: _bindgen_ty_60 = 6;
+pub const AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION: _bindgen_ty_60 = 7;
+pub const AAUDIO_INPUT_PRESET_UNPROCESSED: _bindgen_ty_60 = 9;
+pub const AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE: _bindgen_ty_60 = 10;
+pub const AAUDIO_INPUT_PRESET_SYSTEM_ECHO_REFERENCE: _bindgen_ty_60 = 1997;
+pub const AAUDIO_INPUT_PRESET_SYSTEM_HOTWORD: _bindgen_ty_60 = 1999;
+pub type _bindgen_ty_60 = ::std::os::raw::c_uint;
+pub type aaudio_input_preset_t = i32;
+pub const AAUDIO_ALLOW_CAPTURE_BY_ALL: _bindgen_ty_61 = 1;
+pub const AAUDIO_ALLOW_CAPTURE_BY_SYSTEM: _bindgen_ty_61 = 2;
+pub const AAUDIO_ALLOW_CAPTURE_BY_NONE: _bindgen_ty_61 = 3;
+pub type _bindgen_ty_61 = ::std::os::raw::c_uint;
 pub type aaudio_allowed_capture_policy_t = i32;
-pub const AAUDIO_SESSION_ID_NONE: _bindgen_ty_59 = -1;
-pub const AAUDIO_SESSION_ID_ALLOCATE: _bindgen_ty_59 = 0;
-pub type _bindgen_ty_59 = ::std::os::raw::c_int;
+pub const AAUDIO_SESSION_ID_NONE: _bindgen_ty_62 = -1;
+pub const AAUDIO_SESSION_ID_ALLOCATE: _bindgen_ty_62 = 0;
+pub type _bindgen_ty_62 = ::std::os::raw::c_int;
 pub type aaudio_session_id_t = i32;
-pub const AAUDIO_CHANNEL_INVALID: _bindgen_ty_60 = -1;
-pub const AAUDIO_CHANNEL_FRONT_LEFT: _bindgen_ty_60 = 1;
-pub const AAUDIO_CHANNEL_FRONT_RIGHT: _bindgen_ty_60 = 2;
-pub const AAUDIO_CHANNEL_FRONT_CENTER: _bindgen_ty_60 = 4;
-pub const AAUDIO_CHANNEL_LOW_FREQUENCY: _bindgen_ty_60 = 8;
-pub const AAUDIO_CHANNEL_BACK_LEFT: _bindgen_ty_60 = 16;
-pub const AAUDIO_CHANNEL_BACK_RIGHT: _bindgen_ty_60 = 32;
-pub const AAUDIO_CHANNEL_FRONT_LEFT_OF_CENTER: _bindgen_ty_60 = 64;
-pub const AAUDIO_CHANNEL_FRONT_RIGHT_OF_CENTER: _bindgen_ty_60 = 128;
-pub const AAUDIO_CHANNEL_BACK_CENTER: _bindgen_ty_60 = 256;
-pub const AAUDIO_CHANNEL_SIDE_LEFT: _bindgen_ty_60 = 512;
-pub const AAUDIO_CHANNEL_SIDE_RIGHT: _bindgen_ty_60 = 1024;
-pub const AAUDIO_CHANNEL_TOP_CENTER: _bindgen_ty_60 = 2048;
-pub const AAUDIO_CHANNEL_TOP_FRONT_LEFT: _bindgen_ty_60 = 4096;
-pub const AAUDIO_CHANNEL_TOP_FRONT_CENTER: _bindgen_ty_60 = 8192;
-pub const AAUDIO_CHANNEL_TOP_FRONT_RIGHT: _bindgen_ty_60 = 16384;
-pub const AAUDIO_CHANNEL_TOP_BACK_LEFT: _bindgen_ty_60 = 32768;
-pub const AAUDIO_CHANNEL_TOP_BACK_CENTER: _bindgen_ty_60 = 65536;
-pub const AAUDIO_CHANNEL_TOP_BACK_RIGHT: _bindgen_ty_60 = 131072;
-pub const AAUDIO_CHANNEL_TOP_SIDE_LEFT: _bindgen_ty_60 = 262144;
-pub const AAUDIO_CHANNEL_TOP_SIDE_RIGHT: _bindgen_ty_60 = 524288;
-pub const AAUDIO_CHANNEL_BOTTOM_FRONT_LEFT: _bindgen_ty_60 = 1048576;
-pub const AAUDIO_CHANNEL_BOTTOM_FRONT_CENTER: _bindgen_ty_60 = 2097152;
-pub const AAUDIO_CHANNEL_BOTTOM_FRONT_RIGHT: _bindgen_ty_60 = 4194304;
-pub const AAUDIO_CHANNEL_LOW_FREQUENCY_2: _bindgen_ty_60 = 8388608;
-pub const AAUDIO_CHANNEL_FRONT_WIDE_LEFT: _bindgen_ty_60 = 16777216;
-pub const AAUDIO_CHANNEL_FRONT_WIDE_RIGHT: _bindgen_ty_60 = 33554432;
-pub const AAUDIO_CHANNEL_MONO: _bindgen_ty_60 = 1;
-pub const AAUDIO_CHANNEL_STEREO: _bindgen_ty_60 = 3;
-pub const AAUDIO_CHANNEL_2POINT1: _bindgen_ty_60 = 11;
-pub const AAUDIO_CHANNEL_TRI: _bindgen_ty_60 = 7;
-pub const AAUDIO_CHANNEL_TRI_BACK: _bindgen_ty_60 = 259;
-pub const AAUDIO_CHANNEL_3POINT1: _bindgen_ty_60 = 15;
-pub const AAUDIO_CHANNEL_2POINT0POINT2: _bindgen_ty_60 = 786435;
-pub const AAUDIO_CHANNEL_2POINT1POINT2: _bindgen_ty_60 = 786443;
-pub const AAUDIO_CHANNEL_3POINT0POINT2: _bindgen_ty_60 = 786439;
-pub const AAUDIO_CHANNEL_3POINT1POINT2: _bindgen_ty_60 = 786447;
-pub const AAUDIO_CHANNEL_QUAD: _bindgen_ty_60 = 51;
-pub const AAUDIO_CHANNEL_QUAD_SIDE: _bindgen_ty_60 = 1539;
-pub const AAUDIO_CHANNEL_SURROUND: _bindgen_ty_60 = 263;
-pub const AAUDIO_CHANNEL_PENTA: _bindgen_ty_60 = 55;
-pub const AAUDIO_CHANNEL_5POINT1: _bindgen_ty_60 = 63;
-pub const AAUDIO_CHANNEL_5POINT1_SIDE: _bindgen_ty_60 = 1551;
-pub const AAUDIO_CHANNEL_6POINT1: _bindgen_ty_60 = 319;
-pub const AAUDIO_CHANNEL_7POINT1: _bindgen_ty_60 = 1599;
-pub const AAUDIO_CHANNEL_5POINT1POINT2: _bindgen_ty_60 = 786495;
-pub const AAUDIO_CHANNEL_5POINT1POINT4: _bindgen_ty_60 = 184383;
-pub const AAUDIO_CHANNEL_7POINT1POINT2: _bindgen_ty_60 = 788031;
-pub const AAUDIO_CHANNEL_7POINT1POINT4: _bindgen_ty_60 = 185919;
-pub const AAUDIO_CHANNEL_9POINT1POINT4: _bindgen_ty_60 = 50517567;
-pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_60 = 51303999;
-pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_60 = 260;
-pub type _bindgen_ty_60 = ::std::os::raw::c_int;
+pub const AAUDIO_CHANNEL_INVALID: _bindgen_ty_63 = -1;
+pub const AAUDIO_CHANNEL_FRONT_LEFT: _bindgen_ty_63 = 1;
+pub const AAUDIO_CHANNEL_FRONT_RIGHT: _bindgen_ty_63 = 2;
+pub const AAUDIO_CHANNEL_FRONT_CENTER: _bindgen_ty_63 = 4;
+pub const AAUDIO_CHANNEL_LOW_FREQUENCY: _bindgen_ty_63 = 8;
+pub const AAUDIO_CHANNEL_BACK_LEFT: _bindgen_ty_63 = 16;
+pub const AAUDIO_CHANNEL_BACK_RIGHT: _bindgen_ty_63 = 32;
+pub const AAUDIO_CHANNEL_FRONT_LEFT_OF_CENTER: _bindgen_ty_63 = 64;
+pub const AAUDIO_CHANNEL_FRONT_RIGHT_OF_CENTER: _bindgen_ty_63 = 128;
+pub const AAUDIO_CHANNEL_BACK_CENTER: _bindgen_ty_63 = 256;
+pub const AAUDIO_CHANNEL_SIDE_LEFT: _bindgen_ty_63 = 512;
+pub const AAUDIO_CHANNEL_SIDE_RIGHT: _bindgen_ty_63 = 1024;
+pub const AAUDIO_CHANNEL_TOP_CENTER: _bindgen_ty_63 = 2048;
+pub const AAUDIO_CHANNEL_TOP_FRONT_LEFT: _bindgen_ty_63 = 4096;
+pub const AAUDIO_CHANNEL_TOP_FRONT_CENTER: _bindgen_ty_63 = 8192;
+pub const AAUDIO_CHANNEL_TOP_FRONT_RIGHT: _bindgen_ty_63 = 16384;
+pub const AAUDIO_CHANNEL_TOP_BACK_LEFT: _bindgen_ty_63 = 32768;
+pub const AAUDIO_CHANNEL_TOP_BACK_CENTER: _bindgen_ty_63 = 65536;
+pub const AAUDIO_CHANNEL_TOP_BACK_RIGHT: _bindgen_ty_63 = 131072;
+pub const AAUDIO_CHANNEL_TOP_SIDE_LEFT: _bindgen_ty_63 = 262144;
+pub const AAUDIO_CHANNEL_TOP_SIDE_RIGHT: _bindgen_ty_63 = 524288;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_LEFT: _bindgen_ty_63 = 1048576;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_CENTER: _bindgen_ty_63 = 2097152;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_RIGHT: _bindgen_ty_63 = 4194304;
+pub const AAUDIO_CHANNEL_LOW_FREQUENCY_2: _bindgen_ty_63 = 8388608;
+pub const AAUDIO_CHANNEL_FRONT_WIDE_LEFT: _bindgen_ty_63 = 16777216;
+pub const AAUDIO_CHANNEL_FRONT_WIDE_RIGHT: _bindgen_ty_63 = 33554432;
+pub const AAUDIO_CHANNEL_MONO: _bindgen_ty_63 = 1;
+pub const AAUDIO_CHANNEL_STEREO: _bindgen_ty_63 = 3;
+pub const AAUDIO_CHANNEL_2POINT1: _bindgen_ty_63 = 11;
+pub const AAUDIO_CHANNEL_TRI: _bindgen_ty_63 = 7;
+pub const AAUDIO_CHANNEL_TRI_BACK: _bindgen_ty_63 = 259;
+pub const AAUDIO_CHANNEL_3POINT1: _bindgen_ty_63 = 15;
+pub const AAUDIO_CHANNEL_2POINT0POINT2: _bindgen_ty_63 = 786435;
+pub const AAUDIO_CHANNEL_2POINT1POINT2: _bindgen_ty_63 = 786443;
+pub const AAUDIO_CHANNEL_3POINT0POINT2: _bindgen_ty_63 = 786439;
+pub const AAUDIO_CHANNEL_3POINT1POINT2: _bindgen_ty_63 = 786447;
+pub const AAUDIO_CHANNEL_QUAD: _bindgen_ty_63 = 51;
+pub const AAUDIO_CHANNEL_QUAD_SIDE: _bindgen_ty_63 = 1539;
+pub const AAUDIO_CHANNEL_SURROUND: _bindgen_ty_63 = 263;
+pub const AAUDIO_CHANNEL_PENTA: _bindgen_ty_63 = 55;
+pub const AAUDIO_CHANNEL_5POINT1: _bindgen_ty_63 = 63;
+pub const AAUDIO_CHANNEL_5POINT1_SIDE: _bindgen_ty_63 = 1551;
+pub const AAUDIO_CHANNEL_6POINT1: _bindgen_ty_63 = 319;
+pub const AAUDIO_CHANNEL_7POINT1: _bindgen_ty_63 = 1599;
+pub const AAUDIO_CHANNEL_5POINT1POINT2: _bindgen_ty_63 = 786495;
+pub const AAUDIO_CHANNEL_5POINT1POINT4: _bindgen_ty_63 = 184383;
+pub const AAUDIO_CHANNEL_7POINT1POINT2: _bindgen_ty_63 = 788031;
+pub const AAUDIO_CHANNEL_7POINT1POINT4: _bindgen_ty_63 = 185919;
+pub const AAUDIO_CHANNEL_9POINT1POINT4: _bindgen_ty_63 = 50517567;
+pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_63 = 51303999;
+pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_63 = 260;
+pub type _bindgen_ty_63 = ::std::os::raw::c_int;
 pub type aaudio_channel_mask_t = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11953,9 +11992,9 @@ extern "C" {
         privacySensitive: bool,
     );
 }
-pub const AAUDIO_CALLBACK_RESULT_CONTINUE: _bindgen_ty_61 = 0;
-pub const AAUDIO_CALLBACK_RESULT_STOP: _bindgen_ty_61 = 1;
-pub type _bindgen_ty_61 = ::std::os::raw::c_uint;
+pub const AAUDIO_CALLBACK_RESULT_CONTINUE: _bindgen_ty_64 = 0;
+pub const AAUDIO_CALLBACK_RESULT_STOP: _bindgen_ty_64 = 1;
+pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
 pub type aaudio_data_callback_result_t = i32;
 pub type AAudioStream_dataCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -12256,13 +12295,13 @@ pub struct AMidiInputPort {
 pub struct AMidiOutputPort {
     _unused: [u8; 0],
 }
-pub const AMIDI_OPCODE_DATA: _bindgen_ty_62 = 1;
-pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_62 = 2;
-pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
-pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_63 = 1;
-pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_63 = 2;
-pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_63 = 3;
-pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
+pub const AMIDI_OPCODE_DATA: _bindgen_ty_65 = 1;
+pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_65 = 2;
+pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
+pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_66 = 1;
+pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_66 = 2;
+pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_66 = 3;
+pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
 impl AMidiDevice_Protocol {
     pub const AMIDI_DEVICE_PROTOCOL_UMP_USE_MIDI_CI: AMidiDevice_Protocol = AMidiDevice_Protocol(0);
 }
@@ -15684,14 +15723,14 @@ pub use self::acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_config
 pub struct ACameraMetadata {
     _unused: [u8; 0],
 }
-pub const ACAMERA_TYPE_BYTE: _bindgen_ty_64 = 0;
-pub const ACAMERA_TYPE_INT32: _bindgen_ty_64 = 1;
-pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_64 = 2;
-pub const ACAMERA_TYPE_INT64: _bindgen_ty_64 = 3;
-pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_64 = 4;
-pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_64 = 5;
-pub const ACAMERA_NUM_TYPES: _bindgen_ty_64 = 6;
-pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
+pub const ACAMERA_TYPE_BYTE: _bindgen_ty_67 = 0;
+pub const ACAMERA_TYPE_INT32: _bindgen_ty_67 = 1;
+pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_67 = 2;
+pub const ACAMERA_TYPE_INT64: _bindgen_ty_67 = 3;
+pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_67 = 4;
+pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_67 = 5;
+pub const ACAMERA_NUM_TYPES: _bindgen_ty_67 = 6;
+pub type _bindgen_ty_67 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata_rational {
@@ -16062,9 +16101,9 @@ pub type ACameraCaptureSession_prepareCallback = ::std::option::Option<
         session: *mut ACameraCaptureSession,
     ),
 >;
-pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_65 = 0;
-pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_65 = 1;
-pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
+pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_68 = 0;
+pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_68 = 1;
+pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureFailure {
@@ -16182,8 +16221,8 @@ const _: () = {
         onCaptureBufferLost
     ) - 56usize];
 };
-pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_66 = -1;
-pub type _bindgen_ty_66 = ::std::os::raw::c_int;
+pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_69 = -1;
+pub type _bindgen_ty_69 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ACameraCaptureSession_close(session: *mut ACameraCaptureSession);
 }
@@ -16484,12 +16523,12 @@ const _: () = {
     ["Offset of field: ACameraIdList::cameraIds"]
         [::std::mem::offset_of!(ACameraIdList, cameraIds) - 8usize];
 };
-pub const ERROR_CAMERA_IN_USE: _bindgen_ty_67 = 1;
-pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_67 = 2;
-pub const ERROR_CAMERA_DISABLED: _bindgen_ty_67 = 3;
-pub const ERROR_CAMERA_DEVICE: _bindgen_ty_67 = 4;
-pub const ERROR_CAMERA_SERVICE: _bindgen_ty_67 = 5;
-pub type _bindgen_ty_67 = ::std::os::raw::c_uint;
+pub const ERROR_CAMERA_IN_USE: _bindgen_ty_70 = 1;
+pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_70 = 2;
+pub const ERROR_CAMERA_DISABLED: _bindgen_ty_70 = 3;
+pub const ERROR_CAMERA_DEVICE: _bindgen_ty_70 = 4;
+pub const ERROR_CAMERA_SERVICE: _bindgen_ty_70 = 5;
+pub type _bindgen_ty_70 = ::std::os::raw::c_uint;
 pub type ACameraDevice_StateCallback = ::std::option::Option<
     unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, device: *mut ACameraDevice),
 >;
@@ -17708,18 +17747,18 @@ const _: () = {
 pub struct AMediaCodecCryptoInfo {
     _unused: [u8; 0],
 }
-pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_68 = 1;
-pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_68 = 2;
-pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_68 = 4;
-pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_68 = 8;
-pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_68 = 16;
-pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_68 = 32;
-pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
-pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_69 = 1;
-pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_69 = -3;
-pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_69 = -2;
-pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_69 = -1;
-pub type _bindgen_ty_69 = ::std::os::raw::c_int;
+pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_71 = 1;
+pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_71 = 2;
+pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_71 = 4;
+pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_71 = 8;
+pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_71 = 16;
+pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_71 = 32;
+pub type _bindgen_ty_71 = ::std::os::raw::c_uint;
+pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_72 = 1;
+pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_72 = -3;
+pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_72 = -2;
+pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_72 = -1;
+pub type _bindgen_ty_72 = ::std::os::raw::c_int;
 pub type AMediaCodecOnAsyncInputAvailable = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
@@ -17832,21 +17871,6 @@ extern "C" {
 }
 extern "C" {
     pub fn AMediaCodec_dequeueInputBuffer(arg1: *mut AMediaCodec, timeoutUs: i64) -> isize;
-}
-extern "C" {
-    pub fn __assert(
-        __file: *const ::std::os::raw::c_char,
-        __line: ::std::os::raw::c_int,
-        __msg: *const ::std::os::raw::c_char,
-    ) -> !;
-}
-extern "C" {
-    pub fn __assert2(
-        __file: *const ::std::os::raw::c_char,
-        __line: ::std::os::raw::c_int,
-        __function: *const ::std::os::raw::c_char,
-        __msg: *const ::std::os::raw::c_char,
-    ) -> !;
 }
 extern "C" {
     pub fn AMediaCodec_queueInputBuffer(
@@ -18598,9 +18622,9 @@ extern "C" {
         arg1: *mut AMediaExtractor,
     ) -> *mut AMediaCodecCryptoInfo;
 }
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_70 = 1;
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_70 = 2;
-pub type _bindgen_ty_70 = ::std::os::raw::c_uint;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_73 = 1;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_73 = 2;
+pub type _bindgen_ty_73 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }

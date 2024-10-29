@@ -19,17 +19,27 @@ target="ndk"
 artifact_name="ndk_platform.tar.bz2"
 url="https://androidbuildinternal.googleapis.com/android/internal/build/v3/builds/$build_id/$target/attempts/latest/artifacts/$artifact_name/url"
 echo "Downloading sysroot $build_id from $url"
-curl -L $url -o "$artifact_name"
-tar xvf "$artifact_name" "ndk/sysroot/usr/include"
+# curl -L $url -o "$artifact_name"
+# tar xvf "$artifact_name" "ndk/sysroot/usr/include"
 sysroot="$PWD/ndk/sysroot/"
 [ ! -d "$sysroot" ] && echo "Android sysroot $sysroot does not exist!" && exit 1
 
+        # --blocklist-item 'AParcel\w*' \
+        # --blocklist-item 'AStatus\w*' \
+        # --blocklist-item 'AIBinder\w*' \
+        # --blocklist-item 'STATUS_\w+' \
+        # --blocklist-item 'EX_\w+' \
 while read ARCH && read TARGET ; do
     bindgen wrapper.h -o src/ffi_$ARCH.rs \
         --blocklist-item 'JNI\w+' \
         --blocklist-item 'C?_?JNIEnv' \
         --blocklist-item '_?JavaVM' \
         --blocklist-item '_?j\w+' \
+        --blocklist-file '.*/binder\w*.h' \
+        --blocklist-file '.*/bionic_multibyte_result.h' \
+        --blocklist-file '.*/bits/mbstate_t.h' \
+        --blocklist-file '.*/errno(-base)?.h' \
+        --blocklist-file '.*/uchar.h' \
         --newtype-enum '\w+_(result|status)_t' \
         --newtype-enum 'ACameraDevice_request_template' \
         --newtype-enum 'ADataSpace' \
