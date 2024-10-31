@@ -824,40 +824,15 @@ pub const XATTR_NAME_MAX: u32 = 255;
 pub const XATTR_SIZE_MAX: u32 = 65536;
 pub const XATTR_LIST_MAX: u32 = 65536;
 pub const RTSIG_MAX: u32 = 32;
-pub const PASS_MAX: u32 = 128;
 pub const NL_ARGMAX: u32 = 9;
 pub const NL_LANGMAX: u32 = 14;
 pub const NL_MSGMAX: u32 = 32767;
 pub const NL_NMAX: u32 = 1;
 pub const NL_SETMAX: u32 = 255;
 pub const NL_TEXTMAX: u32 = 255;
-pub const CHAR_BIT: u32 = 8;
+pub const PASS_MAX: u32 = 128;
 pub const LONG_BIT: u32 = 64;
 pub const WORD_BIT: u32 = 32;
-pub const SCHAR_MAX: u32 = 127;
-pub const SCHAR_MIN: i32 = -128;
-pub const UCHAR_MAX: u32 = 255;
-pub const CHAR_MAX: u32 = 127;
-pub const CHAR_MIN: i32 = -128;
-pub const USHRT_MAX: u32 = 65535;
-pub const SHRT_MAX: u32 = 32767;
-pub const SHRT_MIN: i32 = -32768;
-pub const UINT_MAX: u32 = 4294967295;
-pub const INT_MAX: u32 = 2147483647;
-pub const INT_MIN: i32 = -2147483648;
-pub const ULONG_MAX: i32 = -1;
-pub const LONG_MAX: u64 = 9223372036854775807;
-pub const LONG_MIN: i64 = -9223372036854775808;
-pub const ULLONG_MAX: i32 = -1;
-pub const LLONG_MAX: u64 = 9223372036854775807;
-pub const LLONG_MIN: i64 = -9223372036854775808;
-pub const LONG_LONG_MIN: i64 = -9223372036854775808;
-pub const LONG_LONG_MAX: u64 = 9223372036854775807;
-pub const ULONG_LONG_MAX: i32 = -1;
-pub const UID_MAX: u32 = 4294967295;
-pub const GID_MAX: u32 = 4294967295;
-pub const SIZE_T_MAX: i32 = -1;
-pub const SSIZE_MAX: u64 = 9223372036854775807;
 pub const MB_LEN_MAX: u32 = 4;
 pub const NZERO: u32 = 20;
 pub const IOV_MAX: u32 = 1024;
@@ -1317,8 +1292,6 @@ pub const FP_NAN: u32 = 2;
 pub const FP_NORMAL: u32 = 4;
 pub const FP_SUBNORMAL: u32 = 8;
 pub const FP_ZERO: u32 = 16;
-pub const FP_ILOGB0: i32 = -2147483647;
-pub const FP_ILOGBNAN: u32 = 2147483647;
 pub const MATH_ERRNO: u32 = 1;
 pub const MATH_ERREXCEPT: u32 = 2;
 pub const math_errhandling: u32 = 2;
@@ -1374,9 +1347,6 @@ pub const PROPERTY_VERSION: &[u8; 8] = b"version\0";
 pub const PROPERTY_DESCRIPTION: &[u8; 12] = b"description\0";
 pub const PROPERTY_ALGORITHMS: &[u8; 11] = b"algorithms\0";
 pub const PROPERTY_DEVICE_UNIQUE_ID: &[u8; 15] = b"deviceUniqueId\0";
-extern "C" {
-    pub fn android_get_application_target_sdk_version() -> ::std::os::raw::c_int;
-}
 extern "C" {
     pub fn android_get_device_api_level() -> ::std::os::raw::c_int;
 }
@@ -2700,31 +2670,6 @@ impl android_fdsan_owner_type {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct android_fdsan_owner_type(pub ::std::os::raw::c_uint);
-extern "C" {
-    pub fn android_fdsan_create_owner_tag(type_: android_fdsan_owner_type, tag: u64) -> u64;
-}
-extern "C" {
-    pub fn android_fdsan_exchange_owner_tag(
-        fd: ::std::os::raw::c_int,
-        expected_tag: u64,
-        new_tag: u64,
-    );
-}
-extern "C" {
-    pub fn android_fdsan_close_with_tag(
-        fd: ::std::os::raw::c_int,
-        tag: u64,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_fdsan_get_owner_tag(fd: ::std::os::raw::c_int) -> u64;
-}
-extern "C" {
-    pub fn android_fdsan_get_tag_type(tag: u64) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn android_fdsan_get_tag_value(tag: u64) -> u64;
-}
 impl android_fdsan_error_level {
     pub const ANDROID_FDSAN_ERROR_LEVEL_DISABLED: android_fdsan_error_level =
         android_fdsan_error_level(0);
@@ -2744,19 +2689,6 @@ impl android_fdsan_error_level {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct android_fdsan_error_level(pub ::std::os::raw::c_uint);
-extern "C" {
-    pub fn android_fdsan_get_error_level() -> android_fdsan_error_level;
-}
-extern "C" {
-    pub fn android_fdsan_set_error_level(
-        new_level: android_fdsan_error_level,
-    ) -> android_fdsan_error_level;
-}
-extern "C" {
-    pub fn android_fdsan_set_error_level_from_property(
-        default_level: android_fdsan_error_level,
-    ) -> android_fdsan_error_level;
-}
 extern "C" {
     pub fn AFileDescriptor_create(env: *mut JNIEnv) -> jobject;
 }
@@ -2924,6 +2856,10 @@ impl AHardwareBuffer_Format {
 impl AHardwareBuffer_Format {
     pub const AHARDWAREBUFFER_FORMAT_YCbCr_P010: AHardwareBuffer_Format =
         AHardwareBuffer_Format(54);
+}
+impl AHardwareBuffer_Format {
+    pub const AHARDWAREBUFFER_FORMAT_YCbCr_P210: AHardwareBuffer_Format =
+        AHardwareBuffer_Format(60);
 }
 impl AHardwareBuffer_Format {
     pub const AHARDWAREBUFFER_FORMAT_R8_UNORM: AHardwareBuffer_Format = AHardwareBuffer_Format(56);
@@ -5084,18 +5020,6 @@ extern "C" {
     ) -> *mut hostent;
 }
 extern "C" {
-    pub fn gethostbyaddr_r(
-        __addr: *const ::std::os::raw::c_void,
-        __length: socklen_t,
-        __type: ::std::os::raw::c_int,
-        __ret: *mut hostent,
-        __buf: *mut ::std::os::raw::c_char,
-        __buf_size: usize,
-        __result: *mut *mut hostent,
-        __h_errno_ptr: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn gethostbyname(__name: *const ::std::os::raw::c_char) -> *mut hostent;
 }
 extern "C" {
@@ -5115,27 +5039,7 @@ extern "C" {
     ) -> *mut hostent;
 }
 extern "C" {
-    pub fn gethostbyname2_r(
-        __name: *const ::std::os::raw::c_char,
-        __af: ::std::os::raw::c_int,
-        __ret: *mut hostent,
-        __buf: *mut ::std::os::raw::c_char,
-        __buf_size: usize,
-        __result: *mut *mut hostent,
-        __h_errno_ptr: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn endhostent();
-}
-extern "C" {
     pub fn gethostent() -> *mut hostent;
-}
-extern "C" {
-    pub fn sethostent(__stay_open: ::std::os::raw::c_int);
-}
-extern "C" {
-    pub fn endnetent();
 }
 extern "C" {
     pub fn getnetbyaddr(__net: u32, __type: ::std::os::raw::c_int) -> *mut netent;
@@ -5144,25 +5048,10 @@ extern "C" {
     pub fn getnetbyname(__name: *const ::std::os::raw::c_char) -> *mut netent;
 }
 extern "C" {
-    pub fn getnetent() -> *mut netent;
-}
-extern "C" {
-    pub fn setnetent(__stay_open: ::std::os::raw::c_int);
-}
-extern "C" {
-    pub fn endprotoent();
-}
-extern "C" {
     pub fn getprotobyname(__name: *const ::std::os::raw::c_char) -> *mut protoent;
 }
 extern "C" {
     pub fn getprotobynumber(__proto: ::std::os::raw::c_int) -> *mut protoent;
-}
-extern "C" {
-    pub fn getprotoent() -> *mut protoent;
-}
-extern "C" {
-    pub fn setprotoent(__stay_open: ::std::os::raw::c_int);
 }
 extern "C" {
     pub fn endservent();
@@ -5420,29 +5309,7 @@ extern "C" {
     pub fn ftello(__fp: *mut FILE) -> off_t;
 }
 extern "C" {
-    pub fn fgetpos64(__fp: *mut FILE, __pos: *mut fpos64_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fsetpos64(__fp: *mut FILE, __pos: *const fpos64_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fseeko64(
-        __fp: *mut FILE,
-        __offset: off64_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ftello64(__fp: *mut FILE) -> off64_t;
-}
-extern "C" {
     pub fn fopen(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn fopen64(
         __path: *const ::std::os::raw::c_char,
         __mode: *const ::std::os::raw::c_char,
     ) -> *mut FILE;
@@ -5455,17 +5322,7 @@ extern "C" {
     ) -> *mut FILE;
 }
 extern "C" {
-    pub fn freopen64(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
-        __fp: *mut FILE,
-    ) -> *mut FILE;
-}
-extern "C" {
     pub fn tmpfile() -> *mut FILE;
-}
-extern "C" {
-    pub fn tmpfile64() -> *mut FILE;
 }
 extern "C" {
     pub fn snprintf(
@@ -5504,9 +5361,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn ctermid(__buf: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
     pub fn fdopen(__fd: ::std::os::raw::c_int, __mode: *const ::std::os::raw::c_char) -> *mut FILE;
 }
 extern "C" {
@@ -5543,19 +5397,6 @@ extern "C" {
     pub fn putchar_unlocked(__ch: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fmemopen(
-        __buf: *mut ::std::os::raw::c_void,
-        __size: usize,
-        __mode: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn open_memstream(
-        __ptr: *mut *mut ::std::os::raw::c_char,
-        __size_ptr: *mut usize,
-    ) -> *mut FILE;
-}
-extern "C" {
     pub fn asprintf(
         __s_ptr: *mut *mut ::std::os::raw::c_char,
         __fmt: *const ::std::os::raw::c_char,
@@ -5584,18 +5425,6 @@ extern "C" {
         __fmt: *const ::std::os::raw::c_char,
         __args: *mut __va_list_tag,
     ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn clearerr_unlocked(__fp: *mut FILE);
-}
-extern "C" {
-    pub fn feof_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ferror_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fileno_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn malloc(__byte_count: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
@@ -5692,12 +5521,6 @@ const _: () = {
     ["Offset of field: mallinfo2::fordblks"][::std::mem::offset_of!(mallinfo2, fordblks) - 64usize];
     ["Offset of field: mallinfo2::keepcost"][::std::mem::offset_of!(mallinfo2, keepcost) - 72usize];
 };
-extern "C" {
-    pub fn malloc_info(
-        __must_be_zero: ::std::os::raw::c_int,
-        __fp: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
 impl HeapTaggingLevel {
     pub const M_HEAP_TAGGING_LEVEL_NONE: HeapTaggingLevel = HeapTaggingLevel(0);
 }
@@ -5713,46 +5536,6 @@ impl HeapTaggingLevel {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct HeapTaggingLevel(pub ::std::os::raw::c_uint);
-extern "C" {
-    pub fn mallopt(
-        __option: ::std::os::raw::c_int,
-        __value: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut __malloc_hook: ::std::option::Option<
-        unsafe extern "C" fn(
-            __byte_count: usize,
-            __caller: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
-    >;
-}
-extern "C" {
-    pub static mut __realloc_hook: ::std::option::Option<
-        unsafe extern "C" fn(
-            __ptr: *mut ::std::os::raw::c_void,
-            __byte_count: usize,
-            __caller: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
-    >;
-}
-extern "C" {
-    pub static mut __free_hook: ::std::option::Option<
-        unsafe extern "C" fn(
-            __ptr: *mut ::std::os::raw::c_void,
-            __caller: *const ::std::os::raw::c_void,
-        ),
-    >;
-}
-extern "C" {
-    pub static mut __memalign_hook: ::std::option::Option<
-        unsafe extern "C" fn(
-            __alignment: usize,
-            __byte_count: usize,
-            __caller: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
-    >;
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __locale_t {
@@ -5805,42 +5588,10 @@ extern "C" {
     pub fn mktemp(__template: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn mkostemp64(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn mkostemp(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn mkostemps64(
-        __template: *mut ::std::os::raw::c_char,
-        __suffix_length: ::std::os::raw::c_int,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn mkostemps(
-        __template: *mut ::std::os::raw::c_char,
-        __suffix_length: ::std::os::raw::c_int,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn mkstemp64(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn mkstemp(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn mkstemps64(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn mkstemps(
@@ -5854,12 +5605,6 @@ extern "C" {
         __alignment: usize,
         __size: usize,
     ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn aligned_alloc(
-        __alignment: ::std::os::raw::c_ulong,
-        __size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn realpath(
@@ -5898,21 +5643,6 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn qsort_r(
-        __array: *mut ::std::os::raw::c_void,
-        __n: usize,
-        __size: usize,
-        __comparator: ::std::option::Option<
-            unsafe extern "C" fn(
-                __lhs: *const ::std::os::raw::c_void,
-                __rhs: *const ::std::os::raw::c_void,
-                __context: *mut ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-        __context: *mut ::std::os::raw::c_void,
-    );
-}
-extern "C" {
     pub fn arc4random() -> u32;
 }
 extern "C" {
@@ -5929,9 +5659,6 @@ extern "C" {
 }
 extern "C" {
     pub fn erand48(__xsubi: *mut ::std::os::raw::c_ushort) -> f64;
-}
-extern "C" {
-    pub fn lcong48(__param: *mut ::std::os::raw::c_ushort);
 }
 extern "C" {
     pub fn lrand48() -> ::std::os::raw::c_long;
@@ -5976,13 +5703,6 @@ extern "C" {
 }
 extern "C" {
     pub fn unlockpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getsubopt(
-        __option: *mut *mut ::std::os::raw::c_char,
-        __tokens: *const *mut ::std::os::raw::c_char,
-        __value_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -6039,16 +5759,10 @@ extern "C" {
     ) -> lldiv_t;
 }
 extern "C" {
-    pub fn getloadavg(__averages: *mut f64, __n: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn getprogname() -> *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn setprogname(__name: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn mblen(__s: *const ::std::os::raw::c_char, __n: usize) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn mbstowcs(__dst: *mut wchar_t, __src: *const ::std::os::raw::c_char, __n: usize)
@@ -9116,13 +8830,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sigaction64(
-        __signal: ::std::os::raw::c_int,
-        __new_action: *const sigaction64,
-        __old_action: *mut sigaction64,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn siginterrupt(
         __signal: ::std::os::raw::c_int,
         __flag: ::std::os::raw::c_int,
@@ -9138,20 +8845,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sigaddset64(
-        __set: *mut sigset64_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn sigdelset(
         __set: *mut sigset_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigdelset64(
-        __set: *mut sigset64_t,
         __signal: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
@@ -9159,13 +8854,7 @@ extern "C" {
     pub fn sigemptyset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sigemptyset64(__set: *mut sigset64_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn sigfillset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigfillset64(__set: *mut sigset64_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn sigismember(
@@ -9174,16 +8863,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sigismember64(
-        __set: *const sigset64_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn sigpending(__set: *mut sigset_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigpending64(__set: *mut sigset64_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn sigprocmask(
@@ -9193,44 +8873,13 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sigprocmask64(
-        __how: ::std::os::raw::c_int,
-        __new_set: *const sigset64_t,
-        __old_set: *mut sigset64_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn sigsuspend(__mask: *const sigset_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigsuspend64(__mask: *const sigset64_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn sigwait(
         __set: *const sigset_t,
         __signal: *mut ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigwait64(
-        __set: *const sigset64_t,
-        __signal: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sighold(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigignore(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigpause(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigrelse(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigset(__signal: ::std::os::raw::c_int, __handler: sighandler_t) -> sighandler_t;
 }
 extern "C" {
     pub fn raise(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
@@ -9274,53 +8923,6 @@ extern "C" {
         __how: ::std::os::raw::c_int,
         __new_set: *const sigset_t,
         __old_set: *mut sigset_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn pthread_sigmask64(
-        __how: ::std::os::raw::c_int,
-        __new_set: *const sigset64_t,
-        __old_set: *mut sigset64_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigqueue(
-        __pid: pid_t,
-        __signal: ::std::os::raw::c_int,
-        __value: sigval,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigtimedwait(
-        __set: *const sigset_t,
-        __info: *mut siginfo_t,
-        __timeout: *const timespec,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigtimedwait64(
-        __set: *const sigset64_t,
-        __info: *mut siginfo_t,
-        __timeout: *const timespec,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigwaitinfo(__set: *const sigset_t, __info: *mut siginfo_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigwaitinfo64(__set: *const sigset64_t, __info: *mut siginfo_t)
-        -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sig2str(
-        __signal: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn str2sig(
-        __name: *const ::std::os::raw::c_char,
-        __signal: *mut ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 pub type fd_mask = ::std::os::raw::c_ulong;
@@ -9368,26 +8970,10 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn pselect64(
-        __max_fd_plus_one: ::std::os::raw::c_int,
-        __read_fds: *mut fd_set,
-        __write_fds: *mut fd_set,
-        __exception_fds: *mut fd_set,
-        __timeout: *const timespec,
-        __mask: *const sigset64_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn fcntl(
         __fd: ::std::os::raw::c_int,
         __op: ::std::os::raw::c_int,
         ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getentropy(
-        __buffer: *mut ::std::os::raw::c_void,
-        __buffer_size: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -9417,20 +9003,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn lockf(
-        __fd: ::std::os::raw::c_int,
-        __op: ::std::os::raw::c_int,
-        __length: off_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn lockf64(
-        __fd: ::std::os::raw::c_int,
-        __op: ::std::os::raw::c_int,
-        __length: off64_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn sysconf(__name: ::std::os::raw::c_int) -> ::std::os::raw::c_long;
 }
 extern "C" {
@@ -9441,9 +9013,6 @@ extern "C" {
 }
 extern "C" {
     pub fn fork() -> pid_t;
-}
-extern "C" {
-    pub fn _Fork() -> pid_t;
 }
 extern "C" {
     pub fn vfork() -> ::std::os::raw::c_int;
@@ -9523,13 +9092,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn fexecve(
-        __fd: ::std::os::raw::c_int,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn nice(__incr: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -9590,12 +9152,6 @@ extern "C" {
 }
 extern "C" {
     pub fn getlogin() -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getlogin_r(
-        __buffer: *mut ::std::os::raw::c_char,
-        __buffer_size: usize,
-    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn fpathconf(
@@ -9850,9 +9406,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sethostname(__name: *const ::std::os::raw::c_char, __n: usize) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn brk(__addr: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -9893,40 +9446,11 @@ extern "C" {
     pub fn tcsetpgrp(__fd: ::std::os::raw::c_int, __pid: pid_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn getdomainname(
-        __buf: *mut ::std::os::raw::c_char,
-        __buf_size: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setdomainname(
-        __name: *const ::std::os::raw::c_char,
-        __n: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn copy_file_range(
-        __fd_in: ::std::os::raw::c_int,
-        __off_in: *mut off64_t,
-        __fd_out: ::std::os::raw::c_int,
-        __off_out: *mut off64_t,
-        __length: usize,
-        __flags: ::std::os::raw::c_uint,
-    ) -> isize;
-}
-extern "C" {
     pub fn swab(
         __src: *const ::std::os::raw::c_void,
         __dst: *mut ::std::os::raw::c_void,
         __byte_count: isize,
     );
-}
-extern "C" {
-    pub fn close_range(
-        __min_fd: ::std::os::raw::c_uint,
-        __max_fd: ::std::os::raw::c_uint,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11482,25 +11006,10 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn strcasecmp_l(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __l: locale_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn strncasecmp(
         __s1: *const ::std::os::raw::c_char,
         __s2: *const ::std::os::raw::c_char,
         __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strncasecmp_l(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: usize,
-        __l: locale_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -11551,13 +11060,6 @@ extern "C" {
         __dst: *mut ::std::os::raw::c_void,
         __ch: ::std::os::raw::c_int,
         __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn memset_explicit(
-        __dst: *mut ::std::os::raw::c_void,
-        __ch: ::std::os::raw::c_int,
-        __n: usize,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
@@ -12139,16 +11641,10 @@ extern "C" {
     pub fn mktime(__tm: *mut tm) -> time_t;
 }
 extern "C" {
-    pub fn mktime_z(__tz: timezone_t, __tm: *mut tm) -> time_t;
-}
-extern "C" {
     pub fn localtime(__t: *const time_t) -> *mut tm;
 }
 extern "C" {
     pub fn localtime_r(__t: *const time_t, __tm: *mut tm) -> *mut tm;
-}
-extern "C" {
-    pub fn localtime_rz(__tz: timezone_t, __t: *const time_t, __tm: *mut tm) -> *mut tm;
 }
 extern "C" {
     pub fn timelocal(__tm: *mut tm) -> time_t;
@@ -12199,16 +11695,7 @@ extern "C" {
     pub fn tzset();
 }
 extern "C" {
-    pub fn tzalloc(__id: *const ::std::os::raw::c_char) -> timezone_t;
-}
-extern "C" {
-    pub fn tzfree(__tz: timezone_t);
-}
-extern "C" {
     pub fn clock() -> clock_t;
-}
-extern "C" {
-    pub fn clock_getcpuclockid(__pid: pid_t, __clock: *mut clockid_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn clock_getres(__clock: clockid_t, __resolution: *mut timespec) -> ::std::os::raw::c_int;
@@ -12250,18 +11737,6 @@ extern "C" {
 }
 extern "C" {
     pub fn timer_getoverrun(__timer: timer_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn timespec_get(
-        __ts: *mut timespec,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn timespec_getres(
-        __ts: *mut timespec,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
 }
 pub const AAUDIO_DIRECTION_OUTPUT: _bindgen_ty_49 = 0;
 pub const AAUDIO_DIRECTION_INPUT: _bindgen_ty_49 = 1;

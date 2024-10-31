@@ -142,4 +142,4 @@ jobs:
       - name: Document all crates
         env:
           RUSTDOCFLAGS: -Dwarnings
-        run: cargo doc --all --all-features
+        run: cargo doc --workspace --all-features
