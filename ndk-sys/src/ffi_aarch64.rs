@@ -2312,6 +2312,11 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct crash_detail_t {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct imaxdiv_t {
     pub quot: intmax_t,
     pub rem: intmax_t,
@@ -4352,6 +4357,26 @@ extern "C" {
 }
 extern "C" {
     pub fn AInputQueue_fromJava(env: *mut JNIEnv, inputQueue: jobject) -> *mut AInputQueue;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AInputTransferToken {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn AInputTransferToken_fromJava(
+        env: *mut JNIEnv,
+        inputTransferTokenObj: jobject,
+    ) -> *mut AInputTransferToken;
+}
+extern "C" {
+    pub fn AInputTransferToken_toJava(
+        env: *mut JNIEnv,
+        aInputTransferToken: *const AInputTransferToken,
+    ) -> jobject;
+}
+extern "C" {
+    pub fn AInputTransferToken_release(aInputTransferToken: *mut AInputTransferToken);
 }
 impl android_LogPriority {
     pub const ANDROID_LOG_UNKNOWN: android_LogPriority = android_LogPriority(0);
@@ -10765,11 +10790,6 @@ extern "C" {
         __n: usize,
         __l: locale_t,
     ) -> usize;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct crash_detail_t {
-    _unused: [u8; 0],
 }
 extern "C" {
     pub fn android_set_abort_message(__msg: *const ::std::os::raw::c_char);

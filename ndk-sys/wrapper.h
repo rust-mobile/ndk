@@ -16,6 +16,7 @@
 #include <android/bitmap.h>
 #include <android/choreographer.h>
 #include <android/configuration.h>
+#include <android/crash_detail.h>
 #include <android/data_space.h>
 #include <android/dlext.h>
 #include <android/fdsan.h>
@@ -28,20 +29,20 @@
 #include <android/hdr_metadata.h>
 #include <android/imagedecoder.h>
 #include <android/input.h>
+#include <android/input_transfer_token_jni.h>
 #include <android/keycodes.h>
 // #include <android/legacy_stdlib_inlines.h>
 // #include <android/legacy_termios_inlines.h>
 // #include <android/legacy_threads_inlines.h>
 // #include <android/legacy_unistd_inlines.h>
 #include <android/log.h>
+#include <android/log_macros.h>
 #include <android/looper.h>
 #include <android/multinetwork.h>
 #include <android/native_activity.h>
 // #include <android/native_window_aidl.h>
 #include <android/native_window.h>
 #include <android/native_window_jni.h>
-// Not available in nightly NDK CI builds
-// #include <android/ndk-version.h>
 #include <android/NeuralNetworks.h>
 #include <android/NeuralNetworksTypes.h>
 #include <android/obb.h>
@@ -56,6 +57,7 @@
 #include <android/sharedmem_jni.h>
 #include <android/storage_manager.h>
 // #include <android/surface_control.h>
+// #include <android/surface_control_input_receiver.h>
 // #include <android/surface_control_jni.h>
 #include <android/surface_texture.h>
 #include <android/surface_texture_jni.h>
