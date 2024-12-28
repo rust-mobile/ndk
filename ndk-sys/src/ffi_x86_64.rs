@@ -452,6 +452,11 @@ pub const SO_TXREHASH: u32 = 74;
 pub const SO_RCVMARK: u32 = 75;
 pub const SO_PASSPIDFD: u32 = 76;
 pub const SO_PEERPIDFD: u32 = 77;
+pub const SO_DEVMEM_LINEAR: u32 = 78;
+pub const SCM_DEVMEM_LINEAR: u32 = 78;
+pub const SO_DEVMEM_DMABUF: u32 = 79;
+pub const SCM_DEVMEM_DMABUF: u32 = 79;
+pub const SO_DEVMEM_DONTNEED: u32 = 80;
 pub const SO_TIMESTAMP: u32 = 29;
 pub const SO_TIMESTAMPNS: u32 = 35;
 pub const SO_TIMESTAMPING: u32 = 37;
@@ -4606,6 +4611,44 @@ const _: () = {
     ["Alignment of iovec"][::std::mem::align_of::<iovec>() - 8usize];
     ["Offset of field: iovec::iov_base"][::std::mem::offset_of!(iovec, iov_base) - 0usize];
     ["Offset of field: iovec::iov_len"][::std::mem::offset_of!(iovec, iov_len) - 8usize];
+};
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct dmabuf_cmsg {
+    pub frag_offset: __u64,
+    pub frag_size: __u32,
+    pub frag_token: __u32,
+    pub dmabuf_id: __u32,
+    pub flags: __u32,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of dmabuf_cmsg"][::std::mem::size_of::<dmabuf_cmsg>() - 24usize];
+    ["Alignment of dmabuf_cmsg"][::std::mem::align_of::<dmabuf_cmsg>() - 8usize];
+    ["Offset of field: dmabuf_cmsg::frag_offset"]
+        [::std::mem::offset_of!(dmabuf_cmsg, frag_offset) - 0usize];
+    ["Offset of field: dmabuf_cmsg::frag_size"]
+        [::std::mem::offset_of!(dmabuf_cmsg, frag_size) - 8usize];
+    ["Offset of field: dmabuf_cmsg::frag_token"]
+        [::std::mem::offset_of!(dmabuf_cmsg, frag_token) - 12usize];
+    ["Offset of field: dmabuf_cmsg::dmabuf_id"]
+        [::std::mem::offset_of!(dmabuf_cmsg, dmabuf_id) - 16usize];
+    ["Offset of field: dmabuf_cmsg::flags"][::std::mem::offset_of!(dmabuf_cmsg, flags) - 20usize];
+};
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct dmabuf_token {
+    pub token_start: __u32,
+    pub token_count: __u32,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of dmabuf_token"][::std::mem::size_of::<dmabuf_token>() - 8usize];
+    ["Alignment of dmabuf_token"][::std::mem::align_of::<dmabuf_token>() - 4usize];
+    ["Offset of field: dmabuf_token::token_start"]
+        [::std::mem::offset_of!(dmabuf_token, token_start) - 0usize];
+    ["Offset of field: dmabuf_token::token_count"]
+        [::std::mem::offset_of!(dmabuf_token, token_count) - 4usize];
 };
 pub type sa_family_t = ::std::os::raw::c_ushort;
 #[repr(C)]
@@ -12616,10 +12659,7 @@ impl acamera_metadata_section {
     pub const ACAMERA_JPEGR: acamera_metadata_section = acamera_metadata_section(33);
 }
 impl acamera_metadata_section {
-    pub const ACAMERA_EFV: acamera_metadata_section = acamera_metadata_section(34);
-}
-impl acamera_metadata_section {
-    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(35);
+    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(34);
 }
 impl acamera_metadata_section {
     pub const ACAMERA_VENDOR: acamera_metadata_section = acamera_metadata_section(32768);
@@ -12763,10 +12803,6 @@ impl acamera_metadata_section_start {
 impl acamera_metadata_section_start {
     pub const ACAMERA_JPEGR_START: acamera_metadata_section_start =
         acamera_metadata_section_start(2162688);
-}
-impl acamera_metadata_section_start {
-    pub const ACAMERA_EFV_START: acamera_metadata_section_start =
-        acamera_metadata_section_start(2228224);
 }
 impl acamera_metadata_section_start {
     pub const ACAMERA_VENDOR_START: acamera_metadata_section_start =
