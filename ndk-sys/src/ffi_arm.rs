@@ -924,6 +924,7 @@ pub const NL_TEXTMAX: u32 = 255;
 pub const PASS_MAX: u32 = 128;
 pub const LONG_BIT: u32 = 32;
 pub const WORD_BIT: u32 = 32;
+pub const NSIG_MAX: u32 = 65;
 pub const MB_LEN_MAX: u32 = 4;
 pub const NZERO: u32 = 20;
 pub const IOV_MAX: u32 = 1024;
@@ -1196,9 +1197,9 @@ pub const SS_ONSTACK: u32 = 1;
 pub const SS_DISABLE: u32 = 2;
 pub const SS_AUTODISARM: u32 = 2147483648;
 pub const SS_FLAG_BITS: u32 = 2147483648;
-pub const _KERNEL__NSIG: u32 = 64;
-pub const _NSIG: u32 = 65;
 pub const NSIG: u32 = 65;
+pub const _NSIG: u32 = 65;
+pub const _KERNEL__NSIG: u32 = 64;
 pub const PAGE_SIZE: u32 = 4096;
 pub const PAGE_MASK: i32 = -4096;
 pub const NGREG: u32 = 18;
@@ -1357,6 +1358,7 @@ pub const _SC_LEVEL3_CACHE_LINESIZE: u32 = 154;
 pub const _SC_LEVEL4_CACHE_SIZE: u32 = 155;
 pub const _SC_LEVEL4_CACHE_ASSOC: u32 = 156;
 pub const _SC_LEVEL4_CACHE_LINESIZE: u32 = 157;
+pub const _SC_NSIG: u32 = 158;
 pub const STDIN_FILENO: u32 = 0;
 pub const STDOUT_FILENO: u32 = 1;
 pub const STDERR_FILENO: u32 = 2;
@@ -11734,6 +11736,13 @@ pub const AAUDIO_FORMAT_PCM_FLOAT: _bindgen_ty_50 = 2;
 pub const AAUDIO_FORMAT_PCM_I24_PACKED: _bindgen_ty_50 = 3;
 pub const AAUDIO_FORMAT_PCM_I32: _bindgen_ty_50 = 4;
 pub const AAUDIO_FORMAT_IEC61937: _bindgen_ty_50 = 5;
+pub const AAUDIO_FORMAT_MP3: _bindgen_ty_50 = 6;
+pub const AAUDIO_FORMAT_AAC_LC: _bindgen_ty_50 = 7;
+pub const AAUDIO_FORMAT_AAC_HE_V1: _bindgen_ty_50 = 8;
+pub const AAUDIO_FORMAT_AAC_HE_V2: _bindgen_ty_50 = 9;
+pub const AAUDIO_FORMAT_AAC_ELD: _bindgen_ty_50 = 10;
+pub const AAUDIO_FORMAT_AAC_XHE: _bindgen_ty_50 = 11;
+pub const AAUDIO_FORMAT_OPUS: _bindgen_ty_50 = 12;
 pub type _bindgen_ty_50 = ::std::os::raw::c_int;
 pub type aaudio_format_t = i32;
 pub const AAUDIO_OK: _bindgen_ty_51 = 0;
@@ -11779,6 +11788,7 @@ pub type aaudio_sharing_mode_t = i32;
 pub const AAUDIO_PERFORMANCE_MODE_NONE: _bindgen_ty_54 = 10;
 pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING: _bindgen_ty_54 = 11;
 pub const AAUDIO_PERFORMANCE_MODE_LOW_LATENCY: _bindgen_ty_54 = 12;
+pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING_OFFLOADED: _bindgen_ty_54 = 13;
 pub type _bindgen_ty_54 = ::std::os::raw::c_uint;
 pub type aaudio_performance_mode_t = i32;
 pub const AAUDIO_USAGE_MEDIA: _bindgen_ty_55 = 1;
@@ -12050,6 +12060,16 @@ unsafe extern "C" {
         userData: *mut ::std::os::raw::c_void,
     );
 }
+pub type AAudioStream_presentationEndCallback = ::std::option::Option<
+    unsafe extern "C" fn(stream: *mut AAudioStream, userData: *mut ::std::os::raw::c_void),
+>;
+unsafe extern "C" {
+    pub fn AAudioStreamBuilder_setPresentationEndCallback(
+        builder: *mut AAudioStreamBuilder,
+        callback: AAudioStream_presentationEndCallback,
+        userData: *mut ::std::os::raw::c_void,
+    );
+}
 unsafe extern "C" {
     pub fn AAudioStreamBuilder_openStream(
         builder: *mut AAudioStreamBuilder,
@@ -12208,6 +12228,22 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn AAudioStream_getChannelMask(stream: *mut AAudioStream) -> aaudio_channel_mask_t;
+}
+unsafe extern "C" {
+    pub fn AAudioStream_setOffloadDelayPadding(
+        stream: *mut AAudioStream,
+        delayInFrames: i32,
+        paddingInFrames: i32,
+    ) -> aaudio_result_t;
+}
+unsafe extern "C" {
+    pub fn AAudioStream_getOffloadDelay(stream: *mut AAudioStream) -> i32;
+}
+unsafe extern "C" {
+    pub fn AAudioStream_getOffloadPadding(stream: *mut AAudioStream) -> i32;
+}
+unsafe extern "C" {
+    pub fn AAudioStream_setOffloadEndOfStream(stream: *mut AAudioStream) -> aaudio_result_t;
 }
 impl media_status_t {
     pub const AMEDIA_OK: media_status_t = media_status_t(0);
