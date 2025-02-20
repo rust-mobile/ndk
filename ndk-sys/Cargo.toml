@@ -13,7 +13,7 @@ repository = "https://github.com/rust-mobile/ndk"
 rust-version = "1.60"
 
 [dependencies]
-jni-sys = "0.3.0"
+jni-sys = "0.4.0"
 
 [features]
 test = []
