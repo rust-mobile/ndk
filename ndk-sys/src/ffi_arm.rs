@@ -1463,6 +1463,8 @@ pub const PROPERTY_VERSION: &[u8; 8] = b"version\0";
 pub const PROPERTY_DESCRIPTION: &[u8; 12] = b"description\0";
 pub const PROPERTY_ALGORITHMS: &[u8; 11] = b"algorithms\0";
 pub const PROPERTY_DEVICE_UNIQUE_ID: &[u8; 15] = b"deviceUniqueId\0";
+pub const PROP_VALUE_MAX: u32 = 92;
+pub const PROP_NAME_MAX: u32 = 32;
 extern "C" {
     pub fn android_get_application_target_sdk_version() -> ::std::os::raw::c_int;
 }
@@ -22293,4 +22295,64 @@ extern "C" {
 }
 extern "C" {
     pub fn AMediaMuxer_getTrackFormat(muxer: *mut AMediaMuxer, idx: usize) -> *mut AMediaFormat;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct prop_info {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn __system_property_set(
+        __name: *const ::std::os::raw::c_char,
+        __value: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __system_property_find(__name: *const ::std::os::raw::c_char) -> *const prop_info;
+}
+extern "C" {
+    pub fn __system_property_read_callback(
+        __pi: *const prop_info,
+        __callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                __cookie: *mut ::std::os::raw::c_void,
+                __name: *const ::std::os::raw::c_char,
+                __value: *const ::std::os::raw::c_char,
+                __serial: u32,
+            ),
+        >,
+        __cookie: *mut ::std::os::raw::c_void,
+    );
+}
+extern "C" {
+    pub fn __system_property_foreach(
+        __callback: ::std::option::Option<
+            unsafe extern "C" fn(__pi: *const prop_info, __cookie: *mut ::std::os::raw::c_void),
+        >,
+        __cookie: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __system_property_wait(
+        __pi: *const prop_info,
+        __old_serial: u32,
+        __new_serial_ptr: *mut u32,
+        __relative_timeout: *const timespec,
+    ) -> bool;
+}
+extern "C" {
+    pub fn __system_property_read(
+        __pi: *const prop_info,
+        __name: *mut ::std::os::raw::c_char,
+        __value: *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __system_property_get(
+        __name: *const ::std::os::raw::c_char,
+        __value: *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __system_property_find_nth(__n: ::std::os::raw::c_uint) -> *const prop_info;
 }

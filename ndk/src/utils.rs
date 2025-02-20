@@ -10,8 +10,8 @@ use std::io::{Error, Result};
 pub(crate) fn status_to_io_result(status: i32) -> Result<()> {
     match status {
         0 => Ok(()),
-        r if r < 0 => Err(Error::from_raw_os_error(-r)),
-        r => unreachable!("Status is positive integer {}", r),
+        ..=-1 => Err(Error::from_raw_os_error(-status)),
+        1.. => unreachable!("Status is positive integer {status}"),
     }
 }
 
