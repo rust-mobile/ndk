@@ -300,7 +300,7 @@ pub struct NativeWindowBufferLockGuard<'a> {
     buffer: ffi::ANativeWindow_Buffer,
 }
 
-impl<'a> NativeWindowBufferLockGuard<'a> {
+impl NativeWindowBufferLockGuard<'_> {
     /// The number of pixels that are shown horizontally.
     pub fn width(&self) -> usize {
         usize::try_from(self.buffer.width).unwrap()
@@ -371,7 +371,7 @@ impl<'a> NativeWindowBufferLockGuard<'a> {
     }
 }
 
-impl<'a> Drop for NativeWindowBufferLockGuard<'a> {
+impl Drop for NativeWindowBufferLockGuard<'_> {
     fn drop(&mut self) {
         let ret = unsafe { ffi::ANativeWindow_unlockAndPost(self.window.ptr.as_ptr()) };
         assert_eq!(ret, 0);

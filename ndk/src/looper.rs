@@ -322,7 +322,7 @@ impl ForeignLooper {
     /// The caller should guarantee that this file descriptor stays open until it is removed via
     /// [`remove_fd()`][Self::remove_fd()], and for however long the caller wishes to use this file
     /// descriptor when it is returned in [`Poll::Event::fd`].
-
+    //
     // `ALooper_addFd` won't dereference `data`; it will only pass it on to the event.
     // Optionally dereferencing it there already enforces `unsafe` context.
     #[allow(clippy::not_unsafe_ptr_arg_deref)]

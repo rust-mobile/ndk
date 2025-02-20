@@ -656,7 +656,7 @@ pub struct Pointer<'a> {
 
 // TODO: thread safety?
 
-impl<'a> Pointer<'a> {
+impl Pointer<'_> {
     #[inline]
     pub fn pointer_index(&self) -> usize {
         self.index
@@ -766,7 +766,7 @@ impl<'a> Iterator for PointersIter<'a> {
         (size, Some(size))
     }
 }
-impl<'a> ExactSizeIterator for PointersIter<'a> {
+impl ExactSizeIterator for PointersIter<'_> {
     fn len(&self) -> usize {
         self.count - self.next_index
     }
@@ -877,7 +877,7 @@ pub struct HistoricalPointer<'a> {
 
 // TODO: thread safety?
 
-impl<'a> HistoricalPointer<'a> {
+impl HistoricalPointer<'_> {
     #[inline]
     pub fn pointer_index(&self) -> usize {
         self.pointer_index
