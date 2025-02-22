@@ -4,7 +4,7 @@
 #![cfg(feature = "sync")]
 
 use std::{
-    ffi::CStr,
+    ffi::{CStr, FromBytesUntilNulError},
     fmt::Debug,
     // TODO: Import from std::os::fd::{} since Rust 1.66
     os::unix::io::{AsRawFd, BorrowedFd, FromRawFd, OwnedFd},
@@ -37,11 +37,9 @@ impl SyncFileInfo {
         Some(Self { inner })
     }
 
-    pub fn name(&self) -> &CStr {
+    pub fn name(&self) -> Result<&CStr, FromBytesUntilNulError> {
         let inner = unsafe { self.inner.as_ref() };
-        // TODO: Switch to CStr::from_bytes_until_nul (with c_char -> u8 transmute) since MSRV 1.69
-        // https://github.com/ash-rs/ash/pull/746
-        unsafe { CStr::from_ptr(inner.name.as_ptr()) }
+        CStr::from_bytes_until_nul(&inner.name)
     }
 
     pub fn status(&self) -> i32 {
@@ -101,14 +99,12 @@ impl Debug for SyncFenceInfo {
 }
 
 impl SyncFenceInfo {
-    pub fn obj_name(&self) -> &CStr {
-        // TODO: Switch to CStr::from_bytes_until_nul (with c_char -> u8 transmute) since MSRV 1.69
-        unsafe { CStr::from_ptr(self.0.obj_name.as_ptr()) }
+    pub fn obj_name(&self) -> Result<&CStr, FromBytesUntilNulError> {
+        CStr::from_bytes_until_nul(&self.0.obj_name)
     }
 
-    pub fn driver_name(&self) -> &CStr {
-        // TODO: Switch to CStr::from_bytes_until_nul (with c_char -> u8 transmute) since MSRV 1.69
-        unsafe { CStr::from_ptr(self.0.driver_name.as_ptr()) }
+    pub fn driver_name(&self) -> Result<&CStr, FromBytesUntilNulError> {
+        CStr::from_bytes_until_nul(&self.0.driver_name)
     }
 
     pub fn status(&self) -> i32 {

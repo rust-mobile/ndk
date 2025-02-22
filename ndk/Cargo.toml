@@ -10,7 +10,7 @@ readme = "../README.md"
 documentation = "https://docs.rs/ndk"
 homepage = "https://github.com/rust-mobile/ndk"
 repository = "https://github.com/rust-mobile/ndk"
-rust-version = "1.66"
+rust-version = "1.77"
 categories = ["os", "os::android-apis", "api-bindings"]
 
 [features]
