@@ -20,7 +20,7 @@ use crate::utils::status_to_io_result;
 /// An input queue is the facility through which you retrieve input events.
 ///
 /// [`AInputQueue *`]: https://developer.android.com/ndk/reference/group/input#ainputqueue
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct InputQueue {
     ptr: NonNull<ffi::AInputQueue>,
 }

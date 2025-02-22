@@ -14,6 +14,7 @@ use crate::media_error::{MediaError, Result};
 /// A native [`AMediaFormat *`]
 ///
 /// [`AMediaFormat *`]: https://developer.android.com/ndk/reference/group/media#amediaformat
+#[derive(PartialEq, Eq, Hash)]
 #[doc(alias = "AMediaFormat")]
 pub struct MediaFormat {
     inner: NonNull<ffi::AMediaFormat>,

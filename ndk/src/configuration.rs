@@ -19,6 +19,7 @@ use std::ptr::NonNull;
 /// [`Configuration`] is an opaque type used to get and set various subsystem configurations.
 ///
 /// [`AConfiguration *`]: https://developer.android.com/ndk/reference/group/configuration#aconfiguration
+// TODO: Implement hash based on ptr or contents?
 pub struct Configuration {
     ptr: NonNull<ffi::AConfiguration>,
 }
@@ -280,7 +281,7 @@ impl Configuration {
 }
 
 /// A bitfield representing the differences between two [`Configuration`]s
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct DiffResult(pub u32);
 
 impl DiffResult {
@@ -337,7 +338,7 @@ impl DiffResult {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Orientation {
@@ -351,7 +352,7 @@ pub enum Orientation {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Touchscreen {
@@ -365,7 +366,7 @@ pub enum Touchscreen {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)] // TODO: Ord?
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Density {
@@ -432,7 +433,7 @@ impl Density {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Keyboard {
@@ -446,7 +447,7 @@ pub enum Keyboard {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Navigation {
@@ -461,7 +462,7 @@ pub enum Navigation {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum KeysHidden {
@@ -475,7 +476,7 @@ pub enum KeysHidden {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum NavHidden {
@@ -488,7 +489,7 @@ pub enum NavHidden {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)] // TODO: Ord?
 #[repr(i32)]
 #[non_exhaustive]
 pub enum ScreenSize {
@@ -503,7 +504,7 @@ pub enum ScreenSize {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum ScreenLong {
@@ -516,7 +517,7 @@ pub enum ScreenLong {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum ScreenRound {
@@ -529,7 +530,7 @@ pub enum ScreenRound {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum WideColorGamut {
@@ -542,7 +543,7 @@ pub enum WideColorGamut {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum HDR {
@@ -555,7 +556,7 @@ pub enum HDR {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum LayoutDir {
@@ -568,7 +569,7 @@ pub enum LayoutDir {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum UiModeType {
@@ -586,7 +587,7 @@ pub enum UiModeType {
     __Unknown(i32),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum UiModeNight {

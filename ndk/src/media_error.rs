@@ -14,7 +14,7 @@ pub type Result<T, E = MediaError> = std::result::Result<T, E>;
 
 /// Media Status codes for [`media_status_t`](https://developer.android.com/ndk/reference/group/media#group___media_1ga009a49041fe39f7bdc6d8b5cddbe760c)
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "media_status_t")]
 #[non_exhaustive]
 pub enum MediaError {

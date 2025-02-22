@@ -16,7 +16,7 @@ use crate::data_space::DataSpace;
 use crate::hardware_buffer::HardwareBufferRef;
 
 #[repr(i32)]
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[non_exhaustive]
 pub enum BitmapError {
     #[doc(alias = "ANDROID_BITMAP_RESULT_ALLOCATION_FAILED")]
@@ -90,7 +90,7 @@ pub enum BitmapFormat {
 /// An immediate wrapper over [`android.graphics.Bitmap`]
 ///
 /// [`android.graphics.Bitmap`]: https://developer.android.com/reference/android/graphics/Bitmap
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct Bitmap {
     env: *mut JNIEnv,
     inner: jobject,
@@ -299,7 +299,7 @@ impl Bitmap {
 /// Possible values for [`ffi::ANDROID_BITMAP_FLAGS_ALPHA_MASK`] within [`BitmapInfoFlags`]
 #[repr(u32)]
 #[cfg(feature = "api-level-30")]
-#[derive(Clone, Copy, Debug, IntoPrimitive, FromPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "ANDROID_BITMAP_FLAGS_ALPHA_MASK")]
 #[non_exhaustive]
 pub enum BitmapInfoFlagsAlpha {
@@ -321,7 +321,7 @@ pub enum BitmapInfoFlagsAlpha {
 /// Bitfield containing information about the bitmap.
 #[cfg(feature = "api-level-30")]
 #[repr(transparent)]
-#[derive(Clone, Copy, Hash, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct BitmapInfoFlags(u32);
 
 #[cfg(feature = "api-level-30")]
@@ -359,7 +359,7 @@ impl BitmapInfoFlags {
 /// A native [`AndroidBitmapInfo`]
 ///
 /// [`AndroidBitmapInfo`]: https://developer.android.com/ndk/reference/struct/android-bitmap-info#struct_android_bitmap_info
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy)] // TODO: PartialEq, Eq, Hash
 #[doc(alias = "AndroidBitmapInfo")]
 pub struct BitmapInfo {
     inner: ffi::AndroidBitmapInfo,
@@ -440,7 +440,7 @@ impl BitmapInfo {
 /// [`Bitmap::compress_raw()`].
 #[cfg(feature = "api-level-30")]
 #[repr(i32)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "AndroidBitmapCompressFormat")]
 #[non_exhaustive]
 pub enum BitmapCompressFormat {
@@ -477,7 +477,7 @@ pub enum BitmapCompressFormat {
 
 /// Encapsulates possible errors returned by [`Bitmap::compress()`] or [`Bitmap::compress_raw()`].
 #[cfg(feature = "api-level-30")]
-#[derive(Debug, thiserror::Error)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, thiserror::Error)]
 pub enum BitmapCompressError {
     #[error(transparent)]
     BitmapError(#[from] BitmapError),

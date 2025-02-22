@@ -13,7 +13,7 @@ use std::{io::Result, ptr::NonNull, time::Duration};
 /// An opaque type to manage [`android.graphics.SurfaceTexture`] from native code
 ///
 /// [`android.graphics.SurfaceTexture`]: https://developer.android.com/reference/android/graphics/SurfaceTexture
-#[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct SurfaceTexture {
     ptr: NonNull<ffi::ASurfaceTexture>,
 }

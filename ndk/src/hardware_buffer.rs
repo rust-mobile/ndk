@@ -21,7 +21,7 @@ use super::{hardware_buffer_format::HardwareBufferFormat, utils::status_to_io_re
 
 bitflags::bitflags! {
     /// Buffer usage flags, specifying how the buffer will be accessed.
-    #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = "AHardwareBuffer_UsageFlags")]
     pub struct HardwareBufferUsage : u64 {
         /// The buffer will never be locked for direct CPU reads using the
@@ -228,7 +228,7 @@ fn construct<T>(with_ptr: impl FnOnce(*mut T) -> i32) -> Result<T> {
 /// [`EGL_ANDROID_image_native_buffer`]: https://www.khronos.org/registry/EGL/extensions/ANDROID/EGL_ANDROID_image_native_buffer.txt
 /// [external memory]: https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_memory.html
 /// [`VK_ANDROID_external_memory_android_hardware_buffer`]: https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct HardwareBuffer {
     inner: NonNull<ffi::AHardwareBuffer>,
 }
@@ -531,7 +531,7 @@ impl HardwareBuffer {
 
 /// A [`HardwareBuffer`] with an owned reference, that is released when dropped.
 /// It behaves much like a strong [`std::rc::Rc`] reference.
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct HardwareBufferRef {
     inner: HardwareBuffer,
 }
@@ -575,7 +575,7 @@ impl Clone for HardwareBufferRef {
 /// Buffer description.
 ///
 /// Used for allocating new buffers and querying parameters of existing ones.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct HardwareBufferDesc {
     pub width: u32,
     pub height: u32,
@@ -607,7 +607,7 @@ impl HardwareBufferDesc {
 /// Contains the same fields as [`ffi::AHardwareBuffer_Plane`].
 ///
 /// [`AHardwareBuffer_Plane`]: https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer_plane
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct LockedPlaneInfo {
     pub virtual_address: *mut c_void,
     pub bytes_per_pixel: u32,
@@ -615,7 +615,7 @@ pub struct LockedPlaneInfo {
 }
 
 /// Iterator over [`ffi::AHardwareBuffer_Planes`], containing a list of [`LockedPlaneInfo`].
-#[derive(Debug)]
+#[derive(Debug)] // TODO: Eq and Hash?
 pub struct HardwareBufferPlanes {
     inner: ffi::AHardwareBuffer_Planes,
     index: u32,

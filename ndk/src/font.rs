@@ -18,7 +18,7 @@ use num_enum::IntoPrimitive;
 /// An integer holding a valid font weight value between 1 and 1000.
 ///
 /// See the [`Font::weight`] definition for more details.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct FontWeight(u16);
 
 impl FontWeight {
@@ -108,7 +108,7 @@ impl TryFrom<u16> for FontWeight {
 }
 
 /// A 4-byte integer representing an OpenType axis tag.
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct AxisTag(u32);
 
 impl AxisTag {
@@ -224,7 +224,7 @@ impl fmt::Debug for AxisTag {
 }
 
 /// The error type returned when an invalid axis tag value is passed.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum AxisTagValueError {
     /// There is a byte not in the range 0x20 to 0x7E.
     InvalidCharacter,
@@ -257,7 +257,7 @@ impl std::error::Error for AxisTagValueError {}
 /// A native [`AFont *`]
 ///
 /// [`AFont *`]: https://developer.android.com/ndk/reference/group/font
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct Font {
     ptr: NonNull<ffi::AFont>,
 }
@@ -390,7 +390,7 @@ impl Drop for Font {
 ///
 /// [`AFAMILY_VARIANT_*`]: https://developer.android.com/ndk/reference/group/font#group___font_1gga96a58e29e8dbf2b5bdeb775cba46556ea662aafc7016e35d6758da93416fc0833
 #[repr(u32)]
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, IntoPrimitive)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, IntoPrimitive)]
 #[non_exhaustive]
 pub enum FamilyVariant {
     /// A family variant value for the compact font family variant.
@@ -410,7 +410,7 @@ pub enum FamilyVariant {
 /// A native [`AFontMatcher *`]
 ///
 /// [`AFontMatcher *`]: https://developer.android.com/ndk/reference/group/font#afontmatcher_create
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct FontMatcher {
     ptr: NonNull<ffi::AFontMatcher>,
 }
@@ -510,7 +510,7 @@ impl Drop for FontMatcher {
 /// A native [`ASystemFontIterator *`]
 ///
 /// [`ASystemFontIterator *`]: https://developer.android.com/ndk/reference/group/font#asystemfontiterator_open
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct SystemFontIterator {
     ptr: NonNull<ffi::ASystemFontIterator>,
 }
