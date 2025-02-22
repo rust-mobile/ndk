@@ -2,6 +2,7 @@
 //!
 //! The bindings are pre-generated and the right one for the platform is selected at compile time.
 
+#![no_std]
 // Bindgen lints
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]

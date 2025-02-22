@@ -12,11 +12,11 @@ impl<T: Copy + Default, const N: usize> Default for __BindgenOpaqueArray<T, N> {
 }
 #[repr(C)]
 #[derive(Default)]
-pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);
+pub struct __IncompleteArrayField<T>(::core::marker::PhantomData<T>, [T; 0]);
 impl<T> __IncompleteArrayField<T> {
     #[inline]
     pub const fn new() -> Self {
-        __IncompleteArrayField(::std::marker::PhantomData, [])
+        __IncompleteArrayField(::core::marker::PhantomData, [])
     }
     #[inline]
     pub fn as_ptr(&self) -> *const T {
@@ -28,15 +28,15 @@ impl<T> __IncompleteArrayField<T> {
     }
     #[inline]
     pub unsafe fn as_slice(&self, len: usize) -> &[T] {
-        ::std::slice::from_raw_parts(self.as_ptr(), len)
+        ::core::slice::from_raw_parts(self.as_ptr(), len)
     }
     #[inline]
     pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
-        ::std::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
+        ::core::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
     }
 }
-impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
+    fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
         fmt.write_str("__IncompleteArrayField")
     }
 }
@@ -1411,55 +1411,55 @@ pub const PROPERTY_DESCRIPTION: &[u8; 12] = b"description\0";
 pub const PROPERTY_ALGORITHMS: &[u8; 11] = b"algorithms\0";
 pub const PROPERTY_DEVICE_UNIQUE_ID: &[u8; 15] = b"deviceUniqueId\0";
 extern "C" {
-    pub fn android_get_application_target_sdk_version() -> ::std::os::raw::c_int;
+    pub fn android_get_application_target_sdk_version() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_get_device_api_level() -> ::std::os::raw::c_int;
+    pub fn android_get_device_api_level() -> ::core::ffi::c_int;
 }
-pub type wchar_t = ::std::os::raw::c_uint;
+pub type wchar_t = ::core::ffi::c_uint;
 #[repr(C)]
 #[repr(align(16))]
 #[derive(Debug, Copy, Clone)]
 pub struct max_align_t {
-    pub __clang_max_align_nonce1: ::std::os::raw::c_longlong,
+    pub __clang_max_align_nonce1: ::core::ffi::c_longlong,
     pub __bindgen_padding_0: u64,
     pub __clang_max_align_nonce2: u128,
 }
 #[test]
 fn bindgen_test_layout_max_align_t() {
-    const UNINIT: ::std::mem::MaybeUninit<max_align_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<max_align_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<max_align_t>(),
+        ::core::mem::size_of::<max_align_t>(),
         32usize,
         "Size of max_align_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<max_align_t>(),
+        ::core::mem::align_of::<max_align_t>(),
         16usize,
         "Alignment of max_align_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__clang_max_align_nonce1) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__clang_max_align_nonce1) as usize - ptr as usize },
         0usize,
         "Offset of field: max_align_t::__clang_max_align_nonce1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__clang_max_align_nonce2) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__clang_max_align_nonce2) as usize - ptr as usize },
         16usize,
         "Offset of field: max_align_t::__clang_max_align_nonce2"
     );
 }
-pub type __int8_t = ::std::os::raw::c_schar;
-pub type __uint8_t = ::std::os::raw::c_uchar;
-pub type __int16_t = ::std::os::raw::c_short;
-pub type __uint16_t = ::std::os::raw::c_ushort;
-pub type __int32_t = ::std::os::raw::c_int;
-pub type __uint32_t = ::std::os::raw::c_uint;
-pub type __int64_t = ::std::os::raw::c_long;
-pub type __uint64_t = ::std::os::raw::c_ulong;
-pub type __intptr_t = ::std::os::raw::c_long;
-pub type __uintptr_t = ::std::os::raw::c_ulong;
+pub type __int8_t = ::core::ffi::c_schar;
+pub type __uint8_t = ::core::ffi::c_uchar;
+pub type __int16_t = ::core::ffi::c_short;
+pub type __uint16_t = ::core::ffi::c_ushort;
+pub type __int32_t = ::core::ffi::c_int;
+pub type __uint32_t = ::core::ffi::c_uint;
+pub type __int64_t = ::core::ffi::c_long;
+pub type __uint64_t = ::core::ffi::c_ulong;
+pub type __intptr_t = ::core::ffi::c_long;
+pub type __uintptr_t = ::core::ffi::c_ulong;
 pub type int_least8_t = i8;
 pub type uint_least8_t = u8;
 pub type int_least16_t = i16;
@@ -1478,97 +1478,97 @@ pub type int_fast32_t = i64;
 pub type uint_fast32_t = u64;
 pub type uintmax_t = u64;
 pub type intmax_t = i64;
-pub type __s8 = ::std::os::raw::c_schar;
-pub type __u8 = ::std::os::raw::c_uchar;
-pub type __s16 = ::std::os::raw::c_short;
-pub type __u16 = ::std::os::raw::c_ushort;
-pub type __s32 = ::std::os::raw::c_int;
-pub type __u32 = ::std::os::raw::c_uint;
-pub type __s64 = ::std::os::raw::c_longlong;
-pub type __u64 = ::std::os::raw::c_ulonglong;
+pub type __s8 = ::core::ffi::c_schar;
+pub type __u8 = ::core::ffi::c_uchar;
+pub type __s16 = ::core::ffi::c_short;
+pub type __u16 = ::core::ffi::c_ushort;
+pub type __s32 = ::core::ffi::c_int;
+pub type __u32 = ::core::ffi::c_uint;
+pub type __s64 = ::core::ffi::c_longlong;
+pub type __u64 = ::core::ffi::c_ulonglong;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fd_set {
-    pub fds_bits: [::std::os::raw::c_ulong; 16usize],
+    pub fds_bits: [::core::ffi::c_ulong; 16usize],
 }
 #[test]
 fn bindgen_test_layout___kernel_fd_set() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_fd_set> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__kernel_fd_set> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__kernel_fd_set>(),
+        ::core::mem::size_of::<__kernel_fd_set>(),
         128usize,
         "Size of __kernel_fd_set"
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_fd_set>(),
+        ::core::mem::align_of::<__kernel_fd_set>(),
         8usize,
         "Alignment of __kernel_fd_set"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fds_bits) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fds_bits) as usize - ptr as usize },
         0usize,
         "Offset of field: __kernel_fd_set::fds_bits"
     );
 }
 pub type __kernel_sighandler_t =
-    ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
-pub type __kernel_key_t = ::std::os::raw::c_int;
-pub type __kernel_mqd_t = ::std::os::raw::c_int;
-pub type __kernel_old_uid_t = ::std::os::raw::c_ushort;
-pub type __kernel_old_gid_t = ::std::os::raw::c_ushort;
-pub type __kernel_long_t = ::std::os::raw::c_long;
-pub type __kernel_ulong_t = ::std::os::raw::c_ulong;
+    ::core::option::Option<unsafe extern "C" fn(arg1: ::core::ffi::c_int)>;
+pub type __kernel_key_t = ::core::ffi::c_int;
+pub type __kernel_mqd_t = ::core::ffi::c_int;
+pub type __kernel_old_uid_t = ::core::ffi::c_ushort;
+pub type __kernel_old_gid_t = ::core::ffi::c_ushort;
+pub type __kernel_long_t = ::core::ffi::c_long;
+pub type __kernel_ulong_t = ::core::ffi::c_ulong;
 pub type __kernel_ino_t = __kernel_ulong_t;
-pub type __kernel_mode_t = ::std::os::raw::c_uint;
-pub type __kernel_pid_t = ::std::os::raw::c_int;
-pub type __kernel_ipc_pid_t = ::std::os::raw::c_int;
-pub type __kernel_uid_t = ::std::os::raw::c_uint;
-pub type __kernel_gid_t = ::std::os::raw::c_uint;
+pub type __kernel_mode_t = ::core::ffi::c_uint;
+pub type __kernel_pid_t = ::core::ffi::c_int;
+pub type __kernel_ipc_pid_t = ::core::ffi::c_int;
+pub type __kernel_uid_t = ::core::ffi::c_uint;
+pub type __kernel_gid_t = ::core::ffi::c_uint;
 pub type __kernel_suseconds_t = __kernel_long_t;
-pub type __kernel_daddr_t = ::std::os::raw::c_int;
-pub type __kernel_uid32_t = ::std::os::raw::c_uint;
-pub type __kernel_gid32_t = ::std::os::raw::c_uint;
-pub type __kernel_old_dev_t = ::std::os::raw::c_uint;
+pub type __kernel_daddr_t = ::core::ffi::c_int;
+pub type __kernel_uid32_t = ::core::ffi::c_uint;
+pub type __kernel_gid32_t = ::core::ffi::c_uint;
+pub type __kernel_old_dev_t = ::core::ffi::c_uint;
 pub type __kernel_size_t = __kernel_ulong_t;
 pub type __kernel_ssize_t = __kernel_long_t;
 pub type __kernel_ptrdiff_t = __kernel_long_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fsid_t {
-    pub val: [::std::os::raw::c_int; 2usize],
+    pub val: [::core::ffi::c_int; 2usize],
 }
 #[test]
 fn bindgen_test_layout___kernel_fsid_t() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_fsid_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__kernel_fsid_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__kernel_fsid_t>(),
+        ::core::mem::size_of::<__kernel_fsid_t>(),
         8usize,
         "Size of __kernel_fsid_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_fsid_t>(),
+        ::core::mem::align_of::<__kernel_fsid_t>(),
         4usize,
         "Alignment of __kernel_fsid_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).val) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).val) as usize - ptr as usize },
         0usize,
         "Offset of field: __kernel_fsid_t::val"
     );
 }
 pub type __kernel_off_t = __kernel_long_t;
-pub type __kernel_loff_t = ::std::os::raw::c_longlong;
+pub type __kernel_loff_t = ::core::ffi::c_longlong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
-pub type __kernel_time64_t = ::std::os::raw::c_longlong;
+pub type __kernel_time64_t = ::core::ffi::c_longlong;
 pub type __kernel_clock_t = __kernel_long_t;
-pub type __kernel_timer_t = ::std::os::raw::c_int;
-pub type __kernel_clockid_t = ::std::os::raw::c_int;
-pub type __kernel_caddr_t = *mut ::std::os::raw::c_char;
-pub type __kernel_uid16_t = ::std::os::raw::c_ushort;
-pub type __kernel_gid16_t = ::std::os::raw::c_ushort;
+pub type __kernel_timer_t = ::core::ffi::c_int;
+pub type __kernel_clockid_t = ::core::ffi::c_int;
+pub type __kernel_caddr_t = *mut ::core::ffi::c_char;
+pub type __kernel_uid16_t = ::core::ffi::c_ushort;
+pub type __kernel_gid16_t = ::core::ffi::c_ushort;
 pub type __s128 = i128;
 pub type __u128 = u128;
 pub type __le16 = __u16;
@@ -1579,64 +1579,64 @@ pub type __le64 = __u64;
 pub type __be64 = __u64;
 pub type __sum16 = __u16;
 pub type __wsum = __u32;
-pub type __poll_t = ::std::os::raw::c_uint;
+pub type __poll_t = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct pthread_attr_t {
     pub flags: u32,
-    pub stack_base: *mut ::std::os::raw::c_void,
+    pub stack_base: *mut ::core::ffi::c_void,
     pub stack_size: usize,
     pub guard_size: usize,
     pub sched_policy: i32,
     pub sched_priority: i32,
-    pub __reserved: [::std::os::raw::c_char; 16usize],
+    pub __reserved: [::core::ffi::c_char; 16usize],
 }
 #[test]
 fn bindgen_test_layout_pthread_attr_t() {
-    const UNINIT: ::std::mem::MaybeUninit<pthread_attr_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<pthread_attr_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<pthread_attr_t>(),
+        ::core::mem::size_of::<pthread_attr_t>(),
         56usize,
         "Size of pthread_attr_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_attr_t>(),
+        ::core::mem::align_of::<pthread_attr_t>(),
         8usize,
         "Alignment of pthread_attr_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         0usize,
         "Offset of field: pthread_attr_t::flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).stack_base) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).stack_base) as usize - ptr as usize },
         8usize,
         "Offset of field: pthread_attr_t::stack_base"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).stack_size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).stack_size) as usize - ptr as usize },
         16usize,
         "Offset of field: pthread_attr_t::stack_size"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).guard_size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).guard_size) as usize - ptr as usize },
         24usize,
         "Offset of field: pthread_attr_t::guard_size"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sched_policy) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sched_policy) as usize - ptr as usize },
         32usize,
         "Offset of field: pthread_attr_t::sched_policy"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sched_priority) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sched_priority) as usize - ptr as usize },
         36usize,
         "Offset of field: pthread_attr_t::sched_priority"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
         40usize,
         "Offset of field: pthread_attr_t::__reserved"
     );
@@ -1648,25 +1648,25 @@ pub struct pthread_barrier_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_barrier_t() {
-    const UNINIT: ::std::mem::MaybeUninit<pthread_barrier_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<pthread_barrier_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<pthread_barrier_t>(),
+        ::core::mem::size_of::<pthread_barrier_t>(),
         32usize,
         "Size of pthread_barrier_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_barrier_t>(),
+        ::core::mem::align_of::<pthread_barrier_t>(),
         8usize,
         "Alignment of pthread_barrier_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
         0usize,
         "Offset of field: pthread_barrier_t::__private"
     );
 }
-pub type pthread_barrierattr_t = ::std::os::raw::c_int;
+pub type pthread_barrierattr_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct pthread_cond_t {
@@ -1674,26 +1674,26 @@ pub struct pthread_cond_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_cond_t() {
-    const UNINIT: ::std::mem::MaybeUninit<pthread_cond_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<pthread_cond_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<pthread_cond_t>(),
+        ::core::mem::size_of::<pthread_cond_t>(),
         48usize,
         "Size of pthread_cond_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_cond_t>(),
+        ::core::mem::align_of::<pthread_cond_t>(),
         4usize,
         "Alignment of pthread_cond_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
         0usize,
         "Offset of field: pthread_cond_t::__private"
     );
 }
-pub type pthread_condattr_t = ::std::os::raw::c_long;
-pub type pthread_key_t = ::std::os::raw::c_int;
+pub type pthread_condattr_t = ::core::ffi::c_long;
+pub type pthread_key_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct pthread_mutex_t {
@@ -1701,26 +1701,26 @@ pub struct pthread_mutex_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_mutex_t() {
-    const UNINIT: ::std::mem::MaybeUninit<pthread_mutex_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<pthread_mutex_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<pthread_mutex_t>(),
+        ::core::mem::size_of::<pthread_mutex_t>(),
         40usize,
         "Size of pthread_mutex_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_mutex_t>(),
+        ::core::mem::align_of::<pthread_mutex_t>(),
         4usize,
         "Alignment of pthread_mutex_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
         0usize,
         "Offset of field: pthread_mutex_t::__private"
     );
 }
-pub type pthread_mutexattr_t = ::std::os::raw::c_long;
-pub type pthread_once_t = ::std::os::raw::c_int;
+pub type pthread_mutexattr_t = ::core::ffi::c_long;
+pub type pthread_once_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct pthread_rwlock_t {
@@ -1728,25 +1728,25 @@ pub struct pthread_rwlock_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_rwlock_t() {
-    const UNINIT: ::std::mem::MaybeUninit<pthread_rwlock_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<pthread_rwlock_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<pthread_rwlock_t>(),
+        ::core::mem::size_of::<pthread_rwlock_t>(),
         56usize,
         "Size of pthread_rwlock_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_rwlock_t>(),
+        ::core::mem::align_of::<pthread_rwlock_t>(),
         4usize,
         "Alignment of pthread_rwlock_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
         0usize,
         "Offset of field: pthread_rwlock_t::__private"
     );
 }
-pub type pthread_rwlockattr_t = ::std::os::raw::c_long;
+pub type pthread_rwlockattr_t = ::core::ffi::c_long;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct pthread_spinlock_t {
@@ -1754,25 +1754,25 @@ pub struct pthread_spinlock_t {
 }
 #[test]
 fn bindgen_test_layout_pthread_spinlock_t() {
-    const UNINIT: ::std::mem::MaybeUninit<pthread_spinlock_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<pthread_spinlock_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<pthread_spinlock_t>(),
+        ::core::mem::size_of::<pthread_spinlock_t>(),
         8usize,
         "Size of pthread_spinlock_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_spinlock_t>(),
+        ::core::mem::align_of::<pthread_spinlock_t>(),
         8usize,
         "Alignment of pthread_spinlock_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__private) as usize - ptr as usize },
         0usize,
         "Offset of field: pthread_spinlock_t::__private"
     );
 }
-pub type pthread_t = ::std::os::raw::c_long;
+pub type pthread_t = ::core::ffi::c_long;
 pub type __gid_t = __kernel_gid32_t;
 pub type gid_t = __gid_t;
 pub type __uid_t = __kernel_uid32_t;
@@ -1781,15 +1781,15 @@ pub type __pid_t = __kernel_pid_t;
 pub type pid_t = __pid_t;
 pub type __id_t = u32;
 pub type id_t = __id_t;
-pub type blkcnt_t = ::std::os::raw::c_ulong;
-pub type blksize_t = ::std::os::raw::c_ulong;
+pub type blkcnt_t = ::core::ffi::c_ulong;
+pub type blksize_t = ::core::ffi::c_ulong;
 pub type caddr_t = __kernel_caddr_t;
 pub type clock_t = __kernel_clock_t;
 pub type __clockid_t = __kernel_clockid_t;
 pub type clockid_t = __clockid_t;
 pub type daddr_t = __kernel_daddr_t;
-pub type fsblkcnt_t = ::std::os::raw::c_ulong;
-pub type fsfilcnt_t = ::std::os::raw::c_ulong;
+pub type fsblkcnt_t = ::core::ffi::c_ulong;
+pub type fsfilcnt_t = ::core::ffi::c_ulong;
 pub type __mode_t = __kernel_mode_t;
 pub type mode_t = __mode_t;
 pub type __key_t = __kernel_key_t;
@@ -1799,7 +1799,7 @@ pub type ino_t = __ino_t;
 pub type ino64_t = u64;
 pub type __nlink_t = u32;
 pub type nlink_t = __nlink_t;
-pub type __timer_t = *mut ::std::os::raw::c_void;
+pub type __timer_t = *mut ::core::ffi::c_void;
 pub type timer_t = __timer_t;
 pub type __suseconds_t = __kernel_suseconds_t;
 pub type suseconds_t = __suseconds_t;
@@ -1814,12 +1814,12 @@ pub type off64_t = loff_t;
 pub type __socklen_t = u32;
 pub type socklen_t = __socklen_t;
 pub type __va_list = __BindgenOpaqueArray<u64, 4usize>;
-pub type uint_t = ::std::os::raw::c_uint;
-pub type uint = ::std::os::raw::c_uint;
-pub type u_char = ::std::os::raw::c_uchar;
-pub type u_short = ::std::os::raw::c_ushort;
-pub type u_int = ::std::os::raw::c_uint;
-pub type u_long = ::std::os::raw::c_ulong;
+pub type uint_t = ::core::ffi::c_uint;
+pub type uint = ::core::ffi::c_uint;
+pub type u_char = ::core::ffi::c_uchar;
+pub type u_short = ::core::ffi::c_ushort;
+pub type u_int = ::core::ffi::c_uint;
+pub type u_long = ::core::ffi::c_ulong;
 pub type u_int32_t = u32;
 pub type u_int16_t = u16;
 pub type u_int8_t = u8;
@@ -1843,22 +1843,22 @@ pub const AASSET_MODE_UNKNOWN: _bindgen_ty_1 = 0;
 pub const AASSET_MODE_RANDOM: _bindgen_ty_1 = 1;
 pub const AASSET_MODE_STREAMING: _bindgen_ty_1 = 2;
 pub const AASSET_MODE_BUFFER: _bindgen_ty_1 = 3;
-pub type _bindgen_ty_1 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_1 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AAssetManager_openDir(
         mgr: *mut AAssetManager,
-        dirName: *const ::std::os::raw::c_char,
+        dirName: *const ::core::ffi::c_char,
     ) -> *mut AAssetDir;
 }
 extern "C" {
     pub fn AAssetManager_open(
         mgr: *mut AAssetManager,
-        filename: *const ::std::os::raw::c_char,
-        mode: ::std::os::raw::c_int,
+        filename: *const ::core::ffi::c_char,
+        mode: ::core::ffi::c_int,
     ) -> *mut AAsset;
 }
 extern "C" {
-    pub fn AAssetDir_getNextFileName(assetDir: *mut AAssetDir) -> *const ::std::os::raw::c_char;
+    pub fn AAssetDir_getNextFileName(assetDir: *mut AAssetDir) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AAssetDir_rewind(assetDir: *mut AAssetDir);
@@ -1869,25 +1869,25 @@ extern "C" {
 extern "C" {
     pub fn AAsset_read(
         asset: *mut AAsset,
-        buf: *mut ::std::os::raw::c_void,
+        buf: *mut ::core::ffi::c_void,
         count: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn AAsset_seek(asset: *mut AAsset, offset: off_t, whence: ::std::os::raw::c_int) -> off_t;
+    pub fn AAsset_seek(asset: *mut AAsset, offset: off_t, whence: ::core::ffi::c_int) -> off_t;
 }
 extern "C" {
     pub fn AAsset_seek64(
         asset: *mut AAsset,
         offset: off64_t,
-        whence: ::std::os::raw::c_int,
+        whence: ::core::ffi::c_int,
     ) -> off64_t;
 }
 extern "C" {
     pub fn AAsset_close(asset: *mut AAsset);
 }
 extern "C" {
-    pub fn AAsset_getBuffer(asset: *mut AAsset) -> *const ::std::os::raw::c_void;
+    pub fn AAsset_getBuffer(asset: *mut AAsset) -> *const ::core::ffi::c_void;
 }
 extern "C" {
     pub fn AAsset_getLength(asset: *mut AAsset) -> off_t;
@@ -1906,52 +1906,52 @@ extern "C" {
         asset: *mut AAsset,
         outStart: *mut off_t,
         outLength: *mut off_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AAsset_openFileDescriptor64(
         asset: *mut AAsset,
         outStart: *mut off64_t,
         outLength: *mut off64_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn AAsset_isAllocated(asset: *mut AAsset) -> ::std::os::raw::c_int;
+    pub fn AAsset_isAllocated(asset: *mut AAsset) -> ::core::ffi::c_int;
 }
 pub type __gnuc_va_list = __BindgenOpaqueArray<u64, 4usize>;
 pub type va_list = __BindgenOpaqueArray<u64, 4usize>;
 #[repr(C)]
 pub struct JavaVMAttachArgs {
     pub version: jint,
-    pub name: *const ::std::os::raw::c_char,
+    pub name: *const ::core::ffi::c_char,
     pub group: jobject,
 }
 #[test]
 fn bindgen_test_layout_JavaVMAttachArgs() {
-    const UNINIT: ::std::mem::MaybeUninit<JavaVMAttachArgs> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<JavaVMAttachArgs> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<JavaVMAttachArgs>(),
+        ::core::mem::size_of::<JavaVMAttachArgs>(),
         24usize,
         "Size of JavaVMAttachArgs"
     );
     assert_eq!(
-        ::std::mem::align_of::<JavaVMAttachArgs>(),
+        ::core::mem::align_of::<JavaVMAttachArgs>(),
         8usize,
         "Alignment of JavaVMAttachArgs"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
         0usize,
         "Offset of field: JavaVMAttachArgs::version"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         8usize,
         "Offset of field: JavaVMAttachArgs::name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).group) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).group) as usize - ptr as usize },
         16usize,
         "Offset of field: JavaVMAttachArgs::group"
     );
@@ -1959,30 +1959,30 @@ fn bindgen_test_layout_JavaVMAttachArgs() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct JavaVMOption {
-    pub optionString: *const ::std::os::raw::c_char,
-    pub extraInfo: *mut ::std::os::raw::c_void,
+    pub optionString: *const ::core::ffi::c_char,
+    pub extraInfo: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_JavaVMOption() {
-    const UNINIT: ::std::mem::MaybeUninit<JavaVMOption> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<JavaVMOption> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<JavaVMOption>(),
+        ::core::mem::size_of::<JavaVMOption>(),
         16usize,
         "Size of JavaVMOption"
     );
     assert_eq!(
-        ::std::mem::align_of::<JavaVMOption>(),
+        ::core::mem::align_of::<JavaVMOption>(),
         8usize,
         "Alignment of JavaVMOption"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).optionString) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).optionString) as usize - ptr as usize },
         0usize,
         "Offset of field: JavaVMOption::optionString"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).extraInfo) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).extraInfo) as usize - ptr as usize },
         8usize,
         "Offset of field: JavaVMOption::extraInfo"
     );
@@ -1996,35 +1996,35 @@ pub struct JavaVMInitArgs {
 }
 #[test]
 fn bindgen_test_layout_JavaVMInitArgs() {
-    const UNINIT: ::std::mem::MaybeUninit<JavaVMInitArgs> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<JavaVMInitArgs> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<JavaVMInitArgs>(),
+        ::core::mem::size_of::<JavaVMInitArgs>(),
         24usize,
         "Size of JavaVMInitArgs"
     );
     assert_eq!(
-        ::std::mem::align_of::<JavaVMInitArgs>(),
+        ::core::mem::align_of::<JavaVMInitArgs>(),
         8usize,
         "Alignment of JavaVMInitArgs"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
         0usize,
         "Offset of field: JavaVMInitArgs::version"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).nOptions) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).nOptions) as usize - ptr as usize },
         4usize,
         "Offset of field: JavaVMInitArgs::nOptions"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).options) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).options) as usize - ptr as usize },
         8usize,
         "Offset of field: JavaVMInitArgs::options"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ignoreUnrecognized) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ignoreUnrecognized) as usize - ptr as usize },
         16usize,
         "Offset of field: JavaVMInitArgs::ignoreUnrecognized"
     );
@@ -2036,7 +2036,7 @@ pub const ANDROID_BITMAP_RESULT_SUCCESS: _bindgen_ty_2 = 0;
 pub const ANDROID_BITMAP_RESULT_BAD_PARAMETER: _bindgen_ty_2 = -1;
 pub const ANDROID_BITMAP_RESULT_JNI_EXCEPTION: _bindgen_ty_2 = -2;
 pub const ANDROID_BITMAP_RESULT_ALLOCATION_FAILED: _bindgen_ty_2 = -3;
-pub type _bindgen_ty_2 = ::std::os::raw::c_int;
+pub type _bindgen_ty_2 = ::core::ffi::c_int;
 impl AndroidBitmapFormat {
     pub const ANDROID_BITMAP_FORMAT_NONE: AndroidBitmapFormat = AndroidBitmapFormat(0);
 }
@@ -2060,15 +2060,15 @@ impl AndroidBitmapFormat {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AndroidBitmapFormat(pub ::std::os::raw::c_uint);
+pub struct AndroidBitmapFormat(pub ::core::ffi::c_uint);
 pub const ANDROID_BITMAP_FLAGS_ALPHA_PREMUL: _bindgen_ty_3 = 0;
 pub const ANDROID_BITMAP_FLAGS_ALPHA_OPAQUE: _bindgen_ty_3 = 1;
 pub const ANDROID_BITMAP_FLAGS_ALPHA_UNPREMUL: _bindgen_ty_3 = 2;
 pub const ANDROID_BITMAP_FLAGS_ALPHA_MASK: _bindgen_ty_3 = 3;
 pub const ANDROID_BITMAP_FLAGS_ALPHA_SHIFT: _bindgen_ty_3 = 0;
-pub type _bindgen_ty_3 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_3 = ::core::ffi::c_uint;
 pub const ANDROID_BITMAP_FLAGS_IS_HARDWARE: _bindgen_ty_4 = -2147483648;
-pub type _bindgen_ty_4 = ::std::os::raw::c_int;
+pub type _bindgen_ty_4 = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AndroidBitmapInfo {
@@ -2080,40 +2080,40 @@ pub struct AndroidBitmapInfo {
 }
 #[test]
 fn bindgen_test_layout_AndroidBitmapInfo() {
-    const UNINIT: ::std::mem::MaybeUninit<AndroidBitmapInfo> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AndroidBitmapInfo> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AndroidBitmapInfo>(),
+        ::core::mem::size_of::<AndroidBitmapInfo>(),
         20usize,
         "Size of AndroidBitmapInfo"
     );
     assert_eq!(
-        ::std::mem::align_of::<AndroidBitmapInfo>(),
+        ::core::mem::align_of::<AndroidBitmapInfo>(),
         4usize,
         "Alignment of AndroidBitmapInfo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
         0usize,
         "Offset of field: AndroidBitmapInfo::width"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
         4usize,
         "Offset of field: AndroidBitmapInfo::height"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
         8usize,
         "Offset of field: AndroidBitmapInfo::stride"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
         12usize,
         "Offset of field: AndroidBitmapInfo::format"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         16usize,
         "Offset of field: AndroidBitmapInfo::flags"
     );
@@ -2123,7 +2123,7 @@ extern "C" {
         env: *mut JNIEnv,
         jbitmap: jobject,
         info: *mut AndroidBitmapInfo,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AndroidBitmap_getDataSpace(env: *mut JNIEnv, jbitmap: jobject) -> i32;
@@ -2132,11 +2132,11 @@ extern "C" {
     pub fn AndroidBitmap_lockPixels(
         env: *mut JNIEnv,
         jbitmap: jobject,
-        addrPtr: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        addrPtr: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn AndroidBitmap_unlockPixels(env: *mut JNIEnv, jbitmap: jobject) -> ::std::os::raw::c_int;
+    pub fn AndroidBitmap_unlockPixels(env: *mut JNIEnv, jbitmap: jobject) -> ::core::ffi::c_int;
 }
 impl AndroidBitmapCompressFormat {
     pub const ANDROID_BITMAP_COMPRESS_FORMAT_JPEG: AndroidBitmapCompressFormat =
@@ -2156,11 +2156,11 @@ impl AndroidBitmapCompressFormat {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AndroidBitmapCompressFormat(pub ::std::os::raw::c_uint);
-pub type AndroidBitmap_CompressWriteFunc = ::std::option::Option<
+pub struct AndroidBitmapCompressFormat(pub ::core::ffi::c_uint);
+pub type AndroidBitmap_CompressWriteFunc = ::core::option::Option<
     unsafe extern "C" fn(
-        userContext: *mut ::std::os::raw::c_void,
-        data: *const ::std::os::raw::c_void,
+        userContext: *mut ::core::ffi::c_void,
+        data: *const ::core::ffi::c_void,
         size: usize,
     ) -> bool,
 >;
@@ -2168,12 +2168,12 @@ extern "C" {
     pub fn AndroidBitmap_compress(
         info: *const AndroidBitmapInfo,
         dataspace: i32,
-        pixels: *const ::std::os::raw::c_void,
+        pixels: *const ::core::ffi::c_void,
         format: i32,
         quality: i32,
-        userContext: *mut ::std::os::raw::c_void,
+        userContext: *mut ::core::ffi::c_void,
         fn_: AndroidBitmap_CompressWriteFunc,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2185,7 +2185,7 @@ extern "C" {
         env: *mut JNIEnv,
         bitmap: jobject,
         outBuffer: *mut *mut AHardwareBuffer,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2198,20 +2198,20 @@ pub type AVsyncId = i64;
 pub struct AChoreographerFrameCallbackData {
     _unused: [u8; 0],
 }
-pub type AChoreographer_frameCallback = ::std::option::Option<
-    unsafe extern "C" fn(frameTimeNanos: ::std::os::raw::c_long, data: *mut ::std::os::raw::c_void),
+pub type AChoreographer_frameCallback = ::core::option::Option<
+    unsafe extern "C" fn(frameTimeNanos: ::core::ffi::c_long, data: *mut ::core::ffi::c_void),
 >;
-pub type AChoreographer_frameCallback64 = ::std::option::Option<
-    unsafe extern "C" fn(frameTimeNanos: i64, data: *mut ::std::os::raw::c_void),
+pub type AChoreographer_frameCallback64 = ::core::option::Option<
+    unsafe extern "C" fn(frameTimeNanos: i64, data: *mut ::core::ffi::c_void),
 >;
-pub type AChoreographer_vsyncCallback = ::std::option::Option<
+pub type AChoreographer_vsyncCallback = ::core::option::Option<
     unsafe extern "C" fn(
         callbackData: *const AChoreographerFrameCallbackData,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     ),
 >;
-pub type AChoreographer_refreshRateCallback = ::std::option::Option<
-    unsafe extern "C" fn(vsyncPeriodNanos: i64, data: *mut ::std::os::raw::c_void),
+pub type AChoreographer_refreshRateCallback = ::core::option::Option<
+    unsafe extern "C" fn(vsyncPeriodNanos: i64, data: *mut ::core::ffi::c_void),
 >;
 extern "C" {
     pub fn AChoreographer_getInstance() -> *mut AChoreographer;
@@ -2220,29 +2220,29 @@ extern "C" {
     pub fn AChoreographer_postFrameCallback(
         choreographer: *mut AChoreographer,
         callback: AChoreographer_frameCallback,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
     pub fn AChoreographer_postFrameCallbackDelayed(
         choreographer: *mut AChoreographer,
         callback: AChoreographer_frameCallback,
-        data: *mut ::std::os::raw::c_void,
-        delayMillis: ::std::os::raw::c_long,
+        data: *mut ::core::ffi::c_void,
+        delayMillis: ::core::ffi::c_long,
     );
 }
 extern "C" {
     pub fn AChoreographer_postFrameCallback64(
         choreographer: *mut AChoreographer,
         callback: AChoreographer_frameCallback64,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
     pub fn AChoreographer_postFrameCallbackDelayed64(
         choreographer: *mut AChoreographer,
         callback: AChoreographer_frameCallback64,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
         delayMillis: u32,
     );
 }
@@ -2250,21 +2250,21 @@ extern "C" {
     pub fn AChoreographer_postVsyncCallback(
         choreographer: *mut AChoreographer,
         callback: AChoreographer_vsyncCallback,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
     pub fn AChoreographer_registerRefreshRateCallback(
         choreographer: *mut AChoreographer,
         arg1: AChoreographer_refreshRateCallback,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
     pub fn AChoreographer_unregisterRefreshRateCallback(
         choreographer: *mut AChoreographer,
         arg1: AChoreographer_refreshRateCallback,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
@@ -2396,7 +2396,7 @@ pub const ACONFIGURATION_GRAMMATICAL_GENDER_ANY: _bindgen_ty_5 = 0;
 pub const ACONFIGURATION_GRAMMATICAL_GENDER_NEUTER: _bindgen_ty_5 = 1;
 pub const ACONFIGURATION_GRAMMATICAL_GENDER_FEMININE: _bindgen_ty_5 = 2;
 pub const ACONFIGURATION_GRAMMATICAL_GENDER_MASCULINE: _bindgen_ty_5 = 3;
-pub type _bindgen_ty_5 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_5 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AConfiguration_new() -> *mut AConfiguration;
 }
@@ -2424,25 +2424,25 @@ extern "C" {
 extern "C" {
     pub fn AConfiguration_getLanguage(
         config: *mut AConfiguration,
-        outLanguage: *mut ::std::os::raw::c_char,
+        outLanguage: *mut ::core::ffi::c_char,
     );
 }
 extern "C" {
     pub fn AConfiguration_setLanguage(
         config: *mut AConfiguration,
-        language: *const ::std::os::raw::c_char,
+        language: *const ::core::ffi::c_char,
     );
 }
 extern "C" {
     pub fn AConfiguration_getCountry(
         config: *mut AConfiguration,
-        outCountry: *mut ::std::os::raw::c_char,
+        outCountry: *mut ::core::ffi::c_char,
     );
 }
 extern "C" {
     pub fn AConfiguration_setCountry(
         config: *mut AConfiguration,
-        country: *const ::std::os::raw::c_char,
+        country: *const ::core::ffi::c_char,
     );
 }
 extern "C" {
@@ -2574,25 +2574,25 @@ pub struct imaxdiv_t {
 }
 #[test]
 fn bindgen_test_layout_imaxdiv_t() {
-    const UNINIT: ::std::mem::MaybeUninit<imaxdiv_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<imaxdiv_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<imaxdiv_t>(),
+        ::core::mem::size_of::<imaxdiv_t>(),
         16usize,
         "Size of imaxdiv_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<imaxdiv_t>(),
+        ::core::mem::align_of::<imaxdiv_t>(),
         8usize,
         "Alignment of imaxdiv_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
         0usize,
         "Offset of field: imaxdiv_t::quot"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
         8usize,
         "Offset of field: imaxdiv_t::rem"
     );
@@ -2605,30 +2605,30 @@ extern "C" {
 }
 extern "C" {
     pub fn strtoimax(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
     ) -> intmax_t;
 }
 extern "C" {
     pub fn strtoumax(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
     ) -> uintmax_t;
 }
 extern "C" {
     pub fn wcstoimax(
         __s: *const wchar_t,
         __end_ptr: *mut *mut wchar_t,
-        __base: ::std::os::raw::c_int,
+        __base: ::core::ffi::c_int,
     ) -> intmax_t;
 }
 extern "C" {
     pub fn wcstoumax(
         __s: *const wchar_t,
         __end_ptr: *mut *mut wchar_t,
-        __base: ::std::os::raw::c_int,
+        __base: ::core::ffi::c_int,
     ) -> uintmax_t;
 }
 impl ADataSpace {
@@ -2785,7 +2785,7 @@ pub const ANDROID_DLEXT_FORCE_LOAD: _bindgen_ty_6 = 64;
 pub const ANDROID_DLEXT_USE_NAMESPACE: _bindgen_ty_6 = 512;
 pub const ANDROID_DLEXT_RESERVED_ADDRESS_RECURSIVE: _bindgen_ty_6 = 1024;
 pub const ANDROID_DLEXT_VALID_FLAG_BITS: _bindgen_ty_6 = 1663;
-pub type _bindgen_ty_6 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_6 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct android_namespace_t {
@@ -2795,69 +2795,69 @@ pub struct android_namespace_t {
 #[derive(Debug, Copy, Clone)]
 pub struct android_dlextinfo {
     pub flags: u64,
-    pub reserved_addr: *mut ::std::os::raw::c_void,
+    pub reserved_addr: *mut ::core::ffi::c_void,
     pub reserved_size: usize,
-    pub relro_fd: ::std::os::raw::c_int,
-    pub library_fd: ::std::os::raw::c_int,
+    pub relro_fd: ::core::ffi::c_int,
+    pub library_fd: ::core::ffi::c_int,
     pub library_fd_offset: off64_t,
     pub library_namespace: *mut android_namespace_t,
 }
 #[test]
 fn bindgen_test_layout_android_dlextinfo() {
-    const UNINIT: ::std::mem::MaybeUninit<android_dlextinfo> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<android_dlextinfo> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<android_dlextinfo>(),
+        ::core::mem::size_of::<android_dlextinfo>(),
         48usize,
         "Size of android_dlextinfo"
     );
     assert_eq!(
-        ::std::mem::align_of::<android_dlextinfo>(),
+        ::core::mem::align_of::<android_dlextinfo>(),
         8usize,
         "Alignment of android_dlextinfo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         0usize,
         "Offset of field: android_dlextinfo::flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved_addr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reserved_addr) as usize - ptr as usize },
         8usize,
         "Offset of field: android_dlextinfo::reserved_addr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved_size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reserved_size) as usize - ptr as usize },
         16usize,
         "Offset of field: android_dlextinfo::reserved_size"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).relro_fd) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).relro_fd) as usize - ptr as usize },
         24usize,
         "Offset of field: android_dlextinfo::relro_fd"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).library_fd) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).library_fd) as usize - ptr as usize },
         28usize,
         "Offset of field: android_dlextinfo::library_fd"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).library_fd_offset) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).library_fd_offset) as usize - ptr as usize },
         32usize,
         "Offset of field: android_dlextinfo::library_fd_offset"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).library_namespace) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).library_namespace) as usize - ptr as usize },
         40usize,
         "Offset of field: android_dlextinfo::library_namespace"
     );
 }
 extern "C" {
     pub fn android_dlopen_ext(
-        __filename: *const ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
+        __filename: *const ::core::ffi::c_char,
+        __flags: ::core::ffi::c_int,
         __info: *const android_dlextinfo,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 impl android_fdsan_owner_type {
     pub const ANDROID_FDSAN_OWNER_TYPE_GENERIC_00: android_fdsan_owner_type =
@@ -2923,28 +2923,25 @@ impl android_fdsan_owner_type {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct android_fdsan_owner_type(pub ::std::os::raw::c_uint);
+pub struct android_fdsan_owner_type(pub ::core::ffi::c_uint);
 extern "C" {
     pub fn android_fdsan_create_owner_tag(type_: android_fdsan_owner_type, tag: u64) -> u64;
 }
 extern "C" {
     pub fn android_fdsan_exchange_owner_tag(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         expected_tag: u64,
         new_tag: u64,
     );
 }
 extern "C" {
-    pub fn android_fdsan_close_with_tag(
-        fd: ::std::os::raw::c_int,
-        tag: u64,
-    ) -> ::std::os::raw::c_int;
+    pub fn android_fdsan_close_with_tag(fd: ::core::ffi::c_int, tag: u64) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_fdsan_get_owner_tag(fd: ::std::os::raw::c_int) -> u64;
+    pub fn android_fdsan_get_owner_tag(fd: ::core::ffi::c_int) -> u64;
 }
 extern "C" {
-    pub fn android_fdsan_get_tag_type(tag: u64) -> *const ::std::os::raw::c_char;
+    pub fn android_fdsan_get_tag_type(tag: u64) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn android_fdsan_get_tag_value(tag: u64) -> u64;
@@ -2967,7 +2964,7 @@ impl android_fdsan_error_level {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct android_fdsan_error_level(pub ::std::os::raw::c_uint);
+pub struct android_fdsan_error_level(pub ::core::ffi::c_uint);
 extern "C" {
     pub fn android_fdsan_get_error_level() -> android_fdsan_error_level;
 }
@@ -2985,17 +2982,10 @@ extern "C" {
     pub fn AFileDescriptor_create(env: *mut JNIEnv) -> jobject;
 }
 extern "C" {
-    pub fn AFileDescriptor_getFd(
-        env: *mut JNIEnv,
-        fileDescriptor: jobject,
-    ) -> ::std::os::raw::c_int;
+    pub fn AFileDescriptor_getFd(env: *mut JNIEnv, fileDescriptor: jobject) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn AFileDescriptor_setFd(
-        env: *mut JNIEnv,
-        fileDescriptor: jobject,
-        fd: ::std::os::raw::c_int,
-    );
+    pub fn AFileDescriptor_setFd(env: *mut JNIEnv, fileDescriptor: jobject, fd: ::core::ffi::c_int);
 }
 pub const AFONT_WEIGHT_MIN: _bindgen_ty_7 = 0;
 pub const AFONT_WEIGHT_THIN: _bindgen_ty_7 = 100;
@@ -3008,7 +2998,7 @@ pub const AFONT_WEIGHT_BOLD: _bindgen_ty_7 = 700;
 pub const AFONT_WEIGHT_EXTRA_BOLD: _bindgen_ty_7 = 800;
 pub const AFONT_WEIGHT_BLACK: _bindgen_ty_7 = 900;
 pub const AFONT_WEIGHT_MAX: _bindgen_ty_7 = 1000;
-pub type _bindgen_ty_7 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_7 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AFont {
@@ -3018,7 +3008,7 @@ extern "C" {
     pub fn AFont_close(font: *mut AFont);
 }
 extern "C" {
-    pub fn AFont_getFontFilePath(font: *const AFont) -> *const ::std::os::raw::c_char;
+    pub fn AFont_getFontFilePath(font: *const AFont) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AFont_getWeight(font: *const AFont) -> u16;
@@ -3027,7 +3017,7 @@ extern "C" {
     pub fn AFont_isItalic(font: *const AFont) -> bool;
 }
 extern "C" {
-    pub fn AFont_getLocale(font: *const AFont) -> *const ::std::os::raw::c_char;
+    pub fn AFont_getLocale(font: *const AFont) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AFont_getCollectionIndex(font: *const AFont) -> usize;
@@ -3044,7 +3034,7 @@ extern "C" {
 pub const AFAMILY_VARIANT_DEFAULT: _bindgen_ty_8 = 0;
 pub const AFAMILY_VARIANT_COMPACT: _bindgen_ty_8 = 1;
 pub const AFAMILY_VARIANT_ELEGANT: _bindgen_ty_8 = 2;
-pub type _bindgen_ty_8 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_8 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AFontMatcher {
@@ -3062,7 +3052,7 @@ extern "C" {
 extern "C" {
     pub fn AFontMatcher_setLocales(
         matcher: *mut AFontMatcher,
-        languageTags: *const ::std::os::raw::c_char,
+        languageTags: *const ::core::ffi::c_char,
     );
 }
 extern "C" {
@@ -3071,7 +3061,7 @@ extern "C" {
 extern "C" {
     pub fn AFontMatcher_match(
         matcher: *const AFontMatcher,
-        familyName: *const ::std::os::raw::c_char,
+        familyName: *const ::core::ffi::c_char,
         text: *const u16,
         textLength: u32,
         runLengthOut: *mut u32,
@@ -3087,31 +3077,31 @@ pub struct ARect {
 }
 #[test]
 fn bindgen_test_layout_ARect() {
-    const UNINIT: ::std::mem::MaybeUninit<ARect> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ARect> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<ARect>(), 16usize, "Size of ARect");
+    assert_eq!(::core::mem::size_of::<ARect>(), 16usize, "Size of ARect");
     assert_eq!(
-        ::std::mem::align_of::<ARect>(),
+        ::core::mem::align_of::<ARect>(),
         4usize,
         "Alignment of ARect"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).left) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).left) as usize - ptr as usize },
         0usize,
         "Offset of field: ARect::left"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).top) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).top) as usize - ptr as usize },
         4usize,
         "Offset of field: ARect::top"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).right) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).right) as usize - ptr as usize },
         8usize,
         "Offset of field: ARect::right"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).bottom) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).bottom) as usize - ptr as usize },
         12usize,
         "Offset of field: ARect::bottom"
     );
@@ -3187,7 +3177,7 @@ impl AHardwareBuffer_Format {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AHardwareBuffer_Format(pub ::std::os::raw::c_uint);
+pub struct AHardwareBuffer_Format(pub ::core::ffi::c_uint);
 impl AHardwareBuffer_UsageFlags {
     pub const AHARDWAREBUFFER_USAGE_CPU_READ_NEVER: AHardwareBuffer_UsageFlags =
         AHardwareBuffer_UsageFlags(0);
@@ -3346,7 +3336,7 @@ impl AHardwareBuffer_UsageFlags {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AHardwareBuffer_UsageFlags(pub ::std::os::raw::c_ulong);
+pub struct AHardwareBuffer_UsageFlags(pub ::core::ffi::c_ulong);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AHardwareBuffer_Desc {
@@ -3361,55 +3351,56 @@ pub struct AHardwareBuffer_Desc {
 }
 #[test]
 fn bindgen_test_layout_AHardwareBuffer_Desc() {
-    const UNINIT: ::std::mem::MaybeUninit<AHardwareBuffer_Desc> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHardwareBuffer_Desc> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHardwareBuffer_Desc>(),
+        ::core::mem::size_of::<AHardwareBuffer_Desc>(),
         40usize,
         "Size of AHardwareBuffer_Desc"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHardwareBuffer_Desc>(),
+        ::core::mem::align_of::<AHardwareBuffer_Desc>(),
         8usize,
         "Alignment of AHardwareBuffer_Desc"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
         0usize,
         "Offset of field: AHardwareBuffer_Desc::width"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
         4usize,
         "Offset of field: AHardwareBuffer_Desc::height"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).layers) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).layers) as usize - ptr as usize },
         8usize,
         "Offset of field: AHardwareBuffer_Desc::layers"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
         12usize,
         "Offset of field: AHardwareBuffer_Desc::format"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).usage) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).usage) as usize - ptr as usize },
         16usize,
         "Offset of field: AHardwareBuffer_Desc::usage"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
         24usize,
         "Offset of field: AHardwareBuffer_Desc::stride"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rfu0) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rfu0) as usize - ptr as usize },
         28usize,
         "Offset of field: AHardwareBuffer_Desc::rfu0"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rfu1) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rfu1) as usize - ptr as usize },
         32usize,
         "Offset of field: AHardwareBuffer_Desc::rfu1"
     );
@@ -3417,37 +3408,37 @@ fn bindgen_test_layout_AHardwareBuffer_Desc() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AHardwareBuffer_Plane {
-    pub data: *mut ::std::os::raw::c_void,
+    pub data: *mut ::core::ffi::c_void,
     pub pixelStride: u32,
     pub rowStride: u32,
 }
 #[test]
 fn bindgen_test_layout_AHardwareBuffer_Plane() {
-    const UNINIT: ::std::mem::MaybeUninit<AHardwareBuffer_Plane> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHardwareBuffer_Plane> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHardwareBuffer_Plane>(),
+        ::core::mem::size_of::<AHardwareBuffer_Plane>(),
         16usize,
         "Size of AHardwareBuffer_Plane"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHardwareBuffer_Plane>(),
+        ::core::mem::align_of::<AHardwareBuffer_Plane>(),
         8usize,
         "Alignment of AHardwareBuffer_Plane"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
         0usize,
         "Offset of field: AHardwareBuffer_Plane::data"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pixelStride) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pixelStride) as usize - ptr as usize },
         8usize,
         "Offset of field: AHardwareBuffer_Plane::pixelStride"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rowStride) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rowStride) as usize - ptr as usize },
         12usize,
         "Offset of field: AHardwareBuffer_Plane::rowStride"
     );
@@ -3460,26 +3451,26 @@ pub struct AHardwareBuffer_Planes {
 }
 #[test]
 fn bindgen_test_layout_AHardwareBuffer_Planes() {
-    const UNINIT: ::std::mem::MaybeUninit<AHardwareBuffer_Planes> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHardwareBuffer_Planes> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHardwareBuffer_Planes>(),
+        ::core::mem::size_of::<AHardwareBuffer_Planes>(),
         72usize,
         "Size of AHardwareBuffer_Planes"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHardwareBuffer_Planes>(),
+        ::core::mem::align_of::<AHardwareBuffer_Planes>(),
         8usize,
         "Alignment of AHardwareBuffer_Planes"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).planeCount) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).planeCount) as usize - ptr as usize },
         0usize,
         "Offset of field: AHardwareBuffer_Planes::planeCount"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).planes) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).planes) as usize - ptr as usize },
         8usize,
         "Offset of field: AHardwareBuffer_Planes::planes"
     );
@@ -3488,7 +3479,7 @@ extern "C" {
     pub fn AHardwareBuffer_allocate(
         desc: *const AHardwareBuffer_Desc,
         outBuffer: *mut *mut AHardwareBuffer,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_acquire(buffer: *mut AHardwareBuffer);
@@ -3508,26 +3499,26 @@ extern "C" {
         usage: u64,
         fence: i32,
         rect: *const ARect,
-        outVirtualAddress: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        outVirtualAddress: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_unlock(
         buffer: *mut AHardwareBuffer,
         fence: *mut i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_sendHandleToUnixSocket(
         buffer: *const AHardwareBuffer,
-        socketFd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        socketFd: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_recvHandleFromUnixSocket(
-        socketFd: ::std::os::raw::c_int,
+        socketFd: ::core::ffi::c_int,
         outBuffer: *mut *mut AHardwareBuffer,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_lockPlanes(
@@ -3536,10 +3527,10 @@ extern "C" {
         fence: i32,
         rect: *const ARect,
         outPlanes: *mut AHardwareBuffer_Planes,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn AHardwareBuffer_isSupported(desc: *const AHardwareBuffer_Desc) -> ::std::os::raw::c_int;
+    pub fn AHardwareBuffer_isSupported(desc: *const AHardwareBuffer_Desc) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_lockAndGetInfo(
@@ -3547,16 +3538,16 @@ extern "C" {
         usage: u64,
         fence: i32,
         rect: *const ARect,
-        outVirtualAddress: *mut *mut ::std::os::raw::c_void,
+        outVirtualAddress: *mut *mut ::core::ffi::c_void,
         outBytesPerPixel: *mut i32,
         outBytesPerStride: *mut i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_getId(
         buffer: *const AHardwareBuffer,
         outId: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AHardwareBuffer_fromHardwareBuffer(
@@ -3590,25 +3581,25 @@ pub struct AColor_xy {
 }
 #[test]
 fn bindgen_test_layout_AColor_xy() {
-    const UNINIT: ::std::mem::MaybeUninit<AColor_xy> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AColor_xy> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AColor_xy>(),
+        ::core::mem::size_of::<AColor_xy>(),
         8usize,
         "Size of AColor_xy"
     );
     assert_eq!(
-        ::std::mem::align_of::<AColor_xy>(),
+        ::core::mem::align_of::<AColor_xy>(),
         4usize,
         "Alignment of AColor_xy"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x) as usize - ptr as usize },
         0usize,
         "Offset of field: AColor_xy::x"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y) as usize - ptr as usize },
         4usize,
         "Offset of field: AColor_xy::y"
     );
@@ -3625,46 +3616,46 @@ pub struct AHdrMetadata_smpte2086 {
 }
 #[test]
 fn bindgen_test_layout_AHdrMetadata_smpte2086() {
-    const UNINIT: ::std::mem::MaybeUninit<AHdrMetadata_smpte2086> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHdrMetadata_smpte2086> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHdrMetadata_smpte2086>(),
+        ::core::mem::size_of::<AHdrMetadata_smpte2086>(),
         40usize,
         "Size of AHdrMetadata_smpte2086"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHdrMetadata_smpte2086>(),
+        ::core::mem::align_of::<AHdrMetadata_smpte2086>(),
         4usize,
         "Alignment of AHdrMetadata_smpte2086"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).displayPrimaryRed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).displayPrimaryRed) as usize - ptr as usize },
         0usize,
         "Offset of field: AHdrMetadata_smpte2086::displayPrimaryRed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).displayPrimaryGreen) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).displayPrimaryGreen) as usize - ptr as usize },
         8usize,
         "Offset of field: AHdrMetadata_smpte2086::displayPrimaryGreen"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).displayPrimaryBlue) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).displayPrimaryBlue) as usize - ptr as usize },
         16usize,
         "Offset of field: AHdrMetadata_smpte2086::displayPrimaryBlue"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).whitePoint) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).whitePoint) as usize - ptr as usize },
         24usize,
         "Offset of field: AHdrMetadata_smpte2086::whitePoint"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).maxLuminance) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).maxLuminance) as usize - ptr as usize },
         32usize,
         "Offset of field: AHdrMetadata_smpte2086::maxLuminance"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).minLuminance) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).minLuminance) as usize - ptr as usize },
         36usize,
         "Offset of field: AHdrMetadata_smpte2086::minLuminance"
     );
@@ -3677,26 +3668,26 @@ pub struct AHdrMetadata_cta861_3 {
 }
 #[test]
 fn bindgen_test_layout_AHdrMetadata_cta861_3() {
-    const UNINIT: ::std::mem::MaybeUninit<AHdrMetadata_cta861_3> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHdrMetadata_cta861_3> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHdrMetadata_cta861_3>(),
+        ::core::mem::size_of::<AHdrMetadata_cta861_3>(),
         8usize,
         "Size of AHdrMetadata_cta861_3"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHdrMetadata_cta861_3>(),
+        ::core::mem::align_of::<AHdrMetadata_cta861_3>(),
         4usize,
         "Alignment of AHdrMetadata_cta861_3"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).maxContentLightLevel) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).maxContentLightLevel) as usize - ptr as usize },
         0usize,
         "Offset of field: AHdrMetadata_cta861_3::maxContentLightLevel"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).maxFrameAverageLightLevel) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).maxFrameAverageLightLevel) as usize - ptr as usize },
         4usize,
         "Offset of field: AHdrMetadata_cta861_3::maxFrameAverageLightLevel"
     );
@@ -3713,11 +3704,9 @@ pub const ANDROID_IMAGE_DECODER_INTERNAL_ERROR: _bindgen_ty_9 = -8;
 pub const ANDROID_IMAGE_DECODER_UNSUPPORTED_FORMAT: _bindgen_ty_9 = -9;
 pub const ANDROID_IMAGE_DECODER_FINISHED: _bindgen_ty_9 = -10;
 pub const ANDROID_IMAGE_DECODER_INVALID_STATE: _bindgen_ty_9 = -11;
-pub type _bindgen_ty_9 = ::std::os::raw::c_int;
+pub type _bindgen_ty_9 = ::core::ffi::c_int;
 extern "C" {
-    pub fn AImageDecoder_resultToString(
-        arg1: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+    pub fn AImageDecoder_resultToString(arg1: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3728,20 +3717,20 @@ extern "C" {
     pub fn AImageDecoder_createFromAAsset(
         asset: *mut AAsset,
         outDecoder: *mut *mut AImageDecoder,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_createFromFd(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         outDecoder: *mut *mut AImageDecoder,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_createFromBuffer(
-        buffer: *const ::std::os::raw::c_void,
+        buffer: *const ::core::ffi::c_void,
         length: usize,
         outDecoder: *mut *mut AImageDecoder,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_delete(decoder: *mut AImageDecoder);
@@ -3750,38 +3739,37 @@ extern "C" {
     pub fn AImageDecoder_setAndroidBitmapFormat(
         decoder: *mut AImageDecoder,
         format: i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_setUnpremultipliedRequired(
         decoder: *mut AImageDecoder,
         unpremultipliedRequired: bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_setDataSpace(
         decoder: *mut AImageDecoder,
         dataspace: i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_setTargetSize(
         decoder: *mut AImageDecoder,
         width: i32,
         height: i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_computeSampledSize(
         decoder: *const AImageDecoder,
-        sampleSize: ::std::os::raw::c_int,
+        sampleSize: ::core::ffi::c_int,
         width: *mut i32,
         height: *mut i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn AImageDecoder_setCrop(decoder: *mut AImageDecoder, crop: ARect)
-        -> ::std::os::raw::c_int;
+    pub fn AImageDecoder_setCrop(decoder: *mut AImageDecoder, crop: ARect) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3802,7 +3790,7 @@ extern "C" {
 extern "C" {
     pub fn AImageDecoderHeaderInfo_getMimeType(
         arg1: *const AImageDecoderHeaderInfo,
-    ) -> *const ::std::os::raw::c_char;
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AImageDecoderHeaderInfo_getAndroidBitmapFormat(
@@ -3812,7 +3800,7 @@ extern "C" {
 extern "C" {
     pub fn AImageDecoderHeaderInfo_getAlphaFlags(
         arg1: *const AImageDecoderHeaderInfo,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoderHeaderInfo_getDataSpace(arg1: *const AImageDecoderHeaderInfo) -> i32;
@@ -3823,24 +3811,24 @@ extern "C" {
 extern "C" {
     pub fn AImageDecoder_decodeImage(
         decoder: *mut AImageDecoder,
-        pixels: *mut ::std::os::raw::c_void,
+        pixels: *mut ::core::ffi::c_void,
         stride: usize,
         size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoder_isAnimated(decoder: *mut AImageDecoder) -> bool;
 }
 pub const ANDROID_IMAGE_DECODER_INFINITE: _bindgen_ty_10 = 2147483647;
-pub type _bindgen_ty_10 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_10 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AImageDecoder_getRepeatCount(decoder: *mut AImageDecoder) -> i32;
 }
 extern "C" {
-    pub fn AImageDecoder_advanceFrame(decoder: *mut AImageDecoder) -> ::std::os::raw::c_int;
+    pub fn AImageDecoder_advanceFrame(decoder: *mut AImageDecoder) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn AImageDecoder_rewind(decoder: *mut AImageDecoder) -> ::std::os::raw::c_int;
+    pub fn AImageDecoder_rewind(decoder: *mut AImageDecoder) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3857,7 +3845,7 @@ extern "C" {
     pub fn AImageDecoder_getFrameInfo(
         decoder: *mut AImageDecoder,
         info: *mut AImageDecoderFrameInfo,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AImageDecoderFrameInfo_getDuration(info: *const AImageDecoderFrameInfo) -> i64;
@@ -3872,13 +3860,13 @@ extern "C" {
 pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_NONE: _bindgen_ty_11 = 1;
 pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_BACKGROUND: _bindgen_ty_11 = 2;
 pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_PREVIOUS: _bindgen_ty_11 = 3;
-pub type _bindgen_ty_11 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_11 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getDisposeOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
 pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC: _bindgen_ty_12 = 1;
 pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC_OVER: _bindgen_ty_12 = 2;
-pub type _bindgen_ty_12 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_12 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getBlendOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
@@ -4205,7 +4193,7 @@ pub const AKEYCODE_MACRO_1: _bindgen_ty_13 = 313;
 pub const AKEYCODE_MACRO_2: _bindgen_ty_13 = 314;
 pub const AKEYCODE_MACRO_3: _bindgen_ty_13 = 315;
 pub const AKEYCODE_MACRO_4: _bindgen_ty_13 = 316;
-pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_13 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ALooper {
@@ -4215,15 +4203,15 @@ extern "C" {
     pub fn ALooper_forThread() -> *mut ALooper;
 }
 pub const ALOOPER_PREPARE_ALLOW_NON_CALLBACKS: _bindgen_ty_14 = 1;
-pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_14 = ::core::ffi::c_uint;
 extern "C" {
-    pub fn ALooper_prepare(opts: ::std::os::raw::c_int) -> *mut ALooper;
+    pub fn ALooper_prepare(opts: ::core::ffi::c_int) -> *mut ALooper;
 }
 pub const ALOOPER_POLL_WAKE: _bindgen_ty_15 = -1;
 pub const ALOOPER_POLL_CALLBACK: _bindgen_ty_15 = -2;
 pub const ALOOPER_POLL_TIMEOUT: _bindgen_ty_15 = -3;
 pub const ALOOPER_POLL_ERROR: _bindgen_ty_15 = -4;
-pub type _bindgen_ty_15 = ::std::os::raw::c_int;
+pub type _bindgen_ty_15 = ::core::ffi::c_int;
 extern "C" {
     pub fn ALooper_acquire(looper: *mut ALooper);
 }
@@ -4235,29 +4223,29 @@ pub const ALOOPER_EVENT_OUTPUT: _bindgen_ty_16 = 2;
 pub const ALOOPER_EVENT_ERROR: _bindgen_ty_16 = 4;
 pub const ALOOPER_EVENT_HANGUP: _bindgen_ty_16 = 8;
 pub const ALOOPER_EVENT_INVALID: _bindgen_ty_16 = 16;
-pub type _bindgen_ty_16 = ::std::os::raw::c_uint;
-pub type ALooper_callbackFunc = ::std::option::Option<
+pub type _bindgen_ty_16 = ::core::ffi::c_uint;
+pub type ALooper_callbackFunc = ::core::option::Option<
     unsafe extern "C" fn(
-        fd: ::std::os::raw::c_int,
-        events: ::std::os::raw::c_int,
-        data: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        events: ::core::ffi::c_int,
+        data: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int,
 >;
 extern "C" {
     pub fn ALooper_pollOnce(
-        timeoutMillis: ::std::os::raw::c_int,
-        outFd: *mut ::std::os::raw::c_int,
-        outEvents: *mut ::std::os::raw::c_int,
-        outData: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        timeoutMillis: ::core::ffi::c_int,
+        outFd: *mut ::core::ffi::c_int,
+        outEvents: *mut ::core::ffi::c_int,
+        outData: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ALooper_pollAll(
-        timeoutMillis: ::std::os::raw::c_int,
-        outFd: *mut ::std::os::raw::c_int,
-        outEvents: *mut ::std::os::raw::c_int,
-        outData: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        timeoutMillis: ::core::ffi::c_int,
+        outFd: *mut ::core::ffi::c_int,
+        outEvents: *mut ::core::ffi::c_int,
+        outData: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ALooper_wake(looper: *mut ALooper);
@@ -4265,24 +4253,21 @@ extern "C" {
 extern "C" {
     pub fn ALooper_addFd(
         looper: *mut ALooper,
-        fd: ::std::os::raw::c_int,
-        ident: ::std::os::raw::c_int,
-        events: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        ident: ::core::ffi::c_int,
+        events: ::core::ffi::c_int,
         callback: ALooper_callbackFunc,
-        data: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        data: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ALooper_removeFd(
-        looper: *mut ALooper,
-        fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn ALooper_removeFd(looper: *mut ALooper, fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 pub const AKEY_STATE_UNKNOWN: _bindgen_ty_17 = -1;
 pub const AKEY_STATE_UP: _bindgen_ty_17 = 0;
 pub const AKEY_STATE_DOWN: _bindgen_ty_17 = 1;
 pub const AKEY_STATE_VIRTUAL: _bindgen_ty_17 = 2;
-pub type _bindgen_ty_17 = ::std::os::raw::c_int;
+pub type _bindgen_ty_17 = ::core::ffi::c_int;
 pub const AMETA_NONE: _bindgen_ty_18 = 0;
 pub const AMETA_ALT_ON: _bindgen_ty_18 = 2;
 pub const AMETA_ALT_LEFT_ON: _bindgen_ty_18 = 16;
@@ -4301,7 +4286,7 @@ pub const AMETA_META_RIGHT_ON: _bindgen_ty_18 = 262144;
 pub const AMETA_CAPS_LOCK_ON: _bindgen_ty_18 = 1048576;
 pub const AMETA_NUM_LOCK_ON: _bindgen_ty_18 = 2097152;
 pub const AMETA_SCROLL_LOCK_ON: _bindgen_ty_18 = 4194304;
-pub type _bindgen_ty_18 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_18 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AInputEvent {
@@ -4313,11 +4298,11 @@ pub const AINPUT_EVENT_TYPE_FOCUS: _bindgen_ty_19 = 3;
 pub const AINPUT_EVENT_TYPE_CAPTURE: _bindgen_ty_19 = 4;
 pub const AINPUT_EVENT_TYPE_DRAG: _bindgen_ty_19 = 5;
 pub const AINPUT_EVENT_TYPE_TOUCH_MODE: _bindgen_ty_19 = 6;
-pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_19 = ::core::ffi::c_uint;
 pub const AKEY_EVENT_ACTION_DOWN: _bindgen_ty_20 = 0;
 pub const AKEY_EVENT_ACTION_UP: _bindgen_ty_20 = 1;
 pub const AKEY_EVENT_ACTION_MULTIPLE: _bindgen_ty_20 = 2;
-pub type _bindgen_ty_20 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_20 = ::core::ffi::c_uint;
 pub const AKEY_EVENT_FLAG_WOKE_HERE: _bindgen_ty_21 = 1;
 pub const AKEY_EVENT_FLAG_SOFT_KEYBOARD: _bindgen_ty_21 = 2;
 pub const AKEY_EVENT_FLAG_KEEP_TOUCH_MODE: _bindgen_ty_21 = 4;
@@ -4329,7 +4314,7 @@ pub const AKEY_EVENT_FLAG_LONG_PRESS: _bindgen_ty_21 = 128;
 pub const AKEY_EVENT_FLAG_CANCELED_LONG_PRESS: _bindgen_ty_21 = 256;
 pub const AKEY_EVENT_FLAG_TRACKING: _bindgen_ty_21 = 512;
 pub const AKEY_EVENT_FLAG_FALLBACK: _bindgen_ty_21 = 1024;
-pub type _bindgen_ty_21 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_21 = ::core::ffi::c_uint;
 pub const AMOTION_EVENT_ACTION_MASK: _bindgen_ty_22 = 255;
 pub const AMOTION_EVENT_ACTION_POINTER_INDEX_MASK: _bindgen_ty_22 = 65280;
 pub const AMOTION_EVENT_ACTION_DOWN: _bindgen_ty_22 = 0;
@@ -4345,15 +4330,15 @@ pub const AMOTION_EVENT_ACTION_HOVER_ENTER: _bindgen_ty_22 = 9;
 pub const AMOTION_EVENT_ACTION_HOVER_EXIT: _bindgen_ty_22 = 10;
 pub const AMOTION_EVENT_ACTION_BUTTON_PRESS: _bindgen_ty_22 = 11;
 pub const AMOTION_EVENT_ACTION_BUTTON_RELEASE: _bindgen_ty_22 = 12;
-pub type _bindgen_ty_22 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_22 = ::core::ffi::c_uint;
 pub const AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED: _bindgen_ty_23 = 1;
-pub type _bindgen_ty_23 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_23 = ::core::ffi::c_uint;
 pub const AMOTION_EVENT_EDGE_FLAG_NONE: _bindgen_ty_24 = 0;
 pub const AMOTION_EVENT_EDGE_FLAG_TOP: _bindgen_ty_24 = 1;
 pub const AMOTION_EVENT_EDGE_FLAG_BOTTOM: _bindgen_ty_24 = 2;
 pub const AMOTION_EVENT_EDGE_FLAG_LEFT: _bindgen_ty_24 = 4;
 pub const AMOTION_EVENT_EDGE_FLAG_RIGHT: _bindgen_ty_24 = 8;
-pub type _bindgen_ty_24 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_24 = ::core::ffi::c_uint;
 pub const AMOTION_EVENT_AXIS_X: _bindgen_ty_25 = 0;
 pub const AMOTION_EVENT_AXIS_Y: _bindgen_ty_25 = 1;
 pub const AMOTION_EVENT_AXIS_PRESSURE: _bindgen_ty_25 = 2;
@@ -4406,7 +4391,7 @@ pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE: _bindgen_ty_25 = 51;
 pub const AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR: _bindgen_ty_25 = 52;
 pub const AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT: _bindgen_ty_25 = 53;
 pub const AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE: _bindgen_ty_25 = 53;
-pub type _bindgen_ty_25 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_25 = ::core::ffi::c_uint;
 pub const AMOTION_EVENT_BUTTON_PRIMARY: _bindgen_ty_26 = 1;
 pub const AMOTION_EVENT_BUTTON_SECONDARY: _bindgen_ty_26 = 2;
 pub const AMOTION_EVENT_BUTTON_TERTIARY: _bindgen_ty_26 = 4;
@@ -4414,14 +4399,14 @@ pub const AMOTION_EVENT_BUTTON_BACK: _bindgen_ty_26 = 8;
 pub const AMOTION_EVENT_BUTTON_FORWARD: _bindgen_ty_26 = 16;
 pub const AMOTION_EVENT_BUTTON_STYLUS_PRIMARY: _bindgen_ty_26 = 32;
 pub const AMOTION_EVENT_BUTTON_STYLUS_SECONDARY: _bindgen_ty_26 = 64;
-pub type _bindgen_ty_26 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_26 = ::core::ffi::c_uint;
 pub const AMOTION_EVENT_TOOL_TYPE_UNKNOWN: _bindgen_ty_27 = 0;
 pub const AMOTION_EVENT_TOOL_TYPE_FINGER: _bindgen_ty_27 = 1;
 pub const AMOTION_EVENT_TOOL_TYPE_STYLUS: _bindgen_ty_27 = 2;
 pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: _bindgen_ty_27 = 3;
 pub const AMOTION_EVENT_TOOL_TYPE_ERASER: _bindgen_ty_27 = 4;
 pub const AMOTION_EVENT_TOOL_TYPE_PALM: _bindgen_ty_27 = 5;
-pub type _bindgen_ty_27 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_27 = ::core::ffi::c_uint;
 impl AMotionClassification {
     pub const AMOTION_EVENT_CLASSIFICATION_NONE: AMotionClassification = AMotionClassification(0);
 }
@@ -4454,7 +4439,7 @@ pub const AINPUT_SOURCE_CLASS_POINTER: _bindgen_ty_28 = 2;
 pub const AINPUT_SOURCE_CLASS_NAVIGATION: _bindgen_ty_28 = 4;
 pub const AINPUT_SOURCE_CLASS_POSITION: _bindgen_ty_28 = 8;
 pub const AINPUT_SOURCE_CLASS_JOYSTICK: _bindgen_ty_28 = 16;
-pub type _bindgen_ty_28 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_28 = ::core::ffi::c_uint;
 pub const AINPUT_SOURCE_UNKNOWN: _bindgen_ty_29 = 0;
 pub const AINPUT_SOURCE_KEYBOARD: _bindgen_ty_29 = 257;
 pub const AINPUT_SOURCE_DPAD: _bindgen_ty_29 = 513;
@@ -4472,11 +4457,11 @@ pub const AINPUT_SOURCE_HDMI: _bindgen_ty_29 = 33554433;
 pub const AINPUT_SOURCE_SENSOR: _bindgen_ty_29 = 67108864;
 pub const AINPUT_SOURCE_ROTARY_ENCODER: _bindgen_ty_29 = 4194304;
 pub const AINPUT_SOURCE_ANY: _bindgen_ty_29 = 4294967040;
-pub type _bindgen_ty_29 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_29 = ::core::ffi::c_uint;
 pub const AINPUT_KEYBOARD_TYPE_NONE: _bindgen_ty_30 = 0;
 pub const AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC: _bindgen_ty_30 = 1;
 pub const AINPUT_KEYBOARD_TYPE_ALPHABETIC: _bindgen_ty_30 = 2;
-pub type _bindgen_ty_30 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_30 = ::core::ffi::c_uint;
 pub const AINPUT_MOTION_RANGE_X: _bindgen_ty_31 = 0;
 pub const AINPUT_MOTION_RANGE_Y: _bindgen_ty_31 = 1;
 pub const AINPUT_MOTION_RANGE_PRESSURE: _bindgen_ty_31 = 2;
@@ -4486,7 +4471,7 @@ pub const AINPUT_MOTION_RANGE_TOUCH_MINOR: _bindgen_ty_31 = 5;
 pub const AINPUT_MOTION_RANGE_TOOL_MAJOR: _bindgen_ty_31 = 6;
 pub const AINPUT_MOTION_RANGE_TOOL_MINOR: _bindgen_ty_31 = 7;
 pub const AINPUT_MOTION_RANGE_ORIENTATION: _bindgen_ty_31 = 8;
-pub type _bindgen_ty_31 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_31 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AInputEvent_getType(event: *const AInputEvent) -> i32;
 }
@@ -4732,9 +4717,9 @@ extern "C" {
     pub fn AInputQueue_attachLooper(
         queue: *mut AInputQueue,
         looper: *mut ALooper,
-        ident: ::std::os::raw::c_int,
+        ident: ::core::ffi::c_int,
         callback: ALooper_callbackFunc,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
@@ -4753,7 +4738,7 @@ extern "C" {
     pub fn AInputQueue_finishEvent(
         queue: *mut AInputQueue,
         event: *mut AInputEvent,
-        handled: ::std::os::raw::c_int,
+        handled: ::core::ffi::c_int,
     );
 }
 extern "C" {
@@ -4788,35 +4773,35 @@ impl android_LogPriority {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct android_LogPriority(pub ::std::os::raw::c_uint);
+pub struct android_LogPriority(pub ::core::ffi::c_uint);
 extern "C" {
     pub fn __android_log_write(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        text: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        prio: ::core::ffi::c_int,
+        tag: *const ::core::ffi::c_char,
+        text: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn __android_log_print(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
+        prio: ::core::ffi::c_int,
+        tag: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn __android_log_vprint(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
+        prio: ::core::ffi::c_int,
+        tag: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ap: va_list,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn __android_log_assert(
-        cond: *const ::std::os::raw::c_char,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
+        cond: *const ::core::ffi::c_char,
+        tag: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
     ) -> !;
 }
@@ -4855,24 +4840,24 @@ impl log_id {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct log_id(pub ::std::os::raw::c_uint);
+pub struct log_id(pub ::core::ffi::c_uint);
 pub use self::log_id as log_id_t;
 extern "C" {
     pub fn __android_log_buf_write(
-        bufID: ::std::os::raw::c_int,
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        text: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        bufID: ::core::ffi::c_int,
+        prio: ::core::ffi::c_int,
+        tag: *const ::core::ffi::c_char,
+        text: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn __android_log_buf_print(
-        bufID: ::std::os::raw::c_int,
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
+        bufID: ::core::ffi::c_int,
+        prio: ::core::ffi::c_int,
+        tag: *const ::core::ffi::c_char,
+        fmt: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -4880,66 +4865,66 @@ pub struct __android_log_message {
     pub struct_size: usize,
     pub buffer_id: i32,
     pub priority: i32,
-    pub tag: *const ::std::os::raw::c_char,
-    pub file: *const ::std::os::raw::c_char,
+    pub tag: *const ::core::ffi::c_char,
+    pub file: *const ::core::ffi::c_char,
     pub line: u32,
-    pub message: *const ::std::os::raw::c_char,
+    pub message: *const ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout___android_log_message() {
-    const UNINIT: ::std::mem::MaybeUninit<__android_log_message> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__android_log_message> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__android_log_message>(),
+        ::core::mem::size_of::<__android_log_message>(),
         48usize,
         "Size of __android_log_message"
     );
     assert_eq!(
-        ::std::mem::align_of::<__android_log_message>(),
+        ::core::mem::align_of::<__android_log_message>(),
         8usize,
         "Alignment of __android_log_message"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).struct_size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).struct_size) as usize - ptr as usize },
         0usize,
         "Offset of field: __android_log_message::struct_size"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).buffer_id) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).buffer_id) as usize - ptr as usize },
         8usize,
         "Offset of field: __android_log_message::buffer_id"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).priority) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).priority) as usize - ptr as usize },
         12usize,
         "Offset of field: __android_log_message::priority"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
         16usize,
         "Offset of field: __android_log_message::tag"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).file) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).file) as usize - ptr as usize },
         24usize,
         "Offset of field: __android_log_message::file"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).line) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).line) as usize - ptr as usize },
         32usize,
         "Offset of field: __android_log_message::line"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).message) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).message) as usize - ptr as usize },
         40usize,
         "Offset of field: __android_log_message::message"
     );
 }
 pub type __android_logger_function =
-    ::std::option::Option<unsafe extern "C" fn(log_message: *const __android_log_message)>;
+    ::core::option::Option<unsafe extern "C" fn(log_message: *const __android_log_message)>;
 pub type __android_aborter_function =
-    ::std::option::Option<unsafe extern "C" fn(abort_message: *const ::std::os::raw::c_char)>;
+    ::core::option::Option<unsafe extern "C" fn(abort_message: *const ::core::ffi::c_char)>;
 extern "C" {
     pub fn __android_log_write_log_message(log_message: *mut __android_log_message);
 }
@@ -4956,25 +4941,25 @@ extern "C" {
     pub fn __android_log_set_aborter(aborter: __android_aborter_function);
 }
 extern "C" {
-    pub fn __android_log_call_aborter(abort_message: *const ::std::os::raw::c_char);
+    pub fn __android_log_call_aborter(abort_message: *const ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn __android_log_default_aborter(abort_message: *const ::std::os::raw::c_char) -> !;
+    pub fn __android_log_default_aborter(abort_message: *const ::core::ffi::c_char) -> !;
 }
 extern "C" {
     pub fn __android_log_is_loggable(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        default_prio: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        prio: ::core::ffi::c_int,
+        tag: *const ::core::ffi::c_char,
+        default_prio: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn __android_log_is_loggable_len(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
+        prio: ::core::ffi::c_int,
+        tag: *const ::core::ffi::c_char,
         len: usize,
-        default_prio: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        default_prio: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn __android_log_set_minimum_priority(priority: i32) -> i32;
@@ -4983,49 +4968,49 @@ extern "C" {
     pub fn __android_log_get_minimum_priority() -> i32;
 }
 extern "C" {
-    pub fn __android_log_set_default_tag(tag: *const ::std::os::raw::c_char);
+    pub fn __android_log_set_default_tag(tag: *const ::core::ffi::c_char);
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct flock {
-    pub l_type: ::std::os::raw::c_short,
-    pub l_whence: ::std::os::raw::c_short,
+    pub l_type: ::core::ffi::c_short,
+    pub l_whence: ::core::ffi::c_short,
     pub l_start: off64_t,
     pub l_len: off64_t,
     pub l_pid: pid_t,
 }
 #[test]
 fn bindgen_test_layout_flock() {
-    const UNINIT: ::std::mem::MaybeUninit<flock> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<flock> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<flock>(), 32usize, "Size of flock");
+    assert_eq!(::core::mem::size_of::<flock>(), 32usize, "Size of flock");
     assert_eq!(
-        ::std::mem::align_of::<flock>(),
+        ::core::mem::align_of::<flock>(),
         8usize,
         "Alignment of flock"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
         0usize,
         "Offset of field: flock::l_type"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
         2usize,
         "Offset of field: flock::l_whence"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
         8usize,
         "Offset of field: flock::l_start"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
         16usize,
         "Offset of field: flock::l_len"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
         24usize,
         "Offset of field: flock::l_pid"
     );
@@ -5033,44 +5018,48 @@ fn bindgen_test_layout_flock() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct flock64 {
-    pub l_type: ::std::os::raw::c_short,
-    pub l_whence: ::std::os::raw::c_short,
+    pub l_type: ::core::ffi::c_short,
+    pub l_whence: ::core::ffi::c_short,
     pub l_start: off64_t,
     pub l_len: off64_t,
     pub l_pid: pid_t,
 }
 #[test]
 fn bindgen_test_layout_flock64() {
-    const UNINIT: ::std::mem::MaybeUninit<flock64> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<flock64> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<flock64>(), 32usize, "Size of flock64");
     assert_eq!(
-        ::std::mem::align_of::<flock64>(),
+        ::core::mem::size_of::<flock64>(),
+        32usize,
+        "Size of flock64"
+    );
+    assert_eq!(
+        ::core::mem::align_of::<flock64>(),
         8usize,
         "Alignment of flock64"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
         0usize,
         "Offset of field: flock64::l_type"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
         2usize,
         "Offset of field: flock64::l_whence"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
         8usize,
         "Offset of field: flock64::l_start"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
         16usize,
         "Offset of field: flock64::l_len"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
         24usize,
         "Offset of field: flock64::l_pid"
     );
@@ -5078,30 +5067,30 @@ fn bindgen_test_layout_flock64() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct f_owner_ex {
-    pub type_: ::std::os::raw::c_int,
+    pub type_: ::core::ffi::c_int,
     pub pid: __kernel_pid_t,
 }
 #[test]
 fn bindgen_test_layout_f_owner_ex() {
-    const UNINIT: ::std::mem::MaybeUninit<f_owner_ex> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<f_owner_ex> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<f_owner_ex>(),
+        ::core::mem::size_of::<f_owner_ex>(),
         8usize,
         "Size of f_owner_ex"
     );
     assert_eq!(
-        ::std::mem::align_of::<f_owner_ex>(),
+        ::core::mem::align_of::<f_owner_ex>(),
         4usize,
         "Alignment of f_owner_ex"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
         0usize,
         "Offset of field: f_owner_ex::type_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
         4usize,
         "Offset of field: f_owner_ex::pid"
     );
@@ -5109,31 +5098,31 @@ fn bindgen_test_layout_f_owner_ex() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct iovec {
-    pub iov_base: *mut ::std::os::raw::c_void,
+    pub iov_base: *mut ::core::ffi::c_void,
     pub iov_len: __kernel_size_t,
 }
 #[test]
 fn bindgen_test_layout_iovec() {
-    const UNINIT: ::std::mem::MaybeUninit<iovec> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<iovec> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<iovec>(), 16usize, "Size of iovec");
+    assert_eq!(::core::mem::size_of::<iovec>(), 16usize, "Size of iovec");
     assert_eq!(
-        ::std::mem::align_of::<iovec>(),
+        ::core::mem::align_of::<iovec>(),
         8usize,
         "Alignment of iovec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).iov_base) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).iov_base) as usize - ptr as usize },
         0usize,
         "Offset of field: iovec::iov_base"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).iov_len) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).iov_len) as usize - ptr as usize },
         8usize,
         "Offset of field: iovec::iov_len"
     );
 }
-pub type sa_family_t = ::std::os::raw::c_ushort;
+pub type sa_family_t = ::core::ffi::c_ushort;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct sockaddr_storage {
@@ -5143,57 +5132,57 @@ pub struct sockaddr_storage {
 #[derive(Copy, Clone)]
 pub union sockaddr_storage__bindgen_ty_1 {
     pub __bindgen_anon_1: sockaddr_storage__bindgen_ty_1__bindgen_ty_1,
-    pub __align: *mut ::std::os::raw::c_void,
+    pub __align: *mut ::core::ffi::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr_storage__bindgen_ty_1__bindgen_ty_1 {
     pub ss_family: sa_family_t,
-    pub __data: [::std::os::raw::c_char; 126usize],
+    pub __data: [::core::ffi::c_char; 126usize],
 }
 #[test]
 fn bindgen_test_layout_sockaddr_storage__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
         128usize,
         "Size of sockaddr_storage__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
         2usize,
         "Alignment of sockaddr_storage__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_family) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ss_family) as usize - ptr as usize },
         0usize,
         "Offset of field: sockaddr_storage__bindgen_ty_1__bindgen_ty_1::ss_family"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__data) as usize - ptr as usize },
         2usize,
         "Offset of field: sockaddr_storage__bindgen_ty_1__bindgen_ty_1::__data"
     );
 }
 #[test]
 fn bindgen_test_layout_sockaddr_storage__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sockaddr_storage__bindgen_ty_1>(),
+        ::core::mem::size_of::<sockaddr_storage__bindgen_ty_1>(),
         128usize,
         "Size of sockaddr_storage__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<sockaddr_storage__bindgen_ty_1>(),
+        ::core::mem::align_of::<sockaddr_storage__bindgen_ty_1>(),
         8usize,
         "Alignment of sockaddr_storage__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__align) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__align) as usize - ptr as usize },
         0usize,
         "Offset of field: sockaddr_storage__bindgen_ty_1::__align"
     );
@@ -5201,12 +5190,12 @@ fn bindgen_test_layout_sockaddr_storage__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_sockaddr_storage() {
     assert_eq!(
-        ::std::mem::size_of::<sockaddr_storage>(),
+        ::core::mem::size_of::<sockaddr_storage>(),
         128usize,
         "Size of sockaddr_storage"
     );
     assert_eq!(
-        ::std::mem::align_of::<sockaddr_storage>(),
+        ::core::mem::align_of::<sockaddr_storage>(),
         8usize,
         "Alignment of sockaddr_storage"
     );
@@ -5214,34 +5203,34 @@ fn bindgen_test_layout_sockaddr_storage() {
 pub const SHUT_RD: _bindgen_ty_32 = 0;
 pub const SHUT_WR: _bindgen_ty_32 = 1;
 pub const SHUT_RDWR: _bindgen_ty_32 = 2;
-pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_32 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sockaddr {
     pub sa_family: sa_family_t,
-    pub sa_data: [::std::os::raw::c_char; 14usize],
+    pub sa_data: [::core::ffi::c_char; 14usize],
 }
 #[test]
 fn bindgen_test_layout_sockaddr() {
-    const UNINIT: ::std::mem::MaybeUninit<sockaddr> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sockaddr> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sockaddr>(),
+        ::core::mem::size_of::<sockaddr>(),
         16usize,
         "Size of sockaddr"
     );
     assert_eq!(
-        ::std::mem::align_of::<sockaddr>(),
+        ::core::mem::align_of::<sockaddr>(),
         2usize,
         "Alignment of sockaddr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_family) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_family) as usize - ptr as usize },
         0usize,
         "Offset of field: sockaddr::sa_family"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_data) as usize - ptr as usize },
         2usize,
         "Offset of field: sockaddr::sa_data"
     );
@@ -5249,26 +5238,26 @@ fn bindgen_test_layout_sockaddr() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct linger {
-    pub l_onoff: ::std::os::raw::c_int,
-    pub l_linger: ::std::os::raw::c_int,
+    pub l_onoff: ::core::ffi::c_int,
+    pub l_linger: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_linger() {
-    const UNINIT: ::std::mem::MaybeUninit<linger> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<linger> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<linger>(), 8usize, "Size of linger");
+    assert_eq!(::core::mem::size_of::<linger>(), 8usize, "Size of linger");
     assert_eq!(
-        ::std::mem::align_of::<linger>(),
+        ::core::mem::align_of::<linger>(),
         4usize,
         "Alignment of linger"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_onoff) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_onoff) as usize - ptr as usize },
         0usize,
         "Offset of field: linger::l_onoff"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_linger) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).l_linger) as usize - ptr as usize },
         4usize,
         "Offset of field: linger::l_linger"
     );
@@ -5276,56 +5265,56 @@ fn bindgen_test_layout_linger() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct msghdr {
-    pub msg_name: *mut ::std::os::raw::c_void,
+    pub msg_name: *mut ::core::ffi::c_void,
     pub msg_namelen: socklen_t,
     pub msg_iov: *mut iovec,
     pub msg_iovlen: usize,
-    pub msg_control: *mut ::std::os::raw::c_void,
+    pub msg_control: *mut ::core::ffi::c_void,
     pub msg_controllen: usize,
-    pub msg_flags: ::std::os::raw::c_int,
+    pub msg_flags: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_msghdr() {
-    const UNINIT: ::std::mem::MaybeUninit<msghdr> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<msghdr> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<msghdr>(), 56usize, "Size of msghdr");
+    assert_eq!(::core::mem::size_of::<msghdr>(), 56usize, "Size of msghdr");
     assert_eq!(
-        ::std::mem::align_of::<msghdr>(),
+        ::core::mem::align_of::<msghdr>(),
         8usize,
         "Alignment of msghdr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_name) as usize - ptr as usize },
         0usize,
         "Offset of field: msghdr::msg_name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_namelen) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_namelen) as usize - ptr as usize },
         8usize,
         "Offset of field: msghdr::msg_namelen"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_iov) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_iov) as usize - ptr as usize },
         16usize,
         "Offset of field: msghdr::msg_iov"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_iovlen) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_iovlen) as usize - ptr as usize },
         24usize,
         "Offset of field: msghdr::msg_iovlen"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_control) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_control) as usize - ptr as usize },
         32usize,
         "Offset of field: msghdr::msg_control"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_controllen) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_controllen) as usize - ptr as usize },
         40usize,
         "Offset of field: msghdr::msg_controllen"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_flags) as usize - ptr as usize },
         48usize,
         "Offset of field: msghdr::msg_flags"
     );
@@ -5334,25 +5323,29 @@ fn bindgen_test_layout_msghdr() {
 #[derive(Debug, Copy, Clone)]
 pub struct mmsghdr {
     pub msg_hdr: msghdr,
-    pub msg_len: ::std::os::raw::c_uint,
+    pub msg_len: ::core::ffi::c_uint,
 }
 #[test]
 fn bindgen_test_layout_mmsghdr() {
-    const UNINIT: ::std::mem::MaybeUninit<mmsghdr> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<mmsghdr> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<mmsghdr>(), 64usize, "Size of mmsghdr");
     assert_eq!(
-        ::std::mem::align_of::<mmsghdr>(),
+        ::core::mem::size_of::<mmsghdr>(),
+        64usize,
+        "Size of mmsghdr"
+    );
+    assert_eq!(
+        ::core::mem::align_of::<mmsghdr>(),
         8usize,
         "Alignment of mmsghdr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_hdr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_hdr) as usize - ptr as usize },
         0usize,
         "Offset of field: mmsghdr::msg_hdr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_len) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).msg_len) as usize - ptr as usize },
         56usize,
         "Offset of field: mmsghdr::msg_len"
     );
@@ -5361,31 +5354,35 @@ fn bindgen_test_layout_mmsghdr() {
 #[derive(Debug, Copy, Clone)]
 pub struct cmsghdr {
     pub cmsg_len: usize,
-    pub cmsg_level: ::std::os::raw::c_int,
-    pub cmsg_type: ::std::os::raw::c_int,
+    pub cmsg_level: ::core::ffi::c_int,
+    pub cmsg_type: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_cmsghdr() {
-    const UNINIT: ::std::mem::MaybeUninit<cmsghdr> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<cmsghdr> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<cmsghdr>(), 16usize, "Size of cmsghdr");
     assert_eq!(
-        ::std::mem::align_of::<cmsghdr>(),
+        ::core::mem::size_of::<cmsghdr>(),
+        16usize,
+        "Size of cmsghdr"
+    );
+    assert_eq!(
+        ::core::mem::align_of::<cmsghdr>(),
         8usize,
         "Alignment of cmsghdr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_len) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).cmsg_len) as usize - ptr as usize },
         0usize,
         "Offset of field: cmsghdr::cmsg_len"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_level) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).cmsg_level) as usize - ptr as usize },
         8usize,
         "Offset of field: cmsghdr::cmsg_level"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_type) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).cmsg_type) as usize - ptr as usize },
         12usize,
         "Offset of field: cmsghdr::cmsg_type"
     );
@@ -5402,181 +5399,175 @@ pub struct ucred {
 }
 #[test]
 fn bindgen_test_layout_ucred() {
-    const UNINIT: ::std::mem::MaybeUninit<ucred> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ucred> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<ucred>(), 12usize, "Size of ucred");
+    assert_eq!(::core::mem::size_of::<ucred>(), 12usize, "Size of ucred");
     assert_eq!(
-        ::std::mem::align_of::<ucred>(),
+        ::core::mem::align_of::<ucred>(),
         4usize,
         "Alignment of ucred"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
         0usize,
         "Offset of field: ucred::pid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uid) as usize - ptr as usize },
         4usize,
         "Offset of field: ucred::uid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).gid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).gid) as usize - ptr as usize },
         8usize,
         "Offset of field: ucred::gid"
     );
 }
 extern "C" {
     pub fn accept(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __addr: *mut sockaddr,
         __addr_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn accept4(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __addr: *mut sockaddr,
         __addr_length: *mut socklen_t,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn bind(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __addr: *const sockaddr,
         __addr_length: socklen_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn connect(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __addr: *const sockaddr,
         __addr_length: socklen_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getpeername(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __addr: *mut sockaddr,
         __addr_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getsockname(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __addr: *mut sockaddr,
         __addr_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getsockopt(
-        __fd: ::std::os::raw::c_int,
-        __level: ::std::os::raw::c_int,
-        __option: ::std::os::raw::c_int,
-        __value: *mut ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __level: ::core::ffi::c_int,
+        __option: ::core::ffi::c_int,
+        __value: *mut ::core::ffi::c_void,
         __value_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn listen(
-        __fd: ::std::os::raw::c_int,
-        __backlog: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn listen(__fd: ::core::ffi::c_int, __backlog: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn recvmmsg(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __msgs: *mut mmsghdr,
-        __msg_count: ::std::os::raw::c_uint,
-        __flags: ::std::os::raw::c_int,
+        __msg_count: ::core::ffi::c_uint,
+        __flags: ::core::ffi::c_int,
         __timeout: *const timespec,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn recvmsg(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __msg: *mut msghdr,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
     ) -> isize;
 }
 extern "C" {
     pub fn sendmmsg(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __msgs: *const mmsghdr,
-        __msg_count: ::std::os::raw::c_uint,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __msg_count: ::core::ffi::c_uint,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sendmsg(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __msg: *const msghdr,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
     ) -> isize;
 }
 extern "C" {
     pub fn setsockopt(
-        __fd: ::std::os::raw::c_int,
-        __level: ::std::os::raw::c_int,
-        __option: ::std::os::raw::c_int,
-        __value: *const ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __level: ::core::ffi::c_int,
+        __option: ::core::ffi::c_int,
+        __value: *const ::core::ffi::c_void,
         __value_length: socklen_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn shutdown(
-        __fd: ::std::os::raw::c_int,
-        __how: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn shutdown(__fd: ::core::ffi::c_int, __how: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn socket(
-        __af: ::std::os::raw::c_int,
-        __type: ::std::os::raw::c_int,
-        __protocol: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __af: ::core::ffi::c_int,
+        __type: ::core::ffi::c_int,
+        __protocol: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn socketpair(
-        __af: ::std::os::raw::c_int,
-        __type: ::std::os::raw::c_int,
-        __protocol: ::std::os::raw::c_int,
-        __fds: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __af: ::core::ffi::c_int,
+        __type: ::core::ffi::c_int,
+        __protocol: ::core::ffi::c_int,
+        __fds: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn recv(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_void,
         __n: usize,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
     ) -> isize;
 }
 extern "C" {
     pub fn send(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *const ::core::ffi::c_void,
         __n: usize,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
     ) -> isize;
 }
 extern "C" {
     pub fn sendto(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *const ::core::ffi::c_void,
         __n: usize,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
         __dst_addr: *const sockaddr,
         __dst_addr_length: socklen_t,
     ) -> isize;
 }
 extern "C" {
     pub fn recvfrom(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_void,
         __n: usize,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
         __src_addr: *mut sockaddr,
         __src_addr_length: *mut socklen_t,
     ) -> isize;
@@ -5584,44 +5575,48 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hostent {
-    pub h_name: *mut ::std::os::raw::c_char,
-    pub h_aliases: *mut *mut ::std::os::raw::c_char,
-    pub h_addrtype: ::std::os::raw::c_int,
-    pub h_length: ::std::os::raw::c_int,
-    pub h_addr_list: *mut *mut ::std::os::raw::c_char,
+    pub h_name: *mut ::core::ffi::c_char,
+    pub h_aliases: *mut *mut ::core::ffi::c_char,
+    pub h_addrtype: ::core::ffi::c_int,
+    pub h_length: ::core::ffi::c_int,
+    pub h_addr_list: *mut *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_hostent() {
-    const UNINIT: ::std::mem::MaybeUninit<hostent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<hostent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<hostent>(), 32usize, "Size of hostent");
     assert_eq!(
-        ::std::mem::align_of::<hostent>(),
+        ::core::mem::size_of::<hostent>(),
+        32usize,
+        "Size of hostent"
+    );
+    assert_eq!(
+        ::core::mem::align_of::<hostent>(),
         8usize,
         "Alignment of hostent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).h_name) as usize - ptr as usize },
         0usize,
         "Offset of field: hostent::h_name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_aliases) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).h_aliases) as usize - ptr as usize },
         8usize,
         "Offset of field: hostent::h_aliases"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_addrtype) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).h_addrtype) as usize - ptr as usize },
         16usize,
         "Offset of field: hostent::h_addrtype"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_length) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).h_length) as usize - ptr as usize },
         20usize,
         "Offset of field: hostent::h_length"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_addr_list) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).h_addr_list) as usize - ptr as usize },
         24usize,
         "Offset of field: hostent::h_addr_list"
     );
@@ -5629,38 +5624,38 @@ fn bindgen_test_layout_hostent() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct netent {
-    pub n_name: *mut ::std::os::raw::c_char,
-    pub n_aliases: *mut *mut ::std::os::raw::c_char,
-    pub n_addrtype: ::std::os::raw::c_int,
+    pub n_name: *mut ::core::ffi::c_char,
+    pub n_aliases: *mut *mut ::core::ffi::c_char,
+    pub n_addrtype: ::core::ffi::c_int,
     pub n_net: u32,
 }
 #[test]
 fn bindgen_test_layout_netent() {
-    const UNINIT: ::std::mem::MaybeUninit<netent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<netent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<netent>(), 24usize, "Size of netent");
+    assert_eq!(::core::mem::size_of::<netent>(), 24usize, "Size of netent");
     assert_eq!(
-        ::std::mem::align_of::<netent>(),
+        ::core::mem::align_of::<netent>(),
         8usize,
         "Alignment of netent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).n_name) as usize - ptr as usize },
         0usize,
         "Offset of field: netent::n_name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_aliases) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).n_aliases) as usize - ptr as usize },
         8usize,
         "Offset of field: netent::n_aliases"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_addrtype) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).n_addrtype) as usize - ptr as usize },
         16usize,
         "Offset of field: netent::n_addrtype"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_net) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).n_net) as usize - ptr as usize },
         20usize,
         "Offset of field: netent::n_net"
     );
@@ -5668,38 +5663,42 @@ fn bindgen_test_layout_netent() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct servent {
-    pub s_name: *mut ::std::os::raw::c_char,
-    pub s_aliases: *mut *mut ::std::os::raw::c_char,
-    pub s_port: ::std::os::raw::c_int,
-    pub s_proto: *mut ::std::os::raw::c_char,
+    pub s_name: *mut ::core::ffi::c_char,
+    pub s_aliases: *mut *mut ::core::ffi::c_char,
+    pub s_port: ::core::ffi::c_int,
+    pub s_proto: *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_servent() {
-    const UNINIT: ::std::mem::MaybeUninit<servent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<servent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<servent>(), 32usize, "Size of servent");
     assert_eq!(
-        ::std::mem::align_of::<servent>(),
+        ::core::mem::size_of::<servent>(),
+        32usize,
+        "Size of servent"
+    );
+    assert_eq!(
+        ::core::mem::align_of::<servent>(),
         8usize,
         "Alignment of servent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).s_name) as usize - ptr as usize },
         0usize,
         "Offset of field: servent::s_name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_aliases) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).s_aliases) as usize - ptr as usize },
         8usize,
         "Offset of field: servent::s_aliases"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_port) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).s_port) as usize - ptr as usize },
         16usize,
         "Offset of field: servent::s_port"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_proto) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).s_proto) as usize - ptr as usize },
         24usize,
         "Offset of field: servent::s_proto"
     );
@@ -5707,36 +5706,36 @@ fn bindgen_test_layout_servent() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct protoent {
-    pub p_name: *mut ::std::os::raw::c_char,
-    pub p_aliases: *mut *mut ::std::os::raw::c_char,
-    pub p_proto: ::std::os::raw::c_int,
+    pub p_name: *mut ::core::ffi::c_char,
+    pub p_aliases: *mut *mut ::core::ffi::c_char,
+    pub p_proto: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_protoent() {
-    const UNINIT: ::std::mem::MaybeUninit<protoent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<protoent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<protoent>(),
+        ::core::mem::size_of::<protoent>(),
         24usize,
         "Size of protoent"
     );
     assert_eq!(
-        ::std::mem::align_of::<protoent>(),
+        ::core::mem::align_of::<protoent>(),
         8usize,
         "Alignment of protoent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).p_name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).p_name) as usize - ptr as usize },
         0usize,
         "Offset of field: protoent::p_name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).p_aliases) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).p_aliases) as usize - ptr as usize },
         8usize,
         "Offset of field: protoent::p_aliases"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).p_proto) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).p_proto) as usize - ptr as usize },
         16usize,
         "Offset of field: protoent::p_proto"
     );
@@ -5744,77 +5743,77 @@ fn bindgen_test_layout_protoent() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct addrinfo {
-    pub ai_flags: ::std::os::raw::c_int,
-    pub ai_family: ::std::os::raw::c_int,
-    pub ai_socktype: ::std::os::raw::c_int,
-    pub ai_protocol: ::std::os::raw::c_int,
+    pub ai_flags: ::core::ffi::c_int,
+    pub ai_family: ::core::ffi::c_int,
+    pub ai_socktype: ::core::ffi::c_int,
+    pub ai_protocol: ::core::ffi::c_int,
     pub ai_addrlen: socklen_t,
-    pub ai_canonname: *mut ::std::os::raw::c_char,
+    pub ai_canonname: *mut ::core::ffi::c_char,
     pub ai_addr: *mut sockaddr,
     pub ai_next: *mut addrinfo,
 }
 #[test]
 fn bindgen_test_layout_addrinfo() {
-    const UNINIT: ::std::mem::MaybeUninit<addrinfo> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<addrinfo> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<addrinfo>(),
+        ::core::mem::size_of::<addrinfo>(),
         48usize,
         "Size of addrinfo"
     );
     assert_eq!(
-        ::std::mem::align_of::<addrinfo>(),
+        ::core::mem::align_of::<addrinfo>(),
         8usize,
         "Alignment of addrinfo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_flags) as usize - ptr as usize },
         0usize,
         "Offset of field: addrinfo::ai_flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_family) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_family) as usize - ptr as usize },
         4usize,
         "Offset of field: addrinfo::ai_family"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_socktype) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_socktype) as usize - ptr as usize },
         8usize,
         "Offset of field: addrinfo::ai_socktype"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_protocol) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_protocol) as usize - ptr as usize },
         12usize,
         "Offset of field: addrinfo::ai_protocol"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_addrlen) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_addrlen) as usize - ptr as usize },
         16usize,
         "Offset of field: addrinfo::ai_addrlen"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_canonname) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_canonname) as usize - ptr as usize },
         24usize,
         "Offset of field: addrinfo::ai_canonname"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_addr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_addr) as usize - ptr as usize },
         32usize,
         "Offset of field: addrinfo::ai_addr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_next) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ai_next) as usize - ptr as usize },
         40usize,
         "Offset of field: addrinfo::ai_next"
     );
 }
 extern "C" {
     pub fn getaddrinfo(
-        __node: *const ::std::os::raw::c_char,
-        __service: *const ::std::os::raw::c_char,
+        __node: *const ::core::ffi::c_char,
+        __service: *const ::core::ffi::c_char,
         __hints: *const addrinfo,
         __result: *mut *mut addrinfo,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn freeaddrinfo(__ptr: *mut addrinfo);
@@ -5823,73 +5822,73 @@ extern "C" {
     pub fn getnameinfo(
         __sa: *const sockaddr,
         __sa_length: socklen_t,
-        __host: *mut ::std::os::raw::c_char,
+        __host: *mut ::core::ffi::c_char,
         __host_length: usize,
-        __service: *mut ::std::os::raw::c_char,
+        __service: *mut ::core::ffi::c_char,
         __service_length: usize,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn gai_strerror(__error: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
+    pub fn gai_strerror(__error: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn __get_h_errno() -> *mut ::std::os::raw::c_int;
+    pub fn __get_h_errno() -> *mut ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn herror(__s: *const ::std::os::raw::c_char);
+    pub fn herror(__s: *const ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn hstrerror(__error: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
+    pub fn hstrerror(__error: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn gethostbyaddr(
-        __addr: *const ::std::os::raw::c_void,
+        __addr: *const ::core::ffi::c_void,
         __length: socklen_t,
-        __type: ::std::os::raw::c_int,
+        __type: ::core::ffi::c_int,
     ) -> *mut hostent;
 }
 extern "C" {
     pub fn gethostbyaddr_r(
-        __addr: *const ::std::os::raw::c_void,
+        __addr: *const ::core::ffi::c_void,
         __length: socklen_t,
-        __type: ::std::os::raw::c_int,
+        __type: ::core::ffi::c_int,
         __ret: *mut hostent,
-        __buf: *mut ::std::os::raw::c_char,
+        __buf: *mut ::core::ffi::c_char,
         __buf_size: usize,
         __result: *mut *mut hostent,
-        __h_errno_ptr: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __h_errno_ptr: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn gethostbyname(__name: *const ::std::os::raw::c_char) -> *mut hostent;
+    pub fn gethostbyname(__name: *const ::core::ffi::c_char) -> *mut hostent;
 }
 extern "C" {
     pub fn gethostbyname_r(
-        __name: *const ::std::os::raw::c_char,
+        __name: *const ::core::ffi::c_char,
         __ret: *mut hostent,
-        __buf: *mut ::std::os::raw::c_char,
+        __buf: *mut ::core::ffi::c_char,
         __buf_size: usize,
         __result: *mut *mut hostent,
-        __h_errno_ptr: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __h_errno_ptr: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn gethostbyname2(
-        __name: *const ::std::os::raw::c_char,
-        __af: ::std::os::raw::c_int,
+        __name: *const ::core::ffi::c_char,
+        __af: ::core::ffi::c_int,
     ) -> *mut hostent;
 }
 extern "C" {
     pub fn gethostbyname2_r(
-        __name: *const ::std::os::raw::c_char,
-        __af: ::std::os::raw::c_int,
+        __name: *const ::core::ffi::c_char,
+        __af: ::core::ffi::c_int,
         __ret: *mut hostent,
-        __buf: *mut ::std::os::raw::c_char,
+        __buf: *mut ::core::ffi::c_char,
         __buf_size: usize,
         __result: *mut *mut hostent,
-        __h_errno_ptr: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __h_errno_ptr: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn endhostent();
@@ -5898,58 +5897,58 @@ extern "C" {
     pub fn gethostent() -> *mut hostent;
 }
 extern "C" {
-    pub fn sethostent(__stay_open: ::std::os::raw::c_int);
+    pub fn sethostent(__stay_open: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn endnetent();
 }
 extern "C" {
-    pub fn getnetbyaddr(__net: u32, __type: ::std::os::raw::c_int) -> *mut netent;
+    pub fn getnetbyaddr(__net: u32, __type: ::core::ffi::c_int) -> *mut netent;
 }
 extern "C" {
-    pub fn getnetbyname(__name: *const ::std::os::raw::c_char) -> *mut netent;
+    pub fn getnetbyname(__name: *const ::core::ffi::c_char) -> *mut netent;
 }
 extern "C" {
     pub fn getnetent() -> *mut netent;
 }
 extern "C" {
-    pub fn setnetent(__stay_open: ::std::os::raw::c_int);
+    pub fn setnetent(__stay_open: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn endprotoent();
 }
 extern "C" {
-    pub fn getprotobyname(__name: *const ::std::os::raw::c_char) -> *mut protoent;
+    pub fn getprotobyname(__name: *const ::core::ffi::c_char) -> *mut protoent;
 }
 extern "C" {
-    pub fn getprotobynumber(__proto: ::std::os::raw::c_int) -> *mut protoent;
+    pub fn getprotobynumber(__proto: ::core::ffi::c_int) -> *mut protoent;
 }
 extern "C" {
     pub fn getprotoent() -> *mut protoent;
 }
 extern "C" {
-    pub fn setprotoent(__stay_open: ::std::os::raw::c_int);
+    pub fn setprotoent(__stay_open: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn endservent();
 }
 extern "C" {
     pub fn getservbyname(
-        __name: *const ::std::os::raw::c_char,
-        __proto: *const ::std::os::raw::c_char,
+        __name: *const ::core::ffi::c_char,
+        __proto: *const ::core::ffi::c_char,
     ) -> *mut servent;
 }
 extern "C" {
     pub fn getservbyport(
-        __port_in_network_order: ::std::os::raw::c_int,
-        __proto: *const ::std::os::raw::c_char,
+        __port_in_network_order: ::core::ffi::c_int,
+        __proto: *const ::core::ffi::c_char,
     ) -> *mut servent;
 }
 extern "C" {
     pub fn getservent() -> *mut servent;
 }
 extern "C" {
-    pub fn setservent(__stay_open: ::std::os::raw::c_int);
+    pub fn setservent(__stay_open: ::core::ffi::c_int);
 }
 pub type fpos_t = off_t;
 pub type fpos64_t = off64_t;
@@ -5972,258 +5971,250 @@ extern "C" {
     pub fn clearerr(__fp: *mut FILE);
 }
 extern "C" {
-    pub fn fclose(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fclose(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn feof(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn feof(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ferror(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn ferror(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fflush(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fflush(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fgetc(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fgetc(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fgets(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_int,
+        __buf: *mut ::core::ffi::c_char,
+        __size: ::core::ffi::c_int,
         __fp: *mut FILE,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn fprintf(
-        __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
+    pub fn fprintf(__fp: *mut FILE, __fmt: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fputc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fputc(__ch: ::core::ffi::c_int, __fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fputs(__s: *const ::std::os::raw::c_char, __fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fputs(__s: *const ::core::ffi::c_char, __fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fread(
-        __buf: *mut ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_ulong,
-        __count: ::std::os::raw::c_ulong,
+        __buf: *mut ::core::ffi::c_void,
+        __size: ::core::ffi::c_ulong,
+        __count: ::core::ffi::c_ulong,
         __fp: *mut FILE,
-    ) -> ::std::os::raw::c_ulong;
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn fscanf(
-        __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
+    pub fn fscanf(__fp: *mut FILE, __fmt: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fwrite(
-        __buf: *const ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_ulong,
-        __count: ::std::os::raw::c_ulong,
+        __buf: *const ::core::ffi::c_void,
+        __size: ::core::ffi::c_ulong,
+        __count: ::core::ffi::c_ulong,
         __fp: *mut FILE,
-    ) -> ::std::os::raw::c_ulong;
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn getc(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn getc(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn getchar() -> ::std::os::raw::c_int;
+    pub fn getchar() -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getdelim(
-        __line_ptr: *mut *mut ::std::os::raw::c_char,
+        __line_ptr: *mut *mut ::core::ffi::c_char,
         __line_length_ptr: *mut usize,
-        __delimiter: ::std::os::raw::c_int,
+        __delimiter: ::core::ffi::c_int,
         __fp: *mut FILE,
     ) -> isize;
 }
 extern "C" {
     pub fn getline(
-        __line_ptr: *mut *mut ::std::os::raw::c_char,
+        __line_ptr: *mut *mut ::core::ffi::c_char,
         __line_length_ptr: *mut usize,
         __fp: *mut FILE,
     ) -> isize;
 }
 extern "C" {
-    pub fn perror(__msg: *const ::std::os::raw::c_char);
+    pub fn perror(__msg: *const ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn printf(__fmt: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
+    pub fn printf(__fmt: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn putc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn putc(__ch: ::core::ffi::c_int, __fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn putchar(__ch: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn putchar(__ch: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn puts(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn puts(__s: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn remove(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn remove(__path: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn rewind(__fp: *mut FILE);
 }
 extern "C" {
-    pub fn scanf(__fmt: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
+    pub fn scanf(__fmt: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setbuf(__fp: *mut FILE, __buf: *mut ::std::os::raw::c_char);
+    pub fn setbuf(__fp: *mut FILE, __buf: *mut ::core::ffi::c_char);
 }
 extern "C" {
     pub fn setvbuf(
         __fp: *mut FILE,
-        __buf: *mut ::std::os::raw::c_char,
-        __mode: ::std::os::raw::c_int,
+        __buf: *mut ::core::ffi::c_char,
+        __mode: ::core::ffi::c_int,
         __size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sscanf(
-        __s: *const ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ungetc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn ungetc(__ch: ::core::ffi::c_int, __fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vfprintf(
         __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __args: __BindgenOpaqueArray<u64, 4usize>,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vprintf(
-        __fp: *const ::std::os::raw::c_char,
+        __fp: *const ::core::ffi::c_char,
         __args: __BindgenOpaqueArray<u64, 4usize>,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn dprintf(
-        __fd: ::std::os::raw::c_int,
-        __fmt: *const ::std::os::raw::c_char,
+        __fd: ::core::ffi::c_int,
+        __fmt: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vdprintf(
-        __fd: ::std::os::raw::c_int,
-        __fmt: *const ::std::os::raw::c_char,
+        __fd: ::core::ffi::c_int,
+        __fmt: *const ::core::ffi::c_char,
         __args: va_list,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s: *mut ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vsprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s: *mut ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __args: __BindgenOpaqueArray<u64, 4usize>,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn tmpnam(__s: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+    pub fn tmpnam(__s: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn tempnam(
-        __dir: *const ::std::os::raw::c_char,
-        __prefix: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __dir: *const ::core::ffi::c_char,
+        __prefix: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn rename(
-        __old_path: *const ::std::os::raw::c_char,
-        __new_path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __old_path: *const ::core::ffi::c_char,
+        __new_path: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn renameat(
-        __old_dir_fd: ::std::os::raw::c_int,
-        __old_path: *const ::std::os::raw::c_char,
-        __new_dir_fd: ::std::os::raw::c_int,
-        __new_path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __old_dir_fd: ::core::ffi::c_int,
+        __old_path: *const ::core::ffi::c_char,
+        __new_dir_fd: ::core::ffi::c_int,
+        __new_path: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fseek(
         __fp: *mut FILE,
-        __offset: ::std::os::raw::c_long,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __offset: ::core::ffi::c_long,
+        __whence: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ftell(__fp: *mut FILE) -> ::std::os::raw::c_long;
+    pub fn ftell(__fp: *mut FILE) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn fgetpos(__fp: *mut FILE, __pos: *mut fpos_t) -> ::std::os::raw::c_int;
+    pub fn fgetpos(__fp: *mut FILE, __pos: *mut fpos_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fsetpos(__fp: *mut FILE, __pos: *const fpos_t) -> ::std::os::raw::c_int;
+    pub fn fsetpos(__fp: *mut FILE, __pos: *const fpos_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fseeko(
         __fp: *mut FILE,
         __offset: off_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __whence: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ftello(__fp: *mut FILE) -> off_t;
 }
 extern "C" {
-    pub fn fgetpos64(__fp: *mut FILE, __pos: *mut fpos64_t) -> ::std::os::raw::c_int;
+    pub fn fgetpos64(__fp: *mut FILE, __pos: *mut fpos64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fsetpos64(__fp: *mut FILE, __pos: *const fpos64_t) -> ::std::os::raw::c_int;
+    pub fn fsetpos64(__fp: *mut FILE, __pos: *const fpos64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fseeko64(
         __fp: *mut FILE,
         __offset: off64_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __whence: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ftello64(__fp: *mut FILE) -> off64_t;
 }
 extern "C" {
     pub fn fopen(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
+        __mode: *const ::core::ffi::c_char,
     ) -> *mut FILE;
 }
 extern "C" {
     pub fn fopen64(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
+        __mode: *const ::core::ffi::c_char,
     ) -> *mut FILE;
 }
 extern "C" {
     pub fn freopen(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
+        __mode: *const ::core::ffi::c_char,
         __fp: *mut FILE,
     ) -> *mut FILE;
 }
 extern "C" {
     pub fn freopen64(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
+        __mode: *const ::core::ffi::c_char,
         __fp: *mut FILE,
     ) -> *mut FILE;
 }
@@ -6235,167 +6226,163 @@ extern "C" {
 }
 extern "C" {
     pub fn snprintf(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_ulong,
-        __fmt: *const ::std::os::raw::c_char,
+        __buf: *mut ::core::ffi::c_char,
+        __size: ::core::ffi::c_ulong,
+        __fmt: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vfscanf(
         __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __args: __BindgenOpaqueArray<u64, 4usize>,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vscanf(
-        __fmt: *const ::std::os::raw::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __args: __BindgenOpaqueArray<u64, 4usize>,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vsnprintf(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_ulong,
-        __fmt: *const ::std::os::raw::c_char,
+        __buf: *mut ::core::ffi::c_char,
+        __size: ::core::ffi::c_ulong,
+        __fmt: *const ::core::ffi::c_char,
         __args: __BindgenOpaqueArray<u64, 4usize>,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vsscanf(
-        __s: *const ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __args: __BindgenOpaqueArray<u64, 4usize>,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ctermid(__buf: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+    pub fn ctermid(__buf: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn fdopen(__fd: ::std::os::raw::c_int, __mode: *const ::std::os::raw::c_char) -> *mut FILE;
+    pub fn fdopen(__fd: ::core::ffi::c_int, __mode: *const ::core::ffi::c_char) -> *mut FILE;
 }
 extern "C" {
-    pub fn fileno(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fileno(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn pclose(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn pclose(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn popen(
-        __command: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
+        __command: *const ::core::ffi::c_char,
+        __mode: *const ::core::ffi::c_char,
     ) -> *mut FILE;
 }
 extern "C" {
     pub fn flockfile(__fp: *mut FILE);
 }
 extern "C" {
-    pub fn ftrylockfile(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn ftrylockfile(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn funlockfile(__fp: *mut FILE);
 }
 extern "C" {
-    pub fn getc_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn getc_unlocked(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn getchar_unlocked() -> ::std::os::raw::c_int;
+    pub fn getchar_unlocked() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn putc_unlocked(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn putc_unlocked(__ch: ::core::ffi::c_int, __fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn putchar_unlocked(__ch: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn putchar_unlocked(__ch: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fmemopen(
-        __buf: *mut ::std::os::raw::c_void,
+        __buf: *mut ::core::ffi::c_void,
         __size: usize,
-        __mode: *const ::std::os::raw::c_char,
+        __mode: *const ::core::ffi::c_char,
     ) -> *mut FILE;
 }
 extern "C" {
     pub fn open_memstream(
-        __ptr: *mut *mut ::std::os::raw::c_char,
+        __ptr: *mut *mut ::core::ffi::c_char,
         __size_ptr: *mut usize,
     ) -> *mut FILE;
 }
 extern "C" {
     pub fn asprintf(
-        __s_ptr: *mut *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s_ptr: *mut *mut ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fgetln(__fp: *mut FILE, __length_ptr: *mut usize) -> *mut ::std::os::raw::c_char;
+    pub fn fgetln(__fp: *mut FILE, __length_ptr: *mut usize) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn fpurge(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fpurge(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setbuffer(
-        __fp: *mut FILE,
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_int,
-    );
+    pub fn setbuffer(__fp: *mut FILE, __buf: *mut ::core::ffi::c_char, __size: ::core::ffi::c_int);
 }
 extern "C" {
-    pub fn setlinebuf(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn setlinebuf(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn vasprintf(
-        __s_ptr: *mut *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s_ptr: *mut *mut ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __args: va_list,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn clearerr_unlocked(__fp: *mut FILE);
 }
 extern "C" {
-    pub fn feof_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn feof_unlocked(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ferror_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn ferror_unlocked(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fileno_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
+    pub fn fileno_unlocked(__fp: *mut FILE) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn malloc(__byte_count: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
+    pub fn malloc(__byte_count: ::core::ffi::c_ulong) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn calloc(
-        __item_count: ::std::os::raw::c_ulong,
-        __item_size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __item_count: ::core::ffi::c_ulong,
+        __item_size: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn realloc(
-        __ptr: *mut ::std::os::raw::c_void,
-        __byte_count: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __ptr: *mut ::core::ffi::c_void,
+        __byte_count: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn reallocarray(
-        __ptr: *mut ::std::os::raw::c_void,
+        __ptr: *mut ::core::ffi::c_void,
         __item_count: usize,
         __item_size: usize,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn free(__ptr: *mut ::std::os::raw::c_void);
+    pub fn free(__ptr: *mut ::core::ffi::c_void);
 }
 extern "C" {
     pub fn memalign(
-        __alignment: ::std::os::raw::c_ulong,
-        __byte_count: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __alignment: ::core::ffi::c_ulong,
+        __byte_count: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn malloc_usable_size(__ptr: *const ::std::os::raw::c_void) -> usize;
+    pub fn malloc_usable_size(__ptr: *const ::core::ffi::c_void) -> usize;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -6413,65 +6400,65 @@ pub struct mallinfo {
 }
 #[test]
 fn bindgen_test_layout_mallinfo() {
-    const UNINIT: ::std::mem::MaybeUninit<mallinfo> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<mallinfo> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<mallinfo>(),
+        ::core::mem::size_of::<mallinfo>(),
         80usize,
         "Size of mallinfo"
     );
     assert_eq!(
-        ::std::mem::align_of::<mallinfo>(),
+        ::core::mem::align_of::<mallinfo>(),
         8usize,
         "Alignment of mallinfo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
         0usize,
         "Offset of field: mallinfo::arena"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
         8usize,
         "Offset of field: mallinfo::ordblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
         16usize,
         "Offset of field: mallinfo::smblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
         24usize,
         "Offset of field: mallinfo::hblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
         32usize,
         "Offset of field: mallinfo::hblkhd"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
         40usize,
         "Offset of field: mallinfo::usmblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
         48usize,
         "Offset of field: mallinfo::fsmblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
         56usize,
         "Offset of field: mallinfo::uordblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
         64usize,
         "Offset of field: mallinfo::fordblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
         72usize,
         "Offset of field: mallinfo::keepcost"
     );
@@ -6495,74 +6482,71 @@ pub struct mallinfo2 {
 }
 #[test]
 fn bindgen_test_layout_mallinfo2() {
-    const UNINIT: ::std::mem::MaybeUninit<mallinfo2> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<mallinfo2> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<mallinfo2>(),
+        ::core::mem::size_of::<mallinfo2>(),
         80usize,
         "Size of mallinfo2"
     );
     assert_eq!(
-        ::std::mem::align_of::<mallinfo2>(),
+        ::core::mem::align_of::<mallinfo2>(),
         8usize,
         "Alignment of mallinfo2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
         0usize,
         "Offset of field: mallinfo2::arena"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
         8usize,
         "Offset of field: mallinfo2::ordblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
         16usize,
         "Offset of field: mallinfo2::smblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
         24usize,
         "Offset of field: mallinfo2::hblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
         32usize,
         "Offset of field: mallinfo2::hblkhd"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
         40usize,
         "Offset of field: mallinfo2::usmblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
         48usize,
         "Offset of field: mallinfo2::fsmblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
         56usize,
         "Offset of field: mallinfo2::uordblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
         64usize,
         "Offset of field: mallinfo2::fordblks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
         72usize,
         "Offset of field: mallinfo2::keepcost"
     );
 }
 extern "C" {
-    pub fn malloc_info(
-        __must_be_zero: ::std::os::raw::c_int,
-        __fp: *mut FILE,
-    ) -> ::std::os::raw::c_int;
+    pub fn malloc_info(__must_be_zero: ::core::ffi::c_int, __fp: *mut FILE) -> ::core::ffi::c_int;
 }
 impl HeapTaggingLevel {
     pub const M_HEAP_TAGGING_LEVEL_NONE: HeapTaggingLevel = HeapTaggingLevel(0);
@@ -6578,45 +6562,40 @@ impl HeapTaggingLevel {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct HeapTaggingLevel(pub ::std::os::raw::c_uint);
+pub struct HeapTaggingLevel(pub ::core::ffi::c_uint);
 extern "C" {
-    pub fn mallopt(
-        __option: ::std::os::raw::c_int,
-        __value: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn mallopt(__option: ::core::ffi::c_int, __value: ::core::ffi::c_int)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub static mut __malloc_hook: ::std::option::Option<
+    pub static mut __malloc_hook: ::core::option::Option<
         unsafe extern "C" fn(
             __byte_count: usize,
-            __caller: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            __caller: *const ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >;
 }
 extern "C" {
-    pub static mut __realloc_hook: ::std::option::Option<
+    pub static mut __realloc_hook: ::core::option::Option<
         unsafe extern "C" fn(
-            __ptr: *mut ::std::os::raw::c_void,
+            __ptr: *mut ::core::ffi::c_void,
             __byte_count: usize,
-            __caller: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            __caller: *const ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >;
 }
 extern "C" {
-    pub static mut __free_hook: ::std::option::Option<
-        unsafe extern "C" fn(
-            __ptr: *mut ::std::os::raw::c_void,
-            __caller: *const ::std::os::raw::c_void,
-        ),
+    pub static mut __free_hook: ::core::option::Option<
+        unsafe extern "C" fn(__ptr: *mut ::core::ffi::c_void, __caller: *const ::core::ffi::c_void),
     >;
 }
 extern "C" {
-    pub static mut __memalign_hook: ::std::option::Option<
+    pub static mut __memalign_hook: ::core::option::Option<
         unsafe extern "C" fn(
             __alignment: usize,
             __byte_count: usize,
-            __caller: *const ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            __caller: *const ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >;
 }
 #[repr(C)]
@@ -6629,194 +6608,192 @@ extern "C" {
     pub fn abort() -> !;
 }
 extern "C" {
-    pub fn exit(__status: ::std::os::raw::c_int) -> !;
+    pub fn exit(__status: ::core::ffi::c_int) -> !;
 }
 extern "C" {
-    pub fn _Exit(__status: ::std::os::raw::c_int) -> !;
+    pub fn _Exit(__status: ::core::ffi::c_int) -> !;
 }
 extern "C" {
-    pub fn atexit(__fn: ::std::option::Option<unsafe extern "C" fn()>) -> ::std::os::raw::c_int;
+    pub fn atexit(__fn: ::core::option::Option<unsafe extern "C" fn()>) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn at_quick_exit(
-        __fn: ::std::option::Option<unsafe extern "C" fn()>,
-    ) -> ::std::os::raw::c_int;
+        __fn: ::core::option::Option<unsafe extern "C" fn()>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn quick_exit(__status: ::std::os::raw::c_int) -> !;
+    pub fn quick_exit(__status: ::core::ffi::c_int) -> !;
 }
 extern "C" {
-    pub fn getenv(__name: *const ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+    pub fn getenv(__name: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn putenv(__assignment: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn putenv(__assignment: *mut ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn setenv(
-        __name: *const ::std::os::raw::c_char,
-        __value: *const ::std::os::raw::c_char,
-        __overwrite: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __name: *const ::core::ffi::c_char,
+        __value: *const ::core::ffi::c_char,
+        __overwrite: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn unsetenv(__name: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn unsetenv(__name: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn clearenv() -> ::std::os::raw::c_int;
+    pub fn clearenv() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn mkdtemp(__template: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+    pub fn mkdtemp(__template: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn mktemp(__template: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+    pub fn mktemp(__template: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn mkostemp64(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __template: *mut ::core::ffi::c_char,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn mkostemp(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __template: *mut ::core::ffi::c_char,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn mkostemps64(
-        __template: *mut ::std::os::raw::c_char,
-        __suffix_length: ::std::os::raw::c_int,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __template: *mut ::core::ffi::c_char,
+        __suffix_length: ::core::ffi::c_int,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn mkostemps(
-        __template: *mut ::std::os::raw::c_char,
-        __suffix_length: ::std::os::raw::c_int,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __template: *mut ::core::ffi::c_char,
+        __suffix_length: ::core::ffi::c_int,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn mkstemp64(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn mkstemp64(__template: *mut ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn mkstemp(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn mkstemp(__template: *mut ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn mkstemps64(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __template: *mut ::core::ffi::c_char,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn mkstemps(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __template: *mut ::core::ffi::c_char,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strtol(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 extern "C" {
     pub fn strtoll(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_longlong;
 }
 extern "C" {
     pub fn strtoul(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulong;
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
     pub fn strtoull(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_ulonglong;
 }
 extern "C" {
     pub fn posix_memalign(
-        __memptr: *mut *mut ::std::os::raw::c_void,
+        __memptr: *mut *mut ::core::ffi::c_void,
         __alignment: usize,
         __size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn aligned_alloc(
-        __alignment: ::std::os::raw::c_ulong,
-        __size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __alignment: ::core::ffi::c_ulong,
+        __size: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn strtod(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
+    pub fn strtod(__s: *const ::core::ffi::c_char, __end_ptr: *mut *mut ::core::ffi::c_char)
+        -> f64;
 }
 extern "C" {
     pub fn strtold(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
     ) -> u128;
 }
 extern "C" {
     pub fn strtoul_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
         __l: locale_t,
-    ) -> ::std::os::raw::c_ulong;
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn atoi(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn atoi(__s: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn atol(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
+    pub fn atol(__s: *const ::core::ffi::c_char) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn atoll(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_longlong;
+    pub fn atoll(__s: *const ::core::ffi::c_char) -> ::core::ffi::c_longlong;
 }
 extern "C" {
     pub fn realpath(
-        __path: *const ::std::os::raw::c_char,
-        __resolved: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __path: *const ::core::ffi::c_char,
+        __resolved: *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn system(__command: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn system(__command: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn bsearch(
-        __key: *const ::std::os::raw::c_void,
-        __base: *const ::std::os::raw::c_void,
+        __key: *const ::core::ffi::c_void,
+        __base: *const ::core::ffi::c_void,
         __nmemb: usize,
         __size: usize,
-        __comparator: ::std::option::Option<
+        __comparator: ::core::option::Option<
             unsafe extern "C" fn(
-                __lhs: *const ::std::os::raw::c_void,
-                __rhs: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
+                __lhs: *const ::core::ffi::c_void,
+                __rhs: *const ::core::ffi::c_void,
+            ) -> ::core::ffi::c_int,
         >,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn qsort(
-        __base: *mut ::std::os::raw::c_void,
+        __base: *mut ::core::ffi::c_void,
         __nmemb: usize,
         __size: usize,
-        __comparator: ::std::option::Option<
+        __comparator: ::core::option::Option<
             unsafe extern "C" fn(
-                __lhs: *const ::std::os::raw::c_void,
-                __rhs: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
+                __lhs: *const ::core::ffi::c_void,
+                __rhs: *const ::core::ffi::c_void,
+            ) -> ::core::ffi::c_int,
         >,
     );
 }
@@ -6827,305 +6804,302 @@ extern "C" {
     pub fn arc4random_uniform(__upper_bound: u32) -> u32;
 }
 extern "C" {
-    pub fn arc4random_buf(__buf: *mut ::std::os::raw::c_void, __n: usize);
+    pub fn arc4random_buf(__buf: *mut ::core::ffi::c_void, __n: usize);
 }
 extern "C" {
-    pub fn rand_r(__seed_ptr: *mut ::std::os::raw::c_uint) -> ::std::os::raw::c_int;
+    pub fn rand_r(__seed_ptr: *mut ::core::ffi::c_uint) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drand48() -> f64;
 }
 extern "C" {
-    pub fn erand48(__xsubi: *mut ::std::os::raw::c_ushort) -> f64;
+    pub fn erand48(__xsubi: *mut ::core::ffi::c_ushort) -> f64;
 }
 extern "C" {
-    pub fn lcong48(__param: *mut ::std::os::raw::c_ushort);
+    pub fn lcong48(__param: *mut ::core::ffi::c_ushort);
 }
 extern "C" {
-    pub fn lrand48() -> ::std::os::raw::c_long;
+    pub fn lrand48() -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn mrand48() -> ::std::os::raw::c_long;
+    pub fn mrand48() -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn nrand48(__xsubi: *mut ::std::os::raw::c_ushort) -> ::std::os::raw::c_long;
+    pub fn nrand48(__xsubi: *mut ::core::ffi::c_ushort) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn seed48(__seed16v: *mut ::std::os::raw::c_ushort) -> *mut ::std::os::raw::c_ushort;
+    pub fn seed48(__seed16v: *mut ::core::ffi::c_ushort) -> *mut ::core::ffi::c_ushort;
 }
 extern "C" {
-    pub fn srand48(__seed: ::std::os::raw::c_long);
+    pub fn srand48(__seed: ::core::ffi::c_long);
 }
 extern "C" {
     pub fn initstate(
-        __seed: ::std::os::raw::c_uint,
-        __state: *mut ::std::os::raw::c_char,
+        __seed: ::core::ffi::c_uint,
+        __state: *mut ::core::ffi::c_char,
         __n: usize,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn setstate(__state: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+    pub fn setstate(__state: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn getpt() -> ::std::os::raw::c_int;
+    pub fn getpt() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn posix_openpt(__flags: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn posix_openpt(__flags: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ptsname(__fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn ptsname(__fd: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn ptsname_r(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
+        __fd: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_char,
         __n: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn unlockpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn unlockpt(__fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getsubopt(
-        __option: *mut *mut ::std::os::raw::c_char,
-        __tokens: *const *mut ::std::os::raw::c_char,
-        __value_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __option: *mut *mut ::core::ffi::c_char,
+        __tokens: *const *mut ::core::ffi::c_char,
+        __value_ptr: *mut *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct div_t {
-    pub quot: ::std::os::raw::c_int,
-    pub rem: ::std::os::raw::c_int,
+    pub quot: ::core::ffi::c_int,
+    pub rem: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_div_t() {
-    const UNINIT: ::std::mem::MaybeUninit<div_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<div_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<div_t>(), 8usize, "Size of div_t");
+    assert_eq!(::core::mem::size_of::<div_t>(), 8usize, "Size of div_t");
     assert_eq!(
-        ::std::mem::align_of::<div_t>(),
+        ::core::mem::align_of::<div_t>(),
         4usize,
         "Alignment of div_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
         0usize,
         "Offset of field: div_t::quot"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
         4usize,
         "Offset of field: div_t::rem"
     );
 }
 extern "C" {
-    pub fn div(__numerator: ::std::os::raw::c_int, __denominator: ::std::os::raw::c_int) -> div_t;
+    pub fn div(__numerator: ::core::ffi::c_int, __denominator: ::core::ffi::c_int) -> div_t;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ldiv_t {
-    pub quot: ::std::os::raw::c_long,
-    pub rem: ::std::os::raw::c_long,
+    pub quot: ::core::ffi::c_long,
+    pub rem: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_ldiv_t() {
-    const UNINIT: ::std::mem::MaybeUninit<ldiv_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ldiv_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<ldiv_t>(), 16usize, "Size of ldiv_t");
+    assert_eq!(::core::mem::size_of::<ldiv_t>(), 16usize, "Size of ldiv_t");
     assert_eq!(
-        ::std::mem::align_of::<ldiv_t>(),
+        ::core::mem::align_of::<ldiv_t>(),
         8usize,
         "Alignment of ldiv_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
         0usize,
         "Offset of field: ldiv_t::quot"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
         8usize,
         "Offset of field: ldiv_t::rem"
     );
 }
 extern "C" {
-    pub fn ldiv(
-        __numerator: ::std::os::raw::c_long,
-        __denominator: ::std::os::raw::c_long,
-    ) -> ldiv_t;
+    pub fn ldiv(__numerator: ::core::ffi::c_long, __denominator: ::core::ffi::c_long) -> ldiv_t;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lldiv_t {
-    pub quot: ::std::os::raw::c_longlong,
-    pub rem: ::std::os::raw::c_longlong,
+    pub quot: ::core::ffi::c_longlong,
+    pub rem: ::core::ffi::c_longlong,
 }
 #[test]
 fn bindgen_test_layout_lldiv_t() {
-    const UNINIT: ::std::mem::MaybeUninit<lldiv_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<lldiv_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<lldiv_t>(), 16usize, "Size of lldiv_t");
     assert_eq!(
-        ::std::mem::align_of::<lldiv_t>(),
+        ::core::mem::size_of::<lldiv_t>(),
+        16usize,
+        "Size of lldiv_t"
+    );
+    assert_eq!(
+        ::core::mem::align_of::<lldiv_t>(),
         8usize,
         "Alignment of lldiv_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
         0usize,
         "Offset of field: lldiv_t::quot"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
         8usize,
         "Offset of field: lldiv_t::rem"
     );
 }
 extern "C" {
     pub fn lldiv(
-        __numerator: ::std::os::raw::c_longlong,
-        __denominator: ::std::os::raw::c_longlong,
+        __numerator: ::core::ffi::c_longlong,
+        __denominator: ::core::ffi::c_longlong,
     ) -> lldiv_t;
 }
 extern "C" {
-    pub fn getloadavg(__averages: *mut f64, __n: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn getloadavg(__averages: *mut f64, __n: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn getprogname() -> *const ::std::os::raw::c_char;
+    pub fn getprogname() -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn setprogname(__name: *const ::std::os::raw::c_char);
+    pub fn setprogname(__name: *const ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn mblen(__s: *const ::std::os::raw::c_char, __n: usize) -> ::std::os::raw::c_int;
+    pub fn mblen(__s: *const ::core::ffi::c_char, __n: usize) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn mbstowcs(__dst: *mut wchar_t, __src: *const ::std::os::raw::c_char, __n: usize)
-        -> usize;
+    pub fn mbstowcs(__dst: *mut wchar_t, __src: *const ::core::ffi::c_char, __n: usize) -> usize;
 }
 extern "C" {
     pub fn mbtowc(
         __wc_ptr: *mut wchar_t,
-        __s: *const ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
         __n: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn wctomb(__dst: *mut ::std::os::raw::c_char, __wc: wchar_t) -> ::std::os::raw::c_int;
+    pub fn wctomb(__dst: *mut ::core::ffi::c_char, __wc: wchar_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn wcstombs(__dst: *mut ::std::os::raw::c_char, __src: *const wchar_t, __n: usize)
-        -> usize;
+    pub fn wcstombs(__dst: *mut ::core::ffi::c_char, __src: *const wchar_t, __n: usize) -> usize;
 }
 extern "C" {
     pub fn __ctype_get_mb_cur_max() -> usize;
 }
 extern "C" {
-    pub fn abs(__x: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn abs(__x: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn labs(__x: ::std::os::raw::c_long) -> ::std::os::raw::c_long;
+    pub fn labs(__x: ::core::ffi::c_long) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn llabs(__x: ::std::os::raw::c_longlong) -> ::std::os::raw::c_longlong;
+    pub fn llabs(__x: ::core::ffi::c_longlong) -> ::core::ffi::c_longlong;
 }
 extern "C" {
-    pub fn strtof(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f32;
+    pub fn strtof(__s: *const ::core::ffi::c_char, __end_ptr: *mut *mut ::core::ffi::c_char)
+        -> f32;
 }
 extern "C" {
-    pub fn atof(__s: *const ::std::os::raw::c_char) -> f64;
+    pub fn atof(__s: *const ::core::ffi::c_char) -> f64;
 }
 extern "C" {
-    pub fn rand() -> ::std::os::raw::c_int;
+    pub fn rand() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn srand(__seed: ::std::os::raw::c_uint);
+    pub fn srand(__seed: ::core::ffi::c_uint);
 }
 extern "C" {
-    pub fn random() -> ::std::os::raw::c_long;
+    pub fn random() -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn srandom(__seed: ::std::os::raw::c_uint);
+    pub fn srandom(__seed: ::core::ffi::c_uint);
 }
 extern "C" {
-    pub fn grantpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn grantpt(__fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strtoll_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
         __l: locale_t,
-    ) -> ::std::os::raw::c_longlong;
+    ) -> ::core::ffi::c_longlong;
 }
 extern "C" {
     pub fn strtoull_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        __base: ::core::ffi::c_int,
         __l: locale_t,
-    ) -> ::std::os::raw::c_ulonglong;
+    ) -> ::core::ffi::c_ulonglong;
 }
 extern "C" {
     pub fn strtold_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
         __l: locale_t,
     ) -> u128;
 }
 extern "C" {
     pub fn strtod_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
         __l: locale_t,
     ) -> f64;
 }
 extern "C" {
     pub fn strtof_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
         __l: locale_t,
     ) -> f32;
 }
 extern "C" {
     pub fn strtol_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        arg1: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __end_ptr: *mut *mut ::core::ffi::c_char,
+        arg1: ::core::ffi::c_int,
         __l: locale_t,
-    ) -> ::std::os::raw::c_long;
+    ) -> ::core::ffi::c_long;
 }
 pub type net_handle_t = u64;
 extern "C" {
     pub fn android_setsocknetwork(
         network: net_handle_t,
-        fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_setprocnetwork(network: net_handle_t) -> ::std::os::raw::c_int;
+    pub fn android_setprocnetwork(network: net_handle_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_getprocnetwork(network: *mut net_handle_t) -> ::std::os::raw::c_int;
+    pub fn android_getprocnetwork(network: *mut net_handle_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_setprocdns(network: net_handle_t) -> ::std::os::raw::c_int;
+    pub fn android_setprocdns(network: net_handle_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_getprocdns(network: *mut net_handle_t) -> ::std::os::raw::c_int;
+    pub fn android_getprocdns(network: *mut net_handle_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn android_getaddrinfofornetwork(
         network: net_handle_t,
-        node: *const ::std::os::raw::c_char,
-        service: *const ::std::os::raw::c_char,
+        node: *const ::core::ffi::c_char,
+        service: *const ::core::ffi::c_char,
         hints: *const addrinfo,
         res: *mut *mut addrinfo,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 impl ResNsendFlags {
     pub const ANDROID_RESOLV_NO_RETRY: ResNsendFlags = ResNsendFlags(1);
@@ -7142,11 +7116,11 @@ pub struct ResNsendFlags(pub u32);
 extern "C" {
     pub fn android_res_nquery(
         network: net_handle_t,
-        dname: *const ::std::os::raw::c_char,
-        ns_class: ::std::os::raw::c_int,
-        ns_type: ::std::os::raw::c_int,
+        dname: *const ::core::ffi::c_char,
+        ns_class: ::core::ffi::c_int,
+        ns_type: ::core::ffi::c_int,
         flags: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn android_res_nsend(
@@ -7154,31 +7128,31 @@ extern "C" {
         msg: *const u8,
         msglen: usize,
         flags: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn android_res_nresult(
-        fd: ::std::os::raw::c_int,
-        rcode: *mut ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        rcode: *mut ::core::ffi::c_int,
         answer: *mut u8,
         anslen: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_res_cancel(nsend_fd: ::std::os::raw::c_int);
+    pub fn android_res_cancel(nsend_fd: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn android_tag_socket_with_uid(
-        sockfd: ::std::os::raw::c_int,
+        sockfd: ::core::ffi::c_int,
         tag: u32,
         uid: uid_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_tag_socket(sockfd: ::std::os::raw::c_int, tag: u32) -> ::std::os::raw::c_int;
+    pub fn android_tag_socket(sockfd: ::core::ffi::c_int, tag: u32) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn android_untag_socket(sockfd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn android_untag_socket(sockfd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 impl ANativeWindow_LegacyFormat {
     pub const WINDOW_FORMAT_RGBA_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(1);
@@ -7191,7 +7165,7 @@ impl ANativeWindow_LegacyFormat {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindow_LegacyFormat(pub ::std::os::raw::c_uint);
+pub struct ANativeWindow_LegacyFormat(pub ::core::ffi::c_uint);
 impl ANativeWindowTransform {
     pub const ANATIVEWINDOW_TRANSFORM_IDENTITY: ANativeWindowTransform = ANativeWindowTransform(0);
 }
@@ -7216,7 +7190,7 @@ impl ANativeWindowTransform {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindowTransform(pub ::std::os::raw::c_uint);
+pub struct ANativeWindowTransform(pub ::core::ffi::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ANativeWindow {
@@ -7229,50 +7203,51 @@ pub struct ANativeWindow_Buffer {
     pub height: i32,
     pub stride: i32,
     pub format: i32,
-    pub bits: *mut ::std::os::raw::c_void,
+    pub bits: *mut ::core::ffi::c_void,
     pub reserved: [u32; 6usize],
 }
 #[test]
 fn bindgen_test_layout_ANativeWindow_Buffer() {
-    const UNINIT: ::std::mem::MaybeUninit<ANativeWindow_Buffer> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ANativeWindow_Buffer> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ANativeWindow_Buffer>(),
+        ::core::mem::size_of::<ANativeWindow_Buffer>(),
         48usize,
         "Size of ANativeWindow_Buffer"
     );
     assert_eq!(
-        ::std::mem::align_of::<ANativeWindow_Buffer>(),
+        ::core::mem::align_of::<ANativeWindow_Buffer>(),
         8usize,
         "Alignment of ANativeWindow_Buffer"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
         0usize,
         "Offset of field: ANativeWindow_Buffer::width"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
         4usize,
         "Offset of field: ANativeWindow_Buffer::height"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
         8usize,
         "Offset of field: ANativeWindow_Buffer::stride"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
         12usize,
         "Offset of field: ANativeWindow_Buffer::format"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).bits) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).bits) as usize - ptr as usize },
         16usize,
         "Offset of field: ANativeWindow_Buffer::bits"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
         24usize,
         "Offset of field: ANativeWindow_Buffer::reserved"
     );
@@ -7332,7 +7307,7 @@ impl ANativeWindow_FrameRateCompatibility {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindow_FrameRateCompatibility(pub ::std::os::raw::c_uint);
+pub struct ANativeWindow_FrameRateCompatibility(pub ::core::ffi::c_uint);
 extern "C" {
     pub fn ANativeWindow_setFrameRate(
         window: *mut ANativeWindow,
@@ -7353,7 +7328,7 @@ impl ANativeWindow_ChangeFrameRateStrategy {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindow_ChangeFrameRateStrategy(pub ::std::os::raw::c_uint);
+pub struct ANativeWindow_ChangeFrameRateStrategy(pub ::core::ffi::c_uint);
 extern "C" {
     pub fn ANativeWindow_setFrameRateWithChangeStrategy(
         window: *mut ANativeWindow,
@@ -7368,74 +7343,74 @@ pub struct ANativeActivity {
     pub vm: *mut JavaVM,
     pub env: *mut JNIEnv,
     pub clazz: jobject,
-    pub internalDataPath: *const ::std::os::raw::c_char,
-    pub externalDataPath: *const ::std::os::raw::c_char,
+    pub internalDataPath: *const ::core::ffi::c_char,
+    pub externalDataPath: *const ::core::ffi::c_char,
     pub sdkVersion: i32,
-    pub instance: *mut ::std::os::raw::c_void,
+    pub instance: *mut ::core::ffi::c_void,
     pub assetManager: *mut AAssetManager,
-    pub obbPath: *const ::std::os::raw::c_char,
+    pub obbPath: *const ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_ANativeActivity() {
-    const UNINIT: ::std::mem::MaybeUninit<ANativeActivity> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ANativeActivity> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ANativeActivity>(),
+        ::core::mem::size_of::<ANativeActivity>(),
         80usize,
         "Size of ANativeActivity"
     );
     assert_eq!(
-        ::std::mem::align_of::<ANativeActivity>(),
+        ::core::mem::align_of::<ANativeActivity>(),
         8usize,
         "Alignment of ANativeActivity"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).callbacks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).callbacks) as usize - ptr as usize },
         0usize,
         "Offset of field: ANativeActivity::callbacks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vm) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vm) as usize - ptr as usize },
         8usize,
         "Offset of field: ANativeActivity::vm"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).env) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).env) as usize - ptr as usize },
         16usize,
         "Offset of field: ANativeActivity::env"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).clazz) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).clazz) as usize - ptr as usize },
         24usize,
         "Offset of field: ANativeActivity::clazz"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).internalDataPath) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).internalDataPath) as usize - ptr as usize },
         32usize,
         "Offset of field: ANativeActivity::internalDataPath"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).externalDataPath) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).externalDataPath) as usize - ptr as usize },
         40usize,
         "Offset of field: ANativeActivity::externalDataPath"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sdkVersion) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sdkVersion) as usize - ptr as usize },
         48usize,
         "Offset of field: ANativeActivity::sdkVersion"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).instance) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).instance) as usize - ptr as usize },
         56usize,
         "Offset of field: ANativeActivity::instance"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).assetManager) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).assetManager) as usize - ptr as usize },
         64usize,
         "Offset of field: ANativeActivity::assetManager"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).obbPath) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).obbPath) as usize - ptr as usize },
         72usize,
         "Offset of field: ANativeActivity::obbPath"
     );
@@ -7443,152 +7418,152 @@ fn bindgen_test_layout_ANativeActivity() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ANativeActivityCallbacks {
-    pub onStart: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onResume: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onSaveInstanceState: ::std::option::Option<
+    pub onStart: ::core::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onResume: ::core::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onSaveInstanceState: ::core::option::Option<
         unsafe extern "C" fn(
             activity: *mut ANativeActivity,
             outSize: *mut usize,
-        ) -> *mut ::std::os::raw::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub onPause: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onStop: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onDestroy: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onWindowFocusChanged: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, hasFocus: ::std::os::raw::c_int),
+    pub onPause: ::core::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onStop: ::core::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onDestroy: ::core::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onWindowFocusChanged: ::core::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, hasFocus: ::core::ffi::c_int),
     >,
-    pub onNativeWindowCreated: ::std::option::Option<
+    pub onNativeWindowCreated: ::core::option::Option<
         unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
     >,
-    pub onNativeWindowResized: ::std::option::Option<
+    pub onNativeWindowResized: ::core::option::Option<
         unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
     >,
-    pub onNativeWindowRedrawNeeded: ::std::option::Option<
+    pub onNativeWindowRedrawNeeded: ::core::option::Option<
         unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
     >,
-    pub onNativeWindowDestroyed: ::std::option::Option<
+    pub onNativeWindowDestroyed: ::core::option::Option<
         unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
     >,
-    pub onInputQueueCreated: ::std::option::Option<
+    pub onInputQueueCreated: ::core::option::Option<
         unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
     >,
-    pub onInputQueueDestroyed: ::std::option::Option<
+    pub onInputQueueDestroyed: ::core::option::Option<
         unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
     >,
-    pub onContentRectChanged: ::std::option::Option<
+    pub onContentRectChanged: ::core::option::Option<
         unsafe extern "C" fn(activity: *mut ANativeActivity, rect: *const ARect),
     >,
     pub onConfigurationChanged:
-        ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onLowMemory: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+        ::core::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onLowMemory: ::core::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
 }
 #[test]
 fn bindgen_test_layout_ANativeActivityCallbacks() {
-    const UNINIT: ::std::mem::MaybeUninit<ANativeActivityCallbacks> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ANativeActivityCallbacks> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ANativeActivityCallbacks>(),
+        ::core::mem::size_of::<ANativeActivityCallbacks>(),
         128usize,
         "Size of ANativeActivityCallbacks"
     );
     assert_eq!(
-        ::std::mem::align_of::<ANativeActivityCallbacks>(),
+        ::core::mem::align_of::<ANativeActivityCallbacks>(),
         8usize,
         "Alignment of ANativeActivityCallbacks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onStart) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onStart) as usize - ptr as usize },
         0usize,
         "Offset of field: ANativeActivityCallbacks::onStart"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onResume) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onResume) as usize - ptr as usize },
         8usize,
         "Offset of field: ANativeActivityCallbacks::onResume"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onSaveInstanceState) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onSaveInstanceState) as usize - ptr as usize },
         16usize,
         "Offset of field: ANativeActivityCallbacks::onSaveInstanceState"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onPause) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onPause) as usize - ptr as usize },
         24usize,
         "Offset of field: ANativeActivityCallbacks::onPause"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onStop) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onStop) as usize - ptr as usize },
         32usize,
         "Offset of field: ANativeActivityCallbacks::onStop"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onDestroy) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onDestroy) as usize - ptr as usize },
         40usize,
         "Offset of field: ANativeActivityCallbacks::onDestroy"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onWindowFocusChanged) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onWindowFocusChanged) as usize - ptr as usize },
         48usize,
         "Offset of field: ANativeActivityCallbacks::onWindowFocusChanged"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowCreated) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onNativeWindowCreated) as usize - ptr as usize },
         56usize,
         "Offset of field: ANativeActivityCallbacks::onNativeWindowCreated"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowResized) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onNativeWindowResized) as usize - ptr as usize },
         64usize,
         "Offset of field: ANativeActivityCallbacks::onNativeWindowResized"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowRedrawNeeded) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onNativeWindowRedrawNeeded) as usize - ptr as usize },
         72usize,
         "Offset of field: ANativeActivityCallbacks::onNativeWindowRedrawNeeded"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowDestroyed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onNativeWindowDestroyed) as usize - ptr as usize },
         80usize,
         "Offset of field: ANativeActivityCallbacks::onNativeWindowDestroyed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueCreated) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onInputQueueCreated) as usize - ptr as usize },
         88usize,
         "Offset of field: ANativeActivityCallbacks::onInputQueueCreated"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueDestroyed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onInputQueueDestroyed) as usize - ptr as usize },
         96usize,
         "Offset of field: ANativeActivityCallbacks::onInputQueueDestroyed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onContentRectChanged) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onContentRectChanged) as usize - ptr as usize },
         104usize,
         "Offset of field: ANativeActivityCallbacks::onContentRectChanged"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onConfigurationChanged) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onConfigurationChanged) as usize - ptr as usize },
         112usize,
         "Offset of field: ANativeActivityCallbacks::onConfigurationChanged"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onLowMemory) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onLowMemory) as usize - ptr as usize },
         120usize,
         "Offset of field: ANativeActivityCallbacks::onLowMemory"
     );
 }
-pub type ANativeActivity_createFunc = ::std::option::Option<
+pub type ANativeActivity_createFunc = ::core::option::Option<
     unsafe extern "C" fn(
         activity: *mut ANativeActivity,
-        savedState: *mut ::std::os::raw::c_void,
+        savedState: *mut ::core::ffi::c_void,
         savedStateSize: usize,
     ),
 >;
 extern "C" {
     pub fn ANativeActivity_onCreate(
         activity: *mut ANativeActivity,
-        savedState: *mut ::std::os::raw::c_void,
+        savedState: *mut ::core::ffi::c_void,
         savedStateSize: usize,
     );
 }
@@ -7607,13 +7582,13 @@ extern "C" {
 }
 pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_IMPLICIT: _bindgen_ty_33 = 1;
 pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_FORCED: _bindgen_ty_33 = 2;
-pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_33 = ::core::ffi::c_uint;
 extern "C" {
     pub fn ANativeActivity_showSoftInput(activity: *mut ANativeActivity, flags: u32);
 }
 pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_IMPLICIT_ONLY: _bindgen_ty_34 = 1;
 pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_34 = 2;
-pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_34 = ::core::ffi::c_uint;
 extern "C" {
     pub fn ANativeActivity_hideSoftInput(activity: *mut ANativeActivity, flags: u32);
 }
@@ -7673,7 +7648,7 @@ impl OperandCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct OperandCode(pub ::std::os::raw::c_uint);
+pub struct OperandCode(pub ::core::ffi::c_uint);
 impl OperationCode {
     pub const ANEURALNETWORKS_ADD: OperationCode = OperationCode(0);
 }
@@ -7994,7 +7969,7 @@ impl OperationCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct OperationCode(pub ::std::os::raw::c_uint);
+pub struct OperationCode(pub ::core::ffi::c_uint);
 impl FuseCode {
     pub const ANEURALNETWORKS_FUSED_NONE: FuseCode = FuseCode(0);
 }
@@ -8009,7 +7984,7 @@ impl FuseCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct FuseCode(pub ::std::os::raw::c_uint);
+pub struct FuseCode(pub ::core::ffi::c_uint);
 impl PaddingCode {
     pub const ANEURALNETWORKS_PADDING_SAME: PaddingCode = PaddingCode(1);
 }
@@ -8018,7 +7993,7 @@ impl PaddingCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct PaddingCode(pub ::std::os::raw::c_uint);
+pub struct PaddingCode(pub ::core::ffi::c_uint);
 impl PreferenceCode {
     pub const ANEURALNETWORKS_PREFER_LOW_POWER: PreferenceCode = PreferenceCode(0);
 }
@@ -8030,7 +8005,7 @@ impl PreferenceCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct PreferenceCode(pub ::std::os::raw::c_uint);
+pub struct PreferenceCode(pub ::core::ffi::c_uint);
 impl DeviceTypeCode {
     pub const ANEURALNETWORKS_DEVICE_UNKNOWN: DeviceTypeCode = DeviceTypeCode(0);
 }
@@ -8048,7 +8023,7 @@ impl DeviceTypeCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct DeviceTypeCode(pub ::std::os::raw::c_uint);
+pub struct DeviceTypeCode(pub ::core::ffi::c_uint);
 impl FeatureLevelCode {
     pub const ANEURALNETWORKS_FEATURE_LEVEL_1: FeatureLevelCode = FeatureLevelCode(27);
 }
@@ -8075,7 +8050,7 @@ impl FeatureLevelCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct FeatureLevelCode(pub ::std::os::raw::c_uint);
+pub struct FeatureLevelCode(pub ::core::ffi::c_uint);
 impl ResultCode {
     pub const ANEURALNETWORKS_NO_ERROR: ResultCode = ResultCode(0);
 }
@@ -8123,11 +8098,11 @@ impl ResultCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ResultCode(pub ::std::os::raw::c_uint);
+pub struct ResultCode(pub ::core::ffi::c_uint);
 pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: _bindgen_ty_35 = 128;
-pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_35 = ::core::ffi::c_uint;
 pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: _bindgen_ty_36 = 32;
-pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_36 = ::core::ffi::c_uint;
 impl DurationCode {
     pub const ANEURALNETWORKS_DURATION_ON_HARDWARE: DurationCode = DurationCode(0);
 }
@@ -8142,7 +8117,7 @@ impl DurationCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct DurationCode(pub ::std::os::raw::c_uint);
+pub struct DurationCode(pub ::core::ffi::c_uint);
 impl PriorityCode {
     pub const ANEURALNETWORKS_PRIORITY_LOW: PriorityCode = PriorityCode(90);
 }
@@ -8157,7 +8132,7 @@ impl PriorityCode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct PriorityCode(pub ::std::os::raw::c_uint);
+pub struct PriorityCode(pub ::core::ffi::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ANeuralNetworksMemory {
@@ -8187,31 +8162,31 @@ pub struct ANeuralNetworksSymmPerChannelQuantParams {
 }
 #[test]
 fn bindgen_test_layout_ANeuralNetworksSymmPerChannelQuantParams() {
-    const UNINIT: ::std::mem::MaybeUninit<ANeuralNetworksSymmPerChannelQuantParams> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ANeuralNetworksSymmPerChannelQuantParams> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
+        ::core::mem::size_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
         16usize,
         "Size of ANeuralNetworksSymmPerChannelQuantParams"
     );
     assert_eq!(
-        ::std::mem::align_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
+        ::core::mem::align_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
         8usize,
         "Alignment of ANeuralNetworksSymmPerChannelQuantParams"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).channelDim) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).channelDim) as usize - ptr as usize },
         0usize,
         "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::channelDim"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).scaleCount) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).scaleCount) as usize - ptr as usize },
         4usize,
         "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::scaleCount"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).scales) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).scales) as usize - ptr as usize },
         8usize,
         "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::scales"
     );
@@ -8232,41 +8207,41 @@ pub struct ANeuralNetworksOperandType {
 }
 #[test]
 fn bindgen_test_layout_ANeuralNetworksOperandType() {
-    const UNINIT: ::std::mem::MaybeUninit<ANeuralNetworksOperandType> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ANeuralNetworksOperandType> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ANeuralNetworksOperandType>(),
+        ::core::mem::size_of::<ANeuralNetworksOperandType>(),
         24usize,
         "Size of ANeuralNetworksOperandType"
     );
     assert_eq!(
-        ::std::mem::align_of::<ANeuralNetworksOperandType>(),
+        ::core::mem::align_of::<ANeuralNetworksOperandType>(),
         8usize,
         "Alignment of ANeuralNetworksOperandType"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
         0usize,
         "Offset of field: ANeuralNetworksOperandType::type_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).dimensionCount) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).dimensionCount) as usize - ptr as usize },
         4usize,
         "Offset of field: ANeuralNetworksOperandType::dimensionCount"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).dimensions) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).dimensions) as usize - ptr as usize },
         8usize,
         "Offset of field: ANeuralNetworksOperandType::dimensions"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).scale) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).scale) as usize - ptr as usize },
         16usize,
         "Offset of field: ANeuralNetworksOperandType::scale"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).zeroPoint) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).zeroPoint) as usize - ptr as usize },
         20usize,
         "Offset of field: ANeuralNetworksOperandType::zeroPoint"
     );
@@ -8290,7 +8265,7 @@ pub struct ANeuralNetworksMemoryDesc {
 extern "C" {
     pub fn ANeuralNetworksMemoryDesc_create(
         desc: *mut *mut ANeuralNetworksMemoryDesc,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemoryDesc_free(desc: *mut ANeuralNetworksMemoryDesc);
@@ -8301,7 +8276,7 @@ extern "C" {
         compilation: *const ANeuralNetworksCompilation,
         index: u32,
         frequency: f32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemoryDesc_addOutputRole(
@@ -8309,69 +8284,67 @@ extern "C" {
         compilation: *const ANeuralNetworksCompilation,
         index: u32,
         frequency: f32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemoryDesc_setDimensions(
         desc: *mut ANeuralNetworksMemoryDesc,
         rank: u32,
         dimensions: *const u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemoryDesc_finish(
         desc: *mut ANeuralNetworksMemoryDesc,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemory_createFromDesc(
         desc: *const ANeuralNetworksMemoryDesc,
         memory: *mut *mut ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemory_copy(
         src: *const ANeuralNetworksMemory,
         dst: *const ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ANeuralNetworks_getDeviceCount(numDevices: *mut u32) -> ::std::os::raw::c_int;
+    pub fn ANeuralNetworks_getDeviceCount(numDevices: *mut u32) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworks_getDevice(
         devIndex: u32,
         device: *mut *mut ANeuralNetworksDevice,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksDevice_getName(
         device: *const ANeuralNetworksDevice,
-        name: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        name: *mut *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksDevice_getType(
         device: *const ANeuralNetworksDevice,
         type_: *mut i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksDevice_getVersion(
         device: *const ANeuralNetworksDevice,
-        version: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        version: *mut *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksDevice_getFeatureLevel(
         device: *const ANeuralNetworksDevice,
         featureLevel: *mut i64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ANeuralNetworksDevice_wait(
-        device: *const ANeuralNetworksDevice,
-    ) -> ::std::os::raw::c_int;
+    pub fn ANeuralNetworksDevice_wait(device: *const ANeuralNetworksDevice) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_getSupportedOperationsForDevices(
@@ -8379,7 +8352,7 @@ extern "C" {
         devices: *const *const ANeuralNetworksDevice,
         numDevices: u32,
         supportedOps: *mut bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_createForDevices(
@@ -8387,39 +8360,39 @@ extern "C" {
         devices: *const *const ANeuralNetworksDevice,
         numDevices: u32,
         compilation: *mut *mut ANeuralNetworksCompilation,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_setCaching(
         compilation: *mut ANeuralNetworksCompilation,
-        cacheDir: *const ::std::os::raw::c_char,
+        cacheDir: *const ::core::ffi::c_char,
         token: *const u8,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_compute(
         execution: *mut ANeuralNetworksExecution,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_getOutputOperandRank(
         execution: *mut ANeuralNetworksExecution,
         index: i32,
         rank: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_getOutputOperandDimensions(
         execution: *mut ANeuralNetworksExecution,
         index: i32,
         dimensions: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksBurst_create(
         compilation: *mut ANeuralNetworksCompilation,
         burst: *mut *mut ANeuralNetworksBurst,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksBurst_free(burst: *mut ANeuralNetworksBurst);
@@ -8428,70 +8401,69 @@ extern "C" {
     pub fn ANeuralNetworksExecution_burstCompute(
         execution: *mut ANeuralNetworksExecution,
         burst: *mut ANeuralNetworksBurst,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemory_createFromAHardwareBuffer(
         ahwb: *const AHardwareBuffer,
         memory: *mut *mut ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_setMeasureTiming(
         execution: *mut ANeuralNetworksExecution,
         measure: bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_getDuration(
         execution: *const ANeuralNetworksExecution,
         durationCode: i32,
         duration: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemory_createFromFd(
         size: usize,
-        protect: ::std::os::raw::c_int,
-        fd: ::std::os::raw::c_int,
+        protect: ::core::ffi::c_int,
+        fd: ::core::ffi::c_int,
         offset: usize,
         memory: *mut *mut ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksMemory_free(memory: *mut ANeuralNetworksMemory);
 }
 extern "C" {
-    pub fn ANeuralNetworksModel_create(
-        model: *mut *mut ANeuralNetworksModel,
-    ) -> ::std::os::raw::c_int;
+    pub fn ANeuralNetworksModel_create(model: *mut *mut ANeuralNetworksModel)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_free(model: *mut ANeuralNetworksModel);
 }
 extern "C" {
-    pub fn ANeuralNetworksModel_finish(model: *mut ANeuralNetworksModel) -> ::std::os::raw::c_int;
+    pub fn ANeuralNetworksModel_finish(model: *mut ANeuralNetworksModel) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_addOperand(
         model: *mut ANeuralNetworksModel,
         type_: *const ANeuralNetworksOperandType,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_setOperandValue(
         model: *mut ANeuralNetworksModel,
         index: i32,
-        buffer: *const ::std::os::raw::c_void,
+        buffer: *const ::core::ffi::c_void,
         length: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_setOperandSymmPerChannelQuantParams(
         model: *mut ANeuralNetworksModel,
         index: i32,
         channelQuant: *const ANeuralNetworksSymmPerChannelQuantParams,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_setOperandValueFromMemory(
@@ -8500,14 +8472,14 @@ extern "C" {
         memory: *const ANeuralNetworksMemory,
         offset: usize,
         length: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_setOperandValueFromModel(
         model: *mut ANeuralNetworksModel,
         index: i32,
         value: *const ANeuralNetworksModel,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_addOperation(
@@ -8517,7 +8489,7 @@ extern "C" {
         inputs: *const u32,
         outputCount: u32,
         outputs: *const u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_identifyInputsAndOutputs(
@@ -8526,19 +8498,19 @@ extern "C" {
         inputs: *const u32,
         outputCount: u32,
         outputs: *const u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksModel_relaxComputationFloat32toFloat16(
         model: *mut ANeuralNetworksModel,
         allow: bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_create(
         model: *mut ANeuralNetworksModel,
         compilation: *mut *mut ANeuralNetworksCompilation,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_free(compilation: *mut ANeuralNetworksCompilation);
@@ -8547,30 +8519,30 @@ extern "C" {
     pub fn ANeuralNetworksCompilation_setPreference(
         compilation: *mut ANeuralNetworksCompilation,
         preference: i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_finish(
         compilation: *mut ANeuralNetworksCompilation,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_setPriority(
         compilation: *mut ANeuralNetworksCompilation,
-        priority: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        priority: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_setTimeout(
         compilation: *mut ANeuralNetworksCompilation,
         duration: u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_create(
         compilation: *mut ANeuralNetworksCompilation,
         execution: *mut *mut ANeuralNetworksExecution,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_free(execution: *mut ANeuralNetworksExecution);
@@ -8580,9 +8552,9 @@ extern "C" {
         execution: *mut ANeuralNetworksExecution,
         index: i32,
         type_: *const ANeuralNetworksOperandType,
-        buffer: *const ::std::os::raw::c_void,
+        buffer: *const ::core::ffi::c_void,
         length: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_setInputFromMemory(
@@ -8592,16 +8564,16 @@ extern "C" {
         memory: *const ANeuralNetworksMemory,
         offset: usize,
         length: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_setOutput(
         execution: *mut ANeuralNetworksExecution,
         index: i32,
         type_: *const ANeuralNetworksOperandType,
-        buffer: *mut ::std::os::raw::c_void,
+        buffer: *mut ::core::ffi::c_void,
         length: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_setOutputFromMemory(
@@ -8611,25 +8583,25 @@ extern "C" {
         memory: *const ANeuralNetworksMemory,
         offset: usize,
         length: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_startCompute(
         execution: *mut ANeuralNetworksExecution,
         event: *mut *mut ANeuralNetworksEvent,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_setTimeout(
         execution: *mut ANeuralNetworksExecution,
         duration: u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_setLoopTimeout(
         execution: *mut ANeuralNetworksExecution,
         duration: u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworks_getDefaultLoopTimeout() -> u64;
@@ -8638,22 +8610,22 @@ extern "C" {
     pub fn ANeuralNetworks_getMaximumLoopTimeout() -> u64;
 }
 extern "C" {
-    pub fn ANeuralNetworksEvent_wait(event: *mut ANeuralNetworksEvent) -> ::std::os::raw::c_int;
+    pub fn ANeuralNetworksEvent_wait(event: *mut ANeuralNetworksEvent) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksEvent_free(event: *mut ANeuralNetworksEvent);
 }
 extern "C" {
     pub fn ANeuralNetworksEvent_createFromSyncFenceFd(
-        sync_fence_fd: ::std::os::raw::c_int,
+        sync_fence_fd: ::core::ffi::c_int,
         event: *mut *mut ANeuralNetworksEvent,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksEvent_getSyncFenceFd(
         event: *const ANeuralNetworksEvent,
-        sync_fence_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        sync_fence_fd: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_startComputeWithDependencies(
@@ -8662,7 +8634,7 @@ extern "C" {
         num_dependencies: u32,
         duration: u64,
         event: *mut *mut ANeuralNetworksEvent,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworks_getRuntimeFeatureLevel() -> i64;
@@ -8671,41 +8643,41 @@ extern "C" {
     pub fn ANeuralNetworksExecution_enableInputAndOutputPadding(
         execution: *mut ANeuralNetworksExecution,
         enable: bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_getPreferredMemoryAlignmentForInput(
         compilation: *const ANeuralNetworksCompilation,
         index: u32,
         alignment: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_getPreferredMemoryPaddingForInput(
         compilation: *const ANeuralNetworksCompilation,
         index: u32,
         padding: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_getPreferredMemoryAlignmentForOutput(
         compilation: *const ANeuralNetworksCompilation,
         index: u32,
         alignment: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksCompilation_getPreferredMemoryPaddingForOutput(
         compilation: *const ANeuralNetworksCompilation,
         index: u32,
         padding: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ANeuralNetworksExecution_setReusable(
         execution: *mut ANeuralNetworksExecution,
         reusable: bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -8713,15 +8685,15 @@ pub struct AObbInfo {
     _unused: [u8; 0],
 }
 pub const AOBBINFO_OVERLAY: _bindgen_ty_37 = 1;
-pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_37 = ::core::ffi::c_uint;
 extern "C" {
-    pub fn AObbScanner_getObbInfo(filename: *const ::std::os::raw::c_char) -> *mut AObbInfo;
+    pub fn AObbScanner_getObbInfo(filename: *const ::core::ffi::c_char) -> *mut AObbInfo;
 }
 extern "C" {
     pub fn AObbInfo_delete(obbInfo: *mut AObbInfo);
 }
 extern "C" {
-    pub fn AObbInfo_getPackageName(obbInfo: *mut AObbInfo) -> *const ::std::os::raw::c_char;
+    pub fn AObbInfo_getPackageName(obbInfo: *mut AObbInfo) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AObbInfo_getVersion(obbInfo: *mut AObbInfo) -> i32;
@@ -8733,29 +8705,29 @@ extern "C" {
 #[derive(Debug, Copy, Clone)]
 pub struct timespec {
     pub tv_sec: time_t,
-    pub tv_nsec: ::std::os::raw::c_long,
+    pub tv_nsec: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_timespec() {
-    const UNINIT: ::std::mem::MaybeUninit<timespec> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<timespec> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<timespec>(),
+        ::core::mem::size_of::<timespec>(),
         16usize,
         "Size of timespec"
     );
     assert_eq!(
-        ::std::mem::align_of::<timespec>(),
+        ::core::mem::align_of::<timespec>(),
         8usize,
         "Alignment of timespec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
         0usize,
         "Offset of field: timespec::tv_sec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
         8usize,
         "Offset of field: timespec::tv_nsec"
     );
@@ -8764,29 +8736,29 @@ fn bindgen_test_layout_timespec() {
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_timespec {
     pub tv_sec: __kernel_time64_t,
-    pub tv_nsec: ::std::os::raw::c_longlong,
+    pub tv_nsec: ::core::ffi::c_longlong,
 }
 #[test]
 fn bindgen_test_layout___kernel_timespec() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_timespec> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__kernel_timespec> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__kernel_timespec>(),
+        ::core::mem::size_of::<__kernel_timespec>(),
         16usize,
         "Size of __kernel_timespec"
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_timespec>(),
+        ::core::mem::align_of::<__kernel_timespec>(),
         8usize,
         "Alignment of __kernel_timespec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
         0usize,
         "Offset of field: __kernel_timespec::tv_sec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
         8usize,
         "Offset of field: __kernel_timespec::tv_nsec"
     );
@@ -8799,25 +8771,26 @@ pub struct __kernel_itimerspec {
 }
 #[test]
 fn bindgen_test_layout___kernel_itimerspec() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_itimerspec> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__kernel_itimerspec> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__kernel_itimerspec>(),
+        ::core::mem::size_of::<__kernel_itimerspec>(),
         32usize,
         "Size of __kernel_itimerspec"
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_itimerspec>(),
+        ::core::mem::align_of::<__kernel_itimerspec>(),
         8usize,
         "Alignment of __kernel_itimerspec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
         0usize,
         "Offset of field: __kernel_itimerspec::it_interval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
         16usize,
         "Offset of field: __kernel_itimerspec::it_value"
     );
@@ -8826,30 +8799,30 @@ fn bindgen_test_layout___kernel_itimerspec() {
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_old_timespec {
     pub tv_sec: __kernel_old_time_t,
-    pub tv_nsec: ::std::os::raw::c_long,
+    pub tv_nsec: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout___kernel_old_timespec() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_old_timespec> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__kernel_old_timespec> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__kernel_old_timespec>(),
+        ::core::mem::size_of::<__kernel_old_timespec>(),
         16usize,
         "Size of __kernel_old_timespec"
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_old_timespec>(),
+        ::core::mem::align_of::<__kernel_old_timespec>(),
         8usize,
         "Alignment of __kernel_old_timespec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
         0usize,
         "Offset of field: __kernel_old_timespec::tv_sec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
         8usize,
         "Offset of field: __kernel_old_timespec::tv_nsec"
     );
@@ -8862,26 +8835,26 @@ pub struct __kernel_sock_timeval {
 }
 #[test]
 fn bindgen_test_layout___kernel_sock_timeval() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_sock_timeval> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__kernel_sock_timeval> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__kernel_sock_timeval>(),
+        ::core::mem::size_of::<__kernel_sock_timeval>(),
         16usize,
         "Size of __kernel_sock_timeval"
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_sock_timeval>(),
+        ::core::mem::align_of::<__kernel_sock_timeval>(),
         8usize,
         "Alignment of __kernel_sock_timeval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
         0usize,
         "Offset of field: __kernel_sock_timeval::tv_sec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
         8usize,
         "Offset of field: __kernel_sock_timeval::tv_usec"
     );
@@ -8894,21 +8867,25 @@ pub struct timeval {
 }
 #[test]
 fn bindgen_test_layout_timeval() {
-    const UNINIT: ::std::mem::MaybeUninit<timeval> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<timeval> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<timeval>(), 16usize, "Size of timeval");
     assert_eq!(
-        ::std::mem::align_of::<timeval>(),
+        ::core::mem::size_of::<timeval>(),
+        16usize,
+        "Size of timeval"
+    );
+    assert_eq!(
+        ::core::mem::align_of::<timeval>(),
         8usize,
         "Alignment of timeval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
         0usize,
         "Offset of field: timeval::tv_sec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
         8usize,
         "Offset of field: timeval::tv_usec"
     );
@@ -8921,25 +8898,25 @@ pub struct itimerspec {
 }
 #[test]
 fn bindgen_test_layout_itimerspec() {
-    const UNINIT: ::std::mem::MaybeUninit<itimerspec> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<itimerspec> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<itimerspec>(),
+        ::core::mem::size_of::<itimerspec>(),
         32usize,
         "Size of itimerspec"
     );
     assert_eq!(
-        ::std::mem::align_of::<itimerspec>(),
+        ::core::mem::align_of::<itimerspec>(),
         8usize,
         "Alignment of itimerspec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
         0usize,
         "Offset of field: itimerspec::it_interval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
         16usize,
         "Offset of field: itimerspec::it_value"
     );
@@ -8952,25 +8929,25 @@ pub struct itimerval {
 }
 #[test]
 fn bindgen_test_layout_itimerval() {
-    const UNINIT: ::std::mem::MaybeUninit<itimerval> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<itimerval> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<itimerval>(),
+        ::core::mem::size_of::<itimerval>(),
         32usize,
         "Size of itimerval"
     );
     assert_eq!(
-        ::std::mem::align_of::<itimerval>(),
+        ::core::mem::align_of::<itimerval>(),
         8usize,
         "Alignment of itimerval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
         0usize,
         "Offset of field: itimerval::it_interval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
         16usize,
         "Offset of field: itimerval::it_value"
     );
@@ -8978,30 +8955,30 @@ fn bindgen_test_layout_itimerval() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct timezone {
-    pub tz_minuteswest: ::std::os::raw::c_int,
-    pub tz_dsttime: ::std::os::raw::c_int,
+    pub tz_minuteswest: ::core::ffi::c_int,
+    pub tz_dsttime: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_timezone() {
-    const UNINIT: ::std::mem::MaybeUninit<timezone> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<timezone> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<timezone>(),
+        ::core::mem::size_of::<timezone>(),
         8usize,
         "Size of timezone"
     );
     assert_eq!(
-        ::std::mem::align_of::<timezone>(),
+        ::core::mem::align_of::<timezone>(),
         4usize,
         "Alignment of timezone"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tz_minuteswest) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tz_minuteswest) as usize - ptr as usize },
         0usize,
         "Offset of field: timezone::tz_minuteswest"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tz_dsttime) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tz_dsttime) as usize - ptr as usize },
         4usize,
         "Offset of field: timezone::tz_dsttime"
     );
@@ -9020,45 +8997,45 @@ pub struct sigcontext {
 }
 #[test]
 fn bindgen_test_layout_sigcontext() {
-    const UNINIT: ::std::mem::MaybeUninit<sigcontext> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigcontext> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigcontext>(),
+        ::core::mem::size_of::<sigcontext>(),
         4384usize,
         "Size of sigcontext"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigcontext>(),
+        ::core::mem::align_of::<sigcontext>(),
         16usize,
         "Alignment of sigcontext"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fault_address) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fault_address) as usize - ptr as usize },
         0usize,
         "Offset of field: sigcontext::fault_address"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
         8usize,
         "Offset of field: sigcontext::regs"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
         256usize,
         "Offset of field: sigcontext::sp"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
         264usize,
         "Offset of field: sigcontext::pc"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
         272usize,
         "Offset of field: sigcontext::pstate"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
         288usize,
         "Offset of field: sigcontext::__reserved"
     );
@@ -9071,25 +9048,25 @@ pub struct _aarch64_ctx {
 }
 #[test]
 fn bindgen_test_layout__aarch64_ctx() {
-    const UNINIT: ::std::mem::MaybeUninit<_aarch64_ctx> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<_aarch64_ctx> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<_aarch64_ctx>(),
+        ::core::mem::size_of::<_aarch64_ctx>(),
         8usize,
         "Size of _aarch64_ctx"
     );
     assert_eq!(
-        ::std::mem::align_of::<_aarch64_ctx>(),
+        ::core::mem::align_of::<_aarch64_ctx>(),
         4usize,
         "Alignment of _aarch64_ctx"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).magic) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).magic) as usize - ptr as usize },
         0usize,
         "Offset of field: _aarch64_ctx::magic"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
         4usize,
         "Offset of field: _aarch64_ctx::size"
     );
@@ -9105,35 +9082,35 @@ pub struct fpsimd_context {
 }
 #[test]
 fn bindgen_test_layout_fpsimd_context() {
-    const UNINIT: ::std::mem::MaybeUninit<fpsimd_context> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<fpsimd_context> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<fpsimd_context>(),
+        ::core::mem::size_of::<fpsimd_context>(),
         528usize,
         "Size of fpsimd_context"
     );
     assert_eq!(
-        ::std::mem::align_of::<fpsimd_context>(),
+        ::core::mem::align_of::<fpsimd_context>(),
         16usize,
         "Alignment of fpsimd_context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
         0usize,
         "Offset of field: fpsimd_context::head"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
         8usize,
         "Offset of field: fpsimd_context::fpsr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
         12usize,
         "Offset of field: fpsimd_context::fpcr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
         16usize,
         "Offset of field: fpsimd_context::vregs"
     );
@@ -9146,25 +9123,25 @@ pub struct esr_context {
 }
 #[test]
 fn bindgen_test_layout_esr_context() {
-    const UNINIT: ::std::mem::MaybeUninit<esr_context> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<esr_context> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<esr_context>(),
+        ::core::mem::size_of::<esr_context>(),
         16usize,
         "Size of esr_context"
     );
     assert_eq!(
-        ::std::mem::align_of::<esr_context>(),
+        ::core::mem::align_of::<esr_context>(),
         8usize,
         "Alignment of esr_context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
         0usize,
         "Offset of field: esr_context::head"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).esr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).esr) as usize - ptr as usize },
         8usize,
         "Offset of field: esr_context::esr"
     );
@@ -9179,35 +9156,35 @@ pub struct extra_context {
 }
 #[test]
 fn bindgen_test_layout_extra_context() {
-    const UNINIT: ::std::mem::MaybeUninit<extra_context> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<extra_context> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<extra_context>(),
+        ::core::mem::size_of::<extra_context>(),
         32usize,
         "Size of extra_context"
     );
     assert_eq!(
-        ::std::mem::align_of::<extra_context>(),
+        ::core::mem::align_of::<extra_context>(),
         8usize,
         "Alignment of extra_context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
         0usize,
         "Offset of field: extra_context::head"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).datap) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).datap) as usize - ptr as usize },
         8usize,
         "Offset of field: extra_context::datap"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
         16usize,
         "Offset of field: extra_context::size"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
         20usize,
         "Offset of field: extra_context::__reserved"
     );
@@ -9222,35 +9199,35 @@ pub struct sve_context {
 }
 #[test]
 fn bindgen_test_layout_sve_context() {
-    const UNINIT: ::std::mem::MaybeUninit<sve_context> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sve_context> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sve_context>(),
+        ::core::mem::size_of::<sve_context>(),
         16usize,
         "Size of sve_context"
     );
     assert_eq!(
-        ::std::mem::align_of::<sve_context>(),
+        ::core::mem::align_of::<sve_context>(),
         4usize,
         "Alignment of sve_context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
         0usize,
         "Offset of field: sve_context::head"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
         8usize,
         "Offset of field: sve_context::vl"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         10usize,
         "Offset of field: sve_context::flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
         12usize,
         "Offset of field: sve_context::__reserved"
     );
@@ -9263,25 +9240,25 @@ pub struct tpidr2_context {
 }
 #[test]
 fn bindgen_test_layout_tpidr2_context() {
-    const UNINIT: ::std::mem::MaybeUninit<tpidr2_context> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<tpidr2_context> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<tpidr2_context>(),
+        ::core::mem::size_of::<tpidr2_context>(),
         16usize,
         "Size of tpidr2_context"
     );
     assert_eq!(
-        ::std::mem::align_of::<tpidr2_context>(),
+        ::core::mem::align_of::<tpidr2_context>(),
         8usize,
         "Alignment of tpidr2_context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
         0usize,
         "Offset of field: tpidr2_context::head"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tpidr2) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tpidr2) as usize - ptr as usize },
         8usize,
         "Offset of field: tpidr2_context::tpidr2"
     );
@@ -9295,30 +9272,30 @@ pub struct za_context {
 }
 #[test]
 fn bindgen_test_layout_za_context() {
-    const UNINIT: ::std::mem::MaybeUninit<za_context> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<za_context> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<za_context>(),
+        ::core::mem::size_of::<za_context>(),
         16usize,
         "Size of za_context"
     );
     assert_eq!(
-        ::std::mem::align_of::<za_context>(),
+        ::core::mem::align_of::<za_context>(),
         4usize,
         "Alignment of za_context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
         0usize,
         "Offset of field: za_context::head"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
         8usize,
         "Offset of field: za_context::vl"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
         10usize,
         "Offset of field: za_context::__reserved"
     );
@@ -9332,30 +9309,30 @@ pub struct zt_context {
 }
 #[test]
 fn bindgen_test_layout_zt_context() {
-    const UNINIT: ::std::mem::MaybeUninit<zt_context> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<zt_context> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<zt_context>(),
+        ::core::mem::size_of::<zt_context>(),
         16usize,
         "Size of zt_context"
     );
     assert_eq!(
-        ::std::mem::align_of::<zt_context>(),
+        ::core::mem::align_of::<zt_context>(),
         4usize,
         "Alignment of zt_context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
         0usize,
         "Offset of field: zt_context::head"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).nregs) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).nregs) as usize - ptr as usize },
         8usize,
         "Offset of field: zt_context::nregs"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
         10usize,
         "Offset of field: zt_context::__reserved"
     );
@@ -9363,72 +9340,72 @@ fn bindgen_test_layout_zt_context() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sigset_t {
-    pub sig: [::std::os::raw::c_ulong; 1usize],
+    pub sig: [::core::ffi::c_ulong; 1usize],
 }
 #[test]
 fn bindgen_test_layout_sigset_t() {
-    const UNINIT: ::std::mem::MaybeUninit<sigset_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigset_t> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigset_t>(),
+        ::core::mem::size_of::<sigset_t>(),
         8usize,
         "Size of sigset_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigset_t>(),
+        ::core::mem::align_of::<sigset_t>(),
         8usize,
         "Alignment of sigset_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sig) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sig) as usize - ptr as usize },
         0usize,
         "Offset of field: sigset_t::sig"
     );
 }
-pub type old_sigset_t = ::std::os::raw::c_ulong;
-pub type __signalfn_t = ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
+pub type old_sigset_t = ::core::ffi::c_ulong;
+pub type __signalfn_t = ::core::option::Option<unsafe extern "C" fn(arg1: ::core::ffi::c_int)>;
 pub type __sighandler_t = __signalfn_t;
-pub type __restorefn_t = ::std::option::Option<unsafe extern "C" fn()>;
+pub type __restorefn_t = ::core::option::Option<unsafe extern "C" fn()>;
 pub type __sigrestore_t = __restorefn_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_sigaction {
     pub sa_handler: __sighandler_t,
-    pub sa_flags: ::std::os::raw::c_ulong,
+    pub sa_flags: ::core::ffi::c_ulong,
     pub sa_restorer: __sigrestore_t,
     pub sa_mask: sigset_t,
 }
 #[test]
 fn bindgen_test_layout___kernel_sigaction() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_sigaction> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__kernel_sigaction> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__kernel_sigaction>(),
+        ::core::mem::size_of::<__kernel_sigaction>(),
         32usize,
         "Size of __kernel_sigaction"
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_sigaction>(),
+        ::core::mem::align_of::<__kernel_sigaction>(),
         8usize,
         "Alignment of __kernel_sigaction"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
         0usize,
         "Offset of field: __kernel_sigaction::sa_handler"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
         8usize,
         "Offset of field: __kernel_sigaction::sa_flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
         16usize,
         "Offset of field: __kernel_sigaction::sa_restorer"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
         24usize,
         "Offset of field: __kernel_sigaction::sa_mask"
     );
@@ -9436,36 +9413,36 @@ fn bindgen_test_layout___kernel_sigaction() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sigaltstack {
-    pub ss_sp: *mut ::std::os::raw::c_void,
-    pub ss_flags: ::std::os::raw::c_int,
+    pub ss_sp: *mut ::core::ffi::c_void,
+    pub ss_flags: ::core::ffi::c_int,
     pub ss_size: __kernel_size_t,
 }
 #[test]
 fn bindgen_test_layout_sigaltstack() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaltstack> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigaltstack> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigaltstack>(),
+        ::core::mem::size_of::<sigaltstack>(),
         24usize,
         "Size of sigaltstack"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigaltstack>(),
+        ::core::mem::align_of::<sigaltstack>(),
         8usize,
         "Alignment of sigaltstack"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_sp) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ss_sp) as usize - ptr as usize },
         0usize,
         "Offset of field: sigaltstack::ss_sp"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ss_flags) as usize - ptr as usize },
         8usize,
         "Offset of field: sigaltstack::ss_flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ss_size) as usize - ptr as usize },
         16usize,
         "Offset of field: sigaltstack::ss_size"
     );
@@ -9474,26 +9451,26 @@ pub type stack_t = sigaltstack;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union sigval {
-    pub sival_int: ::std::os::raw::c_int,
-    pub sival_ptr: *mut ::std::os::raw::c_void,
+    pub sival_int: ::core::ffi::c_int,
+    pub sival_ptr: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_sigval() {
-    const UNINIT: ::std::mem::MaybeUninit<sigval> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigval> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<sigval>(), 8usize, "Size of sigval");
+    assert_eq!(::core::mem::size_of::<sigval>(), 8usize, "Size of sigval");
     assert_eq!(
-        ::std::mem::align_of::<sigval>(),
+        ::core::mem::align_of::<sigval>(),
         8usize,
         "Alignment of sigval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sival_int) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sival_int) as usize - ptr as usize },
         0usize,
         "Offset of field: sigval::sival_int"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sival_ptr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sival_ptr) as usize - ptr as usize },
         0usize,
         "Offset of field: sigval::sival_ptr"
     );
@@ -9518,26 +9495,26 @@ pub struct __sifields__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_1>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_1>(),
         8usize,
         "Size of __sifields__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_1>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_1>(),
         4usize,
         "Alignment of __sifields__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_1::_pid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
         4usize,
         "Offset of field: __sifields__bindgen_ty_1::_uid"
     );
@@ -9546,42 +9523,42 @@ fn bindgen_test_layout___sifields__bindgen_ty_1() {
 #[derive(Copy, Clone)]
 pub struct __sifields__bindgen_ty_2 {
     pub _tid: __kernel_timer_t,
-    pub _overrun: ::std::os::raw::c_int,
+    pub _overrun: ::core::ffi::c_int,
     pub _sigval: sigval_t,
-    pub _sys_private: ::std::os::raw::c_int,
+    pub _sys_private: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_2>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_2>(),
         24usize,
         "Size of __sifields__bindgen_ty_2"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_2>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_2>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_2::_tid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._overrun) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._overrun) as usize - ptr as usize },
         4usize,
         "Offset of field: __sifields__bindgen_ty_2::_overrun"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_2::_sigval"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sys_private) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sys_private) as usize - ptr as usize },
         16usize,
         "Offset of field: __sifields__bindgen_ty_2::_sys_private"
     );
@@ -9595,31 +9572,31 @@ pub struct __sifields__bindgen_ty_3 {
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_3() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_3> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_3> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_3>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_3>(),
         16usize,
         "Size of __sifields__bindgen_ty_3"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_3>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_3>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_3"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_3::_pid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
         4usize,
         "Offset of field: __sifields__bindgen_ty_3::_uid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_3::_sigval"
     );
@@ -9629,47 +9606,47 @@ fn bindgen_test_layout___sifields__bindgen_ty_3() {
 pub struct __sifields__bindgen_ty_4 {
     pub _pid: __kernel_pid_t,
     pub _uid: __kernel_uid32_t,
-    pub _status: ::std::os::raw::c_int,
+    pub _status: ::core::ffi::c_int,
     pub _utime: __kernel_clock_t,
     pub _stime: __kernel_clock_t,
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_4() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_4> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_4> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_4>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_4>(),
         32usize,
         "Size of __sifields__bindgen_ty_4"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_4>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_4>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_4"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_4::_pid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
         4usize,
         "Offset of field: __sifields__bindgen_ty_4::_uid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._status) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._status) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_4::_status"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._utime) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._utime) as usize - ptr as usize },
         16usize,
         "Offset of field: __sifields__bindgen_ty_4::_utime"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._stime) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._stime) as usize - ptr as usize },
         24usize,
         "Offset of field: __sifields__bindgen_ty_4::_stime"
     );
@@ -9677,14 +9654,14 @@ fn bindgen_test_layout___sifields__bindgen_ty_4() {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct __sifields__bindgen_ty_5 {
-    pub _addr: *mut ::std::os::raw::c_void,
+    pub _addr: *mut ::core::ffi::c_void,
     pub __bindgen_anon_1: __sifields__bindgen_ty_5__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union __sifields__bindgen_ty_5__bindgen_ty_1 {
-    pub _trapno: ::std::os::raw::c_int,
-    pub _addr_lsb: ::std::os::raw::c_short,
+    pub _trapno: ::core::ffi::c_int,
+    pub _addr_lsb: ::core::ffi::c_short,
     pub _addr_bnd: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1,
     pub _addr_pkey: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2,
     pub _perf: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3,
@@ -9692,37 +9669,37 @@ pub union __sifields__bindgen_ty_5__bindgen_ty_1 {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1 {
-    pub _dummy_bnd: [::std::os::raw::c_char; 8usize],
-    pub _lower: *mut ::std::os::raw::c_void,
-    pub _upper: *mut ::std::os::raw::c_void,
+    pub _dummy_bnd: [::core::ffi::c_char; 8usize],
+    pub _lower: *mut ::core::ffi::c_void,
+    pub _upper: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
         24usize,
         "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._dummy_bnd) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._dummy_bnd) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_dummy_bnd"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._lower) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._lower) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_lower"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._upper) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._upper) as usize - ptr as usize },
         16usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_upper"
     );
@@ -9730,31 +9707,31 @@ fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2 {
-    pub _dummy_pkey: [::std::os::raw::c_char; 8usize],
+    pub _dummy_pkey: [::core::ffi::c_char; 8usize],
     pub _pkey: __u32,
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
         12usize,
         "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
         4usize,
         "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._dummy_pkey) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._dummy_pkey) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2::_dummy_pkey"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pkey) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._pkey) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2::_pkey"
     );
@@ -9762,99 +9739,99 @@ fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3 {
-    pub _data: ::std::os::raw::c_ulong,
+    pub _data: ::core::ffi::c_ulong,
     pub _type: __u32,
     pub _flags: __u32,
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
         16usize,
         "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._data) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_data"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._type) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._type) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_type"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._flags) as usize - ptr as usize },
         12usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_flags"
     );
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
         24usize,
         "Size of __sifields__bindgen_ty_5__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._trapno) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._trapno) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_trapno"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr_lsb) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._addr_lsb) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_lsb"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr_bnd) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._addr_bnd) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_bnd"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr_pkey) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._addr_pkey) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_pkey"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._perf) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._perf) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_perf"
     );
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_5() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_5> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_5>(),
         32usize,
         "Size of __sifields__bindgen_ty_5"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_5>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_5"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._addr) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_5::_addr"
     );
@@ -9862,31 +9839,31 @@ fn bindgen_test_layout___sifields__bindgen_ty_5() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sifields__bindgen_ty_6 {
-    pub _band: ::std::os::raw::c_long,
-    pub _fd: ::std::os::raw::c_int,
+    pub _band: ::core::ffi::c_long,
+    pub _fd: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_6() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_6> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_6> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_6>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_6>(),
         16usize,
         "Size of __sifields__bindgen_ty_6"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_6>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_6>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_6"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._band) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._band) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_6::_band"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._fd) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._fd) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_6::_fd"
     );
@@ -9894,87 +9871,87 @@ fn bindgen_test_layout___sifields__bindgen_ty_6() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sifields__bindgen_ty_7 {
-    pub _call_addr: *mut ::std::os::raw::c_void,
-    pub _syscall: ::std::os::raw::c_int,
-    pub _arch: ::std::os::raw::c_uint,
+    pub _call_addr: *mut ::core::ffi::c_void,
+    pub _syscall: ::core::ffi::c_int,
+    pub _arch: ::core::ffi::c_uint,
 }
 #[test]
 fn bindgen_test_layout___sifields__bindgen_ty_7() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_7> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields__bindgen_ty_7> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_7>(),
+        ::core::mem::size_of::<__sifields__bindgen_ty_7>(),
         16usize,
         "Size of __sifields__bindgen_ty_7"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_7>(),
+        ::core::mem::align_of::<__sifields__bindgen_ty_7>(),
         8usize,
         "Alignment of __sifields__bindgen_ty_7"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._call_addr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._call_addr) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields__bindgen_ty_7::_call_addr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._syscall) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._syscall) as usize - ptr as usize },
         8usize,
         "Offset of field: __sifields__bindgen_ty_7::_syscall"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._arch) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._arch) as usize - ptr as usize },
         12usize,
         "Offset of field: __sifields__bindgen_ty_7::_arch"
     );
 }
 #[test]
 fn bindgen_test_layout___sifields() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<__sifields> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<__sifields>(),
+        ::core::mem::size_of::<__sifields>(),
         32usize,
         "Size of __sifields"
     );
     assert_eq!(
-        ::std::mem::align_of::<__sifields>(),
+        ::core::mem::align_of::<__sifields>(),
         8usize,
         "Alignment of __sifields"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._kill) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._kill) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields::_kill"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._timer) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._timer) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields::_timer"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._rt) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._rt) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields::_rt"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigchld) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigchld) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields::_sigchld"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigfault) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigfault) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields::_sigfault"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigpoll) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigpoll) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields::_sigpoll"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigsys) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigsys) as usize - ptr as usize },
         0usize,
         "Offset of field: __sifields::_sigsys"
     );
@@ -9988,69 +9965,69 @@ pub struct siginfo {
 #[derive(Copy, Clone)]
 pub union siginfo__bindgen_ty_1 {
     pub __bindgen_anon_1: siginfo__bindgen_ty_1__bindgen_ty_1,
-    pub _si_pad: [::std::os::raw::c_int; 32usize],
+    pub _si_pad: [::core::ffi::c_int; 32usize],
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct siginfo__bindgen_ty_1__bindgen_ty_1 {
-    pub si_signo: ::std::os::raw::c_int,
-    pub si_errno: ::std::os::raw::c_int,
-    pub si_code: ::std::os::raw::c_int,
+    pub si_signo: ::core::ffi::c_int,
+    pub si_errno: ::core::ffi::c_int,
+    pub si_code: ::core::ffi::c_int,
     pub _sifields: __sifields,
 }
 #[test]
 fn bindgen_test_layout_siginfo__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<siginfo__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<siginfo__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
         48usize,
         "Size of siginfo__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
         8usize,
         "Alignment of siginfo__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).si_signo) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).si_signo) as usize - ptr as usize },
         0usize,
         "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_signo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).si_errno) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).si_errno) as usize - ptr as usize },
         4usize,
         "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_errno"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).si_code) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).si_code) as usize - ptr as usize },
         8usize,
         "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_code"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sifields) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sifields) as usize - ptr as usize },
         16usize,
         "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::_sifields"
     );
 }
 #[test]
 fn bindgen_test_layout_siginfo__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<siginfo__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<siginfo__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<siginfo__bindgen_ty_1>(),
+        ::core::mem::size_of::<siginfo__bindgen_ty_1>(),
         128usize,
         "Size of siginfo__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<siginfo__bindgen_ty_1>(),
+        ::core::mem::align_of::<siginfo__bindgen_ty_1>(),
         8usize,
         "Alignment of siginfo__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._si_pad) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._si_pad) as usize - ptr as usize },
         0usize,
         "Offset of field: siginfo__bindgen_ty_1::_si_pad"
     );
@@ -10058,12 +10035,12 @@ fn bindgen_test_layout_siginfo__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_siginfo() {
     assert_eq!(
-        ::std::mem::size_of::<siginfo>(),
+        ::core::mem::size_of::<siginfo>(),
         128usize,
         "Size of siginfo"
     );
     assert_eq!(
-        ::std::mem::align_of::<siginfo>(),
+        ::core::mem::align_of::<siginfo>(),
         8usize,
         "Alignment of siginfo"
     );
@@ -10073,192 +10050,192 @@ pub type siginfo_t = siginfo;
 #[derive(Copy, Clone)]
 pub struct sigevent {
     pub sigev_value: sigval_t,
-    pub sigev_signo: ::std::os::raw::c_int,
-    pub sigev_notify: ::std::os::raw::c_int,
+    pub sigev_signo: ::core::ffi::c_int,
+    pub sigev_notify: ::core::ffi::c_int,
     pub _sigev_un: sigevent__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union sigevent__bindgen_ty_1 {
-    pub _pad: [::std::os::raw::c_int; 12usize],
-    pub _tid: ::std::os::raw::c_int,
+    pub _pad: [::core::ffi::c_int; 12usize],
+    pub _tid: ::core::ffi::c_int,
     pub _sigev_thread: sigevent__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sigevent__bindgen_ty_1__bindgen_ty_1 {
-    pub _function: ::std::option::Option<unsafe extern "C" fn(arg1: sigval_t)>,
-    pub _attribute: *mut ::std::os::raw::c_void,
+    pub _function: ::core::option::Option<unsafe extern "C" fn(arg1: sigval_t)>,
+    pub _attribute: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_sigevent__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigevent__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigevent__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
         16usize,
         "Size of sigevent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
         8usize,
         "Alignment of sigevent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._function) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._function) as usize - ptr as usize },
         0usize,
         "Offset of field: sigevent__bindgen_ty_1__bindgen_ty_1::_function"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._attribute) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._attribute) as usize - ptr as usize },
         8usize,
         "Offset of field: sigevent__bindgen_ty_1__bindgen_ty_1::_attribute"
     );
 }
 #[test]
 fn bindgen_test_layout_sigevent__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigevent__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigevent__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigevent__bindgen_ty_1>(),
+        ::core::mem::size_of::<sigevent__bindgen_ty_1>(),
         48usize,
         "Size of sigevent__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigevent__bindgen_ty_1>(),
+        ::core::mem::align_of::<sigevent__bindgen_ty_1>(),
         8usize,
         "Alignment of sigevent__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pad) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._pad) as usize - ptr as usize },
         0usize,
         "Offset of field: sigevent__bindgen_ty_1::_pad"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
         0usize,
         "Offset of field: sigevent__bindgen_ty_1::_tid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigev_thread) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigev_thread) as usize - ptr as usize },
         0usize,
         "Offset of field: sigevent__bindgen_ty_1::_sigev_thread"
     );
 }
 #[test]
 fn bindgen_test_layout_sigevent() {
-    const UNINIT: ::std::mem::MaybeUninit<sigevent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigevent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigevent>(),
+        ::core::mem::size_of::<sigevent>(),
         64usize,
         "Size of sigevent"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigevent>(),
+        ::core::mem::align_of::<sigevent>(),
         8usize,
         "Alignment of sigevent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sigev_value) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sigev_value) as usize - ptr as usize },
         0usize,
         "Offset of field: sigevent::sigev_value"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sigev_signo) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sigev_signo) as usize - ptr as usize },
         8usize,
         "Offset of field: sigevent::sigev_signo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sigev_notify) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sigev_notify) as usize - ptr as usize },
         12usize,
         "Offset of field: sigevent::sigev_notify"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigev_un) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr)._sigev_un) as usize - ptr as usize },
         16usize,
         "Offset of field: sigevent::_sigev_un"
     );
 }
 pub type sigevent_t = sigevent;
-pub type sig_atomic_t = ::std::os::raw::c_int;
+pub type sig_atomic_t = ::core::ffi::c_int;
 pub type sig_t = __sighandler_t;
 pub type sighandler_t = __sighandler_t;
 pub type sigset64_t = sigset_t;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct sigaction {
-    pub sa_flags: ::std::os::raw::c_int,
+    pub sa_flags: ::core::ffi::c_int,
     pub __bindgen_anon_1: sigaction__bindgen_ty_1,
     pub sa_mask: sigset_t,
-    pub sa_restorer: ::std::option::Option<unsafe extern "C" fn()>,
+    pub sa_restorer: ::core::option::Option<unsafe extern "C" fn()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union sigaction__bindgen_ty_1 {
     pub sa_handler: sighandler_t,
-    pub sa_sigaction: ::std::option::Option<
+    pub sa_sigaction: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
             arg2: *mut siginfo,
-            arg3: *mut ::std::os::raw::c_void,
+            arg3: *mut ::core::ffi::c_void,
         ),
     >,
 }
 #[test]
 fn bindgen_test_layout_sigaction__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigaction__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigaction__bindgen_ty_1>(),
+        ::core::mem::size_of::<sigaction__bindgen_ty_1>(),
         8usize,
         "Size of sigaction__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigaction__bindgen_ty_1>(),
+        ::core::mem::align_of::<sigaction__bindgen_ty_1>(),
         8usize,
         "Alignment of sigaction__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
         0usize,
         "Offset of field: sigaction__bindgen_ty_1::sa_handler"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
         0usize,
         "Offset of field: sigaction__bindgen_ty_1::sa_sigaction"
     );
 }
 #[test]
 fn bindgen_test_layout_sigaction() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigaction> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigaction>(),
+        ::core::mem::size_of::<sigaction>(),
         32usize,
         "Size of sigaction"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigaction>(),
+        ::core::mem::align_of::<sigaction>(),
         8usize,
         "Alignment of sigaction"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
         0usize,
         "Offset of field: sigaction::sa_flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
         16usize,
         "Offset of field: sigaction::sa_mask"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
         24usize,
         "Offset of field: sigaction::sa_restorer"
     );
@@ -10266,75 +10243,75 @@ fn bindgen_test_layout_sigaction() {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct sigaction64 {
-    pub sa_flags: ::std::os::raw::c_int,
+    pub sa_flags: ::core::ffi::c_int,
     pub __bindgen_anon_1: sigaction64__bindgen_ty_1,
     pub sa_mask: sigset_t,
-    pub sa_restorer: ::std::option::Option<unsafe extern "C" fn()>,
+    pub sa_restorer: ::core::option::Option<unsafe extern "C" fn()>,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union sigaction64__bindgen_ty_1 {
     pub sa_handler: sighandler_t,
-    pub sa_sigaction: ::std::option::Option<
+    pub sa_sigaction: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
             arg2: *mut siginfo,
-            arg3: *mut ::std::os::raw::c_void,
+            arg3: *mut ::core::ffi::c_void,
         ),
     >,
 }
 #[test]
 fn bindgen_test_layout_sigaction64__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction64__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigaction64__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigaction64__bindgen_ty_1>(),
+        ::core::mem::size_of::<sigaction64__bindgen_ty_1>(),
         8usize,
         "Size of sigaction64__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigaction64__bindgen_ty_1>(),
+        ::core::mem::align_of::<sigaction64__bindgen_ty_1>(),
         8usize,
         "Alignment of sigaction64__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
         0usize,
         "Offset of field: sigaction64__bindgen_ty_1::sa_handler"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
         0usize,
         "Offset of field: sigaction64__bindgen_ty_1::sa_sigaction"
     );
 }
 #[test]
 fn bindgen_test_layout_sigaction64() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction64> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sigaction64> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sigaction64>(),
+        ::core::mem::size_of::<sigaction64>(),
         32usize,
         "Size of sigaction64"
     );
     assert_eq!(
-        ::std::mem::align_of::<sigaction64>(),
+        ::core::mem::align_of::<sigaction64>(),
         8usize,
         "Alignment of sigaction64"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
         0usize,
         "Offset of field: sigaction64::sa_flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
         16usize,
         "Offset of field: sigaction64::sa_mask"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
         24usize,
         "Offset of field: sigaction64::sa_restorer"
     );
@@ -10349,35 +10326,35 @@ pub struct user_regs_struct {
 }
 #[test]
 fn bindgen_test_layout_user_regs_struct() {
-    const UNINIT: ::std::mem::MaybeUninit<user_regs_struct> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<user_regs_struct> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<user_regs_struct>(),
+        ::core::mem::size_of::<user_regs_struct>(),
         272usize,
         "Size of user_regs_struct"
     );
     assert_eq!(
-        ::std::mem::align_of::<user_regs_struct>(),
+        ::core::mem::align_of::<user_regs_struct>(),
         8usize,
         "Alignment of user_regs_struct"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
         0usize,
         "Offset of field: user_regs_struct::regs"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
         248usize,
         "Offset of field: user_regs_struct::sp"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
         256usize,
         "Offset of field: user_regs_struct::pc"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
         264usize,
         "Offset of field: user_regs_struct::pstate"
     );
@@ -10392,35 +10369,35 @@ pub struct user_fpsimd_struct {
 }
 #[test]
 fn bindgen_test_layout_user_fpsimd_struct() {
-    const UNINIT: ::std::mem::MaybeUninit<user_fpsimd_struct> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<user_fpsimd_struct> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<user_fpsimd_struct>(),
+        ::core::mem::size_of::<user_fpsimd_struct>(),
         528usize,
         "Size of user_fpsimd_struct"
     );
     assert_eq!(
-        ::std::mem::align_of::<user_fpsimd_struct>(),
+        ::core::mem::align_of::<user_fpsimd_struct>(),
         16usize,
         "Alignment of user_fpsimd_struct"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
         0usize,
         "Offset of field: user_fpsimd_struct::vregs"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
         512usize,
         "Offset of field: user_fpsimd_struct::fpsr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
         516usize,
         "Offset of field: user_fpsimd_struct::fpcr"
     );
 }
-pub type greg_t = ::std::os::raw::c_ulong;
+pub type greg_t = ::core::ffi::c_ulong;
 pub type gregset_t = [greg_t; 34usize];
 pub type fpregset_t = user_fpsimd_struct;
 pub type mcontext_t = sigcontext;
@@ -10428,11 +10405,11 @@ pub type mcontext_t = sigcontext;
 #[repr(align(16))]
 #[derive(Copy, Clone)]
 pub struct ucontext {
-    pub uc_flags: ::std::os::raw::c_ulong,
+    pub uc_flags: ::core::ffi::c_ulong,
     pub uc_link: *mut ucontext,
     pub uc_stack: stack_t,
     pub __bindgen_anon_1: ucontext__bindgen_ty_1,
-    pub __padding: [::std::os::raw::c_char; 120usize],
+    pub __padding: [::core::ffi::c_char; 120usize],
     pub __bindgen_padding_0: u64,
     pub uc_mcontext: mcontext_t,
 }
@@ -10444,287 +10421,263 @@ pub union ucontext__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ucontext__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ucontext__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ucontext__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ucontext__bindgen_ty_1>(),
+        ::core::mem::size_of::<ucontext__bindgen_ty_1>(),
         8usize,
         "Size of ucontext__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ucontext__bindgen_ty_1>(),
+        ::core::mem::align_of::<ucontext__bindgen_ty_1>(),
         8usize,
         "Alignment of ucontext__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_sigmask) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uc_sigmask) as usize - ptr as usize },
         0usize,
         "Offset of field: ucontext__bindgen_ty_1::uc_sigmask"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_sigmask64) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uc_sigmask64) as usize - ptr as usize },
         0usize,
         "Offset of field: ucontext__bindgen_ty_1::uc_sigmask64"
     );
 }
 #[test]
 fn bindgen_test_layout_ucontext() {
-    const UNINIT: ::std::mem::MaybeUninit<ucontext> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ucontext> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ucontext>(),
+        ::core::mem::size_of::<ucontext>(),
         4560usize,
         "Size of ucontext"
     );
     assert_eq!(
-        ::std::mem::align_of::<ucontext>(),
+        ::core::mem::align_of::<ucontext>(),
         16usize,
         "Alignment of ucontext"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uc_flags) as usize - ptr as usize },
         0usize,
         "Offset of field: ucontext::uc_flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_link) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uc_link) as usize - ptr as usize },
         8usize,
         "Offset of field: ucontext::uc_link"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_stack) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uc_stack) as usize - ptr as usize },
         16usize,
         "Offset of field: ucontext::uc_stack"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__padding) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).__padding) as usize - ptr as usize },
         48usize,
         "Offset of field: ucontext::__padding"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_mcontext) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uc_mcontext) as usize - ptr as usize },
         176usize,
         "Offset of field: ucontext::uc_mcontext"
     );
 }
 pub type ucontext_t = ucontext;
 extern "C" {
-    pub fn __libc_current_sigrtmin() -> ::std::os::raw::c_int;
+    pub fn __libc_current_sigrtmin() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn __libc_current_sigrtmax() -> ::std::os::raw::c_int;
+    pub fn __libc_current_sigrtmax() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub static sys_siglist: [*const ::std::os::raw::c_char; 65usize];
+    pub static sys_siglist: [*const ::core::ffi::c_char; 65usize];
 }
 extern "C" {
-    pub static sys_signame: [*const ::std::os::raw::c_char; 65usize];
+    pub static sys_signame: [*const ::core::ffi::c_char; 65usize];
 }
 extern "C" {
     pub fn sigaction(
-        __signal: ::std::os::raw::c_int,
+        __signal: ::core::ffi::c_int,
         __new_action: *const sigaction,
         __old_action: *mut sigaction,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigaction64(
-        __signal: ::std::os::raw::c_int,
+        __signal: ::core::ffi::c_int,
         __new_action: *const sigaction64,
         __old_action: *mut sigaction64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn siginterrupt(
-        __signal: ::std::os::raw::c_int,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __signal: ::core::ffi::c_int,
+        __flag: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn signal(__signal: ::std::os::raw::c_int, __handler: sighandler_t) -> sighandler_t;
+    pub fn signal(__signal: ::core::ffi::c_int, __handler: sighandler_t) -> sighandler_t;
 }
 extern "C" {
-    pub fn sigaddset(
-        __set: *mut sigset_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn sigaddset(__set: *mut sigset_t, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigaddset64(
-        __set: *mut sigset64_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn sigaddset64(__set: *mut sigset64_t, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigdelset(
-        __set: *mut sigset_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn sigdelset(__set: *mut sigset_t, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigdelset64(
-        __set: *mut sigset64_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn sigdelset64(__set: *mut sigset64_t, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigemptyset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
+    pub fn sigemptyset(__set: *mut sigset_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigemptyset64(__set: *mut sigset64_t) -> ::std::os::raw::c_int;
+    pub fn sigemptyset64(__set: *mut sigset64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigfillset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
+    pub fn sigfillset(__set: *mut sigset_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigfillset64(__set: *mut sigset64_t) -> ::std::os::raw::c_int;
+    pub fn sigfillset64(__set: *mut sigset64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigismember(
-        __set: *const sigset_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn sigismember(__set: *const sigset_t, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigismember64(
         __set: *const sigset64_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __signal: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigpending(__set: *mut sigset_t) -> ::std::os::raw::c_int;
+    pub fn sigpending(__set: *mut sigset_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigpending64(__set: *mut sigset64_t) -> ::std::os::raw::c_int;
+    pub fn sigpending64(__set: *mut sigset64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigprocmask(
-        __how: ::std::os::raw::c_int,
+        __how: ::core::ffi::c_int,
         __new_set: *const sigset_t,
         __old_set: *mut sigset_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigprocmask64(
-        __how: ::std::os::raw::c_int,
+        __how: ::core::ffi::c_int,
         __new_set: *const sigset64_t,
         __old_set: *mut sigset64_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigsuspend(__mask: *const sigset_t) -> ::std::os::raw::c_int;
+    pub fn sigsuspend(__mask: *const sigset_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigsuspend64(__mask: *const sigset64_t) -> ::std::os::raw::c_int;
+    pub fn sigsuspend64(__mask: *const sigset64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigwait(
-        __set: *const sigset_t,
-        __signal: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn sigwait(__set: *const sigset_t, __signal: *mut ::core::ffi::c_int)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigwait64(
         __set: *const sigset64_t,
-        __signal: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __signal: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sighold(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn sighold(__signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigignore(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn sigignore(__signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigpause(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn sigpause(__signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigrelse(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn sigrelse(__signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigset(__signal: ::std::os::raw::c_int, __handler: sighandler_t) -> sighandler_t;
+    pub fn sigset(__signal: ::core::ffi::c_int, __handler: sighandler_t) -> sighandler_t;
 }
 extern "C" {
-    pub fn raise(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn raise(__signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn kill(__pid: pid_t, __signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn kill(__pid: pid_t, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn killpg(
-        __pgrp: ::std::os::raw::c_int,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn killpg(__pgrp: ::core::ffi::c_int, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn tgkill(
-        __tgid: ::std::os::raw::c_int,
-        __tid: ::std::os::raw::c_int,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __tgid: ::core::ffi::c_int,
+        __tid: ::core::ffi::c_int,
+        __signal: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigaltstack(
         __new_signal_stack: *const stack_t,
         __old_signal_stack: *mut stack_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn psiginfo(__info: *const siginfo_t, __msg: *const ::std::os::raw::c_char);
+    pub fn psiginfo(__info: *const siginfo_t, __msg: *const ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn psignal(__signal: ::std::os::raw::c_int, __msg: *const ::std::os::raw::c_char);
+    pub fn psignal(__signal: ::core::ffi::c_int, __msg: *const ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn pthread_kill(
-        __pthread: pthread_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn pthread_kill(__pthread: pthread_t, __signal: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn pthread_sigmask(
-        __how: ::std::os::raw::c_int,
+        __how: ::core::ffi::c_int,
         __new_set: *const sigset_t,
         __old_set: *mut sigset_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn pthread_sigmask64(
-        __how: ::std::os::raw::c_int,
+        __how: ::core::ffi::c_int,
         __new_set: *const sigset64_t,
         __old_set: *mut sigset64_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigqueue(
         __pid: pid_t,
-        __signal: ::std::os::raw::c_int,
+        __signal: ::core::ffi::c_int,
         __value: sigval,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigtimedwait(
         __set: *const sigset_t,
         __info: *mut siginfo_t,
         __timeout: *const timespec,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sigtimedwait64(
         __set: *const sigset64_t,
         __info: *mut siginfo_t,
         __timeout: *const timespec,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigwaitinfo(__set: *const sigset_t, __info: *mut siginfo_t) -> ::std::os::raw::c_int;
+    pub fn sigwaitinfo(__set: *const sigset_t, __info: *mut siginfo_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sigwaitinfo64(__set: *const sigset64_t, __info: *mut siginfo_t)
-        -> ::std::os::raw::c_int;
+    pub fn sigwaitinfo64(__set: *const sigset64_t, __info: *mut siginfo_t) -> ::core::ffi::c_int;
 }
-pub type fd_mask = ::std::os::raw::c_ulong;
+pub type fd_mask = ::core::ffi::c_ulong;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fd_set {
@@ -10732,123 +10685,115 @@ pub struct fd_set {
 }
 #[test]
 fn bindgen_test_layout_fd_set() {
-    const UNINIT: ::std::mem::MaybeUninit<fd_set> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<fd_set> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<fd_set>(), 128usize, "Size of fd_set");
+    assert_eq!(::core::mem::size_of::<fd_set>(), 128usize, "Size of fd_set");
     assert_eq!(
-        ::std::mem::align_of::<fd_set>(),
+        ::core::mem::align_of::<fd_set>(),
         8usize,
         "Alignment of fd_set"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fds_bits) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fds_bits) as usize - ptr as usize },
         0usize,
         "Offset of field: fd_set::fds_bits"
     );
 }
 extern "C" {
-    pub fn __FD_CLR_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
+    pub fn __FD_CLR_chk(arg1: ::core::ffi::c_int, arg2: *mut fd_set, arg3: usize);
 }
 extern "C" {
-    pub fn __FD_SET_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
+    pub fn __FD_SET_chk(arg1: ::core::ffi::c_int, arg2: *mut fd_set, arg3: usize);
 }
 extern "C" {
     pub fn __FD_ISSET_chk(
-        arg1: ::std::os::raw::c_int,
+        arg1: ::core::ffi::c_int,
         arg2: *const fd_set,
         arg3: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn select(
-        __max_fd_plus_one: ::std::os::raw::c_int,
+        __max_fd_plus_one: ::core::ffi::c_int,
         __read_fds: *mut fd_set,
         __write_fds: *mut fd_set,
         __exception_fds: *mut fd_set,
         __timeout: *mut timeval,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn pselect(
-        __max_fd_plus_one: ::std::os::raw::c_int,
+        __max_fd_plus_one: ::core::ffi::c_int,
         __read_fds: *mut fd_set,
         __write_fds: *mut fd_set,
         __exception_fds: *mut fd_set,
         __timeout: *const timespec,
         __mask: *const sigset_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn pselect64(
-        __max_fd_plus_one: ::std::os::raw::c_int,
+        __max_fd_plus_one: ::core::ffi::c_int,
         __read_fds: *mut fd_set,
         __write_fds: *mut fd_set,
         __exception_fds: *mut fd_set,
         __timeout: *const timespec,
         __mask: *const sigset64_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fcntl(
-        __fd: ::std::os::raw::c_int,
-        __op: ::std::os::raw::c_int,
-        ...
-    ) -> ::std::os::raw::c_int;
+    pub fn fcntl(__fd: ::core::ffi::c_int, __op: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getentropy(
-        __buffer: *mut ::std::os::raw::c_void,
+        __buffer: *mut ::core::ffi::c_void,
         __buffer_size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getopt(
-        __argc: ::std::os::raw::c_int,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __options: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __argc: ::core::ffi::c_int,
+        __argv: *const *mut ::core::ffi::c_char,
+        __options: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub static mut optarg: *mut ::std::os::raw::c_char;
+    pub static mut optarg: *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut optind: ::std::os::raw::c_int;
+    pub static mut optind: ::core::ffi::c_int;
 }
 extern "C" {
-    pub static mut opterr: ::std::os::raw::c_int;
+    pub static mut opterr: ::core::ffi::c_int;
 }
 extern "C" {
-    pub static mut optopt: ::std::os::raw::c_int;
+    pub static mut optopt: ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ioctl(
-        __fd: ::std::os::raw::c_int,
-        __op: ::std::os::raw::c_int,
-        ...
-    ) -> ::std::os::raw::c_int;
+    pub fn ioctl(__fd: ::core::ffi::c_int, __op: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn lockf(
-        __fd: ::std::os::raw::c_int,
-        __op: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
+        __op: ::core::ffi::c_int,
         __length: off_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn lockf64(
-        __fd: ::std::os::raw::c_int,
-        __op: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
+        __op: ::core::ffi::c_int,
         __length: off64_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sysconf(__name: ::std::os::raw::c_int) -> ::std::os::raw::c_long;
+    pub fn sysconf(__name: ::core::ffi::c_int) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub static mut environ: *mut *mut ::std::os::raw::c_char;
+    pub static mut environ: *mut *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn _exit(__status: ::std::os::raw::c_int) -> !;
+    pub fn _exit(__status: ::core::ffi::c_int) -> !;
 }
 extern "C" {
     pub fn fork() -> pid_t;
@@ -10857,7 +10802,7 @@ extern "C" {
     pub fn _Fork() -> pid_t;
 }
 extern "C" {
-    pub fn vfork() -> ::std::os::raw::c_int;
+    pub fn vfork() -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getpid() -> pid_t;
@@ -10869,7 +10814,7 @@ extern "C" {
     pub fn getpgid(__pid: pid_t) -> pid_t;
 }
 extern "C" {
-    pub fn setpgid(__pid: pid_t, __pgid: pid_t) -> ::std::os::raw::c_int;
+    pub fn setpgid(__pid: pid_t, __pgid: pid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getppid() -> pid_t;
@@ -10878,7 +10823,7 @@ extern "C" {
     pub fn getpgrp() -> pid_t;
 }
 extern "C" {
-    pub fn setpgrp() -> ::std::os::raw::c_int;
+    pub fn setpgrp() -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getsid(__pid: pid_t) -> pid_t;
@@ -10888,84 +10833,84 @@ extern "C" {
 }
 extern "C" {
     pub fn execv(
-        __path: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __path: *const ::core::ffi::c_char,
+        __argv: *const *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn execvp(
-        __file: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __file: *const ::core::ffi::c_char,
+        __argv: *const *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn execvpe(
-        __file: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __file: *const ::core::ffi::c_char,
+        __argv: *const *mut ::core::ffi::c_char,
+        __envp: *const *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn execve(
-        __file: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __file: *const ::core::ffi::c_char,
+        __argv: *const *mut ::core::ffi::c_char,
+        __envp: *const *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn execl(
-        __path: *const ::std::os::raw::c_char,
-        __arg0: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
+        __arg0: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn execlp(
-        __file: *const ::std::os::raw::c_char,
-        __arg0: *const ::std::os::raw::c_char,
+        __file: *const ::core::ffi::c_char,
+        __arg0: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn execle(
-        __path: *const ::std::os::raw::c_char,
-        __arg0: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
+        __arg0: *const ::core::ffi::c_char,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fexecve(
-        __fd: ::std::os::raw::c_int,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __fd: ::core::ffi::c_int,
+        __argv: *const *mut ::core::ffi::c_char,
+        __envp: *const *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn nice(__incr: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn nice(__incr: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setegid(__gid: gid_t) -> ::std::os::raw::c_int;
+    pub fn setegid(__gid: gid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn seteuid(__uid: uid_t) -> ::std::os::raw::c_int;
+    pub fn seteuid(__uid: uid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setgid(__gid: gid_t) -> ::std::os::raw::c_int;
+    pub fn setgid(__gid: gid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setregid(__rgid: gid_t, __egid: gid_t) -> ::std::os::raw::c_int;
+    pub fn setregid(__rgid: gid_t, __egid: gid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setresgid(__rgid: gid_t, __egid: gid_t, __sgid: gid_t) -> ::std::os::raw::c_int;
+    pub fn setresgid(__rgid: gid_t, __egid: gid_t, __sgid: gid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setresuid(__ruid: uid_t, __euid: uid_t, __suid: uid_t) -> ::std::os::raw::c_int;
+    pub fn setresuid(__ruid: uid_t, __euid: uid_t, __suid: uid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setreuid(__ruid: uid_t, __euid: uid_t) -> ::std::os::raw::c_int;
+    pub fn setreuid(__ruid: uid_t, __euid: uid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setuid(__uid: uid_t) -> ::std::os::raw::c_int;
+    pub fn setuid(__uid: uid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getuid() -> uid_t;
@@ -10980,364 +10925,331 @@ extern "C" {
     pub fn getegid() -> gid_t;
 }
 extern "C" {
-    pub fn getgroups(__size: ::std::os::raw::c_int, __list: *mut gid_t) -> ::std::os::raw::c_int;
+    pub fn getgroups(__size: ::core::ffi::c_int, __list: *mut gid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setgroups(__size: usize, __list: *const gid_t) -> ::std::os::raw::c_int;
+    pub fn setgroups(__size: usize, __list: *const gid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getresuid(
         __ruid: *mut uid_t,
         __euid: *mut uid_t,
         __suid: *mut uid_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getresgid(
         __rgid: *mut gid_t,
         __egid: *mut gid_t,
         __sgid: *mut gid_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn getlogin() -> *mut ::std::os::raw::c_char;
+    pub fn getlogin() -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn getlogin_r(
-        __buffer: *mut ::std::os::raw::c_char,
+        __buffer: *mut ::core::ffi::c_char,
         __buffer_size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fpathconf(
-        __fd: ::std::os::raw::c_int,
-        __name: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
+    pub fn fpathconf(__fd: ::core::ffi::c_int, __name: ::core::ffi::c_int) -> ::core::ffi::c_long;
 }
 extern "C" {
     pub fn pathconf(
-        __path: *const ::std::os::raw::c_char,
-        __name: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
+        __path: *const ::core::ffi::c_char,
+        __name: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_long;
 }
 extern "C" {
     pub fn access(
-        __path: *const ::std::os::raw::c_char,
-        __mode: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __path: *const ::core::ffi::c_char,
+        __mode: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn faccessat(
-        __dirfd: ::std::os::raw::c_int,
-        __path: *const ::std::os::raw::c_char,
-        __mode: ::std::os::raw::c_int,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __dirfd: ::core::ffi::c_int,
+        __path: *const ::core::ffi::c_char,
+        __mode: ::core::ffi::c_int,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn link(
-        __old_path: *const ::std::os::raw::c_char,
-        __new_path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __old_path: *const ::core::ffi::c_char,
+        __new_path: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn linkat(
-        __old_dir_fd: ::std::os::raw::c_int,
-        __old_path: *const ::std::os::raw::c_char,
-        __new_dir_fd: ::std::os::raw::c_int,
-        __new_path: *const ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __old_dir_fd: ::core::ffi::c_int,
+        __old_path: *const ::core::ffi::c_char,
+        __new_dir_fd: ::core::ffi::c_int,
+        __new_path: *const ::core::ffi::c_char,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn unlink(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn unlink(__path: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn unlinkat(
-        __dirfd: ::std::os::raw::c_int,
-        __path: *const ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __dirfd: ::core::ffi::c_int,
+        __path: *const ::core::ffi::c_char,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn chdir(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn chdir(__path: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fchdir(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn fchdir(__fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn rmdir(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn rmdir(__path: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn pipe(__fds: *mut ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn pipe(__fds: *mut ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn chroot(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn chroot(__path: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn symlink(
-        __old_path: *const ::std::os::raw::c_char,
-        __new_path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __old_path: *const ::core::ffi::c_char,
+        __new_path: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn symlinkat(
-        __old_path: *const ::std::os::raw::c_char,
-        __new_dir_fd: ::std::os::raw::c_int,
-        __new_path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __old_path: *const ::core::ffi::c_char,
+        __new_dir_fd: ::core::ffi::c_int,
+        __new_path: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn readlink(
-        __path: *const ::std::os::raw::c_char,
-        __buf: *mut ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
+        __buf: *mut ::core::ffi::c_char,
         __buf_size: usize,
     ) -> isize;
 }
 extern "C" {
     pub fn readlinkat(
-        __dir_fd: ::std::os::raw::c_int,
-        __path: *const ::std::os::raw::c_char,
-        __buf: *mut ::std::os::raw::c_char,
+        __dir_fd: ::core::ffi::c_int,
+        __path: *const ::core::ffi::c_char,
+        __buf: *mut ::core::ffi::c_char,
         __buf_size: usize,
     ) -> isize;
 }
 extern "C" {
     pub fn chown(
-        __path: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
         __owner: uid_t,
         __group: gid_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fchown(
-        __fd: ::std::os::raw::c_int,
-        __owner: uid_t,
-        __group: gid_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn fchown(__fd: ::core::ffi::c_int, __owner: uid_t, __group: gid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn fchownat(
-        __dir_fd: ::std::os::raw::c_int,
-        __path: *const ::std::os::raw::c_char,
+        __dir_fd: ::core::ffi::c_int,
+        __path: *const ::core::ffi::c_char,
         __owner: uid_t,
         __group: gid_t,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn lchown(
-        __path: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
         __owner: uid_t,
         __group: gid_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn getcwd(__buf: *mut ::std::os::raw::c_char, __size: usize)
-        -> *mut ::std::os::raw::c_char;
+    pub fn getcwd(__buf: *mut ::core::ffi::c_char, __size: usize) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sync();
 }
 extern "C" {
-    pub fn close(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn close(__fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn read(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
-        __count: usize,
-    ) -> isize;
+    pub fn read(__fd: ::core::ffi::c_int, __buf: *mut ::core::ffi::c_void, __count: usize)
+        -> isize;
 }
 extern "C" {
     pub fn write(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *const ::core::ffi::c_void,
         __count: usize,
     ) -> isize;
 }
 extern "C" {
-    pub fn dup(__old_fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn dup(__old_fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn dup2(
-        __old_fd: ::std::os::raw::c_int,
-        __new_fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn dup2(__old_fd: ::core::ffi::c_int, __new_fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn dup3(
-        __old_fd: ::std::os::raw::c_int,
-        __new_fd: ::std::os::raw::c_int,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __old_fd: ::core::ffi::c_int,
+        __new_fd: ::core::ffi::c_int,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fsync(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn fsync(__fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn fdatasync(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn fdatasync(__fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn truncate(
-        __path: *const ::std::os::raw::c_char,
-        __length: off_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn truncate(__path: *const ::core::ffi::c_char, __length: off_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn lseek(
-        __fd: ::std::os::raw::c_int,
-        __offset: off_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> off_t;
+    pub fn lseek(__fd: ::core::ffi::c_int, __offset: off_t, __whence: ::core::ffi::c_int) -> off_t;
 }
 extern "C" {
     pub fn pread(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_void,
         __count: usize,
         __offset: off_t,
     ) -> isize;
 }
 extern "C" {
     pub fn pwrite(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *const ::core::ffi::c_void,
         __count: usize,
         __offset: off_t,
     ) -> isize;
 }
 extern "C" {
-    pub fn ftruncate(__fd: ::std::os::raw::c_int, __length: off_t) -> ::std::os::raw::c_int;
+    pub fn ftruncate(__fd: ::core::ffi::c_int, __length: off_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn truncate64(
-        __path: *const ::std::os::raw::c_char,
-        __length: off64_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn truncate64(__path: *const ::core::ffi::c_char, __length: off64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn lseek64(
-        __fd: ::std::os::raw::c_int,
+        __fd: ::core::ffi::c_int,
         __offset: off64_t,
-        __whence: ::std::os::raw::c_int,
+        __whence: ::core::ffi::c_int,
     ) -> off64_t;
 }
 extern "C" {
     pub fn pread64(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_void,
         __count: usize,
         __offset: off64_t,
     ) -> isize;
 }
 extern "C" {
     pub fn pwrite64(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
+        __fd: ::core::ffi::c_int,
+        __buf: *const ::core::ffi::c_void,
         __count: usize,
         __offset: off64_t,
     ) -> isize;
 }
 extern "C" {
-    pub fn ftruncate64(__fd: ::std::os::raw::c_int, __length: off64_t) -> ::std::os::raw::c_int;
+    pub fn ftruncate64(__fd: ::core::ffi::c_int, __length: off64_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn pause() -> ::std::os::raw::c_int;
+    pub fn pause() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn alarm(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
+    pub fn alarm(__seconds: ::core::ffi::c_uint) -> ::core::ffi::c_uint;
 }
 extern "C" {
-    pub fn sleep(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
+    pub fn sleep(__seconds: ::core::ffi::c_uint) -> ::core::ffi::c_uint;
 }
 extern "C" {
-    pub fn usleep(__microseconds: useconds_t) -> ::std::os::raw::c_int;
+    pub fn usleep(__microseconds: useconds_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn gethostname(
-        _buf: *mut ::std::os::raw::c_char,
-        __buf_size: usize,
-    ) -> ::std::os::raw::c_int;
+    pub fn gethostname(_buf: *mut ::core::ffi::c_char, __buf_size: usize) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sethostname(__name: *const ::std::os::raw::c_char, __n: usize) -> ::std::os::raw::c_int;
+    pub fn sethostname(__name: *const ::core::ffi::c_char, __n: usize) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn brk(__addr: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn brk(__addr: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sbrk(__increment: isize) -> *mut ::std::os::raw::c_void;
+    pub fn sbrk(__increment: isize) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn isatty(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn isatty(__fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ttyname(__fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn ttyname(__fd: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn ttyname_r(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
+        __fd: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_char,
         __buf_size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn acct(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn acct(__path: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn getpagesize() -> ::std::os::raw::c_int;
+    pub fn getpagesize() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn syscall(__number: ::std::os::raw::c_long, ...) -> ::std::os::raw::c_long;
+    pub fn syscall(__number: ::core::ffi::c_long, ...) -> ::core::ffi::c_long;
 }
 extern "C" {
     pub fn daemon(
-        __no_chdir: ::std::os::raw::c_int,
-        __no_close: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __no_chdir: ::core::ffi::c_int,
+        __no_close: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn tcgetpgrp(__fd: ::std::os::raw::c_int) -> pid_t;
+    pub fn tcgetpgrp(__fd: ::core::ffi::c_int) -> pid_t;
 }
 extern "C" {
-    pub fn tcsetpgrp(__fd: ::std::os::raw::c_int, __pid: pid_t) -> ::std::os::raw::c_int;
+    pub fn tcsetpgrp(__fd: ::core::ffi::c_int, __pid: pid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn getdomainname(
-        __buf: *mut ::std::os::raw::c_char,
-        __buf_size: usize,
-    ) -> ::std::os::raw::c_int;
+    pub fn getdomainname(__buf: *mut ::core::ffi::c_char, __buf_size: usize) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn setdomainname(
-        __name: *const ::std::os::raw::c_char,
-        __n: usize,
-    ) -> ::std::os::raw::c_int;
+    pub fn setdomainname(__name: *const ::core::ffi::c_char, __n: usize) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn copy_file_range(
-        __fd_in: ::std::os::raw::c_int,
+        __fd_in: ::core::ffi::c_int,
         __off_in: *mut off64_t,
-        __fd_out: ::std::os::raw::c_int,
+        __fd_out: ::core::ffi::c_int,
         __off_out: *mut off64_t,
         __length: usize,
-        __flags: ::std::os::raw::c_uint,
+        __flags: ::core::ffi::c_uint,
     ) -> isize;
 }
 extern "C" {
     pub fn swab(
-        __src: *const ::std::os::raw::c_void,
-        __dst: *mut ::std::os::raw::c_void,
+        __src: *const ::core::ffi::c_void,
+        __dst: *mut ::core::ffi::c_void,
         __byte_count: isize,
     );
 }
 extern "C" {
     pub fn close_range(
-        __min_fd: ::std::os::raw::c_uint,
-        __max_fd: ::std::os::raw::c_uint,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        __min_fd: ::core::ffi::c_uint,
+        __max_fd: ::core::ffi::c_uint,
+        __flags: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11374,13 +11286,13 @@ extern "C" {
     pub fn APerformanceHint_updateTargetWorkDuration(
         session: *mut APerformanceHintSession,
         targetDurationNanos: i64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn APerformanceHint_reportActualWorkDuration(
         session: *mut APerformanceHintSession,
         actualDurationNanos: i64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn APerformanceHint_closeSession(session: *mut APerformanceHintSession);
@@ -11390,19 +11302,19 @@ extern "C" {
         session: *mut APerformanceHintSession,
         threadIds: *const pid_t,
         size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn APerformanceHint_setPreferPowerEfficiency(
         session: *mut APerformanceHintSession,
         enabled: bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn APerformanceHint_reportActualWorkDuration2(
         session: *mut APerformanceHintSession,
         workDuration: *mut AWorkDuration,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AWorkDuration_create() -> *mut AWorkDuration;
@@ -11436,14 +11348,14 @@ extern "C" {
 }
 pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_38 = 0;
 pub const PERMISSION_MANAGER_PERMISSION_DENIED: _bindgen_ty_38 = -1;
-pub type _bindgen_ty_38 = ::std::os::raw::c_int;
+pub type _bindgen_ty_38 = ::core::ffi::c_int;
 pub const PERMISSION_MANAGER_STATUS_OK: _bindgen_ty_39 = 0;
 pub const PERMISSION_MANAGER_STATUS_ERROR_UNKNOWN: _bindgen_ty_39 = -1;
 pub const PERMISSION_MANAGER_STATUS_SERVICE_UNAVAILABLE: _bindgen_ty_39 = -2;
-pub type _bindgen_ty_39 = ::std::os::raw::c_int;
+pub type _bindgen_ty_39 = ::core::ffi::c_int;
 extern "C" {
     pub fn APermissionManager_checkPermission(
-        permission: *const ::std::os::raw::c_char,
+        permission: *const ::core::ffi::c_char,
         pid: pid_t,
         uid: uid_t,
         outResult: *mut i32,
@@ -11598,31 +11510,31 @@ extern "C" {
     pub fn expm1l(__x: u128) -> u128;
 }
 extern "C" {
-    pub fn frexp(__x: f64, __exponent: *mut ::std::os::raw::c_int) -> f64;
+    pub fn frexp(__x: f64, __exponent: *mut ::core::ffi::c_int) -> f64;
 }
 extern "C" {
-    pub fn frexpf(__x: f32, __exponent: *mut ::std::os::raw::c_int) -> f32;
+    pub fn frexpf(__x: f32, __exponent: *mut ::core::ffi::c_int) -> f32;
 }
 extern "C" {
-    pub fn frexpl(__x: u128, __exponent: *mut ::std::os::raw::c_int) -> u128;
+    pub fn frexpl(__x: u128, __exponent: *mut ::core::ffi::c_int) -> u128;
 }
 extern "C" {
-    pub fn ilogb(__x: f64) -> ::std::os::raw::c_int;
+    pub fn ilogb(__x: f64) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ilogbf(__x: f32) -> ::std::os::raw::c_int;
+    pub fn ilogbf(__x: f32) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ilogbl(__x: u128) -> ::std::os::raw::c_int;
+    pub fn ilogbl(__x: u128) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ldexp(__x: f64, __exponent: ::std::os::raw::c_int) -> f64;
+    pub fn ldexp(__x: f64, __exponent: ::core::ffi::c_int) -> f64;
 }
 extern "C" {
-    pub fn ldexpf(__x: f32, __exponent: ::std::os::raw::c_int) -> f32;
+    pub fn ldexpf(__x: f32, __exponent: ::core::ffi::c_int) -> f32;
 }
 extern "C" {
-    pub fn ldexpl(__x: u128, __exponent: ::std::os::raw::c_int) -> u128;
+    pub fn ldexpl(__x: u128, __exponent: ::core::ffi::c_int) -> u128;
 }
 extern "C" {
     pub fn log(__x: f64) -> f64;
@@ -11679,22 +11591,22 @@ extern "C" {
     pub fn modfl(__x: u128, __integral_part: *mut u128) -> u128;
 }
 extern "C" {
-    pub fn scalbn(__x: f64, __exponent: ::std::os::raw::c_int) -> f64;
+    pub fn scalbn(__x: f64, __exponent: ::core::ffi::c_int) -> f64;
 }
 extern "C" {
-    pub fn scalbnf(__x: f32, __exponent: ::std::os::raw::c_int) -> f32;
+    pub fn scalbnf(__x: f32, __exponent: ::core::ffi::c_int) -> f32;
 }
 extern "C" {
-    pub fn scalbnl(__x: u128, __exponent: ::std::os::raw::c_int) -> u128;
+    pub fn scalbnl(__x: u128, __exponent: ::core::ffi::c_int) -> u128;
 }
 extern "C" {
-    pub fn scalbln(__x: f64, __exponent: ::std::os::raw::c_long) -> f64;
+    pub fn scalbln(__x: f64, __exponent: ::core::ffi::c_long) -> f64;
 }
 extern "C" {
-    pub fn scalblnf(__x: f32, __exponent: ::std::os::raw::c_long) -> f32;
+    pub fn scalblnf(__x: f32, __exponent: ::core::ffi::c_long) -> f32;
 }
 extern "C" {
-    pub fn scalblnl(__x: u128, __exponent: ::std::os::raw::c_long) -> u128;
+    pub fn scalblnl(__x: u128, __exponent: ::core::ffi::c_long) -> u128;
 }
 extern "C" {
     pub fn cbrt(__x: f64) -> f64;
@@ -11814,22 +11726,22 @@ extern "C" {
     pub fn rintl(__x: u128) -> u128;
 }
 extern "C" {
-    pub fn lrint(__x: f64) -> ::std::os::raw::c_long;
+    pub fn lrint(__x: f64) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn lrintf(__x: f32) -> ::std::os::raw::c_long;
+    pub fn lrintf(__x: f32) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn lrintl(__x: u128) -> ::std::os::raw::c_long;
+    pub fn lrintl(__x: u128) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn llrint(__x: f64) -> ::std::os::raw::c_longlong;
+    pub fn llrint(__x: f64) -> ::core::ffi::c_longlong;
 }
 extern "C" {
-    pub fn llrintf(__x: f32) -> ::std::os::raw::c_longlong;
+    pub fn llrintf(__x: f32) -> ::core::ffi::c_longlong;
 }
 extern "C" {
-    pub fn llrintl(__x: u128) -> ::std::os::raw::c_longlong;
+    pub fn llrintl(__x: u128) -> ::core::ffi::c_longlong;
 }
 extern "C" {
     pub fn round(__x: f64) -> f64;
@@ -11841,22 +11753,22 @@ extern "C" {
     pub fn roundl(__x: u128) -> u128;
 }
 extern "C" {
-    pub fn lround(__x: f64) -> ::std::os::raw::c_long;
+    pub fn lround(__x: f64) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn lroundf(__x: f32) -> ::std::os::raw::c_long;
+    pub fn lroundf(__x: f32) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn lroundl(__x: u128) -> ::std::os::raw::c_long;
+    pub fn lroundl(__x: u128) -> ::core::ffi::c_long;
 }
 extern "C" {
-    pub fn llround(__x: f64) -> ::std::os::raw::c_longlong;
+    pub fn llround(__x: f64) -> ::core::ffi::c_longlong;
 }
 extern "C" {
-    pub fn llroundf(__x: f32) -> ::std::os::raw::c_longlong;
+    pub fn llroundf(__x: f32) -> ::core::ffi::c_longlong;
 }
 extern "C" {
-    pub fn llroundl(__x: u128) -> ::std::os::raw::c_longlong;
+    pub fn llroundl(__x: u128) -> ::core::ffi::c_longlong;
 }
 extern "C" {
     pub fn trunc(__x: f64) -> f64;
@@ -11886,13 +11798,13 @@ extern "C" {
     pub fn remainderl(__x: u128, __y: u128) -> u128;
 }
 extern "C" {
-    pub fn remquo(__x: f64, __y: f64, __quotient_bits: *mut ::std::os::raw::c_int) -> f64;
+    pub fn remquo(__x: f64, __y: f64, __quotient_bits: *mut ::core::ffi::c_int) -> f64;
 }
 extern "C" {
-    pub fn remquof(__x: f32, __y: f32, __quotient_bits: *mut ::std::os::raw::c_int) -> f32;
+    pub fn remquof(__x: f32, __y: f32, __quotient_bits: *mut ::core::ffi::c_int) -> f32;
 }
 extern "C" {
-    pub fn remquol(__x: u128, __y: u128, __quotient_bits: *mut ::std::os::raw::c_int) -> u128;
+    pub fn remquol(__x: u128, __y: u128, __quotient_bits: *mut ::core::ffi::c_int) -> u128;
 }
 extern "C" {
     pub fn copysign(__value: f64, __sign: f64) -> f64;
@@ -11904,13 +11816,13 @@ extern "C" {
     pub fn copysignl(__value: u128, __sign: u128) -> u128;
 }
 extern "C" {
-    pub fn nan(__kind: *const ::std::os::raw::c_char) -> f64;
+    pub fn nan(__kind: *const ::core::ffi::c_char) -> f64;
 }
 extern "C" {
-    pub fn nanf(__kind: *const ::std::os::raw::c_char) -> f32;
+    pub fn nanf(__kind: *const ::core::ffi::c_char) -> f32;
 }
 extern "C" {
-    pub fn nanl(__kind: *const ::std::os::raw::c_char) -> u128;
+    pub fn nanl(__kind: *const ::core::ffi::c_char) -> u128;
 }
 extern "C" {
     pub fn nextafter(__x: f64, __y: f64) -> f64;
@@ -11967,13 +11879,13 @@ extern "C" {
     pub fn fmal(__x: u128, __y: u128, __z: u128) -> u128;
 }
 extern "C" {
-    pub fn isinf(__x: f64) -> ::std::os::raw::c_int;
+    pub fn isinf(__x: f64) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn isnan(__x: f64) -> ::std::os::raw::c_int;
+    pub fn isnan(__x: f64) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub static mut signgam: ::std::os::raw::c_int;
+    pub static mut signgam: ::core::ffi::c_int;
 }
 extern "C" {
     pub fn y0(__x: f64) -> f64;
@@ -11982,7 +11894,7 @@ extern "C" {
     pub fn y1(__x: f64) -> f64;
 }
 extern "C" {
-    pub fn yn(__n: ::std::os::raw::c_int, __x: f64) -> f64;
+    pub fn yn(__n: ::core::ffi::c_int, __x: f64) -> f64;
 }
 pub const ASENSOR_TYPE_INVALID: _bindgen_ty_40 = -1;
 pub const ASENSOR_TYPE_ACCELEROMETER: _bindgen_ty_40 = 1;
@@ -12019,27 +11931,27 @@ pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES: _bindgen_ty_40 = 39;
 pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 40;
 pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 41;
 pub const ASENSOR_TYPE_HEADING: _bindgen_ty_40 = 42;
-pub type _bindgen_ty_40 = ::std::os::raw::c_int;
+pub type _bindgen_ty_40 = ::core::ffi::c_int;
 pub const ASENSOR_STATUS_NO_CONTACT: _bindgen_ty_41 = -1;
 pub const ASENSOR_STATUS_UNRELIABLE: _bindgen_ty_41 = 0;
 pub const ASENSOR_STATUS_ACCURACY_LOW: _bindgen_ty_41 = 1;
 pub const ASENSOR_STATUS_ACCURACY_MEDIUM: _bindgen_ty_41 = 2;
 pub const ASENSOR_STATUS_ACCURACY_HIGH: _bindgen_ty_41 = 3;
-pub type _bindgen_ty_41 = ::std::os::raw::c_int;
+pub type _bindgen_ty_41 = ::core::ffi::c_int;
 pub const AREPORTING_MODE_INVALID: _bindgen_ty_42 = -1;
 pub const AREPORTING_MODE_CONTINUOUS: _bindgen_ty_42 = 0;
 pub const AREPORTING_MODE_ON_CHANGE: _bindgen_ty_42 = 1;
 pub const AREPORTING_MODE_ONE_SHOT: _bindgen_ty_42 = 2;
 pub const AREPORTING_MODE_SPECIAL_TRIGGER: _bindgen_ty_42 = 3;
-pub type _bindgen_ty_42 = ::std::os::raw::c_int;
+pub type _bindgen_ty_42 = ::core::ffi::c_int;
 pub const ASENSOR_DIRECT_RATE_STOP: _bindgen_ty_43 = 0;
 pub const ASENSOR_DIRECT_RATE_NORMAL: _bindgen_ty_43 = 1;
 pub const ASENSOR_DIRECT_RATE_FAST: _bindgen_ty_43 = 2;
 pub const ASENSOR_DIRECT_RATE_VERY_FAST: _bindgen_ty_43 = 3;
-pub type _bindgen_ty_43 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_43 = ::core::ffi::c_uint;
 pub const ASENSOR_DIRECT_CHANNEL_TYPE_SHARED_MEMORY: _bindgen_ty_44 = 1;
 pub const ASENSOR_DIRECT_CHANNEL_TYPE_HARDWARE_BUFFER: _bindgen_ty_44 = 2;
-pub type _bindgen_ty_44 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_44 = ::core::ffi::c_uint;
 pub const ASENSOR_ADDITIONAL_INFO_BEGIN: _bindgen_ty_45 = 0;
 pub const ASENSOR_ADDITIONAL_INFO_END: _bindgen_ty_45 = 1;
 pub const ASENSOR_ADDITIONAL_INFO_UNTRACKED_DELAY: _bindgen_ty_45 = 65536;
@@ -12047,7 +11959,7 @@ pub const ASENSOR_ADDITIONAL_INFO_INTERNAL_TEMPERATURE: _bindgen_ty_45 = 65537;
 pub const ASENSOR_ADDITIONAL_INFO_VEC3_CALIBRATION: _bindgen_ty_45 = 65538;
 pub const ASENSOR_ADDITIONAL_INFO_SENSOR_PLACEMENT: _bindgen_ty_45 = 65539;
 pub const ASENSOR_ADDITIONAL_INFO_SAMPLING: _bindgen_ty_45 = 65540;
-pub type _bindgen_ty_45 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_45 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ASensorVector {
@@ -12071,31 +11983,31 @@ pub struct ASensorVector__bindgen_ty_1__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ASensorVector__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorVector__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorVector__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorVector__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<ASensorVector__bindgen_ty_1__bindgen_ty_1>(),
         12usize,
         "Size of ASensorVector__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorVector__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<ASensorVector__bindgen_ty_1__bindgen_ty_1>(),
         4usize,
         "Alignment of ASensorVector__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorVector__bindgen_ty_1__bindgen_ty_1::x"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y) as usize - ptr as usize },
         4usize,
         "Offset of field: ASensorVector__bindgen_ty_1__bindgen_ty_1::y"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).z) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).z) as usize - ptr as usize },
         8usize,
         "Offset of field: ASensorVector__bindgen_ty_1__bindgen_ty_1::z"
     );
@@ -12109,77 +12021,77 @@ pub struct ASensorVector__bindgen_ty_1__bindgen_ty_2 {
 }
 #[test]
 fn bindgen_test_layout_ASensorVector__bindgen_ty_1__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorVector__bindgen_ty_1__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorVector__bindgen_ty_1__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorVector__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::size_of::<ASensorVector__bindgen_ty_1__bindgen_ty_2>(),
         12usize,
         "Size of ASensorVector__bindgen_ty_1__bindgen_ty_2"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorVector__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::align_of::<ASensorVector__bindgen_ty_1__bindgen_ty_2>(),
         4usize,
         "Alignment of ASensorVector__bindgen_ty_1__bindgen_ty_2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).azimuth) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).azimuth) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorVector__bindgen_ty_1__bindgen_ty_2::azimuth"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pitch) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pitch) as usize - ptr as usize },
         4usize,
         "Offset of field: ASensorVector__bindgen_ty_1__bindgen_ty_2::pitch"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).roll) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).roll) as usize - ptr as usize },
         8usize,
         "Offset of field: ASensorVector__bindgen_ty_1__bindgen_ty_2::roll"
     );
 }
 #[test]
 fn bindgen_test_layout_ASensorVector__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorVector__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorVector__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorVector__bindgen_ty_1>(),
+        ::core::mem::size_of::<ASensorVector__bindgen_ty_1>(),
         12usize,
         "Size of ASensorVector__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorVector__bindgen_ty_1>(),
+        ::core::mem::align_of::<ASensorVector__bindgen_ty_1>(),
         4usize,
         "Alignment of ASensorVector__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).v) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).v) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorVector__bindgen_ty_1::v"
     );
 }
 #[test]
 fn bindgen_test_layout_ASensorVector() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorVector> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorVector> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorVector>(),
+        ::core::mem::size_of::<ASensorVector>(),
         16usize,
         "Size of ASensorVector"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorVector>(),
+        ::core::mem::align_of::<ASensorVector>(),
         4usize,
         "Alignment of ASensorVector"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
         12usize,
         "Offset of field: ASensorVector::status"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
         13usize,
         "Offset of field: ASensorVector::reserved"
     );
@@ -12192,25 +12104,25 @@ pub struct AMetaDataEvent {
 }
 #[test]
 fn bindgen_test_layout_AMetaDataEvent() {
-    const UNINIT: ::std::mem::MaybeUninit<AMetaDataEvent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AMetaDataEvent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AMetaDataEvent>(),
+        ::core::mem::size_of::<AMetaDataEvent>(),
         8usize,
         "Size of AMetaDataEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<AMetaDataEvent>(),
+        ::core::mem::align_of::<AMetaDataEvent>(),
         4usize,
         "Alignment of AMetaDataEvent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).what) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).what) as usize - ptr as usize },
         0usize,
         "Offset of field: AMetaDataEvent::what"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sensor) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sensor) as usize - ptr as usize },
         4usize,
         "Offset of field: AMetaDataEvent::sensor"
     );
@@ -12236,52 +12148,52 @@ pub struct AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
         12usize,
         "Size of AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
         4usize,
         "Alignment of AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x_uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x_uncalib) as usize - ptr as usize },
         0usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1::x_uncalib"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y_uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y_uncalib) as usize - ptr as usize },
         4usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1::y_uncalib"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).z_uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).z_uncalib) as usize - ptr as usize },
         8usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_1__bindgen_ty_1::z_uncalib"
     );
 }
 #[test]
 fn bindgen_test_layout_AUncalibratedEvent__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AUncalibratedEvent__bindgen_ty_1>(),
+        ::core::mem::size_of::<AUncalibratedEvent__bindgen_ty_1>(),
         12usize,
         "Size of AUncalibratedEvent__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<AUncalibratedEvent__bindgen_ty_1>(),
+        ::core::mem::align_of::<AUncalibratedEvent__bindgen_ty_1>(),
         4usize,
         "Alignment of AUncalibratedEvent__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uncalib) as usize - ptr as usize },
         0usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_1::uncalib"
     );
@@ -12301,52 +12213,52 @@ pub struct AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
+        ::core::mem::size_of::<AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
         12usize,
         "Size of AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
+        ::core::mem::align_of::<AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
         4usize,
         "Alignment of AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x_bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x_bias) as usize - ptr as usize },
         0usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1::x_bias"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y_bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y_bias) as usize - ptr as usize },
         4usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1::y_bias"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).z_bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).z_bias) as usize - ptr as usize },
         8usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_2__bindgen_ty_1::z_bias"
     );
 }
 #[test]
 fn bindgen_test_layout_AUncalibratedEvent__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AUncalibratedEvent__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AUncalibratedEvent__bindgen_ty_2>(),
+        ::core::mem::size_of::<AUncalibratedEvent__bindgen_ty_2>(),
         12usize,
         "Size of AUncalibratedEvent__bindgen_ty_2"
     );
     assert_eq!(
-        ::std::mem::align_of::<AUncalibratedEvent__bindgen_ty_2>(),
+        ::core::mem::align_of::<AUncalibratedEvent__bindgen_ty_2>(),
         4usize,
         "Alignment of AUncalibratedEvent__bindgen_ty_2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).bias) as usize - ptr as usize },
         0usize,
         "Offset of field: AUncalibratedEvent__bindgen_ty_2::bias"
     );
@@ -12354,12 +12266,12 @@ fn bindgen_test_layout_AUncalibratedEvent__bindgen_ty_2() {
 #[test]
 fn bindgen_test_layout_AUncalibratedEvent() {
     assert_eq!(
-        ::std::mem::size_of::<AUncalibratedEvent>(),
+        ::core::mem::size_of::<AUncalibratedEvent>(),
         24usize,
         "Size of AUncalibratedEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<AUncalibratedEvent>(),
+        ::core::mem::align_of::<AUncalibratedEvent>(),
         4usize,
         "Alignment of AUncalibratedEvent"
     );
@@ -12372,25 +12284,25 @@ pub struct AHeartRateEvent {
 }
 #[test]
 fn bindgen_test_layout_AHeartRateEvent() {
-    const UNINIT: ::std::mem::MaybeUninit<AHeartRateEvent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHeartRateEvent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHeartRateEvent>(),
+        ::core::mem::size_of::<AHeartRateEvent>(),
         8usize,
         "Size of AHeartRateEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHeartRateEvent>(),
+        ::core::mem::align_of::<AHeartRateEvent>(),
         4usize,
         "Alignment of AHeartRateEvent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).bpm) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).bpm) as usize - ptr as usize },
         0usize,
         "Offset of field: AHeartRateEvent::bpm"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
         4usize,
         "Offset of field: AHeartRateEvent::status"
     );
@@ -12403,25 +12315,26 @@ pub struct ADynamicSensorEvent {
 }
 #[test]
 fn bindgen_test_layout_ADynamicSensorEvent() {
-    const UNINIT: ::std::mem::MaybeUninit<ADynamicSensorEvent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ADynamicSensorEvent> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ADynamicSensorEvent>(),
+        ::core::mem::size_of::<ADynamicSensorEvent>(),
         8usize,
         "Size of ADynamicSensorEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<ADynamicSensorEvent>(),
+        ::core::mem::align_of::<ADynamicSensorEvent>(),
         4usize,
         "Alignment of ADynamicSensorEvent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).connected) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).connected) as usize - ptr as usize },
         0usize,
         "Offset of field: ADynamicSensorEvent::connected"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).handle) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).handle) as usize - ptr as usize },
         4usize,
         "Offset of field: ADynamicSensorEvent::handle"
     );
@@ -12441,51 +12354,52 @@ pub union AAdditionalInfoEvent__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_AAdditionalInfoEvent__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<AAdditionalInfoEvent__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AAdditionalInfoEvent__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AAdditionalInfoEvent__bindgen_ty_1>(),
+        ::core::mem::size_of::<AAdditionalInfoEvent__bindgen_ty_1>(),
         56usize,
         "Size of AAdditionalInfoEvent__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<AAdditionalInfoEvent__bindgen_ty_1>(),
+        ::core::mem::align_of::<AAdditionalInfoEvent__bindgen_ty_1>(),
         4usize,
         "Alignment of AAdditionalInfoEvent__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data_int32) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data_int32) as usize - ptr as usize },
         0usize,
         "Offset of field: AAdditionalInfoEvent__bindgen_ty_1::data_int32"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data_float) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data_float) as usize - ptr as usize },
         0usize,
         "Offset of field: AAdditionalInfoEvent__bindgen_ty_1::data_float"
     );
 }
 #[test]
 fn bindgen_test_layout_AAdditionalInfoEvent() {
-    const UNINIT: ::std::mem::MaybeUninit<AAdditionalInfoEvent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AAdditionalInfoEvent> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AAdditionalInfoEvent>(),
+        ::core::mem::size_of::<AAdditionalInfoEvent>(),
         64usize,
         "Size of AAdditionalInfoEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<AAdditionalInfoEvent>(),
+        ::core::mem::align_of::<AAdditionalInfoEvent>(),
         4usize,
         "Alignment of AAdditionalInfoEvent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
         0usize,
         "Offset of field: AAdditionalInfoEvent::type_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).serial) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).serial) as usize - ptr as usize },
         4usize,
         "Offset of field: AAdditionalInfoEvent::serial"
     );
@@ -12503,50 +12417,50 @@ pub struct AHeadTrackerEvent {
 }
 #[test]
 fn bindgen_test_layout_AHeadTrackerEvent() {
-    const UNINIT: ::std::mem::MaybeUninit<AHeadTrackerEvent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHeadTrackerEvent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHeadTrackerEvent>(),
+        ::core::mem::size_of::<AHeadTrackerEvent>(),
         28usize,
         "Size of AHeadTrackerEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHeadTrackerEvent>(),
+        ::core::mem::align_of::<AHeadTrackerEvent>(),
         4usize,
         "Alignment of AHeadTrackerEvent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rx) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rx) as usize - ptr as usize },
         0usize,
         "Offset of field: AHeadTrackerEvent::rx"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ry) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ry) as usize - ptr as usize },
         4usize,
         "Offset of field: AHeadTrackerEvent::ry"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rz) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).rz) as usize - ptr as usize },
         8usize,
         "Offset of field: AHeadTrackerEvent::rz"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vx) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vx) as usize - ptr as usize },
         12usize,
         "Offset of field: AHeadTrackerEvent::vx"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vy) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vy) as usize - ptr as usize },
         16usize,
         "Offset of field: AHeadTrackerEvent::vy"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vz) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vz) as usize - ptr as usize },
         20usize,
         "Offset of field: AHeadTrackerEvent::vz"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).discontinuity_count) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).discontinuity_count) as usize - ptr as usize },
         24usize,
         "Offset of field: AHeadTrackerEvent::discontinuity_count"
     );
@@ -12572,52 +12486,52 @@ pub struct ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>(),
         12usize,
         "Size of ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1>(),
         4usize,
         "Alignment of ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1::x"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y) as usize - ptr as usize },
         4usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1::y"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).z) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).z) as usize - ptr as usize },
         8usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_1__bindgen_ty_1::z"
     );
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_1>(),
+        ::core::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_1>(),
         12usize,
         "Size of ALimitedAxesImuEvent__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_1>(),
+        ::core::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_1>(),
         4usize,
         "Alignment of ALimitedAxesImuEvent__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).calib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).calib) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_1::calib"
     );
@@ -12637,52 +12551,52 @@ pub struct ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>(),
+        ::core::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>(),
         12usize,
         "Size of ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>(),
+        ::core::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1>(),
         4usize,
         "Alignment of ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x_supported) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x_supported) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1::x_supported"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y_supported) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y_supported) as usize - ptr as usize },
         4usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1::y_supported"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).z_supported) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).z_supported) as usize - ptr as usize },
         8usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_2__bindgen_ty_1::z_supported"
     );
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALimitedAxesImuEvent__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_2>(),
+        ::core::mem::size_of::<ALimitedAxesImuEvent__bindgen_ty_2>(),
         12usize,
         "Size of ALimitedAxesImuEvent__bindgen_ty_2"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_2>(),
+        ::core::mem::align_of::<ALimitedAxesImuEvent__bindgen_ty_2>(),
         4usize,
         "Alignment of ALimitedAxesImuEvent__bindgen_ty_2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).supported) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).supported) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuEvent__bindgen_ty_2::supported"
     );
@@ -12690,12 +12604,12 @@ fn bindgen_test_layout_ALimitedAxesImuEvent__bindgen_ty_2() {
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuEvent() {
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuEvent>(),
+        ::core::mem::size_of::<ALimitedAxesImuEvent>(),
         24usize,
         "Size of ALimitedAxesImuEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuEvent>(),
+        ::core::mem::align_of::<ALimitedAxesImuEvent>(),
         4usize,
         "Alignment of ALimitedAxesImuEvent"
     );
@@ -12722,53 +12636,53 @@ pub struct ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<
+    const UNINIT: ::core::mem::MaybeUninit<
         ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1,
-    > = ::std::mem::MaybeUninit::uninit();
+    > = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
         12usize,
         "Size of ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1>(),
         4usize,
         "Alignment of ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x_uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x_uncalib) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1::x_uncalib"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y_uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y_uncalib) as usize - ptr as usize },
         4usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1::y_uncalib"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).z_uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).z_uncalib) as usize - ptr as usize },
         8usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_1__bindgen_ty_1::z_uncalib"
     );
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1>(),
+        ::core::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1>(),
         12usize,
         "Size of ALimitedAxesImuUncalibratedEvent__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1>(),
+        ::core::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_1>(),
         4usize,
         "Alignment of ALimitedAxesImuUncalibratedEvent__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uncalib) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uncalib) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_1::uncalib"
     );
@@ -12788,53 +12702,53 @@ pub struct ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<
+    const UNINIT: ::core::mem::MaybeUninit<
         ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1,
-    > = ::std::mem::MaybeUninit::uninit();
+    > = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
+        ::core::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
         12usize,
         "Size of ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
+        ::core::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1>(),
         4usize,
         "Alignment of ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).x_bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).x_bias) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1::x_bias"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).y_bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).y_bias) as usize - ptr as usize },
         4usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1::y_bias"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).z_bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).z_bias) as usize - ptr as usize },
         8usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_2__bindgen_ty_1::z_bias"
     );
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2>(),
+        ::core::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2>(),
         12usize,
         "Size of ALimitedAxesImuUncalibratedEvent__bindgen_ty_2"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2>(),
+        ::core::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_2>(),
         4usize,
         "Alignment of ALimitedAxesImuUncalibratedEvent__bindgen_ty_2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).bias) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).bias) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_2::bias"
     );
@@ -12854,41 +12768,41 @@ pub struct ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<
+    const UNINIT: ::core::mem::MaybeUninit<
         ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1,
-    > = ::std::mem::MaybeUninit::uninit();
+    > = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>(),
+        ::core::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>(),
         12usize,
         "Size of ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>(),
+        ::core::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1>(),
         4usize,
         "Alignment of ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1"
     );
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . x_supported) as usize - ptr as usize } , 0usize , "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1::x_supported");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . y_supported) as usize - ptr as usize } , 4usize , "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1::y_supported");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . z_supported) as usize - ptr as usize } , 8usize , "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1::z_supported");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . x_supported) as usize - ptr as usize } , 0usize , "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1::x_supported");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . y_supported) as usize - ptr as usize } , 4usize , "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1::y_supported");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . z_supported) as usize - ptr as usize } , 8usize , "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3__bindgen_ty_1::z_supported");
 }
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_3() {
-    const UNINIT: ::std::mem::MaybeUninit<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3>(),
+        ::core::mem::size_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3>(),
         12usize,
         "Size of ALimitedAxesImuUncalibratedEvent__bindgen_ty_3"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3>(),
+        ::core::mem::align_of::<ALimitedAxesImuUncalibratedEvent__bindgen_ty_3>(),
         4usize,
         "Alignment of ALimitedAxesImuUncalibratedEvent__bindgen_ty_3"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).supported) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).supported) as usize - ptr as usize },
         0usize,
         "Offset of field: ALimitedAxesImuUncalibratedEvent__bindgen_ty_3::supported"
     );
@@ -12896,12 +12810,12 @@ fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent__bindgen_ty_3() {
 #[test]
 fn bindgen_test_layout_ALimitedAxesImuUncalibratedEvent() {
     assert_eq!(
-        ::std::mem::size_of::<ALimitedAxesImuUncalibratedEvent>(),
+        ::core::mem::size_of::<ALimitedAxesImuUncalibratedEvent>(),
         36usize,
         "Size of ALimitedAxesImuUncalibratedEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALimitedAxesImuUncalibratedEvent>(),
+        ::core::mem::align_of::<ALimitedAxesImuUncalibratedEvent>(),
         4usize,
         "Alignment of ALimitedAxesImuUncalibratedEvent"
     );
@@ -12914,25 +12828,25 @@ pub struct AHeadingEvent {
 }
 #[test]
 fn bindgen_test_layout_AHeadingEvent() {
-    const UNINIT: ::std::mem::MaybeUninit<AHeadingEvent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AHeadingEvent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AHeadingEvent>(),
+        ::core::mem::size_of::<AHeadingEvent>(),
         8usize,
         "Size of AHeadingEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<AHeadingEvent>(),
+        ::core::mem::align_of::<AHeadingEvent>(),
         4usize,
         "Alignment of AHeadingEvent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).heading) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).heading) as usize - ptr as usize },
         0usize,
         "Offset of field: AHeadingEvent::heading"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).accuracy) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).accuracy) as usize - ptr as usize },
         4usize,
         "Offset of field: AHeadingEvent::accuracy"
     );
@@ -12982,123 +12896,123 @@ pub union ASensorEvent__bindgen_ty_1__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ASensorEvent__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorEvent__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorEvent__bindgen_ty_1__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>(),
         64usize,
         "Size of ASensorEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_1>(),
         4usize,
         "Alignment of ASensorEvent__bindgen_ty_1__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::data"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vector) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).vector) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::vector"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).acceleration) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).acceleration) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::acceleration"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).gyro) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).gyro) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::gyro"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).magnetic) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).magnetic) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::magnetic"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).temperature) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).temperature) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::temperature"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).distance) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).distance) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::distance"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).light) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).light) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::light"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pressure) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pressure) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::pressure"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).relative_humidity) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).relative_humidity) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::relative_humidity"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uncalibrated_acceleration) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uncalibrated_acceleration) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::uncalibrated_acceleration"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uncalibrated_gyro) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uncalibrated_gyro) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::uncalibrated_gyro"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uncalibrated_magnetic) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uncalibrated_magnetic) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::uncalibrated_magnetic"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).meta_data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).meta_data) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::meta_data"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).heart_rate) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).heart_rate) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::heart_rate"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).dynamic_sensor_meta) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).dynamic_sensor_meta) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::dynamic_sensor_meta"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).additional_info) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).additional_info) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::additional_info"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head_tracker) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).head_tracker) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::head_tracker"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).limited_axes_imu) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).limited_axes_imu) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::limited_axes_imu"
     );
     assert_eq!(
         unsafe {
-            ::std::ptr::addr_of!((*ptr).limited_axes_imu_uncalibrated) as usize - ptr as usize
+            ::core::ptr::addr_of!((*ptr).limited_axes_imu_uncalibrated) as usize - ptr as usize
         },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::limited_axes_imu_uncalibrated"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).heading) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).heading) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_1::heading"
     );
@@ -13111,97 +13025,97 @@ pub union ASensorEvent__bindgen_ty_1__bindgen_ty_2 {
 }
 #[test]
 fn bindgen_test_layout_ASensorEvent__bindgen_ty_1__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorEvent__bindgen_ty_1__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorEvent__bindgen_ty_1__bindgen_ty_2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::size_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_2>(),
         64usize,
         "Size of ASensorEvent__bindgen_ty_1__bindgen_ty_2"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::align_of::<ASensorEvent__bindgen_ty_1__bindgen_ty_2>(),
         8usize,
         "Alignment of ASensorEvent__bindgen_ty_1__bindgen_ty_2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_2::data"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).step_counter) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).step_counter) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1__bindgen_ty_2::step_counter"
     );
 }
 #[test]
 fn bindgen_test_layout_ASensorEvent__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorEvent__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorEvent__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorEvent__bindgen_ty_1>(),
+        ::core::mem::size_of::<ASensorEvent__bindgen_ty_1>(),
         64usize,
         "Size of ASensorEvent__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorEvent__bindgen_ty_1>(),
+        ::core::mem::align_of::<ASensorEvent__bindgen_ty_1>(),
         8usize,
         "Alignment of ASensorEvent__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).u64_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).u64_) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent__bindgen_ty_1::u64_"
     );
 }
 #[test]
 fn bindgen_test_layout_ASensorEvent() {
-    const UNINIT: ::std::mem::MaybeUninit<ASensorEvent> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ASensorEvent> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ASensorEvent>(),
+        ::core::mem::size_of::<ASensorEvent>(),
         104usize,
         "Size of ASensorEvent"
     );
     assert_eq!(
-        ::std::mem::align_of::<ASensorEvent>(),
+        ::core::mem::align_of::<ASensorEvent>(),
         8usize,
         "Alignment of ASensorEvent"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
         0usize,
         "Offset of field: ASensorEvent::version"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sensor) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sensor) as usize - ptr as usize },
         4usize,
         "Offset of field: ASensorEvent::sensor"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
         8usize,
         "Offset of field: ASensorEvent::type_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved0) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reserved0) as usize - ptr as usize },
         12usize,
         "Offset of field: ASensorEvent::reserved0"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).timestamp) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).timestamp) as usize - ptr as usize },
         16usize,
         "Offset of field: ASensorEvent::timestamp"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         88usize,
         "Offset of field: ASensorEvent::flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved1) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reserved1) as usize - ptr as usize },
         92usize,
         "Offset of field: ASensorEvent::reserved1"
     );
@@ -13228,14 +13142,14 @@ extern "C" {
 }
 extern "C" {
     pub fn ASensorManager_getInstanceForPackage(
-        packageName: *const ::std::os::raw::c_char,
+        packageName: *const ::core::ffi::c_char,
     ) -> *mut ASensorManager;
 }
 extern "C" {
     pub fn ASensorManager_getSensorList(
         manager: *mut ASensorManager,
         list: *mut ASensorList,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorManager_getDynamicSensorList(
@@ -13246,13 +13160,13 @@ extern "C" {
 extern "C" {
     pub fn ASensorManager_getDefaultSensor(
         manager: *mut ASensorManager,
-        type_: ::std::os::raw::c_int,
+        type_: ::core::ffi::c_int,
     ) -> *const ASensor;
 }
 extern "C" {
     pub fn ASensorManager_getDefaultSensorEx(
         manager: *mut ASensorManager,
-        type_: ::std::os::raw::c_int,
+        type_: ::core::ffi::c_int,
         wakeUp: bool,
     ) -> *const ASensor;
 }
@@ -13260,44 +13174,44 @@ extern "C" {
     pub fn ASensorManager_createEventQueue(
         manager: *mut ASensorManager,
         looper: *mut ALooper,
-        ident: ::std::os::raw::c_int,
+        ident: ::core::ffi::c_int,
         callback: ALooper_callbackFunc,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     ) -> *mut ASensorEventQueue;
 }
 extern "C" {
     pub fn ASensorManager_destroyEventQueue(
         manager: *mut ASensorManager,
         queue: *mut ASensorEventQueue,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorManager_createSharedMemoryDirectChannel(
         manager: *mut ASensorManager,
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorManager_createHardwareBufferDirectChannel(
         manager: *mut ASensorManager,
         buffer: *const AHardwareBuffer,
         size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorManager_destroyDirectChannel(
         manager: *mut ASensorManager,
-        channelId: ::std::os::raw::c_int,
+        channelId: ::core::ffi::c_int,
     );
 }
 extern "C" {
     pub fn ASensorManager_configureDirectReport(
         manager: *mut ASensorManager,
         sensor: *const ASensor,
-        channelId: ::std::os::raw::c_int,
-        rate: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        channelId: ::core::ffi::c_int,
+        rate: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorEventQueue_registerSensor(
@@ -13305,29 +13219,29 @@ extern "C" {
         sensor: *const ASensor,
         samplingPeriodUs: i32,
         maxBatchReportLatencyUs: i64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorEventQueue_enableSensor(
         queue: *mut ASensorEventQueue,
         sensor: *const ASensor,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorEventQueue_disableSensor(
         queue: *mut ASensorEventQueue,
         sensor: *const ASensor,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorEventQueue_setEventRate(
         queue: *mut ASensorEventQueue,
         sensor: *const ASensor,
         usec: i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASensorEventQueue_hasEvents(queue: *mut ASensorEventQueue) -> ::std::os::raw::c_int;
+    pub fn ASensorEventQueue_hasEvents(queue: *mut ASensorEventQueue) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensorEventQueue_getEvents(
@@ -13340,34 +13254,34 @@ extern "C" {
     pub fn ASensorEventQueue_requestAdditionalInfoEvents(
         queue: *mut ASensorEventQueue,
         enable: bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASensor_getName(sensor: *const ASensor) -> *const ::std::os::raw::c_char;
+    pub fn ASensor_getName(sensor: *const ASensor) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn ASensor_getVendor(sensor: *const ASensor) -> *const ::std::os::raw::c_char;
+    pub fn ASensor_getVendor(sensor: *const ASensor) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn ASensor_getType(sensor: *const ASensor) -> ::std::os::raw::c_int;
+    pub fn ASensor_getType(sensor: *const ASensor) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensor_getResolution(sensor: *const ASensor) -> f32;
 }
 extern "C" {
-    pub fn ASensor_getMinDelay(sensor: *const ASensor) -> ::std::os::raw::c_int;
+    pub fn ASensor_getMinDelay(sensor: *const ASensor) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASensor_getFifoMaxEventCount(sensor: *const ASensor) -> ::std::os::raw::c_int;
+    pub fn ASensor_getFifoMaxEventCount(sensor: *const ASensor) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASensor_getFifoReservedEventCount(sensor: *const ASensor) -> ::std::os::raw::c_int;
+    pub fn ASensor_getFifoReservedEventCount(sensor: *const ASensor) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASensor_getStringType(sensor: *const ASensor) -> *const ::std::os::raw::c_char;
+    pub fn ASensor_getStringType(sensor: *const ASensor) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn ASensor_getReportingMode(sensor: *const ASensor) -> ::std::os::raw::c_int;
+    pub fn ASensor_getReportingMode(sensor: *const ASensor) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASensor_isWakeUpSensor(sensor: *const ASensor) -> bool;
@@ -13375,311 +13289,308 @@ extern "C" {
 extern "C" {
     pub fn ASensor_isDirectChannelTypeSupported(
         sensor: *const ASensor,
-        channelType: ::std::os::raw::c_int,
+        channelType: ::core::ffi::c_int,
     ) -> bool;
 }
 extern "C" {
-    pub fn ASensor_getHighestDirectReportRateLevel(sensor: *const ASensor)
-        -> ::std::os::raw::c_int;
+    pub fn ASensor_getHighestDirectReportRateLevel(sensor: *const ASensor) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASensor_getHandle(sensor: *const ASensor) -> ::std::os::raw::c_int;
+    pub fn ASensor_getHandle(sensor: *const ASensor) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strcasecmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strcasecmp_l(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __l: locale_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strncasecmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strncasecmp_l(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
+        __s1: *const ::core::ffi::c_char,
+        __s2: *const ::core::ffi::c_char,
         __n: usize,
         __l: locale_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn memccpy(
-        __dst: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __stop_char: ::std::os::raw::c_int,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __dst: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __stop_char: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn memchr(
-        __s: *const ::std::os::raw::c_void,
-        __ch: ::std::os::raw::c_int,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __s: *const ::core::ffi::c_void,
+        __ch: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn memrchr(
-        __s: *const ::std::os::raw::c_void,
-        __ch: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_void,
+        __ch: ::core::ffi::c_int,
         __n: usize,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn memcmp(
-        __lhs: *const ::std::os::raw::c_void,
-        __rhs: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        __lhs: *const ::core::ffi::c_void,
+        __rhs: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn memcpy(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        arg1: *mut ::core::ffi::c_void,
+        arg2: *const ::core::ffi::c_void,
+        arg3: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn memmove(
-        __dst: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __dst: *mut ::core::ffi::c_void,
+        __src: *const ::core::ffi::c_void,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn memset(
-        __dst: *mut ::std::os::raw::c_void,
-        __ch: ::std::os::raw::c_int,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+        __dst: *mut ::core::ffi::c_void,
+        __ch: ::core::ffi::c_int,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn memset_explicit(
-        __dst: *mut ::std::os::raw::c_void,
-        __ch: ::std::os::raw::c_int,
+        __dst: *mut ::core::ffi::c_void,
+        __ch: ::core::ffi::c_int,
         __n: usize,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn memmem(
-        __haystack: *const ::std::os::raw::c_void,
+        __haystack: *const ::core::ffi::c_void,
         __haystack_size: usize,
-        __needle: *const ::std::os::raw::c_void,
+        __needle: *const ::core::ffi::c_void,
         __needle_size: usize,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn strchr(
-        __s: *const ::std::os::raw::c_char,
-        __ch: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
+        __s: *const ::core::ffi::c_char,
+        __ch: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn __strchr_chk(
-        __s: *const ::std::os::raw::c_char,
-        __ch: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __ch: ::core::ffi::c_int,
         __n: usize,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strrchr(
-        __s: *const ::std::os::raw::c_char,
-        __ch: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
+        __s: *const ::core::ffi::c_char,
+        __ch: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn __strrchr_chk(
-        __s: *const ::std::os::raw::c_char,
-        __ch: ::std::os::raw::c_int,
+        __s: *const ::core::ffi::c_char,
+        __ch: ::core::ffi::c_int,
         __n: usize,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn strlen(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_ulong;
+    pub fn strlen(__s: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn __strlen_chk(__s: *const ::std::os::raw::c_char, __n: usize) -> usize;
+    pub fn __strlen_chk(__s: *const ::core::ffi::c_char, __n: usize) -> usize;
 }
 extern "C" {
     pub fn strcmp(
-        __lhs: *const ::std::os::raw::c_char,
-        __rhs: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __lhs: *const ::core::ffi::c_char,
+        __rhs: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn stpcpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strcpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strcat(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn strdup(__s: *const ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+    pub fn strdup(__s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strstr(
-        __haystack: *const ::std::os::raw::c_char,
-        __needle: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __haystack: *const ::core::ffi::c_char,
+        __needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strcasestr(
-        __haystack: *const ::std::os::raw::c_char,
-        __needle: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __haystack: *const ::core::ffi::c_char,
+        __needle: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strtok(
-        __s: *mut ::std::os::raw::c_char,
-        __delimiter: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __s: *mut ::core::ffi::c_char,
+        __delimiter: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strtok_r(
-        __s: *mut ::std::os::raw::c_char,
-        __delimiter: *const ::std::os::raw::c_char,
-        __pos_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __s: *mut ::core::ffi::c_char,
+        __delimiter: *const ::core::ffi::c_char,
+        __pos_ptr: *mut *mut ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn strerror(__errno_value: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn strerror(__errno_value: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn strerror_l(
-        __errno_value: ::std::os::raw::c_int,
-        __l: locale_t,
-    ) -> *mut ::std::os::raw::c_char;
+    pub fn strerror_l(__errno_value: ::core::ffi::c_int, __l: locale_t)
+        -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strerror_r(
-        __errno_value: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
+        __errno_value: ::core::ffi::c_int,
+        __buf: *mut ::core::ffi::c_char,
         __n: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn strnlen(__s: *const ::std::os::raw::c_char, __n: usize) -> usize;
+    pub fn strnlen(__s: *const ::core::ffi::c_char, __n: usize) -> usize;
 }
 extern "C" {
     pub fn strncat(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strndup(
-        __s: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
+        __s: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strncmp(
-        __lhs: *const ::std::os::raw::c_char,
-        __rhs: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        __lhs: *const ::core::ffi::c_char,
+        __rhs: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn stpncpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strncpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strlcat(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_ulong;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
     pub fn strlcpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_ulong;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
     pub fn strcspn(
-        __s: *const ::std::os::raw::c_char,
-        __reject: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
+        __s: *const ::core::ffi::c_char,
+        __reject: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
     pub fn strpbrk(
-        __s: *const ::std::os::raw::c_char,
-        __accept: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __s: *const ::core::ffi::c_char,
+        __accept: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strsep(
-        __s_ptr: *mut *mut ::std::os::raw::c_char,
-        __delimiter: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        __s_ptr: *mut *mut ::core::ffi::c_char,
+        __delimiter: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strspn(
-        __s: *const ::std::os::raw::c_char,
-        __accept: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
+        __s: *const ::core::ffi::c_char,
+        __accept: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn strsignal(__signal: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn strsignal(__signal: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strcoll(
-        __lhs: *const ::std::os::raw::c_char,
-        __rhs: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        __lhs: *const ::core::ffi::c_char,
+        __rhs: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strxfrm(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_ulong;
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
+        __n: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_ulong;
 }
 extern "C" {
     pub fn strcoll_l(
-        __lhs: *const ::std::os::raw::c_char,
-        __rhs: *const ::std::os::raw::c_char,
+        __lhs: *const ::core::ffi::c_char,
+        __rhs: *const ::core::ffi::c_char,
         __l: locale_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn strxfrm_l(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
+        __dst: *mut ::core::ffi::c_char,
+        __src: *const ::core::ffi::c_char,
         __n: usize,
         __l: locale_t,
     ) -> usize;
@@ -13690,28 +13601,26 @@ pub struct crash_detail_t {
     _unused: [u8; 0],
 }
 extern "C" {
-    pub fn android_set_abort_message(__msg: *const ::std::os::raw::c_char);
+    pub fn android_set_abort_message(__msg: *const ::core::ffi::c_char);
 }
 extern "C" {
     pub fn ASharedMemory_create(
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         size: usize,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASharedMemory_getSize(fd: ::std::os::raw::c_int) -> usize;
+    pub fn ASharedMemory_getSize(fd: ::core::ffi::c_int) -> usize;
 }
 extern "C" {
     pub fn ASharedMemory_setProt(
-        fd: ::std::os::raw::c_int,
-        prot: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        prot: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASharedMemory_dupFromJava(
-        env: *mut JNIEnv,
-        sharedMemory: jobject,
-    ) -> ::std::os::raw::c_int;
+    pub fn ASharedMemory_dupFromJava(env: *mut JNIEnv, sharedMemory: jobject)
+        -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -13726,49 +13635,49 @@ pub const AOBB_STATE_ERROR_COULD_NOT_UNMOUNT: _bindgen_ty_46 = 22;
 pub const AOBB_STATE_ERROR_NOT_MOUNTED: _bindgen_ty_46 = 23;
 pub const AOBB_STATE_ERROR_ALREADY_MOUNTED: _bindgen_ty_46 = 24;
 pub const AOBB_STATE_ERROR_PERMISSION_DENIED: _bindgen_ty_46 = 25;
-pub type _bindgen_ty_46 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_46 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AStorageManager_new() -> *mut AStorageManager;
 }
 extern "C" {
     pub fn AStorageManager_delete(mgr: *mut AStorageManager);
 }
-pub type AStorageManager_obbCallbackFunc = ::std::option::Option<
+pub type AStorageManager_obbCallbackFunc = ::core::option::Option<
     unsafe extern "C" fn(
-        filename: *const ::std::os::raw::c_char,
+        filename: *const ::core::ffi::c_char,
         state: i32,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     ),
 >;
 extern "C" {
     pub fn AStorageManager_mountObb(
         mgr: *mut AStorageManager,
-        filename: *const ::std::os::raw::c_char,
-        key: *const ::std::os::raw::c_char,
+        filename: *const ::core::ffi::c_char,
+        key: *const ::core::ffi::c_char,
         cb: AStorageManager_obbCallbackFunc,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
     pub fn AStorageManager_unmountObb(
         mgr: *mut AStorageManager,
-        filename: *const ::std::os::raw::c_char,
-        force: ::std::os::raw::c_int,
+        filename: *const ::core::ffi::c_char,
+        force: ::core::ffi::c_int,
         cb: AStorageManager_obbCallbackFunc,
-        data: *mut ::std::os::raw::c_void,
+        data: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
     pub fn AStorageManager_isObbMounted(
         mgr: *mut AStorageManager,
-        filename: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        filename: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AStorageManager_getMountedObbPath(
         mgr: *mut AStorageManager,
-        filename: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
+        filename: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -13785,13 +13694,13 @@ extern "C" {
     pub fn ASurfaceTexture_attachToGLContext(
         st: *mut ASurfaceTexture,
         texName: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASurfaceTexture_detachFromGLContext(st: *mut ASurfaceTexture) -> ::std::os::raw::c_int;
+    pub fn ASurfaceTexture_detachFromGLContext(st: *mut ASurfaceTexture) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn ASurfaceTexture_updateTexImage(st: *mut ASurfaceTexture) -> ::std::os::raw::c_int;
+    pub fn ASurfaceTexture_updateTexImage(st: *mut ASurfaceTexture) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn ASurfaceTexture_getTransformMatrix(st: *mut ASurfaceTexture, mtx: *mut f32);
@@ -13808,7 +13717,7 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sync_merge_data {
-    pub name: [::std::os::raw::c_char; 32usize],
+    pub name: [::core::ffi::c_char; 32usize],
     pub fd2: __s32,
     pub fence: __s32,
     pub flags: __u32,
@@ -13816,40 +13725,40 @@ pub struct sync_merge_data {
 }
 #[test]
 fn bindgen_test_layout_sync_merge_data() {
-    const UNINIT: ::std::mem::MaybeUninit<sync_merge_data> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sync_merge_data> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sync_merge_data>(),
+        ::core::mem::size_of::<sync_merge_data>(),
         48usize,
         "Size of sync_merge_data"
     );
     assert_eq!(
-        ::std::mem::align_of::<sync_merge_data>(),
+        ::core::mem::align_of::<sync_merge_data>(),
         4usize,
         "Alignment of sync_merge_data"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
         "Offset of field: sync_merge_data::name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fd2) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fd2) as usize - ptr as usize },
         32usize,
         "Offset of field: sync_merge_data::fd2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fence) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).fence) as usize - ptr as usize },
         36usize,
         "Offset of field: sync_merge_data::fence"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         40usize,
         "Offset of field: sync_merge_data::flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pad) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pad) as usize - ptr as usize },
         44usize,
         "Offset of field: sync_merge_data::pad"
     );
@@ -13857,48 +13766,48 @@ fn bindgen_test_layout_sync_merge_data() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sync_fence_info {
-    pub obj_name: [::std::os::raw::c_char; 32usize],
-    pub driver_name: [::std::os::raw::c_char; 32usize],
+    pub obj_name: [::core::ffi::c_char; 32usize],
+    pub driver_name: [::core::ffi::c_char; 32usize],
     pub status: __s32,
     pub flags: __u32,
     pub timestamp_ns: __u64,
 }
 #[test]
 fn bindgen_test_layout_sync_fence_info() {
-    const UNINIT: ::std::mem::MaybeUninit<sync_fence_info> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sync_fence_info> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sync_fence_info>(),
+        ::core::mem::size_of::<sync_fence_info>(),
         80usize,
         "Size of sync_fence_info"
     );
     assert_eq!(
-        ::std::mem::align_of::<sync_fence_info>(),
+        ::core::mem::align_of::<sync_fence_info>(),
         8usize,
         "Alignment of sync_fence_info"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).obj_name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).obj_name) as usize - ptr as usize },
         0usize,
         "Offset of field: sync_fence_info::obj_name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).driver_name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).driver_name) as usize - ptr as usize },
         32usize,
         "Offset of field: sync_fence_info::driver_name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
         64usize,
         "Offset of field: sync_fence_info::status"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         68usize,
         "Offset of field: sync_fence_info::flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).timestamp_ns) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).timestamp_ns) as usize - ptr as usize },
         72usize,
         "Offset of field: sync_fence_info::timestamp_ns"
     );
@@ -13906,7 +13815,7 @@ fn bindgen_test_layout_sync_fence_info() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sync_file_info {
-    pub name: [::std::os::raw::c_char; 32usize],
+    pub name: [::core::ffi::c_char; 32usize],
     pub status: __s32,
     pub flags: __u32,
     pub num_fences: __u32,
@@ -13915,45 +13824,45 @@ pub struct sync_file_info {
 }
 #[test]
 fn bindgen_test_layout_sync_file_info() {
-    const UNINIT: ::std::mem::MaybeUninit<sync_file_info> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sync_file_info> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sync_file_info>(),
+        ::core::mem::size_of::<sync_file_info>(),
         56usize,
         "Size of sync_file_info"
     );
     assert_eq!(
-        ::std::mem::align_of::<sync_file_info>(),
+        ::core::mem::align_of::<sync_file_info>(),
         8usize,
         "Alignment of sync_file_info"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
         "Offset of field: sync_file_info::name"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).status) as usize - ptr as usize },
         32usize,
         "Offset of field: sync_file_info::status"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         36usize,
         "Offset of field: sync_file_info::flags"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).num_fences) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).num_fences) as usize - ptr as usize },
         40usize,
         "Offset of field: sync_file_info::num_fences"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pad) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pad) as usize - ptr as usize },
         44usize,
         "Offset of field: sync_file_info::pad"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sync_fence_info) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sync_fence_info) as usize - ptr as usize },
         48usize,
         "Offset of field: sync_file_info::sync_fence_info"
     );
@@ -13966,31 +13875,31 @@ pub struct sync_set_deadline {
 }
 #[test]
 fn bindgen_test_layout_sync_set_deadline() {
-    const UNINIT: ::std::mem::MaybeUninit<sync_set_deadline> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<sync_set_deadline> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<sync_set_deadline>(),
+        ::core::mem::size_of::<sync_set_deadline>(),
         16usize,
         "Size of sync_set_deadline"
     );
     assert_eq!(
-        ::std::mem::align_of::<sync_set_deadline>(),
+        ::core::mem::align_of::<sync_set_deadline>(),
         8usize,
         "Alignment of sync_set_deadline"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).deadline_ns) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).deadline_ns) as usize - ptr as usize },
         0usize,
         "Offset of field: sync_set_deadline::deadline_ns"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pad) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).pad) as usize - ptr as usize },
         8usize,
         "Offset of field: sync_set_deadline::pad"
     );
 }
 extern "C" {
-    pub fn sync_merge(name: *const ::std::os::raw::c_char, fd1: i32, fd2: i32) -> i32;
+    pub fn sync_merge(name: *const ::core::ffi::c_char, fd1: i32, fd2: i32) -> i32;
 }
 extern "C" {
     pub fn sync_file_info(fd: i32) -> *mut sync_file_info;
@@ -14016,19 +13925,19 @@ extern "C" {
     pub fn ATrace_isEnabled() -> bool;
 }
 extern "C" {
-    pub fn ATrace_beginSection(sectionName: *const ::std::os::raw::c_char);
+    pub fn ATrace_beginSection(sectionName: *const ::core::ffi::c_char);
 }
 extern "C" {
     pub fn ATrace_endSection();
 }
 extern "C" {
-    pub fn ATrace_beginAsyncSection(sectionName: *const ::std::os::raw::c_char, cookie: i32);
+    pub fn ATrace_beginAsyncSection(sectionName: *const ::core::ffi::c_char, cookie: i32);
 }
 extern "C" {
-    pub fn ATrace_endAsyncSection(sectionName: *const ::std::os::raw::c_char, cookie: i32);
+    pub fn ATrace_endAsyncSection(sectionName: *const ::core::ffi::c_char, cookie: i32);
 }
 extern "C" {
-    pub fn ATrace_setCounter(counterName: *const ::std::os::raw::c_char, counterValue: i64);
+    pub fn ATrace_setCounter(counterName: *const ::core::ffi::c_char, counterValue: i64);
 }
 pub const AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON: _bindgen_ty_47 = 1;
 pub const AWINDOW_FLAG_DIM_BEHIND: _bindgen_ty_47 = 2;
@@ -14053,31 +13962,31 @@ pub const AWINDOW_FLAG_SHOW_WHEN_LOCKED: _bindgen_ty_47 = 524288;
 pub const AWINDOW_FLAG_SHOW_WALLPAPER: _bindgen_ty_47 = 1048576;
 pub const AWINDOW_FLAG_TURN_SCREEN_ON: _bindgen_ty_47 = 2097152;
 pub const AWINDOW_FLAG_DISMISS_KEYGUARD: _bindgen_ty_47 = 4194304;
-pub type _bindgen_ty_47 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_47 = ::core::ffi::c_uint;
 extern "C" {
-    pub fn gettimeofday(__tv: *mut timeval, __tz: *mut timezone) -> ::std::os::raw::c_int;
+    pub fn gettimeofday(__tv: *mut timeval, __tz: *mut timezone) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn settimeofday(__tv: *const timeval, __tz: *const timezone) -> ::std::os::raw::c_int;
+    pub fn settimeofday(__tv: *const timeval, __tz: *const timezone) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn getitimer(
-        __which: ::std::os::raw::c_int,
+        __which: ::core::ffi::c_int,
         __current_value: *mut itimerval,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn setitimer(
-        __which: ::std::os::raw::c_int,
+        __which: ::core::ffi::c_int,
         __new_value: *const itimerval,
         __old_value: *mut itimerval,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn utimes(
-        __path: *const ::std::os::raw::c_char,
+        __path: *const ::core::ffi::c_char,
         __times: *const timeval,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -14086,87 +13995,87 @@ pub struct __timezone_t {
 }
 pub type timezone_t = *mut __timezone_t;
 extern "C" {
-    pub static mut tzname: [*mut ::std::os::raw::c_char; 0usize];
+    pub static mut tzname: [*mut ::core::ffi::c_char; 0usize];
 }
 extern "C" {
-    pub static mut daylight: ::std::os::raw::c_int;
+    pub static mut daylight: ::core::ffi::c_int;
 }
 extern "C" {
-    pub static mut timezone: ::std::os::raw::c_long;
+    pub static mut timezone: ::core::ffi::c_long;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct tm {
-    pub tm_sec: ::std::os::raw::c_int,
-    pub tm_min: ::std::os::raw::c_int,
-    pub tm_hour: ::std::os::raw::c_int,
-    pub tm_mday: ::std::os::raw::c_int,
-    pub tm_mon: ::std::os::raw::c_int,
-    pub tm_year: ::std::os::raw::c_int,
-    pub tm_wday: ::std::os::raw::c_int,
-    pub tm_yday: ::std::os::raw::c_int,
-    pub tm_isdst: ::std::os::raw::c_int,
-    pub tm_gmtoff: ::std::os::raw::c_long,
-    pub tm_zone: *const ::std::os::raw::c_char,
+    pub tm_sec: ::core::ffi::c_int,
+    pub tm_min: ::core::ffi::c_int,
+    pub tm_hour: ::core::ffi::c_int,
+    pub tm_mday: ::core::ffi::c_int,
+    pub tm_mon: ::core::ffi::c_int,
+    pub tm_year: ::core::ffi::c_int,
+    pub tm_wday: ::core::ffi::c_int,
+    pub tm_yday: ::core::ffi::c_int,
+    pub tm_isdst: ::core::ffi::c_int,
+    pub tm_gmtoff: ::core::ffi::c_long,
+    pub tm_zone: *const ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_tm() {
-    const UNINIT: ::std::mem::MaybeUninit<tm> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<tm> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<tm>(), 56usize, "Size of tm");
-    assert_eq!(::std::mem::align_of::<tm>(), 8usize, "Alignment of tm");
+    assert_eq!(::core::mem::size_of::<tm>(), 56usize, "Size of tm");
+    assert_eq!(::core::mem::align_of::<tm>(), 8usize, "Alignment of tm");
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_sec) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_sec) as usize - ptr as usize },
         0usize,
         "Offset of field: tm::tm_sec"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_min) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_min) as usize - ptr as usize },
         4usize,
         "Offset of field: tm::tm_min"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_hour) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_hour) as usize - ptr as usize },
         8usize,
         "Offset of field: tm::tm_hour"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_mday) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_mday) as usize - ptr as usize },
         12usize,
         "Offset of field: tm::tm_mday"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_mon) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_mon) as usize - ptr as usize },
         16usize,
         "Offset of field: tm::tm_mon"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_year) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_year) as usize - ptr as usize },
         20usize,
         "Offset of field: tm::tm_year"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_wday) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_wday) as usize - ptr as usize },
         24usize,
         "Offset of field: tm::tm_wday"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_yday) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_yday) as usize - ptr as usize },
         28usize,
         "Offset of field: tm::tm_yday"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_isdst) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_isdst) as usize - ptr as usize },
         32usize,
         "Offset of field: tm::tm_isdst"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_gmtoff) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_gmtoff) as usize - ptr as usize },
         40usize,
         "Offset of field: tm::tm_gmtoff"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tm_zone) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tm_zone) as usize - ptr as usize },
         48usize,
         "Offset of field: tm::tm_zone"
     );
@@ -14175,19 +14084,14 @@ extern "C" {
     pub fn time(__t: *mut time_t) -> time_t;
 }
 extern "C" {
-    pub fn nanosleep(
-        __duration: *const timespec,
-        __remainder: *mut timespec,
-    ) -> ::std::os::raw::c_int;
+    pub fn nanosleep(__duration: *const timespec, __remainder: *mut timespec)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn asctime(__tm: *const tm) -> *mut ::std::os::raw::c_char;
+    pub fn asctime(__tm: *const tm) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn asctime_r(
-        __tm: *const tm,
-        __buf: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+    pub fn asctime_r(__tm: *const tm, __buf: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn difftime(__lhs: time_t, __rhs: time_t) -> f64;
@@ -14221,50 +14125,48 @@ extern "C" {
 }
 extern "C" {
     pub fn strptime(
-        __s: *const ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __tm: *mut tm,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strptime_l(
-        __s: *const ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
+        __s: *const ::core::ffi::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __tm: *mut tm,
         __l: locale_t,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn strftime(
-        __buf: *mut ::std::os::raw::c_char,
+        __buf: *mut ::core::ffi::c_char,
         __n: usize,
-        __fmt: *const ::std::os::raw::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __tm: *const tm,
     ) -> usize;
 }
 extern "C" {
     pub fn strftime_l(
-        __buf: *mut ::std::os::raw::c_char,
+        __buf: *mut ::core::ffi::c_char,
         __n: usize,
-        __fmt: *const ::std::os::raw::c_char,
+        __fmt: *const ::core::ffi::c_char,
         __tm: *const tm,
         __l: locale_t,
     ) -> usize;
 }
 extern "C" {
-    pub fn ctime(__t: *const time_t) -> *mut ::std::os::raw::c_char;
+    pub fn ctime(__t: *const time_t) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn ctime_r(
-        __t: *const time_t,
-        __buf: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+    pub fn ctime_r(__t: *const time_t, __buf: *mut ::core::ffi::c_char)
+        -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn tzset();
 }
 extern "C" {
-    pub fn tzalloc(__id: *const ::std::os::raw::c_char) -> timezone_t;
+    pub fn tzalloc(__id: *const ::core::ffi::c_char) -> timezone_t;
 }
 extern "C" {
     pub fn tzfree(__tz: timezone_t);
@@ -14273,64 +14175,58 @@ extern "C" {
     pub fn clock() -> clock_t;
 }
 extern "C" {
-    pub fn clock_getcpuclockid(__pid: pid_t, __clock: *mut clockid_t) -> ::std::os::raw::c_int;
+    pub fn clock_getcpuclockid(__pid: pid_t, __clock: *mut clockid_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn clock_getres(__clock: clockid_t, __resolution: *mut timespec) -> ::std::os::raw::c_int;
+    pub fn clock_getres(__clock: clockid_t, __resolution: *mut timespec) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn clock_gettime(__clock: clockid_t, __ts: *mut timespec) -> ::std::os::raw::c_int;
+    pub fn clock_gettime(__clock: clockid_t, __ts: *mut timespec) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn clock_nanosleep(
         __clock: clockid_t,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
         __time: *const timespec,
         __remainder: *mut timespec,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn clock_settime(__clock: clockid_t, __ts: *const timespec) -> ::std::os::raw::c_int;
+    pub fn clock_settime(__clock: clockid_t, __ts: *const timespec) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn timer_create(
         __clock: clockid_t,
         __event: *mut sigevent,
         __timer_ptr: *mut timer_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn timer_delete(__timer: timer_t) -> ::std::os::raw::c_int;
+    pub fn timer_delete(__timer: timer_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn timer_settime(
         __timer: timer_t,
-        __flags: ::std::os::raw::c_int,
+        __flags: ::core::ffi::c_int,
         __new_value: *const itimerspec,
         __old_value: *mut itimerspec,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn timer_gettime(_timer: timer_t, __ts: *mut itimerspec) -> ::std::os::raw::c_int;
+    pub fn timer_gettime(_timer: timer_t, __ts: *mut itimerspec) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn timer_getoverrun(__timer: timer_t) -> ::std::os::raw::c_int;
+    pub fn timer_getoverrun(__timer: timer_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn timespec_get(
-        __ts: *mut timespec,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn timespec_get(__ts: *mut timespec, __base: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn timespec_getres(
-        __ts: *mut timespec,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn timespec_getres(__ts: *mut timespec, __base: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 pub const AAUDIO_DIRECTION_OUTPUT: _bindgen_ty_48 = 0;
 pub const AAUDIO_DIRECTION_INPUT: _bindgen_ty_48 = 1;
-pub type _bindgen_ty_48 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_48 = ::core::ffi::c_uint;
 pub type aaudio_direction_t = i32;
 pub const AAUDIO_FORMAT_INVALID: _bindgen_ty_49 = -1;
 pub const AAUDIO_FORMAT_UNSPECIFIED: _bindgen_ty_49 = 0;
@@ -14339,7 +14235,7 @@ pub const AAUDIO_FORMAT_PCM_FLOAT: _bindgen_ty_49 = 2;
 pub const AAUDIO_FORMAT_PCM_I24_PACKED: _bindgen_ty_49 = 3;
 pub const AAUDIO_FORMAT_PCM_I32: _bindgen_ty_49 = 4;
 pub const AAUDIO_FORMAT_IEC61937: _bindgen_ty_49 = 5;
-pub type _bindgen_ty_49 = ::std::os::raw::c_int;
+pub type _bindgen_ty_49 = ::core::ffi::c_int;
 pub type aaudio_format_t = i32;
 pub const AAUDIO_OK: _bindgen_ty_50 = 0;
 pub const AAUDIO_ERROR_BASE: _bindgen_ty_50 = -900;
@@ -14359,7 +14255,7 @@ pub const AAUDIO_ERROR_INVALID_FORMAT: _bindgen_ty_50 = -883;
 pub const AAUDIO_ERROR_OUT_OF_RANGE: _bindgen_ty_50 = -882;
 pub const AAUDIO_ERROR_NO_SERVICE: _bindgen_ty_50 = -881;
 pub const AAUDIO_ERROR_INVALID_RATE: _bindgen_ty_50 = -880;
-pub type _bindgen_ty_50 = ::std::os::raw::c_int;
+pub type _bindgen_ty_50 = ::core::ffi::c_int;
 pub type aaudio_result_t = i32;
 pub const AAUDIO_STREAM_STATE_UNINITIALIZED: _bindgen_ty_51 = 0;
 pub const AAUDIO_STREAM_STATE_UNKNOWN: _bindgen_ty_51 = 1;
@@ -14375,16 +14271,16 @@ pub const AAUDIO_STREAM_STATE_STOPPED: _bindgen_ty_51 = 10;
 pub const AAUDIO_STREAM_STATE_CLOSING: _bindgen_ty_51 = 11;
 pub const AAUDIO_STREAM_STATE_CLOSED: _bindgen_ty_51 = 12;
 pub const AAUDIO_STREAM_STATE_DISCONNECTED: _bindgen_ty_51 = 13;
-pub type _bindgen_ty_51 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_51 = ::core::ffi::c_uint;
 pub type aaudio_stream_state_t = i32;
 pub const AAUDIO_SHARING_MODE_EXCLUSIVE: _bindgen_ty_52 = 0;
 pub const AAUDIO_SHARING_MODE_SHARED: _bindgen_ty_52 = 1;
-pub type _bindgen_ty_52 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_52 = ::core::ffi::c_uint;
 pub type aaudio_sharing_mode_t = i32;
 pub const AAUDIO_PERFORMANCE_MODE_NONE: _bindgen_ty_53 = 10;
 pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING: _bindgen_ty_53 = 11;
 pub const AAUDIO_PERFORMANCE_MODE_LOW_LATENCY: _bindgen_ty_53 = 12;
-pub type _bindgen_ty_53 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_53 = ::core::ffi::c_uint;
 pub type aaudio_performance_mode_t = i32;
 pub const AAUDIO_USAGE_MEDIA: _bindgen_ty_54 = 1;
 pub const AAUDIO_USAGE_VOICE_COMMUNICATION: _bindgen_ty_54 = 2;
@@ -14402,17 +14298,17 @@ pub const AAUDIO_SYSTEM_USAGE_EMERGENCY: _bindgen_ty_54 = 1000;
 pub const AAUDIO_SYSTEM_USAGE_SAFETY: _bindgen_ty_54 = 1001;
 pub const AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS: _bindgen_ty_54 = 1002;
 pub const AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT: _bindgen_ty_54 = 1003;
-pub type _bindgen_ty_54 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_54 = ::core::ffi::c_uint;
 pub type aaudio_usage_t = i32;
 pub const AAUDIO_CONTENT_TYPE_SPEECH: _bindgen_ty_55 = 1;
 pub const AAUDIO_CONTENT_TYPE_MUSIC: _bindgen_ty_55 = 2;
 pub const AAUDIO_CONTENT_TYPE_MOVIE: _bindgen_ty_55 = 3;
 pub const AAUDIO_CONTENT_TYPE_SONIFICATION: _bindgen_ty_55 = 4;
-pub type _bindgen_ty_55 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_55 = ::core::ffi::c_uint;
 pub type aaudio_content_type_t = i32;
 pub const AAUDIO_SPATIALIZATION_BEHAVIOR_AUTO: _bindgen_ty_56 = 1;
 pub const AAUDIO_SPATIALIZATION_BEHAVIOR_NEVER: _bindgen_ty_56 = 2;
-pub type _bindgen_ty_56 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_56 = ::core::ffi::c_uint;
 pub type aaudio_spatialization_behavior_t = i32;
 pub const AAUDIO_INPUT_PRESET_GENERIC: _bindgen_ty_57 = 1;
 pub const AAUDIO_INPUT_PRESET_CAMCORDER: _bindgen_ty_57 = 5;
@@ -14422,16 +14318,16 @@ pub const AAUDIO_INPUT_PRESET_UNPROCESSED: _bindgen_ty_57 = 9;
 pub const AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE: _bindgen_ty_57 = 10;
 pub const AAUDIO_INPUT_PRESET_SYSTEM_ECHO_REFERENCE: _bindgen_ty_57 = 1997;
 pub const AAUDIO_INPUT_PRESET_SYSTEM_HOTWORD: _bindgen_ty_57 = 1999;
-pub type _bindgen_ty_57 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_57 = ::core::ffi::c_uint;
 pub type aaudio_input_preset_t = i32;
 pub const AAUDIO_ALLOW_CAPTURE_BY_ALL: _bindgen_ty_58 = 1;
 pub const AAUDIO_ALLOW_CAPTURE_BY_SYSTEM: _bindgen_ty_58 = 2;
 pub const AAUDIO_ALLOW_CAPTURE_BY_NONE: _bindgen_ty_58 = 3;
-pub type _bindgen_ty_58 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_58 = ::core::ffi::c_uint;
 pub type aaudio_allowed_capture_policy_t = i32;
 pub const AAUDIO_SESSION_ID_NONE: _bindgen_ty_59 = -1;
 pub const AAUDIO_SESSION_ID_ALLOCATE: _bindgen_ty_59 = 0;
-pub type _bindgen_ty_59 = ::std::os::raw::c_int;
+pub type _bindgen_ty_59 = ::core::ffi::c_int;
 pub type aaudio_session_id_t = i32;
 pub const AAUDIO_CHANNEL_INVALID: _bindgen_ty_60 = -1;
 pub const AAUDIO_CHANNEL_FRONT_LEFT: _bindgen_ty_60 = 1;
@@ -14485,7 +14381,7 @@ pub const AAUDIO_CHANNEL_7POINT1POINT4: _bindgen_ty_60 = 185919;
 pub const AAUDIO_CHANNEL_9POINT1POINT4: _bindgen_ty_60 = 50517567;
 pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_60 = 51303999;
 pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_60 = 260;
-pub type _bindgen_ty_60 = ::std::os::raw::c_int;
+pub type _bindgen_ty_60 = ::core::ffi::c_int;
 pub type aaudio_channel_mask_t = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -14500,13 +14396,12 @@ pub struct AAudioStreamBuilderStruct {
 }
 pub type AAudioStreamBuilder = AAudioStreamBuilderStruct;
 extern "C" {
-    pub fn AAudio_convertResultToText(returnCode: aaudio_result_t)
-        -> *const ::std::os::raw::c_char;
+    pub fn AAudio_convertResultToText(returnCode: aaudio_result_t) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AAudio_convertStreamStateToText(
         state: aaudio_stream_state_t,
-    ) -> *const ::std::os::raw::c_char;
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AAudio_createStreamBuilder(builder: *mut *mut AAudioStreamBuilder) -> aaudio_result_t;
@@ -14517,13 +14412,13 @@ extern "C" {
 extern "C" {
     pub fn AAudioStreamBuilder_setPackageName(
         builder: *mut AAudioStreamBuilder,
-        packageName: *const ::std::os::raw::c_char,
+        packageName: *const ::core::ffi::c_char,
     );
 }
 extern "C" {
     pub fn AAudioStreamBuilder_setAttributionTag(
         builder: *mut AAudioStreamBuilder,
-        attributionTag: *const ::std::os::raw::c_char,
+        attributionTag: *const ::core::ffi::c_char,
     );
 }
 extern "C" {
@@ -14618,13 +14513,13 @@ extern "C" {
 }
 pub const AAUDIO_CALLBACK_RESULT_CONTINUE: _bindgen_ty_61 = 0;
 pub const AAUDIO_CALLBACK_RESULT_STOP: _bindgen_ty_61 = 1;
-pub type _bindgen_ty_61 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_61 = ::core::ffi::c_uint;
 pub type aaudio_data_callback_result_t = i32;
-pub type AAudioStream_dataCallback = ::std::option::Option<
+pub type AAudioStream_dataCallback = ::core::option::Option<
     unsafe extern "C" fn(
         stream: *mut AAudioStream,
-        userData: *mut ::std::os::raw::c_void,
-        audioData: *mut ::std::os::raw::c_void,
+        userData: *mut ::core::ffi::c_void,
+        audioData: *mut ::core::ffi::c_void,
         numFrames: i32,
     ) -> aaudio_data_callback_result_t,
 >;
@@ -14632,7 +14527,7 @@ extern "C" {
     pub fn AAudioStreamBuilder_setDataCallback(
         builder: *mut AAudioStreamBuilder,
         callback: AAudioStream_dataCallback,
-        userData: *mut ::std::os::raw::c_void,
+        userData: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
@@ -14641,10 +14536,10 @@ extern "C" {
         numFrames: i32,
     );
 }
-pub type AAudioStream_errorCallback = ::std::option::Option<
+pub type AAudioStream_errorCallback = ::core::option::Option<
     unsafe extern "C" fn(
         stream: *mut AAudioStream,
-        userData: *mut ::std::os::raw::c_void,
+        userData: *mut ::core::ffi::c_void,
         error: aaudio_result_t,
     ),
 >;
@@ -14652,7 +14547,7 @@ extern "C" {
     pub fn AAudioStreamBuilder_setErrorCallback(
         builder: *mut AAudioStreamBuilder,
         callback: AAudioStream_errorCallback,
-        userData: *mut ::std::os::raw::c_void,
+        userData: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
@@ -14702,7 +14597,7 @@ extern "C" {
 extern "C" {
     pub fn AAudioStream_read(
         stream: *mut AAudioStream,
-        buffer: *mut ::std::os::raw::c_void,
+        buffer: *mut ::core::ffi::c_void,
         numFrames: i32,
         timeoutNanoseconds: i64,
     ) -> aaudio_result_t;
@@ -14710,7 +14605,7 @@ extern "C" {
 extern "C" {
     pub fn AAudioStream_write(
         stream: *mut AAudioStream,
-        buffer: *const ::std::os::raw::c_void,
+        buffer: *const ::core::ffi::c_void,
         numFrames: i32,
         timeoutNanoseconds: i64,
     ) -> aaudio_result_t;
@@ -14903,7 +14798,7 @@ impl media_status_t {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct media_status_t(pub ::std::os::raw::c_int);
+pub struct media_status_t(pub ::core::ffi::c_int);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AMidiDevice {
@@ -14921,11 +14816,11 @@ pub struct AMidiOutputPort {
 }
 pub const AMIDI_OPCODE_DATA: _bindgen_ty_62 = 1;
 pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_62 = 2;
-pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_62 = ::core::ffi::c_uint;
 pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_63 = 1;
 pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_63 = 2;
 pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_63 = 3;
-pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_63 = ::core::ffi::c_uint;
 impl AMidiDevice_Protocol {
     pub const AMIDI_DEVICE_PROTOCOL_UMP_USE_MIDI_CI: AMidiDevice_Protocol = AMidiDevice_Protocol(0);
 }
@@ -15081,7 +14976,7 @@ impl camera_status_t {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct camera_status_t(pub ::std::os::raw::c_int);
+pub struct camera_status_t(pub ::core::ffi::c_int);
 impl acamera_metadata_section {
     pub const ACAMERA_COLOR_CORRECTION: acamera_metadata_section = acamera_metadata_section(0);
 }
@@ -15193,7 +15088,7 @@ impl acamera_metadata_section {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_section(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_section(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_section as acamera_metadata_section_t;
 impl acamera_metadata_section_start {
     pub const ACAMERA_COLOR_CORRECTION_START: acamera_metadata_section_start =
@@ -15337,7 +15232,7 @@ impl acamera_metadata_section_start {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_section_start(pub ::std::os::raw::c_int);
+pub struct acamera_metadata_section_start(pub ::core::ffi::c_int);
 pub use self::acamera_metadata_section_start as acamera_metadata_section_start_t;
 impl acamera_metadata_tag {
     pub const ACAMERA_COLOR_CORRECTION_MODE: acamera_metadata_tag = acamera_metadata_tag(0);
@@ -16322,7 +16217,7 @@ impl acamera_metadata_tag {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_tag(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_tag(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_tag as acamera_metadata_tag_t;
 impl acamera_metadata_enum_acamera_color_correction_mode {
     pub const ACAMERA_COLOR_CORRECTION_MODE_TRANSFORM_MATRIX:
@@ -16341,7 +16236,7 @@ impl acamera_metadata_enum_acamera_color_correction_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_color_correction_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_color_correction_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_color_correction_mode as acamera_metadata_enum_android_color_correction_mode_t;
 impl acamera_metadata_enum_acamera_color_correction_aberration_mode {
     pub const ACAMERA_COLOR_CORRECTION_ABERRATION_MODE_OFF:
@@ -16360,9 +16255,7 @@ impl acamera_metadata_enum_acamera_color_correction_aberration_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_color_correction_aberration_mode(
-    pub ::std::os::raw::c_uint,
-);
+pub struct acamera_metadata_enum_acamera_color_correction_aberration_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_color_correction_aberration_mode as acamera_metadata_enum_android_color_correction_aberration_mode_t;
 impl acamera_metadata_enum_acamera_control_ae_antibanding_mode {
     pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE_OFF:
@@ -16386,7 +16279,7 @@ impl acamera_metadata_enum_acamera_control_ae_antibanding_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_ae_antibanding_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_ae_antibanding_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_antibanding_mode as acamera_metadata_enum_android_control_ae_antibanding_mode_t;
 impl acamera_metadata_enum_acamera_control_ae_lock {
     pub const ACAMERA_CONTROL_AE_LOCK_OFF: acamera_metadata_enum_acamera_control_ae_lock =
@@ -16398,7 +16291,7 @@ impl acamera_metadata_enum_acamera_control_ae_lock {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_ae_lock(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_ae_lock(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_lock as acamera_metadata_enum_android_control_ae_lock_t;
 impl acamera_metadata_enum_acamera_control_ae_mode {
     pub const ACAMERA_CONTROL_AE_MODE_OFF: acamera_metadata_enum_acamera_control_ae_mode =
@@ -16434,7 +16327,7 @@ impl acamera_metadata_enum_acamera_control_ae_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_ae_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_ae_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_mode as acamera_metadata_enum_android_control_ae_mode_t;
 impl acamera_metadata_enum_acamera_control_ae_precapture_trigger {
     pub const ACAMERA_CONTROL_AE_PRECAPTURE_TRIGGER_IDLE:
@@ -16453,7 +16346,7 @@ impl acamera_metadata_enum_acamera_control_ae_precapture_trigger {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_ae_precapture_trigger(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_ae_precapture_trigger(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_precapture_trigger as acamera_metadata_enum_android_control_ae_precapture_trigger_t;
 impl acamera_metadata_enum_acamera_control_af_mode {
     pub const ACAMERA_CONTROL_AF_MODE_OFF: acamera_metadata_enum_acamera_control_af_mode =
@@ -16483,7 +16376,7 @@ impl acamera_metadata_enum_acamera_control_af_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_af_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_af_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_mode as acamera_metadata_enum_android_control_af_mode_t;
 impl acamera_metadata_enum_acamera_control_af_trigger {
     pub const ACAMERA_CONTROL_AF_TRIGGER_IDLE: acamera_metadata_enum_acamera_control_af_trigger =
@@ -16499,7 +16392,7 @@ impl acamera_metadata_enum_acamera_control_af_trigger {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_af_trigger(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_af_trigger(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_trigger as acamera_metadata_enum_android_control_af_trigger_t;
 impl acamera_metadata_enum_acamera_control_awb_lock {
     pub const ACAMERA_CONTROL_AWB_LOCK_OFF: acamera_metadata_enum_acamera_control_awb_lock =
@@ -16511,7 +16404,7 @@ impl acamera_metadata_enum_acamera_control_awb_lock {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_awb_lock(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_awb_lock(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_lock as acamera_metadata_enum_android_control_awb_lock_t;
 impl acamera_metadata_enum_acamera_control_awb_mode {
     pub const ACAMERA_CONTROL_AWB_MODE_OFF: acamera_metadata_enum_acamera_control_awb_mode =
@@ -16554,7 +16447,7 @@ impl acamera_metadata_enum_acamera_control_awb_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_awb_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_awb_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_mode as acamera_metadata_enum_android_control_awb_mode_t;
 impl acamera_metadata_enum_acamera_control_capture_intent {
     pub const ACAMERA_CONTROL_CAPTURE_INTENT_CUSTOM:
@@ -16598,7 +16491,7 @@ impl acamera_metadata_enum_acamera_control_capture_intent {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_capture_intent(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_capture_intent(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_capture_intent as acamera_metadata_enum_android_control_capture_intent_t;
 impl acamera_metadata_enum_acamera_control_effect_mode {
     pub const ACAMERA_CONTROL_EFFECT_MODE_OFF: acamera_metadata_enum_acamera_control_effect_mode =
@@ -16643,7 +16536,7 @@ impl acamera_metadata_enum_acamera_control_effect_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_effect_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_effect_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_effect_mode as acamera_metadata_enum_android_control_effect_mode_t;
 impl acamera_metadata_enum_acamera_control_mode {
     pub const ACAMERA_CONTROL_MODE_OFF: acamera_metadata_enum_acamera_control_mode =
@@ -16667,7 +16560,7 @@ impl acamera_metadata_enum_acamera_control_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_mode as acamera_metadata_enum_android_control_mode_t;
 impl acamera_metadata_enum_acamera_control_scene_mode {
     pub const ACAMERA_CONTROL_SCENE_MODE_DISABLED:
@@ -16751,7 +16644,7 @@ impl acamera_metadata_enum_acamera_control_scene_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_scene_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_scene_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_scene_mode as acamera_metadata_enum_android_control_scene_mode_t;
 impl acamera_metadata_enum_acamera_control_video_stabilization_mode {
     pub const ACAMERA_CONTROL_VIDEO_STABILIZATION_MODE_OFF:
@@ -16770,9 +16663,7 @@ impl acamera_metadata_enum_acamera_control_video_stabilization_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_video_stabilization_mode(
-    pub ::std::os::raw::c_uint,
-);
+pub struct acamera_metadata_enum_acamera_control_video_stabilization_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_video_stabilization_mode as acamera_metadata_enum_android_control_video_stabilization_mode_t;
 impl acamera_metadata_enum_acamera_control_ae_state {
     pub const ACAMERA_CONTROL_AE_STATE_INACTIVE: acamera_metadata_enum_acamera_control_ae_state =
@@ -16801,7 +16692,7 @@ impl acamera_metadata_enum_acamera_control_ae_state {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_ae_state(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_ae_state(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_state as acamera_metadata_enum_android_control_ae_state_t;
 impl acamera_metadata_enum_acamera_control_af_state {
     pub const ACAMERA_CONTROL_AF_STATE_INACTIVE: acamera_metadata_enum_acamera_control_af_state =
@@ -16838,7 +16729,7 @@ impl acamera_metadata_enum_acamera_control_af_state {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_af_state(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_af_state(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_state as acamera_metadata_enum_android_control_af_state_t;
 impl acamera_metadata_enum_acamera_control_awb_state {
     pub const ACAMERA_CONTROL_AWB_STATE_INACTIVE: acamera_metadata_enum_acamera_control_awb_state =
@@ -16858,7 +16749,7 @@ impl acamera_metadata_enum_acamera_control_awb_state {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_awb_state(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_awb_state(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_state as acamera_metadata_enum_android_control_awb_state_t;
 impl acamera_metadata_enum_acamera_control_ae_lock_available {
     pub const ACAMERA_CONTROL_AE_LOCK_AVAILABLE_FALSE:
@@ -16872,7 +16763,7 @@ impl acamera_metadata_enum_acamera_control_ae_lock_available {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_ae_lock_available(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_ae_lock_available(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_ae_lock_available as acamera_metadata_enum_android_control_ae_lock_available_t;
 impl acamera_metadata_enum_acamera_control_awb_lock_available {
     pub const ACAMERA_CONTROL_AWB_LOCK_AVAILABLE_FALSE:
@@ -16886,7 +16777,7 @@ impl acamera_metadata_enum_acamera_control_awb_lock_available {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_awb_lock_available(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_awb_lock_available(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_awb_lock_available as acamera_metadata_enum_android_control_awb_lock_available_t;
 impl acamera_metadata_enum_acamera_control_enable_zsl {
     pub const ACAMERA_CONTROL_ENABLE_ZSL_FALSE: acamera_metadata_enum_acamera_control_enable_zsl =
@@ -16898,7 +16789,7 @@ impl acamera_metadata_enum_acamera_control_enable_zsl {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_enable_zsl(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_enable_zsl(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_enable_zsl as acamera_metadata_enum_android_control_enable_zsl_t;
 impl acamera_metadata_enum_acamera_control_af_scene_change {
     pub const ACAMERA_CONTROL_AF_SCENE_CHANGE_NOT_DETECTED:
@@ -16912,7 +16803,7 @@ impl acamera_metadata_enum_acamera_control_af_scene_change {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_af_scene_change(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_af_scene_change(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_af_scene_change as acamera_metadata_enum_android_control_af_scene_change_t;
 impl acamera_metadata_enum_acamera_control_extended_scene_mode {
     pub const ACAMERA_CONTROL_EXTENDED_SCENE_MODE_DISABLED:
@@ -16931,7 +16822,7 @@ impl acamera_metadata_enum_acamera_control_extended_scene_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_extended_scene_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_extended_scene_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_extended_scene_mode as acamera_metadata_enum_android_control_extended_scene_mode_t;
 impl acamera_metadata_enum_acamera_control_settings_override {
     pub const ACAMERA_CONTROL_SETTINGS_OVERRIDE_OFF:
@@ -16945,7 +16836,7 @@ impl acamera_metadata_enum_acamera_control_settings_override {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_settings_override(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_settings_override(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_settings_override as acamera_metadata_enum_android_control_settings_override_t;
 impl acamera_metadata_enum_acamera_control_autoframing {
     pub const ACAMERA_CONTROL_AUTOFRAMING_OFF: acamera_metadata_enum_acamera_control_autoframing =
@@ -16957,7 +16848,7 @@ impl acamera_metadata_enum_acamera_control_autoframing {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_autoframing(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_autoframing(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_autoframing as acamera_metadata_enum_android_control_autoframing_t;
 impl acamera_metadata_enum_acamera_control_autoframing_available {
     pub const ACAMERA_CONTROL_AUTOFRAMING_AVAILABLE_FALSE:
@@ -16971,7 +16862,7 @@ impl acamera_metadata_enum_acamera_control_autoframing_available {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_autoframing_available(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_autoframing_available(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_autoframing_available as acamera_metadata_enum_android_control_autoframing_available_t;
 impl acamera_metadata_enum_acamera_control_autoframing_state {
     pub const ACAMERA_CONTROL_AUTOFRAMING_STATE_INACTIVE:
@@ -16990,7 +16881,7 @@ impl acamera_metadata_enum_acamera_control_autoframing_state {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_autoframing_state(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_autoframing_state(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_autoframing_state as acamera_metadata_enum_android_control_autoframing_state_t;
 impl acamera_metadata_enum_acamera_control_low_light_boost_state {
     pub const ACAMERA_CONTROL_LOW_LIGHT_BOOST_STATE_INACTIVE:
@@ -17004,7 +16895,7 @@ impl acamera_metadata_enum_acamera_control_low_light_boost_state {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_control_low_light_boost_state(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_control_low_light_boost_state(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_low_light_boost_state as acamera_metadata_enum_android_control_low_light_boost_state_t;
 impl acamera_metadata_enum_acamera_edge_mode {
     pub const ACAMERA_EDGE_MODE_OFF: acamera_metadata_enum_acamera_edge_mode =
@@ -17024,7 +16915,7 @@ impl acamera_metadata_enum_acamera_edge_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_edge_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_edge_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_edge_mode as acamera_metadata_enum_android_edge_mode_t;
 impl acamera_metadata_enum_acamera_flash_mode {
     pub const ACAMERA_FLASH_MODE_OFF: acamera_metadata_enum_acamera_flash_mode =
@@ -17040,7 +16931,7 @@ impl acamera_metadata_enum_acamera_flash_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_flash_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_flash_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_flash_mode as acamera_metadata_enum_android_flash_mode_t;
 impl acamera_metadata_enum_acamera_flash_state {
     pub const ACAMERA_FLASH_STATE_UNAVAILABLE: acamera_metadata_enum_acamera_flash_state =
@@ -17064,7 +16955,7 @@ impl acamera_metadata_enum_acamera_flash_state {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_flash_state(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_flash_state(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_flash_state as acamera_metadata_enum_android_flash_state_t;
 impl acamera_metadata_enum_acamera_flash_info_available {
     pub const ACAMERA_FLASH_INFO_AVAILABLE_FALSE:
@@ -17078,7 +16969,7 @@ impl acamera_metadata_enum_acamera_flash_info_available {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_flash_info_available(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_flash_info_available(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_flash_info_available as acamera_metadata_enum_android_flash_info_available_t;
 impl acamera_metadata_enum_acamera_hot_pixel_mode {
     pub const ACAMERA_HOT_PIXEL_MODE_OFF: acamera_metadata_enum_acamera_hot_pixel_mode =
@@ -17094,7 +16985,7 @@ impl acamera_metadata_enum_acamera_hot_pixel_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_hot_pixel_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_hot_pixel_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_hot_pixel_mode as acamera_metadata_enum_android_hot_pixel_mode_t;
 impl acamera_metadata_enum_acamera_lens_optical_stabilization_mode {
     pub const ACAMERA_LENS_OPTICAL_STABILIZATION_MODE_OFF:
@@ -17108,9 +16999,7 @@ impl acamera_metadata_enum_acamera_lens_optical_stabilization_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_lens_optical_stabilization_mode(
-    pub ::std::os::raw::c_uint,
-);
+pub struct acamera_metadata_enum_acamera_lens_optical_stabilization_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_lens_optical_stabilization_mode as acamera_metadata_enum_android_lens_optical_stabilization_mode_t;
 impl acamera_metadata_enum_acamera_lens_facing {
     pub const ACAMERA_LENS_FACING_FRONT: acamera_metadata_enum_acamera_lens_facing =
@@ -17126,7 +17015,7 @@ impl acamera_metadata_enum_acamera_lens_facing {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_lens_facing(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_lens_facing(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_lens_facing as acamera_metadata_enum_android_lens_facing_t;
 impl acamera_metadata_enum_acamera_lens_state {
     pub const ACAMERA_LENS_STATE_STATIONARY: acamera_metadata_enum_acamera_lens_state =
@@ -17138,7 +17027,7 @@ impl acamera_metadata_enum_acamera_lens_state {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_lens_state(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_lens_state(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_lens_state as acamera_metadata_enum_android_lens_state_t;
 impl acamera_metadata_enum_acamera_lens_pose_reference {
     pub const ACAMERA_LENS_POSE_REFERENCE_PRIMARY_CAMERA:
@@ -17162,7 +17051,7 @@ impl acamera_metadata_enum_acamera_lens_pose_reference {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_lens_pose_reference(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_lens_pose_reference(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_lens_pose_reference as acamera_metadata_enum_android_lens_pose_reference_t;
 impl acamera_metadata_enum_acamera_lens_info_focus_distance_calibration {
     pub const ACAMERA_LENS_INFO_FOCUS_DISTANCE_CALIBRATION_UNCALIBRATED:
@@ -17182,7 +17071,7 @@ impl acamera_metadata_enum_acamera_lens_info_focus_distance_calibration {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_lens_info_focus_distance_calibration(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_lens_info_focus_distance_calibration as acamera_metadata_enum_android_lens_info_focus_distance_calibration_t;
 impl acamera_metadata_enum_acamera_noise_reduction_mode {
@@ -17211,7 +17100,7 @@ impl acamera_metadata_enum_acamera_noise_reduction_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_noise_reduction_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_noise_reduction_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_noise_reduction_mode as acamera_metadata_enum_android_noise_reduction_mode_t;
 impl acamera_metadata_enum_acamera_request_available_capabilities {
     pub const ACAMERA_REQUEST_AVAILABLE_CAPABILITIES_BACKWARD_COMPATIBLE:
@@ -17285,7 +17174,7 @@ impl acamera_metadata_enum_acamera_request_available_capabilities {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_request_available_capabilities(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_request_available_capabilities(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_request_available_capabilities as acamera_metadata_enum_android_request_available_capabilities_t;
 impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map {
     pub const ACAMERA_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_STANDARD:
@@ -17355,7 +17244,7 @@ impl acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map 
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_request_available_dynamic_range_profiles_map as acamera_metadata_enum_android_request_available_dynamic_range_profiles_map_t;
 impl acamera_metadata_enum_acamera_request_available_color_space_profiles_map {
@@ -17381,7 +17270,7 @@ impl acamera_metadata_enum_acamera_request_available_color_space_profiles_map {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_request_available_color_space_profiles_map(
-    pub ::std::os::raw::c_int,
+    pub ::core::ffi::c_int,
 );
 pub use self::acamera_metadata_enum_acamera_request_available_color_space_profiles_map as acamera_metadata_enum_android_request_available_color_space_profiles_map_t;
 impl acamera_metadata_enum_acamera_scaler_available_stream_configurations {
@@ -17397,7 +17286,7 @@ impl acamera_metadata_enum_acamera_scaler_available_stream_configurations {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_scaler_available_stream_configurations(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_scaler_available_stream_configurations as acamera_metadata_enum_android_scaler_available_stream_configurations_t;
 impl acamera_metadata_enum_acamera_scaler_cropping_type {
@@ -17412,7 +17301,7 @@ impl acamera_metadata_enum_acamera_scaler_cropping_type {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_scaler_cropping_type(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_scaler_cropping_type(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_scaler_cropping_type as acamera_metadata_enum_android_scaler_cropping_type_t;
 impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations {
     pub const ACAMERA_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PREVIEW:
@@ -17472,7 +17361,7 @@ impl acamera_metadata_enum_acamera_scaler_available_recommended_stream_configura
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_scaler_available_recommended_stream_configurations as acamera_metadata_enum_android_scaler_available_recommended_stream_configurations_t;
 impl acamera_metadata_enum_acamera_scaler_rotate_and_crop {
@@ -17502,7 +17391,7 @@ impl acamera_metadata_enum_acamera_scaler_rotate_and_crop {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_scaler_rotate_and_crop(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_scaler_rotate_and_crop(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_scaler_rotate_and_crop as acamera_metadata_enum_android_scaler_rotate_and_crop_t;
 impl acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations {
     pub const ACAMERA_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_OUTPUT:
@@ -17521,7 +17410,7 @@ impl acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_strea
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_scaler_physical_camera_multi_resolution_stream_configurations as acamera_metadata_enum_android_scaler_physical_camera_multi_resolution_stream_configurations_t;
 impl acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution {
@@ -17537,7 +17426,7 @@ impl acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximu
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_scaler_available_stream_configurations_maximum_resolution as acamera_metadata_enum_android_scaler_available_stream_configurations_maximum_resolution_t;
 impl acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported {
@@ -17553,7 +17442,7 @@ impl acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_scaler_multi_resolution_stream_supported as acamera_metadata_enum_android_scaler_multi_resolution_stream_supported_t;
 impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
@@ -17593,9 +17482,7 @@ impl acamera_metadata_enum_acamera_scaler_available_stream_use_cases {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_scaler_available_stream_use_cases(
-    pub ::std::os::raw::c_uint,
-);
+pub struct acamera_metadata_enum_acamera_scaler_available_stream_use_cases(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_scaler_available_stream_use_cases as acamera_metadata_enum_android_scaler_available_stream_use_cases_t;
 impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
     pub const ACAMERA_SENSOR_REFERENCE_ILLUMINANT1_DAYLIGHT:
@@ -17694,7 +17581,7 @@ impl acamera_metadata_enum_acamera_sensor_reference_illuminant1 {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sensor_reference_illuminant1(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_sensor_reference_illuminant1(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_reference_illuminant1 as acamera_metadata_enum_android_sensor_reference_illuminant1_t;
 impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
     pub const ACAMERA_SENSOR_TEST_PATTERN_MODE_OFF:
@@ -17728,7 +17615,7 @@ impl acamera_metadata_enum_acamera_sensor_test_pattern_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sensor_test_pattern_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_sensor_test_pattern_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_test_pattern_mode as acamera_metadata_enum_android_sensor_test_pattern_mode_t;
 impl acamera_metadata_enum_acamera_sensor_pixel_mode {
     pub const ACAMERA_SENSOR_PIXEL_MODE_DEFAULT: acamera_metadata_enum_acamera_sensor_pixel_mode =
@@ -17741,7 +17628,7 @@ impl acamera_metadata_enum_acamera_sensor_pixel_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sensor_pixel_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_sensor_pixel_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_pixel_mode as acamera_metadata_enum_android_sensor_pixel_mode_t;
 impl acamera_metadata_enum_acamera_sensor_raw_binning_factor_used {
     pub const ACAMERA_SENSOR_RAW_BINNING_FACTOR_USED_TRUE:
@@ -17755,7 +17642,7 @@ impl acamera_metadata_enum_acamera_sensor_raw_binning_factor_used {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sensor_raw_binning_factor_used(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_sensor_raw_binning_factor_used(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_raw_binning_factor_used as acamera_metadata_enum_android_sensor_raw_binning_factor_used_t;
 impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
     pub const ACAMERA_SENSOR_INFO_COLOR_FILTER_ARRANGEMENT_RGGB:
@@ -17795,7 +17682,7 @@ impl acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_sensor_info_color_filter_arrangement as acamera_metadata_enum_android_sensor_info_color_filter_arrangement_t;
 impl acamera_metadata_enum_acamera_sensor_info_timestamp_source {
@@ -17810,7 +17697,7 @@ impl acamera_metadata_enum_acamera_sensor_info_timestamp_source {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sensor_info_timestamp_source(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_sensor_info_timestamp_source(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_info_timestamp_source as acamera_metadata_enum_android_sensor_info_timestamp_source_t;
 impl acamera_metadata_enum_acamera_sensor_info_lens_shading_applied {
     pub const ACAMERA_SENSOR_INFO_LENS_SHADING_APPLIED_FALSE:
@@ -17824,9 +17711,7 @@ impl acamera_metadata_enum_acamera_sensor_info_lens_shading_applied {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sensor_info_lens_shading_applied(
-    pub ::std::os::raw::c_uint,
-);
+pub struct acamera_metadata_enum_acamera_sensor_info_lens_shading_applied(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_sensor_info_lens_shading_applied as acamera_metadata_enum_android_sensor_info_lens_shading_applied_t;
 impl acamera_metadata_enum_acamera_shading_mode {
     pub const ACAMERA_SHADING_MODE_OFF: acamera_metadata_enum_acamera_shading_mode =
@@ -17842,7 +17727,7 @@ impl acamera_metadata_enum_acamera_shading_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_shading_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_shading_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_shading_mode as acamera_metadata_enum_android_shading_mode_t;
 impl acamera_metadata_enum_acamera_statistics_face_detect_mode {
     pub const ACAMERA_STATISTICS_FACE_DETECT_MODE_OFF:
@@ -17861,7 +17746,7 @@ impl acamera_metadata_enum_acamera_statistics_face_detect_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_statistics_face_detect_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_statistics_face_detect_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_face_detect_mode as acamera_metadata_enum_android_statistics_face_detect_mode_t;
 impl acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode {
     pub const ACAMERA_STATISTICS_HOT_PIXEL_MAP_MODE_OFF:
@@ -17875,7 +17760,7 @@ impl acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_hot_pixel_map_mode as acamera_metadata_enum_android_statistics_hot_pixel_map_mode_t;
 impl acamera_metadata_enum_acamera_statistics_scene_flicker {
     pub const ACAMERA_STATISTICS_SCENE_FLICKER_NONE:
@@ -17894,7 +17779,7 @@ impl acamera_metadata_enum_acamera_statistics_scene_flicker {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_statistics_scene_flicker(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_statistics_scene_flicker(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_scene_flicker as acamera_metadata_enum_android_statistics_scene_flicker_t;
 impl acamera_metadata_enum_acamera_statistics_lens_shading_map_mode {
     pub const ACAMERA_STATISTICS_LENS_SHADING_MAP_MODE_OFF:
@@ -17908,9 +17793,7 @@ impl acamera_metadata_enum_acamera_statistics_lens_shading_map_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_statistics_lens_shading_map_mode(
-    pub ::std::os::raw::c_uint,
-);
+pub struct acamera_metadata_enum_acamera_statistics_lens_shading_map_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_lens_shading_map_mode as acamera_metadata_enum_android_statistics_lens_shading_map_mode_t;
 impl acamera_metadata_enum_acamera_statistics_ois_data_mode {
     pub const ACAMERA_STATISTICS_OIS_DATA_MODE_OFF:
@@ -17924,7 +17807,7 @@ impl acamera_metadata_enum_acamera_statistics_ois_data_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_statistics_ois_data_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_statistics_ois_data_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_statistics_ois_data_mode as acamera_metadata_enum_android_statistics_ois_data_mode_t;
 impl acamera_metadata_enum_acamera_tonemap_mode {
     pub const ACAMERA_TONEMAP_MODE_CONTRAST_CURVE: acamera_metadata_enum_acamera_tonemap_mode =
@@ -17948,7 +17831,7 @@ impl acamera_metadata_enum_acamera_tonemap_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_tonemap_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_tonemap_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_tonemap_mode as acamera_metadata_enum_android_tonemap_mode_t;
 impl acamera_metadata_enum_acamera_tonemap_preset_curve {
     pub const ACAMERA_TONEMAP_PRESET_CURVE_SRGB:
@@ -17962,7 +17845,7 @@ impl acamera_metadata_enum_acamera_tonemap_preset_curve {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_tonemap_preset_curve(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_tonemap_preset_curve(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_tonemap_preset_curve as acamera_metadata_enum_android_tonemap_preset_curve_t;
 impl acamera_metadata_enum_acamera_info_supported_hardware_level {
     pub const ACAMERA_INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED:
@@ -17991,7 +17874,7 @@ impl acamera_metadata_enum_acamera_info_supported_hardware_level {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_info_supported_hardware_level(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_info_supported_hardware_level(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_info_supported_hardware_level as acamera_metadata_enum_android_info_supported_hardware_level_t;
 impl acamera_metadata_enum_acamera_black_level_lock {
     pub const ACAMERA_BLACK_LEVEL_LOCK_OFF: acamera_metadata_enum_acamera_black_level_lock =
@@ -18003,7 +17886,7 @@ impl acamera_metadata_enum_acamera_black_level_lock {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_black_level_lock(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_black_level_lock(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_black_level_lock as acamera_metadata_enum_android_black_level_lock_t;
 impl acamera_metadata_enum_acamera_sync_frame_number {
     pub const ACAMERA_SYNC_FRAME_NUMBER_CONVERGING:
@@ -18016,7 +17899,7 @@ impl acamera_metadata_enum_acamera_sync_frame_number {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sync_frame_number(pub ::std::os::raw::c_int);
+pub struct acamera_metadata_enum_acamera_sync_frame_number(pub ::core::ffi::c_int);
 pub use self::acamera_metadata_enum_acamera_sync_frame_number as acamera_metadata_enum_android_sync_frame_number_t;
 impl acamera_metadata_enum_acamera_sync_max_latency {
     pub const ACAMERA_SYNC_MAX_LATENCY_PER_FRAME_CONTROL:
@@ -18029,7 +17912,7 @@ impl acamera_metadata_enum_acamera_sync_max_latency {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_sync_max_latency(pub ::std::os::raw::c_int);
+pub struct acamera_metadata_enum_acamera_sync_max_latency(pub ::core::ffi::c_int);
 pub use self::acamera_metadata_enum_acamera_sync_max_latency as acamera_metadata_enum_android_sync_max_latency_t;
 impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations {
     pub const ACAMERA_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_OUTPUT:
@@ -18044,7 +17927,7 @@ impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_depth_available_depth_stream_configurations(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_depth_available_depth_stream_configurations as acamera_metadata_enum_android_depth_available_depth_stream_configurations_t;
 impl acamera_metadata_enum_acamera_depth_depth_is_exclusive {
@@ -18059,7 +17942,7 @@ impl acamera_metadata_enum_acamera_depth_depth_is_exclusive {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_depth_depth_is_exclusive(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_depth_depth_is_exclusive(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_depth_depth_is_exclusive as acamera_metadata_enum_android_depth_depth_is_exclusive_t;
 impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations {
     pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_OUTPUT:
@@ -18074,7 +17957,7 @@ impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configur
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations as acamera_metadata_enum_android_depth_available_dynamic_depth_stream_configurations_t;
 impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution {
@@ -18094,7 +17977,7 @@ impl acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_m
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_depth_available_depth_stream_configurations_maximum_resolution as acamera_metadata_enum_android_depth_available_depth_stream_configurations_maximum_resolution_t;
 impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution { pub const ACAMERA_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution (0) ; }
@@ -18102,7 +17985,7 @@ impl acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configur
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_depth_available_dynamic_depth_stream_configurations_maximum_resolution as acamera_metadata_enum_android_depth_available_dynamic_depth_stream_configurations_maximum_resolution_t;
 impl acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type {
@@ -18118,7 +18001,7 @@ impl acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_logical_multi_camera_sensor_sync_type as acamera_metadata_enum_android_logical_multi_camera_sensor_sync_type_t;
 impl acamera_metadata_enum_acamera_distortion_correction_mode {
@@ -18138,7 +18021,7 @@ impl acamera_metadata_enum_acamera_distortion_correction_mode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_distortion_correction_mode(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_distortion_correction_mode(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_distortion_correction_mode as acamera_metadata_enum_android_distortion_correction_mode_t;
 impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations {
     pub const ACAMERA_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_OUTPUT:
@@ -18153,7 +18036,7 @@ impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configurations(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations as acamera_metadata_enum_android_heic_available_heic_stream_configurations_t;
 impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution {
@@ -18173,7 +18056,7 @@ impl acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_max
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_stream_configurations_maximum_resolution_t;
 impl acamera_metadata_enum_acamera_automotive_location {
@@ -18233,7 +18116,7 @@ impl acamera_metadata_enum_acamera_automotive_location {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_automotive_location(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_automotive_location(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_automotive_location as acamera_metadata_enum_android_automotive_location_t;
 impl acamera_metadata_enum_acamera_automotive_lens_facing {
     pub const ACAMERA_AUTOMOTIVE_LENS_FACING_EXTERIOR_OTHER:
@@ -18312,7 +18195,7 @@ impl acamera_metadata_enum_acamera_automotive_lens_facing {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct acamera_metadata_enum_acamera_automotive_lens_facing(pub ::std::os::raw::c_uint);
+pub struct acamera_metadata_enum_acamera_automotive_lens_facing(pub ::core::ffi::c_uint);
 pub use self::acamera_metadata_enum_acamera_automotive_lens_facing as acamera_metadata_enum_android_automotive_lens_facing_t;
 impl acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations {
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_STREAM_CONFIGURATIONS_OUTPUT:
@@ -18327,7 +18210,7 @@ impl acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations 
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations as acamera_metadata_enum_android_jpegr_available_jpeg_r_stream_configurations_t;
 impl acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations_maximum_resolution {
@@ -18339,7 +18222,7 @@ impl acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations_
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations_maximum_resolution(
-    pub ::std::os::raw::c_uint,
+    pub ::core::ffi::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations_maximum_resolution as acamera_metadata_enum_android_jpegr_available_jpeg_r_stream_configurations_maximum_resolution_t;
 #[repr(C)]
@@ -18354,7 +18237,7 @@ pub const ACAMERA_TYPE_INT64: _bindgen_ty_64 = 3;
 pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_64 = 4;
 pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_64 = 5;
 pub const ACAMERA_NUM_TYPES: _bindgen_ty_64 = 6;
-pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_64 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata_rational {
@@ -18363,26 +18246,26 @@ pub struct ACameraMetadata_rational {
 }
 #[test]
 fn bindgen_test_layout_ACameraMetadata_rational() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraMetadata_rational> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraMetadata_rational> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraMetadata_rational>(),
+        ::core::mem::size_of::<ACameraMetadata_rational>(),
         8usize,
         "Size of ACameraMetadata_rational"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraMetadata_rational>(),
+        ::core::mem::align_of::<ACameraMetadata_rational>(),
         4usize,
         "Alignment of ACameraMetadata_rational"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).numerator) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).numerator) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_rational::numerator"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).denominator) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).denominator) as usize - ptr as usize },
         4usize,
         "Offset of field: ACameraMetadata_rational::denominator"
     );
@@ -18407,82 +18290,82 @@ pub union ACameraMetadata_entry__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ACameraMetadata_entry__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraMetadata_entry__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraMetadata_entry__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraMetadata_entry__bindgen_ty_1>(),
+        ::core::mem::size_of::<ACameraMetadata_entry__bindgen_ty_1>(),
         8usize,
         "Size of ACameraMetadata_entry__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraMetadata_entry__bindgen_ty_1>(),
+        ::core::mem::align_of::<ACameraMetadata_entry__bindgen_ty_1>(),
         8usize,
         "Alignment of ACameraMetadata_entry__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).u8_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).u8_) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_entry__bindgen_ty_1::u8_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).i32_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).i32_) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_entry__bindgen_ty_1::i32_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).f) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).f) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_entry__bindgen_ty_1::f"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).i64_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).i64_) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_entry__bindgen_ty_1::i64_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).d) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).d) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_entry__bindgen_ty_1::d"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).r) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).r) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_entry__bindgen_ty_1::r"
     );
 }
 #[test]
 fn bindgen_test_layout_ACameraMetadata_entry() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraMetadata_entry> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraMetadata_entry> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraMetadata_entry>(),
+        ::core::mem::size_of::<ACameraMetadata_entry>(),
         24usize,
         "Size of ACameraMetadata_entry"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraMetadata_entry>(),
+        ::core::mem::align_of::<ACameraMetadata_entry>(),
         8usize,
         "Alignment of ACameraMetadata_entry"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_entry::tag"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
         4usize,
         "Offset of field: ACameraMetadata_entry::type_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).count) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).count) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraMetadata_entry::count"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraMetadata_entry::data"
     );
@@ -18507,82 +18390,82 @@ pub union ACameraMetadata_const_entry__bindgen_ty_1 {
 }
 #[test]
 fn bindgen_test_layout_ACameraMetadata_const_entry__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraMetadata_const_entry__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraMetadata_const_entry__bindgen_ty_1> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraMetadata_const_entry__bindgen_ty_1>(),
+        ::core::mem::size_of::<ACameraMetadata_const_entry__bindgen_ty_1>(),
         8usize,
         "Size of ACameraMetadata_const_entry__bindgen_ty_1"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraMetadata_const_entry__bindgen_ty_1>(),
+        ::core::mem::align_of::<ACameraMetadata_const_entry__bindgen_ty_1>(),
         8usize,
         "Alignment of ACameraMetadata_const_entry__bindgen_ty_1"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).u8_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).u8_) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_const_entry__bindgen_ty_1::u8_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).i32_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).i32_) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_const_entry__bindgen_ty_1::i32_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).f) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).f) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_const_entry__bindgen_ty_1::f"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).i64_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).i64_) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_const_entry__bindgen_ty_1::i64_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).d) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).d) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_const_entry__bindgen_ty_1::d"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).r) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).r) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_const_entry__bindgen_ty_1::r"
     );
 }
 #[test]
 fn bindgen_test_layout_ACameraMetadata_const_entry() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraMetadata_const_entry> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraMetadata_const_entry> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraMetadata_const_entry>(),
+        ::core::mem::size_of::<ACameraMetadata_const_entry>(),
         24usize,
         "Size of ACameraMetadata_const_entry"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraMetadata_const_entry>(),
+        ::core::mem::align_of::<ACameraMetadata_const_entry>(),
         8usize,
         "Alignment of ACameraMetadata_const_entry"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraMetadata_const_entry::tag"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
         4usize,
         "Offset of field: ACameraMetadata_const_entry::type_"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).count) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).count) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraMetadata_const_entry::count"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraMetadata_const_entry::data"
     );
@@ -18611,7 +18494,7 @@ extern "C" {
     pub fn ACameraMetadata_isLogicalMultiCamera(
         staticMetadata: *const ACameraMetadata,
         numPhysicalCameras: *mut usize,
-        physicalCameraIds: *mut *const *const ::std::os::raw::c_char,
+        physicalCameraIds: *mut *const *const ::core::ffi::c_char,
     ) -> bool;
 }
 extern "C" {
@@ -18725,13 +18608,13 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_setUserContext(
         request: *mut ACaptureRequest,
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACaptureRequest_getUserContext(
         request: *const ACaptureRequest,
-        context: *mut *mut ::std::os::raw::c_void,
+        context: *mut *mut ::core::ffi::c_void,
     ) -> camera_status_t;
 }
 extern "C" {
@@ -18740,7 +18623,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_getConstEntry_physicalCamera(
         request: *const ACaptureRequest,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         tag: u32,
         entry: *mut ACameraMetadata_const_entry,
     ) -> camera_status_t;
@@ -18748,7 +18631,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_setEntry_physicalCamera_u8(
         request: *mut ACaptureRequest,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         tag: u32,
         count: u32,
         data: *const u8,
@@ -18757,7 +18640,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_setEntry_physicalCamera_i32(
         request: *mut ACaptureRequest,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         tag: u32,
         count: u32,
         data: *const i32,
@@ -18766,7 +18649,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_setEntry_physicalCamera_float(
         request: *mut ACaptureRequest,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         tag: u32,
         count: u32,
         data: *const f32,
@@ -18775,7 +18658,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_setEntry_physicalCamera_i64(
         request: *mut ACaptureRequest,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         tag: u32,
         count: u32,
         data: *const i64,
@@ -18784,7 +18667,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_setEntry_physicalCamera_double(
         request: *mut ACaptureRequest,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         tag: u32,
         count: u32,
         data: *const f64,
@@ -18793,7 +18676,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureRequest_setEntry_physicalCamera_rational(
         request: *mut ACaptureRequest,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         tag: u32,
         count: u32,
         data: *const ACameraMetadata_rational,
@@ -18804,149 +18687,149 @@ extern "C" {
 pub struct ACameraCaptureSession {
     _unused: [u8; 0],
 }
-pub type ACameraCaptureSession_stateCallback = ::std::option::Option<
-    unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, session: *mut ACameraCaptureSession),
+pub type ACameraCaptureSession_stateCallback = ::core::option::Option<
+    unsafe extern "C" fn(context: *mut ::core::ffi::c_void, session: *mut ACameraCaptureSession),
 >;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureSession_stateCallbacks {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onClosed: ACameraCaptureSession_stateCallback,
     pub onReady: ACameraCaptureSession_stateCallback,
     pub onActive: ACameraCaptureSession_stateCallback,
 }
 #[test]
 fn bindgen_test_layout_ACameraCaptureSession_stateCallbacks() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraCaptureSession_stateCallbacks> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraCaptureSession_stateCallbacks> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraCaptureSession_stateCallbacks>(),
+        ::core::mem::size_of::<ACameraCaptureSession_stateCallbacks>(),
         32usize,
         "Size of ACameraCaptureSession_stateCallbacks"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraCaptureSession_stateCallbacks>(),
+        ::core::mem::align_of::<ACameraCaptureSession_stateCallbacks>(),
         8usize,
         "Alignment of ACameraCaptureSession_stateCallbacks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraCaptureSession_stateCallbacks::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onClosed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onClosed) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraCaptureSession_stateCallbacks::onClosed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onReady) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onReady) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraCaptureSession_stateCallbacks::onReady"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onActive) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onActive) as usize - ptr as usize },
         24usize,
         "Offset of field: ACameraCaptureSession_stateCallbacks::onActive"
     );
 }
-pub type ACameraCaptureSession_prepareCallback = ::std::option::Option<
+pub type ACameraCaptureSession_prepareCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         window: *mut ACameraWindowType,
         session: *mut ACameraCaptureSession,
     ),
 >;
 pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_65 = 0;
 pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_65 = 1;
-pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_65 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureFailure {
     pub frameNumber: i64,
-    pub reason: ::std::os::raw::c_int,
-    pub sequenceId: ::std::os::raw::c_int,
+    pub reason: ::core::ffi::c_int,
+    pub sequenceId: ::core::ffi::c_int,
     pub wasImageCaptured: bool,
 }
 #[test]
 fn bindgen_test_layout_ACameraCaptureFailure() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraCaptureFailure> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraCaptureFailure> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraCaptureFailure>(),
+        ::core::mem::size_of::<ACameraCaptureFailure>(),
         24usize,
         "Size of ACameraCaptureFailure"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraCaptureFailure>(),
+        ::core::mem::align_of::<ACameraCaptureFailure>(),
         8usize,
         "Alignment of ACameraCaptureFailure"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).frameNumber) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).frameNumber) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraCaptureFailure::frameNumber"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reason) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reason) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraCaptureFailure::reason"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sequenceId) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).sequenceId) as usize - ptr as usize },
         12usize,
         "Offset of field: ACameraCaptureFailure::sequenceId"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).wasImageCaptured) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).wasImageCaptured) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraCaptureFailure::wasImageCaptured"
     );
 }
-pub type ACameraCaptureSession_captureCallback_start = ::std::option::Option<
+pub type ACameraCaptureSession_captureCallback_start = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
         request: *const ACaptureRequest,
         timestamp: i64,
     ),
 >;
-pub type ACameraCaptureSession_captureCallback_result = ::std::option::Option<
+pub type ACameraCaptureSession_captureCallback_result = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
         result: *const ACameraMetadata,
     ),
 >;
-pub type ACameraCaptureSession_captureCallback_failed = ::std::option::Option<
+pub type ACameraCaptureSession_captureCallback_failed = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
         failure: *mut ACameraCaptureFailure,
     ),
 >;
-pub type ACameraCaptureSession_captureCallback_sequenceEnd = ::std::option::Option<
+pub type ACameraCaptureSession_captureCallback_sequenceEnd = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
-        sequenceId: ::std::os::raw::c_int,
+        sequenceId: ::core::ffi::c_int,
         frameNumber: i64,
     ),
 >;
-pub type ACameraCaptureSession_captureCallback_sequenceAbort = ::std::option::Option<
+pub type ACameraCaptureSession_captureCallback_sequenceAbort = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
-        sequenceId: ::std::os::raw::c_int,
+        sequenceId: ::core::ffi::c_int,
     ),
 >;
-pub type ACameraCaptureSession_captureCallback_bufferLost = ::std::option::Option<
+pub type ACameraCaptureSession_captureCallback_bufferLost = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
         window: *mut ACameraWindowType,
@@ -18956,7 +18839,7 @@ pub type ACameraCaptureSession_captureCallback_bufferLost = ::std::option::Optio
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureSession_captureCallbacks {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onCaptureStarted: ACameraCaptureSession_captureCallback_start,
     pub onCaptureProgressed: ACameraCaptureSession_captureCallback_result,
     pub onCaptureCompleted: ACameraCaptureSession_captureCallback_result,
@@ -18967,62 +18850,62 @@ pub struct ACameraCaptureSession_captureCallbacks {
 }
 #[test]
 fn bindgen_test_layout_ACameraCaptureSession_captureCallbacks() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraCaptureSession_captureCallbacks> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraCaptureSession_captureCallbacks> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraCaptureSession_captureCallbacks>(),
+        ::core::mem::size_of::<ACameraCaptureSession_captureCallbacks>(),
         64usize,
         "Size of ACameraCaptureSession_captureCallbacks"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraCaptureSession_captureCallbacks>(),
+        ::core::mem::align_of::<ACameraCaptureSession_captureCallbacks>(),
         8usize,
         "Alignment of ACameraCaptureSession_captureCallbacks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureStarted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureProgressed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureProgressed) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureProgressed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureCompleted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureCompleted) as usize - ptr as usize },
         24usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureCompleted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureFailed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureFailed) as usize - ptr as usize },
         32usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureFailed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureSequenceCompleted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureSequenceCompleted) as usize - ptr as usize },
         40usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureSequenceCompleted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureSequenceAborted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureSequenceAborted) as usize - ptr as usize },
         48usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureSequenceAborted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureBufferLost) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureBufferLost) as usize - ptr as usize },
         56usize,
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureBufferLost"
     );
 }
 pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_66 = -1;
-pub type _bindgen_ty_66 = ::std::os::raw::c_int;
+pub type _bindgen_ty_66 = ::core::ffi::c_int;
 extern "C" {
     pub fn ACameraCaptureSession_close(session: *mut ACameraCaptureSession);
 }
@@ -19041,18 +18924,18 @@ extern "C" {
     pub fn ACameraCaptureSession_capture(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_captureCallbacks,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACameraCaptureSession_setRepeatingRequest(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_captureCallbacks,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
 extern "C" {
@@ -19076,14 +18959,14 @@ extern "C" {
         output: *mut ACaptureSessionOutput,
     ) -> camera_status_t;
 }
-pub type ACameraCaptureSession_logicalCamera_captureCallback_result = ::std::option::Option<
+pub type ACameraCaptureSession_logicalCamera_captureCallback_result = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
         result: *const ACameraMetadata,
         physicalResultCount: usize,
-        physicalCameraIds: *mut *const ::std::os::raw::c_char,
+        physicalCameraIds: *mut *const ::core::ffi::c_char,
         physicalResults: *mut *const ACameraMetadata,
     ),
 >;
@@ -19091,37 +18974,37 @@ pub type ACameraCaptureSession_logicalCamera_captureCallback_result = ::std::opt
 #[derive(Debug, Copy, Clone)]
 pub struct ALogicalCameraCaptureFailure {
     pub captureFailure: ACameraCaptureFailure,
-    pub physicalCameraId: *const ::std::os::raw::c_char,
+    pub physicalCameraId: *const ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_ALogicalCameraCaptureFailure() {
-    const UNINIT: ::std::mem::MaybeUninit<ALogicalCameraCaptureFailure> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ALogicalCameraCaptureFailure> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ALogicalCameraCaptureFailure>(),
+        ::core::mem::size_of::<ALogicalCameraCaptureFailure>(),
         32usize,
         "Size of ALogicalCameraCaptureFailure"
     );
     assert_eq!(
-        ::std::mem::align_of::<ALogicalCameraCaptureFailure>(),
+        ::core::mem::align_of::<ALogicalCameraCaptureFailure>(),
         8usize,
         "Alignment of ALogicalCameraCaptureFailure"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).captureFailure) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).captureFailure) as usize - ptr as usize },
         0usize,
         "Offset of field: ALogicalCameraCaptureFailure::captureFailure"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).physicalCameraId) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).physicalCameraId) as usize - ptr as usize },
         24usize,
         "Offset of field: ALogicalCameraCaptureFailure::physicalCameraId"
     );
 }
-pub type ACameraCaptureSession_logicalCamera_captureCallback_failed = ::std::option::Option<
+pub type ACameraCaptureSession_logicalCamera_captureCallback_failed = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
         request: *mut ACaptureRequest,
         failure: *mut ALogicalCameraCaptureFailure,
@@ -19130,7 +19013,7 @@ pub type ACameraCaptureSession_logicalCamera_captureCallback_failed = ::std::opt
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureSession_logicalCamera_captureCallbacks {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onCaptureStarted: ACameraCaptureSession_captureCallback_start,
     pub onCaptureProgressed: ACameraCaptureSession_captureCallback_result,
     pub onLogicalCameraCaptureCompleted: ACameraCaptureSession_logicalCamera_captureCallback_result,
@@ -19141,57 +19024,57 @@ pub struct ACameraCaptureSession_logicalCamera_captureCallbacks {
 }
 #[test]
 fn bindgen_test_layout_ACameraCaptureSession_logicalCamera_captureCallbacks() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraCaptureSession_logicalCamera_captureCallbacks> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraCaptureSession_logicalCamera_captureCallbacks> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraCaptureSession_logicalCamera_captureCallbacks>(),
+        ::core::mem::size_of::<ACameraCaptureSession_logicalCamera_captureCallbacks>(),
         64usize,
         "Size of ACameraCaptureSession_logicalCamera_captureCallbacks"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraCaptureSession_logicalCamera_captureCallbacks>(),
+        ::core::mem::align_of::<ACameraCaptureSession_logicalCamera_captureCallbacks>(),
         8usize,
         "Alignment of ACameraCaptureSession_logicalCamera_captureCallbacks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureStarted"
     );
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureProgressed) as usize - ptr as usize } , 16usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureProgressed");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureCompleted) as usize - ptr as usize } , 24usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onLogicalCameraCaptureCompleted");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureFailed) as usize - ptr as usize } , 32usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onLogicalCameraCaptureFailed");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceCompleted) as usize - ptr as usize } , 40usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureSequenceCompleted");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceAborted) as usize - ptr as usize } , 48usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureSequenceAborted");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureBufferLost) as usize - ptr as usize } , 56usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureBufferLost");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureProgressed) as usize - ptr as usize } , 16usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureProgressed");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureCompleted) as usize - ptr as usize } , 24usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onLogicalCameraCaptureCompleted");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureFailed) as usize - ptr as usize } , 32usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onLogicalCameraCaptureFailed");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceCompleted) as usize - ptr as usize } , 40usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureSequenceCompleted");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceAborted) as usize - ptr as usize } , 48usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureSequenceAborted");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureBufferLost) as usize - ptr as usize } , 56usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacks::onCaptureBufferLost");
 }
 extern "C" {
     pub fn ACameraCaptureSession_logicalCamera_capture(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacks,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACameraCaptureSession_logicalCamera_setRepeatingRequest(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacks,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
-pub type ACameraCaptureSession_captureCallback_startV2 = ::std::option::Option<
+pub type ACameraCaptureSession_captureCallback_startV2 = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         session: *mut ACameraCaptureSession,
         request: *const ACaptureRequest,
         timestamp: i64,
@@ -19201,7 +19084,7 @@ pub type ACameraCaptureSession_captureCallback_startV2 = ::std::option::Option<
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureSession_captureCallbacksV2 {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onCaptureStarted: ACameraCaptureSession_captureCallback_startV2,
     pub onCaptureProgressed: ACameraCaptureSession_captureCallback_result,
     pub onCaptureCompleted: ACameraCaptureSession_captureCallback_result,
@@ -19212,56 +19095,56 @@ pub struct ACameraCaptureSession_captureCallbacksV2 {
 }
 #[test]
 fn bindgen_test_layout_ACameraCaptureSession_captureCallbacksV2() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraCaptureSession_captureCallbacksV2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraCaptureSession_captureCallbacksV2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraCaptureSession_captureCallbacksV2>(),
+        ::core::mem::size_of::<ACameraCaptureSession_captureCallbacksV2>(),
         64usize,
         "Size of ACameraCaptureSession_captureCallbacksV2"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraCaptureSession_captureCallbacksV2>(),
+        ::core::mem::align_of::<ACameraCaptureSession_captureCallbacksV2>(),
         8usize,
         "Alignment of ACameraCaptureSession_captureCallbacksV2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::onCaptureStarted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureProgressed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureProgressed) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::onCaptureProgressed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureCompleted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureCompleted) as usize - ptr as usize },
         24usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::onCaptureCompleted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureFailed) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureFailed) as usize - ptr as usize },
         32usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::onCaptureFailed"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureSequenceCompleted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureSequenceCompleted) as usize - ptr as usize },
         40usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::onCaptureSequenceCompleted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureSequenceAborted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureSequenceAborted) as usize - ptr as usize },
         48usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::onCaptureSequenceAborted"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureBufferLost) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureBufferLost) as usize - ptr as usize },
         56usize,
         "Offset of field: ACameraCaptureSession_captureCallbacksV2::onCaptureBufferLost"
     );
@@ -19269,7 +19152,7 @@ fn bindgen_test_layout_ACameraCaptureSession_captureCallbacksV2() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureSession_logicalCamera_captureCallbacksV2 {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onCaptureStarted: ACameraCaptureSession_captureCallback_startV2,
     pub onCaptureProgressed: ACameraCaptureSession_captureCallback_result,
     pub onLogicalCameraCaptureCompleted: ACameraCaptureSession_logicalCamera_captureCallback_result,
@@ -19280,76 +19163,76 @@ pub struct ACameraCaptureSession_logicalCamera_captureCallbacksV2 {
 }
 #[test]
 fn bindgen_test_layout_ACameraCaptureSession_logicalCamera_captureCallbacksV2() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraCaptureSession_logicalCamera_captureCallbacksV2> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraCaptureSession_logicalCamera_captureCallbacksV2> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>(),
+        ::core::mem::size_of::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>(),
         64usize,
         "Size of ACameraCaptureSession_logicalCamera_captureCallbacksV2"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>(),
+        ::core::mem::align_of::<ACameraCaptureSession_logicalCamera_captureCallbacksV2>(),
         8usize,
         "Alignment of ACameraCaptureSession_logicalCamera_captureCallbacksV2"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCaptureStarted) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureStarted"
     );
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureProgressed) as usize - ptr as usize } , 16usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureProgressed");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureCompleted) as usize - ptr as usize } , 24usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onLogicalCameraCaptureCompleted");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureFailed) as usize - ptr as usize } , 32usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onLogicalCameraCaptureFailed");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceCompleted) as usize - ptr as usize } , 40usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureSequenceCompleted");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceAborted) as usize - ptr as usize } , 48usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureSequenceAborted");
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCaptureBufferLost) as usize - ptr as usize } , 56usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureBufferLost");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureProgressed) as usize - ptr as usize } , 16usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureProgressed");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureCompleted) as usize - ptr as usize } , 24usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onLogicalCameraCaptureCompleted");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onLogicalCameraCaptureFailed) as usize - ptr as usize } , 32usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onLogicalCameraCaptureFailed");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceCompleted) as usize - ptr as usize } , 40usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureSequenceCompleted");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureSequenceAborted) as usize - ptr as usize } , 48usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureSequenceAborted");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCaptureBufferLost) as usize - ptr as usize } , 56usize , "Offset of field: ACameraCaptureSession_logicalCamera_captureCallbacksV2::onCaptureBufferLost");
 }
 extern "C" {
     pub fn ACameraCaptureSession_captureV2(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_captureCallbacksV2,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACameraCaptureSession_setRepeatingRequestV2(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_captureCallbacksV2,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACameraCaptureSession_logicalCamera_captureV2(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacksV2,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACameraCaptureSession_logicalCamera_setRepeatingRequestV2(
         session: *mut ACameraCaptureSession,
         callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacksV2,
-        numRequests: ::std::os::raw::c_int,
+        numRequests: ::core::ffi::c_int,
         requests: *mut *mut ACaptureRequest,
-        captureSequenceId: *mut ::std::os::raw::c_int,
+        captureSequenceId: *mut ::core::ffi::c_int,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACameraCaptureSession_setWindowPreparedCallback(
         session: *mut ACameraCaptureSession,
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         callback: ACameraCaptureSession_prepareCallback,
     ) -> camera_status_t;
 }
@@ -19362,30 +19245,30 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraIdList {
-    pub numCameras: ::std::os::raw::c_int,
-    pub cameraIds: *mut *const ::std::os::raw::c_char,
+    pub numCameras: ::core::ffi::c_int,
+    pub cameraIds: *mut *const ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_ACameraIdList() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraIdList> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraIdList> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraIdList>(),
+        ::core::mem::size_of::<ACameraIdList>(),
         16usize,
         "Size of ACameraIdList"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraIdList>(),
+        ::core::mem::align_of::<ACameraIdList>(),
         8usize,
         "Alignment of ACameraIdList"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).numCameras) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).numCameras) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraIdList::numCameras"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cameraIds) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).cameraIds) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraIdList::cameraIds"
     );
@@ -19395,51 +19278,51 @@ pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_67 = 2;
 pub const ERROR_CAMERA_DISABLED: _bindgen_ty_67 = 3;
 pub const ERROR_CAMERA_DEVICE: _bindgen_ty_67 = 4;
 pub const ERROR_CAMERA_SERVICE: _bindgen_ty_67 = 5;
-pub type _bindgen_ty_67 = ::std::os::raw::c_uint;
-pub type ACameraDevice_StateCallback = ::std::option::Option<
-    unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, device: *mut ACameraDevice),
+pub type _bindgen_ty_67 = ::core::ffi::c_uint;
+pub type ACameraDevice_StateCallback = ::core::option::Option<
+    unsafe extern "C" fn(context: *mut ::core::ffi::c_void, device: *mut ACameraDevice),
 >;
-pub type ACameraDevice_ErrorStateCallback = ::std::option::Option<
+pub type ACameraDevice_ErrorStateCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         device: *mut ACameraDevice,
-        error: ::std::os::raw::c_int,
+        error: ::core::ffi::c_int,
     ),
 >;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraDevice_StateCallbacks {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onDisconnected: ACameraDevice_StateCallback,
     pub onError: ACameraDevice_ErrorStateCallback,
 }
 #[test]
 fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraDevice_StateCallbacks> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraDevice_StateCallbacks> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraDevice_StateCallbacks>(),
+        ::core::mem::size_of::<ACameraDevice_StateCallbacks>(),
         24usize,
         "Size of ACameraDevice_StateCallbacks"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraDevice_StateCallbacks>(),
+        ::core::mem::align_of::<ACameraDevice_StateCallbacks>(),
         8usize,
         "Alignment of ACameraDevice_StateCallbacks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraDevice_StateCallbacks::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onDisconnected) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onDisconnected) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraDevice_StateCallbacks::onDisconnected"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onError) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onError) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraDevice_StateCallbacks::onError"
     );
@@ -19449,7 +19332,7 @@ extern "C" {
     pub fn ACameraDevice_close(device: *mut ACameraDevice) -> camera_status_t;
 }
 extern "C" {
-    pub fn ACameraDevice_getId(device: *const ACameraDevice) -> *const ::std::os::raw::c_char;
+    pub fn ACameraDevice_getId(device: *const ACameraDevice) -> *const ::core::ffi::c_char;
 }
 impl ACameraDevice_request_template {
     pub const TEMPLATE_PREVIEW: ACameraDevice_request_template = ACameraDevice_request_template(1);
@@ -19474,7 +19357,7 @@ impl ACameraDevice_request_template {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ACameraDevice_request_template(pub ::std::os::raw::c_uint);
+pub struct ACameraDevice_request_template(pub ::core::ffi::c_uint);
 extern "C" {
     pub fn ACameraDevice_createCaptureRequest(
         device: *const ACameraDevice,
@@ -19554,7 +19437,7 @@ extern "C" {
 extern "C" {
     pub fn ACaptureSessionPhysicalOutput_create(
         anw: *mut ACameraWindowType,
-        physicalId: *const ::std::os::raw::c_char,
+        physicalId: *const ::core::ffi::c_char,
         output: *mut *mut ACaptureSessionOutput,
     ) -> camera_status_t;
 }
@@ -19592,53 +19475,50 @@ extern "C" {
 extern "C" {
     pub fn ACameraManager_deleteCameraIdList(cameraIdList: *mut ACameraIdList);
 }
-pub type ACameraManager_AvailabilityCallback = ::std::option::Option<
-    unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
-        cameraId: *const ::std::os::raw::c_char,
-    ),
+pub type ACameraManager_AvailabilityCallback = ::core::option::Option<
+    unsafe extern "C" fn(context: *mut ::core::ffi::c_void, cameraId: *const ::core::ffi::c_char),
 >;
-pub type ACameraManager_PhysicalCameraAvailabilityCallback = ::std::option::Option<
+pub type ACameraManager_PhysicalCameraAvailabilityCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
-        cameraId: *const ::std::os::raw::c_char,
-        physicalCameraId: *const ::std::os::raw::c_char,
+        context: *mut ::core::ffi::c_void,
+        cameraId: *const ::core::ffi::c_char,
+        physicalCameraId: *const ::core::ffi::c_char,
     ),
 >;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraManager_AvailabilityListener {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onCameraAvailable: ACameraManager_AvailabilityCallback,
     pub onCameraUnavailable: ACameraManager_AvailabilityCallback,
 }
 #[test]
 fn bindgen_test_layout_ACameraManager_AvailabilityListener() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraManager_AvailabilityListener> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraManager_AvailabilityListener> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraManager_AvailabilityListener>(),
+        ::core::mem::size_of::<ACameraManager_AvailabilityListener>(),
         24usize,
         "Size of ACameraManager_AvailabilityListener"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraManager_AvailabilityListener>(),
+        ::core::mem::align_of::<ACameraManager_AvailabilityListener>(),
         8usize,
         "Alignment of ACameraManager_AvailabilityListener"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraManager_AvailabilityListener::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCameraAvailable) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCameraAvailable) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraManager_AvailabilityListener::onCameraAvailable"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onCameraUnavailable) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onCameraUnavailable) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraManager_AvailabilityListener::onCameraUnavailable"
     );
@@ -19659,20 +19539,20 @@ extern "C" {
 extern "C" {
     pub fn ACameraManager_getCameraCharacteristics(
         manager: *mut ACameraManager,
-        cameraId: *const ::std::os::raw::c_char,
+        cameraId: *const ::core::ffi::c_char,
         characteristics: *mut *mut ACameraMetadata,
     ) -> camera_status_t;
 }
 extern "C" {
     pub fn ACameraManager_openCamera(
         manager: *mut ACameraManager,
-        cameraId: *const ::std::os::raw::c_char,
+        cameraId: *const ::core::ffi::c_char,
         callback: *mut ACameraDevice_StateCallbacks,
         device: *mut *mut ACameraDevice,
     ) -> camera_status_t;
 }
 pub type ACameraManager_AccessPrioritiesChangedCallback =
-    ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(context: *mut ::core::ffi::c_void)>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraManager_ExtendedAvailabilityListener {
@@ -19680,41 +19560,43 @@ pub struct ACameraManager_ExtendedAvailabilityListener {
     pub onCameraAccessPrioritiesChanged: ACameraManager_AccessPrioritiesChangedCallback,
     pub onPhysicalCameraAvailable: ACameraManager_PhysicalCameraAvailabilityCallback,
     pub onPhysicalCameraUnavailable: ACameraManager_PhysicalCameraAvailabilityCallback,
-    pub reserved: [*mut ::std::os::raw::c_void; 4usize],
+    pub reserved: [*mut ::core::ffi::c_void; 4usize],
 }
 #[test]
 fn bindgen_test_layout_ACameraManager_ExtendedAvailabilityListener() {
-    const UNINIT: ::std::mem::MaybeUninit<ACameraManager_ExtendedAvailabilityListener> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<ACameraManager_ExtendedAvailabilityListener> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<ACameraManager_ExtendedAvailabilityListener>(),
+        ::core::mem::size_of::<ACameraManager_ExtendedAvailabilityListener>(),
         80usize,
         "Size of ACameraManager_ExtendedAvailabilityListener"
     );
     assert_eq!(
-        ::std::mem::align_of::<ACameraManager_ExtendedAvailabilityListener>(),
+        ::core::mem::align_of::<ACameraManager_ExtendedAvailabilityListener>(),
         8usize,
         "Alignment of ACameraManager_ExtendedAvailabilityListener"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).availabilityCallbacks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).availabilityCallbacks) as usize - ptr as usize },
         0usize,
         "Offset of field: ACameraManager_ExtendedAvailabilityListener::availabilityCallbacks"
     );
-    assert_eq ! (unsafe { :: std :: ptr :: addr_of ! ((* ptr) . onCameraAccessPrioritiesChanged) as usize - ptr as usize } , 24usize , "Offset of field: ACameraManager_ExtendedAvailabilityListener::onCameraAccessPrioritiesChanged");
+    assert_eq ! (unsafe { :: core :: ptr :: addr_of ! ((* ptr) . onCameraAccessPrioritiesChanged) as usize - ptr as usize } , 24usize , "Offset of field: ACameraManager_ExtendedAvailabilityListener::onCameraAccessPrioritiesChanged");
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onPhysicalCameraAvailable) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onPhysicalCameraAvailable) as usize - ptr as usize },
         32usize,
         "Offset of field: ACameraManager_ExtendedAvailabilityListener::onPhysicalCameraAvailable"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onPhysicalCameraUnavailable) as usize - ptr as usize },
+        unsafe {
+            ::core::ptr::addr_of!((*ptr).onPhysicalCameraUnavailable) as usize - ptr as usize
+        },
         40usize,
         "Offset of field: ACameraManager_ExtendedAvailabilityListener::onPhysicalCameraUnavailable"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
         48usize,
         "Offset of field: ACameraManager_ExtendedAvailabilityListener::reserved"
     );
@@ -19790,7 +19672,7 @@ impl AIMAGE_FORMATS {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AIMAGE_FORMATS(pub ::std::os::raw::c_uint);
+pub struct AIMAGE_FORMATS(pub ::core::ffi::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AImageCropRect {
@@ -19801,35 +19683,35 @@ pub struct AImageCropRect {
 }
 #[test]
 fn bindgen_test_layout_AImageCropRect() {
-    const UNINIT: ::std::mem::MaybeUninit<AImageCropRect> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AImageCropRect> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AImageCropRect>(),
+        ::core::mem::size_of::<AImageCropRect>(),
         16usize,
         "Size of AImageCropRect"
     );
     assert_eq!(
-        ::std::mem::align_of::<AImageCropRect>(),
+        ::core::mem::align_of::<AImageCropRect>(),
         4usize,
         "Alignment of AImageCropRect"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).left) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).left) as usize - ptr as usize },
         0usize,
         "Offset of field: AImageCropRect::left"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).top) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).top) as usize - ptr as usize },
         4usize,
         "Offset of field: AImageCropRect::top"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).right) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).right) as usize - ptr as usize },
         8usize,
         "Offset of field: AImageCropRect::right"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).bottom) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).bottom) as usize - ptr as usize },
         12usize,
         "Offset of field: AImageCropRect::bottom"
     );
@@ -19858,27 +19740,27 @@ extern "C" {
 extern "C" {
     pub fn AImage_getPlanePixelStride(
         image: *const AImage,
-        planeIdx: ::std::os::raw::c_int,
+        planeIdx: ::core::ffi::c_int,
         pixelStride: *mut i32,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AImage_getPlaneRowStride(
         image: *const AImage,
-        planeIdx: ::std::os::raw::c_int,
+        planeIdx: ::core::ffi::c_int,
         rowStride: *mut i32,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AImage_getPlaneData(
         image: *const AImage,
-        planeIdx: ::std::os::raw::c_int,
+        planeIdx: ::core::ffi::c_int,
         data: *mut *mut u8,
-        dataLength: *mut ::std::os::raw::c_int,
+        dataLength: *mut ::core::ffi::c_int,
     ) -> media_status_t;
 }
 extern "C" {
-    pub fn AImage_deleteAsync(image: *mut AImage, releaseFenceFd: ::std::os::raw::c_int);
+    pub fn AImage_deleteAsync(image: *mut AImage, releaseFenceFd: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn AImage_getHardwareBuffer(
@@ -19939,37 +19821,37 @@ extern "C" {
         image: *mut *mut AImage,
     ) -> media_status_t;
 }
-pub type AImageReader_ImageCallback = ::std::option::Option<
-    unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, reader: *mut AImageReader),
+pub type AImageReader_ImageCallback = ::core::option::Option<
+    unsafe extern "C" fn(context: *mut ::core::ffi::c_void, reader: *mut AImageReader),
 >;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AImageReader_ImageListener {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onImageAvailable: AImageReader_ImageCallback,
 }
 #[test]
 fn bindgen_test_layout_AImageReader_ImageListener() {
-    const UNINIT: ::std::mem::MaybeUninit<AImageReader_ImageListener> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AImageReader_ImageListener> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AImageReader_ImageListener>(),
+        ::core::mem::size_of::<AImageReader_ImageListener>(),
         16usize,
         "Size of AImageReader_ImageListener"
     );
     assert_eq!(
-        ::std::mem::align_of::<AImageReader_ImageListener>(),
+        ::core::mem::align_of::<AImageReader_ImageListener>(),
         8usize,
         "Alignment of AImageReader_ImageListener"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: AImageReader_ImageListener::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onImageAvailable) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onImageAvailable) as usize - ptr as usize },
         8usize,
         "Offset of field: AImageReader_ImageListener::onImageAvailable"
     );
@@ -20005,19 +19887,19 @@ extern "C" {
     pub fn AImageReader_acquireNextImageAsync(
         reader: *mut AImageReader,
         image: *mut *mut AImage,
-        acquireFenceFd: *mut ::std::os::raw::c_int,
+        acquireFenceFd: *mut ::core::ffi::c_int,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AImageReader_acquireLatestImageAsync(
         reader: *mut AImageReader,
         image: *mut *mut AImage,
-        acquireFenceFd: *mut ::std::os::raw::c_int,
+        acquireFenceFd: *mut ::core::ffi::c_int,
     ) -> media_status_t;
 }
-pub type AImageReader_BufferRemovedCallback = ::std::option::Option<
+pub type AImageReader_BufferRemovedCallback = ::core::option::Option<
     unsafe extern "C" fn(
-        context: *mut ::std::os::raw::c_void,
+        context: *mut ::core::ffi::c_void,
         reader: *mut AImageReader,
         buffer: *mut AHardwareBuffer,
     ),
@@ -20025,31 +19907,31 @@ pub type AImageReader_BufferRemovedCallback = ::std::option::Option<
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AImageReader_BufferRemovedListener {
-    pub context: *mut ::std::os::raw::c_void,
+    pub context: *mut ::core::ffi::c_void,
     pub onBufferRemoved: AImageReader_BufferRemovedCallback,
 }
 #[test]
 fn bindgen_test_layout_AImageReader_BufferRemovedListener() {
-    const UNINIT: ::std::mem::MaybeUninit<AImageReader_BufferRemovedListener> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AImageReader_BufferRemovedListener> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AImageReader_BufferRemovedListener>(),
+        ::core::mem::size_of::<AImageReader_BufferRemovedListener>(),
         16usize,
         "Size of AImageReader_BufferRemovedListener"
     );
     assert_eq!(
-        ::std::mem::align_of::<AImageReader_BufferRemovedListener>(),
+        ::core::mem::align_of::<AImageReader_BufferRemovedListener>(),
         8usize,
         "Alignment of AImageReader_BufferRemovedListener"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).context) as usize - ptr as usize },
         0usize,
         "Offset of field: AImageReader_BufferRemovedListener::context"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onBufferRemoved) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onBufferRemoved) as usize - ptr as usize },
         8usize,
         "Offset of field: AImageReader_BufferRemovedListener::onBufferRemoved"
     );
@@ -20070,13 +19952,12 @@ extern "C" {
     pub fn AMediaCrypto_isCryptoSchemeSupported(uuid: *const u8) -> bool;
 }
 extern "C" {
-    pub fn AMediaCrypto_requiresSecureDecoderComponent(mime: *const ::std::os::raw::c_char)
-        -> bool;
+    pub fn AMediaCrypto_requiresSecureDecoderComponent(mime: *const ::core::ffi::c_char) -> bool;
 }
 extern "C" {
     pub fn AMediaCrypto_new(
         uuid: *const u8,
-        initData: *const ::std::os::raw::c_void,
+        initData: *const ::core::ffi::c_void,
         initDataSize: usize,
     ) -> *mut AMediaCrypto;
 }
@@ -20095,312 +19976,311 @@ extern "C" {
     pub fn AMediaFormat_delete(arg1: *mut AMediaFormat) -> media_status_t;
 }
 extern "C" {
-    pub fn AMediaFormat_toString(arg1: *mut AMediaFormat) -> *const ::std::os::raw::c_char;
+    pub fn AMediaFormat_toString(arg1: *mut AMediaFormat) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AMediaFormat_getInt32(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         out: *mut i32,
     ) -> bool;
 }
 extern "C" {
     pub fn AMediaFormat_getInt64(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         out: *mut i64,
     ) -> bool;
 }
 extern "C" {
     pub fn AMediaFormat_getFloat(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         out: *mut f32,
     ) -> bool;
 }
 extern "C" {
     pub fn AMediaFormat_getSize(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         out: *mut usize,
     ) -> bool;
 }
 extern "C" {
     pub fn AMediaFormat_getBuffer(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
-        data: *mut *mut ::std::os::raw::c_void,
+        name: *const ::core::ffi::c_char,
+        data: *mut *mut ::core::ffi::c_void,
         size: *mut usize,
     ) -> bool;
 }
 extern "C" {
     pub fn AMediaFormat_getString(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
-        out: *mut *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
+        out: *mut *const ::core::ffi::c_char,
     ) -> bool;
 }
 extern "C" {
     pub fn AMediaFormat_setInt32(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         value: i32,
     );
 }
 extern "C" {
     pub fn AMediaFormat_setInt64(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         value: i64,
     );
 }
 extern "C" {
     pub fn AMediaFormat_setFloat(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         value: f32,
     );
 }
 extern "C" {
     pub fn AMediaFormat_setString(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
-        value: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     );
 }
 extern "C" {
     pub fn AMediaFormat_setBuffer(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
-        data: *const ::std::os::raw::c_void,
+        name: *const ::core::ffi::c_char,
+        data: *const ::core::ffi::c_void,
         size: usize,
     );
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_ATTENUATION_FACTOR: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_ATTENUATION_FACTOR: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_BOOST_FACTOR: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_BOOST_FACTOR: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_HEAVY_COMPRESSION: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_HEAVY_COMPRESSION: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_TARGET_REFERENCE_LEVEL: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_DRC_TARGET_REFERENCE_LEVEL: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_ENCODED_TARGET_LEVEL: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_ENCODED_TARGET_LEVEL: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_MAX_OUTPUT_CHANNEL_COUNT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_MAX_OUTPUT_CHANNEL_COUNT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_PROFILE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_PROFILE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AAC_SBR_MODE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AAC_SBR_MODE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ALLOW_FRAME_DROP: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ALLOW_FRAME_DROP: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AUDIO_SESSION_ID: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AUDIO_SESSION_ID: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_BITRATE_MODE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_BITRATE_MODE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_BIT_RATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_BIT_RATE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CAPTURE_RATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CAPTURE_RATE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CHANNEL_COUNT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CHANNEL_COUNT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CHANNEL_MASK: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CHANNEL_MASK: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_COLOR_FORMAT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_COLOR_FORMAT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_COLOR_RANGE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_COLOR_RANGE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_COLOR_STANDARD: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_COLOR_STANDARD: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_COLOR_TRANSFER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_COLOR_TRANSFER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_COMPLEXITY: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_COMPLEXITY: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CSD: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CSD: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CSD_0: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CSD_0: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CSD_1: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CSD_1: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CSD_2: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CSD_2: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_DISPLAY_CROP: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_DISPLAY_CROP: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_DISPLAY_HEIGHT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_DISPLAY_HEIGHT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_DISPLAY_WIDTH: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_DISPLAY_WIDTH: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_DURATION: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_DURATION: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_FLAC_COMPRESSION_LEVEL: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_FLAC_COMPRESSION_LEVEL: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_FRAME_RATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_FRAME_RATE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_GRID_COLUMNS: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_GRID_COLUMNS: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_GRID_ROWS: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_GRID_ROWS: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_HDR_STATIC_INFO: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_HDR_STATIC_INFO: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_HEIGHT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_HEIGHT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_IMPORTANCE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_IMPORTANCE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_INTRA_REFRESH_PERIOD: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_INTRA_REFRESH_PERIOD: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_IS_ADTS: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_IS_ADTS: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_IS_AUTOSELECT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_IS_AUTOSELECT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_IS_DEFAULT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_IS_DEFAULT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_IS_FORCED_SUBTITLE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_IS_FORCED_SUBTITLE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_I_FRAME_INTERVAL: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_I_FRAME_INTERVAL: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LANGUAGE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LANGUAGE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LATENCY: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LATENCY: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LEVEL: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LEVEL: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MAX_B_FRAMES: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MAX_B_FRAMES: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MAX_HEIGHT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MAX_HEIGHT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MAX_INPUT_SIZE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MAX_INPUT_SIZE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_BUFFER_BATCH_MAX_OUTPUT_SIZE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_BUFFER_BATCH_MAX_OUTPUT_SIZE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_BUFFER_BATCH_THRESHOLD_OUTPUT_SIZE:
-        *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_BUFFER_BATCH_THRESHOLD_OUTPUT_SIZE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MAX_WIDTH: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MAX_WIDTH: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MIME: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MIME: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MPEG_USER_DATA: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MPEG_USER_DATA: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_OPERATING_RATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_OPERATING_RATE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_PCM_ENCODING: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_PCM_ENCODING: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_PRIORITY: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_PRIORITY: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_PROFILE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_PROFILE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_PUSH_BLANK_BUFFERS_ON_STOP: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_PUSH_BLANK_BUFFERS_ON_STOP: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_REPEAT_PREVIOUS_FRAME_AFTER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_REPEAT_PREVIOUS_FRAME_AFTER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ROTATION: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ROTATION: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SAMPLE_RATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SAMPLE_RATE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SEI: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SEI: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SLICE_HEIGHT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SLICE_HEIGHT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_STRIDE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_STRIDE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TEMPORAL_LAYER_ID: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TEMPORAL_LAYER_ID: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TEMPORAL_LAYERING: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TEMPORAL_LAYERING: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TILE_HEIGHT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TILE_HEIGHT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TILE_WIDTH: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TILE_WIDTH: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TIME_US: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TIME_US: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TRACK_ID: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TRACK_ID: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TRACK_INDEX: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TRACK_INDEX: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_WIDTH: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_WIDTH: *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn AMediaFormat_getDouble(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         out: *mut f64,
     ) -> bool;
 }
 extern "C" {
     pub fn AMediaFormat_getRect(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         left: *mut i32,
         top: *mut i32,
         right: *mut i32,
@@ -20410,21 +20290,21 @@ extern "C" {
 extern "C" {
     pub fn AMediaFormat_setDouble(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         value: f64,
     );
 }
 extern "C" {
     pub fn AMediaFormat_setSize(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         value: usize,
     );
 }
 extern "C" {
     pub fn AMediaFormat_setRect(
         arg1: *mut AMediaFormat,
-        name: *const ::std::os::raw::c_char,
+        name: *const ::core::ffi::c_char,
         left: i32,
         top: i32,
         right: i32,
@@ -20438,248 +20318,247 @@ extern "C" {
     pub fn AMediaFormat_copy(to: *mut AMediaFormat, from: *mut AMediaFormat) -> media_status_t;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ALBUM: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ALBUM: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ALBUMART: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ALBUMART: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ALBUMARTIST: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ALBUMARTIST: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ARTIST: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ARTIST: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AUDIO_PRESENTATION_INFO: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AUDIO_PRESENTATION_INFO: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AUDIO_PRESENTATION_PRESENTATION_ID:
-        *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AUDIO_PRESENTATION_PRESENTATION_ID: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AUDIO_PRESENTATION_PROGRAM_ID: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AUDIO_PRESENTATION_PROGRAM_ID: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_AUTHOR: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_AUTHOR: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_BITS_PER_SAMPLE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_BITS_PER_SAMPLE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CDTRACKNUMBER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CDTRACKNUMBER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_COMPILATION: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_COMPILATION: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_COMPOSER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_COMPOSER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CREATE_INPUT_SURFACE_SUSPENDED: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CREATE_INPUT_SURFACE_SUSPENDED: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_DEFAULT_IV_SIZE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_DEFAULT_IV_SIZE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_ENCRYPTED_BYTE_BLOCK: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_ENCRYPTED_BYTE_BLOCK: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_ENCRYPTED_SIZES: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_ENCRYPTED_SIZES: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_IV: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_IV: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_KEY: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_KEY: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_MODE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_MODE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_PLAIN_SIZES: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_PLAIN_SIZES: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CRYPTO_SKIP_BYTE_BLOCK: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CRYPTO_SKIP_BYTE_BLOCK: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CSD_AVC: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CSD_AVC: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_CSD_HEVC: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_CSD_HEVC: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_D263: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_D263: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_DATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_DATE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_DISCNUMBER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_DISCNUMBER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ENCODER_DELAY: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ENCODER_DELAY: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ENCODER_PADDING: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ENCODER_PADDING: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ESDS: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ESDS: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_EXIF_OFFSET: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_EXIF_OFFSET: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_EXIF_SIZE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_EXIF_SIZE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_FRAME_COUNT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_FRAME_COUNT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_GENRE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_GENRE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_HAPTIC_CHANNEL_COUNT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_HAPTIC_CHANNEL_COUNT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_ICC_PROFILE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_ICC_PROFILE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_IS_SYNC_FRAME: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_IS_SYNC_FRAME: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LOCATION: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LOCATION: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LOOP: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LOOP: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LYRICIST: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LYRICIST: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MANUFACTURER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MANUFACTURER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MAX_BIT_RATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MAX_BIT_RATE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MAX_FPS_TO_ENCODER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MAX_FPS_TO_ENCODER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MAX_PTS_GAP_TO_ENCODER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MAX_PTS_GAP_TO_ENCODER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MPEG2_STREAM_HEADER: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MPEG2_STREAM_HEADER: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_PCM_BIG_ENDIAN: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_PCM_BIG_ENDIAN: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_PSSH: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_PSSH: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SAR_HEIGHT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SAR_HEIGHT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SAR_WIDTH: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SAR_WIDTH: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TARGET_TIME: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TARGET_TIME: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TEMPORAL_LAYER_COUNT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TEMPORAL_LAYER_COUNT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TEXT_FORMAT_DATA: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TEXT_FORMAT_DATA: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_CSD_HEVC: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_CSD_HEVC: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_HEIGHT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_HEIGHT: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_TIME: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_TIME: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_WIDTH: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_WIDTH: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_TITLE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_TITLE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_VALID_SAMPLES: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_VALID_SAMPLES: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_YEAR: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_YEAR: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LOW_LATENCY: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LOW_LATENCY: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_HDR10_PLUS_INFO: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_HDR10_PLUS_INFO: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SLOW_MOTION_MARKERS: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SLOW_MOTION_MARKERS: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_CSD_AV1C: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_THUMBNAIL_CSD_AV1C: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_XMP_OFFSET: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_XMP_OFFSET: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_XMP_SIZE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_XMP_SIZE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SAMPLE_FILE_OFFSET: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SAMPLE_FILE_OFFSET: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_LAST_SAMPLE_INDEX_IN_CHUNK: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_LAST_SAMPLE_INDEX_IN_CHUNK: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_SAMPLE_TIME_BEFORE_APPEND: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_SAMPLE_TIME_BEFORE_APPEND: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_PICTURE_TYPE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_PICTURE_TYPE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_VIDEO_ENCODING_STATISTICS_LEVEL: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_VIDEO_ENCODING_STATISTICS_LEVEL: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_VIDEO_QP_AVERAGE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_VIDEO_QP_AVERAGE: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_B_MAX: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_B_MAX: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_B_MIN: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_B_MIN: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_I_MAX: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_I_MAX: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_I_MIN: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_I_MIN: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_MAX: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_MAX: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_MIN: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_MIN: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_P_MAX: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_P_MAX: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_VIDEO_QP_P_MIN: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_VIDEO_QP_P_MIN: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MPEGH_COMPATIBLE_SETS: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MPEGH_COMPATIBLE_SETS: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MPEGH_PROFILE_LEVEL_INDICATION: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MPEGH_PROFILE_LEVEL_INDICATION: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIAFORMAT_KEY_MPEGH_REFERENCE_CHANNEL_LAYOUT: *const ::std::os::raw::c_char;
+    pub static mut AMEDIAFORMAT_KEY_MPEGH_REFERENCE_CHANNEL_LAYOUT: *const ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -20696,36 +20575,36 @@ pub struct AMediaCodecBufferInfo {
 }
 #[test]
 fn bindgen_test_layout_AMediaCodecBufferInfo() {
-    const UNINIT: ::std::mem::MaybeUninit<AMediaCodecBufferInfo> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AMediaCodecBufferInfo> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AMediaCodecBufferInfo>(),
+        ::core::mem::size_of::<AMediaCodecBufferInfo>(),
         24usize,
         "Size of AMediaCodecBufferInfo"
     );
     assert_eq!(
-        ::std::mem::align_of::<AMediaCodecBufferInfo>(),
+        ::core::mem::align_of::<AMediaCodecBufferInfo>(),
         8usize,
         "Alignment of AMediaCodecBufferInfo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).offset) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).offset) as usize - ptr as usize },
         0usize,
         "Offset of field: AMediaCodecBufferInfo::offset"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
         4usize,
         "Offset of field: AMediaCodecBufferInfo::size"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).presentationTimeUs) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).presentationTimeUs) as usize - ptr as usize },
         8usize,
         "Offset of field: AMediaCodecBufferInfo::presentationTimeUs"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
         16usize,
         "Offset of field: AMediaCodecBufferInfo::flags"
     );
@@ -20741,41 +20620,37 @@ pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_68 = 4;
 pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_68 = 8;
 pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_68 = 16;
 pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_68 = 32;
-pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_68 = ::core::ffi::c_uint;
 pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_69 = 1;
 pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_69 = -3;
 pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_69 = -2;
 pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_69 = -1;
-pub type _bindgen_ty_69 = ::std::os::raw::c_int;
-pub type AMediaCodecOnAsyncInputAvailable = ::std::option::Option<
-    unsafe extern "C" fn(
-        codec: *mut AMediaCodec,
-        userdata: *mut ::std::os::raw::c_void,
-        index: i32,
-    ),
+pub type _bindgen_ty_69 = ::core::ffi::c_int;
+pub type AMediaCodecOnAsyncInputAvailable = ::core::option::Option<
+    unsafe extern "C" fn(codec: *mut AMediaCodec, userdata: *mut ::core::ffi::c_void, index: i32),
 >;
-pub type AMediaCodecOnAsyncOutputAvailable = ::std::option::Option<
+pub type AMediaCodecOnAsyncOutputAvailable = ::core::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
         index: i32,
         bufferInfo: *mut AMediaCodecBufferInfo,
     ),
 >;
-pub type AMediaCodecOnAsyncFormatChanged = ::std::option::Option<
+pub type AMediaCodecOnAsyncFormatChanged = ::core::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
         format: *mut AMediaFormat,
     ),
 >;
-pub type AMediaCodecOnAsyncError = ::std::option::Option<
+pub type AMediaCodecOnAsyncError = ::core::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
         error: media_status_t,
         actionCode: i32,
-        detail: *const ::std::os::raw::c_char,
+        detail: *const ::core::ffi::c_char,
     ),
 >;
 #[repr(C)]
@@ -20788,59 +20663,59 @@ pub struct AMediaCodecOnAsyncNotifyCallback {
 }
 #[test]
 fn bindgen_test_layout_AMediaCodecOnAsyncNotifyCallback() {
-    const UNINIT: ::std::mem::MaybeUninit<AMediaCodecOnAsyncNotifyCallback> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AMediaCodecOnAsyncNotifyCallback> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AMediaCodecOnAsyncNotifyCallback>(),
+        ::core::mem::size_of::<AMediaCodecOnAsyncNotifyCallback>(),
         32usize,
         "Size of AMediaCodecOnAsyncNotifyCallback"
     );
     assert_eq!(
-        ::std::mem::align_of::<AMediaCodecOnAsyncNotifyCallback>(),
+        ::core::mem::align_of::<AMediaCodecOnAsyncNotifyCallback>(),
         8usize,
         "Alignment of AMediaCodecOnAsyncNotifyCallback"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onAsyncInputAvailable) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onAsyncInputAvailable) as usize - ptr as usize },
         0usize,
         "Offset of field: AMediaCodecOnAsyncNotifyCallback::onAsyncInputAvailable"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onAsyncOutputAvailable) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onAsyncOutputAvailable) as usize - ptr as usize },
         8usize,
         "Offset of field: AMediaCodecOnAsyncNotifyCallback::onAsyncOutputAvailable"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onAsyncFormatChanged) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onAsyncFormatChanged) as usize - ptr as usize },
         16usize,
         "Offset of field: AMediaCodecOnAsyncNotifyCallback::onAsyncFormatChanged"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onAsyncError) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).onAsyncError) as usize - ptr as usize },
         24usize,
         "Offset of field: AMediaCodecOnAsyncNotifyCallback::onAsyncError"
     );
 }
-pub type AMediaCodecOnFrameRendered = ::std::option::Option<
+pub type AMediaCodecOnFrameRendered = ::core::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
         mediaTimeUs: i64,
         systemNano: i64,
     ),
 >;
 extern "C" {
-    pub fn AMediaCodec_createCodecByName(name: *const ::std::os::raw::c_char) -> *mut AMediaCodec;
+    pub fn AMediaCodec_createCodecByName(name: *const ::core::ffi::c_char) -> *mut AMediaCodec;
 }
 extern "C" {
     pub fn AMediaCodec_createDecoderByType(
-        mime_type: *const ::std::os::raw::c_char,
+        mime_type: *const ::core::ffi::c_char,
     ) -> *mut AMediaCodec;
 }
 extern "C" {
     pub fn AMediaCodec_createEncoderByType(
-        mime_type: *const ::std::os::raw::c_char,
+        mime_type: *const ::core::ffi::c_char,
     ) -> *mut AMediaCodec;
 }
 extern "C" {
@@ -20883,17 +20758,17 @@ extern "C" {
 }
 extern "C" {
     pub fn __assert(
-        __file: *const ::std::os::raw::c_char,
-        __line: ::std::os::raw::c_int,
-        __msg: *const ::std::os::raw::c_char,
+        __file: *const ::core::ffi::c_char,
+        __line: ::core::ffi::c_int,
+        __msg: *const ::core::ffi::c_char,
     ) -> !;
 }
 extern "C" {
     pub fn __assert2(
-        __file: *const ::std::os::raw::c_char,
-        __line: ::std::os::raw::c_int,
-        __function: *const ::std::os::raw::c_char,
-        __msg: *const ::std::os::raw::c_char,
+        __file: *const ::core::ffi::c_char,
+        __line: ::core::ffi::c_int,
+        __function: *const ::core::ffi::c_char,
+        __msg: *const ::core::ffi::c_char,
     ) -> !;
 }
 extern "C" {
@@ -20978,24 +20853,24 @@ extern "C" {
 extern "C" {
     pub fn AMediaCodec_getName(
         arg1: *mut AMediaCodec,
-        out_name: *mut *mut ::std::os::raw::c_char,
+        out_name: *mut *mut ::core::ffi::c_char,
     ) -> media_status_t;
 }
 extern "C" {
-    pub fn AMediaCodec_releaseName(arg1: *mut AMediaCodec, name: *mut ::std::os::raw::c_char);
+    pub fn AMediaCodec_releaseName(arg1: *mut AMediaCodec, name: *mut ::core::ffi::c_char);
 }
 extern "C" {
     pub fn AMediaCodec_setAsyncNotifyCallback(
         arg1: *mut AMediaCodec,
         callback: AMediaCodecOnAsyncNotifyCallback,
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaCodec_setOnFrameRenderedCallback(
         arg1: *mut AMediaCodec,
         callback: AMediaCodecOnFrameRendered,
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
     ) -> media_status_t;
 }
 extern "C" {
@@ -21024,7 +20899,7 @@ impl cryptoinfo_mode_t {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct cryptoinfo_mode_t(pub ::std::os::raw::c_uint);
+pub struct cryptoinfo_mode_t(pub ::core::ffi::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct cryptoinfo_pattern_t {
@@ -21033,32 +20908,33 @@ pub struct cryptoinfo_pattern_t {
 }
 #[test]
 fn bindgen_test_layout_cryptoinfo_pattern_t() {
-    const UNINIT: ::std::mem::MaybeUninit<cryptoinfo_pattern_t> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<cryptoinfo_pattern_t> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<cryptoinfo_pattern_t>(),
+        ::core::mem::size_of::<cryptoinfo_pattern_t>(),
         8usize,
         "Size of cryptoinfo_pattern_t"
     );
     assert_eq!(
-        ::std::mem::align_of::<cryptoinfo_pattern_t>(),
+        ::core::mem::align_of::<cryptoinfo_pattern_t>(),
         4usize,
         "Alignment of cryptoinfo_pattern_t"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).encryptBlocks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).encryptBlocks) as usize - ptr as usize },
         0usize,
         "Offset of field: cryptoinfo_pattern_t::encryptBlocks"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).skipBlocks) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).skipBlocks) as usize - ptr as usize },
         4usize,
         "Offset of field: cryptoinfo_pattern_t::skipBlocks"
     );
 }
 extern "C" {
     pub fn AMediaCodecCryptoInfo_new(
-        numsubsamples: ::std::os::raw::c_int,
+        numsubsamples: ::core::ffi::c_int,
         key: *mut u8,
         iv: *mut u8,
         mode: cryptoinfo_mode_t,
@@ -21106,54 +20982,54 @@ extern "C" {
     ) -> media_status_t;
 }
 extern "C" {
-    pub static mut AMEDIACODEC_KEY_HDR10_PLUS_INFO: *const ::std::os::raw::c_char;
+    pub static mut AMEDIACODEC_KEY_HDR10_PLUS_INFO: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIACODEC_KEY_LOW_LATENCY: *const ::std::os::raw::c_char;
+    pub static mut AMEDIACODEC_KEY_LOW_LATENCY: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIACODEC_KEY_OFFSET_TIME: *const ::std::os::raw::c_char;
+    pub static mut AMEDIACODEC_KEY_OFFSET_TIME: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIACODEC_KEY_REQUEST_SYNC_FRAME: *const ::std::os::raw::c_char;
+    pub static mut AMEDIACODEC_KEY_REQUEST_SYNC_FRAME: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIACODEC_KEY_SUSPEND: *const ::std::os::raw::c_char;
+    pub static mut AMEDIACODEC_KEY_SUSPEND: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIACODEC_KEY_SUSPEND_TIME: *const ::std::os::raw::c_char;
+    pub static mut AMEDIACODEC_KEY_SUSPEND_TIME: *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut AMEDIACODEC_KEY_VIDEO_BITRATE: *const ::std::os::raw::c_char;
+    pub static mut AMEDIACODEC_KEY_VIDEO_BITRATE: *const ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AMediaDataSource {
     _unused: [u8; 0],
 }
-pub type AMediaDataSourceReadAt = ::std::option::Option<
+pub type AMediaDataSourceReadAt = ::core::option::Option<
     unsafe extern "C" fn(
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
         offset: off64_t,
-        buffer: *mut ::std::os::raw::c_void,
+        buffer: *mut ::core::ffi::c_void,
         size: usize,
     ) -> isize,
 >;
 pub type AMediaDataSourceGetSize =
-    ::std::option::Option<unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void) -> isize>;
+    ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void) -> isize>;
 pub type AMediaDataSourceClose =
-    ::std::option::Option<unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void)>;
 extern "C" {
     pub fn AMediaDataSource_new() -> *mut AMediaDataSource;
 }
-pub type AMediaDataSourceGetAvailableSize = ::std::option::Option<
-    unsafe extern "C" fn(userdata: *mut ::std::os::raw::c_void, offset: off64_t) -> isize,
+pub type AMediaDataSourceGetAvailableSize = ::core::option::Option<
+    unsafe extern "C" fn(userdata: *mut ::core::ffi::c_void, offset: off64_t) -> isize,
 >;
 extern "C" {
     pub fn AMediaDataSource_newUri(
-        uri: *const ::std::os::raw::c_char,
-        numheaders: ::std::os::raw::c_int,
-        key_values: *const *const ::std::os::raw::c_char,
+        uri: *const ::core::ffi::c_char,
+        numheaders: ::core::ffi::c_int,
+        key_values: *const *const ::core::ffi::c_char,
     ) -> *mut AMediaDataSource;
 }
 extern "C" {
@@ -21162,7 +21038,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaDataSource_setUserdata(
         arg1: *mut AMediaDataSource,
-        userdata: *mut ::std::os::raw::c_void,
+        userdata: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
@@ -21196,25 +21072,25 @@ pub struct AMediaDrmByteArray {
 }
 #[test]
 fn bindgen_test_layout_AMediaDrmByteArray() {
-    const UNINIT: ::std::mem::MaybeUninit<AMediaDrmByteArray> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AMediaDrmByteArray> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AMediaDrmByteArray>(),
+        ::core::mem::size_of::<AMediaDrmByteArray>(),
         16usize,
         "Size of AMediaDrmByteArray"
     );
     assert_eq!(
-        ::std::mem::align_of::<AMediaDrmByteArray>(),
+        ::core::mem::align_of::<AMediaDrmByteArray>(),
         8usize,
         "Alignment of AMediaDrmByteArray"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ptr) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).ptr) as usize - ptr as usize },
         0usize,
         "Offset of field: AMediaDrmByteArray::ptr"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).length) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).length) as usize - ptr as usize },
         8usize,
         "Offset of field: AMediaDrmByteArray::length"
     );
@@ -21241,7 +21117,7 @@ impl AMediaDrmEventType {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AMediaDrmEventType(pub ::std::os::raw::c_uint);
+pub struct AMediaDrmEventType(pub ::core::ffi::c_uint);
 impl AMediaDrmKeyType {
     pub const KEY_TYPE_STREAMING: AMediaDrmKeyType = AMediaDrmKeyType(1);
 }
@@ -21253,7 +21129,7 @@ impl AMediaDrmKeyType {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AMediaDrmKeyType(pub ::std::os::raw::c_uint);
+pub struct AMediaDrmKeyType(pub ::core::ffi::c_uint);
 impl AMediaDrmKeyRequestType {
     pub const KEY_REQUEST_TYPE_INITIAL: AMediaDrmKeyRequestType = AMediaDrmKeyRequestType(0);
 }
@@ -21275,31 +21151,31 @@ pub struct AMediaDrmKeyRequestType(pub i32);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AMediaDrmKeyValuePair {
-    pub mKey: *const ::std::os::raw::c_char,
-    pub mValue: *const ::std::os::raw::c_char,
+    pub mKey: *const ::core::ffi::c_char,
+    pub mValue: *const ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_AMediaDrmKeyValuePair() {
-    const UNINIT: ::std::mem::MaybeUninit<AMediaDrmKeyValuePair> =
-        ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AMediaDrmKeyValuePair> =
+        ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AMediaDrmKeyValuePair>(),
+        ::core::mem::size_of::<AMediaDrmKeyValuePair>(),
         16usize,
         "Size of AMediaDrmKeyValuePair"
     );
     assert_eq!(
-        ::std::mem::align_of::<AMediaDrmKeyValuePair>(),
+        ::core::mem::align_of::<AMediaDrmKeyValuePair>(),
         8usize,
         "Alignment of AMediaDrmKeyValuePair"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).mKey) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).mKey) as usize - ptr as usize },
         0usize,
         "Offset of field: AMediaDrmKeyValuePair::mKey"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).mValue) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).mValue) as usize - ptr as usize },
         8usize,
         "Offset of field: AMediaDrmKeyValuePair::mValue"
     );
@@ -21322,7 +21198,7 @@ impl AMediaKeyStatusType {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AMediaKeyStatusType(pub ::std::os::raw::c_uint);
+pub struct AMediaKeyStatusType(pub ::core::ffi::c_uint);
 pub use self::AMediaKeyStatusType as AMediaDrmKeyStatusType;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -21332,47 +21208,47 @@ pub struct AMediaDrmKeyStatus {
 }
 #[test]
 fn bindgen_test_layout_AMediaDrmKeyStatus() {
-    const UNINIT: ::std::mem::MaybeUninit<AMediaDrmKeyStatus> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<AMediaDrmKeyStatus> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<AMediaDrmKeyStatus>(),
+        ::core::mem::size_of::<AMediaDrmKeyStatus>(),
         24usize,
         "Size of AMediaDrmKeyStatus"
     );
     assert_eq!(
-        ::std::mem::align_of::<AMediaDrmKeyStatus>(),
+        ::core::mem::align_of::<AMediaDrmKeyStatus>(),
         8usize,
         "Alignment of AMediaDrmKeyStatus"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).keyId) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).keyId) as usize - ptr as usize },
         0usize,
         "Offset of field: AMediaDrmKeyStatus::keyId"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).keyType) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).keyType) as usize - ptr as usize },
         16usize,
         "Offset of field: AMediaDrmKeyStatus::keyType"
     );
 }
-pub type AMediaDrmEventListener = ::std::option::Option<
+pub type AMediaDrmEventListener = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
         eventType: AMediaDrmEventType,
-        extra: ::std::os::raw::c_int,
+        extra: ::core::ffi::c_int,
         data: *const u8,
         dataSize: usize,
     ),
 >;
-pub type AMediaDrmExpirationUpdateListener = ::std::option::Option<
+pub type AMediaDrmExpirationUpdateListener = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
         expiryTimeInMS: i64,
     ),
 >;
-pub type AMediaDrmKeysChangeListener = ::std::option::Option<
+pub type AMediaDrmKeysChangeListener = ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
@@ -21384,7 +21260,7 @@ pub type AMediaDrmKeysChangeListener = ::std::option::Option<
 extern "C" {
     pub fn AMediaDrm_isCryptoSchemeSupported(
         uuid: *const u8,
-        mimeType: *const ::std::os::raw::c_char,
+        mimeType: *const ::core::ffi::c_char,
     ) -> bool;
 }
 extern "C" {
@@ -21429,7 +21305,7 @@ extern "C" {
         scope: *const AMediaDrmScope,
         init: *const u8,
         initSize: usize,
-        mimeType: *const ::std::os::raw::c_char,
+        mimeType: *const ::core::ffi::c_char,
         keyType: AMediaDrmKeyType,
         optionalParameters: *const AMediaDrmKeyValue,
         numOptionalParameters: usize,
@@ -21443,13 +21319,13 @@ extern "C" {
         scope: *const AMediaDrmScope,
         init: *const u8,
         initSize: usize,
-        mimeType: *const ::std::os::raw::c_char,
+        mimeType: *const ::core::ffi::c_char,
         keyType: AMediaDrmKeyType,
         optionalParameters: *const AMediaDrmKeyValue,
         numOptionalParameters: usize,
         keyRequest: *mut *const u8,
         keyRequestSize: *mut usize,
-        defaultUrl: *mut *const ::std::os::raw::c_char,
+        defaultUrl: *mut *const ::core::ffi::c_char,
         keyRequestType: *mut AMediaDrmKeyRequestType,
     ) -> media_status_t;
 }
@@ -21488,7 +21364,7 @@ extern "C" {
         arg1: *mut AMediaDrm,
         provisionRequest: *mut *const u8,
         provisionRequestSize: *mut usize,
-        serverUrl: *mut *const ::std::os::raw::c_char,
+        serverUrl: *mut *const ::core::ffi::c_char,
     ) -> media_status_t;
 }
 extern "C" {
@@ -21514,28 +21390,28 @@ extern "C" {
 extern "C" {
     pub fn AMediaDrm_getPropertyString(
         arg1: *mut AMediaDrm,
-        propertyName: *const ::std::os::raw::c_char,
-        propertyValue: *mut *const ::std::os::raw::c_char,
+        propertyName: *const ::core::ffi::c_char,
+        propertyValue: *mut *const ::core::ffi::c_char,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaDrm_getPropertyByteArray(
         arg1: *mut AMediaDrm,
-        propertyName: *const ::std::os::raw::c_char,
+        propertyName: *const ::core::ffi::c_char,
         propertyValue: *mut AMediaDrmByteArray,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaDrm_setPropertyString(
         arg1: *mut AMediaDrm,
-        propertyName: *const ::std::os::raw::c_char,
-        value: *const ::std::os::raw::c_char,
+        propertyName: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     ) -> media_status_t;
 }
 extern "C" {
     pub fn AMediaDrm_setPropertyByteArray(
         arg1: *mut AMediaDrm,
-        propertyName: *const ::std::os::raw::c_char,
+        propertyName: *const ::core::ffi::c_char,
         value: *const u8,
         valueSize: usize,
     ) -> media_status_t;
@@ -21544,7 +21420,7 @@ extern "C" {
     pub fn AMediaDrm_encrypt(
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
-        cipherAlgorithm: *const ::std::os::raw::c_char,
+        cipherAlgorithm: *const ::core::ffi::c_char,
         keyId: *mut u8,
         iv: *mut u8,
         input: *const u8,
@@ -21556,7 +21432,7 @@ extern "C" {
     pub fn AMediaDrm_decrypt(
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
-        cipherAlgorithm: *const ::std::os::raw::c_char,
+        cipherAlgorithm: *const ::core::ffi::c_char,
         keyId: *mut u8,
         iv: *mut u8,
         input: *const u8,
@@ -21568,7 +21444,7 @@ extern "C" {
     pub fn AMediaDrm_sign(
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
-        macAlgorithm: *const ::std::os::raw::c_char,
+        macAlgorithm: *const ::core::ffi::c_char,
         keyId: *mut u8,
         message: *mut u8,
         messageSize: usize,
@@ -21580,7 +21456,7 @@ extern "C" {
     pub fn AMediaDrm_verify(
         arg1: *mut AMediaDrm,
         sessionId: *const AMediaDrmSessionId,
-        macAlgorithm: *const ::std::os::raw::c_char,
+        macAlgorithm: *const ::core::ffi::c_char,
         keyId: *mut u8,
         message: *const u8,
         messageSize: usize,
@@ -21602,7 +21478,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaExtractor_setDataSourceFd(
         arg1: *mut AMediaExtractor,
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         offset: off64_t,
         length: off64_t,
     ) -> media_status_t;
@@ -21610,7 +21486,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaExtractor_setDataSource(
         arg1: *mut AMediaExtractor,
-        location: *const ::std::os::raw::c_char,
+        location: *const ::core::ffi::c_char,
     ) -> media_status_t;
 }
 extern "C" {
@@ -21645,8 +21521,7 @@ extern "C" {
     pub fn AMediaExtractor_getSampleFlags(arg1: *mut AMediaExtractor) -> u32;
 }
 extern "C" {
-    pub fn AMediaExtractor_getSampleTrackIndex(arg1: *mut AMediaExtractor)
-        -> ::std::os::raw::c_int;
+    pub fn AMediaExtractor_getSampleTrackIndex(arg1: *mut AMediaExtractor) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn AMediaExtractor_getSampleTime(arg1: *mut AMediaExtractor) -> i64;
@@ -21665,7 +21540,7 @@ impl SeekMode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct SeekMode(pub ::std::os::raw::c_uint);
+pub struct SeekMode(pub ::core::ffi::c_uint);
 extern "C" {
     pub fn AMediaExtractor_seekTo(
         arg1: *mut AMediaExtractor,
@@ -21678,34 +21553,34 @@ extern "C" {
 pub struct PsshEntry {
     pub uuid: AMediaUUID,
     pub datalen: usize,
-    pub data: *mut ::std::os::raw::c_void,
+    pub data: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_PsshEntry() {
-    const UNINIT: ::std::mem::MaybeUninit<PsshEntry> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<PsshEntry> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<PsshEntry>(),
+        ::core::mem::size_of::<PsshEntry>(),
         32usize,
         "Size of PsshEntry"
     );
     assert_eq!(
-        ::std::mem::align_of::<PsshEntry>(),
+        ::core::mem::align_of::<PsshEntry>(),
         8usize,
         "Alignment of PsshEntry"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uuid) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).uuid) as usize - ptr as usize },
         0usize,
         "Offset of field: PsshEntry::uuid"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).datalen) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).datalen) as usize - ptr as usize },
         16usize,
         "Offset of field: PsshEntry::datalen"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
         24usize,
         "Offset of field: PsshEntry::data"
     );
@@ -21718,25 +21593,25 @@ pub struct PsshInfo {
 }
 #[test]
 fn bindgen_test_layout_PsshInfo() {
-    const UNINIT: ::std::mem::MaybeUninit<PsshInfo> = ::std::mem::MaybeUninit::uninit();
+    const UNINIT: ::core::mem::MaybeUninit<PsshInfo> = ::core::mem::MaybeUninit::uninit();
     let ptr = UNINIT.as_ptr();
     assert_eq!(
-        ::std::mem::size_of::<PsshInfo>(),
+        ::core::mem::size_of::<PsshInfo>(),
         8usize,
         "Size of PsshInfo"
     );
     assert_eq!(
-        ::std::mem::align_of::<PsshInfo>(),
+        ::core::mem::align_of::<PsshInfo>(),
         8usize,
         "Alignment of PsshInfo"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).numentries) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).numentries) as usize - ptr as usize },
         0usize,
         "Offset of field: PsshInfo::numentries"
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).entries) as usize - ptr as usize },
+        unsafe { ::core::ptr::addr_of!((*ptr).entries) as usize - ptr as usize },
         8usize,
         "Offset of field: PsshInfo::entries"
     );
@@ -21751,7 +21626,7 @@ extern "C" {
 }
 pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_70 = 1;
 pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_70 = 2;
-pub type _bindgen_ty_70 = ::std::os::raw::c_uint;
+pub type _bindgen_ty_70 = ::core::ffi::c_uint;
 extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }
@@ -21789,7 +21664,7 @@ impl OutputFormat {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct OutputFormat(pub ::std::os::raw::c_uint);
+pub struct OutputFormat(pub ::core::ffi::c_uint);
 impl AppendMode {
     pub const AMEDIAMUXER_APPEND_IGNORE_LAST_VIDEO_GOP: AppendMode = AppendMode(0);
 }
@@ -21798,9 +21673,9 @@ impl AppendMode {
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct AppendMode(pub ::std::os::raw::c_uint);
+pub struct AppendMode(pub ::core::ffi::c_uint);
 extern "C" {
-    pub fn AMediaMuxer_new(fd: ::std::os::raw::c_int, format: OutputFormat) -> *mut AMediaMuxer;
+    pub fn AMediaMuxer_new(fd: ::core::ffi::c_int, format: OutputFormat) -> *mut AMediaMuxer;
 }
 extern "C" {
     pub fn AMediaMuxer_delete(arg1: *mut AMediaMuxer) -> media_status_t;
@@ -21815,7 +21690,7 @@ extern "C" {
 extern "C" {
     pub fn AMediaMuxer_setOrientationHint(
         arg1: *mut AMediaMuxer,
-        degrees: ::std::os::raw::c_int,
+        degrees: ::core::ffi::c_int,
     ) -> media_status_t;
 }
 extern "C" {
@@ -21836,7 +21711,7 @@ extern "C" {
     ) -> media_status_t;
 }
 extern "C" {
-    pub fn AMediaMuxer_append(fd: ::std::os::raw::c_int, mode: AppendMode) -> *mut AMediaMuxer;
+    pub fn AMediaMuxer_append(fd: ::core::ffi::c_int, mode: AppendMode) -> *mut AMediaMuxer;
 }
 extern "C" {
     pub fn AMediaMuxer_getTrackCount(arg1: *mut AMediaMuxer) -> isize;

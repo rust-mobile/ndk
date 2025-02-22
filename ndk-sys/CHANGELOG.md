@@ -1,6 +1,7 @@
 # Unreleased
 
 - Regenerate bindings with `bindgen 0.71.1`. (#487)
+- **Breaking:** Bump MSRV to 1.64 and make crate `no_std` compliant. (#XXX)
 
 # 0.6.0 (2024-04-26)
 
