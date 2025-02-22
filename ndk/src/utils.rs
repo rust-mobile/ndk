@@ -30,8 +30,7 @@ pub(crate) fn android_log(level: Level, tag: &CStr, msg: &CStr) {
 
 pub(crate) fn log_panic(panic: Box<dyn std::any::Any + Send>) {
     fn log_panic(panic_str: &str) {
-        const RUST_PANIC_TAG: &CStr =
-            unsafe { CStr::from_bytes_with_nul_unchecked(b"RustPanic\0") };
+        const RUST_PANIC_TAG: &CStr = c"RustPanic";
 
         let panic_str = CString::new(panic_str).unwrap_or_default();
 

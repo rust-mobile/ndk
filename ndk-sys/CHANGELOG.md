@@ -1,6 +1,7 @@
 # Unreleased
 
 - Regenerate bindings with `bindgen 0.71.1`. (#487)
+- **Breaking:** Bump MSRV to 1.77 for more efficient `bindgen` output. (#487)
 
 # 0.6.0 (2024-04-26)
 
