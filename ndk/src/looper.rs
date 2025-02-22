@@ -9,11 +9,9 @@
 //!
 //! [`ALooper`]: https://developer.android.com/ndk/reference/group/looper#alooper
 
+use std::ffi::c_void;
 use std::mem::ManuallyDrop;
-use std::os::{
-    fd::{AsRawFd, BorrowedFd, RawFd},
-    raw::c_void,
-};
+use std::os::fd::{AsRawFd, BorrowedFd, RawFd};
 use std::ptr;
 use std::time::Duration;
 use thiserror::Error;

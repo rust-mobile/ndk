@@ -8,6 +8,7 @@
 
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{FromPrimitive, IntoPrimitive};
+use std::ffi::c_void;
 use std::{error, fmt, mem::MaybeUninit};
 
 #[cfg(feature = "api-level-30")]
@@ -137,7 +138,7 @@ impl Bitmap {
     /// If this call succeeds, it must be balanced by a call to [`Bitmap::unlock_pixels()`], after
     /// which time the address of the pixels should no longer be used.
     #[doc(alias = "AndroidBitmap_lockPixels")]
-    pub fn lock_pixels(&self) -> Result<*mut std::os::raw::c_void> {
+    pub fn lock_pixels(&self) -> Result<*mut c_void> {
         construct(|res| unsafe { ffi::AndroidBitmap_lockPixels(self.env, self.inner, res) })
     }
 
@@ -238,7 +239,7 @@ impl Bitmap {
     pub unsafe fn compress_raw<F: FnMut(&[u8]) -> Result<(), ()>>(
         info: &BitmapInfo,
         data_space: DataSpace,
-        pixels: *const std::ffi::c_void,
+        pixels: *const c_void,
         format: BitmapCompressFormat,
         quality: i32,
         compress_callback: F,

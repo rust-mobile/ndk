@@ -2,8 +2,8 @@
 //!
 //! [`AInputQueue`]: https://developer.android.com/ndk/reference/group/input#ainputqueue
 
+use std::ffi::c_int;
 use std::io::Result;
-use std::os::raw::c_int;
 use std::ptr::{self, NonNull};
 
 #[cfg(feature = "api-level-33")]

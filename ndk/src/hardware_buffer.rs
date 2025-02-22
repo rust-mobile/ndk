@@ -5,13 +5,11 @@
 #![cfg(feature = "api-level-26")]
 
 use std::{
+    ffi::c_void,
     io::Result,
     mem::MaybeUninit,
     ops::Deref,
-    os::{
-        fd::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
-        raw::c_void,
-    },
+    os::fd::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
     ptr::NonNull,
 };
 

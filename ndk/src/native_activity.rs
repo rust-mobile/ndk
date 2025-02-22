@@ -4,8 +4,8 @@
 
 use super::hardware_buffer_format::HardwareBufferFormat;
 use std::{
-    ffi::{CStr, OsStr},
-    os::{raw::c_void, unix::prelude::OsStrExt},
+    ffi::{c_void, CStr, OsStr},
+    os::unix::prelude::OsStrExt,
     path::Path,
     ptr::NonNull,
 };
