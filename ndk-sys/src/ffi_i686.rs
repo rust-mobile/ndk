@@ -34,7 +34,6 @@ pub const __BIONIC__: u32 = 1;
 pub const __WORDSIZE: u32 = 32;
 pub const __bos_level: u32 = 0;
 pub const __ANDROID_API_FUTURE__: u32 = 10000;
-pub const __ANDROID_API__: u32 = 10000;
 pub const __ANDROID_API_G__: u32 = 9;
 pub const __ANDROID_API_I__: u32 = 14;
 pub const __ANDROID_API_J__: u32 = 16;

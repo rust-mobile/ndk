@@ -31,6 +31,7 @@ while read ARCH && read TARGET ; do
         --blocklist-item 'C?_?JNIEnv' \
         --blocklist-item '_?JavaVM' \
         --blocklist-item '_?j\w+' \
+        --blocklist-item '__ANDROID_API__' \
         --newtype-enum '\w+_(result|status)_t' \
         --newtype-enum 'ACameraDevice_request_template' \
         --newtype-enum 'ADataSpace' \
