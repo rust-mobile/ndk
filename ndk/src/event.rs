@@ -86,7 +86,7 @@ impl Source {
 
 bitflags::bitflags! {
     /// Flags representing the class of an [`InputEvent`] [`Source`].
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     pub struct SourceClass : u8 {
         #[doc(alias = "AINPUT_SOURCE_CLASS_BUTTON")]
         const BUTTON = ffi::AINPUT_SOURCE_CLASS_BUTTON as u8;
@@ -148,78 +148,64 @@ impl InputEvent {
     }
 }
 
-/// A bitfield representing the state of modifier keys during an event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct MetaState(pub u32);
-
-impl MetaState {
-    #[inline]
-    pub fn alt_on(self) -> bool {
-        self.0 & ffi::AMETA_ALT_ON != 0
-    }
-    #[inline]
-    pub fn alt_left_on(self) -> bool {
-        self.0 & ffi::AMETA_ALT_LEFT_ON != 0
-    }
-    #[inline]
-    pub fn alt_right_on(self) -> bool {
-        self.0 & ffi::AMETA_ALT_RIGHT_ON != 0
-    }
-    #[inline]
-    pub fn shift_on(self) -> bool {
-        self.0 & ffi::AMETA_SHIFT_ON != 0
-    }
-    #[inline]
-    pub fn shift_left_on(self) -> bool {
-        self.0 & ffi::AMETA_SHIFT_LEFT_ON != 0
-    }
-    #[inline]
-    pub fn shift_right_on(self) -> bool {
-        self.0 & ffi::AMETA_SHIFT_RIGHT_ON != 0
-    }
-    #[inline]
-    pub fn sym_on(self) -> bool {
-        self.0 & ffi::AMETA_SYM_ON != 0
-    }
-    #[inline]
-    pub fn function_on(self) -> bool {
-        self.0 & ffi::AMETA_FUNCTION_ON != 0
-    }
-    #[inline]
-    pub fn ctrl_on(self) -> bool {
-        self.0 & ffi::AMETA_CTRL_ON != 0
-    }
-    #[inline]
-    pub fn ctrl_left_on(self) -> bool {
-        self.0 & ffi::AMETA_CTRL_LEFT_ON != 0
-    }
-    #[inline]
-    pub fn ctrl_right_on(self) -> bool {
-        self.0 & ffi::AMETA_CTRL_RIGHT_ON != 0
-    }
-    #[inline]
-    pub fn meta_on(self) -> bool {
-        self.0 & ffi::AMETA_META_ON != 0
-    }
-    #[inline]
-    pub fn meta_left_on(self) -> bool {
-        self.0 & ffi::AMETA_META_LEFT_ON != 0
-    }
-    #[inline]
-    pub fn meta_right_on(self) -> bool {
-        self.0 & ffi::AMETA_META_RIGHT_ON != 0
-    }
-    #[inline]
-    pub fn caps_lock_on(self) -> bool {
-        self.0 & ffi::AMETA_CAPS_LOCK_ON != 0
-    }
-    #[inline]
-    pub fn num_lock_on(self) -> bool {
-        self.0 & ffi::AMETA_NUM_LOCK_ON != 0
-    }
-    #[inline]
-    pub fn scroll_lock_on(self) -> bool {
-        self.0 & ffi::AMETA_SCROLL_LOCK_ON != 0
+bitflags::bitflags! {
+    /// A bitfield representing the state of modifier keys during an event.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct MetaState : i32 {
+        /// No meta keys are pressed.
+        #[doc(alias = "AMETA_NONE")]
+        const NONE = ffi::AMETA_NONE as i32;
+        /// This mask is used to check whether one of the ALT meta keys is pressed.
+        #[doc(alias = "AMETA_ALT_ON")]
+        const ALT_ON = ffi::AMETA_ALT_ON as i32;
+        /// This mask is used to check whether the left ALT meta key is pressed.
+        #[doc(alias = "AMETA_ALT_LEFT_ON")]
+        const ALT_LEFT_ON = ffi::AMETA_ALT_LEFT_ON as i32;
+        /// This mask is used to check whether the right ALT meta key is pressed.
+        #[doc(alias = "AMETA_ALT_RIGHT_ON")]
+        const ALT_RIGHT_ON = ffi::AMETA_ALT_RIGHT_ON as i32;
+        /// This mask is used to check whether one of the SHIFT meta keys is pressed.
+        #[doc(alias = "AMETA_SHIFT_ON")]
+        const SHIFT_ON = ffi::AMETA_SHIFT_ON as i32;
+        /// This mask is used to check whether the left SHIFT meta key is pressed.
+        #[doc(alias = "AMETA_SHIFT_LEFT_ON")]
+        const SHIFT_LEFT_ON = ffi::AMETA_SHIFT_LEFT_ON as i32;
+        /// This mask is used to check whether the right SHIFT meta key is pressed.
+        #[doc(alias = "AMETA_SHIFT_RIGHT_ON")]
+        const SHIFT_RIGHT_ON = ffi::AMETA_SHIFT_RIGHT_ON as i32;
+        /// This mask is used to check whether the SYM meta key is pressed.
+        #[doc(alias = "AMETA_SYM_ON")]
+        const SYM_ON = ffi::AMETA_SYM_ON as i32;
+        /// This mask is used to check whether the FUNCTION meta key is pressed.
+        #[doc(alias = "AMETA_FUNCTION_ON")]
+        const FUNCTION_ON = ffi::AMETA_FUNCTION_ON as i32;
+        /// This mask is used to check whether one of the CTRL meta keys is pressed.
+        #[doc(alias = "AMETA_CTRL_ON")]
+        const CTRL_ON = ffi::AMETA_CTRL_ON as i32;
+        /// This mask is used to check whether the left CTRL meta key is pressed.
+        #[doc(alias = "AMETA_CTRL_LEFT_ON")]
+        const CTRL_LEFT_ON = ffi::AMETA_CTRL_LEFT_ON as i32;
+        /// This mask is used to check whether the right CTRL meta key is pressed.
+        #[doc(alias = "AMETA_CTRL_RIGHT_ON")]
+        const CTRL_RIGHT_ON = ffi::AMETA_CTRL_RIGHT_ON as i32;
+        /// This mask is used to check whether one of the META meta keys is pressed.
+        #[doc(alias = "AMETA_META_ON")]
+        const META_ON = ffi::AMETA_META_ON as i32;
+        /// This mask is used to check whether the left META meta key is pressed.
+        #[doc(alias = "AMETA_META_LEFT_ON")]
+        const META_LEFT_ON = ffi::AMETA_META_LEFT_ON as i32;
+        /// This mask is used to check whether the right META meta key is pressed.
+        #[doc(alias = "AMETA_META_RIGHT_ON")]
+        const META_RIGHT_ON = ffi::AMETA_META_RIGHT_ON as i32;
+        /// This mask is used to check whether the CAPS LOCK meta key is on.
+        #[doc(alias = "AMETA_CAPS_LOCK_ON")]
+        const CAPS_LOCK_ON = ffi::AMETA_CAPS_LOCK_ON as i32;
+        /// This mask is used to check whether the NUM LOCK meta key is on.
+        #[doc(alias = "AMETA_NUM_LOCK_ON")]
+        const NUM_LOCK_ON = ffi::AMETA_NUM_LOCK_ON as i32;
+        /// This mask is used to check whether the SCROLL LOCK meta key is on.
+        #[doc(alias = "AMETA_SCROLL_LOCK_ON")]
+        const SCROLL_LOCK_ON = ffi::AMETA_SCROLL_LOCK_ON as i32;
     }
 }
 
@@ -335,72 +321,59 @@ pub enum ToolType {
     __Unknown(i32),
 }
 
-/// A bitfield representing the state of buttons during a motion event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct ButtonState(pub u32);
-
-impl ButtonState {
-    #[inline]
-    pub fn primary(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_BUTTON_PRIMARY != 0
-    }
-    #[inline]
-    pub fn secondary(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_BUTTON_SECONDARY != 0
-    }
-    #[inline]
-    pub fn teriary(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_BUTTON_TERTIARY != 0
-    }
-    #[inline]
-    pub fn back(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_BUTTON_BACK != 0
-    }
-    #[inline]
-    pub fn forward(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_BUTTON_FORWARD != 0
-    }
-    #[inline]
-    pub fn stylus_primary(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_BUTTON_STYLUS_PRIMARY != 0
-    }
-    #[inline]
-    pub fn stylus_secondary(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_BUTTON_STYLUS_SECONDARY != 0
+bitflags::bitflags! {
+    /// A bitfield representing the state of buttons during a motion event.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct ButtonState : i32 {
+        #[doc(alias = "AMOTION_EVENT_BUTTON_PRIMARY")]
+        const PRIMARY = ffi::AMOTION_EVENT_BUTTON_PRIMARY as i32;
+        #[doc(alias = "AMOTION_EVENT_BUTTON_SECONDARY")]
+        const SECONDARY = ffi::AMOTION_EVENT_BUTTON_SECONDARY as i32;
+        #[doc(alias = "AMOTION_EVENT_BUTTON_TERTIARY")]
+        const TERTIARY = ffi::AMOTION_EVENT_BUTTON_TERTIARY as i32;
+        #[doc(alias = "AMOTION_EVENT_BUTTON_BACK")]
+        const BACK = ffi::AMOTION_EVENT_BUTTON_BACK as i32;
+        #[doc(alias = "AMOTION_EVENT_BUTTON_FORWARD")]
+        const FORWARD = ffi::AMOTION_EVENT_BUTTON_FORWARD as i32;
+        #[doc(alias = "AMOTION_EVENT_BUTTON_STYLUS_PRIMARY")]
+        const STYLUS_PRIMARY = ffi::AMOTION_EVENT_BUTTON_STYLUS_PRIMARY as i32;
+        #[doc(alias = "AMOTION_EVENT_BUTTON_STYLUS_SECONDARY")]
+        const STYLUS_SECONDARY = ffi::AMOTION_EVENT_BUTTON_STYLUS_SECONDARY as i32;
     }
 }
 
-/// A bitfield representing which edges were touched by a motion event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct EdgeFlags(pub u32);
-
-impl EdgeFlags {
-    #[inline]
-    pub fn top(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_TOP != 0
-    }
-    #[inline]
-    pub fn bottom(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_BOTTOM != 0
-    }
-    #[inline]
-    pub fn left(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_LEFT != 0
-    }
-    #[inline]
-    pub fn right(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_EDGE_FLAG_RIGHT != 0
+bitflags::bitflags! {
+    /// A bitfield representing which edges were touched by a motion event.
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct EdgeFlags : i32 {
+        /// Flag indicating the motion event intersected the top edge of the screen.
+        #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_TOP")]
+        const TOP = ffi::AMOTION_EVENT_EDGE_FLAG_TOP as i32;
+        /// Flag indicating the motion event intersected the bottom edge of the screen.
+        #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_BOTTOM")]
+        const BOTTOM = ffi::AMOTION_EVENT_EDGE_FLAG_BOTTOM as i32;
+        /// Flag indicating the motion event intersected the left edge of the screen.
+        #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_LEFT")]
+        const LEFT = ffi::AMOTION_EVENT_EDGE_FLAG_LEFT as i32;
+        /// Flag indicating the motion event intersected the right edge of the screen.
+        #[doc(alias = "AMOTION_EVENT_EDGE_FLAG_RIGHT")]
+        const RIGHT = ffi::AMOTION_EVENT_EDGE_FLAG_RIGHT as i32;
     }
 }
 
-/// Flags associated with this [`MotionEvent`].
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct MotionEventFlags(pub u32);
-
-impl MotionEventFlags {
-    #[inline]
-    pub fn window_is_obscured(self) -> bool {
-        self.0 & ffi::AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED != 0
+bitflags::bitflags! {
+    /// Flags associated with this [`MotionEvent`].
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct MotionEventFlags : i32 {
+        /// This flag indicates that the window that received this motion event is partly or wholly
+        /// obscured by another visible window above it.  This flag is set to true even if the event
+        /// did not directly pass through the obscured area. A security sensitive application can
+        /// check this flag to identify situations in which a malicious application may have covered
+        /// up part of its content for the purpose of misleading the user or hijacking touches.
+        /// An appropriate response might be to drop the suspect touches or to take additional
+        /// precautions to confirm the user's actual intent.
+        #[doc(alias = "AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED")]
+        const WINDOW_IS_OBSCURED = ffi::AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED as i32;
     }
 }
 
@@ -560,7 +533,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getmetastate)
     #[inline]
     pub fn meta_state(&self) -> MetaState {
-        unsafe { MetaState(ffi::AMotionEvent_getMetaState(self.ptr.as_ptr()) as u32) }
+        MetaState::from_bits_retain(unsafe { ffi::AMotionEvent_getMetaState(self.ptr.as_ptr()) })
     }
 
     /// Returns the button state during this event, as a bitfield.
@@ -569,7 +542,9 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getbuttonstate)
     #[inline]
     pub fn button_state(&self) -> ButtonState {
-        unsafe { ButtonState(ffi::AMotionEvent_getButtonState(self.ptr.as_ptr()) as u32) }
+        ButtonState::from_bits_retain(unsafe {
+            ffi::AMotionEvent_getButtonState(self.ptr.as_ptr())
+        })
     }
 
     /// Returns the time of the start of this gesture, in the `java.lang.System.nanoTime()` time
@@ -588,7 +563,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getedgeflags)
     #[inline]
     pub fn edge_flags(&self) -> EdgeFlags {
-        unsafe { EdgeFlags(ffi::AMotionEvent_getEdgeFlags(self.ptr.as_ptr()) as u32) }
+        EdgeFlags::from_bits_retain(unsafe { ffi::AMotionEvent_getEdgeFlags(self.ptr.as_ptr()) })
     }
 
     /// Returns the time of this event, in the `java.lang.System.nanoTime()` time base
@@ -606,7 +581,7 @@ impl MotionEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#amotionevent_getflags)
     #[inline]
     pub fn flags(&self) -> MotionEventFlags {
-        unsafe { MotionEventFlags(ffi::AMotionEvent_getFlags(self.ptr.as_ptr()) as u32) }
+        MotionEventFlags::from_bits_retain(unsafe { ffi::AMotionEvent_getFlags(self.ptr.as_ptr()) })
     }
 
     /// Returns the offset in the x direction between the coordinates and the raw coordinates
@@ -1512,54 +1487,62 @@ impl KeyEvent {
     }
 }
 
-/// Flags associated with [`KeyEvent`].
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct KeyEventFlags(pub u32);
-
-impl KeyEventFlags {
-    #[inline]
-    pub fn cancelled(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_CANCELED != 0
-    }
-    #[inline]
-    pub fn cancelled_long_press(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_CANCELED_LONG_PRESS != 0
-    }
-    #[inline]
-    pub fn editor_action(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_EDITOR_ACTION != 0
-    }
-    #[inline]
-    pub fn fallback(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_FALLBACK != 0
-    }
-    #[inline]
-    pub fn from_system(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_FROM_SYSTEM != 0
-    }
-    #[inline]
-    pub fn keep_touch_mode(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_KEEP_TOUCH_MODE != 0
-    }
-    #[inline]
-    pub fn long_press(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_LONG_PRESS != 0
-    }
-    #[inline]
-    pub fn soft_keyboard(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_SOFT_KEYBOARD != 0
-    }
-    #[inline]
-    pub fn tracking(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_TRACKING != 0
-    }
-    #[inline]
-    pub fn virtual_hard_key(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY != 0
-    }
-    #[inline]
-    pub fn woke_here(&self) -> bool {
-        self.0 & ffi::AKEY_EVENT_FLAG_WOKE_HERE != 0
+bitflags::bitflags! {
+    /// Flags associated with [`KeyEvent`].
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    pub struct KeyEventFlags : i32 {
+        /// This mask is set if the device woke because of this key event.
+        #[doc(alias = "AKEY_EVENT_FLAG_WOKE_HERE")]
+        const WOKE_HERE = ffi::AKEY_EVENT_FLAG_WOKE_HERE as i32;
+        /// This mask is set if the key event was generated by a software keyboard.
+        #[doc(alias = "AKEY_EVENT_FLAG_SOFT_KEYBOARD")]
+        const SOFT_KEYBOARD = ffi::AKEY_EVENT_FLAG_SOFT_KEYBOARD as i32;
+        /// This mask is set if we don't want the key event to cause us to leave touch mode.
+        #[doc(alias = "AKEY_EVENT_FLAG_KEEP_TOUCH_MODE")]
+        const KEEP_TOUCH_MODE = ffi::AKEY_EVENT_FLAG_KEEP_TOUCH_MODE as i32;
+        /// This mask is set if an event was known to come from a trusted part of the system.  That
+        /// is, the event is known to come from the user, and could not have been spoofed by a third
+        /// party component.
+        #[doc(alias = "AKEY_EVENT_FLAG_FROM_SYSTEM")]
+        const FROM_SYSTEM = ffi::AKEY_EVENT_FLAG_FROM_SYSTEM as i32;
+        /// This mask is used for compatibility, to identify enter keys that are coming from an
+        /// IME whose enter key has been auto-labelled "next" or "done".  This allows TextView to
+        /// dispatch these as normal enter keys for old applications, but still do the appropriate
+        /// action when receiving them.
+        #[doc(alias = "AKEY_EVENT_FLAG_EDITOR_ACTION")]
+        const EDITOR_ACTION = ffi::AKEY_EVENT_FLAG_EDITOR_ACTION as i32;
+        /// When associated with up key events, this indicates that the key press has been canceled.
+        /// Typically this is used with virtual touch screen keys, where the user can slide from
+        /// the virtual key area on to the display: in that case, the application will receive a
+        /// canceled up event and should not perform the action normally associated with the key.
+        /// Note that for this to work, the application can not perform an action for a key until it
+        /// receives an up or the long press timeout has expired.
+        #[doc(alias = "AKEY_EVENT_FLAG_CANCELED")]
+        const CANCELED = ffi::AKEY_EVENT_FLAG_CANCELED as i32;
+        /// This key event was generated by a virtual (on-screen) hard key area. Typically this
+        /// is an area of the touchscreen, outside of the regular display, dedicated to "hardware"
+        /// buttons.
+        #[doc(alias = "AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY")]
+        const VIRTUAL_HARD_KEY = ffi::AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY as i32;
+        /// This flag is set for the first key repeat that occurs after the long press timeout.
+        #[doc(alias = "AKEY_EVENT_FLAG_LONG_PRESS")]
+        const LONG_PRESS = ffi::AKEY_EVENT_FLAG_LONG_PRESS as i32;
+        /// Set when a key event has [`KeyEventFlag::CANCELED`] set because a long press action was
+        /// executed while it was down.
+        #[doc(alias = "AKEY_EVENT_FLAG_CANCELED_LONG_PRESS")]
+        const CANCELED_LONG_PRESS = ffi::AKEY_EVENT_FLAG_CANCELED_LONG_PRESS as i32;
+        /// Set for [`KeyAction::Up`] when this event's key code is still being tracked from its
+        /// initial down.  That is, somebody requested that tracking started on the key down and a
+        /// long press has not caused the tracking to be canceled.
+        #[doc(alias = "AKEY_EVENT_FLAG_TRACKING")]
+        const TRACKING = ffi::AKEY_EVENT_FLAG_TRACKING as i32;
+        /// Set when a key event has been synthesized to implement default behavior for an event
+        /// that the application did not handle. Fallback key events are generated by unhandled
+        /// trackball motions (to emulate a directional keypad) and by certain unhandled key presses
+        /// that are declared in the key map (such as special function numeric keypad keys when
+        /// numlock is off).
+        #[doc(alias = "AKEY_EVENT_FLAG_FALLBACK")]
+        const FALLBACK = ffi::AKEY_EVENT_FLAG_FALLBACK as i32;
     }
 }
 
@@ -1569,7 +1552,7 @@ impl KeyEvent {
     /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getflags)
     #[inline]
     pub fn flags(&self) -> KeyEventFlags {
-        unsafe { KeyEventFlags(ffi::AKeyEvent_getFlags(self.ptr.as_ptr()) as u32) }
+        KeyEventFlags::from_bits_retain(unsafe { ffi::AKeyEvent_getFlags(self.ptr.as_ptr()) })
     }
 
     /// Returns the state of the modifiers during this key event, represented by a bitmask.
@@ -1578,6 +1561,6 @@ impl KeyEvent {
     /// docs](https://developer.android.com/ndk/reference/group/input#akeyevent_getmetastate)
     #[inline]
     pub fn meta_state(&self) -> MetaState {
-        unsafe { MetaState(ffi::AKeyEvent_getMetaState(self.ptr.as_ptr()) as u32) }
+        MetaState::from_bits_retain(unsafe { ffi::AKeyEvent_getMetaState(self.ptr.as_ptr()) })
     }
 }
