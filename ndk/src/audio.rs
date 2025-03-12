@@ -999,7 +999,6 @@ pub struct AudioStream {
 // AAudioStream is safe to be send, but not sync.
 // See https://developer.android.com/ndk/guides/audio/aaudio/aaudio
 unsafe impl Send for AudioStream {}
-unsafe impl !Sync for AudioStream {}
 
 impl fmt::Debug for AudioStream {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
