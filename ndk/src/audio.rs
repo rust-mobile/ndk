@@ -146,6 +146,13 @@ pub enum AudioFormat {
     /// <a href="https://developer.android.com/reference/android/media/AudioTrack#write(float[], int, int, int)"><code>AudioTrack#write(float[], int, int, int)</code></a>.
     #[doc(alias = "AAUDIO_FORMAT_PCM_FLOAT")]
     PCM_Float = ffi::AAUDIO_FORMAT_PCM_FLOAT as ffi::aaudio_format_t,
+    
+    /// This format uses 32-bit integer PCM.
+    /// Typically used in high-resolution audio processing.
+    /// The maximum range of the data is -2_147_483_648 to 2_147_483_647
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "AAUDIO_FORMAT_PCM_I32")]
+    PCM_I32 = ffi::AAUDIO_FORMAT_PCM_I32 as ffi::aaudio_format_t,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
