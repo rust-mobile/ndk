@@ -29,5 +29,6 @@ pub mod native_window;
 pub mod shared_memory;
 pub mod surface_texture;
 pub mod sync;
+pub mod system_properties;
 pub mod trace;
 mod utils;

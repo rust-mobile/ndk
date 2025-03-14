@@ -89,3 +89,5 @@
 #include <media/NdkMediaExtractor.h>
 #include <media/NdkMediaFormat.h>
 #include <media/NdkMediaMuxer.h>
+
+#include <sys/system_properties.h>

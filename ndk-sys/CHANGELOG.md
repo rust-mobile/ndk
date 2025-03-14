@@ -1,6 +1,7 @@
 # Unreleased
 
 - Regenerate bindings with `bindgen 0.71.1`. (#487)
+- Include API bindings from `sys/system_properties.h`. (#495)
 
 # 0.6.0 (2024-04-26)
 
