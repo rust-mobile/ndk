@@ -19,7 +19,7 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 /// A native [`AInputEvent *`]
 ///
 /// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 #[non_exhaustive]
 pub enum InputEvent {
     MotionEvent(MotionEvent),
@@ -29,7 +29,7 @@ pub enum InputEvent {
 /// Wraps a Java [`InputEvent`] acquired from [`KeyEvent::from_java()`] or
 /// [`MotionEvent::from_java()`] with respective [`Drop`] semantics.
 #[cfg(feature = "api-level-31")]
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct InputEventJava(InputEvent);
 
 #[cfg(feature = "api-level-31")]
@@ -49,7 +49,7 @@ impl Drop for InputEventJava {
 }
 
 /// An enum representing the source of an [`InputEvent`].
-#[derive(Debug, Clone, Copy, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Source {
@@ -86,7 +86,7 @@ impl Source {
 
 bitflags::bitflags! {
     /// Flags representing the class of an [`InputEvent`] [`Source`].
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     pub struct SourceClass : u8 {
         #[doc(alias = "AINPUT_SOURCE_CLASS_BUTTON")]
         const BUTTON = ffi::AINPUT_SOURCE_CLASS_BUTTON as u8;
@@ -149,7 +149,7 @@ impl InputEvent {
 }
 
 /// A bitfield representing the state of modifier keys during an event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct MetaState(pub u32);
 
 impl MetaState {
@@ -231,7 +231,7 @@ impl MetaState {
 /// javadoc](https://developer.android.com/reference/android/view/MotionEvent).
 ///
 /// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
-#[derive(Clone, Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct MotionEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
@@ -239,7 +239,7 @@ pub struct MotionEvent {
 // TODO: thread safety?
 
 /// A motion action.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum MotionAction {
@@ -263,7 +263,7 @@ pub enum MotionAction {
 }
 
 /// An axis of a motion event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Axis {
@@ -319,7 +319,7 @@ pub enum Axis {
 }
 
 /// The tool type of a pointer.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum ToolType {
@@ -336,7 +336,7 @@ pub enum ToolType {
 }
 
 /// A bitfield representing the state of buttons during a motion event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ButtonState(pub u32);
 
 impl ButtonState {
@@ -371,7 +371,7 @@ impl ButtonState {
 }
 
 /// A bitfield representing which edges were touched by a motion event.
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct EdgeFlags(pub u32);
 
 impl EdgeFlags {
@@ -394,7 +394,7 @@ impl EdgeFlags {
 }
 
 /// Flags associated with this [`MotionEvent`].
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct MotionEventFlags(pub u32);
 
 impl MotionEventFlags {
@@ -647,7 +647,7 @@ impl MotionEvent {
 }
 
 /// A view into the data of a specific pointer in a motion event.
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct Pointer<'a> {
     event: NonNull<ffi::AInputEvent>,
     index: usize,
@@ -735,7 +735,7 @@ impl Pointer<'_> {
 }
 
 /// An iterator over the pointers in a [`MotionEvent`].
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct PointersIter<'a> {
     event: NonNull<ffi::AInputEvent>,
     next_index: usize,
@@ -773,7 +773,7 @@ impl ExactSizeIterator for PointersIter<'_> {
 }
 
 /// Represents a view into a past moment of a motion event
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct HistoricalMotionEvent<'a> {
     event: NonNull<ffi::AInputEvent>,
     history_index: usize,
@@ -814,7 +814,7 @@ impl<'a> HistoricalMotionEvent<'a> {
 /// An iterator over all the historical moments in a [`MotionEvent`].
 ///
 /// It iterates from oldest to newest.
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct HistoricalMotionEventsIter<'a> {
     event: NonNull<ffi::AInputEvent>,
     next_history_index: usize,
@@ -867,7 +867,7 @@ impl<'a> DoubleEndedIterator for HistoricalMotionEventsIter<'a> {
 }
 
 /// A view into a pointer at a historical moment
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct HistoricalPointer<'a> {
     event: NonNull<ffi::AInputEvent>,
     pointer_index: usize,
@@ -1028,7 +1028,7 @@ impl HistoricalPointer<'_> {
 }
 
 /// An iterator over the pointers in a historical motion event
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct HistoricalPointersIter<'a> {
     event: NonNull<ffi::AInputEvent>,
     history_index: usize,
@@ -1076,7 +1076,7 @@ impl ExactSizeIterator for HistoricalPointersIter<'_> {
 /// javadoc](https://developer.android.com/reference/android/view/KeyEvent).
 ///
 /// [`AInputEvent *`]: https://developer.android.com/ndk/reference/group/input#ainputevent
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct KeyEvent {
     ptr: NonNull<ffi::AInputEvent>,
 }
@@ -1085,7 +1085,7 @@ pub struct KeyEvent {
 
 /// Key actions.
 /// See [the NDK docs](https://developer.android.com/ndk/reference/group/input#anonymous-enum-27)
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum KeyAction {
@@ -1099,7 +1099,7 @@ pub enum KeyAction {
 }
 
 /// Key codes.
-#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[repr(i32)]
 #[non_exhaustive]
 pub enum Keycode {
@@ -1513,7 +1513,7 @@ impl KeyEvent {
 }
 
 /// Flags associated with [`KeyEvent`].
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct KeyEventFlags(pub u32);
 
 impl KeyEventFlags {

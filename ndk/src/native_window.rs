@@ -19,7 +19,7 @@ pub type Rect = ffi::ARect;
 /// display or sent to other consumers, such as video encoders.
 ///
 /// [`android.view.Surface`]: https://developer.android.com/reference/android/view/Surface
-#[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct NativeWindow {
     ptr: NonNull<ffi::ANativeWindow>,
 }
@@ -294,7 +294,7 @@ impl NativeWindow {
 }
 
 /// Lock holding the next drawing surface for writing.  It is unlocked and posted on [`drop()`].
-#[derive(Debug)]
+#[derive(Debug)] // TODO: PartialEq, Eq, Hash
 pub struct NativeWindowBufferLockGuard<'a> {
     window: &'a NativeWindow,
     buffer: ffi::ANativeWindow_Buffer,
@@ -385,7 +385,7 @@ bitflags::bitflags! {
     /// Supported transforms are any combination of horizontal mirror, vertical mirror, and
     /// clockwise 90 degree rotation, in that order. Rotations of 180 and 270 degrees are made up
     /// of those basic transforms.
-    #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = "ANativeWindowTransform")]
     pub struct NativeWindowTransform : i32 {
         #[doc(alias = "ANATIVEWINDOW_TRANSFORM_IDENTITY")]
@@ -416,7 +416,7 @@ bitflags::bitflags! {
 /// .
 #[cfg(all(feature = "nativewindow", feature = "api-level-30"))]
 #[repr(i8)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)] // TODO: IntoPrimitive
 #[doc(alias = "ANativeWindow_FrameRateCompatibility")]
 #[non_exhaustive]
 pub enum FrameRateCompatibility {
@@ -443,7 +443,7 @@ pub enum FrameRateCompatibility {
 /// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
 #[cfg(all(feature = "nativewindow", feature = "api-level-31"))]
 #[repr(i8)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)] // TODO: IntoPrimitive
 #[doc(alias = "ANativeWindow_ChangeFrameRateStrategy")]
 #[non_exhaustive]
 pub enum ChangeFrameRateStrategy {

@@ -35,11 +35,11 @@ impl Drop for Section {
 }
 
 /// Unique identifier for distinguishing simultaneous events
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)] // TODO: Clone/Copy?
 #[cfg(feature = "api-level-29")]
 pub struct Cookie(pub i32);
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 #[cfg(feature = "api-level-29")]
 pub struct AsyncSection {
     section_name: CString,
@@ -74,7 +74,7 @@ impl Drop for AsyncSection {
 }
 
 #[cfg(feature = "api-level-29")]
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Counter {
     name: CString,
 }

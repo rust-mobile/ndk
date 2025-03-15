@@ -11,7 +11,7 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 ///
 /// <https://developer.android.com/ndk/reference/group/a-data-space#group___a_data_space_1ga2759ad19cae46646cc5f7002758c4a1c>
 #[repr(i32)]
-#[derive(Clone, Copy, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "ADataSpace")]
 #[non_exhaustive]
 pub enum DataSpace {
@@ -324,7 +324,7 @@ impl DataSpace {
 /// defines the chromaticity coordinates of the source primaries in terms of the CIE 1931 definition
 /// of `x` and `y` specified in ISO 11664-1.
 #[repr(i32)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "STANDARD_MASK")]
 #[non_exhaustive]
 pub enum DataSpaceStandard {
@@ -483,7 +483,7 @@ pub enum DataSpaceStandard {
 /// the `L` component. Implementation may apply the transfer function in `RGB` space for all pixel
 /// formats if desired.
 #[repr(i32)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "TRANSFER_MASK")]
 #[non_exhaustive]
 pub enum DataSpaceTransfer {
@@ -604,7 +604,7 @@ pub enum DataSpaceTransfer {
 /// Defines the range of values corresponding to the unit range of `0-1`. This is defined for
 /// `YCbCr` only, but can be expanded to `RGB` space.
 #[repr(i32)]
-#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, FromPrimitive, IntoPrimitive)]
 #[doc(alias = "RANGE_MASK")]
 #[non_exhaustive]
 pub enum DataSpaceRange {

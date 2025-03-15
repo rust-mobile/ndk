@@ -14,7 +14,7 @@ use std::{
 /// A native [`AAssetManager *`]
 ///
 /// [`AAssetManager *`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 #[doc(alias = "AAssetManager")]
 pub struct AssetManager {
     ptr: NonNull<ffi::AAssetManager>,
@@ -92,7 +92,7 @@ impl AssetManager {
 /// ```
 ///
 /// [`AAssetDir *`]: https://developer.android.com/ndk/reference/group/asset#aassetdir
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 #[doc(alias = "AAssetDir")]
 pub struct AssetDir {
     ptr: NonNull<ffi::AAssetDir>,
@@ -175,7 +175,7 @@ impl Iterator for AssetDir {
 /// ```
 ///
 /// [`AAsset *`]: https://developer.android.com/ndk/reference/group/asset#aasset
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 #[doc(alias = "AAsset")]
 pub struct Asset {
     ptr: NonNull<ffi::AAsset>,
