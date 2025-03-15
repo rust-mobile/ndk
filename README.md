@@ -19,3 +19,8 @@ See these [`ndk-examples`](https://github.com/rust-mobile/cargo-apk/tree/main/ex
 > ndk-macro | https://github.com/rust-mobile/ndk-glue | ⛔ _deprecated_ - see [android-activity](https://github.com/rust-mobile/android-activity)
 > ndk-build | https://github.com/rust-mobile/cargo-apk | ⛔ _deprecated_ - see [xbuild](https://github.com/rust-mobile/xbuild)
 > cargo-apk | https://github.com/rust-mobile/cargo-apk | ⛔ _deprecated_ - see [xbuild](https://github.com/rust-mobile/xbuild)
+
+### Unofficial meme of rust mobile ndk
+
+![cargo-ndk](https://github.com/user-attachments/assets/33ef0cba-7e77-4a9a-ad5b-367999c3d04f)
+via https://xkcd.com/2347 https://creativecommons.org/licenses/by-nc/2.5/
