@@ -73,13 +73,17 @@ bitflags::bitflags! {
 /// The poll result from a [`ThreadLooper`].
 #[derive(Debug)]
 pub enum Poll<'fd> {
-    /// This looper was woken using [`ForeignLooper::wake()`]
+    /// This looper was woken using [`ForeignLooper::wake()`].
+    ///
+    /// # Note
+    /// All possible return values from any of the `poll*()` functions on [`ThreadLooper`],
+    /// *including [`Err`]*, may imply that the looper was also woken up.
     Wake,
     /// For [`ThreadLooper::poll_once*()`][ThreadLooper::poll_once()], an event was received and processed using a callback.
     Callback,
     /// For [`ThreadLooper::poll_*_timeout()`][ThreadLooper::poll_once_timeout()], the requested timeout was reached before any events.
     Timeout,
-    /// An event was received
+    /// An event was received.
     Event {
         ident: i32,
         /// # Safety
@@ -118,6 +122,9 @@ impl ThreadLooper {
 
     /// Polls the looper, blocking on processing an event, but with a timeout in milliseconds.
     /// Give a timeout of `0` to make this non-blocking.
+    ///
+    /// # Note
+    /// Any return value, *including [`Err`]*, should be treated as if [`Poll::Wake`] was returned as well.
     fn poll_once_ms(&self, ms: i32) -> Result<Poll<'_>, LooperError> {
         let mut fd = -1;
         let mut events = -1;
@@ -141,6 +148,9 @@ impl ThreadLooper {
     }
 
     /// Polls the looper, blocking on processing an event.
+    ///
+    /// # Note
+    /// Any return value, *including [`Err`]*, should be treated as if [`Poll::Wake`] was returned as well.
     #[inline]
     pub fn poll_once(&self) -> Result<Poll<'_>, LooperError> {
         self.poll_once_ms(-1)
@@ -151,6 +161,9 @@ impl ThreadLooper {
     ///
     /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
+    ///
+    /// # Note
+    /// Any return value, *including [`Err`]*, should be treated as if [`Poll::Wake`] was returned as well.
     #[inline]
     pub fn poll_once_timeout(&self, timeout: Duration) -> Result<Poll<'_>, LooperError> {
         self.poll_once_ms(
@@ -165,6 +178,7 @@ impl ThreadLooper {
     /// milliseconds.  Give a timeout of `0` to make this non-blocking.
     ///
     /// This function will never return [`Poll::Callback`].
+    #[deprecated = "This function may not return even if [`Self::wake()`] is called.  Call one of the `poll_once*()` methods instead."]
     fn poll_all_ms(&self, ms: i32) -> Result<Poll<'_>, LooperError> {
         let mut fd = -1;
         let mut events = -1;
@@ -189,8 +203,10 @@ impl ThreadLooper {
     /// Repeatedly polls the looper, blocking on processing an event.
     ///
     /// This function will never return [`Poll::Callback`].
+    #[deprecated = "This function may not return even if [`Self::wake()`] is called.  Call one of the `poll_once*()` methods instead."]
     #[inline]
     pub fn poll_all(&self) -> Result<Poll<'_>, LooperError> {
+        #[allow(deprecated)]
         self.poll_all_ms(-1)
     }
 
@@ -201,8 +217,10 @@ impl ThreadLooper {
     ///
     /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
+    #[deprecated = "This function may not return even if [`Self::wake()`] is called.  Call one of the `poll_once*()` methods instead."]
     #[inline]
     pub fn poll_all_timeout(&self, timeout: Duration) -> Result<Poll<'_>, LooperError> {
+        #[allow(deprecated)]
         self.poll_all_ms(
             timeout
                 .as_millis()
@@ -309,6 +327,11 @@ impl ForeignLooper {
     }
 
     /// Wakes the looper.  An event of [`Poll::Wake`] will be sent.
+    ///
+    /// # Note
+    /// In case there are other events to handle, `poll*()` functions may not return [`Poll::Wake`]
+    /// at all.  Any [`Poll`] event and [`Err`] returned by `poll*()` could imply that the looper
+    /// has also been woken.
     pub fn wake(&self) {
         unsafe { ffi::ALooper_wake(self.ptr.as_ptr()) }
     }
