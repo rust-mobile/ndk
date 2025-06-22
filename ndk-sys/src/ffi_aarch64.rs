@@ -314,6 +314,355 @@ pub const SCNxFAST64: &[u8; 3] = b"lx\0";
 pub const SCNxMAX: &[u8; 3] = b"jx\0";
 pub const SCNxPTR: &[u8; 3] = b"lx\0";
 pub const AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT: u32 = 8;
+pub const ITIMER_REAL: u32 = 0;
+pub const ITIMER_VIRTUAL: u32 = 1;
+pub const ITIMER_PROF: u32 = 2;
+pub const CLOCK_REALTIME: u32 = 0;
+pub const CLOCK_MONOTONIC: u32 = 1;
+pub const CLOCK_PROCESS_CPUTIME_ID: u32 = 2;
+pub const CLOCK_THREAD_CPUTIME_ID: u32 = 3;
+pub const CLOCK_MONOTONIC_RAW: u32 = 4;
+pub const CLOCK_REALTIME_COARSE: u32 = 5;
+pub const CLOCK_MONOTONIC_COARSE: u32 = 6;
+pub const CLOCK_BOOTTIME: u32 = 7;
+pub const CLOCK_REALTIME_ALARM: u32 = 8;
+pub const CLOCK_BOOTTIME_ALARM: u32 = 9;
+pub const CLOCK_SGI_CYCLE: u32 = 10;
+pub const CLOCK_TAI: u32 = 11;
+pub const MAX_CLOCKS: u32 = 16;
+pub const CLOCKS_MASK: u32 = 1;
+pub const CLOCKS_MONO: u32 = 1;
+pub const TIMER_ABSTIME: u32 = 1;
+pub const FPSIMD_MAGIC: u32 = 1179680769;
+pub const ESR_MAGIC: u32 = 1163088385;
+pub const POE_MAGIC: u32 = 1347372336;
+pub const EXTRA_MAGIC: u32 = 1163416577;
+pub const SVE_MAGIC: u32 = 1398162689;
+pub const SVE_SIG_FLAG_SM: u32 = 1;
+pub const TPIDR2_MAGIC: u32 = 1414547714;
+pub const FPMR_MAGIC: u32 = 1179667794;
+pub const ZA_MAGIC: u32 = 1412850501;
+pub const ZT_MAGIC: u32 = 1515474433;
+pub const __SVE_VQ_BYTES: u32 = 16;
+pub const __SVE_VQ_MIN: u32 = 1;
+pub const __SVE_VQ_MAX: u32 = 512;
+pub const __SVE_VL_MIN: u32 = 16;
+pub const __SVE_VL_MAX: u32 = 8192;
+pub const __SVE_NUM_ZREGS: u32 = 32;
+pub const __SVE_NUM_PREGS: u32 = 16;
+pub const __SVE_ZREGS_OFFSET: u32 = 0;
+pub const SVE_VQ_BYTES: u32 = 16;
+pub const SVE_VQ_MIN: u32 = 1;
+pub const SVE_VQ_MAX: u32 = 512;
+pub const SVE_VL_MIN: u32 = 16;
+pub const SVE_VL_MAX: u32 = 8192;
+pub const SVE_NUM_ZREGS: u32 = 32;
+pub const SVE_NUM_PREGS: u32 = 16;
+pub const ZT_SIG_REG_SIZE: u32 = 512;
+pub const ZT_SIG_REG_BYTES: u32 = 64;
+pub const NR_OPEN: u32 = 1024;
+pub const NGROUPS_MAX: u32 = 65536;
+pub const ARG_MAX: u32 = 131072;
+pub const LINK_MAX: u32 = 127;
+pub const MAX_CANON: u32 = 255;
+pub const MAX_INPUT: u32 = 255;
+pub const NAME_MAX: u32 = 255;
+pub const PATH_MAX: u32 = 4096;
+pub const PIPE_BUF: u32 = 4096;
+pub const XATTR_NAME_MAX: u32 = 255;
+pub const XATTR_SIZE_MAX: u32 = 65536;
+pub const XATTR_LIST_MAX: u32 = 65536;
+pub const RTSIG_MAX: u32 = 32;
+pub const GETENTROPY_MAX: u32 = 256;
+pub const NL_ARGMAX: u32 = 9;
+pub const NL_LANGMAX: u32 = 14;
+pub const NL_MSGMAX: u32 = 32767;
+pub const NL_NMAX: u32 = 1;
+pub const NL_SETMAX: u32 = 255;
+pub const NL_TEXTMAX: u32 = 255;
+pub const PASS_MAX: u32 = 128;
+pub const TMP_MAX: u32 = 308915776;
+pub const LONG_BIT: u32 = 64;
+pub const WORD_BIT: u32 = 32;
+pub const NSIG_MAX: u32 = 65;
+pub const MB_LEN_MAX: u32 = 4;
+pub const NZERO: u32 = 20;
+pub const IOV_MAX: u32 = 1024;
+pub const SEM_VALUE_MAX: u32 = 1073741823;
+pub const _POSIX_VERSION: u32 = 200809;
+pub const _POSIX2_VERSION: u32 = 200809;
+pub const _XOPEN_VERSION: u32 = 700;
+pub const __BIONIC_POSIX_FEATURE_MISSING: i32 = -1;
+pub const _POSIX_ASYNCHRONOUS_IO: i32 = -1;
+pub const _POSIX_CHOWN_RESTRICTED: u32 = 1;
+pub const _POSIX_CPUTIME: u32 = 200809;
+pub const _POSIX_FSYNC: u32 = 200809;
+pub const _POSIX_IPV6: u32 = 200809;
+pub const _POSIX_MAPPED_FILES: u32 = 200809;
+pub const _POSIX_MEMLOCK_RANGE: u32 = 200809;
+pub const _POSIX_MEMORY_PROTECTION: u32 = 200809;
+pub const _POSIX_MESSAGE_PASSING: i32 = -1;
+pub const _POSIX_MONOTONIC_CLOCK: u32 = 200809;
+pub const _POSIX_NO_TRUNC: u32 = 1;
+pub const _POSIX_PRIORITIZED_IO: i32 = -1;
+pub const _POSIX_PRIORITY_SCHEDULING: u32 = 200809;
+pub const _POSIX_RAW_SOCKETS: u32 = 200809;
+pub const _POSIX_READER_WRITER_LOCKS: u32 = 200809;
+pub const _POSIX_REGEXP: u32 = 1;
+pub const _POSIX_SAVED_IDS: u32 = 1;
+pub const _POSIX_SEMAPHORES: u32 = 200809;
+pub const _POSIX_SHARED_MEMORY_OBJECTS: i32 = -1;
+pub const _POSIX_SHELL: u32 = 1;
+pub const _POSIX_SPORADIC_SERVER: i32 = -1;
+pub const _POSIX_SYNCHRONIZED_IO: u32 = 200809;
+pub const _POSIX_THREAD_ATTR_STACKADDR: u32 = 200809;
+pub const _POSIX_THREAD_ATTR_STACKSIZE: u32 = 200809;
+pub const _POSIX_THREAD_CPUTIME: u32 = 200809;
+pub const _POSIX_THREAD_PRIO_INHERIT: i32 = -1;
+pub const _POSIX_THREAD_PRIO_PROTECT: i32 = -1;
+pub const _POSIX_THREAD_PRIORITY_SCHEDULING: u32 = 200809;
+pub const _POSIX_THREAD_PROCESS_SHARED: u32 = 200809;
+pub const _POSIX_THREAD_ROBUST_PRIO_INHERIT: i32 = -1;
+pub const _POSIX_THREAD_ROBUST_PRIO_PROTECT: i32 = -1;
+pub const _POSIX_THREAD_SAFE_FUNCTIONS: u32 = 200809;
+pub const _POSIX_THREAD_SPORADIC_SERVER: i32 = -1;
+pub const _POSIX_THREADS: u32 = 200809;
+pub const _POSIX_TIMERS: u32 = 200809;
+pub const _POSIX_TRACE: i32 = -1;
+pub const _POSIX_TRACE_EVENT_FILTER: i32 = -1;
+pub const _POSIX_TRACE_INHERIT: i32 = -1;
+pub const _POSIX_TRACE_LOG: i32 = -1;
+pub const _POSIX_TYPED_MEMORY_OBJECTS: i32 = -1;
+pub const _POSIX_VDISABLE: u8 = 0u8;
+pub const _POSIX2_C_BIND: u32 = 200809;
+pub const _POSIX2_C_DEV: i32 = -1;
+pub const _POSIX2_CHAR_TERM: u32 = 200809;
+pub const _POSIX2_FORT_DEV: i32 = -1;
+pub const _POSIX2_FORT_RUN: i32 = -1;
+pub const _POSIX2_LOCALEDEF: i32 = -1;
+pub const _POSIX2_SW_DEV: i32 = -1;
+pub const _POSIX2_UPE: i32 = -1;
+pub const _POSIX_V7_ILP32_OFF32: i32 = -1;
+pub const _POSIX_V7_ILP32_OFFBIG: i32 = -1;
+pub const _POSIX_V7_LP64_OFF64: u32 = 1;
+pub const _POSIX_V7_LPBIG_OFFBIG: u32 = 1;
+pub const _XOPEN_CRYPT: i32 = -1;
+pub const _XOPEN_ENH_I18N: u32 = 1;
+pub const _XOPEN_LEGACY: i32 = -1;
+pub const _XOPEN_REALTIME: u32 = 1;
+pub const _XOPEN_REALTIME_THREADS: u32 = 1;
+pub const _XOPEN_SHM: u32 = 1;
+pub const _XOPEN_STREAMS: i32 = -1;
+pub const _XOPEN_UNIX: u32 = 1;
+pub const _POSIX_AIO_LISTIO_MAX: u32 = 2;
+pub const _POSIX_AIO_MAX: u32 = 1;
+pub const _POSIX_ARG_MAX: u32 = 4096;
+pub const _POSIX_CHILD_MAX: u32 = 25;
+pub const _POSIX_CLOCKRES_MIN: u32 = 20000000;
+pub const _POSIX_DELAYTIMER_MAX: u32 = 32;
+pub const _POSIX_HOST_NAME_MAX: u32 = 255;
+pub const _POSIX_LINK_MAX: u32 = 8;
+pub const _POSIX_LOGIN_NAME_MAX: u32 = 9;
+pub const _POSIX_MAX_CANON: u32 = 255;
+pub const _POSIX_MAX_INPUT: u32 = 255;
+pub const _POSIX_MQ_OPEN_MAX: u32 = 8;
+pub const _POSIX_MQ_PRIO_MAX: u32 = 32;
+pub const _POSIX_NAME_MAX: u32 = 14;
+pub const _POSIX_NGROUPS_MAX: u32 = 8;
+pub const _POSIX_OPEN_MAX: u32 = 20;
+pub const _POSIX_PATH_MAX: u32 = 256;
+pub const _POSIX_PIPE_BUF: u32 = 512;
+pub const _POSIX_RE_DUP_MAX: u32 = 255;
+pub const _POSIX_RTSIG_MAX: u32 = 8;
+pub const _POSIX_SEM_NSEMS_MAX: u32 = 256;
+pub const _POSIX_SEM_VALUE_MAX: u32 = 32767;
+pub const _POSIX_SIGQUEUE_MAX: u32 = 32;
+pub const _POSIX_SSIZE_MAX: u32 = 32767;
+pub const _POSIX_STREAM_MAX: u32 = 8;
+pub const _POSIX_SS_REPL_MAX: u32 = 4;
+pub const _POSIX_SYMLINK_MAX: u32 = 255;
+pub const _POSIX_SYMLOOP_MAX: u32 = 8;
+pub const _POSIX_THREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
+pub const _POSIX_THREAD_KEYS_MAX: u32 = 128;
+pub const _POSIX_THREAD_THREADS_MAX: u32 = 64;
+pub const _POSIX_TIMER_MAX: u32 = 32;
+pub const _POSIX_TRACE_EVENT_NAME_MAX: u32 = 30;
+pub const _POSIX_TRACE_NAME_MAX: u32 = 8;
+pub const _POSIX_TRACE_SYS_MAX: u32 = 8;
+pub const _POSIX_TRACE_USER_EVENT_MAX: u32 = 32;
+pub const _POSIX_TTY_NAME_MAX: u32 = 9;
+pub const _POSIX_TZNAME_MAX: u32 = 6;
+pub const _POSIX2_BC_BASE_MAX: u32 = 99;
+pub const _POSIX2_BC_DIM_MAX: u32 = 2048;
+pub const _POSIX2_BC_SCALE_MAX: u32 = 99;
+pub const _POSIX2_BC_STRING_MAX: u32 = 1000;
+pub const _POSIX2_CHARCLASS_NAME_MAX: u32 = 14;
+pub const _POSIX2_COLL_WEIGHTS_MAX: u32 = 2;
+pub const _POSIX2_EXPR_NEST_MAX: u32 = 32;
+pub const _POSIX2_LINE_MAX: u32 = 2048;
+pub const _POSIX2_RE_DUP_MAX: u32 = 255;
+pub const _XOPEN_IOV_MAX: u32 = 16;
+pub const _XOPEN_NAME_MAX: u32 = 255;
+pub const _XOPEN_PATH_MAX: u32 = 1024;
+pub const HOST_NAME_MAX: u32 = 255;
+pub const LOGIN_NAME_MAX: u32 = 256;
+pub const TTY_NAME_MAX: u32 = 32;
+pub const PTHREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
+pub const PTHREAD_KEYS_MAX: u32 = 128;
+pub const CHAR_MIN: u32 = 0;
+pub const SA_RESTORER: u32 = 67108864;
+pub const MINSIGSTKSZ: u32 = 5120;
+pub const SIGSTKSZ: u32 = 16384;
+pub const _KERNEL__NSIG: u32 = 64;
+pub const _NSIG_BPW: u32 = 64;
+pub const _NSIG_WORDS: u32 = 1;
+pub const SIGHUP: u32 = 1;
+pub const SIGINT: u32 = 2;
+pub const SIGQUIT: u32 = 3;
+pub const SIGILL: u32 = 4;
+pub const SIGTRAP: u32 = 5;
+pub const SIGABRT: u32 = 6;
+pub const SIGIOT: u32 = 6;
+pub const SIGBUS: u32 = 7;
+pub const SIGFPE: u32 = 8;
+pub const SIGKILL: u32 = 9;
+pub const SIGUSR1: u32 = 10;
+pub const SIGSEGV: u32 = 11;
+pub const SIGUSR2: u32 = 12;
+pub const SIGPIPE: u32 = 13;
+pub const SIGALRM: u32 = 14;
+pub const SIGTERM: u32 = 15;
+pub const SIGSTKFLT: u32 = 16;
+pub const SIGCHLD: u32 = 17;
+pub const SIGCONT: u32 = 18;
+pub const SIGSTOP: u32 = 19;
+pub const SIGTSTP: u32 = 20;
+pub const SIGTTIN: u32 = 21;
+pub const SIGTTOU: u32 = 22;
+pub const SIGURG: u32 = 23;
+pub const SIGXCPU: u32 = 24;
+pub const SIGXFSZ: u32 = 25;
+pub const SIGVTALRM: u32 = 26;
+pub const SIGPROF: u32 = 27;
+pub const SIGWINCH: u32 = 28;
+pub const SIGIO: u32 = 29;
+pub const SIGPOLL: u32 = 29;
+pub const SIGPWR: u32 = 30;
+pub const SIGSYS: u32 = 31;
+pub const SIGUNUSED: u32 = 31;
+pub const __SIGRTMIN: u32 = 32;
+pub const __SIGRTMAX: u32 = 64;
+pub const SA_NOCLDSTOP: u32 = 1;
+pub const SA_NOCLDWAIT: u32 = 2;
+pub const SA_SIGINFO: u32 = 4;
+pub const SA_UNSUPPORTED: u32 = 1024;
+pub const SA_EXPOSE_TAGBITS: u32 = 2048;
+pub const SA_ONSTACK: u32 = 134217728;
+pub const SA_RESTART: u32 = 268435456;
+pub const SA_NODEFER: u32 = 1073741824;
+pub const SA_RESETHAND: u32 = 2147483648;
+pub const SA_NOMASK: u32 = 1073741824;
+pub const SA_ONESHOT: u32 = 2147483648;
+pub const SIG_BLOCK: u32 = 0;
+pub const SIG_UNBLOCK: u32 = 1;
+pub const SIG_SETMASK: u32 = 2;
+pub const SI_MAX_SIZE: u32 = 128;
+pub const SI_USER: u32 = 0;
+pub const SI_KERNEL: u32 = 128;
+pub const SI_QUEUE: i32 = -1;
+pub const SI_TIMER: i32 = -2;
+pub const SI_MESGQ: i32 = -3;
+pub const SI_ASYNCIO: i32 = -4;
+pub const SI_SIGIO: i32 = -5;
+pub const SI_TKILL: i32 = -6;
+pub const SI_DETHREAD: i32 = -7;
+pub const SI_ASYNCNL: i32 = -60;
+pub const ILL_ILLOPC: u32 = 1;
+pub const ILL_ILLOPN: u32 = 2;
+pub const ILL_ILLADR: u32 = 3;
+pub const ILL_ILLTRP: u32 = 4;
+pub const ILL_PRVOPC: u32 = 5;
+pub const ILL_PRVREG: u32 = 6;
+pub const ILL_COPROC: u32 = 7;
+pub const ILL_BADSTK: u32 = 8;
+pub const ILL_BADIADDR: u32 = 9;
+pub const __ILL_BREAK: u32 = 10;
+pub const __ILL_BNDMOD: u32 = 11;
+pub const NSIGILL: u32 = 11;
+pub const FPE_INTDIV: u32 = 1;
+pub const FPE_INTOVF: u32 = 2;
+pub const FPE_FLTDIV: u32 = 3;
+pub const FPE_FLTOVF: u32 = 4;
+pub const FPE_FLTUND: u32 = 5;
+pub const FPE_FLTRES: u32 = 6;
+pub const FPE_FLTINV: u32 = 7;
+pub const FPE_FLTSUB: u32 = 8;
+pub const __FPE_DECOVF: u32 = 9;
+pub const __FPE_DECDIV: u32 = 10;
+pub const __FPE_DECERR: u32 = 11;
+pub const __FPE_INVASC: u32 = 12;
+pub const __FPE_INVDEC: u32 = 13;
+pub const FPE_FLTUNK: u32 = 14;
+pub const FPE_CONDTRAP: u32 = 15;
+pub const NSIGFPE: u32 = 15;
+pub const SEGV_MAPERR: u32 = 1;
+pub const SEGV_ACCERR: u32 = 2;
+pub const SEGV_BNDERR: u32 = 3;
+pub const SEGV_PKUERR: u32 = 4;
+pub const SEGV_ACCADI: u32 = 5;
+pub const SEGV_ADIDERR: u32 = 6;
+pub const SEGV_ADIPERR: u32 = 7;
+pub const SEGV_MTEAERR: u32 = 8;
+pub const SEGV_MTESERR: u32 = 9;
+pub const SEGV_CPERR: u32 = 10;
+pub const NSIGSEGV: u32 = 10;
+pub const BUS_ADRALN: u32 = 1;
+pub const BUS_ADRERR: u32 = 2;
+pub const BUS_OBJERR: u32 = 3;
+pub const BUS_MCEERR_AR: u32 = 4;
+pub const BUS_MCEERR_AO: u32 = 5;
+pub const NSIGBUS: u32 = 5;
+pub const TRAP_BRKPT: u32 = 1;
+pub const TRAP_TRACE: u32 = 2;
+pub const TRAP_BRANCH: u32 = 3;
+pub const TRAP_HWBKPT: u32 = 4;
+pub const TRAP_UNK: u32 = 5;
+pub const TRAP_PERF: u32 = 6;
+pub const NSIGTRAP: u32 = 6;
+pub const TRAP_PERF_FLAG_ASYNC: u32 = 1;
+pub const CLD_EXITED: u32 = 1;
+pub const CLD_KILLED: u32 = 2;
+pub const CLD_DUMPED: u32 = 3;
+pub const CLD_TRAPPED: u32 = 4;
+pub const CLD_STOPPED: u32 = 5;
+pub const CLD_CONTINUED: u32 = 6;
+pub const NSIGCHLD: u32 = 6;
+pub const POLL_IN: u32 = 1;
+pub const POLL_OUT: u32 = 2;
+pub const POLL_MSG: u32 = 3;
+pub const POLL_ERR: u32 = 4;
+pub const POLL_PRI: u32 = 5;
+pub const POLL_HUP: u32 = 6;
+pub const NSIGPOLL: u32 = 6;
+pub const SYS_SECCOMP: u32 = 1;
+pub const SYS_USER_DISPATCH: u32 = 2;
+pub const NSIGSYS: u32 = 2;
+pub const EMT_TAGOVF: u32 = 1;
+pub const NSIGEMT: u32 = 1;
+pub const SIGEV_SIGNAL: u32 = 0;
+pub const SIGEV_NONE: u32 = 1;
+pub const SIGEV_THREAD: u32 = 2;
+pub const SIGEV_THREAD_ID: u32 = 4;
+pub const SIGEV_MAX_SIZE: u32 = 64;
+pub const SS_ONSTACK: u32 = 1;
+pub const SS_DISABLE: u32 = 2;
+pub const SS_AUTODISARM: u32 = 2147483648;
+pub const SS_FLAG_BITS: u32 = 2147483648;
+pub const NSIG: u32 = 65;
+pub const _NSIG: u32 = 65;
+pub const NGREG: u32 = 34;
+pub const SIG2STR_MAX: u32 = 32;
+pub const FD_SETSIZE: u32 = 1024;
 pub const O_DIRECTORY: u32 = 16384;
 pub const O_NOFOLLOW: u32 = 32768;
 pub const O_DIRECT: u32 = 65536;
@@ -784,7 +1133,6 @@ pub const EOF: i32 = -1;
 pub const FOPEN_MAX: u32 = 20;
 pub const FILENAME_MAX: u32 = 4096;
 pub const L_tmpnam: u32 = 4096;
-pub const TMP_MAX: u32 = 308915776;
 pub const P_tmpdir: &[u8; 6] = b"/tmp/\0";
 pub const L_ctermid: u32 = 1024;
 pub const STRUCT_MALLINFO_DECLARED: u32 = 1;
@@ -805,353 +1153,6 @@ pub const EXIT_FAILURE: u32 = 1;
 pub const EXIT_SUCCESS: u32 = 0;
 pub const RAND_MAX: u32 = 2147483647;
 pub const __NNAPI_FL5_MIN_ANDROID_API__: u32 = 31;
-pub const ITIMER_REAL: u32 = 0;
-pub const ITIMER_VIRTUAL: u32 = 1;
-pub const ITIMER_PROF: u32 = 2;
-pub const CLOCK_REALTIME: u32 = 0;
-pub const CLOCK_MONOTONIC: u32 = 1;
-pub const CLOCK_PROCESS_CPUTIME_ID: u32 = 2;
-pub const CLOCK_THREAD_CPUTIME_ID: u32 = 3;
-pub const CLOCK_MONOTONIC_RAW: u32 = 4;
-pub const CLOCK_REALTIME_COARSE: u32 = 5;
-pub const CLOCK_MONOTONIC_COARSE: u32 = 6;
-pub const CLOCK_BOOTTIME: u32 = 7;
-pub const CLOCK_REALTIME_ALARM: u32 = 8;
-pub const CLOCK_BOOTTIME_ALARM: u32 = 9;
-pub const CLOCK_SGI_CYCLE: u32 = 10;
-pub const CLOCK_TAI: u32 = 11;
-pub const MAX_CLOCKS: u32 = 16;
-pub const CLOCKS_MASK: u32 = 1;
-pub const CLOCKS_MONO: u32 = 1;
-pub const TIMER_ABSTIME: u32 = 1;
-pub const FPSIMD_MAGIC: u32 = 1179680769;
-pub const ESR_MAGIC: u32 = 1163088385;
-pub const POE_MAGIC: u32 = 1347372336;
-pub const EXTRA_MAGIC: u32 = 1163416577;
-pub const SVE_MAGIC: u32 = 1398162689;
-pub const SVE_SIG_FLAG_SM: u32 = 1;
-pub const TPIDR2_MAGIC: u32 = 1414547714;
-pub const FPMR_MAGIC: u32 = 1179667794;
-pub const ZA_MAGIC: u32 = 1412850501;
-pub const ZT_MAGIC: u32 = 1515474433;
-pub const __SVE_VQ_BYTES: u32 = 16;
-pub const __SVE_VQ_MIN: u32 = 1;
-pub const __SVE_VQ_MAX: u32 = 512;
-pub const __SVE_VL_MIN: u32 = 16;
-pub const __SVE_VL_MAX: u32 = 8192;
-pub const __SVE_NUM_ZREGS: u32 = 32;
-pub const __SVE_NUM_PREGS: u32 = 16;
-pub const __SVE_ZREGS_OFFSET: u32 = 0;
-pub const SVE_VQ_BYTES: u32 = 16;
-pub const SVE_VQ_MIN: u32 = 1;
-pub const SVE_VQ_MAX: u32 = 512;
-pub const SVE_VL_MIN: u32 = 16;
-pub const SVE_VL_MAX: u32 = 8192;
-pub const SVE_NUM_ZREGS: u32 = 32;
-pub const SVE_NUM_PREGS: u32 = 16;
-pub const ZT_SIG_REG_SIZE: u32 = 512;
-pub const ZT_SIG_REG_BYTES: u32 = 64;
-pub const NR_OPEN: u32 = 1024;
-pub const NGROUPS_MAX: u32 = 65536;
-pub const ARG_MAX: u32 = 131072;
-pub const LINK_MAX: u32 = 127;
-pub const MAX_CANON: u32 = 255;
-pub const MAX_INPUT: u32 = 255;
-pub const NAME_MAX: u32 = 255;
-pub const PATH_MAX: u32 = 4096;
-pub const PIPE_BUF: u32 = 4096;
-pub const XATTR_NAME_MAX: u32 = 255;
-pub const XATTR_SIZE_MAX: u32 = 65536;
-pub const XATTR_LIST_MAX: u32 = 65536;
-pub const RTSIG_MAX: u32 = 32;
-pub const NL_ARGMAX: u32 = 9;
-pub const NL_LANGMAX: u32 = 14;
-pub const NL_MSGMAX: u32 = 32767;
-pub const NL_NMAX: u32 = 1;
-pub const NL_SETMAX: u32 = 255;
-pub const NL_TEXTMAX: u32 = 255;
-pub const PASS_MAX: u32 = 128;
-pub const LONG_BIT: u32 = 64;
-pub const WORD_BIT: u32 = 32;
-pub const NSIG_MAX: u32 = 65;
-pub const MB_LEN_MAX: u32 = 4;
-pub const NZERO: u32 = 20;
-pub const IOV_MAX: u32 = 1024;
-pub const SEM_VALUE_MAX: u32 = 1073741823;
-pub const _POSIX_VERSION: u32 = 200809;
-pub const _POSIX2_VERSION: u32 = 200809;
-pub const _XOPEN_VERSION: u32 = 700;
-pub const __BIONIC_POSIX_FEATURE_MISSING: i32 = -1;
-pub const _POSIX_ASYNCHRONOUS_IO: i32 = -1;
-pub const _POSIX_CHOWN_RESTRICTED: u32 = 1;
-pub const _POSIX_CPUTIME: u32 = 200809;
-pub const _POSIX_FSYNC: u32 = 200809;
-pub const _POSIX_IPV6: u32 = 200809;
-pub const _POSIX_MAPPED_FILES: u32 = 200809;
-pub const _POSIX_MEMLOCK_RANGE: u32 = 200809;
-pub const _POSIX_MEMORY_PROTECTION: u32 = 200809;
-pub const _POSIX_MESSAGE_PASSING: i32 = -1;
-pub const _POSIX_MONOTONIC_CLOCK: u32 = 200809;
-pub const _POSIX_NO_TRUNC: u32 = 1;
-pub const _POSIX_PRIORITIZED_IO: i32 = -1;
-pub const _POSIX_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_RAW_SOCKETS: u32 = 200809;
-pub const _POSIX_READER_WRITER_LOCKS: u32 = 200809;
-pub const _POSIX_REGEXP: u32 = 1;
-pub const _POSIX_SAVED_IDS: u32 = 1;
-pub const _POSIX_SEMAPHORES: u32 = 200809;
-pub const _POSIX_SHARED_MEMORY_OBJECTS: i32 = -1;
-pub const _POSIX_SHELL: u32 = 1;
-pub const _POSIX_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_SYNCHRONIZED_IO: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKADDR: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKSIZE: u32 = 200809;
-pub const _POSIX_THREAD_CPUTIME: u32 = 200809;
-pub const _POSIX_THREAD_PRIO_INHERIT: i32 = -1;
-pub const _POSIX_THREAD_PRIO_PROTECT: i32 = -1;
-pub const _POSIX_THREAD_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_THREAD_PROCESS_SHARED: u32 = 200809;
-pub const _POSIX_THREAD_ROBUST_PRIO_INHERIT: i32 = -1;
-pub const _POSIX_THREAD_ROBUST_PRIO_PROTECT: i32 = -1;
-pub const _POSIX_THREAD_SAFE_FUNCTIONS: u32 = 200809;
-pub const _POSIX_THREAD_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_THREADS: u32 = 200809;
-pub const _POSIX_TIMERS: u32 = 200809;
-pub const _POSIX_TRACE: i32 = -1;
-pub const _POSIX_TRACE_EVENT_FILTER: i32 = -1;
-pub const _POSIX_TRACE_INHERIT: i32 = -1;
-pub const _POSIX_TRACE_LOG: i32 = -1;
-pub const _POSIX_TYPED_MEMORY_OBJECTS: i32 = -1;
-pub const _POSIX_VDISABLE: u8 = 0u8;
-pub const _POSIX2_C_BIND: u32 = 200809;
-pub const _POSIX2_C_DEV: i32 = -1;
-pub const _POSIX2_CHAR_TERM: u32 = 200809;
-pub const _POSIX2_FORT_DEV: i32 = -1;
-pub const _POSIX2_FORT_RUN: i32 = -1;
-pub const _POSIX2_LOCALEDEF: i32 = -1;
-pub const _POSIX2_SW_DEV: i32 = -1;
-pub const _POSIX2_UPE: i32 = -1;
-pub const _POSIX_V7_ILP32_OFF32: i32 = -1;
-pub const _POSIX_V7_ILP32_OFFBIG: i32 = -1;
-pub const _POSIX_V7_LP64_OFF64: u32 = 1;
-pub const _POSIX_V7_LPBIG_OFFBIG: u32 = 1;
-pub const _XOPEN_CRYPT: i32 = -1;
-pub const _XOPEN_ENH_I18N: u32 = 1;
-pub const _XOPEN_LEGACY: i32 = -1;
-pub const _XOPEN_REALTIME: u32 = 1;
-pub const _XOPEN_REALTIME_THREADS: u32 = 1;
-pub const _XOPEN_SHM: u32 = 1;
-pub const _XOPEN_STREAMS: i32 = -1;
-pub const _XOPEN_UNIX: u32 = 1;
-pub const _POSIX_AIO_LISTIO_MAX: u32 = 2;
-pub const _POSIX_AIO_MAX: u32 = 1;
-pub const _POSIX_ARG_MAX: u32 = 4096;
-pub const _POSIX_CHILD_MAX: u32 = 25;
-pub const _POSIX_CLOCKRES_MIN: u32 = 20000000;
-pub const _POSIX_DELAYTIMER_MAX: u32 = 32;
-pub const _POSIX_HOST_NAME_MAX: u32 = 255;
-pub const _POSIX_LINK_MAX: u32 = 8;
-pub const _POSIX_LOGIN_NAME_MAX: u32 = 9;
-pub const _POSIX_MAX_CANON: u32 = 255;
-pub const _POSIX_MAX_INPUT: u32 = 255;
-pub const _POSIX_MQ_OPEN_MAX: u32 = 8;
-pub const _POSIX_MQ_PRIO_MAX: u32 = 32;
-pub const _POSIX_NAME_MAX: u32 = 14;
-pub const _POSIX_NGROUPS_MAX: u32 = 8;
-pub const _POSIX_OPEN_MAX: u32 = 20;
-pub const _POSIX_PATH_MAX: u32 = 256;
-pub const _POSIX_PIPE_BUF: u32 = 512;
-pub const _POSIX_RE_DUP_MAX: u32 = 255;
-pub const _POSIX_RTSIG_MAX: u32 = 8;
-pub const _POSIX_SEM_NSEMS_MAX: u32 = 256;
-pub const _POSIX_SEM_VALUE_MAX: u32 = 32767;
-pub const _POSIX_SIGQUEUE_MAX: u32 = 32;
-pub const _POSIX_SSIZE_MAX: u32 = 32767;
-pub const _POSIX_STREAM_MAX: u32 = 8;
-pub const _POSIX_SS_REPL_MAX: u32 = 4;
-pub const _POSIX_SYMLINK_MAX: u32 = 255;
-pub const _POSIX_SYMLOOP_MAX: u32 = 8;
-pub const _POSIX_THREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
-pub const _POSIX_THREAD_KEYS_MAX: u32 = 128;
-pub const _POSIX_THREAD_THREADS_MAX: u32 = 64;
-pub const _POSIX_TIMER_MAX: u32 = 32;
-pub const _POSIX_TRACE_EVENT_NAME_MAX: u32 = 30;
-pub const _POSIX_TRACE_NAME_MAX: u32 = 8;
-pub const _POSIX_TRACE_SYS_MAX: u32 = 8;
-pub const _POSIX_TRACE_USER_EVENT_MAX: u32 = 32;
-pub const _POSIX_TTY_NAME_MAX: u32 = 9;
-pub const _POSIX_TZNAME_MAX: u32 = 6;
-pub const _POSIX2_BC_BASE_MAX: u32 = 99;
-pub const _POSIX2_BC_DIM_MAX: u32 = 2048;
-pub const _POSIX2_BC_SCALE_MAX: u32 = 99;
-pub const _POSIX2_BC_STRING_MAX: u32 = 1000;
-pub const _POSIX2_CHARCLASS_NAME_MAX: u32 = 14;
-pub const _POSIX2_COLL_WEIGHTS_MAX: u32 = 2;
-pub const _POSIX2_EXPR_NEST_MAX: u32 = 32;
-pub const _POSIX2_LINE_MAX: u32 = 2048;
-pub const _POSIX2_RE_DUP_MAX: u32 = 255;
-pub const _XOPEN_IOV_MAX: u32 = 16;
-pub const _XOPEN_NAME_MAX: u32 = 255;
-pub const _XOPEN_PATH_MAX: u32 = 1024;
-pub const HOST_NAME_MAX: u32 = 255;
-pub const LOGIN_NAME_MAX: u32 = 256;
-pub const TTY_NAME_MAX: u32 = 32;
-pub const PTHREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
-pub const PTHREAD_KEYS_MAX: u32 = 128;
-pub const CHAR_MIN: u32 = 0;
-pub const SA_RESTORER: u32 = 67108864;
-pub const MINSIGSTKSZ: u32 = 5120;
-pub const SIGSTKSZ: u32 = 16384;
-pub const _KERNEL__NSIG: u32 = 64;
-pub const _NSIG_BPW: u32 = 64;
-pub const _NSIG_WORDS: u32 = 1;
-pub const SIGHUP: u32 = 1;
-pub const SIGINT: u32 = 2;
-pub const SIGQUIT: u32 = 3;
-pub const SIGILL: u32 = 4;
-pub const SIGTRAP: u32 = 5;
-pub const SIGABRT: u32 = 6;
-pub const SIGIOT: u32 = 6;
-pub const SIGBUS: u32 = 7;
-pub const SIGFPE: u32 = 8;
-pub const SIGKILL: u32 = 9;
-pub const SIGUSR1: u32 = 10;
-pub const SIGSEGV: u32 = 11;
-pub const SIGUSR2: u32 = 12;
-pub const SIGPIPE: u32 = 13;
-pub const SIGALRM: u32 = 14;
-pub const SIGTERM: u32 = 15;
-pub const SIGSTKFLT: u32 = 16;
-pub const SIGCHLD: u32 = 17;
-pub const SIGCONT: u32 = 18;
-pub const SIGSTOP: u32 = 19;
-pub const SIGTSTP: u32 = 20;
-pub const SIGTTIN: u32 = 21;
-pub const SIGTTOU: u32 = 22;
-pub const SIGURG: u32 = 23;
-pub const SIGXCPU: u32 = 24;
-pub const SIGXFSZ: u32 = 25;
-pub const SIGVTALRM: u32 = 26;
-pub const SIGPROF: u32 = 27;
-pub const SIGWINCH: u32 = 28;
-pub const SIGIO: u32 = 29;
-pub const SIGPOLL: u32 = 29;
-pub const SIGPWR: u32 = 30;
-pub const SIGSYS: u32 = 31;
-pub const SIGUNUSED: u32 = 31;
-pub const __SIGRTMIN: u32 = 32;
-pub const __SIGRTMAX: u32 = 64;
-pub const SA_NOCLDSTOP: u32 = 1;
-pub const SA_NOCLDWAIT: u32 = 2;
-pub const SA_SIGINFO: u32 = 4;
-pub const SA_UNSUPPORTED: u32 = 1024;
-pub const SA_EXPOSE_TAGBITS: u32 = 2048;
-pub const SA_ONSTACK: u32 = 134217728;
-pub const SA_RESTART: u32 = 268435456;
-pub const SA_NODEFER: u32 = 1073741824;
-pub const SA_RESETHAND: u32 = 2147483648;
-pub const SA_NOMASK: u32 = 1073741824;
-pub const SA_ONESHOT: u32 = 2147483648;
-pub const SIG_BLOCK: u32 = 0;
-pub const SIG_UNBLOCK: u32 = 1;
-pub const SIG_SETMASK: u32 = 2;
-pub const SI_MAX_SIZE: u32 = 128;
-pub const SI_USER: u32 = 0;
-pub const SI_KERNEL: u32 = 128;
-pub const SI_QUEUE: i32 = -1;
-pub const SI_TIMER: i32 = -2;
-pub const SI_MESGQ: i32 = -3;
-pub const SI_ASYNCIO: i32 = -4;
-pub const SI_SIGIO: i32 = -5;
-pub const SI_TKILL: i32 = -6;
-pub const SI_DETHREAD: i32 = -7;
-pub const SI_ASYNCNL: i32 = -60;
-pub const ILL_ILLOPC: u32 = 1;
-pub const ILL_ILLOPN: u32 = 2;
-pub const ILL_ILLADR: u32 = 3;
-pub const ILL_ILLTRP: u32 = 4;
-pub const ILL_PRVOPC: u32 = 5;
-pub const ILL_PRVREG: u32 = 6;
-pub const ILL_COPROC: u32 = 7;
-pub const ILL_BADSTK: u32 = 8;
-pub const ILL_BADIADDR: u32 = 9;
-pub const __ILL_BREAK: u32 = 10;
-pub const __ILL_BNDMOD: u32 = 11;
-pub const NSIGILL: u32 = 11;
-pub const FPE_INTDIV: u32 = 1;
-pub const FPE_INTOVF: u32 = 2;
-pub const FPE_FLTDIV: u32 = 3;
-pub const FPE_FLTOVF: u32 = 4;
-pub const FPE_FLTUND: u32 = 5;
-pub const FPE_FLTRES: u32 = 6;
-pub const FPE_FLTINV: u32 = 7;
-pub const FPE_FLTSUB: u32 = 8;
-pub const __FPE_DECOVF: u32 = 9;
-pub const __FPE_DECDIV: u32 = 10;
-pub const __FPE_DECERR: u32 = 11;
-pub const __FPE_INVASC: u32 = 12;
-pub const __FPE_INVDEC: u32 = 13;
-pub const FPE_FLTUNK: u32 = 14;
-pub const FPE_CONDTRAP: u32 = 15;
-pub const NSIGFPE: u32 = 15;
-pub const SEGV_MAPERR: u32 = 1;
-pub const SEGV_ACCERR: u32 = 2;
-pub const SEGV_BNDERR: u32 = 3;
-pub const SEGV_PKUERR: u32 = 4;
-pub const SEGV_ACCADI: u32 = 5;
-pub const SEGV_ADIDERR: u32 = 6;
-pub const SEGV_ADIPERR: u32 = 7;
-pub const SEGV_MTEAERR: u32 = 8;
-pub const SEGV_MTESERR: u32 = 9;
-pub const SEGV_CPERR: u32 = 10;
-pub const NSIGSEGV: u32 = 10;
-pub const BUS_ADRALN: u32 = 1;
-pub const BUS_ADRERR: u32 = 2;
-pub const BUS_OBJERR: u32 = 3;
-pub const BUS_MCEERR_AR: u32 = 4;
-pub const BUS_MCEERR_AO: u32 = 5;
-pub const NSIGBUS: u32 = 5;
-pub const TRAP_BRKPT: u32 = 1;
-pub const TRAP_TRACE: u32 = 2;
-pub const TRAP_BRANCH: u32 = 3;
-pub const TRAP_HWBKPT: u32 = 4;
-pub const TRAP_UNK: u32 = 5;
-pub const TRAP_PERF: u32 = 6;
-pub const NSIGTRAP: u32 = 6;
-pub const TRAP_PERF_FLAG_ASYNC: u32 = 1;
-pub const CLD_EXITED: u32 = 1;
-pub const CLD_KILLED: u32 = 2;
-pub const CLD_DUMPED: u32 = 3;
-pub const CLD_TRAPPED: u32 = 4;
-pub const CLD_STOPPED: u32 = 5;
-pub const CLD_CONTINUED: u32 = 6;
-pub const NSIGCHLD: u32 = 6;
-pub const POLL_IN: u32 = 1;
-pub const POLL_OUT: u32 = 2;
-pub const POLL_MSG: u32 = 3;
-pub const POLL_ERR: u32 = 4;
-pub const POLL_PRI: u32 = 5;
-pub const POLL_HUP: u32 = 6;
-pub const NSIGPOLL: u32 = 6;
-pub const SYS_SECCOMP: u32 = 1;
-pub const SYS_USER_DISPATCH: u32 = 2;
-pub const NSIGSYS: u32 = 2;
-pub const EMT_TAGOVF: u32 = 1;
-pub const NSIGEMT: u32 = 1;
-pub const SIGEV_SIGNAL: u32 = 0;
-pub const SIGEV_NONE: u32 = 1;
-pub const SIGEV_THREAD: u32 = 2;
-pub const SIGEV_THREAD_ID: u32 = 4;
-pub const SIGEV_MAX_SIZE: u32 = 64;
-pub const SS_ONSTACK: u32 = 1;
-pub const SS_DISABLE: u32 = 2;
-pub const SS_AUTODISARM: u32 = 2147483648;
-pub const SS_FLAG_BITS: u32 = 2147483648;
-pub const NSIG: u32 = 65;
-pub const _NSIG: u32 = 65;
-pub const NGREG: u32 = 34;
-pub const SIG2STR_MAX: u32 = 32;
-pub const FD_SETSIZE: u32 = 1024;
 pub const F_ULOCK: u32 = 0;
 pub const F_LOCK: u32 = 1;
 pub const F_TLOCK: u32 = 2;
@@ -2646,6 +2647,7 @@ impl ADataSpace {
     pub const ADATASPACE_SRGB_LINEAR: ADataSpace = ADataSpace(138477568);
     pub const ADATASPACE_BT2020_HLG: ADataSpace = ADataSpace(168165376);
     pub const ADATASPACE_BT2020_ITU_HLG: ADataSpace = ADataSpace(302383104);
+    pub const ADATASPACE_DISPLAY_BT2020: ADataSpace = ADataSpace(142999552);
     pub const ADATASPACE_DEPTH: ADataSpace = ADataSpace(4096);
     pub const ADATASPACE_DYNAMIC_DEPTH: ADataSpace = ADataSpace(4098);
     pub const STANDARD_MASK: ADataSpace = ADataSpace(4128768);
@@ -3980,6 +3982,25 @@ pub const AKEYCODE_MACRO_3: _bindgen_ty_13 = 315;
 pub const AKEYCODE_MACRO_4: _bindgen_ty_13 = 316;
 pub const AKEYCODE_EMOJI_PICKER: _bindgen_ty_13 = 317;
 pub const AKEYCODE_SCREENSHOT: _bindgen_ty_13 = 318;
+pub const AKEYCODE_DICTATE: _bindgen_ty_13 = 319;
+pub const AKEYCODE_NEW: _bindgen_ty_13 = 320;
+pub const AKEYCODE_CLOSE: _bindgen_ty_13 = 321;
+pub const AKEYCODE_DO_NOT_DISTURB: _bindgen_ty_13 = 322;
+pub const AKEYCODE_PRINT: _bindgen_ty_13 = 323;
+pub const AKEYCODE_LOCK: _bindgen_ty_13 = 324;
+pub const AKEYCODE_FULLSCREEN: _bindgen_ty_13 = 325;
+pub const AKEYCODE_F13: _bindgen_ty_13 = 326;
+pub const AKEYCODE_F14: _bindgen_ty_13 = 327;
+pub const AKEYCODE_F15: _bindgen_ty_13 = 328;
+pub const AKEYCODE_F16: _bindgen_ty_13 = 329;
+pub const AKEYCODE_F17: _bindgen_ty_13 = 330;
+pub const AKEYCODE_F18: _bindgen_ty_13 = 331;
+pub const AKEYCODE_F19: _bindgen_ty_13 = 332;
+pub const AKEYCODE_F20: _bindgen_ty_13 = 333;
+pub const AKEYCODE_F21: _bindgen_ty_13 = 334;
+pub const AKEYCODE_F22: _bindgen_ty_13 = 335;
+pub const AKEYCODE_F23: _bindgen_ty_13 = 336;
+pub const AKEYCODE_F24: _bindgen_ty_13 = 337;
 pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -4547,6 +4568,2042 @@ extern "C" {
 extern "C" {
     pub fn AInputTransferToken_release(aInputTransferToken: *mut AInputTransferToken);
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct timespec {
+    pub tv_sec: time_t,
+    pub tv_nsec: ::std::os::raw::c_long,
+}
+#[test]
+fn bindgen_test_layout_timespec() {
+    const UNINIT: ::std::mem::MaybeUninit<timespec> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<timespec>(),
+        16usize,
+        "Size of timespec"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<timespec>(),
+        8usize,
+        "Alignment of timespec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        0usize,
+        "Offset of field: timespec::tv_sec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
+        8usize,
+        "Offset of field: timespec::tv_nsec"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __kernel_timespec {
+    pub tv_sec: __kernel_time64_t,
+    pub tv_nsec: ::std::os::raw::c_longlong,
+}
+#[test]
+fn bindgen_test_layout___kernel_timespec() {
+    const UNINIT: ::std::mem::MaybeUninit<__kernel_timespec> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__kernel_timespec>(),
+        16usize,
+        "Size of __kernel_timespec"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__kernel_timespec>(),
+        8usize,
+        "Alignment of __kernel_timespec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __kernel_timespec::tv_sec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __kernel_timespec::tv_nsec"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __kernel_itimerspec {
+    pub it_interval: __kernel_timespec,
+    pub it_value: __kernel_timespec,
+}
+#[test]
+fn bindgen_test_layout___kernel_itimerspec() {
+    const UNINIT: ::std::mem::MaybeUninit<__kernel_itimerspec> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__kernel_itimerspec>(),
+        32usize,
+        "Size of __kernel_itimerspec"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__kernel_itimerspec>(),
+        8usize,
+        "Alignment of __kernel_itimerspec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __kernel_itimerspec::it_interval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
+        16usize,
+        "Offset of field: __kernel_itimerspec::it_value"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __kernel_old_timespec {
+    pub tv_sec: __kernel_old_time_t,
+    pub tv_nsec: ::std::os::raw::c_long,
+}
+#[test]
+fn bindgen_test_layout___kernel_old_timespec() {
+    const UNINIT: ::std::mem::MaybeUninit<__kernel_old_timespec> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__kernel_old_timespec>(),
+        16usize,
+        "Size of __kernel_old_timespec"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__kernel_old_timespec>(),
+        8usize,
+        "Alignment of __kernel_old_timespec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __kernel_old_timespec::tv_sec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __kernel_old_timespec::tv_nsec"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __kernel_sock_timeval {
+    pub tv_sec: __s64,
+    pub tv_usec: __s64,
+}
+#[test]
+fn bindgen_test_layout___kernel_sock_timeval() {
+    const UNINIT: ::std::mem::MaybeUninit<__kernel_sock_timeval> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__kernel_sock_timeval>(),
+        16usize,
+        "Size of __kernel_sock_timeval"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__kernel_sock_timeval>(),
+        8usize,
+        "Alignment of __kernel_sock_timeval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __kernel_sock_timeval::tv_sec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __kernel_sock_timeval::tv_usec"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct timeval {
+    pub tv_sec: __kernel_old_time_t,
+    pub tv_usec: __kernel_suseconds_t,
+}
+#[test]
+fn bindgen_test_layout_timeval() {
+    const UNINIT: ::std::mem::MaybeUninit<timeval> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<timeval>(), 16usize, "Size of timeval");
+    assert_eq!(
+        ::std::mem::align_of::<timeval>(),
+        8usize,
+        "Alignment of timeval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
+        0usize,
+        "Offset of field: timeval::tv_sec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
+        8usize,
+        "Offset of field: timeval::tv_usec"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct itimerspec {
+    pub it_interval: timespec,
+    pub it_value: timespec,
+}
+#[test]
+fn bindgen_test_layout_itimerspec() {
+    const UNINIT: ::std::mem::MaybeUninit<itimerspec> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<itimerspec>(),
+        32usize,
+        "Size of itimerspec"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<itimerspec>(),
+        8usize,
+        "Alignment of itimerspec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
+        0usize,
+        "Offset of field: itimerspec::it_interval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
+        16usize,
+        "Offset of field: itimerspec::it_value"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct itimerval {
+    pub it_interval: timeval,
+    pub it_value: timeval,
+}
+#[test]
+fn bindgen_test_layout_itimerval() {
+    const UNINIT: ::std::mem::MaybeUninit<itimerval> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<itimerval>(),
+        32usize,
+        "Size of itimerval"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<itimerval>(),
+        8usize,
+        "Alignment of itimerval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
+        0usize,
+        "Offset of field: itimerval::it_interval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
+        16usize,
+        "Offset of field: itimerval::it_value"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct timezone {
+    pub tz_minuteswest: ::std::os::raw::c_int,
+    pub tz_dsttime: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_timezone() {
+    const UNINIT: ::std::mem::MaybeUninit<timezone> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<timezone>(),
+        8usize,
+        "Size of timezone"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<timezone>(),
+        4usize,
+        "Alignment of timezone"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tz_minuteswest) as usize - ptr as usize },
+        0usize,
+        "Offset of field: timezone::tz_minuteswest"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tz_dsttime) as usize - ptr as usize },
+        4usize,
+        "Offset of field: timezone::tz_dsttime"
+    );
+}
+#[repr(C)]
+#[repr(align(16))]
+#[derive(Debug, Copy, Clone)]
+pub struct sigcontext {
+    pub fault_address: __u64,
+    pub regs: [__u64; 31usize],
+    pub sp: __u64,
+    pub pc: __u64,
+    pub pstate: __u64,
+    pub __bindgen_padding_0: [u8; 8usize],
+    pub __reserved: [__u8; 4096usize],
+}
+#[test]
+fn bindgen_test_layout_sigcontext() {
+    const UNINIT: ::std::mem::MaybeUninit<sigcontext> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigcontext>(),
+        4384usize,
+        "Size of sigcontext"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigcontext>(),
+        16usize,
+        "Alignment of sigcontext"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fault_address) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigcontext::fault_address"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
+        8usize,
+        "Offset of field: sigcontext::regs"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
+        256usize,
+        "Offset of field: sigcontext::sp"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
+        264usize,
+        "Offset of field: sigcontext::pc"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
+        272usize,
+        "Offset of field: sigcontext::pstate"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        288usize,
+        "Offset of field: sigcontext::__reserved"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _aarch64_ctx {
+    pub magic: __u32,
+    pub size: __u32,
+}
+#[test]
+fn bindgen_test_layout__aarch64_ctx() {
+    const UNINIT: ::std::mem::MaybeUninit<_aarch64_ctx> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<_aarch64_ctx>(),
+        8usize,
+        "Size of _aarch64_ctx"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_aarch64_ctx>(),
+        4usize,
+        "Alignment of _aarch64_ctx"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).magic) as usize - ptr as usize },
+        0usize,
+        "Offset of field: _aarch64_ctx::magic"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        4usize,
+        "Offset of field: _aarch64_ctx::size"
+    );
+}
+#[repr(C)]
+#[repr(align(16))]
+#[derive(Debug, Copy, Clone)]
+pub struct fpsimd_context {
+    pub head: _aarch64_ctx,
+    pub fpsr: __u32,
+    pub fpcr: __u32,
+    pub vregs: [__uint128_t; 32usize],
+}
+#[test]
+fn bindgen_test_layout_fpsimd_context() {
+    const UNINIT: ::std::mem::MaybeUninit<fpsimd_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<fpsimd_context>(),
+        528usize,
+        "Size of fpsimd_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<fpsimd_context>(),
+        16usize,
+        "Alignment of fpsimd_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: fpsimd_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
+        8usize,
+        "Offset of field: fpsimd_context::fpsr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
+        12usize,
+        "Offset of field: fpsimd_context::fpcr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
+        16usize,
+        "Offset of field: fpsimd_context::vregs"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct esr_context {
+    pub head: _aarch64_ctx,
+    pub esr: __u64,
+}
+#[test]
+fn bindgen_test_layout_esr_context() {
+    const UNINIT: ::std::mem::MaybeUninit<esr_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<esr_context>(),
+        16usize,
+        "Size of esr_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<esr_context>(),
+        8usize,
+        "Alignment of esr_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: esr_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).esr) as usize - ptr as usize },
+        8usize,
+        "Offset of field: esr_context::esr"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct poe_context {
+    pub head: _aarch64_ctx,
+    pub por_el0: __u64,
+}
+#[test]
+fn bindgen_test_layout_poe_context() {
+    const UNINIT: ::std::mem::MaybeUninit<poe_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<poe_context>(),
+        16usize,
+        "Size of poe_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<poe_context>(),
+        8usize,
+        "Alignment of poe_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: poe_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).por_el0) as usize - ptr as usize },
+        8usize,
+        "Offset of field: poe_context::por_el0"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct extra_context {
+    pub head: _aarch64_ctx,
+    pub datap: __u64,
+    pub size: __u32,
+    pub __reserved: [__u32; 3usize],
+}
+#[test]
+fn bindgen_test_layout_extra_context() {
+    const UNINIT: ::std::mem::MaybeUninit<extra_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<extra_context>(),
+        32usize,
+        "Size of extra_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<extra_context>(),
+        8usize,
+        "Alignment of extra_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: extra_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).datap) as usize - ptr as usize },
+        8usize,
+        "Offset of field: extra_context::datap"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        16usize,
+        "Offset of field: extra_context::size"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        20usize,
+        "Offset of field: extra_context::__reserved"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sve_context {
+    pub head: _aarch64_ctx,
+    pub vl: __u16,
+    pub flags: __u16,
+    pub __reserved: [__u16; 2usize],
+}
+#[test]
+fn bindgen_test_layout_sve_context() {
+    const UNINIT: ::std::mem::MaybeUninit<sve_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sve_context>(),
+        16usize,
+        "Size of sve_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sve_context>(),
+        4usize,
+        "Alignment of sve_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sve_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
+        8usize,
+        "Offset of field: sve_context::vl"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        10usize,
+        "Offset of field: sve_context::flags"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        12usize,
+        "Offset of field: sve_context::__reserved"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct tpidr2_context {
+    pub head: _aarch64_ctx,
+    pub tpidr2: __u64,
+}
+#[test]
+fn bindgen_test_layout_tpidr2_context() {
+    const UNINIT: ::std::mem::MaybeUninit<tpidr2_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<tpidr2_context>(),
+        16usize,
+        "Size of tpidr2_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<tpidr2_context>(),
+        8usize,
+        "Alignment of tpidr2_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: tpidr2_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tpidr2) as usize - ptr as usize },
+        8usize,
+        "Offset of field: tpidr2_context::tpidr2"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fpmr_context {
+    pub head: _aarch64_ctx,
+    pub fpmr: __u64,
+}
+#[test]
+fn bindgen_test_layout_fpmr_context() {
+    const UNINIT: ::std::mem::MaybeUninit<fpmr_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<fpmr_context>(),
+        16usize,
+        "Size of fpmr_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<fpmr_context>(),
+        8usize,
+        "Alignment of fpmr_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: fpmr_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fpmr) as usize - ptr as usize },
+        8usize,
+        "Offset of field: fpmr_context::fpmr"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct za_context {
+    pub head: _aarch64_ctx,
+    pub vl: __u16,
+    pub __reserved: [__u16; 3usize],
+}
+#[test]
+fn bindgen_test_layout_za_context() {
+    const UNINIT: ::std::mem::MaybeUninit<za_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<za_context>(),
+        16usize,
+        "Size of za_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<za_context>(),
+        4usize,
+        "Alignment of za_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: za_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
+        8usize,
+        "Offset of field: za_context::vl"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        10usize,
+        "Offset of field: za_context::__reserved"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct zt_context {
+    pub head: _aarch64_ctx,
+    pub nregs: __u16,
+    pub __reserved: [__u16; 3usize],
+}
+#[test]
+fn bindgen_test_layout_zt_context() {
+    const UNINIT: ::std::mem::MaybeUninit<zt_context> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<zt_context>(),
+        16usize,
+        "Size of zt_context"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<zt_context>(),
+        4usize,
+        "Alignment of zt_context"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
+        0usize,
+        "Offset of field: zt_context::head"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).nregs) as usize - ptr as usize },
+        8usize,
+        "Offset of field: zt_context::nregs"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
+        10usize,
+        "Offset of field: zt_context::__reserved"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sigset_t {
+    pub sig: [::std::os::raw::c_ulong; 1usize],
+}
+#[test]
+fn bindgen_test_layout_sigset_t() {
+    const UNINIT: ::std::mem::MaybeUninit<sigset_t> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigset_t>(),
+        8usize,
+        "Size of sigset_t"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigset_t>(),
+        8usize,
+        "Alignment of sigset_t"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sig) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigset_t::sig"
+    );
+}
+pub type old_sigset_t = ::std::os::raw::c_ulong;
+pub type __signalfn_t = ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
+pub type __sighandler_t = __signalfn_t;
+pub type __restorefn_t = ::std::option::Option<unsafe extern "C" fn()>;
+pub type __sigrestore_t = __restorefn_t;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __kernel_sigaction {
+    pub sa_handler: __sighandler_t,
+    pub sa_flags: ::std::os::raw::c_ulong,
+    pub sa_restorer: __sigrestore_t,
+    pub sa_mask: sigset_t,
+}
+#[test]
+fn bindgen_test_layout___kernel_sigaction() {
+    const UNINIT: ::std::mem::MaybeUninit<__kernel_sigaction> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__kernel_sigaction>(),
+        32usize,
+        "Size of __kernel_sigaction"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__kernel_sigaction>(),
+        8usize,
+        "Alignment of __kernel_sigaction"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __kernel_sigaction::sa_handler"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __kernel_sigaction::sa_flags"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
+        16usize,
+        "Offset of field: __kernel_sigaction::sa_restorer"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
+        24usize,
+        "Offset of field: __kernel_sigaction::sa_mask"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sigaltstack {
+    pub ss_sp: *mut ::std::os::raw::c_void,
+    pub ss_flags: ::std::os::raw::c_int,
+    pub ss_size: __kernel_size_t,
+}
+#[test]
+fn bindgen_test_layout_sigaltstack() {
+    const UNINIT: ::std::mem::MaybeUninit<sigaltstack> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigaltstack>(),
+        24usize,
+        "Size of sigaltstack"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigaltstack>(),
+        8usize,
+        "Alignment of sigaltstack"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ss_sp) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigaltstack::ss_sp"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ss_flags) as usize - ptr as usize },
+        8usize,
+        "Offset of field: sigaltstack::ss_flags"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ss_size) as usize - ptr as usize },
+        16usize,
+        "Offset of field: sigaltstack::ss_size"
+    );
+}
+pub type stack_t = sigaltstack;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union sigval {
+    pub sival_int: ::std::os::raw::c_int,
+    pub sival_ptr: *mut ::std::os::raw::c_void,
+}
+#[test]
+fn bindgen_test_layout_sigval() {
+    const UNINIT: ::std::mem::MaybeUninit<sigval> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<sigval>(), 8usize, "Size of sigval");
+    assert_eq!(
+        ::std::mem::align_of::<sigval>(),
+        8usize,
+        "Alignment of sigval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sival_int) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigval::sival_int"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sival_ptr) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigval::sival_ptr"
+    );
+}
+pub type sigval_t = sigval;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union __sifields {
+    pub _kill: __sifields__bindgen_ty_1,
+    pub _timer: __sifields__bindgen_ty_2,
+    pub _rt: __sifields__bindgen_ty_3,
+    pub _sigchld: __sifields__bindgen_ty_4,
+    pub _sigfault: __sifields__bindgen_ty_5,
+    pub _sigpoll: __sifields__bindgen_ty_6,
+    pub _sigsys: __sifields__bindgen_ty_7,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sifields__bindgen_ty_1 {
+    pub _pid: __kernel_pid_t,
+    pub _uid: __kernel_uid32_t,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_1>(),
+        8usize,
+        "Size of __sifields__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_1>(),
+        4usize,
+        "Alignment of __sifields__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_1::_pid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
+        4usize,
+        "Offset of field: __sifields__bindgen_ty_1::_uid"
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct __sifields__bindgen_ty_2 {
+    pub _tid: __kernel_timer_t,
+    pub _overrun: ::std::os::raw::c_int,
+    pub _sigval: sigval_t,
+    pub _sys_private: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_2() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_2> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_2>(),
+        24usize,
+        "Size of __sifields__bindgen_ty_2"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_2>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_2"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_2::_tid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._overrun) as usize - ptr as usize },
+        4usize,
+        "Offset of field: __sifields__bindgen_ty_2::_overrun"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_2::_sigval"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sys_private) as usize - ptr as usize },
+        16usize,
+        "Offset of field: __sifields__bindgen_ty_2::_sys_private"
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct __sifields__bindgen_ty_3 {
+    pub _pid: __kernel_pid_t,
+    pub _uid: __kernel_uid32_t,
+    pub _sigval: sigval_t,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_3() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_3> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_3>(),
+        16usize,
+        "Size of __sifields__bindgen_ty_3"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_3>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_3"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_3::_pid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
+        4usize,
+        "Offset of field: __sifields__bindgen_ty_3::_uid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_3::_sigval"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sifields__bindgen_ty_4 {
+    pub _pid: __kernel_pid_t,
+    pub _uid: __kernel_uid32_t,
+    pub _status: ::std::os::raw::c_int,
+    pub _utime: __kernel_clock_t,
+    pub _stime: __kernel_clock_t,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_4() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_4> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_4>(),
+        32usize,
+        "Size of __sifields__bindgen_ty_4"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_4>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_4"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_4::_pid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
+        4usize,
+        "Offset of field: __sifields__bindgen_ty_4::_uid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._status) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_4::_status"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._utime) as usize - ptr as usize },
+        16usize,
+        "Offset of field: __sifields__bindgen_ty_4::_utime"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._stime) as usize - ptr as usize },
+        24usize,
+        "Offset of field: __sifields__bindgen_ty_4::_stime"
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct __sifields__bindgen_ty_5 {
+    pub _addr: *mut ::std::os::raw::c_void,
+    pub __bindgen_anon_1: __sifields__bindgen_ty_5__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union __sifields__bindgen_ty_5__bindgen_ty_1 {
+    pub _trapno: ::std::os::raw::c_int,
+    pub _addr_lsb: ::std::os::raw::c_short,
+    pub _addr_bnd: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1,
+    pub _addr_pkey: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2,
+    pub _perf: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1 {
+    pub _dummy_bnd: [::std::os::raw::c_char; 8usize],
+    pub _lower: *mut ::std::os::raw::c_void,
+    pub _upper: *mut ::std::os::raw::c_void,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
+        24usize,
+        "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._dummy_bnd) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_dummy_bnd"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._lower) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_lower"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._upper) as usize - ptr as usize },
+        16usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_upper"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2 {
+    pub _dummy_pkey: [::std::os::raw::c_char; 8usize],
+    pub _pkey: __u32,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
+        12usize,
+        "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
+        4usize,
+        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._dummy_pkey) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2::_dummy_pkey"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._pkey) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2::_pkey"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3 {
+    pub _data: ::std::os::raw::c_ulong,
+    pub _type: __u32,
+    pub _flags: __u32,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
+        16usize,
+        "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._data) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_data"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._type) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_type"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._flags) as usize - ptr as usize },
+        12usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_flags"
+    );
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
+        24usize,
+        "Size of __sifields__bindgen_ty_5__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._trapno) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_trapno"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._addr_lsb) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_lsb"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._addr_bnd) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_bnd"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._addr_pkey) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_pkey"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._perf) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_perf"
+    );
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_5() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_5>(),
+        32usize,
+        "Size of __sifields__bindgen_ty_5"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_5>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_5"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._addr) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_5::_addr"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sifields__bindgen_ty_6 {
+    pub _band: ::std::os::raw::c_long,
+    pub _fd: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_6() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_6> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_6>(),
+        16usize,
+        "Size of __sifields__bindgen_ty_6"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_6>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_6"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._band) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_6::_band"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._fd) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_6::_fd"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sifields__bindgen_ty_7 {
+    pub _call_addr: *mut ::std::os::raw::c_void,
+    pub _syscall: ::std::os::raw::c_int,
+    pub _arch: ::std::os::raw::c_uint,
+}
+#[test]
+fn bindgen_test_layout___sifields__bindgen_ty_7() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_7> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields__bindgen_ty_7>(),
+        16usize,
+        "Size of __sifields__bindgen_ty_7"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields__bindgen_ty_7>(),
+        8usize,
+        "Alignment of __sifields__bindgen_ty_7"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._call_addr) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields__bindgen_ty_7::_call_addr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._syscall) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __sifields__bindgen_ty_7::_syscall"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._arch) as usize - ptr as usize },
+        12usize,
+        "Offset of field: __sifields__bindgen_ty_7::_arch"
+    );
+}
+#[test]
+fn bindgen_test_layout___sifields() {
+    const UNINIT: ::std::mem::MaybeUninit<__sifields> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__sifields>(),
+        32usize,
+        "Size of __sifields"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__sifields>(),
+        8usize,
+        "Alignment of __sifields"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._kill) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields::_kill"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._timer) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields::_timer"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._rt) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields::_rt"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigchld) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields::_sigchld"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigfault) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields::_sigfault"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigpoll) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields::_sigpoll"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigsys) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __sifields::_sigsys"
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct siginfo {
+    pub __bindgen_anon_1: siginfo__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union siginfo__bindgen_ty_1 {
+    pub __bindgen_anon_1: siginfo__bindgen_ty_1__bindgen_ty_1,
+    pub _si_pad: [::std::os::raw::c_int; 32usize],
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct siginfo__bindgen_ty_1__bindgen_ty_1 {
+    pub si_signo: ::std::os::raw::c_int,
+    pub si_errno: ::std::os::raw::c_int,
+    pub si_code: ::std::os::raw::c_int,
+    pub _sifields: __sifields,
+}
+#[test]
+fn bindgen_test_layout_siginfo__bindgen_ty_1__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<siginfo__bindgen_ty_1__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
+        48usize,
+        "Size of siginfo__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
+        8usize,
+        "Alignment of siginfo__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).si_signo) as usize - ptr as usize },
+        0usize,
+        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_signo"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).si_errno) as usize - ptr as usize },
+        4usize,
+        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_errno"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).si_code) as usize - ptr as usize },
+        8usize,
+        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_code"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sifields) as usize - ptr as usize },
+        16usize,
+        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::_sifields"
+    );
+}
+#[test]
+fn bindgen_test_layout_siginfo__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<siginfo__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<siginfo__bindgen_ty_1>(),
+        128usize,
+        "Size of siginfo__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<siginfo__bindgen_ty_1>(),
+        8usize,
+        "Alignment of siginfo__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._si_pad) as usize - ptr as usize },
+        0usize,
+        "Offset of field: siginfo__bindgen_ty_1::_si_pad"
+    );
+}
+#[test]
+fn bindgen_test_layout_siginfo() {
+    assert_eq!(
+        ::std::mem::size_of::<siginfo>(),
+        128usize,
+        "Size of siginfo"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<siginfo>(),
+        8usize,
+        "Alignment of siginfo"
+    );
+}
+pub type siginfo_t = siginfo;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct sigevent {
+    pub sigev_value: sigval_t,
+    pub sigev_signo: ::std::os::raw::c_int,
+    pub sigev_notify: ::std::os::raw::c_int,
+    pub _sigev_un: sigevent__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union sigevent__bindgen_ty_1 {
+    pub _pad: [::std::os::raw::c_int; 12usize],
+    pub _tid: ::std::os::raw::c_int,
+    pub _sigev_thread: sigevent__bindgen_ty_1__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sigevent__bindgen_ty_1__bindgen_ty_1 {
+    pub _function: ::std::option::Option<unsafe extern "C" fn(arg1: sigval_t)>,
+    pub _attribute: *mut ::std::os::raw::c_void,
+}
+#[test]
+fn bindgen_test_layout_sigevent__bindgen_ty_1__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<sigevent__bindgen_ty_1__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
+        16usize,
+        "Size of sigevent__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
+        8usize,
+        "Alignment of sigevent__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._function) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigevent__bindgen_ty_1__bindgen_ty_1::_function"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._attribute) as usize - ptr as usize },
+        8usize,
+        "Offset of field: sigevent__bindgen_ty_1__bindgen_ty_1::_attribute"
+    );
+}
+#[test]
+fn bindgen_test_layout_sigevent__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<sigevent__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigevent__bindgen_ty_1>(),
+        48usize,
+        "Size of sigevent__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigevent__bindgen_ty_1>(),
+        8usize,
+        "Alignment of sigevent__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._pad) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigevent__bindgen_ty_1::_pad"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigevent__bindgen_ty_1::_tid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigev_thread) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigevent__bindgen_ty_1::_sigev_thread"
+    );
+}
+#[test]
+fn bindgen_test_layout_sigevent() {
+    const UNINIT: ::std::mem::MaybeUninit<sigevent> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigevent>(),
+        64usize,
+        "Size of sigevent"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigevent>(),
+        8usize,
+        "Alignment of sigevent"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sigev_value) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigevent::sigev_value"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sigev_signo) as usize - ptr as usize },
+        8usize,
+        "Offset of field: sigevent::sigev_signo"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sigev_notify) as usize - ptr as usize },
+        12usize,
+        "Offset of field: sigevent::sigev_notify"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr)._sigev_un) as usize - ptr as usize },
+        16usize,
+        "Offset of field: sigevent::_sigev_un"
+    );
+}
+pub type sigevent_t = sigevent;
+pub type sig_atomic_t = ::std::os::raw::c_int;
+pub type sig_t = __sighandler_t;
+pub type sighandler_t = __sighandler_t;
+pub type sigset64_t = sigset_t;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct sigaction {
+    pub sa_flags: ::std::os::raw::c_int,
+    pub __bindgen_anon_1: sigaction__bindgen_ty_1,
+    pub sa_mask: sigset_t,
+    pub sa_restorer: ::std::option::Option<unsafe extern "C" fn()>,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union sigaction__bindgen_ty_1 {
+    pub sa_handler: sighandler_t,
+    pub sa_sigaction: ::std::option::Option<
+        unsafe extern "C" fn(
+            arg1: ::std::os::raw::c_int,
+            arg2: *mut siginfo,
+            arg3: *mut ::std::os::raw::c_void,
+        ),
+    >,
+}
+#[test]
+fn bindgen_test_layout_sigaction__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<sigaction__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigaction__bindgen_ty_1>(),
+        8usize,
+        "Size of sigaction__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigaction__bindgen_ty_1>(),
+        8usize,
+        "Alignment of sigaction__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigaction__bindgen_ty_1::sa_handler"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigaction__bindgen_ty_1::sa_sigaction"
+    );
+}
+#[test]
+fn bindgen_test_layout_sigaction() {
+    const UNINIT: ::std::mem::MaybeUninit<sigaction> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigaction>(),
+        32usize,
+        "Size of sigaction"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigaction>(),
+        8usize,
+        "Alignment of sigaction"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigaction::sa_flags"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
+        16usize,
+        "Offset of field: sigaction::sa_mask"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
+        24usize,
+        "Offset of field: sigaction::sa_restorer"
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct sigaction64 {
+    pub sa_flags: ::std::os::raw::c_int,
+    pub __bindgen_anon_1: sigaction64__bindgen_ty_1,
+    pub sa_mask: sigset_t,
+    pub sa_restorer: ::std::option::Option<unsafe extern "C" fn()>,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union sigaction64__bindgen_ty_1 {
+    pub sa_handler: sighandler_t,
+    pub sa_sigaction: ::std::option::Option<
+        unsafe extern "C" fn(
+            arg1: ::std::os::raw::c_int,
+            arg2: *mut siginfo,
+            arg3: *mut ::std::os::raw::c_void,
+        ),
+    >,
+}
+#[test]
+fn bindgen_test_layout_sigaction64__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<sigaction64__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigaction64__bindgen_ty_1>(),
+        8usize,
+        "Size of sigaction64__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigaction64__bindgen_ty_1>(),
+        8usize,
+        "Alignment of sigaction64__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigaction64__bindgen_ty_1::sa_handler"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigaction64__bindgen_ty_1::sa_sigaction"
+    );
+}
+#[test]
+fn bindgen_test_layout_sigaction64() {
+    const UNINIT: ::std::mem::MaybeUninit<sigaction64> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sigaction64>(),
+        32usize,
+        "Size of sigaction64"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sigaction64>(),
+        8usize,
+        "Alignment of sigaction64"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sigaction64::sa_flags"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
+        16usize,
+        "Offset of field: sigaction64::sa_mask"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
+        24usize,
+        "Offset of field: sigaction64::sa_restorer"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct user_regs_struct {
+    pub regs: [u64; 31usize],
+    pub sp: u64,
+    pub pc: u64,
+    pub pstate: u64,
+}
+#[test]
+fn bindgen_test_layout_user_regs_struct() {
+    const UNINIT: ::std::mem::MaybeUninit<user_regs_struct> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<user_regs_struct>(),
+        272usize,
+        "Size of user_regs_struct"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<user_regs_struct>(),
+        8usize,
+        "Alignment of user_regs_struct"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
+        0usize,
+        "Offset of field: user_regs_struct::regs"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
+        248usize,
+        "Offset of field: user_regs_struct::sp"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
+        256usize,
+        "Offset of field: user_regs_struct::pc"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
+        264usize,
+        "Offset of field: user_regs_struct::pstate"
+    );
+}
+#[repr(C)]
+#[repr(align(16))]
+#[derive(Debug, Copy, Clone)]
+pub struct user_fpsimd_struct {
+    pub vregs: [__uint128_t; 32usize],
+    pub fpsr: u32,
+    pub fpcr: u32,
+}
+#[test]
+fn bindgen_test_layout_user_fpsimd_struct() {
+    const UNINIT: ::std::mem::MaybeUninit<user_fpsimd_struct> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<user_fpsimd_struct>(),
+        528usize,
+        "Size of user_fpsimd_struct"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<user_fpsimd_struct>(),
+        16usize,
+        "Alignment of user_fpsimd_struct"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
+        0usize,
+        "Offset of field: user_fpsimd_struct::vregs"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
+        512usize,
+        "Offset of field: user_fpsimd_struct::fpsr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
+        516usize,
+        "Offset of field: user_fpsimd_struct::fpcr"
+    );
+}
+pub type greg_t = ::std::os::raw::c_ulong;
+pub type gregset_t = [greg_t; 34usize];
+pub type fpregset_t = user_fpsimd_struct;
+pub type mcontext_t = sigcontext;
+#[repr(C)]
+#[repr(align(16))]
+#[derive(Copy, Clone)]
+pub struct ucontext {
+    pub uc_flags: ::std::os::raw::c_ulong,
+    pub uc_link: *mut ucontext,
+    pub uc_stack: stack_t,
+    pub __bindgen_anon_1: ucontext__bindgen_ty_1,
+    pub __padding: [::std::os::raw::c_char; 120usize],
+    pub __bindgen_padding_0: u64,
+    pub uc_mcontext: mcontext_t,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ucontext__bindgen_ty_1 {
+    pub uc_sigmask: sigset_t,
+    pub uc_sigmask64: sigset64_t,
+}
+#[test]
+fn bindgen_test_layout_ucontext__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<ucontext__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ucontext__bindgen_ty_1>(),
+        8usize,
+        "Size of ucontext__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ucontext__bindgen_ty_1>(),
+        8usize,
+        "Alignment of ucontext__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uc_sigmask) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ucontext__bindgen_ty_1::uc_sigmask"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uc_sigmask64) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ucontext__bindgen_ty_1::uc_sigmask64"
+    );
+}
+#[test]
+fn bindgen_test_layout_ucontext() {
+    const UNINIT: ::std::mem::MaybeUninit<ucontext> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ucontext>(),
+        4560usize,
+        "Size of ucontext"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ucontext>(),
+        16usize,
+        "Alignment of ucontext"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uc_flags) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ucontext::uc_flags"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uc_link) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ucontext::uc_link"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uc_stack) as usize - ptr as usize },
+        16usize,
+        "Offset of field: ucontext::uc_stack"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__padding) as usize - ptr as usize },
+        48usize,
+        "Offset of field: ucontext::__padding"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uc_mcontext) as usize - ptr as usize },
+        176usize,
+        "Offset of field: ucontext::uc_mcontext"
+    );
+}
+pub type ucontext_t = ucontext;
+extern "C" {
+    pub fn __libc_current_sigrtmin() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __libc_current_sigrtmax() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static sys_siglist: [*const ::std::os::raw::c_char; 65usize];
+}
+extern "C" {
+    pub static sys_signame: [*const ::std::os::raw::c_char; 65usize];
+}
+extern "C" {
+    pub fn sigaction(
+        __signal: ::std::os::raw::c_int,
+        __new_action: *const sigaction,
+        __old_action: *mut sigaction,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn siginterrupt(
+        __signal: ::std::os::raw::c_int,
+        __flag: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn signal(__signal: ::std::os::raw::c_int, __handler: sighandler_t) -> sighandler_t;
+}
+extern "C" {
+    pub fn sigaddset(
+        __set: *mut sigset_t,
+        __signal: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigdelset(
+        __set: *mut sigset_t,
+        __signal: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigemptyset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigfillset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigismember(
+        __set: *const sigset_t,
+        __signal: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigpending(__set: *mut sigset_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigprocmask(
+        __how: ::std::os::raw::c_int,
+        __new_set: *const sigset_t,
+        __old_set: *mut sigset_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigsuspend(__mask: *const sigset_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigwait(
+        __set: *const sigset_t,
+        __signal: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn raise(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn kill(__pid: pid_t, __signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn killpg(
+        __pgrp: ::std::os::raw::c_int,
+        __signal: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn tgkill(
+        __tgid: ::std::os::raw::c_int,
+        __tid: ::std::os::raw::c_int,
+        __signal: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sigaltstack(
+        __new_signal_stack: *const stack_t,
+        __old_signal_stack: *mut stack_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn psiginfo(__info: *const siginfo_t, __msg: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn psignal(__signal: ::std::os::raw::c_int, __msg: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn pthread_kill(
+        __pthread: pthread_t,
+        __signal: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pthread_sigmask(
+        __how: ::std::os::raw::c_int,
+        __new_set: *const sigset_t,
+        __old_set: *mut sigset_t,
+    ) -> ::std::os::raw::c_int;
+}
+pub type fd_mask = ::std::os::raw::c_ulong;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct fd_set {
+    pub fds_bits: [fd_mask; 16usize],
+}
+#[test]
+fn bindgen_test_layout_fd_set() {
+    const UNINIT: ::std::mem::MaybeUninit<fd_set> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<fd_set>(), 128usize, "Size of fd_set");
+    assert_eq!(
+        ::std::mem::align_of::<fd_set>(),
+        8usize,
+        "Alignment of fd_set"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fds_bits) as usize - ptr as usize },
+        0usize,
+        "Offset of field: fd_set::fds_bits"
+    );
+}
+extern "C" {
+    pub fn __FD_CLR_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
+}
+extern "C" {
+    pub fn __FD_SET_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
+}
+extern "C" {
+    pub fn __FD_ISSET_chk(
+        arg1: ::std::os::raw::c_int,
+        arg2: *const fd_set,
+        arg3: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn select(
+        __max_fd_plus_one: ::std::os::raw::c_int,
+        __read_fds: *mut fd_set,
+        __write_fds: *mut fd_set,
+        __exception_fds: *mut fd_set,
+        __timeout: *mut timeval,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pselect(
+        __max_fd_plus_one: ::std::os::raw::c_int,
+        __read_fds: *mut fd_set,
+        __write_fds: *mut fd_set,
+        __exception_fds: *mut fd_set,
+        __timeout: *const timespec,
+        __mask: *const sigset_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn gettimeofday(__tv: *mut timeval, __tz: *mut timezone) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn settimeofday(__tv: *const timeval, __tz: *const timezone) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getitimer(
+        __which: ::std::os::raw::c_int,
+        __current_value: *mut itimerval,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setitimer(
+        __which: ::std::os::raw::c_int,
+        __new_value: *const itimerval,
+        __old_value: *mut itimerval,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn utimes(
+        __path: *const ::std::os::raw::c_char,
+        __times: *const timeval,
+    ) -> ::std::os::raw::c_int;
+}
 impl android_LogPriority {
     pub const ANDROID_LOG_UNKNOWN: android_LogPriority = android_LogPriority(0);
     pub const ANDROID_LOG_DEFAULT: android_LogPriority = android_LogPriority(1);
@@ -4611,7 +6668,7 @@ pub struct log_id(pub ::std::os::raw::c_uint);
 pub use self::log_id as log_id_t;
 extern "C" {
     pub fn __android_log_buf_write(
-        bufID: ::std::os::raw::c_int,
+        log_id: ::std::os::raw::c_int,
         prio: ::std::os::raw::c_int,
         tag: *const ::std::os::raw::c_char,
         text: *const ::std::os::raw::c_char,
@@ -4619,7 +6676,7 @@ extern "C" {
 }
 extern "C" {
     pub fn __android_log_buf_print(
-        bufID: ::std::os::raw::c_int,
+        log_id: ::std::os::raw::c_int,
         prio: ::std::os::raw::c_int,
         tag: *const ::std::os::raw::c_char,
         fmt: *const ::std::os::raw::c_char,
@@ -4700,6 +6757,12 @@ extern "C" {
 }
 extern "C" {
     pub fn __android_log_logd_logger(log_message: *const __android_log_message);
+}
+extern "C" {
+    pub fn __android_log_logd_logger_with_timestamp(
+        log_message: *const __android_log_message,
+        timestamp: *const timespec,
+    );
 }
 extern "C" {
     pub fn __android_log_stderr_logger(log_message: *const __android_log_message);
@@ -6912,6 +8975,8 @@ impl ANativeWindow_FrameRateCompatibility {
         ANativeWindow_FrameRateCompatibility(0);
     pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE:
         ANativeWindow_FrameRateCompatibility = ANativeWindow_FrameRateCompatibility(1);
+    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_GTE: ANativeWindow_FrameRateCompatibility =
+        ANativeWindow_FrameRateCompatibility(2);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -7996,2017 +10061,6 @@ extern "C" {
 extern "C" {
     pub fn AObbInfo_getFlags(obbInfo: *mut AObbInfo) -> i32;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct timespec {
-    pub tv_sec: time_t,
-    pub tv_nsec: ::std::os::raw::c_long,
-}
-#[test]
-fn bindgen_test_layout_timespec() {
-    const UNINIT: ::std::mem::MaybeUninit<timespec> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<timespec>(),
-        16usize,
-        "Size of timespec"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<timespec>(),
-        8usize,
-        "Alignment of timespec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
-        0usize,
-        "Offset of field: timespec::tv_sec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
-        8usize,
-        "Offset of field: timespec::tv_nsec"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __kernel_timespec {
-    pub tv_sec: __kernel_time64_t,
-    pub tv_nsec: ::std::os::raw::c_longlong,
-}
-#[test]
-fn bindgen_test_layout___kernel_timespec() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_timespec> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__kernel_timespec>(),
-        16usize,
-        "Size of __kernel_timespec"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__kernel_timespec>(),
-        8usize,
-        "Alignment of __kernel_timespec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __kernel_timespec::tv_sec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __kernel_timespec::tv_nsec"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __kernel_itimerspec {
-    pub it_interval: __kernel_timespec,
-    pub it_value: __kernel_timespec,
-}
-#[test]
-fn bindgen_test_layout___kernel_itimerspec() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_itimerspec> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__kernel_itimerspec>(),
-        32usize,
-        "Size of __kernel_itimerspec"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__kernel_itimerspec>(),
-        8usize,
-        "Alignment of __kernel_itimerspec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __kernel_itimerspec::it_interval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
-        16usize,
-        "Offset of field: __kernel_itimerspec::it_value"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __kernel_old_timespec {
-    pub tv_sec: __kernel_old_time_t,
-    pub tv_nsec: ::std::os::raw::c_long,
-}
-#[test]
-fn bindgen_test_layout___kernel_old_timespec() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_old_timespec> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__kernel_old_timespec>(),
-        16usize,
-        "Size of __kernel_old_timespec"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__kernel_old_timespec>(),
-        8usize,
-        "Alignment of __kernel_old_timespec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __kernel_old_timespec::tv_sec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_nsec) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __kernel_old_timespec::tv_nsec"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __kernel_sock_timeval {
-    pub tv_sec: __s64,
-    pub tv_usec: __s64,
-}
-#[test]
-fn bindgen_test_layout___kernel_sock_timeval() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_sock_timeval> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__kernel_sock_timeval>(),
-        16usize,
-        "Size of __kernel_sock_timeval"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__kernel_sock_timeval>(),
-        8usize,
-        "Alignment of __kernel_sock_timeval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __kernel_sock_timeval::tv_sec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __kernel_sock_timeval::tv_usec"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct timeval {
-    pub tv_sec: __kernel_old_time_t,
-    pub tv_usec: __kernel_suseconds_t,
-}
-#[test]
-fn bindgen_test_layout_timeval() {
-    const UNINIT: ::std::mem::MaybeUninit<timeval> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<timeval>(), 16usize, "Size of timeval");
-    assert_eq!(
-        ::std::mem::align_of::<timeval>(),
-        8usize,
-        "Alignment of timeval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_sec) as usize - ptr as usize },
-        0usize,
-        "Offset of field: timeval::tv_sec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tv_usec) as usize - ptr as usize },
-        8usize,
-        "Offset of field: timeval::tv_usec"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct itimerspec {
-    pub it_interval: timespec,
-    pub it_value: timespec,
-}
-#[test]
-fn bindgen_test_layout_itimerspec() {
-    const UNINIT: ::std::mem::MaybeUninit<itimerspec> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<itimerspec>(),
-        32usize,
-        "Size of itimerspec"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<itimerspec>(),
-        8usize,
-        "Alignment of itimerspec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
-        0usize,
-        "Offset of field: itimerspec::it_interval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
-        16usize,
-        "Offset of field: itimerspec::it_value"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct itimerval {
-    pub it_interval: timeval,
-    pub it_value: timeval,
-}
-#[test]
-fn bindgen_test_layout_itimerval() {
-    const UNINIT: ::std::mem::MaybeUninit<itimerval> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<itimerval>(),
-        32usize,
-        "Size of itimerval"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<itimerval>(),
-        8usize,
-        "Alignment of itimerval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_interval) as usize - ptr as usize },
-        0usize,
-        "Offset of field: itimerval::it_interval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).it_value) as usize - ptr as usize },
-        16usize,
-        "Offset of field: itimerval::it_value"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct timezone {
-    pub tz_minuteswest: ::std::os::raw::c_int,
-    pub tz_dsttime: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout_timezone() {
-    const UNINIT: ::std::mem::MaybeUninit<timezone> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<timezone>(),
-        8usize,
-        "Size of timezone"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<timezone>(),
-        4usize,
-        "Alignment of timezone"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tz_minuteswest) as usize - ptr as usize },
-        0usize,
-        "Offset of field: timezone::tz_minuteswest"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tz_dsttime) as usize - ptr as usize },
-        4usize,
-        "Offset of field: timezone::tz_dsttime"
-    );
-}
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Debug, Copy, Clone)]
-pub struct sigcontext {
-    pub fault_address: __u64,
-    pub regs: [__u64; 31usize],
-    pub sp: __u64,
-    pub pc: __u64,
-    pub pstate: __u64,
-    pub __bindgen_padding_0: [u8; 8usize],
-    pub __reserved: [__u8; 4096usize],
-}
-#[test]
-fn bindgen_test_layout_sigcontext() {
-    const UNINIT: ::std::mem::MaybeUninit<sigcontext> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigcontext>(),
-        4384usize,
-        "Size of sigcontext"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigcontext>(),
-        16usize,
-        "Alignment of sigcontext"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fault_address) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigcontext::fault_address"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
-        8usize,
-        "Offset of field: sigcontext::regs"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
-        256usize,
-        "Offset of field: sigcontext::sp"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
-        264usize,
-        "Offset of field: sigcontext::pc"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
-        272usize,
-        "Offset of field: sigcontext::pstate"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
-        288usize,
-        "Offset of field: sigcontext::__reserved"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _aarch64_ctx {
-    pub magic: __u32,
-    pub size: __u32,
-}
-#[test]
-fn bindgen_test_layout__aarch64_ctx() {
-    const UNINIT: ::std::mem::MaybeUninit<_aarch64_ctx> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<_aarch64_ctx>(),
-        8usize,
-        "Size of _aarch64_ctx"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<_aarch64_ctx>(),
-        4usize,
-        "Alignment of _aarch64_ctx"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).magic) as usize - ptr as usize },
-        0usize,
-        "Offset of field: _aarch64_ctx::magic"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
-        4usize,
-        "Offset of field: _aarch64_ctx::size"
-    );
-}
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Debug, Copy, Clone)]
-pub struct fpsimd_context {
-    pub head: _aarch64_ctx,
-    pub fpsr: __u32,
-    pub fpcr: __u32,
-    pub vregs: [__uint128_t; 32usize],
-}
-#[test]
-fn bindgen_test_layout_fpsimd_context() {
-    const UNINIT: ::std::mem::MaybeUninit<fpsimd_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<fpsimd_context>(),
-        528usize,
-        "Size of fpsimd_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<fpsimd_context>(),
-        16usize,
-        "Alignment of fpsimd_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: fpsimd_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
-        8usize,
-        "Offset of field: fpsimd_context::fpsr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
-        12usize,
-        "Offset of field: fpsimd_context::fpcr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
-        16usize,
-        "Offset of field: fpsimd_context::vregs"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct esr_context {
-    pub head: _aarch64_ctx,
-    pub esr: __u64,
-}
-#[test]
-fn bindgen_test_layout_esr_context() {
-    const UNINIT: ::std::mem::MaybeUninit<esr_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<esr_context>(),
-        16usize,
-        "Size of esr_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<esr_context>(),
-        8usize,
-        "Alignment of esr_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: esr_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).esr) as usize - ptr as usize },
-        8usize,
-        "Offset of field: esr_context::esr"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct poe_context {
-    pub head: _aarch64_ctx,
-    pub por_el0: __u64,
-}
-#[test]
-fn bindgen_test_layout_poe_context() {
-    const UNINIT: ::std::mem::MaybeUninit<poe_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<poe_context>(),
-        16usize,
-        "Size of poe_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<poe_context>(),
-        8usize,
-        "Alignment of poe_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: poe_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).por_el0) as usize - ptr as usize },
-        8usize,
-        "Offset of field: poe_context::por_el0"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct extra_context {
-    pub head: _aarch64_ctx,
-    pub datap: __u64,
-    pub size: __u32,
-    pub __reserved: [__u32; 3usize],
-}
-#[test]
-fn bindgen_test_layout_extra_context() {
-    const UNINIT: ::std::mem::MaybeUninit<extra_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<extra_context>(),
-        32usize,
-        "Size of extra_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<extra_context>(),
-        8usize,
-        "Alignment of extra_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: extra_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).datap) as usize - ptr as usize },
-        8usize,
-        "Offset of field: extra_context::datap"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
-        16usize,
-        "Offset of field: extra_context::size"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
-        20usize,
-        "Offset of field: extra_context::__reserved"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sve_context {
-    pub head: _aarch64_ctx,
-    pub vl: __u16,
-    pub flags: __u16,
-    pub __reserved: [__u16; 2usize],
-}
-#[test]
-fn bindgen_test_layout_sve_context() {
-    const UNINIT: ::std::mem::MaybeUninit<sve_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sve_context>(),
-        16usize,
-        "Size of sve_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sve_context>(),
-        4usize,
-        "Alignment of sve_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sve_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
-        8usize,
-        "Offset of field: sve_context::vl"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
-        10usize,
-        "Offset of field: sve_context::flags"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
-        12usize,
-        "Offset of field: sve_context::__reserved"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct tpidr2_context {
-    pub head: _aarch64_ctx,
-    pub tpidr2: __u64,
-}
-#[test]
-fn bindgen_test_layout_tpidr2_context() {
-    const UNINIT: ::std::mem::MaybeUninit<tpidr2_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<tpidr2_context>(),
-        16usize,
-        "Size of tpidr2_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<tpidr2_context>(),
-        8usize,
-        "Alignment of tpidr2_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: tpidr2_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tpidr2) as usize - ptr as usize },
-        8usize,
-        "Offset of field: tpidr2_context::tpidr2"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct fpmr_context {
-    pub head: _aarch64_ctx,
-    pub fpmr: __u64,
-}
-#[test]
-fn bindgen_test_layout_fpmr_context() {
-    const UNINIT: ::std::mem::MaybeUninit<fpmr_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<fpmr_context>(),
-        16usize,
-        "Size of fpmr_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<fpmr_context>(),
-        8usize,
-        "Alignment of fpmr_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: fpmr_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpmr) as usize - ptr as usize },
-        8usize,
-        "Offset of field: fpmr_context::fpmr"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct za_context {
-    pub head: _aarch64_ctx,
-    pub vl: __u16,
-    pub __reserved: [__u16; 3usize],
-}
-#[test]
-fn bindgen_test_layout_za_context() {
-    const UNINIT: ::std::mem::MaybeUninit<za_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<za_context>(),
-        16usize,
-        "Size of za_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<za_context>(),
-        4usize,
-        "Alignment of za_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: za_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vl) as usize - ptr as usize },
-        8usize,
-        "Offset of field: za_context::vl"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
-        10usize,
-        "Offset of field: za_context::__reserved"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct zt_context {
-    pub head: _aarch64_ctx,
-    pub nregs: __u16,
-    pub __reserved: [__u16; 3usize],
-}
-#[test]
-fn bindgen_test_layout_zt_context() {
-    const UNINIT: ::std::mem::MaybeUninit<zt_context> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<zt_context>(),
-        16usize,
-        "Size of zt_context"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<zt_context>(),
-        4usize,
-        "Alignment of zt_context"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).head) as usize - ptr as usize },
-        0usize,
-        "Offset of field: zt_context::head"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).nregs) as usize - ptr as usize },
-        8usize,
-        "Offset of field: zt_context::nregs"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__reserved) as usize - ptr as usize },
-        10usize,
-        "Offset of field: zt_context::__reserved"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sigset_t {
-    pub sig: [::std::os::raw::c_ulong; 1usize],
-}
-#[test]
-fn bindgen_test_layout_sigset_t() {
-    const UNINIT: ::std::mem::MaybeUninit<sigset_t> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigset_t>(),
-        8usize,
-        "Size of sigset_t"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigset_t>(),
-        8usize,
-        "Alignment of sigset_t"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sig) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigset_t::sig"
-    );
-}
-pub type old_sigset_t = ::std::os::raw::c_ulong;
-pub type __signalfn_t = ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
-pub type __sighandler_t = __signalfn_t;
-pub type __restorefn_t = ::std::option::Option<unsafe extern "C" fn()>;
-pub type __sigrestore_t = __restorefn_t;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __kernel_sigaction {
-    pub sa_handler: __sighandler_t,
-    pub sa_flags: ::std::os::raw::c_ulong,
-    pub sa_restorer: __sigrestore_t,
-    pub sa_mask: sigset_t,
-}
-#[test]
-fn bindgen_test_layout___kernel_sigaction() {
-    const UNINIT: ::std::mem::MaybeUninit<__kernel_sigaction> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__kernel_sigaction>(),
-        32usize,
-        "Size of __kernel_sigaction"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__kernel_sigaction>(),
-        8usize,
-        "Alignment of __kernel_sigaction"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __kernel_sigaction::sa_handler"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __kernel_sigaction::sa_flags"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
-        16usize,
-        "Offset of field: __kernel_sigaction::sa_restorer"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
-        24usize,
-        "Offset of field: __kernel_sigaction::sa_mask"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sigaltstack {
-    pub ss_sp: *mut ::std::os::raw::c_void,
-    pub ss_flags: ::std::os::raw::c_int,
-    pub ss_size: __kernel_size_t,
-}
-#[test]
-fn bindgen_test_layout_sigaltstack() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaltstack> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigaltstack>(),
-        24usize,
-        "Size of sigaltstack"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigaltstack>(),
-        8usize,
-        "Alignment of sigaltstack"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_sp) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigaltstack::ss_sp"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_flags) as usize - ptr as usize },
-        8usize,
-        "Offset of field: sigaltstack::ss_flags"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_size) as usize - ptr as usize },
-        16usize,
-        "Offset of field: sigaltstack::ss_size"
-    );
-}
-pub type stack_t = sigaltstack;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union sigval {
-    pub sival_int: ::std::os::raw::c_int,
-    pub sival_ptr: *mut ::std::os::raw::c_void,
-}
-#[test]
-fn bindgen_test_layout_sigval() {
-    const UNINIT: ::std::mem::MaybeUninit<sigval> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<sigval>(), 8usize, "Size of sigval");
-    assert_eq!(
-        ::std::mem::align_of::<sigval>(),
-        8usize,
-        "Alignment of sigval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sival_int) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigval::sival_int"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sival_ptr) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigval::sival_ptr"
-    );
-}
-pub type sigval_t = sigval;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union __sifields {
-    pub _kill: __sifields__bindgen_ty_1,
-    pub _timer: __sifields__bindgen_ty_2,
-    pub _rt: __sifields__bindgen_ty_3,
-    pub _sigchld: __sifields__bindgen_ty_4,
-    pub _sigfault: __sifields__bindgen_ty_5,
-    pub _sigpoll: __sifields__bindgen_ty_6,
-    pub _sigsys: __sifields__bindgen_ty_7,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sifields__bindgen_ty_1 {
-    pub _pid: __kernel_pid_t,
-    pub _uid: __kernel_uid32_t,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_1>(),
-        8usize,
-        "Size of __sifields__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_1>(),
-        4usize,
-        "Alignment of __sifields__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_1::_pid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
-        4usize,
-        "Offset of field: __sifields__bindgen_ty_1::_uid"
-    );
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct __sifields__bindgen_ty_2 {
-    pub _tid: __kernel_timer_t,
-    pub _overrun: ::std::os::raw::c_int,
-    pub _sigval: sigval_t,
-    pub _sys_private: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_2>(),
-        24usize,
-        "Size of __sifields__bindgen_ty_2"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_2>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_2"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_2::_tid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._overrun) as usize - ptr as usize },
-        4usize,
-        "Offset of field: __sifields__bindgen_ty_2::_overrun"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_2::_sigval"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sys_private) as usize - ptr as usize },
-        16usize,
-        "Offset of field: __sifields__bindgen_ty_2::_sys_private"
-    );
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct __sifields__bindgen_ty_3 {
-    pub _pid: __kernel_pid_t,
-    pub _uid: __kernel_uid32_t,
-    pub _sigval: sigval_t,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_3() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_3> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_3>(),
-        16usize,
-        "Size of __sifields__bindgen_ty_3"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_3>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_3"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_3::_pid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
-        4usize,
-        "Offset of field: __sifields__bindgen_ty_3::_uid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigval) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_3::_sigval"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sifields__bindgen_ty_4 {
-    pub _pid: __kernel_pid_t,
-    pub _uid: __kernel_uid32_t,
-    pub _status: ::std::os::raw::c_int,
-    pub _utime: __kernel_clock_t,
-    pub _stime: __kernel_clock_t,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_4() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_4> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_4>(),
-        32usize,
-        "Size of __sifields__bindgen_ty_4"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_4>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_4"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pid) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_4::_pid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._uid) as usize - ptr as usize },
-        4usize,
-        "Offset of field: __sifields__bindgen_ty_4::_uid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._status) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_4::_status"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._utime) as usize - ptr as usize },
-        16usize,
-        "Offset of field: __sifields__bindgen_ty_4::_utime"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._stime) as usize - ptr as usize },
-        24usize,
-        "Offset of field: __sifields__bindgen_ty_4::_stime"
-    );
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct __sifields__bindgen_ty_5 {
-    pub _addr: *mut ::std::os::raw::c_void,
-    pub __bindgen_anon_1: __sifields__bindgen_ty_5__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union __sifields__bindgen_ty_5__bindgen_ty_1 {
-    pub _trapno: ::std::os::raw::c_int,
-    pub _addr_lsb: ::std::os::raw::c_short,
-    pub _addr_bnd: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1,
-    pub _addr_pkey: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2,
-    pub _perf: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1 {
-    pub _dummy_bnd: [::std::os::raw::c_char; 8usize],
-    pub _lower: *mut ::std::os::raw::c_void,
-    pub _upper: *mut ::std::os::raw::c_void,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
-        24usize,
-        "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._dummy_bnd) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_dummy_bnd"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._lower) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_lower"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._upper) as usize - ptr as usize },
-        16usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_1::_upper"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2 {
-    pub _dummy_pkey: [::std::os::raw::c_char; 8usize],
-    pub _pkey: __u32,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
-        12usize,
-        "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2>(),
-        4usize,
-        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._dummy_pkey) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2::_dummy_pkey"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pkey) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_2::_pkey"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3 {
-    pub _data: ::std::os::raw::c_ulong,
-    pub _type: __u32,
-    pub _flags: __u32,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
-        16usize,
-        "Size of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._data) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_data"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._type) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_type"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._flags) as usize - ptr as usize },
-        12usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1__bindgen_ty_3::_flags"
-    );
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_5__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
-        24usize,
-        "Size of __sifields__bindgen_ty_5__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5__bindgen_ty_1>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_5__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._trapno) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_trapno"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr_lsb) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_lsb"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr_bnd) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_bnd"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr_pkey) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_addr_pkey"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._perf) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5__bindgen_ty_1::_perf"
-    );
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_5() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_5> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_5>(),
-        32usize,
-        "Size of __sifields__bindgen_ty_5"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_5>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_5"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._addr) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_5::_addr"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sifields__bindgen_ty_6 {
-    pub _band: ::std::os::raw::c_long,
-    pub _fd: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_6() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_6> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_6>(),
-        16usize,
-        "Size of __sifields__bindgen_ty_6"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_6>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_6"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._band) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_6::_band"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._fd) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_6::_fd"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sifields__bindgen_ty_7 {
-    pub _call_addr: *mut ::std::os::raw::c_void,
-    pub _syscall: ::std::os::raw::c_int,
-    pub _arch: ::std::os::raw::c_uint,
-}
-#[test]
-fn bindgen_test_layout___sifields__bindgen_ty_7() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields__bindgen_ty_7> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields__bindgen_ty_7>(),
-        16usize,
-        "Size of __sifields__bindgen_ty_7"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields__bindgen_ty_7>(),
-        8usize,
-        "Alignment of __sifields__bindgen_ty_7"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._call_addr) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields__bindgen_ty_7::_call_addr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._syscall) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __sifields__bindgen_ty_7::_syscall"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._arch) as usize - ptr as usize },
-        12usize,
-        "Offset of field: __sifields__bindgen_ty_7::_arch"
-    );
-}
-#[test]
-fn bindgen_test_layout___sifields() {
-    const UNINIT: ::std::mem::MaybeUninit<__sifields> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__sifields>(),
-        32usize,
-        "Size of __sifields"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__sifields>(),
-        8usize,
-        "Alignment of __sifields"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._kill) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields::_kill"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._timer) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields::_timer"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._rt) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields::_rt"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigchld) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields::_sigchld"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigfault) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields::_sigfault"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigpoll) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields::_sigpoll"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigsys) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __sifields::_sigsys"
-    );
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct siginfo {
-    pub __bindgen_anon_1: siginfo__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union siginfo__bindgen_ty_1 {
-    pub __bindgen_anon_1: siginfo__bindgen_ty_1__bindgen_ty_1,
-    pub _si_pad: [::std::os::raw::c_int; 32usize],
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct siginfo__bindgen_ty_1__bindgen_ty_1 {
-    pub si_signo: ::std::os::raw::c_int,
-    pub si_errno: ::std::os::raw::c_int,
-    pub si_code: ::std::os::raw::c_int,
-    pub _sifields: __sifields,
-}
-#[test]
-fn bindgen_test_layout_siginfo__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<siginfo__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
-        48usize,
-        "Size of siginfo__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<siginfo__bindgen_ty_1__bindgen_ty_1>(),
-        8usize,
-        "Alignment of siginfo__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).si_signo) as usize - ptr as usize },
-        0usize,
-        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_signo"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).si_errno) as usize - ptr as usize },
-        4usize,
-        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_errno"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).si_code) as usize - ptr as usize },
-        8usize,
-        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::si_code"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sifields) as usize - ptr as usize },
-        16usize,
-        "Offset of field: siginfo__bindgen_ty_1__bindgen_ty_1::_sifields"
-    );
-}
-#[test]
-fn bindgen_test_layout_siginfo__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<siginfo__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<siginfo__bindgen_ty_1>(),
-        128usize,
-        "Size of siginfo__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<siginfo__bindgen_ty_1>(),
-        8usize,
-        "Alignment of siginfo__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._si_pad) as usize - ptr as usize },
-        0usize,
-        "Offset of field: siginfo__bindgen_ty_1::_si_pad"
-    );
-}
-#[test]
-fn bindgen_test_layout_siginfo() {
-    assert_eq!(
-        ::std::mem::size_of::<siginfo>(),
-        128usize,
-        "Size of siginfo"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<siginfo>(),
-        8usize,
-        "Alignment of siginfo"
-    );
-}
-pub type siginfo_t = siginfo;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct sigevent {
-    pub sigev_value: sigval_t,
-    pub sigev_signo: ::std::os::raw::c_int,
-    pub sigev_notify: ::std::os::raw::c_int,
-    pub _sigev_un: sigevent__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union sigevent__bindgen_ty_1 {
-    pub _pad: [::std::os::raw::c_int; 12usize],
-    pub _tid: ::std::os::raw::c_int,
-    pub _sigev_thread: sigevent__bindgen_ty_1__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sigevent__bindgen_ty_1__bindgen_ty_1 {
-    pub _function: ::std::option::Option<unsafe extern "C" fn(arg1: sigval_t)>,
-    pub _attribute: *mut ::std::os::raw::c_void,
-}
-#[test]
-fn bindgen_test_layout_sigevent__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigevent__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
-        16usize,
-        "Size of sigevent__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigevent__bindgen_ty_1__bindgen_ty_1>(),
-        8usize,
-        "Alignment of sigevent__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._function) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigevent__bindgen_ty_1__bindgen_ty_1::_function"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._attribute) as usize - ptr as usize },
-        8usize,
-        "Offset of field: sigevent__bindgen_ty_1__bindgen_ty_1::_attribute"
-    );
-}
-#[test]
-fn bindgen_test_layout_sigevent__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigevent__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigevent__bindgen_ty_1>(),
-        48usize,
-        "Size of sigevent__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigevent__bindgen_ty_1>(),
-        8usize,
-        "Alignment of sigevent__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._pad) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigevent__bindgen_ty_1::_pad"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._tid) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigevent__bindgen_ty_1::_tid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigev_thread) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigevent__bindgen_ty_1::_sigev_thread"
-    );
-}
-#[test]
-fn bindgen_test_layout_sigevent() {
-    const UNINIT: ::std::mem::MaybeUninit<sigevent> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigevent>(),
-        64usize,
-        "Size of sigevent"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigevent>(),
-        8usize,
-        "Alignment of sigevent"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sigev_value) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigevent::sigev_value"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sigev_signo) as usize - ptr as usize },
-        8usize,
-        "Offset of field: sigevent::sigev_signo"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sigev_notify) as usize - ptr as usize },
-        12usize,
-        "Offset of field: sigevent::sigev_notify"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr)._sigev_un) as usize - ptr as usize },
-        16usize,
-        "Offset of field: sigevent::_sigev_un"
-    );
-}
-pub type sigevent_t = sigevent;
-pub type sig_atomic_t = ::std::os::raw::c_int;
-pub type sig_t = __sighandler_t;
-pub type sighandler_t = __sighandler_t;
-pub type sigset64_t = sigset_t;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct sigaction {
-    pub sa_flags: ::std::os::raw::c_int,
-    pub __bindgen_anon_1: sigaction__bindgen_ty_1,
-    pub sa_mask: sigset_t,
-    pub sa_restorer: ::std::option::Option<unsafe extern "C" fn()>,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union sigaction__bindgen_ty_1 {
-    pub sa_handler: sighandler_t,
-    pub sa_sigaction: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut siginfo,
-            arg3: *mut ::std::os::raw::c_void,
-        ),
-    >,
-}
-#[test]
-fn bindgen_test_layout_sigaction__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigaction__bindgen_ty_1>(),
-        8usize,
-        "Size of sigaction__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigaction__bindgen_ty_1>(),
-        8usize,
-        "Alignment of sigaction__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigaction__bindgen_ty_1::sa_handler"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigaction__bindgen_ty_1::sa_sigaction"
-    );
-}
-#[test]
-fn bindgen_test_layout_sigaction() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigaction>(),
-        32usize,
-        "Size of sigaction"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigaction>(),
-        8usize,
-        "Alignment of sigaction"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigaction::sa_flags"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
-        16usize,
-        "Offset of field: sigaction::sa_mask"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
-        24usize,
-        "Offset of field: sigaction::sa_restorer"
-    );
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct sigaction64 {
-    pub sa_flags: ::std::os::raw::c_int,
-    pub __bindgen_anon_1: sigaction64__bindgen_ty_1,
-    pub sa_mask: sigset_t,
-    pub sa_restorer: ::std::option::Option<unsafe extern "C" fn()>,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union sigaction64__bindgen_ty_1 {
-    pub sa_handler: sighandler_t,
-    pub sa_sigaction: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut siginfo,
-            arg3: *mut ::std::os::raw::c_void,
-        ),
-    >,
-}
-#[test]
-fn bindgen_test_layout_sigaction64__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction64__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigaction64__bindgen_ty_1>(),
-        8usize,
-        "Size of sigaction64__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigaction64__bindgen_ty_1>(),
-        8usize,
-        "Alignment of sigaction64__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_handler) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigaction64__bindgen_ty_1::sa_handler"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_sigaction) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigaction64__bindgen_ty_1::sa_sigaction"
-    );
-}
-#[test]
-fn bindgen_test_layout_sigaction64() {
-    const UNINIT: ::std::mem::MaybeUninit<sigaction64> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sigaction64>(),
-        32usize,
-        "Size of sigaction64"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sigaction64>(),
-        8usize,
-        "Alignment of sigaction64"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_flags) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sigaction64::sa_flags"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_mask) as usize - ptr as usize },
-        16usize,
-        "Offset of field: sigaction64::sa_mask"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_restorer) as usize - ptr as usize },
-        24usize,
-        "Offset of field: sigaction64::sa_restorer"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct user_regs_struct {
-    pub regs: [u64; 31usize],
-    pub sp: u64,
-    pub pc: u64,
-    pub pstate: u64,
-}
-#[test]
-fn bindgen_test_layout_user_regs_struct() {
-    const UNINIT: ::std::mem::MaybeUninit<user_regs_struct> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<user_regs_struct>(),
-        272usize,
-        "Size of user_regs_struct"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<user_regs_struct>(),
-        8usize,
-        "Alignment of user_regs_struct"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).regs) as usize - ptr as usize },
-        0usize,
-        "Offset of field: user_regs_struct::regs"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sp) as usize - ptr as usize },
-        248usize,
-        "Offset of field: user_regs_struct::sp"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pc) as usize - ptr as usize },
-        256usize,
-        "Offset of field: user_regs_struct::pc"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pstate) as usize - ptr as usize },
-        264usize,
-        "Offset of field: user_regs_struct::pstate"
-    );
-}
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Debug, Copy, Clone)]
-pub struct user_fpsimd_struct {
-    pub vregs: [__uint128_t; 32usize],
-    pub fpsr: u32,
-    pub fpcr: u32,
-}
-#[test]
-fn bindgen_test_layout_user_fpsimd_struct() {
-    const UNINIT: ::std::mem::MaybeUninit<user_fpsimd_struct> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<user_fpsimd_struct>(),
-        528usize,
-        "Size of user_fpsimd_struct"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<user_fpsimd_struct>(),
-        16usize,
-        "Alignment of user_fpsimd_struct"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vregs) as usize - ptr as usize },
-        0usize,
-        "Offset of field: user_fpsimd_struct::vregs"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpsr) as usize - ptr as usize },
-        512usize,
-        "Offset of field: user_fpsimd_struct::fpsr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fpcr) as usize - ptr as usize },
-        516usize,
-        "Offset of field: user_fpsimd_struct::fpcr"
-    );
-}
-pub type greg_t = ::std::os::raw::c_ulong;
-pub type gregset_t = [greg_t; 34usize];
-pub type fpregset_t = user_fpsimd_struct;
-pub type mcontext_t = sigcontext;
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Copy, Clone)]
-pub struct ucontext {
-    pub uc_flags: ::std::os::raw::c_ulong,
-    pub uc_link: *mut ucontext,
-    pub uc_stack: stack_t,
-    pub __bindgen_anon_1: ucontext__bindgen_ty_1,
-    pub __padding: [::std::os::raw::c_char; 120usize],
-    pub __bindgen_padding_0: u64,
-    pub uc_mcontext: mcontext_t,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union ucontext__bindgen_ty_1 {
-    pub uc_sigmask: sigset_t,
-    pub uc_sigmask64: sigset64_t,
-}
-#[test]
-fn bindgen_test_layout_ucontext__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<ucontext__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<ucontext__bindgen_ty_1>(),
-        8usize,
-        "Size of ucontext__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ucontext__bindgen_ty_1>(),
-        8usize,
-        "Alignment of ucontext__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_sigmask) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ucontext__bindgen_ty_1::uc_sigmask"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_sigmask64) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ucontext__bindgen_ty_1::uc_sigmask64"
-    );
-}
-#[test]
-fn bindgen_test_layout_ucontext() {
-    const UNINIT: ::std::mem::MaybeUninit<ucontext> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<ucontext>(),
-        4560usize,
-        "Size of ucontext"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ucontext>(),
-        16usize,
-        "Alignment of ucontext"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_flags) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ucontext::uc_flags"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_link) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ucontext::uc_link"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_stack) as usize - ptr as usize },
-        16usize,
-        "Offset of field: ucontext::uc_stack"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__padding) as usize - ptr as usize },
-        48usize,
-        "Offset of field: ucontext::__padding"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uc_mcontext) as usize - ptr as usize },
-        176usize,
-        "Offset of field: ucontext::uc_mcontext"
-    );
-}
-pub type ucontext_t = ucontext;
-extern "C" {
-    pub fn __libc_current_sigrtmin() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __libc_current_sigrtmax() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static sys_siglist: [*const ::std::os::raw::c_char; 65usize];
-}
-extern "C" {
-    pub static sys_signame: [*const ::std::os::raw::c_char; 65usize];
-}
-extern "C" {
-    pub fn sigaction(
-        __signal: ::std::os::raw::c_int,
-        __new_action: *const sigaction,
-        __old_action: *mut sigaction,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn siginterrupt(
-        __signal: ::std::os::raw::c_int,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn signal(__signal: ::std::os::raw::c_int, __handler: sighandler_t) -> sighandler_t;
-}
-extern "C" {
-    pub fn sigaddset(
-        __set: *mut sigset_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigdelset(
-        __set: *mut sigset_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigemptyset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigfillset(__set: *mut sigset_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigismember(
-        __set: *const sigset_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigpending(__set: *mut sigset_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigprocmask(
-        __how: ::std::os::raw::c_int,
-        __new_set: *const sigset_t,
-        __old_set: *mut sigset_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigsuspend(__mask: *const sigset_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigwait(
-        __set: *const sigset_t,
-        __signal: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn raise(__signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn kill(__pid: pid_t, __signal: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn killpg(
-        __pgrp: ::std::os::raw::c_int,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn tgkill(
-        __tgid: ::std::os::raw::c_int,
-        __tid: ::std::os::raw::c_int,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sigaltstack(
-        __new_signal_stack: *const stack_t,
-        __old_signal_stack: *mut stack_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn psiginfo(__info: *const siginfo_t, __msg: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn psignal(__signal: ::std::os::raw::c_int, __msg: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn pthread_kill(
-        __pthread: pthread_t,
-        __signal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn pthread_sigmask(
-        __how: ::std::os::raw::c_int,
-        __new_set: *const sigset_t,
-        __old_set: *mut sigset_t,
-    ) -> ::std::os::raw::c_int;
-}
-pub type fd_mask = ::std::os::raw::c_ulong;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct fd_set {
-    pub fds_bits: [fd_mask; 16usize],
-}
-#[test]
-fn bindgen_test_layout_fd_set() {
-    const UNINIT: ::std::mem::MaybeUninit<fd_set> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<fd_set>(), 128usize, "Size of fd_set");
-    assert_eq!(
-        ::std::mem::align_of::<fd_set>(),
-        8usize,
-        "Alignment of fd_set"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fds_bits) as usize - ptr as usize },
-        0usize,
-        "Offset of field: fd_set::fds_bits"
-    );
-}
-extern "C" {
-    pub fn __FD_CLR_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
-}
-extern "C" {
-    pub fn __FD_SET_chk(arg1: ::std::os::raw::c_int, arg2: *mut fd_set, arg3: usize);
-}
-extern "C" {
-    pub fn __FD_ISSET_chk(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const fd_set,
-        arg3: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn select(
-        __max_fd_plus_one: ::std::os::raw::c_int,
-        __read_fds: *mut fd_set,
-        __write_fds: *mut fd_set,
-        __exception_fds: *mut fd_set,
-        __timeout: *mut timeval,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn pselect(
-        __max_fd_plus_one: ::std::os::raw::c_int,
-        __read_fds: *mut fd_set,
-        __write_fds: *mut fd_set,
-        __exception_fds: *mut fd_set,
-        __timeout: *const timespec,
-        __mask: *const sigset_t,
-    ) -> ::std::os::raw::c_int;
-}
 extern "C" {
     pub fn fcntl(
         __fd: ::std::os::raw::c_int,
@@ -10505,6 +10559,16 @@ pub struct APerformanceHintSession {
 pub struct AWorkDuration {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASurfaceControl {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASessionCreationConfig {
+    _unused: [u8; 0],
+}
 extern "C" {
     pub fn APerformanceHint_getManager() -> *mut APerformanceHintManager;
 }
@@ -10517,9 +10581,20 @@ extern "C" {
     ) -> *mut APerformanceHintSession;
 }
 extern "C" {
+    pub fn APerformanceHint_createSessionUsingConfig(
+        manager: *mut APerformanceHintManager,
+        config: *mut ASessionCreationConfig,
+    ) -> *mut APerformanceHintSession;
+}
+extern "C" {
     pub fn APerformanceHint_getPreferredUpdateRateNanos(
         manager: *mut APerformanceHintManager,
     ) -> i64;
+}
+extern "C" {
+    pub fn APerformanceHint_getMaxGraphicsPipelineThreadsCount(
+        manager: *mut APerformanceHintManager,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn APerformanceHint_updateTargetWorkDuration(
@@ -10556,6 +10631,39 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn APerformanceHint_notifyWorkloadIncrease(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        debugName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_notifyWorkloadReset(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        debugName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_notifyWorkloadSpike(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        debugName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_setNativeSurfaces(
+        session: *mut APerformanceHintSession,
+        nativeWindows: *mut *mut ANativeWindow,
+        nativeWindowsSize: ::std::os::raw::c_int,
+        surfaceControls: *mut *mut ASurfaceControl,
+        surfaceControlsSize: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     pub fn AWorkDuration_create() -> *mut AWorkDuration;
 }
 extern "C" {
@@ -10584,6 +10692,59 @@ extern "C" {
         aWorkDuration: *mut AWorkDuration,
         actualGpuDurationNanos: i64,
     );
+}
+extern "C" {
+    pub fn APerformanceHint_borrowSessionFromJava(
+        env: *mut JNIEnv,
+        sessionObj: jobject,
+    ) -> *mut APerformanceHintSession;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_create() -> *mut ASessionCreationConfig;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_release(config: *mut ASessionCreationConfig);
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setTids(
+        config: *mut ASessionCreationConfig,
+        tids: *const pid_t,
+        size: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setTargetWorkDurationNanos(
+        config: *mut ASessionCreationConfig,
+        targetWorkDurationNanos: i64,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setPreferPowerEfficiency(
+        config: *mut ASessionCreationConfig,
+        enabled: bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setGraphicsPipeline(
+        config: *mut ASessionCreationConfig,
+        enabled: bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setNativeSurfaces(
+        config: *mut ASessionCreationConfig,
+        nativeWindows: *mut *mut ANativeWindow,
+        nativeWindowsSize: ::std::os::raw::c_int,
+        surfaceControls: *mut *mut ASurfaceControl,
+        surfaceControlsSize: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setUseAutoTiming(
+        config: *mut ASessionCreationConfig,
+        cpu: bool,
+        gpu: bool,
+    ) -> ::std::os::raw::c_int;
 }
 pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_38 = 0;
 pub const PERMISSION_MANAGER_PERMISSION_DENIED: _bindgen_ty_38 = -1;
@@ -12882,11 +13043,6 @@ extern "C" {
         filename: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ASurfaceControl {
-    _unused: [u8; 0],
-}
 extern "C" {
     pub fn ASurfaceControl_createFromWindow(
         parent: *mut ANativeWindow,
@@ -13153,6 +13309,13 @@ extern "C" {
         transaction: *mut ASurfaceTransaction,
         surface_control: *mut ASurfaceControl,
         desiredHeadroom: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setLuts(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        luts: *const ADisplayLuts,
     );
 }
 extern "C" {
@@ -13698,6 +13861,30 @@ extern "C" {
         size: *mut usize,
     ) -> ::std::os::raw::c_int;
 }
+pub type AThermal_HeadroomCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        data: *mut ::std::os::raw::c_void,
+        headroom: f32,
+        forecastHeadroom: f32,
+        forecastSeconds: ::std::os::raw::c_int,
+        thresholds: *const AThermalHeadroomThreshold,
+        thresholdsCount: usize,
+    ),
+>;
+extern "C" {
+    pub fn AThermal_registerThermalHeadroomListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_HeadroomCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn AThermal_unregisterThermalHeadroomListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_HeadroomCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
 extern "C" {
     pub fn ATrace_isEnabled() -> bool;
 }
@@ -13740,31 +13927,6 @@ pub const AWINDOW_FLAG_SHOW_WALLPAPER: _bindgen_ty_47 = 1048576;
 pub const AWINDOW_FLAG_TURN_SCREEN_ON: _bindgen_ty_47 = 2097152;
 pub const AWINDOW_FLAG_DISMISS_KEYGUARD: _bindgen_ty_47 = 4194304;
 pub type _bindgen_ty_47 = ::std::os::raw::c_uint;
-extern "C" {
-    pub fn gettimeofday(__tv: *mut timeval, __tz: *mut timezone) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn settimeofday(__tv: *const timeval, __tz: *const timezone) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getitimer(
-        __which: ::std::os::raw::c_int,
-        __current_value: *mut itimerval,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setitimer(
-        __which: ::std::os::raw::c_int,
-        __new_value: *const itimerval,
-        __old_value: *mut itimerval,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn utimes(
-        __path: *const ::std::os::raw::c_char,
-        __times: *const timeval,
-    ) -> ::std::os::raw::c_int;
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __timezone_t {
@@ -14146,6 +14308,37 @@ pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_60 = 51303999;
 pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_60 = 260;
 pub type _bindgen_ty_60 = ::std::os::raw::c_int;
 pub type aaudio_channel_mask_t = u32;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_EARPIECE: AAudio_DeviceType = 1;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER: AAudio_DeviceType = 2;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADSET: AAudio_DeviceType = 3;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADPHONES: AAudio_DeviceType = 4;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_LINE_ANALOG: AAudio_DeviceType = 5;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_LINE_DIGITAL: AAudio_DeviceType = 6;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_SCO: AAudio_DeviceType = 7;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_A2DP: AAudio_DeviceType = 8;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI: AAudio_DeviceType = 9;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI_ARC: AAudio_DeviceType = 10;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_DEVICE: AAudio_DeviceType = 11;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_ACCESSORY: AAudio_DeviceType = 12;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_DOCK: AAudio_DeviceType = 13;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_FM: AAudio_DeviceType = 14;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_MIC: AAudio_DeviceType = 15;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_FM_TUNER: AAudio_DeviceType = 16;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_TV_TUNER: AAudio_DeviceType = 17;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_TELEPHONY: AAudio_DeviceType = 18;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_AUX_LINE: AAudio_DeviceType = 19;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_IP: AAudio_DeviceType = 20;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUS: AAudio_DeviceType = 21;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_HEADSET: AAudio_DeviceType = 22;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HEARING_AID: AAudio_DeviceType = 23;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER_SAFE: AAudio_DeviceType = 24;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_REMOTE_SUBMIX: AAudio_DeviceType = 25;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_HEADSET: AAudio_DeviceType = 26;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_SPEAKER: AAudio_DeviceType = 27;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI_EARC: AAudio_DeviceType = 29;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_BROADCAST: AAudio_DeviceType = 30;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_DOCK_ANALOG: AAudio_DeviceType = 31;
+pub type AAudio_DeviceType = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AAudioStreamStruct {
@@ -14424,6 +14617,13 @@ extern "C" {
     pub fn AAudioStream_getDeviceId(stream: *mut AAudioStream) -> i32;
 }
 extern "C" {
+    pub fn AAudioStream_getDeviceIds(
+        stream: *mut AAudioStream,
+        ids: *mut i32,
+        numIds: *mut i32,
+    ) -> aaudio_result_t;
+}
+extern "C" {
     pub fn AAudioStream_getFormat(stream: *mut AAudioStream) -> aaudio_format_t;
 }
 extern "C" {
@@ -14499,6 +14699,32 @@ extern "C" {
 extern "C" {
     pub fn AAudioStream_setOffloadEndOfStream(stream: *mut AAudioStream) -> aaudio_result_t;
 }
+pub const AAUDIO_POLICY_NEVER: _bindgen_ty_62 = 1;
+pub const AAUDIO_POLICY_AUTO: _bindgen_ty_62 = 2;
+pub const AAUDIO_POLICY_ALWAYS: _bindgen_ty_62 = 3;
+pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
+pub type aaudio_policy_t = i32;
+extern "C" {
+    pub fn AAudio_getPlatformMMapPolicy(
+        device: AAudio_DeviceType,
+        direction: aaudio_direction_t,
+    ) -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudio_getPlatformMMapExclusivePolicy(
+        device: AAudio_DeviceType,
+        direction: aaudio_direction_t,
+    ) -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudio_setMMapPolicy(policy: aaudio_policy_t) -> aaudio_result_t;
+}
+extern "C" {
+    pub fn AAudio_getMMapPolicy() -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudioStream_isMMapUsed(stream: *mut AAudioStream) -> bool;
+}
 impl media_status_t {
     pub const AMEDIA_OK: media_status_t = media_status_t(0);
     pub const AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE: media_status_t = media_status_t(1100);
@@ -14548,13 +14774,13 @@ pub struct AMidiInputPort {
 pub struct AMidiOutputPort {
     _unused: [u8; 0],
 }
-pub const AMIDI_OPCODE_DATA: _bindgen_ty_62 = 1;
-pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_62 = 2;
-pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
-pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_63 = 1;
-pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_63 = 2;
-pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_63 = 3;
+pub const AMIDI_OPCODE_DATA: _bindgen_ty_63 = 1;
+pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_63 = 2;
 pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
+pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_64 = 1;
+pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_64 = 2;
+pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_64 = 3;
+pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
 impl AMidiDevice_Protocol {
     pub const AMIDI_DEVICE_PROTOCOL_UMP_USE_MIDI_CI: AMidiDevice_Protocol = AMidiDevice_Protocol(0);
     pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_1_0_UP_TO_64_BITS: AMidiDevice_Protocol =
@@ -14701,7 +14927,9 @@ impl acamera_metadata_section {
     pub const ACAMERA_AUTOMOTIVE_LENS: acamera_metadata_section = acamera_metadata_section(31);
     pub const ACAMERA_EXTENSION: acamera_metadata_section = acamera_metadata_section(32);
     pub const ACAMERA_JPEGR: acamera_metadata_section = acamera_metadata_section(33);
-    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(34);
+    pub const ACAMERA_SHARED_SESSION: acamera_metadata_section = acamera_metadata_section(34);
+    pub const ACAMERA_DESKTOP_EFFECTS: acamera_metadata_section = acamera_metadata_section(35);
+    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(36);
     pub const ACAMERA_VENDOR: acamera_metadata_section = acamera_metadata_section(32768);
 }
 #[repr(transparent)]
@@ -14777,6 +15005,10 @@ impl acamera_metadata_section_start {
         acamera_metadata_section_start(2097152);
     pub const ACAMERA_JPEGR_START: acamera_metadata_section_start =
         acamera_metadata_section_start(2162688);
+    pub const ACAMERA_SHARED_SESSION_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2228224);
+    pub const ACAMERA_DESKTOP_EFFECTS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2293760);
     pub const ACAMERA_VENDOR_START: acamera_metadata_section_start =
         acamera_metadata_section_start(-2147483648);
 }
@@ -14792,7 +15024,14 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(3);
     pub const ACAMERA_COLOR_CORRECTION_AVAILABLE_ABERRATION_MODES: acamera_metadata_tag =
         acamera_metadata_tag(4);
-    pub const ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = acamera_metadata_tag(5);
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TEMPERATURE: acamera_metadata_tag =
+        acamera_metadata_tag(5);
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TINT: acamera_metadata_tag = acamera_metadata_tag(6);
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TEMPERATURE_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(7);
+    pub const ACAMERA_COLOR_CORRECTION_AVAILABLE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(8);
+    pub const ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = acamera_metadata_tag(9);
     pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE: acamera_metadata_tag =
         acamera_metadata_tag(65536);
     pub const ACAMERA_CONTROL_AE_EXPOSURE_COMPENSATION: acamera_metadata_tag =
@@ -14868,7 +15107,11 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(65594);
     pub const ACAMERA_CONTROL_LOW_LIGHT_BOOST_STATE: acamera_metadata_tag =
         acamera_metadata_tag(65595);
-    pub const ACAMERA_CONTROL_END: acamera_metadata_tag = acamera_metadata_tag(65596);
+    pub const ACAMERA_CONTROL_ZOOM_METHOD: acamera_metadata_tag = acamera_metadata_tag(65596);
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE: acamera_metadata_tag = acamera_metadata_tag(65597);
+    pub const ACAMERA_CONTROL_AE_AVAILABLE_PRIORITY_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65598);
+    pub const ACAMERA_CONTROL_END: acamera_metadata_tag = acamera_metadata_tag(65599);
     pub const ACAMERA_EDGE_MODE: acamera_metadata_tag = acamera_metadata_tag(196608);
     pub const ACAMERA_EDGE_AVAILABLE_EDGE_MODES: acamera_metadata_tag =
         acamera_metadata_tag(196610);
@@ -15198,11 +15441,26 @@ impl acamera_metadata_tag {
         acamera_metadata_tag = acamera_metadata_tag(1835012);
     pub const ACAMERA_HEIC_AVAILABLE_HEIC_STALL_DURATIONS_MAXIMUM_RESOLUTION: acamera_metadata_tag =
         acamera_metadata_tag(1835013);
-    pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835014);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835014);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_MIN_FRAME_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835015);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STALL_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835016);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835017);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835018);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835019);
+    pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835020);
     pub const ACAMERA_AUTOMOTIVE_LOCATION: acamera_metadata_tag = acamera_metadata_tag(1966080);
     pub const ACAMERA_AUTOMOTIVE_END: acamera_metadata_tag = acamera_metadata_tag(1966081);
     pub const ACAMERA_AUTOMOTIVE_LENS_FACING: acamera_metadata_tag = acamera_metadata_tag(2031616);
     pub const ACAMERA_AUTOMOTIVE_LENS_END: acamera_metadata_tag = acamera_metadata_tag(2031617);
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR: acamera_metadata_tag =
+        acamera_metadata_tag(2097154);
+    pub const ACAMERA_EXTENSION_END: acamera_metadata_tag = acamera_metadata_tag(2097155);
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_STREAM_CONFIGURATIONS: acamera_metadata_tag =
         acamera_metadata_tag(2162688);
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_MIN_FRAME_DURATIONS: acamera_metadata_tag =
@@ -15231,6 +15489,9 @@ impl acamera_metadata_enum_acamera_color_correction_mode {
     pub const ACAMERA_COLOR_CORRECTION_MODE_HIGH_QUALITY:
         acamera_metadata_enum_acamera_color_correction_mode =
         acamera_metadata_enum_acamera_color_correction_mode(2);
+    pub const ACAMERA_COLOR_CORRECTION_MODE_CCT:
+        acamera_metadata_enum_acamera_color_correction_mode =
+        acamera_metadata_enum_acamera_color_correction_mode(3);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -15711,6 +15972,32 @@ impl acamera_metadata_enum_acamera_control_low_light_boost_state {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_control_low_light_boost_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_low_light_boost_state as acamera_metadata_enum_android_control_low_light_boost_state_t;
+impl acamera_metadata_enum_acamera_control_zoom_method {
+    pub const ACAMERA_CONTROL_ZOOM_METHOD_AUTO: acamera_metadata_enum_acamera_control_zoom_method =
+        acamera_metadata_enum_acamera_control_zoom_method(0);
+    pub const ACAMERA_CONTROL_ZOOM_METHOD_ZOOM_RATIO:
+        acamera_metadata_enum_acamera_control_zoom_method =
+        acamera_metadata_enum_acamera_control_zoom_method(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_zoom_method(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_control_zoom_method as acamera_metadata_enum_android_control_zoom_method_t;
+impl acamera_metadata_enum_acamera_control_ae_priority_mode {
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_OFF:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(0);
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_SENSOR_SENSITIVITY_PRIORITY:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(1);
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_SENSOR_EXPOSURE_TIME_PRIORITY:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_priority_mode(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_control_ae_priority_mode as acamera_metadata_enum_android_control_ae_priority_mode_t;
 impl acamera_metadata_enum_acamera_edge_mode {
     pub const ACAMERA_EDGE_MODE_OFF: acamera_metadata_enum_acamera_edge_mode =
         acamera_metadata_enum_acamera_edge_mode(0);
@@ -16598,6 +16885,27 @@ pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configuratio
     pub ::std::os::raw::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_stream_configurations_maximum_resolution_t;
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(0);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations as acamera_metadata_enum_android_heic_available_heic_ultra_hdr_stream_configurations_t;
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution { pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution (0) ; pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution (1) ; }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution_t;
 impl acamera_metadata_enum_acamera_automotive_location {
     pub const ACAMERA_AUTOMOTIVE_LOCATION_INTERIOR:
         acamera_metadata_enum_acamera_automotive_location =
@@ -16688,6 +16996,21 @@ impl acamera_metadata_enum_acamera_automotive_lens_facing {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_automotive_lens_facing(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_automotive_lens_facing as acamera_metadata_enum_android_automotive_lens_facing_t;
+impl acamera_metadata_enum_acamera_extension_night_mode_indicator {
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_UNKNOWN:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(0);
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_OFF:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(1);
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_ON:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_extension_night_mode_indicator(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_extension_night_mode_indicator as acamera_metadata_enum_android_extension_night_mode_indicator_t;
 impl acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations {
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_STREAM_CONFIGURATIONS_OUTPUT:
         acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations =
@@ -16717,14 +17040,14 @@ pub use self::acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_config
 pub struct ACameraMetadata {
     _unused: [u8; 0],
 }
-pub const ACAMERA_TYPE_BYTE: _bindgen_ty_64 = 0;
-pub const ACAMERA_TYPE_INT32: _bindgen_ty_64 = 1;
-pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_64 = 2;
-pub const ACAMERA_TYPE_INT64: _bindgen_ty_64 = 3;
-pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_64 = 4;
-pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_64 = 5;
-pub const ACAMERA_NUM_TYPES: _bindgen_ty_64 = 6;
-pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
+pub const ACAMERA_TYPE_BYTE: _bindgen_ty_65 = 0;
+pub const ACAMERA_TYPE_INT32: _bindgen_ty_65 = 1;
+pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_65 = 2;
+pub const ACAMERA_TYPE_INT64: _bindgen_ty_65 = 3;
+pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_65 = 4;
+pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_65 = 5;
+pub const ACAMERA_NUM_TYPES: _bindgen_ty_65 = 6;
+pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata_rational {
@@ -17235,9 +17558,9 @@ pub type ACameraCaptureSession_prepareCallback = ::std::option::Option<
         session: *mut ACameraCaptureSession,
     ),
 >;
-pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_65 = 0;
-pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_65 = 1;
-pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
+pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_66 = 0;
+pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_66 = 1;
+pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureFailure {
@@ -17398,8 +17721,8 @@ fn bindgen_test_layout_ACameraCaptureSession_captureCallbacks() {
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureBufferLost"
     );
 }
-pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_66 = -1;
-pub type _bindgen_ty_66 = ::std::os::raw::c_int;
+pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_67 = -1;
+pub type _bindgen_ty_67 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ACameraCaptureSession_close(session: *mut ACameraCaptureSession);
 }
@@ -17736,6 +18059,29 @@ extern "C" {
         window: *mut ANativeWindow,
     ) -> camera_status_t;
 }
+extern "C" {
+    pub fn ACameraCaptureSessionShared_startStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_captureCallbacksV2,
+        numOutputWindows: ::std::os::raw::c_int,
+        window: *mut *mut ANativeWindow,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSessionShared_logicalCamera_startStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacksV2,
+        numOutputWindows: ::std::os::raw::c_int,
+        windows: *mut *mut ANativeWindow,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSessionShared_stopStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+    ) -> camera_status_t;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraIdList {
@@ -17767,12 +18113,12 @@ fn bindgen_test_layout_ACameraIdList() {
         "Offset of field: ACameraIdList::cameraIds"
     );
 }
-pub const ERROR_CAMERA_IN_USE: _bindgen_ty_67 = 1;
-pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_67 = 2;
-pub const ERROR_CAMERA_DISABLED: _bindgen_ty_67 = 3;
-pub const ERROR_CAMERA_DEVICE: _bindgen_ty_67 = 4;
-pub const ERROR_CAMERA_SERVICE: _bindgen_ty_67 = 5;
-pub type _bindgen_ty_67 = ::std::os::raw::c_uint;
+pub const ERROR_CAMERA_IN_USE: _bindgen_ty_68 = 1;
+pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_68 = 2;
+pub const ERROR_CAMERA_DISABLED: _bindgen_ty_68 = 3;
+pub const ERROR_CAMERA_DEVICE: _bindgen_ty_68 = 4;
+pub const ERROR_CAMERA_SERVICE: _bindgen_ty_68 = 5;
+pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
 pub type ACameraDevice_StateCallback = ::std::option::Option<
     unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, device: *mut ACameraDevice),
 >;
@@ -17783,12 +18129,21 @@ pub type ACameraDevice_ErrorStateCallback = ::std::option::Option<
         error: ::std::os::raw::c_int,
     ),
 >;
+pub type ACameraDevice_ClientSharedAccessPriorityChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        device: *mut ACameraDevice,
+        isPrimaryClient: bool,
+    ),
+>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraDevice_StateCallbacks {
     pub context: *mut ::std::os::raw::c_void,
     pub onDisconnected: ACameraDevice_StateCallback,
     pub onError: ACameraDevice_ErrorStateCallback,
+    pub onClientSharedAccessPriorityChanged:
+        ACameraDevice_ClientSharedAccessPriorityChangedCallback,
 }
 #[test]
 fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
@@ -17797,7 +18152,7 @@ fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<ACameraDevice_StateCallbacks>(),
-        24usize,
+        32usize,
         "Size of ACameraDevice_StateCallbacks"
     );
     assert_eq!(
@@ -17819,6 +18174,13 @@ fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
         unsafe { ::std::ptr::addr_of!((*ptr).onError) as usize - ptr as usize },
         16usize,
         "Offset of field: ACameraDevice_StateCallbacks::onError"
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).onClientSharedAccessPriorityChanged) as usize - ptr as usize
+        },
+        24usize,
+        "Offset of field: ACameraDevice_StateCallbacks::onClientSharedAccessPriorityChanged"
     );
 }
 pub type ACameraDevice_stateCallbacks = ACameraDevice_StateCallbacks;
@@ -18038,6 +18400,15 @@ extern "C" {
         device: *mut *mut ACameraDevice,
     ) -> camera_status_t;
 }
+extern "C" {
+    pub fn ACameraManager_openSharedCamera(
+        manager: *mut ACameraManager,
+        cameraId: *const ::std::os::raw::c_char,
+        callback: *mut ACameraDevice_StateCallbacks,
+        device: *mut *mut ACameraDevice,
+        isPrimaryClient: *mut bool,
+    ) -> camera_status_t;
+}
 pub type ACameraManager_AccessPrioritiesChangedCallback =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
 #[repr(C)]
@@ -18097,6 +18468,13 @@ extern "C" {
     pub fn ACameraManager_unregisterExtendedAvailabilityCallback(
         manager: *mut ACameraManager,
         callback: *const ACameraManager_ExtendedAvailabilityCallbacks,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraManager_isCameraDeviceSharingSupported(
+        manager: *mut ACameraManager,
+        cameraId: *const ::std::os::raw::c_char,
+        isSharingSupported: *mut bool,
     ) -> camera_status_t;
 }
 #[repr(C)]
@@ -19070,18 +19448,18 @@ fn bindgen_test_layout_AMediaCodecBufferInfo() {
 pub struct AMediaCodecCryptoInfo {
     _unused: [u8; 0],
 }
-pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_68 = 1;
-pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_68 = 2;
-pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_68 = 4;
-pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_68 = 8;
-pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_68 = 16;
-pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_68 = 32;
-pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
-pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_69 = 1;
-pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_69 = -3;
-pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_69 = -2;
-pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_69 = -1;
-pub type _bindgen_ty_69 = ::std::os::raw::c_int;
+pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_69 = 1;
+pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_69 = 2;
+pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_69 = 4;
+pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_69 = 8;
+pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_69 = 16;
+pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_69 = 32;
+pub type _bindgen_ty_69 = ::std::os::raw::c_uint;
+pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_70 = 1;
+pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_70 = -3;
+pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_70 = -2;
+pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_70 = -1;
+pub type _bindgen_ty_70 = ::std::os::raw::c_int;
 pub type AMediaCodecOnAsyncInputAvailable = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
@@ -20486,9 +20864,9 @@ extern "C" {
         arg1: *mut AMediaExtractor,
     ) -> *mut AMediaCodecCryptoInfo;
 }
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_70 = 1;
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_70 = 2;
-pub type _bindgen_ty_70 = ::std::os::raw::c_uint;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_71 = 1;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_71 = 2;
+pub type _bindgen_ty_71 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }

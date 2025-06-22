@@ -262,6 +262,330 @@ pub const SCNxFAST8: &[u8; 4] = b"hhx\0";
 pub const SCNxFAST64: &[u8; 4] = b"llx\0";
 pub const SCNxMAX: &[u8; 3] = b"jx\0";
 pub const AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT: u32 = 8;
+pub const ITIMER_REAL: u32 = 0;
+pub const ITIMER_VIRTUAL: u32 = 1;
+pub const ITIMER_PROF: u32 = 2;
+pub const CLOCK_REALTIME: u32 = 0;
+pub const CLOCK_MONOTONIC: u32 = 1;
+pub const CLOCK_PROCESS_CPUTIME_ID: u32 = 2;
+pub const CLOCK_THREAD_CPUTIME_ID: u32 = 3;
+pub const CLOCK_MONOTONIC_RAW: u32 = 4;
+pub const CLOCK_REALTIME_COARSE: u32 = 5;
+pub const CLOCK_MONOTONIC_COARSE: u32 = 6;
+pub const CLOCK_BOOTTIME: u32 = 7;
+pub const CLOCK_REALTIME_ALARM: u32 = 8;
+pub const CLOCK_BOOTTIME_ALARM: u32 = 9;
+pub const CLOCK_SGI_CYCLE: u32 = 10;
+pub const CLOCK_TAI: u32 = 11;
+pub const MAX_CLOCKS: u32 = 16;
+pub const CLOCKS_MASK: u32 = 1;
+pub const CLOCKS_MONO: u32 = 1;
+pub const TIMER_ABSTIME: u32 = 1;
+pub const FP_XSTATE_MAGIC1: u32 = 1179670611;
+pub const FP_XSTATE_MAGIC2: u32 = 1179670597;
+pub const X86_FXSR_MAGIC: u32 = 0;
+pub const NR_OPEN: u32 = 1024;
+pub const NGROUPS_MAX: u32 = 65536;
+pub const ARG_MAX: u32 = 131072;
+pub const LINK_MAX: u32 = 127;
+pub const MAX_CANON: u32 = 255;
+pub const MAX_INPUT: u32 = 255;
+pub const NAME_MAX: u32 = 255;
+pub const PATH_MAX: u32 = 4096;
+pub const PIPE_BUF: u32 = 4096;
+pub const XATTR_NAME_MAX: u32 = 255;
+pub const XATTR_SIZE_MAX: u32 = 65536;
+pub const XATTR_LIST_MAX: u32 = 65536;
+pub const RTSIG_MAX: u32 = 32;
+pub const GETENTROPY_MAX: u32 = 256;
+pub const NL_ARGMAX: u32 = 9;
+pub const NL_LANGMAX: u32 = 14;
+pub const NL_MSGMAX: u32 = 32767;
+pub const NL_NMAX: u32 = 1;
+pub const NL_SETMAX: u32 = 255;
+pub const NL_TEXTMAX: u32 = 255;
+pub const PASS_MAX: u32 = 128;
+pub const TMP_MAX: u32 = 308915776;
+pub const LONG_BIT: u32 = 32;
+pub const WORD_BIT: u32 = 32;
+pub const NSIG_MAX: u32 = 65;
+pub const MB_LEN_MAX: u32 = 4;
+pub const NZERO: u32 = 20;
+pub const IOV_MAX: u32 = 1024;
+pub const SEM_VALUE_MAX: u32 = 1073741823;
+pub const _POSIX_VERSION: u32 = 200809;
+pub const _POSIX2_VERSION: u32 = 200809;
+pub const _XOPEN_VERSION: u32 = 700;
+pub const __BIONIC_POSIX_FEATURE_MISSING: i32 = -1;
+pub const _POSIX_ASYNCHRONOUS_IO: i32 = -1;
+pub const _POSIX_CHOWN_RESTRICTED: u32 = 1;
+pub const _POSIX_CPUTIME: u32 = 200809;
+pub const _POSIX_FSYNC: u32 = 200809;
+pub const _POSIX_IPV6: u32 = 200809;
+pub const _POSIX_MAPPED_FILES: u32 = 200809;
+pub const _POSIX_MEMLOCK_RANGE: u32 = 200809;
+pub const _POSIX_MEMORY_PROTECTION: u32 = 200809;
+pub const _POSIX_MESSAGE_PASSING: i32 = -1;
+pub const _POSIX_MONOTONIC_CLOCK: u32 = 200809;
+pub const _POSIX_NO_TRUNC: u32 = 1;
+pub const _POSIX_PRIORITIZED_IO: i32 = -1;
+pub const _POSIX_PRIORITY_SCHEDULING: u32 = 200809;
+pub const _POSIX_RAW_SOCKETS: u32 = 200809;
+pub const _POSIX_READER_WRITER_LOCKS: u32 = 200809;
+pub const _POSIX_REGEXP: u32 = 1;
+pub const _POSIX_SAVED_IDS: u32 = 1;
+pub const _POSIX_SEMAPHORES: u32 = 200809;
+pub const _POSIX_SHARED_MEMORY_OBJECTS: i32 = -1;
+pub const _POSIX_SHELL: u32 = 1;
+pub const _POSIX_SPORADIC_SERVER: i32 = -1;
+pub const _POSIX_SYNCHRONIZED_IO: u32 = 200809;
+pub const _POSIX_THREAD_ATTR_STACKADDR: u32 = 200809;
+pub const _POSIX_THREAD_ATTR_STACKSIZE: u32 = 200809;
+pub const _POSIX_THREAD_CPUTIME: u32 = 200809;
+pub const _POSIX_THREAD_PRIO_INHERIT: i32 = -1;
+pub const _POSIX_THREAD_PRIO_PROTECT: i32 = -1;
+pub const _POSIX_THREAD_PRIORITY_SCHEDULING: u32 = 200809;
+pub const _POSIX_THREAD_PROCESS_SHARED: u32 = 200809;
+pub const _POSIX_THREAD_ROBUST_PRIO_INHERIT: i32 = -1;
+pub const _POSIX_THREAD_ROBUST_PRIO_PROTECT: i32 = -1;
+pub const _POSIX_THREAD_SAFE_FUNCTIONS: u32 = 200809;
+pub const _POSIX_THREAD_SPORADIC_SERVER: i32 = -1;
+pub const _POSIX_THREADS: u32 = 200809;
+pub const _POSIX_TIMERS: u32 = 200809;
+pub const _POSIX_TRACE: i32 = -1;
+pub const _POSIX_TRACE_EVENT_FILTER: i32 = -1;
+pub const _POSIX_TRACE_INHERIT: i32 = -1;
+pub const _POSIX_TRACE_LOG: i32 = -1;
+pub const _POSIX_TYPED_MEMORY_OBJECTS: i32 = -1;
+pub const _POSIX_VDISABLE: u8 = 0u8;
+pub const _POSIX2_C_BIND: u32 = 200809;
+pub const _POSIX2_C_DEV: i32 = -1;
+pub const _POSIX2_CHAR_TERM: u32 = 200809;
+pub const _POSIX2_FORT_DEV: i32 = -1;
+pub const _POSIX2_FORT_RUN: i32 = -1;
+pub const _POSIX2_LOCALEDEF: i32 = -1;
+pub const _POSIX2_SW_DEV: i32 = -1;
+pub const _POSIX2_UPE: i32 = -1;
+pub const _POSIX_V7_ILP32_OFF32: u32 = 1;
+pub const _POSIX_V7_ILP32_OFFBIG: i32 = -1;
+pub const _POSIX_V7_LP64_OFF64: i32 = -1;
+pub const _POSIX_V7_LPBIG_OFFBIG: i32 = -1;
+pub const _XOPEN_CRYPT: i32 = -1;
+pub const _XOPEN_ENH_I18N: u32 = 1;
+pub const _XOPEN_LEGACY: i32 = -1;
+pub const _XOPEN_REALTIME: u32 = 1;
+pub const _XOPEN_REALTIME_THREADS: u32 = 1;
+pub const _XOPEN_SHM: u32 = 1;
+pub const _XOPEN_STREAMS: i32 = -1;
+pub const _XOPEN_UNIX: u32 = 1;
+pub const _POSIX_AIO_LISTIO_MAX: u32 = 2;
+pub const _POSIX_AIO_MAX: u32 = 1;
+pub const _POSIX_ARG_MAX: u32 = 4096;
+pub const _POSIX_CHILD_MAX: u32 = 25;
+pub const _POSIX_CLOCKRES_MIN: u32 = 20000000;
+pub const _POSIX_DELAYTIMER_MAX: u32 = 32;
+pub const _POSIX_HOST_NAME_MAX: u32 = 255;
+pub const _POSIX_LINK_MAX: u32 = 8;
+pub const _POSIX_LOGIN_NAME_MAX: u32 = 9;
+pub const _POSIX_MAX_CANON: u32 = 255;
+pub const _POSIX_MAX_INPUT: u32 = 255;
+pub const _POSIX_MQ_OPEN_MAX: u32 = 8;
+pub const _POSIX_MQ_PRIO_MAX: u32 = 32;
+pub const _POSIX_NAME_MAX: u32 = 14;
+pub const _POSIX_NGROUPS_MAX: u32 = 8;
+pub const _POSIX_OPEN_MAX: u32 = 20;
+pub const _POSIX_PATH_MAX: u32 = 256;
+pub const _POSIX_PIPE_BUF: u32 = 512;
+pub const _POSIX_RE_DUP_MAX: u32 = 255;
+pub const _POSIX_RTSIG_MAX: u32 = 8;
+pub const _POSIX_SEM_NSEMS_MAX: u32 = 256;
+pub const _POSIX_SEM_VALUE_MAX: u32 = 32767;
+pub const _POSIX_SIGQUEUE_MAX: u32 = 32;
+pub const _POSIX_SSIZE_MAX: u32 = 32767;
+pub const _POSIX_STREAM_MAX: u32 = 8;
+pub const _POSIX_SS_REPL_MAX: u32 = 4;
+pub const _POSIX_SYMLINK_MAX: u32 = 255;
+pub const _POSIX_SYMLOOP_MAX: u32 = 8;
+pub const _POSIX_THREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
+pub const _POSIX_THREAD_KEYS_MAX: u32 = 128;
+pub const _POSIX_THREAD_THREADS_MAX: u32 = 64;
+pub const _POSIX_TIMER_MAX: u32 = 32;
+pub const _POSIX_TRACE_EVENT_NAME_MAX: u32 = 30;
+pub const _POSIX_TRACE_NAME_MAX: u32 = 8;
+pub const _POSIX_TRACE_SYS_MAX: u32 = 8;
+pub const _POSIX_TRACE_USER_EVENT_MAX: u32 = 32;
+pub const _POSIX_TTY_NAME_MAX: u32 = 9;
+pub const _POSIX_TZNAME_MAX: u32 = 6;
+pub const _POSIX2_BC_BASE_MAX: u32 = 99;
+pub const _POSIX2_BC_DIM_MAX: u32 = 2048;
+pub const _POSIX2_BC_SCALE_MAX: u32 = 99;
+pub const _POSIX2_BC_STRING_MAX: u32 = 1000;
+pub const _POSIX2_CHARCLASS_NAME_MAX: u32 = 14;
+pub const _POSIX2_COLL_WEIGHTS_MAX: u32 = 2;
+pub const _POSIX2_EXPR_NEST_MAX: u32 = 32;
+pub const _POSIX2_LINE_MAX: u32 = 2048;
+pub const _POSIX2_RE_DUP_MAX: u32 = 255;
+pub const _XOPEN_IOV_MAX: u32 = 16;
+pub const _XOPEN_NAME_MAX: u32 = 255;
+pub const _XOPEN_PATH_MAX: u32 = 1024;
+pub const HOST_NAME_MAX: u32 = 255;
+pub const LOGIN_NAME_MAX: u32 = 256;
+pub const TTY_NAME_MAX: u32 = 32;
+pub const PTHREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
+pub const PTHREAD_KEYS_MAX: u32 = 128;
+pub const _KERNEL_NSIG: u32 = 32;
+pub const SIGHUP: u32 = 1;
+pub const SIGINT: u32 = 2;
+pub const SIGQUIT: u32 = 3;
+pub const SIGILL: u32 = 4;
+pub const SIGTRAP: u32 = 5;
+pub const SIGABRT: u32 = 6;
+pub const SIGIOT: u32 = 6;
+pub const SIGBUS: u32 = 7;
+pub const SIGFPE: u32 = 8;
+pub const SIGKILL: u32 = 9;
+pub const SIGUSR1: u32 = 10;
+pub const SIGSEGV: u32 = 11;
+pub const SIGUSR2: u32 = 12;
+pub const SIGPIPE: u32 = 13;
+pub const SIGALRM: u32 = 14;
+pub const SIGTERM: u32 = 15;
+pub const SIGSTKFLT: u32 = 16;
+pub const SIGCHLD: u32 = 17;
+pub const SIGCONT: u32 = 18;
+pub const SIGSTOP: u32 = 19;
+pub const SIGTSTP: u32 = 20;
+pub const SIGTTIN: u32 = 21;
+pub const SIGTTOU: u32 = 22;
+pub const SIGURG: u32 = 23;
+pub const SIGXCPU: u32 = 24;
+pub const SIGXFSZ: u32 = 25;
+pub const SIGVTALRM: u32 = 26;
+pub const SIGPROF: u32 = 27;
+pub const SIGWINCH: u32 = 28;
+pub const SIGIO: u32 = 29;
+pub const SIGPOLL: u32 = 29;
+pub const SIGPWR: u32 = 30;
+pub const SIGSYS: u32 = 31;
+pub const SIGUNUSED: u32 = 31;
+pub const __SIGRTMIN: u32 = 32;
+pub const SA_RESTORER: u32 = 67108864;
+pub const MINSIGSTKSZ: u32 = 2048;
+pub const SIGSTKSZ: u32 = 8192;
+pub const SA_NOCLDSTOP: u32 = 1;
+pub const SA_NOCLDWAIT: u32 = 2;
+pub const SA_SIGINFO: u32 = 4;
+pub const SA_UNSUPPORTED: u32 = 1024;
+pub const SA_EXPOSE_TAGBITS: u32 = 2048;
+pub const SA_ONSTACK: u32 = 134217728;
+pub const SA_RESTART: u32 = 268435456;
+pub const SA_NODEFER: u32 = 1073741824;
+pub const SA_RESETHAND: u32 = 2147483648;
+pub const SA_NOMASK: u32 = 1073741824;
+pub const SA_ONESHOT: u32 = 2147483648;
+pub const SIG_BLOCK: u32 = 0;
+pub const SIG_UNBLOCK: u32 = 1;
+pub const SIG_SETMASK: u32 = 2;
+pub const SI_MAX_SIZE: u32 = 128;
+pub const SI_USER: u32 = 0;
+pub const SI_KERNEL: u32 = 128;
+pub const SI_QUEUE: i32 = -1;
+pub const SI_TIMER: i32 = -2;
+pub const SI_MESGQ: i32 = -3;
+pub const SI_ASYNCIO: i32 = -4;
+pub const SI_SIGIO: i32 = -5;
+pub const SI_TKILL: i32 = -6;
+pub const SI_DETHREAD: i32 = -7;
+pub const SI_ASYNCNL: i32 = -60;
+pub const ILL_ILLOPC: u32 = 1;
+pub const ILL_ILLOPN: u32 = 2;
+pub const ILL_ILLADR: u32 = 3;
+pub const ILL_ILLTRP: u32 = 4;
+pub const ILL_PRVOPC: u32 = 5;
+pub const ILL_PRVREG: u32 = 6;
+pub const ILL_COPROC: u32 = 7;
+pub const ILL_BADSTK: u32 = 8;
+pub const ILL_BADIADDR: u32 = 9;
+pub const __ILL_BREAK: u32 = 10;
+pub const __ILL_BNDMOD: u32 = 11;
+pub const NSIGILL: u32 = 11;
+pub const FPE_INTDIV: u32 = 1;
+pub const FPE_INTOVF: u32 = 2;
+pub const FPE_FLTDIV: u32 = 3;
+pub const FPE_FLTOVF: u32 = 4;
+pub const FPE_FLTUND: u32 = 5;
+pub const FPE_FLTRES: u32 = 6;
+pub const FPE_FLTINV: u32 = 7;
+pub const FPE_FLTSUB: u32 = 8;
+pub const __FPE_DECOVF: u32 = 9;
+pub const __FPE_DECDIV: u32 = 10;
+pub const __FPE_DECERR: u32 = 11;
+pub const __FPE_INVASC: u32 = 12;
+pub const __FPE_INVDEC: u32 = 13;
+pub const FPE_FLTUNK: u32 = 14;
+pub const FPE_CONDTRAP: u32 = 15;
+pub const NSIGFPE: u32 = 15;
+pub const SEGV_MAPERR: u32 = 1;
+pub const SEGV_ACCERR: u32 = 2;
+pub const SEGV_BNDERR: u32 = 3;
+pub const SEGV_PKUERR: u32 = 4;
+pub const SEGV_ACCADI: u32 = 5;
+pub const SEGV_ADIDERR: u32 = 6;
+pub const SEGV_ADIPERR: u32 = 7;
+pub const SEGV_MTEAERR: u32 = 8;
+pub const SEGV_MTESERR: u32 = 9;
+pub const SEGV_CPERR: u32 = 10;
+pub const NSIGSEGV: u32 = 10;
+pub const BUS_ADRALN: u32 = 1;
+pub const BUS_ADRERR: u32 = 2;
+pub const BUS_OBJERR: u32 = 3;
+pub const BUS_MCEERR_AR: u32 = 4;
+pub const BUS_MCEERR_AO: u32 = 5;
+pub const NSIGBUS: u32 = 5;
+pub const TRAP_BRKPT: u32 = 1;
+pub const TRAP_TRACE: u32 = 2;
+pub const TRAP_BRANCH: u32 = 3;
+pub const TRAP_HWBKPT: u32 = 4;
+pub const TRAP_UNK: u32 = 5;
+pub const TRAP_PERF: u32 = 6;
+pub const NSIGTRAP: u32 = 6;
+pub const TRAP_PERF_FLAG_ASYNC: u32 = 1;
+pub const CLD_EXITED: u32 = 1;
+pub const CLD_KILLED: u32 = 2;
+pub const CLD_DUMPED: u32 = 3;
+pub const CLD_TRAPPED: u32 = 4;
+pub const CLD_STOPPED: u32 = 5;
+pub const CLD_CONTINUED: u32 = 6;
+pub const NSIGCHLD: u32 = 6;
+pub const POLL_IN: u32 = 1;
+pub const POLL_OUT: u32 = 2;
+pub const POLL_MSG: u32 = 3;
+pub const POLL_ERR: u32 = 4;
+pub const POLL_PRI: u32 = 5;
+pub const POLL_HUP: u32 = 6;
+pub const NSIGPOLL: u32 = 6;
+pub const SYS_SECCOMP: u32 = 1;
+pub const SYS_USER_DISPATCH: u32 = 2;
+pub const NSIGSYS: u32 = 2;
+pub const EMT_TAGOVF: u32 = 1;
+pub const NSIGEMT: u32 = 1;
+pub const SIGEV_SIGNAL: u32 = 0;
+pub const SIGEV_NONE: u32 = 1;
+pub const SIGEV_THREAD: u32 = 2;
+pub const SIGEV_THREAD_ID: u32 = 4;
+pub const SIGEV_MAX_SIZE: u32 = 64;
+pub const SS_ONSTACK: u32 = 1;
+pub const SS_DISABLE: u32 = 2;
+pub const SS_AUTODISARM: u32 = 2147483648;
+pub const SS_FLAG_BITS: u32 = 2147483648;
+pub const NSIG: u32 = 65;
+pub const _NSIG: u32 = 65;
+pub const _KERNEL__NSIG: u32 = 64;
+pub const PAGE_SIZE: u32 = 4096;
+pub const PAGE_MASK: i32 = -4096;
+pub const UPAGES: u32 = 1;
+pub const SIG2STR_MAX: u32 = 32;
+pub const FD_SETSIZE: u32 = 1024;
 pub const O_ACCMODE: u32 = 3;
 pub const O_RDONLY: u32 = 0;
 pub const O_WRONLY: u32 = 1;
@@ -725,7 +1049,6 @@ pub const EOF: i32 = -1;
 pub const FOPEN_MAX: u32 = 20;
 pub const FILENAME_MAX: u32 = 4096;
 pub const L_tmpnam: u32 = 4096;
-pub const TMP_MAX: u32 = 308915776;
 pub const P_tmpdir: &[u8; 6] = b"/tmp/\0";
 pub const L_ctermid: u32 = 1024;
 pub const STRUCT_MALLINFO_DECLARED: u32 = 1;
@@ -746,328 +1069,6 @@ pub const EXIT_FAILURE: u32 = 1;
 pub const EXIT_SUCCESS: u32 = 0;
 pub const RAND_MAX: u32 = 2147483647;
 pub const __NNAPI_FL5_MIN_ANDROID_API__: u32 = 31;
-pub const ITIMER_REAL: u32 = 0;
-pub const ITIMER_VIRTUAL: u32 = 1;
-pub const ITIMER_PROF: u32 = 2;
-pub const CLOCK_REALTIME: u32 = 0;
-pub const CLOCK_MONOTONIC: u32 = 1;
-pub const CLOCK_PROCESS_CPUTIME_ID: u32 = 2;
-pub const CLOCK_THREAD_CPUTIME_ID: u32 = 3;
-pub const CLOCK_MONOTONIC_RAW: u32 = 4;
-pub const CLOCK_REALTIME_COARSE: u32 = 5;
-pub const CLOCK_MONOTONIC_COARSE: u32 = 6;
-pub const CLOCK_BOOTTIME: u32 = 7;
-pub const CLOCK_REALTIME_ALARM: u32 = 8;
-pub const CLOCK_BOOTTIME_ALARM: u32 = 9;
-pub const CLOCK_SGI_CYCLE: u32 = 10;
-pub const CLOCK_TAI: u32 = 11;
-pub const MAX_CLOCKS: u32 = 16;
-pub const CLOCKS_MASK: u32 = 1;
-pub const CLOCKS_MONO: u32 = 1;
-pub const TIMER_ABSTIME: u32 = 1;
-pub const FP_XSTATE_MAGIC1: u32 = 1179670611;
-pub const FP_XSTATE_MAGIC2: u32 = 1179670597;
-pub const X86_FXSR_MAGIC: u32 = 0;
-pub const NR_OPEN: u32 = 1024;
-pub const NGROUPS_MAX: u32 = 65536;
-pub const ARG_MAX: u32 = 131072;
-pub const LINK_MAX: u32 = 127;
-pub const MAX_CANON: u32 = 255;
-pub const MAX_INPUT: u32 = 255;
-pub const NAME_MAX: u32 = 255;
-pub const PATH_MAX: u32 = 4096;
-pub const PIPE_BUF: u32 = 4096;
-pub const XATTR_NAME_MAX: u32 = 255;
-pub const XATTR_SIZE_MAX: u32 = 65536;
-pub const XATTR_LIST_MAX: u32 = 65536;
-pub const RTSIG_MAX: u32 = 32;
-pub const NL_ARGMAX: u32 = 9;
-pub const NL_LANGMAX: u32 = 14;
-pub const NL_MSGMAX: u32 = 32767;
-pub const NL_NMAX: u32 = 1;
-pub const NL_SETMAX: u32 = 255;
-pub const NL_TEXTMAX: u32 = 255;
-pub const PASS_MAX: u32 = 128;
-pub const LONG_BIT: u32 = 32;
-pub const WORD_BIT: u32 = 32;
-pub const NSIG_MAX: u32 = 65;
-pub const MB_LEN_MAX: u32 = 4;
-pub const NZERO: u32 = 20;
-pub const IOV_MAX: u32 = 1024;
-pub const SEM_VALUE_MAX: u32 = 1073741823;
-pub const _POSIX_VERSION: u32 = 200809;
-pub const _POSIX2_VERSION: u32 = 200809;
-pub const _XOPEN_VERSION: u32 = 700;
-pub const __BIONIC_POSIX_FEATURE_MISSING: i32 = -1;
-pub const _POSIX_ASYNCHRONOUS_IO: i32 = -1;
-pub const _POSIX_CHOWN_RESTRICTED: u32 = 1;
-pub const _POSIX_CPUTIME: u32 = 200809;
-pub const _POSIX_FSYNC: u32 = 200809;
-pub const _POSIX_IPV6: u32 = 200809;
-pub const _POSIX_MAPPED_FILES: u32 = 200809;
-pub const _POSIX_MEMLOCK_RANGE: u32 = 200809;
-pub const _POSIX_MEMORY_PROTECTION: u32 = 200809;
-pub const _POSIX_MESSAGE_PASSING: i32 = -1;
-pub const _POSIX_MONOTONIC_CLOCK: u32 = 200809;
-pub const _POSIX_NO_TRUNC: u32 = 1;
-pub const _POSIX_PRIORITIZED_IO: i32 = -1;
-pub const _POSIX_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_RAW_SOCKETS: u32 = 200809;
-pub const _POSIX_READER_WRITER_LOCKS: u32 = 200809;
-pub const _POSIX_REGEXP: u32 = 1;
-pub const _POSIX_SAVED_IDS: u32 = 1;
-pub const _POSIX_SEMAPHORES: u32 = 200809;
-pub const _POSIX_SHARED_MEMORY_OBJECTS: i32 = -1;
-pub const _POSIX_SHELL: u32 = 1;
-pub const _POSIX_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_SYNCHRONIZED_IO: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKADDR: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKSIZE: u32 = 200809;
-pub const _POSIX_THREAD_CPUTIME: u32 = 200809;
-pub const _POSIX_THREAD_PRIO_INHERIT: i32 = -1;
-pub const _POSIX_THREAD_PRIO_PROTECT: i32 = -1;
-pub const _POSIX_THREAD_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_THREAD_PROCESS_SHARED: u32 = 200809;
-pub const _POSIX_THREAD_ROBUST_PRIO_INHERIT: i32 = -1;
-pub const _POSIX_THREAD_ROBUST_PRIO_PROTECT: i32 = -1;
-pub const _POSIX_THREAD_SAFE_FUNCTIONS: u32 = 200809;
-pub const _POSIX_THREAD_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_THREADS: u32 = 200809;
-pub const _POSIX_TIMERS: u32 = 200809;
-pub const _POSIX_TRACE: i32 = -1;
-pub const _POSIX_TRACE_EVENT_FILTER: i32 = -1;
-pub const _POSIX_TRACE_INHERIT: i32 = -1;
-pub const _POSIX_TRACE_LOG: i32 = -1;
-pub const _POSIX_TYPED_MEMORY_OBJECTS: i32 = -1;
-pub const _POSIX_VDISABLE: u8 = 0u8;
-pub const _POSIX2_C_BIND: u32 = 200809;
-pub const _POSIX2_C_DEV: i32 = -1;
-pub const _POSIX2_CHAR_TERM: u32 = 200809;
-pub const _POSIX2_FORT_DEV: i32 = -1;
-pub const _POSIX2_FORT_RUN: i32 = -1;
-pub const _POSIX2_LOCALEDEF: i32 = -1;
-pub const _POSIX2_SW_DEV: i32 = -1;
-pub const _POSIX2_UPE: i32 = -1;
-pub const _POSIX_V7_ILP32_OFF32: u32 = 1;
-pub const _POSIX_V7_ILP32_OFFBIG: i32 = -1;
-pub const _POSIX_V7_LP64_OFF64: i32 = -1;
-pub const _POSIX_V7_LPBIG_OFFBIG: i32 = -1;
-pub const _XOPEN_CRYPT: i32 = -1;
-pub const _XOPEN_ENH_I18N: u32 = 1;
-pub const _XOPEN_LEGACY: i32 = -1;
-pub const _XOPEN_REALTIME: u32 = 1;
-pub const _XOPEN_REALTIME_THREADS: u32 = 1;
-pub const _XOPEN_SHM: u32 = 1;
-pub const _XOPEN_STREAMS: i32 = -1;
-pub const _XOPEN_UNIX: u32 = 1;
-pub const _POSIX_AIO_LISTIO_MAX: u32 = 2;
-pub const _POSIX_AIO_MAX: u32 = 1;
-pub const _POSIX_ARG_MAX: u32 = 4096;
-pub const _POSIX_CHILD_MAX: u32 = 25;
-pub const _POSIX_CLOCKRES_MIN: u32 = 20000000;
-pub const _POSIX_DELAYTIMER_MAX: u32 = 32;
-pub const _POSIX_HOST_NAME_MAX: u32 = 255;
-pub const _POSIX_LINK_MAX: u32 = 8;
-pub const _POSIX_LOGIN_NAME_MAX: u32 = 9;
-pub const _POSIX_MAX_CANON: u32 = 255;
-pub const _POSIX_MAX_INPUT: u32 = 255;
-pub const _POSIX_MQ_OPEN_MAX: u32 = 8;
-pub const _POSIX_MQ_PRIO_MAX: u32 = 32;
-pub const _POSIX_NAME_MAX: u32 = 14;
-pub const _POSIX_NGROUPS_MAX: u32 = 8;
-pub const _POSIX_OPEN_MAX: u32 = 20;
-pub const _POSIX_PATH_MAX: u32 = 256;
-pub const _POSIX_PIPE_BUF: u32 = 512;
-pub const _POSIX_RE_DUP_MAX: u32 = 255;
-pub const _POSIX_RTSIG_MAX: u32 = 8;
-pub const _POSIX_SEM_NSEMS_MAX: u32 = 256;
-pub const _POSIX_SEM_VALUE_MAX: u32 = 32767;
-pub const _POSIX_SIGQUEUE_MAX: u32 = 32;
-pub const _POSIX_SSIZE_MAX: u32 = 32767;
-pub const _POSIX_STREAM_MAX: u32 = 8;
-pub const _POSIX_SS_REPL_MAX: u32 = 4;
-pub const _POSIX_SYMLINK_MAX: u32 = 255;
-pub const _POSIX_SYMLOOP_MAX: u32 = 8;
-pub const _POSIX_THREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
-pub const _POSIX_THREAD_KEYS_MAX: u32 = 128;
-pub const _POSIX_THREAD_THREADS_MAX: u32 = 64;
-pub const _POSIX_TIMER_MAX: u32 = 32;
-pub const _POSIX_TRACE_EVENT_NAME_MAX: u32 = 30;
-pub const _POSIX_TRACE_NAME_MAX: u32 = 8;
-pub const _POSIX_TRACE_SYS_MAX: u32 = 8;
-pub const _POSIX_TRACE_USER_EVENT_MAX: u32 = 32;
-pub const _POSIX_TTY_NAME_MAX: u32 = 9;
-pub const _POSIX_TZNAME_MAX: u32 = 6;
-pub const _POSIX2_BC_BASE_MAX: u32 = 99;
-pub const _POSIX2_BC_DIM_MAX: u32 = 2048;
-pub const _POSIX2_BC_SCALE_MAX: u32 = 99;
-pub const _POSIX2_BC_STRING_MAX: u32 = 1000;
-pub const _POSIX2_CHARCLASS_NAME_MAX: u32 = 14;
-pub const _POSIX2_COLL_WEIGHTS_MAX: u32 = 2;
-pub const _POSIX2_EXPR_NEST_MAX: u32 = 32;
-pub const _POSIX2_LINE_MAX: u32 = 2048;
-pub const _POSIX2_RE_DUP_MAX: u32 = 255;
-pub const _XOPEN_IOV_MAX: u32 = 16;
-pub const _XOPEN_NAME_MAX: u32 = 255;
-pub const _XOPEN_PATH_MAX: u32 = 1024;
-pub const HOST_NAME_MAX: u32 = 255;
-pub const LOGIN_NAME_MAX: u32 = 256;
-pub const TTY_NAME_MAX: u32 = 32;
-pub const PTHREAD_DESTRUCTOR_ITERATIONS: u32 = 4;
-pub const PTHREAD_KEYS_MAX: u32 = 128;
-pub const _KERNEL_NSIG: u32 = 32;
-pub const SIGHUP: u32 = 1;
-pub const SIGINT: u32 = 2;
-pub const SIGQUIT: u32 = 3;
-pub const SIGILL: u32 = 4;
-pub const SIGTRAP: u32 = 5;
-pub const SIGABRT: u32 = 6;
-pub const SIGIOT: u32 = 6;
-pub const SIGBUS: u32 = 7;
-pub const SIGFPE: u32 = 8;
-pub const SIGKILL: u32 = 9;
-pub const SIGUSR1: u32 = 10;
-pub const SIGSEGV: u32 = 11;
-pub const SIGUSR2: u32 = 12;
-pub const SIGPIPE: u32 = 13;
-pub const SIGALRM: u32 = 14;
-pub const SIGTERM: u32 = 15;
-pub const SIGSTKFLT: u32 = 16;
-pub const SIGCHLD: u32 = 17;
-pub const SIGCONT: u32 = 18;
-pub const SIGSTOP: u32 = 19;
-pub const SIGTSTP: u32 = 20;
-pub const SIGTTIN: u32 = 21;
-pub const SIGTTOU: u32 = 22;
-pub const SIGURG: u32 = 23;
-pub const SIGXCPU: u32 = 24;
-pub const SIGXFSZ: u32 = 25;
-pub const SIGVTALRM: u32 = 26;
-pub const SIGPROF: u32 = 27;
-pub const SIGWINCH: u32 = 28;
-pub const SIGIO: u32 = 29;
-pub const SIGPOLL: u32 = 29;
-pub const SIGPWR: u32 = 30;
-pub const SIGSYS: u32 = 31;
-pub const SIGUNUSED: u32 = 31;
-pub const __SIGRTMIN: u32 = 32;
-pub const SA_RESTORER: u32 = 67108864;
-pub const MINSIGSTKSZ: u32 = 2048;
-pub const SIGSTKSZ: u32 = 8192;
-pub const SA_NOCLDSTOP: u32 = 1;
-pub const SA_NOCLDWAIT: u32 = 2;
-pub const SA_SIGINFO: u32 = 4;
-pub const SA_UNSUPPORTED: u32 = 1024;
-pub const SA_EXPOSE_TAGBITS: u32 = 2048;
-pub const SA_ONSTACK: u32 = 134217728;
-pub const SA_RESTART: u32 = 268435456;
-pub const SA_NODEFER: u32 = 1073741824;
-pub const SA_RESETHAND: u32 = 2147483648;
-pub const SA_NOMASK: u32 = 1073741824;
-pub const SA_ONESHOT: u32 = 2147483648;
-pub const SIG_BLOCK: u32 = 0;
-pub const SIG_UNBLOCK: u32 = 1;
-pub const SIG_SETMASK: u32 = 2;
-pub const SI_MAX_SIZE: u32 = 128;
-pub const SI_USER: u32 = 0;
-pub const SI_KERNEL: u32 = 128;
-pub const SI_QUEUE: i32 = -1;
-pub const SI_TIMER: i32 = -2;
-pub const SI_MESGQ: i32 = -3;
-pub const SI_ASYNCIO: i32 = -4;
-pub const SI_SIGIO: i32 = -5;
-pub const SI_TKILL: i32 = -6;
-pub const SI_DETHREAD: i32 = -7;
-pub const SI_ASYNCNL: i32 = -60;
-pub const ILL_ILLOPC: u32 = 1;
-pub const ILL_ILLOPN: u32 = 2;
-pub const ILL_ILLADR: u32 = 3;
-pub const ILL_ILLTRP: u32 = 4;
-pub const ILL_PRVOPC: u32 = 5;
-pub const ILL_PRVREG: u32 = 6;
-pub const ILL_COPROC: u32 = 7;
-pub const ILL_BADSTK: u32 = 8;
-pub const ILL_BADIADDR: u32 = 9;
-pub const __ILL_BREAK: u32 = 10;
-pub const __ILL_BNDMOD: u32 = 11;
-pub const NSIGILL: u32 = 11;
-pub const FPE_INTDIV: u32 = 1;
-pub const FPE_INTOVF: u32 = 2;
-pub const FPE_FLTDIV: u32 = 3;
-pub const FPE_FLTOVF: u32 = 4;
-pub const FPE_FLTUND: u32 = 5;
-pub const FPE_FLTRES: u32 = 6;
-pub const FPE_FLTINV: u32 = 7;
-pub const FPE_FLTSUB: u32 = 8;
-pub const __FPE_DECOVF: u32 = 9;
-pub const __FPE_DECDIV: u32 = 10;
-pub const __FPE_DECERR: u32 = 11;
-pub const __FPE_INVASC: u32 = 12;
-pub const __FPE_INVDEC: u32 = 13;
-pub const FPE_FLTUNK: u32 = 14;
-pub const FPE_CONDTRAP: u32 = 15;
-pub const NSIGFPE: u32 = 15;
-pub const SEGV_MAPERR: u32 = 1;
-pub const SEGV_ACCERR: u32 = 2;
-pub const SEGV_BNDERR: u32 = 3;
-pub const SEGV_PKUERR: u32 = 4;
-pub const SEGV_ACCADI: u32 = 5;
-pub const SEGV_ADIDERR: u32 = 6;
-pub const SEGV_ADIPERR: u32 = 7;
-pub const SEGV_MTEAERR: u32 = 8;
-pub const SEGV_MTESERR: u32 = 9;
-pub const SEGV_CPERR: u32 = 10;
-pub const NSIGSEGV: u32 = 10;
-pub const BUS_ADRALN: u32 = 1;
-pub const BUS_ADRERR: u32 = 2;
-pub const BUS_OBJERR: u32 = 3;
-pub const BUS_MCEERR_AR: u32 = 4;
-pub const BUS_MCEERR_AO: u32 = 5;
-pub const NSIGBUS: u32 = 5;
-pub const TRAP_BRKPT: u32 = 1;
-pub const TRAP_TRACE: u32 = 2;
-pub const TRAP_BRANCH: u32 = 3;
-pub const TRAP_HWBKPT: u32 = 4;
-pub const TRAP_UNK: u32 = 5;
-pub const TRAP_PERF: u32 = 6;
-pub const NSIGTRAP: u32 = 6;
-pub const TRAP_PERF_FLAG_ASYNC: u32 = 1;
-pub const CLD_EXITED: u32 = 1;
-pub const CLD_KILLED: u32 = 2;
-pub const CLD_DUMPED: u32 = 3;
-pub const CLD_TRAPPED: u32 = 4;
-pub const CLD_STOPPED: u32 = 5;
-pub const CLD_CONTINUED: u32 = 6;
-pub const NSIGCHLD: u32 = 6;
-pub const POLL_IN: u32 = 1;
-pub const POLL_OUT: u32 = 2;
-pub const POLL_MSG: u32 = 3;
-pub const POLL_ERR: u32 = 4;
-pub const POLL_PRI: u32 = 5;
-pub const POLL_HUP: u32 = 6;
-pub const NSIGPOLL: u32 = 6;
-pub const SYS_SECCOMP: u32 = 1;
-pub const SYS_USER_DISPATCH: u32 = 2;
-pub const NSIGSYS: u32 = 2;
-pub const EMT_TAGOVF: u32 = 1;
-pub const NSIGEMT: u32 = 1;
-pub const SIGEV_SIGNAL: u32 = 0;
-pub const SIGEV_NONE: u32 = 1;
-pub const SIGEV_THREAD: u32 = 2;
-pub const SIGEV_THREAD_ID: u32 = 4;
-pub const SIGEV_MAX_SIZE: u32 = 64;
-pub const SS_ONSTACK: u32 = 1;
-pub const SS_DISABLE: u32 = 2;
-pub const SS_AUTODISARM: u32 = 2147483648;
-pub const SS_FLAG_BITS: u32 = 2147483648;
-pub const NSIG: u32 = 65;
-pub const _NSIG: u32 = 65;
-pub const _KERNEL__NSIG: u32 = 64;
-pub const PAGE_SIZE: u32 = 4096;
-pub const PAGE_MASK: i32 = -4096;
-pub const UPAGES: u32 = 1;
-pub const SIG2STR_MAX: u32 = 32;
-pub const FD_SETSIZE: u32 = 1024;
 pub const F_ULOCK: u32 = 0;
 pub const F_LOCK: u32 = 1;
 pub const F_TLOCK: u32 = 2;
@@ -2551,6 +2552,7 @@ impl ADataSpace {
     pub const ADATASPACE_SRGB_LINEAR: ADataSpace = ADataSpace(138477568);
     pub const ADATASPACE_BT2020_HLG: ADataSpace = ADataSpace(168165376);
     pub const ADATASPACE_BT2020_ITU_HLG: ADataSpace = ADataSpace(302383104);
+    pub const ADATASPACE_DISPLAY_BT2020: ADataSpace = ADataSpace(142999552);
     pub const ADATASPACE_DEPTH: ADataSpace = ADataSpace(4096);
     pub const ADATASPACE_DYNAMIC_DEPTH: ADataSpace = ADataSpace(4098);
     pub const STANDARD_MASK: ADataSpace = ADataSpace(4128768);
@@ -3885,6 +3887,25 @@ pub const AKEYCODE_MACRO_3: _bindgen_ty_13 = 315;
 pub const AKEYCODE_MACRO_4: _bindgen_ty_13 = 316;
 pub const AKEYCODE_EMOJI_PICKER: _bindgen_ty_13 = 317;
 pub const AKEYCODE_SCREENSHOT: _bindgen_ty_13 = 318;
+pub const AKEYCODE_DICTATE: _bindgen_ty_13 = 319;
+pub const AKEYCODE_NEW: _bindgen_ty_13 = 320;
+pub const AKEYCODE_CLOSE: _bindgen_ty_13 = 321;
+pub const AKEYCODE_DO_NOT_DISTURB: _bindgen_ty_13 = 322;
+pub const AKEYCODE_PRINT: _bindgen_ty_13 = 323;
+pub const AKEYCODE_LOCK: _bindgen_ty_13 = 324;
+pub const AKEYCODE_FULLSCREEN: _bindgen_ty_13 = 325;
+pub const AKEYCODE_F13: _bindgen_ty_13 = 326;
+pub const AKEYCODE_F14: _bindgen_ty_13 = 327;
+pub const AKEYCODE_F15: _bindgen_ty_13 = 328;
+pub const AKEYCODE_F16: _bindgen_ty_13 = 329;
+pub const AKEYCODE_F17: _bindgen_ty_13 = 330;
+pub const AKEYCODE_F18: _bindgen_ty_13 = 331;
+pub const AKEYCODE_F19: _bindgen_ty_13 = 332;
+pub const AKEYCODE_F20: _bindgen_ty_13 = 333;
+pub const AKEYCODE_F21: _bindgen_ty_13 = 334;
+pub const AKEYCODE_F22: _bindgen_ty_13 = 335;
+pub const AKEYCODE_F23: _bindgen_ty_13 = 336;
+pub const AKEYCODE_F24: _bindgen_ty_13 = 337;
 pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -4451,3455 +4472,6 @@ extern "C" {
 }
 extern "C" {
     pub fn AInputTransferToken_release(aInputTransferToken: *mut AInputTransferToken);
-}
-impl android_LogPriority {
-    pub const ANDROID_LOG_UNKNOWN: android_LogPriority = android_LogPriority(0);
-    pub const ANDROID_LOG_DEFAULT: android_LogPriority = android_LogPriority(1);
-    pub const ANDROID_LOG_VERBOSE: android_LogPriority = android_LogPriority(2);
-    pub const ANDROID_LOG_DEBUG: android_LogPriority = android_LogPriority(3);
-    pub const ANDROID_LOG_INFO: android_LogPriority = android_LogPriority(4);
-    pub const ANDROID_LOG_WARN: android_LogPriority = android_LogPriority(5);
-    pub const ANDROID_LOG_ERROR: android_LogPriority = android_LogPriority(6);
-    pub const ANDROID_LOG_FATAL: android_LogPriority = android_LogPriority(7);
-    pub const ANDROID_LOG_SILENT: android_LogPriority = android_LogPriority(8);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct android_LogPriority(pub ::std::os::raw::c_uint);
-extern "C" {
-    pub fn __android_log_write(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        text: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_print(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_vprint(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
-        ap: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_assert(
-        cond: *const ::std::os::raw::c_char,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> !;
-}
-impl log_id {
-    pub const LOG_ID_MIN: log_id = log_id(0);
-    pub const LOG_ID_MAIN: log_id = log_id(0);
-    pub const LOG_ID_RADIO: log_id = log_id(1);
-    pub const LOG_ID_EVENTS: log_id = log_id(2);
-    pub const LOG_ID_SYSTEM: log_id = log_id(3);
-    pub const LOG_ID_CRASH: log_id = log_id(4);
-    pub const LOG_ID_STATS: log_id = log_id(5);
-    pub const LOG_ID_SECURITY: log_id = log_id(6);
-    pub const LOG_ID_KERNEL: log_id = log_id(7);
-    pub const LOG_ID_MAX: log_id = log_id(8);
-    pub const LOG_ID_DEFAULT: log_id = log_id(2147483647);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct log_id(pub ::std::os::raw::c_uint);
-pub use self::log_id as log_id_t;
-extern "C" {
-    pub fn __android_log_buf_write(
-        bufID: ::std::os::raw::c_int,
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        text: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_buf_print(
-        bufID: ::std::os::raw::c_int,
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __android_log_message {
-    pub struct_size: usize,
-    pub buffer_id: i32,
-    pub priority: i32,
-    pub tag: *const ::std::os::raw::c_char,
-    pub file: *const ::std::os::raw::c_char,
-    pub line: u32,
-    pub message: *const ::std::os::raw::c_char,
-}
-#[test]
-fn bindgen_test_layout___android_log_message() {
-    const UNINIT: ::std::mem::MaybeUninit<__android_log_message> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<__android_log_message>(),
-        28usize,
-        "Size of __android_log_message"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__android_log_message>(),
-        4usize,
-        "Alignment of __android_log_message"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).struct_size) as usize - ptr as usize },
-        0usize,
-        "Offset of field: __android_log_message::struct_size"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).buffer_id) as usize - ptr as usize },
-        4usize,
-        "Offset of field: __android_log_message::buffer_id"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).priority) as usize - ptr as usize },
-        8usize,
-        "Offset of field: __android_log_message::priority"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
-        12usize,
-        "Offset of field: __android_log_message::tag"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).file) as usize - ptr as usize },
-        16usize,
-        "Offset of field: __android_log_message::file"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).line) as usize - ptr as usize },
-        20usize,
-        "Offset of field: __android_log_message::line"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).message) as usize - ptr as usize },
-        24usize,
-        "Offset of field: __android_log_message::message"
-    );
-}
-pub type __android_logger_function =
-    ::std::option::Option<unsafe extern "C" fn(log_message: *const __android_log_message)>;
-pub type __android_aborter_function =
-    ::std::option::Option<unsafe extern "C" fn(abort_message: *const ::std::os::raw::c_char)>;
-extern "C" {
-    pub fn __android_log_write_log_message(log_message: *mut __android_log_message);
-}
-extern "C" {
-    pub fn __android_log_set_logger(logger: __android_logger_function);
-}
-extern "C" {
-    pub fn __android_log_logd_logger(log_message: *const __android_log_message);
-}
-extern "C" {
-    pub fn __android_log_stderr_logger(log_message: *const __android_log_message);
-}
-extern "C" {
-    pub fn __android_log_set_aborter(aborter: __android_aborter_function);
-}
-extern "C" {
-    pub fn __android_log_call_aborter(abort_message: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn __android_log_default_aborter(abort_message: *const ::std::os::raw::c_char) -> !;
-}
-extern "C" {
-    pub fn __android_log_is_loggable(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        default_prio: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_is_loggable_len(
-        prio: ::std::os::raw::c_int,
-        tag: *const ::std::os::raw::c_char,
-        len: usize,
-        default_prio: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __android_log_set_minimum_priority(priority: i32) -> i32;
-}
-extern "C" {
-    pub fn __android_log_get_minimum_priority() -> i32;
-}
-extern "C" {
-    pub fn __android_log_set_default_tag(tag: *const ::std::os::raw::c_char);
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct flock {
-    pub l_type: ::std::os::raw::c_short,
-    pub l_whence: ::std::os::raw::c_short,
-    pub l_start: off_t,
-    pub l_len: off_t,
-    pub l_pid: pid_t,
-}
-#[test]
-fn bindgen_test_layout_flock() {
-    const UNINIT: ::std::mem::MaybeUninit<flock> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<flock>(), 16usize, "Size of flock");
-    assert_eq!(
-        ::std::mem::align_of::<flock>(),
-        4usize,
-        "Alignment of flock"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
-        0usize,
-        "Offset of field: flock::l_type"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
-        2usize,
-        "Offset of field: flock::l_whence"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
-        4usize,
-        "Offset of field: flock::l_start"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
-        8usize,
-        "Offset of field: flock::l_len"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
-        12usize,
-        "Offset of field: flock::l_pid"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct flock64 {
-    pub l_type: ::std::os::raw::c_short,
-    pub l_whence: ::std::os::raw::c_short,
-    pub l_start: off64_t,
-    pub l_len: off64_t,
-    pub l_pid: pid_t,
-}
-#[test]
-fn bindgen_test_layout_flock64() {
-    const UNINIT: ::std::mem::MaybeUninit<flock64> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<flock64>(), 24usize, "Size of flock64");
-    assert_eq!(
-        ::std::mem::align_of::<flock64>(),
-        4usize,
-        "Alignment of flock64"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
-        0usize,
-        "Offset of field: flock64::l_type"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
-        2usize,
-        "Offset of field: flock64::l_whence"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
-        4usize,
-        "Offset of field: flock64::l_start"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
-        12usize,
-        "Offset of field: flock64::l_len"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
-        20usize,
-        "Offset of field: flock64::l_pid"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct f_owner_ex {
-    pub type_: ::std::os::raw::c_int,
-    pub pid: __kernel_pid_t,
-}
-#[test]
-fn bindgen_test_layout_f_owner_ex() {
-    const UNINIT: ::std::mem::MaybeUninit<f_owner_ex> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<f_owner_ex>(),
-        8usize,
-        "Size of f_owner_ex"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<f_owner_ex>(),
-        4usize,
-        "Alignment of f_owner_ex"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
-        0usize,
-        "Offset of field: f_owner_ex::type_"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
-        4usize,
-        "Offset of field: f_owner_ex::pid"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct iovec {
-    pub iov_base: *mut ::std::os::raw::c_void,
-    pub iov_len: __kernel_size_t,
-}
-#[test]
-fn bindgen_test_layout_iovec() {
-    const UNINIT: ::std::mem::MaybeUninit<iovec> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<iovec>(), 8usize, "Size of iovec");
-    assert_eq!(
-        ::std::mem::align_of::<iovec>(),
-        4usize,
-        "Alignment of iovec"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).iov_base) as usize - ptr as usize },
-        0usize,
-        "Offset of field: iovec::iov_base"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).iov_len) as usize - ptr as usize },
-        4usize,
-        "Offset of field: iovec::iov_len"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct dmabuf_cmsg {
-    pub frag_offset: __u64,
-    pub frag_size: __u32,
-    pub frag_token: __u32,
-    pub dmabuf_id: __u32,
-    pub flags: __u32,
-}
-#[test]
-fn bindgen_test_layout_dmabuf_cmsg() {
-    const UNINIT: ::std::mem::MaybeUninit<dmabuf_cmsg> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<dmabuf_cmsg>(),
-        24usize,
-        "Size of dmabuf_cmsg"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<dmabuf_cmsg>(),
-        4usize,
-        "Alignment of dmabuf_cmsg"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).frag_offset) as usize - ptr as usize },
-        0usize,
-        "Offset of field: dmabuf_cmsg::frag_offset"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).frag_size) as usize - ptr as usize },
-        8usize,
-        "Offset of field: dmabuf_cmsg::frag_size"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).frag_token) as usize - ptr as usize },
-        12usize,
-        "Offset of field: dmabuf_cmsg::frag_token"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).dmabuf_id) as usize - ptr as usize },
-        16usize,
-        "Offset of field: dmabuf_cmsg::dmabuf_id"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
-        20usize,
-        "Offset of field: dmabuf_cmsg::flags"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct dmabuf_token {
-    pub token_start: __u32,
-    pub token_count: __u32,
-}
-#[test]
-fn bindgen_test_layout_dmabuf_token() {
-    const UNINIT: ::std::mem::MaybeUninit<dmabuf_token> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<dmabuf_token>(),
-        8usize,
-        "Size of dmabuf_token"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<dmabuf_token>(),
-        4usize,
-        "Alignment of dmabuf_token"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).token_start) as usize - ptr as usize },
-        0usize,
-        "Offset of field: dmabuf_token::token_start"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).token_count) as usize - ptr as usize },
-        4usize,
-        "Offset of field: dmabuf_token::token_count"
-    );
-}
-pub type sa_family_t = ::std::os::raw::c_ushort;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct sockaddr_storage {
-    pub __bindgen_anon_1: sockaddr_storage__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union sockaddr_storage__bindgen_ty_1 {
-    pub __bindgen_anon_1: sockaddr_storage__bindgen_ty_1__bindgen_ty_1,
-    pub __align: *mut ::std::os::raw::c_void,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sockaddr_storage__bindgen_ty_1__bindgen_ty_1 {
-    pub ss_family: sa_family_t,
-    pub __data: [::std::os::raw::c_char; 126usize],
-}
-#[test]
-fn bindgen_test_layout_sockaddr_storage__bindgen_ty_1__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
-        128usize,
-        "Size of sockaddr_storage__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
-        2usize,
-        "Alignment of sockaddr_storage__bindgen_ty_1__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ss_family) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sockaddr_storage__bindgen_ty_1__bindgen_ty_1::ss_family"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__data) as usize - ptr as usize },
-        2usize,
-        "Offset of field: sockaddr_storage__bindgen_ty_1__bindgen_ty_1::__data"
-    );
-}
-#[test]
-fn bindgen_test_layout_sockaddr_storage__bindgen_ty_1() {
-    const UNINIT: ::std::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sockaddr_storage__bindgen_ty_1>(),
-        128usize,
-        "Size of sockaddr_storage__bindgen_ty_1"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sockaddr_storage__bindgen_ty_1>(),
-        4usize,
-        "Alignment of sockaddr_storage__bindgen_ty_1"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).__align) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sockaddr_storage__bindgen_ty_1::__align"
-    );
-}
-#[test]
-fn bindgen_test_layout_sockaddr_storage() {
-    assert_eq!(
-        ::std::mem::size_of::<sockaddr_storage>(),
-        128usize,
-        "Size of sockaddr_storage"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sockaddr_storage>(),
-        4usize,
-        "Alignment of sockaddr_storage"
-    );
-}
-pub const SHUT_RD: _bindgen_ty_32 = 0;
-pub const SHUT_WR: _bindgen_ty_32 = 1;
-pub const SHUT_RDWR: _bindgen_ty_32 = 2;
-pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sockaddr {
-    pub sa_family: sa_family_t,
-    pub sa_data: [::std::os::raw::c_char; 14usize],
-}
-#[test]
-fn bindgen_test_layout_sockaddr() {
-    const UNINIT: ::std::mem::MaybeUninit<sockaddr> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<sockaddr>(),
-        16usize,
-        "Size of sockaddr"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<sockaddr>(),
-        2usize,
-        "Alignment of sockaddr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_family) as usize - ptr as usize },
-        0usize,
-        "Offset of field: sockaddr::sa_family"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sa_data) as usize - ptr as usize },
-        2usize,
-        "Offset of field: sockaddr::sa_data"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct linger {
-    pub l_onoff: ::std::os::raw::c_int,
-    pub l_linger: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout_linger() {
-    const UNINIT: ::std::mem::MaybeUninit<linger> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<linger>(), 8usize, "Size of linger");
-    assert_eq!(
-        ::std::mem::align_of::<linger>(),
-        4usize,
-        "Alignment of linger"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_onoff) as usize - ptr as usize },
-        0usize,
-        "Offset of field: linger::l_onoff"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).l_linger) as usize - ptr as usize },
-        4usize,
-        "Offset of field: linger::l_linger"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct msghdr {
-    pub msg_name: *mut ::std::os::raw::c_void,
-    pub msg_namelen: socklen_t,
-    pub msg_iov: *mut iovec,
-    pub msg_iovlen: usize,
-    pub msg_control: *mut ::std::os::raw::c_void,
-    pub msg_controllen: usize,
-    pub msg_flags: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout_msghdr() {
-    const UNINIT: ::std::mem::MaybeUninit<msghdr> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<msghdr>(), 28usize, "Size of msghdr");
-    assert_eq!(
-        ::std::mem::align_of::<msghdr>(),
-        4usize,
-        "Alignment of msghdr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_name) as usize - ptr as usize },
-        0usize,
-        "Offset of field: msghdr::msg_name"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_namelen) as usize - ptr as usize },
-        4usize,
-        "Offset of field: msghdr::msg_namelen"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_iov) as usize - ptr as usize },
-        8usize,
-        "Offset of field: msghdr::msg_iov"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_iovlen) as usize - ptr as usize },
-        12usize,
-        "Offset of field: msghdr::msg_iovlen"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_control) as usize - ptr as usize },
-        16usize,
-        "Offset of field: msghdr::msg_control"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_controllen) as usize - ptr as usize },
-        20usize,
-        "Offset of field: msghdr::msg_controllen"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_flags) as usize - ptr as usize },
-        24usize,
-        "Offset of field: msghdr::msg_flags"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct mmsghdr {
-    pub msg_hdr: msghdr,
-    pub msg_len: ::std::os::raw::c_uint,
-}
-#[test]
-fn bindgen_test_layout_mmsghdr() {
-    const UNINIT: ::std::mem::MaybeUninit<mmsghdr> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<mmsghdr>(), 32usize, "Size of mmsghdr");
-    assert_eq!(
-        ::std::mem::align_of::<mmsghdr>(),
-        4usize,
-        "Alignment of mmsghdr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_hdr) as usize - ptr as usize },
-        0usize,
-        "Offset of field: mmsghdr::msg_hdr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).msg_len) as usize - ptr as usize },
-        28usize,
-        "Offset of field: mmsghdr::msg_len"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct cmsghdr {
-    pub cmsg_len: usize,
-    pub cmsg_level: ::std::os::raw::c_int,
-    pub cmsg_type: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout_cmsghdr() {
-    const UNINIT: ::std::mem::MaybeUninit<cmsghdr> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<cmsghdr>(), 12usize, "Size of cmsghdr");
-    assert_eq!(
-        ::std::mem::align_of::<cmsghdr>(),
-        4usize,
-        "Alignment of cmsghdr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_len) as usize - ptr as usize },
-        0usize,
-        "Offset of field: cmsghdr::cmsg_len"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_level) as usize - ptr as usize },
-        4usize,
-        "Offset of field: cmsghdr::cmsg_level"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_type) as usize - ptr as usize },
-        8usize,
-        "Offset of field: cmsghdr::cmsg_type"
-    );
-}
-extern "C" {
-    pub fn __cmsg_nxthdr(__msg: *mut msghdr, __cmsg: *mut cmsghdr) -> *mut cmsghdr;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ucred {
-    pub pid: pid_t,
-    pub uid: uid_t,
-    pub gid: gid_t,
-}
-#[test]
-fn bindgen_test_layout_ucred() {
-    const UNINIT: ::std::mem::MaybeUninit<ucred> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<ucred>(), 12usize, "Size of ucred");
-    assert_eq!(
-        ::std::mem::align_of::<ucred>(),
-        4usize,
-        "Alignment of ucred"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ucred::pid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uid) as usize - ptr as usize },
-        4usize,
-        "Offset of field: ucred::uid"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).gid) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ucred::gid"
-    );
-}
-extern "C" {
-    pub fn accept(
-        __fd: ::std::os::raw::c_int,
-        __addr: *mut sockaddr,
-        __addr_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn accept4(
-        __fd: ::std::os::raw::c_int,
-        __addr: *mut sockaddr,
-        __addr_length: *mut socklen_t,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn bind(
-        __fd: ::std::os::raw::c_int,
-        __addr: *const sockaddr,
-        __addr_length: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn connect(
-        __fd: ::std::os::raw::c_int,
-        __addr: *const sockaddr,
-        __addr_length: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getpeername(
-        __fd: ::std::os::raw::c_int,
-        __addr: *mut sockaddr,
-        __addr_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getsockname(
-        __fd: ::std::os::raw::c_int,
-        __addr: *mut sockaddr,
-        __addr_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getsockopt(
-        __fd: ::std::os::raw::c_int,
-        __level: ::std::os::raw::c_int,
-        __option: ::std::os::raw::c_int,
-        __value: *mut ::std::os::raw::c_void,
-        __value_length: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn listen(
-        __fd: ::std::os::raw::c_int,
-        __backlog: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn recvmmsg(
-        __fd: ::std::os::raw::c_int,
-        __msgs: *mut mmsghdr,
-        __msg_count: ::std::os::raw::c_uint,
-        __flags: ::std::os::raw::c_int,
-        __timeout: *const timespec,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn recvmsg(
-        __fd: ::std::os::raw::c_int,
-        __msg: *mut msghdr,
-        __flags: ::std::os::raw::c_int,
-    ) -> isize;
-}
-extern "C" {
-    pub fn sendmmsg(
-        __fd: ::std::os::raw::c_int,
-        __msgs: *const mmsghdr,
-        __msg_count: ::std::os::raw::c_uint,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sendmsg(
-        __fd: ::std::os::raw::c_int,
-        __msg: *const msghdr,
-        __flags: ::std::os::raw::c_int,
-    ) -> isize;
-}
-extern "C" {
-    pub fn setsockopt(
-        __fd: ::std::os::raw::c_int,
-        __level: ::std::os::raw::c_int,
-        __option: ::std::os::raw::c_int,
-        __value: *const ::std::os::raw::c_void,
-        __value_length: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn shutdown(
-        __fd: ::std::os::raw::c_int,
-        __how: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn socket(
-        __af: ::std::os::raw::c_int,
-        __type: ::std::os::raw::c_int,
-        __protocol: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn socketpair(
-        __af: ::std::os::raw::c_int,
-        __type: ::std::os::raw::c_int,
-        __protocol: ::std::os::raw::c_int,
-        __fds: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn recv(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
-        __n: usize,
-        __flags: ::std::os::raw::c_int,
-    ) -> isize;
-}
-extern "C" {
-    pub fn send(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
-        __n: usize,
-        __flags: ::std::os::raw::c_int,
-    ) -> isize;
-}
-extern "C" {
-    pub fn sendto(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
-        __n: usize,
-        __flags: ::std::os::raw::c_int,
-        __dst_addr: *const sockaddr,
-        __dst_addr_length: socklen_t,
-    ) -> isize;
-}
-extern "C" {
-    pub fn recvfrom(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
-        __n: usize,
-        __flags: ::std::os::raw::c_int,
-        __src_addr: *mut sockaddr,
-        __src_addr_length: *mut socklen_t,
-    ) -> isize;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct hostent {
-    pub h_name: *mut ::std::os::raw::c_char,
-    pub h_aliases: *mut *mut ::std::os::raw::c_char,
-    pub h_addrtype: ::std::os::raw::c_int,
-    pub h_length: ::std::os::raw::c_int,
-    pub h_addr_list: *mut *mut ::std::os::raw::c_char,
-}
-#[test]
-fn bindgen_test_layout_hostent() {
-    const UNINIT: ::std::mem::MaybeUninit<hostent> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<hostent>(), 20usize, "Size of hostent");
-    assert_eq!(
-        ::std::mem::align_of::<hostent>(),
-        4usize,
-        "Alignment of hostent"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_name) as usize - ptr as usize },
-        0usize,
-        "Offset of field: hostent::h_name"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_aliases) as usize - ptr as usize },
-        4usize,
-        "Offset of field: hostent::h_aliases"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_addrtype) as usize - ptr as usize },
-        8usize,
-        "Offset of field: hostent::h_addrtype"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_length) as usize - ptr as usize },
-        12usize,
-        "Offset of field: hostent::h_length"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).h_addr_list) as usize - ptr as usize },
-        16usize,
-        "Offset of field: hostent::h_addr_list"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct netent {
-    pub n_name: *mut ::std::os::raw::c_char,
-    pub n_aliases: *mut *mut ::std::os::raw::c_char,
-    pub n_addrtype: ::std::os::raw::c_int,
-    pub n_net: u32,
-}
-#[test]
-fn bindgen_test_layout_netent() {
-    const UNINIT: ::std::mem::MaybeUninit<netent> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<netent>(), 16usize, "Size of netent");
-    assert_eq!(
-        ::std::mem::align_of::<netent>(),
-        4usize,
-        "Alignment of netent"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_name) as usize - ptr as usize },
-        0usize,
-        "Offset of field: netent::n_name"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_aliases) as usize - ptr as usize },
-        4usize,
-        "Offset of field: netent::n_aliases"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_addrtype) as usize - ptr as usize },
-        8usize,
-        "Offset of field: netent::n_addrtype"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).n_net) as usize - ptr as usize },
-        12usize,
-        "Offset of field: netent::n_net"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct servent {
-    pub s_name: *mut ::std::os::raw::c_char,
-    pub s_aliases: *mut *mut ::std::os::raw::c_char,
-    pub s_port: ::std::os::raw::c_int,
-    pub s_proto: *mut ::std::os::raw::c_char,
-}
-#[test]
-fn bindgen_test_layout_servent() {
-    const UNINIT: ::std::mem::MaybeUninit<servent> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<servent>(), 16usize, "Size of servent");
-    assert_eq!(
-        ::std::mem::align_of::<servent>(),
-        4usize,
-        "Alignment of servent"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_name) as usize - ptr as usize },
-        0usize,
-        "Offset of field: servent::s_name"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_aliases) as usize - ptr as usize },
-        4usize,
-        "Offset of field: servent::s_aliases"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_port) as usize - ptr as usize },
-        8usize,
-        "Offset of field: servent::s_port"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).s_proto) as usize - ptr as usize },
-        12usize,
-        "Offset of field: servent::s_proto"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct protoent {
-    pub p_name: *mut ::std::os::raw::c_char,
-    pub p_aliases: *mut *mut ::std::os::raw::c_char,
-    pub p_proto: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout_protoent() {
-    const UNINIT: ::std::mem::MaybeUninit<protoent> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<protoent>(),
-        12usize,
-        "Size of protoent"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<protoent>(),
-        4usize,
-        "Alignment of protoent"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).p_name) as usize - ptr as usize },
-        0usize,
-        "Offset of field: protoent::p_name"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).p_aliases) as usize - ptr as usize },
-        4usize,
-        "Offset of field: protoent::p_aliases"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).p_proto) as usize - ptr as usize },
-        8usize,
-        "Offset of field: protoent::p_proto"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct addrinfo {
-    pub ai_flags: ::std::os::raw::c_int,
-    pub ai_family: ::std::os::raw::c_int,
-    pub ai_socktype: ::std::os::raw::c_int,
-    pub ai_protocol: ::std::os::raw::c_int,
-    pub ai_addrlen: socklen_t,
-    pub ai_canonname: *mut ::std::os::raw::c_char,
-    pub ai_addr: *mut sockaddr,
-    pub ai_next: *mut addrinfo,
-}
-#[test]
-fn bindgen_test_layout_addrinfo() {
-    const UNINIT: ::std::mem::MaybeUninit<addrinfo> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<addrinfo>(),
-        32usize,
-        "Size of addrinfo"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<addrinfo>(),
-        4usize,
-        "Alignment of addrinfo"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_flags) as usize - ptr as usize },
-        0usize,
-        "Offset of field: addrinfo::ai_flags"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_family) as usize - ptr as usize },
-        4usize,
-        "Offset of field: addrinfo::ai_family"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_socktype) as usize - ptr as usize },
-        8usize,
-        "Offset of field: addrinfo::ai_socktype"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_protocol) as usize - ptr as usize },
-        12usize,
-        "Offset of field: addrinfo::ai_protocol"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_addrlen) as usize - ptr as usize },
-        16usize,
-        "Offset of field: addrinfo::ai_addrlen"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_canonname) as usize - ptr as usize },
-        20usize,
-        "Offset of field: addrinfo::ai_canonname"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_addr) as usize - ptr as usize },
-        24usize,
-        "Offset of field: addrinfo::ai_addr"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ai_next) as usize - ptr as usize },
-        28usize,
-        "Offset of field: addrinfo::ai_next"
-    );
-}
-extern "C" {
-    pub fn getaddrinfo(
-        __node: *const ::std::os::raw::c_char,
-        __service: *const ::std::os::raw::c_char,
-        __hints: *const addrinfo,
-        __result: *mut *mut addrinfo,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn freeaddrinfo(__ptr: *mut addrinfo);
-}
-extern "C" {
-    pub fn getnameinfo(
-        __sa: *const sockaddr,
-        __sa_length: socklen_t,
-        __host: *mut ::std::os::raw::c_char,
-        __host_length: usize,
-        __service: *mut ::std::os::raw::c_char,
-        __service_length: usize,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn gai_strerror(__error: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn __get_h_errno() -> *mut ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn herror(__s: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn hstrerror(__error: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn gethostbyaddr(
-        __addr: *const ::std::os::raw::c_void,
-        __length: socklen_t,
-        __type: ::std::os::raw::c_int,
-    ) -> *mut hostent;
-}
-extern "C" {
-    pub fn gethostbyname(__name: *const ::std::os::raw::c_char) -> *mut hostent;
-}
-extern "C" {
-    pub fn gethostbyname_r(
-        __name: *const ::std::os::raw::c_char,
-        __ret: *mut hostent,
-        __buf: *mut ::std::os::raw::c_char,
-        __buf_size: usize,
-        __result: *mut *mut hostent,
-        __h_errno_ptr: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn gethostbyname2(
-        __name: *const ::std::os::raw::c_char,
-        __af: ::std::os::raw::c_int,
-    ) -> *mut hostent;
-}
-extern "C" {
-    pub fn gethostent() -> *mut hostent;
-}
-extern "C" {
-    pub fn getnetbyaddr(__net: u32, __type: ::std::os::raw::c_int) -> *mut netent;
-}
-extern "C" {
-    pub fn getnetbyname(__name: *const ::std::os::raw::c_char) -> *mut netent;
-}
-extern "C" {
-    pub fn getprotobyname(__name: *const ::std::os::raw::c_char) -> *mut protoent;
-}
-extern "C" {
-    pub fn getprotobynumber(__proto: ::std::os::raw::c_int) -> *mut protoent;
-}
-extern "C" {
-    pub fn endservent();
-}
-extern "C" {
-    pub fn getservbyname(
-        __name: *const ::std::os::raw::c_char,
-        __proto: *const ::std::os::raw::c_char,
-    ) -> *mut servent;
-}
-extern "C" {
-    pub fn getservbyport(
-        __port_in_network_order: ::std::os::raw::c_int,
-        __proto: *const ::std::os::raw::c_char,
-    ) -> *mut servent;
-}
-extern "C" {
-    pub fn getservent() -> *mut servent;
-}
-extern "C" {
-    pub fn setservent(__stay_open: ::std::os::raw::c_int);
-}
-pub type fpos_t = off_t;
-pub type fpos64_t = off64_t;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sFILE {
-    _unused: [u8; 0],
-}
-pub type FILE = __sFILE;
-extern "C" {
-    pub static mut stdin: *mut FILE;
-}
-extern "C" {
-    pub static mut stdout: *mut FILE;
-}
-extern "C" {
-    pub static mut stderr: *mut FILE;
-}
-extern "C" {
-    pub fn clearerr(__fp: *mut FILE);
-}
-extern "C" {
-    pub fn fclose(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn feof(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ferror(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fflush(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fgetc(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fgets(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_int,
-        __fp: *mut FILE,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn fprintf(
-        __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fputc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fputs(__s: *const ::std::os::raw::c_char, __fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fread(
-        __buf: *mut ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_uint,
-        __count: ::std::os::raw::c_uint,
-        __fp: *mut FILE,
-    ) -> ::std::os::raw::c_uint;
-}
-extern "C" {
-    pub fn fscanf(
-        __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fwrite(
-        __buf: *const ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_uint,
-        __count: ::std::os::raw::c_uint,
-        __fp: *mut FILE,
-    ) -> ::std::os::raw::c_uint;
-}
-extern "C" {
-    pub fn getc(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getchar() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getdelim(
-        __line_ptr: *mut *mut ::std::os::raw::c_char,
-        __line_length_ptr: *mut usize,
-        __delimiter: ::std::os::raw::c_int,
-        __fp: *mut FILE,
-    ) -> isize;
-}
-extern "C" {
-    pub fn getline(
-        __line_ptr: *mut *mut ::std::os::raw::c_char,
-        __line_length_ptr: *mut usize,
-        __fp: *mut FILE,
-    ) -> isize;
-}
-extern "C" {
-    pub fn perror(__msg: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn printf(__fmt: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putchar(__ch: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn puts(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn remove(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn rewind(__fp: *mut FILE);
-}
-extern "C" {
-    pub fn scanf(__fmt: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setbuf(__fp: *mut FILE, __buf: *mut ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn setvbuf(
-        __fp: *mut FILE,
-        __buf: *mut ::std::os::raw::c_char,
-        __mode: ::std::os::raw::c_int,
-        __size: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sscanf(
-        __s: *const ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ungetc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vfprintf(
-        __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
-        __args: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vprintf(
-        __fp: *const ::std::os::raw::c_char,
-        __args: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn dprintf(
-        __fd: ::std::os::raw::c_int,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vdprintf(
-        __fd: ::std::os::raw::c_int,
-        __fmt: *const ::std::os::raw::c_char,
-        __args: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vsprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
-        __args: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn tmpnam(__s: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn tempnam(
-        __dir: *const ::std::os::raw::c_char,
-        __prefix: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn rename(
-        __old_path: *const ::std::os::raw::c_char,
-        __new_path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn renameat(
-        __old_dir_fd: ::std::os::raw::c_int,
-        __old_path: *const ::std::os::raw::c_char,
-        __new_dir_fd: ::std::os::raw::c_int,
-        __new_path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fseek(
-        __fp: *mut FILE,
-        __offset: ::std::os::raw::c_long,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ftell(__fp: *mut FILE) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn fgetpos(__fp: *mut FILE, __pos: *mut fpos_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fsetpos(__fp: *mut FILE, __pos: *const fpos_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fseeko(
-        __fp: *mut FILE,
-        __offset: off_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ftello(__fp: *mut FILE) -> off_t;
-}
-extern "C" {
-    pub fn fopen(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn freopen(
-        __path: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
-        __fp: *mut FILE,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn tmpfile() -> *mut FILE;
-}
-extern "C" {
-    pub fn snprintf(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_uint,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vfscanf(
-        __fp: *mut FILE,
-        __fmt: *const ::std::os::raw::c_char,
-        __args: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vscanf(
-        __fmt: *const ::std::os::raw::c_char,
-        __args: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vsnprintf(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_uint,
-        __fmt: *const ::std::os::raw::c_char,
-        __args: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vsscanf(
-        __s: *const ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
-        __args: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fdopen(__fd: ::std::os::raw::c_int, __mode: *const ::std::os::raw::c_char) -> *mut FILE;
-}
-extern "C" {
-    pub fn fileno(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn pclose(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn popen(
-        __command: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn flockfile(__fp: *mut FILE);
-}
-extern "C" {
-    pub fn ftrylockfile(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn funlockfile(__fp: *mut FILE);
-}
-extern "C" {
-    pub fn getc_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getchar_unlocked() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putc_unlocked(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putchar_unlocked(__ch: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn asprintf(
-        __s_ptr: *mut *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fgetln(__fp: *mut FILE, __length_ptr: *mut usize) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn fpurge(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setbuffer(
-        __fp: *mut FILE,
-        __buf: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_int,
-    );
-}
-extern "C" {
-    pub fn setlinebuf(__fp: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vasprintf(
-        __s_ptr: *mut *mut ::std::os::raw::c_char,
-        __fmt: *const ::std::os::raw::c_char,
-        __args: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn malloc(__byte_count: ::std::os::raw::c_uint) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn calloc(
-        __item_count: ::std::os::raw::c_uint,
-        __item_size: ::std::os::raw::c_uint,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn realloc(
-        __ptr: *mut ::std::os::raw::c_void,
-        __byte_count: ::std::os::raw::c_uint,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn reallocarray(
-        __ptr: *mut ::std::os::raw::c_void,
-        __item_count: usize,
-        __item_size: usize,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn free(__ptr: *mut ::std::os::raw::c_void);
-}
-extern "C" {
-    pub fn memalign(
-        __alignment: ::std::os::raw::c_uint,
-        __byte_count: ::std::os::raw::c_uint,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn malloc_usable_size(__ptr: *const ::std::os::raw::c_void) -> usize;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct mallinfo {
-    pub arena: usize,
-    pub ordblks: usize,
-    pub smblks: usize,
-    pub hblks: usize,
-    pub hblkhd: usize,
-    pub usmblks: usize,
-    pub fsmblks: usize,
-    pub uordblks: usize,
-    pub fordblks: usize,
-    pub keepcost: usize,
-}
-#[test]
-fn bindgen_test_layout_mallinfo() {
-    const UNINIT: ::std::mem::MaybeUninit<mallinfo> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<mallinfo>(),
-        40usize,
-        "Size of mallinfo"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<mallinfo>(),
-        4usize,
-        "Alignment of mallinfo"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
-        0usize,
-        "Offset of field: mallinfo::arena"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
-        4usize,
-        "Offset of field: mallinfo::ordblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
-        8usize,
-        "Offset of field: mallinfo::smblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
-        12usize,
-        "Offset of field: mallinfo::hblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
-        16usize,
-        "Offset of field: mallinfo::hblkhd"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
-        20usize,
-        "Offset of field: mallinfo::usmblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
-        24usize,
-        "Offset of field: mallinfo::fsmblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
-        28usize,
-        "Offset of field: mallinfo::uordblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
-        32usize,
-        "Offset of field: mallinfo::fordblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
-        36usize,
-        "Offset of field: mallinfo::keepcost"
-    );
-}
-extern "C" {
-    pub fn mallinfo() -> mallinfo;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct mallinfo2 {
-    pub arena: usize,
-    pub ordblks: usize,
-    pub smblks: usize,
-    pub hblks: usize,
-    pub hblkhd: usize,
-    pub usmblks: usize,
-    pub fsmblks: usize,
-    pub uordblks: usize,
-    pub fordblks: usize,
-    pub keepcost: usize,
-}
-#[test]
-fn bindgen_test_layout_mallinfo2() {
-    const UNINIT: ::std::mem::MaybeUninit<mallinfo2> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<mallinfo2>(),
-        40usize,
-        "Size of mallinfo2"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<mallinfo2>(),
-        4usize,
-        "Alignment of mallinfo2"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
-        0usize,
-        "Offset of field: mallinfo2::arena"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
-        4usize,
-        "Offset of field: mallinfo2::ordblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
-        8usize,
-        "Offset of field: mallinfo2::smblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
-        12usize,
-        "Offset of field: mallinfo2::hblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
-        16usize,
-        "Offset of field: mallinfo2::hblkhd"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
-        20usize,
-        "Offset of field: mallinfo2::usmblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
-        24usize,
-        "Offset of field: mallinfo2::fsmblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
-        28usize,
-        "Offset of field: mallinfo2::uordblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
-        32usize,
-        "Offset of field: mallinfo2::fordblks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
-        36usize,
-        "Offset of field: mallinfo2::keepcost"
-    );
-}
-impl HeapTaggingLevel {
-    pub const M_HEAP_TAGGING_LEVEL_NONE: HeapTaggingLevel = HeapTaggingLevel(0);
-    pub const M_HEAP_TAGGING_LEVEL_TBI: HeapTaggingLevel = HeapTaggingLevel(1);
-    pub const M_HEAP_TAGGING_LEVEL_ASYNC: HeapTaggingLevel = HeapTaggingLevel(2);
-    pub const M_HEAP_TAGGING_LEVEL_SYNC: HeapTaggingLevel = HeapTaggingLevel(3);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct HeapTaggingLevel(pub ::std::os::raw::c_uint);
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __locale_t {
-    _unused: [u8; 0],
-}
-pub type locale_t = *mut __locale_t;
-extern "C" {
-    pub fn abort() -> !;
-}
-extern "C" {
-    pub fn exit(__status: ::std::os::raw::c_int) -> !;
-}
-extern "C" {
-    pub fn _Exit(__status: ::std::os::raw::c_int) -> !;
-}
-extern "C" {
-    pub fn atexit(__fn: ::std::option::Option<unsafe extern "C" fn()>) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn at_quick_exit(
-        __fn: ::std::option::Option<unsafe extern "C" fn()>,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn quick_exit(__status: ::std::os::raw::c_int) -> !;
-}
-extern "C" {
-    pub fn getenv(__name: *const ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn putenv(__assignment: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setenv(
-        __name: *const ::std::os::raw::c_char,
-        __value: *const ::std::os::raw::c_char,
-        __overwrite: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn unsetenv(__name: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn clearenv() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn mkdtemp(__template: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn mktemp(__template: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn mkstemp64(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn mkstemp(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn mkstemps(
-        __template: *mut ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn posix_memalign(
-        __memptr: *mut *mut ::std::os::raw::c_void,
-        __alignment: usize,
-        __size: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn realpath(
-        __path: *const ::std::os::raw::c_char,
-        __resolved: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn system(__command: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn bsearch(
-        __key: *const ::std::os::raw::c_void,
-        __base: *const ::std::os::raw::c_void,
-        __nmemb: usize,
-        __size: usize,
-        __comparator: ::std::option::Option<
-            unsafe extern "C" fn(
-                __lhs: *const ::std::os::raw::c_void,
-                __rhs: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn qsort(
-        __array: *mut ::std::os::raw::c_void,
-        __n: usize,
-        __size: usize,
-        __comparator: ::std::option::Option<
-            unsafe extern "C" fn(
-                __lhs: *const ::std::os::raw::c_void,
-                __rhs: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    );
-}
-extern "C" {
-    pub fn arc4random() -> u32;
-}
-extern "C" {
-    pub fn arc4random_uniform(__upper_bound: u32) -> u32;
-}
-extern "C" {
-    pub fn arc4random_buf(__buf: *mut ::std::os::raw::c_void, __n: usize);
-}
-extern "C" {
-    pub fn rand_r(__seed_ptr: *mut ::std::os::raw::c_uint) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn drand48() -> f64;
-}
-extern "C" {
-    pub fn erand48(__xsubi: *mut ::std::os::raw::c_ushort) -> f64;
-}
-extern "C" {
-    pub fn lrand48() -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn mrand48() -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn nrand48(__xsubi: *mut ::std::os::raw::c_ushort) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn seed48(__seed16v: *mut ::std::os::raw::c_ushort) -> *mut ::std::os::raw::c_ushort;
-}
-extern "C" {
-    pub fn srand48(__seed: ::std::os::raw::c_long);
-}
-extern "C" {
-    pub fn initstate(
-        __seed: ::std::os::raw::c_uint,
-        __state: *mut ::std::os::raw::c_char,
-        __n: usize,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn setstate(__state: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getpt() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn posix_openpt(__flags: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ptsname(__fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ptsname_r(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
-        __n: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn unlockpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct div_t {
-    pub quot: ::std::os::raw::c_int,
-    pub rem: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout_div_t() {
-    const UNINIT: ::std::mem::MaybeUninit<div_t> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<div_t>(), 8usize, "Size of div_t");
-    assert_eq!(
-        ::std::mem::align_of::<div_t>(),
-        4usize,
-        "Alignment of div_t"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
-        0usize,
-        "Offset of field: div_t::quot"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
-        4usize,
-        "Offset of field: div_t::rem"
-    );
-}
-extern "C" {
-    pub fn div(__numerator: ::std::os::raw::c_int, __denominator: ::std::os::raw::c_int) -> div_t;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ldiv_t {
-    pub quot: ::std::os::raw::c_long,
-    pub rem: ::std::os::raw::c_long,
-}
-#[test]
-fn bindgen_test_layout_ldiv_t() {
-    const UNINIT: ::std::mem::MaybeUninit<ldiv_t> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<ldiv_t>(), 8usize, "Size of ldiv_t");
-    assert_eq!(
-        ::std::mem::align_of::<ldiv_t>(),
-        4usize,
-        "Alignment of ldiv_t"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ldiv_t::quot"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
-        4usize,
-        "Offset of field: ldiv_t::rem"
-    );
-}
-extern "C" {
-    pub fn ldiv(
-        __numerator: ::std::os::raw::c_long,
-        __denominator: ::std::os::raw::c_long,
-    ) -> ldiv_t;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct lldiv_t {
-    pub quot: ::std::os::raw::c_longlong,
-    pub rem: ::std::os::raw::c_longlong,
-}
-#[test]
-fn bindgen_test_layout_lldiv_t() {
-    const UNINIT: ::std::mem::MaybeUninit<lldiv_t> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(::std::mem::size_of::<lldiv_t>(), 16usize, "Size of lldiv_t");
-    assert_eq!(
-        ::std::mem::align_of::<lldiv_t>(),
-        4usize,
-        "Alignment of lldiv_t"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
-        0usize,
-        "Offset of field: lldiv_t::quot"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
-        8usize,
-        "Offset of field: lldiv_t::rem"
-    );
-}
-extern "C" {
-    pub fn lldiv(
-        __numerator: ::std::os::raw::c_longlong,
-        __denominator: ::std::os::raw::c_longlong,
-    ) -> lldiv_t;
-}
-extern "C" {
-    pub fn getprogname() -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn setprogname(__name: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn mbstowcs(__dst: *mut wchar_t, __src: *const ::std::os::raw::c_char, __n: usize)
-        -> usize;
-}
-extern "C" {
-    pub fn mbtowc(
-        __wc_ptr: *mut wchar_t,
-        __s: *const ::std::os::raw::c_char,
-        __n: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn wctomb(__dst: *mut ::std::os::raw::c_char, __wc: wchar_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn wcstombs(__dst: *mut ::std::os::raw::c_char, __src: *const wchar_t, __n: usize)
-        -> usize;
-}
-extern "C" {
-    pub fn __ctype_get_mb_cur_max() -> usize;
-}
-extern "C" {
-    pub fn abs(__x: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn labs(__x: ::std::os::raw::c_long) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn llabs(__x: ::std::os::raw::c_longlong) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn rand() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn srand(__seed: ::std::os::raw::c_uint);
-}
-extern "C" {
-    pub fn random() -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn srandom(__seed: ::std::os::raw::c_uint);
-}
-extern "C" {
-    pub fn grantpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn atof(__s: *const ::std::os::raw::c_char) -> f64;
-}
-extern "C" {
-    pub fn atoi(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn atol(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn atoll(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn strtol(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn strtoll(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn strtoll_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-        __l: locale_t,
-    ) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn strtoul(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn strtoull(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
-}
-extern "C" {
-    pub fn strtoull_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-        __l: locale_t,
-    ) -> ::std::os::raw::c_ulonglong;
-}
-extern "C" {
-    pub fn strtof(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f32;
-}
-extern "C" {
-    pub fn strtod(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
-}
-extern "C" {
-    pub fn strtold(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
-}
-extern "C" {
-    pub fn strtold_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __l: locale_t,
-    ) -> f64;
-}
-extern "C" {
-    pub fn strtod_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __l: locale_t,
-    ) -> f64;
-}
-extern "C" {
-    pub fn strtof_l(
-        __s: *const ::std::os::raw::c_char,
-        __end_ptr: *mut *mut ::std::os::raw::c_char,
-        __l: locale_t,
-    ) -> f32;
-}
-pub type net_handle_t = u64;
-extern "C" {
-    pub fn android_setsocknetwork(
-        network: net_handle_t,
-        fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_setprocnetwork(network: net_handle_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_getprocnetwork(network: *mut net_handle_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_setprocdns(network: net_handle_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_getprocdns(network: *mut net_handle_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_getaddrinfofornetwork(
-        network: net_handle_t,
-        node: *const ::std::os::raw::c_char,
-        service: *const ::std::os::raw::c_char,
-        hints: *const addrinfo,
-        res: *mut *mut addrinfo,
-    ) -> ::std::os::raw::c_int;
-}
-impl ResNsendFlags {
-    pub const ANDROID_RESOLV_NO_RETRY: ResNsendFlags = ResNsendFlags(1);
-    pub const ANDROID_RESOLV_NO_CACHE_STORE: ResNsendFlags = ResNsendFlags(2);
-    pub const ANDROID_RESOLV_NO_CACHE_LOOKUP: ResNsendFlags = ResNsendFlags(4);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ResNsendFlags(pub u32);
-extern "C" {
-    pub fn android_res_nquery(
-        network: net_handle_t,
-        dname: *const ::std::os::raw::c_char,
-        ns_class: ::std::os::raw::c_int,
-        ns_type: ::std::os::raw::c_int,
-        flags: u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_res_nsend(
-        network: net_handle_t,
-        msg: *const u8,
-        msglen: usize,
-        flags: u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_res_nresult(
-        fd: ::std::os::raw::c_int,
-        rcode: *mut ::std::os::raw::c_int,
-        answer: *mut u8,
-        anslen: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_res_cancel(nsend_fd: ::std::os::raw::c_int);
-}
-extern "C" {
-    pub fn android_tag_socket_with_uid(
-        sockfd: ::std::os::raw::c_int,
-        tag: u32,
-        uid: uid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_tag_socket(sockfd: ::std::os::raw::c_int, tag: u32) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn android_untag_socket(sockfd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-impl ANativeWindow_LegacyFormat {
-    pub const WINDOW_FORMAT_RGBA_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(1);
-    pub const WINDOW_FORMAT_RGBX_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(2);
-    pub const WINDOW_FORMAT_RGB_565: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(4);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindow_LegacyFormat(pub ::std::os::raw::c_uint);
-impl ANativeWindowTransform {
-    pub const ANATIVEWINDOW_TRANSFORM_IDENTITY: ANativeWindowTransform = ANativeWindowTransform(0);
-    pub const ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL: ANativeWindowTransform =
-        ANativeWindowTransform(1);
-    pub const ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL: ANativeWindowTransform =
-        ANativeWindowTransform(2);
-    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_90: ANativeWindowTransform = ANativeWindowTransform(4);
-    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_180: ANativeWindowTransform =
-        ANativeWindowTransform(3);
-    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_270: ANativeWindowTransform =
-        ANativeWindowTransform(7);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindowTransform(pub ::std::os::raw::c_uint);
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANativeWindow {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANativeWindow_Buffer {
-    pub width: i32,
-    pub height: i32,
-    pub stride: i32,
-    pub format: i32,
-    pub bits: *mut ::std::os::raw::c_void,
-    pub reserved: [u32; 6usize],
-}
-#[test]
-fn bindgen_test_layout_ANativeWindow_Buffer() {
-    const UNINIT: ::std::mem::MaybeUninit<ANativeWindow_Buffer> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<ANativeWindow_Buffer>(),
-        44usize,
-        "Size of ANativeWindow_Buffer"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ANativeWindow_Buffer>(),
-        4usize,
-        "Alignment of ANativeWindow_Buffer"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ANativeWindow_Buffer::width"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
-        4usize,
-        "Offset of field: ANativeWindow_Buffer::height"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ANativeWindow_Buffer::stride"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
-        12usize,
-        "Offset of field: ANativeWindow_Buffer::format"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).bits) as usize - ptr as usize },
-        16usize,
-        "Offset of field: ANativeWindow_Buffer::bits"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
-        20usize,
-        "Offset of field: ANativeWindow_Buffer::reserved"
-    );
-}
-extern "C" {
-    pub fn ANativeWindow_acquire(window: *mut ANativeWindow);
-}
-extern "C" {
-    pub fn ANativeWindow_release(window: *mut ANativeWindow);
-}
-extern "C" {
-    pub fn ANativeWindow_getWidth(window: *mut ANativeWindow) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_getHeight(window: *mut ANativeWindow) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_getFormat(window: *mut ANativeWindow) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_setBuffersGeometry(
-        window: *mut ANativeWindow,
-        width: i32,
-        height: i32,
-        format: i32,
-    ) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_lock(
-        window: *mut ANativeWindow,
-        outBuffer: *mut ANativeWindow_Buffer,
-        inOutDirtyBounds: *mut ARect,
-    ) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_unlockAndPost(window: *mut ANativeWindow) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_setBuffersTransform(window: *mut ANativeWindow, transform: i32) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_setBuffersDataSpace(window: *mut ANativeWindow, dataSpace: i32) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_getBuffersDataSpace(window: *mut ANativeWindow) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_getBuffersDefaultDataSpace(window: *mut ANativeWindow) -> i32;
-}
-impl ANativeWindow_FrameRateCompatibility {
-    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT: ANativeWindow_FrameRateCompatibility =
-        ANativeWindow_FrameRateCompatibility(0);
-    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE:
-        ANativeWindow_FrameRateCompatibility = ANativeWindow_FrameRateCompatibility(1);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindow_FrameRateCompatibility(pub ::std::os::raw::c_uint);
-extern "C" {
-    pub fn ANativeWindow_setFrameRate(
-        window: *mut ANativeWindow,
-        frameRate: f32,
-        compatibility: i8,
-    ) -> i32;
-}
-extern "C" {
-    pub fn ANativeWindow_tryAllocateBuffers(window: *mut ANativeWindow);
-}
-impl ANativeWindow_ChangeFrameRateStrategy {
-    pub const ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS:
-        ANativeWindow_ChangeFrameRateStrategy = ANativeWindow_ChangeFrameRateStrategy(0);
-    pub const ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS: ANativeWindow_ChangeFrameRateStrategy =
-        ANativeWindow_ChangeFrameRateStrategy(1);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ANativeWindow_ChangeFrameRateStrategy(pub ::std::os::raw::c_uint);
-extern "C" {
-    pub fn ANativeWindow_setFrameRateWithChangeStrategy(
-        window: *mut ANativeWindow,
-        frameRate: f32,
-        compatibility: i8,
-        changeFrameRateStrategy: i8,
-    ) -> i32;
-}
-#[repr(C)]
-pub struct ANativeActivity {
-    pub callbacks: *mut ANativeActivityCallbacks,
-    pub vm: *mut JavaVM,
-    pub env: *mut JNIEnv,
-    pub clazz: jobject,
-    pub internalDataPath: *const ::std::os::raw::c_char,
-    pub externalDataPath: *const ::std::os::raw::c_char,
-    pub sdkVersion: i32,
-    pub instance: *mut ::std::os::raw::c_void,
-    pub assetManager: *mut AAssetManager,
-    pub obbPath: *const ::std::os::raw::c_char,
-}
-#[test]
-fn bindgen_test_layout_ANativeActivity() {
-    const UNINIT: ::std::mem::MaybeUninit<ANativeActivity> = ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<ANativeActivity>(),
-        40usize,
-        "Size of ANativeActivity"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ANativeActivity>(),
-        4usize,
-        "Alignment of ANativeActivity"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).callbacks) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ANativeActivity::callbacks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).vm) as usize - ptr as usize },
-        4usize,
-        "Offset of field: ANativeActivity::vm"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).env) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ANativeActivity::env"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).clazz) as usize - ptr as usize },
-        12usize,
-        "Offset of field: ANativeActivity::clazz"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).internalDataPath) as usize - ptr as usize },
-        16usize,
-        "Offset of field: ANativeActivity::internalDataPath"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).externalDataPath) as usize - ptr as usize },
-        20usize,
-        "Offset of field: ANativeActivity::externalDataPath"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).sdkVersion) as usize - ptr as usize },
-        24usize,
-        "Offset of field: ANativeActivity::sdkVersion"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).instance) as usize - ptr as usize },
-        28usize,
-        "Offset of field: ANativeActivity::instance"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).assetManager) as usize - ptr as usize },
-        32usize,
-        "Offset of field: ANativeActivity::assetManager"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).obbPath) as usize - ptr as usize },
-        36usize,
-        "Offset of field: ANativeActivity::obbPath"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANativeActivityCallbacks {
-    pub onStart: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onResume: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onSaveInstanceState: ::std::option::Option<
-        unsafe extern "C" fn(
-            activity: *mut ANativeActivity,
-            outSize: *mut usize,
-        ) -> *mut ::std::os::raw::c_void,
-    >,
-    pub onPause: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onStop: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onDestroy: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onWindowFocusChanged: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, hasFocus: ::std::os::raw::c_int),
-    >,
-    pub onNativeWindowCreated: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onNativeWindowResized: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onNativeWindowRedrawNeeded: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onNativeWindowDestroyed: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
-    >,
-    pub onInputQueueCreated: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
-    >,
-    pub onInputQueueDestroyed: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
-    >,
-    pub onContentRectChanged: ::std::option::Option<
-        unsafe extern "C" fn(activity: *mut ANativeActivity, rect: *const ARect),
-    >,
-    pub onConfigurationChanged:
-        ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-    pub onLowMemory: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
-}
-#[test]
-fn bindgen_test_layout_ANativeActivityCallbacks() {
-    const UNINIT: ::std::mem::MaybeUninit<ANativeActivityCallbacks> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<ANativeActivityCallbacks>(),
-        64usize,
-        "Size of ANativeActivityCallbacks"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ANativeActivityCallbacks>(),
-        4usize,
-        "Alignment of ANativeActivityCallbacks"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onStart) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ANativeActivityCallbacks::onStart"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onResume) as usize - ptr as usize },
-        4usize,
-        "Offset of field: ANativeActivityCallbacks::onResume"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onSaveInstanceState) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ANativeActivityCallbacks::onSaveInstanceState"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onPause) as usize - ptr as usize },
-        12usize,
-        "Offset of field: ANativeActivityCallbacks::onPause"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onStop) as usize - ptr as usize },
-        16usize,
-        "Offset of field: ANativeActivityCallbacks::onStop"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onDestroy) as usize - ptr as usize },
-        20usize,
-        "Offset of field: ANativeActivityCallbacks::onDestroy"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onWindowFocusChanged) as usize - ptr as usize },
-        24usize,
-        "Offset of field: ANativeActivityCallbacks::onWindowFocusChanged"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowCreated) as usize - ptr as usize },
-        28usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowCreated"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowResized) as usize - ptr as usize },
-        32usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowResized"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowRedrawNeeded) as usize - ptr as usize },
-        36usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowRedrawNeeded"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowDestroyed) as usize - ptr as usize },
-        40usize,
-        "Offset of field: ANativeActivityCallbacks::onNativeWindowDestroyed"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueCreated) as usize - ptr as usize },
-        44usize,
-        "Offset of field: ANativeActivityCallbacks::onInputQueueCreated"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueDestroyed) as usize - ptr as usize },
-        48usize,
-        "Offset of field: ANativeActivityCallbacks::onInputQueueDestroyed"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onContentRectChanged) as usize - ptr as usize },
-        52usize,
-        "Offset of field: ANativeActivityCallbacks::onContentRectChanged"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onConfigurationChanged) as usize - ptr as usize },
-        56usize,
-        "Offset of field: ANativeActivityCallbacks::onConfigurationChanged"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).onLowMemory) as usize - ptr as usize },
-        60usize,
-        "Offset of field: ANativeActivityCallbacks::onLowMemory"
-    );
-}
-pub type ANativeActivity_createFunc = ::std::option::Option<
-    unsafe extern "C" fn(
-        activity: *mut ANativeActivity,
-        savedState: *mut ::std::os::raw::c_void,
-        savedStateSize: usize,
-    ),
->;
-extern "C" {
-    pub fn ANativeActivity_onCreate(
-        activity: *mut ANativeActivity,
-        savedState: *mut ::std::os::raw::c_void,
-        savedStateSize: usize,
-    );
-}
-extern "C" {
-    pub fn ANativeActivity_finish(activity: *mut ANativeActivity);
-}
-extern "C" {
-    pub fn ANativeActivity_setWindowFormat(activity: *mut ANativeActivity, format: i32);
-}
-extern "C" {
-    pub fn ANativeActivity_setWindowFlags(
-        activity: *mut ANativeActivity,
-        addFlags: u32,
-        removeFlags: u32,
-    );
-}
-pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_IMPLICIT: _bindgen_ty_33 = 1;
-pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_FORCED: _bindgen_ty_33 = 2;
-pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
-extern "C" {
-    pub fn ANativeActivity_showSoftInput(activity: *mut ANativeActivity, flags: u32);
-}
-pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_IMPLICIT_ONLY: _bindgen_ty_34 = 1;
-pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_34 = 2;
-pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
-extern "C" {
-    pub fn ANativeActivity_hideSoftInput(activity: *mut ANativeActivity, flags: u32);
-}
-extern "C" {
-    pub fn ANativeWindow_fromSurface(env: *mut JNIEnv, surface: jobject) -> *mut ANativeWindow;
-}
-extern "C" {
-    pub fn ANativeWindow_toSurface(env: *mut JNIEnv, window: *mut ANativeWindow) -> jobject;
-}
-impl OperandCode {
-    pub const ANEURALNETWORKS_FLOAT32: OperandCode = OperandCode(0);
-    pub const ANEURALNETWORKS_INT32: OperandCode = OperandCode(1);
-    pub const ANEURALNETWORKS_UINT32: OperandCode = OperandCode(2);
-    pub const ANEURALNETWORKS_TENSOR_FLOAT32: OperandCode = OperandCode(3);
-    pub const ANEURALNETWORKS_TENSOR_INT32: OperandCode = OperandCode(4);
-    pub const ANEURALNETWORKS_TENSOR_QUANT8_ASYMM: OperandCode = OperandCode(5);
-    pub const ANEURALNETWORKS_BOOL: OperandCode = OperandCode(6);
-    pub const ANEURALNETWORKS_TENSOR_QUANT16_SYMM: OperandCode = OperandCode(7);
-    pub const ANEURALNETWORKS_TENSOR_FLOAT16: OperandCode = OperandCode(8);
-    pub const ANEURALNETWORKS_TENSOR_BOOL8: OperandCode = OperandCode(9);
-    pub const ANEURALNETWORKS_FLOAT16: OperandCode = OperandCode(10);
-    pub const ANEURALNETWORKS_TENSOR_QUANT8_SYMM_PER_CHANNEL: OperandCode = OperandCode(11);
-    pub const ANEURALNETWORKS_TENSOR_QUANT16_ASYMM: OperandCode = OperandCode(12);
-    pub const ANEURALNETWORKS_TENSOR_QUANT8_SYMM: OperandCode = OperandCode(13);
-    pub const ANEURALNETWORKS_TENSOR_QUANT8_ASYMM_SIGNED: OperandCode = OperandCode(14);
-    pub const ANEURALNETWORKS_MODEL: OperandCode = OperandCode(15);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct OperandCode(pub ::std::os::raw::c_uint);
-impl OperationCode {
-    pub const ANEURALNETWORKS_ADD: OperationCode = OperationCode(0);
-    pub const ANEURALNETWORKS_AVERAGE_POOL_2D: OperationCode = OperationCode(1);
-    pub const ANEURALNETWORKS_CONCATENATION: OperationCode = OperationCode(2);
-    pub const ANEURALNETWORKS_CONV_2D: OperationCode = OperationCode(3);
-    pub const ANEURALNETWORKS_DEPTHWISE_CONV_2D: OperationCode = OperationCode(4);
-    pub const ANEURALNETWORKS_DEPTH_TO_SPACE: OperationCode = OperationCode(5);
-    pub const ANEURALNETWORKS_DEQUANTIZE: OperationCode = OperationCode(6);
-    pub const ANEURALNETWORKS_EMBEDDING_LOOKUP: OperationCode = OperationCode(7);
-    pub const ANEURALNETWORKS_FLOOR: OperationCode = OperationCode(8);
-    pub const ANEURALNETWORKS_FULLY_CONNECTED: OperationCode = OperationCode(9);
-    pub const ANEURALNETWORKS_HASHTABLE_LOOKUP: OperationCode = OperationCode(10);
-    pub const ANEURALNETWORKS_L2_NORMALIZATION: OperationCode = OperationCode(11);
-    pub const ANEURALNETWORKS_L2_POOL_2D: OperationCode = OperationCode(12);
-    pub const ANEURALNETWORKS_LOCAL_RESPONSE_NORMALIZATION: OperationCode = OperationCode(13);
-    pub const ANEURALNETWORKS_LOGISTIC: OperationCode = OperationCode(14);
-    pub const ANEURALNETWORKS_LSH_PROJECTION: OperationCode = OperationCode(15);
-    pub const ANEURALNETWORKS_LSTM: OperationCode = OperationCode(16);
-    pub const ANEURALNETWORKS_MAX_POOL_2D: OperationCode = OperationCode(17);
-    pub const ANEURALNETWORKS_MUL: OperationCode = OperationCode(18);
-    pub const ANEURALNETWORKS_RELU: OperationCode = OperationCode(19);
-    pub const ANEURALNETWORKS_RELU1: OperationCode = OperationCode(20);
-    pub const ANEURALNETWORKS_RELU6: OperationCode = OperationCode(21);
-    pub const ANEURALNETWORKS_RESHAPE: OperationCode = OperationCode(22);
-    pub const ANEURALNETWORKS_RESIZE_BILINEAR: OperationCode = OperationCode(23);
-    pub const ANEURALNETWORKS_RNN: OperationCode = OperationCode(24);
-    pub const ANEURALNETWORKS_SOFTMAX: OperationCode = OperationCode(25);
-    pub const ANEURALNETWORKS_SPACE_TO_DEPTH: OperationCode = OperationCode(26);
-    pub const ANEURALNETWORKS_SVDF: OperationCode = OperationCode(27);
-    pub const ANEURALNETWORKS_TANH: OperationCode = OperationCode(28);
-    pub const ANEURALNETWORKS_BATCH_TO_SPACE_ND: OperationCode = OperationCode(29);
-    pub const ANEURALNETWORKS_DIV: OperationCode = OperationCode(30);
-    pub const ANEURALNETWORKS_MEAN: OperationCode = OperationCode(31);
-    pub const ANEURALNETWORKS_PAD: OperationCode = OperationCode(32);
-    pub const ANEURALNETWORKS_SPACE_TO_BATCH_ND: OperationCode = OperationCode(33);
-    pub const ANEURALNETWORKS_SQUEEZE: OperationCode = OperationCode(34);
-    pub const ANEURALNETWORKS_STRIDED_SLICE: OperationCode = OperationCode(35);
-    pub const ANEURALNETWORKS_SUB: OperationCode = OperationCode(36);
-    pub const ANEURALNETWORKS_TRANSPOSE: OperationCode = OperationCode(37);
-    pub const ANEURALNETWORKS_ABS: OperationCode = OperationCode(38);
-    pub const ANEURALNETWORKS_ARGMAX: OperationCode = OperationCode(39);
-    pub const ANEURALNETWORKS_ARGMIN: OperationCode = OperationCode(40);
-    pub const ANEURALNETWORKS_AXIS_ALIGNED_BBOX_TRANSFORM: OperationCode = OperationCode(41);
-    pub const ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = OperationCode(42);
-    pub const ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_RNN: OperationCode = OperationCode(43);
-    pub const ANEURALNETWORKS_BOX_WITH_NMS_LIMIT: OperationCode = OperationCode(44);
-    pub const ANEURALNETWORKS_CAST: OperationCode = OperationCode(45);
-    pub const ANEURALNETWORKS_CHANNEL_SHUFFLE: OperationCode = OperationCode(46);
-    pub const ANEURALNETWORKS_DETECTION_POSTPROCESSING: OperationCode = OperationCode(47);
-    pub const ANEURALNETWORKS_EQUAL: OperationCode = OperationCode(48);
-    pub const ANEURALNETWORKS_EXP: OperationCode = OperationCode(49);
-    pub const ANEURALNETWORKS_EXPAND_DIMS: OperationCode = OperationCode(50);
-    pub const ANEURALNETWORKS_GATHER: OperationCode = OperationCode(51);
-    pub const ANEURALNETWORKS_GENERATE_PROPOSALS: OperationCode = OperationCode(52);
-    pub const ANEURALNETWORKS_GREATER: OperationCode = OperationCode(53);
-    pub const ANEURALNETWORKS_GREATER_EQUAL: OperationCode = OperationCode(54);
-    pub const ANEURALNETWORKS_GROUPED_CONV_2D: OperationCode = OperationCode(55);
-    pub const ANEURALNETWORKS_HEATMAP_MAX_KEYPOINT: OperationCode = OperationCode(56);
-    pub const ANEURALNETWORKS_INSTANCE_NORMALIZATION: OperationCode = OperationCode(57);
-    pub const ANEURALNETWORKS_LESS: OperationCode = OperationCode(58);
-    pub const ANEURALNETWORKS_LESS_EQUAL: OperationCode = OperationCode(59);
-    pub const ANEURALNETWORKS_LOG: OperationCode = OperationCode(60);
-    pub const ANEURALNETWORKS_LOGICAL_AND: OperationCode = OperationCode(61);
-    pub const ANEURALNETWORKS_LOGICAL_NOT: OperationCode = OperationCode(62);
-    pub const ANEURALNETWORKS_LOGICAL_OR: OperationCode = OperationCode(63);
-    pub const ANEURALNETWORKS_LOG_SOFTMAX: OperationCode = OperationCode(64);
-    pub const ANEURALNETWORKS_MAXIMUM: OperationCode = OperationCode(65);
-    pub const ANEURALNETWORKS_MINIMUM: OperationCode = OperationCode(66);
-    pub const ANEURALNETWORKS_NEG: OperationCode = OperationCode(67);
-    pub const ANEURALNETWORKS_NOT_EQUAL: OperationCode = OperationCode(68);
-    pub const ANEURALNETWORKS_PAD_V2: OperationCode = OperationCode(69);
-    pub const ANEURALNETWORKS_POW: OperationCode = OperationCode(70);
-    pub const ANEURALNETWORKS_PRELU: OperationCode = OperationCode(71);
-    pub const ANEURALNETWORKS_QUANTIZE: OperationCode = OperationCode(72);
-    pub const ANEURALNETWORKS_QUANTIZED_16BIT_LSTM: OperationCode = OperationCode(73);
-    pub const ANEURALNETWORKS_RANDOM_MULTINOMIAL: OperationCode = OperationCode(74);
-    pub const ANEURALNETWORKS_REDUCE_ALL: OperationCode = OperationCode(75);
-    pub const ANEURALNETWORKS_REDUCE_ANY: OperationCode = OperationCode(76);
-    pub const ANEURALNETWORKS_REDUCE_MAX: OperationCode = OperationCode(77);
-    pub const ANEURALNETWORKS_REDUCE_MIN: OperationCode = OperationCode(78);
-    pub const ANEURALNETWORKS_REDUCE_PROD: OperationCode = OperationCode(79);
-    pub const ANEURALNETWORKS_REDUCE_SUM: OperationCode = OperationCode(80);
-    pub const ANEURALNETWORKS_ROI_ALIGN: OperationCode = OperationCode(81);
-    pub const ANEURALNETWORKS_ROI_POOLING: OperationCode = OperationCode(82);
-    pub const ANEURALNETWORKS_RSQRT: OperationCode = OperationCode(83);
-    pub const ANEURALNETWORKS_SELECT: OperationCode = OperationCode(84);
-    pub const ANEURALNETWORKS_SIN: OperationCode = OperationCode(85);
-    pub const ANEURALNETWORKS_SLICE: OperationCode = OperationCode(86);
-    pub const ANEURALNETWORKS_SPLIT: OperationCode = OperationCode(87);
-    pub const ANEURALNETWORKS_SQRT: OperationCode = OperationCode(88);
-    pub const ANEURALNETWORKS_TILE: OperationCode = OperationCode(89);
-    pub const ANEURALNETWORKS_TOPK_V2: OperationCode = OperationCode(90);
-    pub const ANEURALNETWORKS_TRANSPOSE_CONV_2D: OperationCode = OperationCode(91);
-    pub const ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = OperationCode(92);
-    pub const ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_RNN: OperationCode = OperationCode(93);
-    pub const ANEURALNETWORKS_RESIZE_NEAREST_NEIGHBOR: OperationCode = OperationCode(94);
-    pub const ANEURALNETWORKS_QUANTIZED_LSTM: OperationCode = OperationCode(95);
-    pub const ANEURALNETWORKS_IF: OperationCode = OperationCode(96);
-    pub const ANEURALNETWORKS_WHILE: OperationCode = OperationCode(97);
-    pub const ANEURALNETWORKS_ELU: OperationCode = OperationCode(98);
-    pub const ANEURALNETWORKS_HARD_SWISH: OperationCode = OperationCode(99);
-    pub const ANEURALNETWORKS_FILL: OperationCode = OperationCode(100);
-    pub const ANEURALNETWORKS_RANK: OperationCode = OperationCode(101);
-    pub const ANEURALNETWORKS_BATCH_MATMUL: OperationCode = OperationCode(102);
-    pub const ANEURALNETWORKS_PACK: OperationCode = OperationCode(103);
-    pub const ANEURALNETWORKS_MIRROR_PAD: OperationCode = OperationCode(104);
-    pub const ANEURALNETWORKS_REVERSE: OperationCode = OperationCode(105);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct OperationCode(pub ::std::os::raw::c_uint);
-impl FuseCode {
-    pub const ANEURALNETWORKS_FUSED_NONE: FuseCode = FuseCode(0);
-    pub const ANEURALNETWORKS_FUSED_RELU: FuseCode = FuseCode(1);
-    pub const ANEURALNETWORKS_FUSED_RELU1: FuseCode = FuseCode(2);
-    pub const ANEURALNETWORKS_FUSED_RELU6: FuseCode = FuseCode(3);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct FuseCode(pub ::std::os::raw::c_uint);
-impl PaddingCode {
-    pub const ANEURALNETWORKS_PADDING_SAME: PaddingCode = PaddingCode(1);
-    pub const ANEURALNETWORKS_PADDING_VALID: PaddingCode = PaddingCode(2);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct PaddingCode(pub ::std::os::raw::c_uint);
-impl PreferenceCode {
-    pub const ANEURALNETWORKS_PREFER_LOW_POWER: PreferenceCode = PreferenceCode(0);
-    pub const ANEURALNETWORKS_PREFER_FAST_SINGLE_ANSWER: PreferenceCode = PreferenceCode(1);
-    pub const ANEURALNETWORKS_PREFER_SUSTAINED_SPEED: PreferenceCode = PreferenceCode(2);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct PreferenceCode(pub ::std::os::raw::c_uint);
-impl DeviceTypeCode {
-    pub const ANEURALNETWORKS_DEVICE_UNKNOWN: DeviceTypeCode = DeviceTypeCode(0);
-    pub const ANEURALNETWORKS_DEVICE_OTHER: DeviceTypeCode = DeviceTypeCode(1);
-    pub const ANEURALNETWORKS_DEVICE_CPU: DeviceTypeCode = DeviceTypeCode(2);
-    pub const ANEURALNETWORKS_DEVICE_GPU: DeviceTypeCode = DeviceTypeCode(3);
-    pub const ANEURALNETWORKS_DEVICE_ACCELERATOR: DeviceTypeCode = DeviceTypeCode(4);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct DeviceTypeCode(pub ::std::os::raw::c_uint);
-impl FeatureLevelCode {
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_1: FeatureLevelCode = FeatureLevelCode(27);
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_2: FeatureLevelCode = FeatureLevelCode(28);
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_3: FeatureLevelCode = FeatureLevelCode(29);
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_4: FeatureLevelCode = FeatureLevelCode(30);
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_5: FeatureLevelCode = FeatureLevelCode(31);
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_6: FeatureLevelCode = FeatureLevelCode(1000006);
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_7: FeatureLevelCode = FeatureLevelCode(1000007);
-    pub const ANEURALNETWORKS_FEATURE_LEVEL_8: FeatureLevelCode = FeatureLevelCode(1000008);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct FeatureLevelCode(pub ::std::os::raw::c_uint);
-impl ResultCode {
-    pub const ANEURALNETWORKS_NO_ERROR: ResultCode = ResultCode(0);
-    pub const ANEURALNETWORKS_OUT_OF_MEMORY: ResultCode = ResultCode(1);
-    pub const ANEURALNETWORKS_INCOMPLETE: ResultCode = ResultCode(2);
-    pub const ANEURALNETWORKS_UNEXPECTED_NULL: ResultCode = ResultCode(3);
-    pub const ANEURALNETWORKS_BAD_DATA: ResultCode = ResultCode(4);
-    pub const ANEURALNETWORKS_OP_FAILED: ResultCode = ResultCode(5);
-    pub const ANEURALNETWORKS_BAD_STATE: ResultCode = ResultCode(6);
-    pub const ANEURALNETWORKS_UNMAPPABLE: ResultCode = ResultCode(7);
-    pub const ANEURALNETWORKS_OUTPUT_INSUFFICIENT_SIZE: ResultCode = ResultCode(8);
-    pub const ANEURALNETWORKS_UNAVAILABLE_DEVICE: ResultCode = ResultCode(9);
-    pub const ANEURALNETWORKS_MISSED_DEADLINE_TRANSIENT: ResultCode = ResultCode(10);
-    pub const ANEURALNETWORKS_MISSED_DEADLINE_PERSISTENT: ResultCode = ResultCode(11);
-    pub const ANEURALNETWORKS_RESOURCE_EXHAUSTED_TRANSIENT: ResultCode = ResultCode(12);
-    pub const ANEURALNETWORKS_RESOURCE_EXHAUSTED_PERSISTENT: ResultCode = ResultCode(13);
-    pub const ANEURALNETWORKS_DEAD_OBJECT: ResultCode = ResultCode(14);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct ResultCode(pub ::std::os::raw::c_uint);
-pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: _bindgen_ty_35 = 128;
-pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
-pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: _bindgen_ty_36 = 32;
-pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
-impl DurationCode {
-    pub const ANEURALNETWORKS_DURATION_ON_HARDWARE: DurationCode = DurationCode(0);
-    pub const ANEURALNETWORKS_DURATION_IN_DRIVER: DurationCode = DurationCode(1);
-    pub const ANEURALNETWORKS_FENCED_DURATION_ON_HARDWARE: DurationCode = DurationCode(2);
-    pub const ANEURALNETWORKS_FENCED_DURATION_IN_DRIVER: DurationCode = DurationCode(3);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct DurationCode(pub ::std::os::raw::c_uint);
-impl PriorityCode {
-    pub const ANEURALNETWORKS_PRIORITY_LOW: PriorityCode = PriorityCode(90);
-    pub const ANEURALNETWORKS_PRIORITY_MEDIUM: PriorityCode = PriorityCode(100);
-    pub const ANEURALNETWORKS_PRIORITY_HIGH: PriorityCode = PriorityCode(110);
-    pub const ANEURALNETWORKS_PRIORITY_DEFAULT: PriorityCode = PriorityCode(100);
-}
-#[repr(transparent)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub struct PriorityCode(pub ::std::os::raw::c_uint);
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksMemory {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksModel {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksCompilation {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksExecution {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksSymmPerChannelQuantParams {
-    pub channelDim: u32,
-    pub scaleCount: u32,
-    pub scales: *const f32,
-}
-#[test]
-fn bindgen_test_layout_ANeuralNetworksSymmPerChannelQuantParams() {
-    const UNINIT: ::std::mem::MaybeUninit<ANeuralNetworksSymmPerChannelQuantParams> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
-        12usize,
-        "Size of ANeuralNetworksSymmPerChannelQuantParams"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
-        4usize,
-        "Alignment of ANeuralNetworksSymmPerChannelQuantParams"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).channelDim) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::channelDim"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).scaleCount) as usize - ptr as usize },
-        4usize,
-        "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::scaleCount"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).scales) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::scales"
-    );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksBurst {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksOperandType {
-    pub type_: i32,
-    pub dimensionCount: u32,
-    pub dimensions: *const u32,
-    pub scale: f32,
-    pub zeroPoint: i32,
-}
-#[test]
-fn bindgen_test_layout_ANeuralNetworksOperandType() {
-    const UNINIT: ::std::mem::MaybeUninit<ANeuralNetworksOperandType> =
-        ::std::mem::MaybeUninit::uninit();
-    let ptr = UNINIT.as_ptr();
-    assert_eq!(
-        ::std::mem::size_of::<ANeuralNetworksOperandType>(),
-        20usize,
-        "Size of ANeuralNetworksOperandType"
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ANeuralNetworksOperandType>(),
-        4usize,
-        "Alignment of ANeuralNetworksOperandType"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
-        0usize,
-        "Offset of field: ANeuralNetworksOperandType::type_"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).dimensionCount) as usize - ptr as usize },
-        4usize,
-        "Offset of field: ANeuralNetworksOperandType::dimensionCount"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).dimensions) as usize - ptr as usize },
-        8usize,
-        "Offset of field: ANeuralNetworksOperandType::dimensions"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).scale) as usize - ptr as usize },
-        12usize,
-        "Offset of field: ANeuralNetworksOperandType::scale"
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).zeroPoint) as usize - ptr as usize },
-        16usize,
-        "Offset of field: ANeuralNetworksOperandType::zeroPoint"
-    );
-}
-pub type ANeuralNetworksOperationType = i32;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksEvent {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksDevice {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ANeuralNetworksMemoryDesc {
-    _unused: [u8; 0],
-}
-extern "C" {
-    pub fn ANeuralNetworksMemoryDesc_create(
-        desc: *mut *mut ANeuralNetworksMemoryDesc,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemoryDesc_free(desc: *mut ANeuralNetworksMemoryDesc);
-}
-extern "C" {
-    pub fn ANeuralNetworksMemoryDesc_addInputRole(
-        desc: *mut ANeuralNetworksMemoryDesc,
-        compilation: *const ANeuralNetworksCompilation,
-        index: u32,
-        frequency: f32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemoryDesc_addOutputRole(
-        desc: *mut ANeuralNetworksMemoryDesc,
-        compilation: *const ANeuralNetworksCompilation,
-        index: u32,
-        frequency: f32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemoryDesc_setDimensions(
-        desc: *mut ANeuralNetworksMemoryDesc,
-        rank: u32,
-        dimensions: *const u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemoryDesc_finish(
-        desc: *mut ANeuralNetworksMemoryDesc,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemory_createFromDesc(
-        desc: *const ANeuralNetworksMemoryDesc,
-        memory: *mut *mut ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemory_copy(
-        src: *const ANeuralNetworksMemory,
-        dst: *const ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworks_getDeviceCount(numDevices: *mut u32) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworks_getDevice(
-        devIndex: u32,
-        device: *mut *mut ANeuralNetworksDevice,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksDevice_getName(
-        device: *const ANeuralNetworksDevice,
-        name: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksDevice_getType(
-        device: *const ANeuralNetworksDevice,
-        type_: *mut i32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksDevice_getVersion(
-        device: *const ANeuralNetworksDevice,
-        version: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksDevice_getFeatureLevel(
-        device: *const ANeuralNetworksDevice,
-        featureLevel: *mut i64,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksDevice_wait(
-        device: *const ANeuralNetworksDevice,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_getSupportedOperationsForDevices(
-        model: *const ANeuralNetworksModel,
-        devices: *const *const ANeuralNetworksDevice,
-        numDevices: u32,
-        supportedOps: *mut bool,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_createForDevices(
-        model: *mut ANeuralNetworksModel,
-        devices: *const *const ANeuralNetworksDevice,
-        numDevices: u32,
-        compilation: *mut *mut ANeuralNetworksCompilation,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_setCaching(
-        compilation: *mut ANeuralNetworksCompilation,
-        cacheDir: *const ::std::os::raw::c_char,
-        token: *const u8,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_compute(
-        execution: *mut ANeuralNetworksExecution,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_getOutputOperandRank(
-        execution: *mut ANeuralNetworksExecution,
-        index: i32,
-        rank: *mut u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_getOutputOperandDimensions(
-        execution: *mut ANeuralNetworksExecution,
-        index: i32,
-        dimensions: *mut u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksBurst_create(
-        compilation: *mut ANeuralNetworksCompilation,
-        burst: *mut *mut ANeuralNetworksBurst,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksBurst_free(burst: *mut ANeuralNetworksBurst);
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_burstCompute(
-        execution: *mut ANeuralNetworksExecution,
-        burst: *mut ANeuralNetworksBurst,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemory_createFromAHardwareBuffer(
-        ahwb: *const AHardwareBuffer,
-        memory: *mut *mut ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setMeasureTiming(
-        execution: *mut ANeuralNetworksExecution,
-        measure: bool,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_getDuration(
-        execution: *const ANeuralNetworksExecution,
-        durationCode: i32,
-        duration: *mut u64,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemory_createFromFd(
-        size: usize,
-        protect: ::std::os::raw::c_int,
-        fd: ::std::os::raw::c_int,
-        offset: usize,
-        memory: *mut *mut ANeuralNetworksMemory,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksMemory_free(memory: *mut ANeuralNetworksMemory);
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_create(
-        model: *mut *mut ANeuralNetworksModel,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_free(model: *mut ANeuralNetworksModel);
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_finish(model: *mut ANeuralNetworksModel) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_addOperand(
-        model: *mut ANeuralNetworksModel,
-        type_: *const ANeuralNetworksOperandType,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_setOperandValue(
-        model: *mut ANeuralNetworksModel,
-        index: i32,
-        buffer: *const ::std::os::raw::c_void,
-        length: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_setOperandSymmPerChannelQuantParams(
-        model: *mut ANeuralNetworksModel,
-        index: i32,
-        channelQuant: *const ANeuralNetworksSymmPerChannelQuantParams,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_setOperandValueFromMemory(
-        model: *mut ANeuralNetworksModel,
-        index: i32,
-        memory: *const ANeuralNetworksMemory,
-        offset: usize,
-        length: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_setOperandValueFromModel(
-        model: *mut ANeuralNetworksModel,
-        index: i32,
-        value: *const ANeuralNetworksModel,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_addOperation(
-        model: *mut ANeuralNetworksModel,
-        type_: ANeuralNetworksOperationType,
-        inputCount: u32,
-        inputs: *const u32,
-        outputCount: u32,
-        outputs: *const u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_identifyInputsAndOutputs(
-        model: *mut ANeuralNetworksModel,
-        inputCount: u32,
-        inputs: *const u32,
-        outputCount: u32,
-        outputs: *const u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksModel_relaxComputationFloat32toFloat16(
-        model: *mut ANeuralNetworksModel,
-        allow: bool,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_create(
-        model: *mut ANeuralNetworksModel,
-        compilation: *mut *mut ANeuralNetworksCompilation,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_free(compilation: *mut ANeuralNetworksCompilation);
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_setPreference(
-        compilation: *mut ANeuralNetworksCompilation,
-        preference: i32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_finish(
-        compilation: *mut ANeuralNetworksCompilation,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_setPriority(
-        compilation: *mut ANeuralNetworksCompilation,
-        priority: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_setTimeout(
-        compilation: *mut ANeuralNetworksCompilation,
-        duration: u64,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_create(
-        compilation: *mut ANeuralNetworksCompilation,
-        execution: *mut *mut ANeuralNetworksExecution,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_free(execution: *mut ANeuralNetworksExecution);
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setInput(
-        execution: *mut ANeuralNetworksExecution,
-        index: i32,
-        type_: *const ANeuralNetworksOperandType,
-        buffer: *const ::std::os::raw::c_void,
-        length: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setInputFromMemory(
-        execution: *mut ANeuralNetworksExecution,
-        index: i32,
-        type_: *const ANeuralNetworksOperandType,
-        memory: *const ANeuralNetworksMemory,
-        offset: usize,
-        length: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setOutput(
-        execution: *mut ANeuralNetworksExecution,
-        index: i32,
-        type_: *const ANeuralNetworksOperandType,
-        buffer: *mut ::std::os::raw::c_void,
-        length: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setOutputFromMemory(
-        execution: *mut ANeuralNetworksExecution,
-        index: i32,
-        type_: *const ANeuralNetworksOperandType,
-        memory: *const ANeuralNetworksMemory,
-        offset: usize,
-        length: usize,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_startCompute(
-        execution: *mut ANeuralNetworksExecution,
-        event: *mut *mut ANeuralNetworksEvent,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setTimeout(
-        execution: *mut ANeuralNetworksExecution,
-        duration: u64,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setLoopTimeout(
-        execution: *mut ANeuralNetworksExecution,
-        duration: u64,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworks_getDefaultLoopTimeout() -> u64;
-}
-extern "C" {
-    pub fn ANeuralNetworks_getMaximumLoopTimeout() -> u64;
-}
-extern "C" {
-    pub fn ANeuralNetworksEvent_wait(event: *mut ANeuralNetworksEvent) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksEvent_free(event: *mut ANeuralNetworksEvent);
-}
-extern "C" {
-    pub fn ANeuralNetworksEvent_createFromSyncFenceFd(
-        sync_fence_fd: ::std::os::raw::c_int,
-        event: *mut *mut ANeuralNetworksEvent,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksEvent_getSyncFenceFd(
-        event: *const ANeuralNetworksEvent,
-        sync_fence_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_startComputeWithDependencies(
-        execution: *mut ANeuralNetworksExecution,
-        dependencies: *const *const ANeuralNetworksEvent,
-        num_dependencies: u32,
-        duration: u64,
-        event: *mut *mut ANeuralNetworksEvent,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworks_getRuntimeFeatureLevel() -> i64;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_enableInputAndOutputPadding(
-        execution: *mut ANeuralNetworksExecution,
-        enable: bool,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_getPreferredMemoryAlignmentForInput(
-        compilation: *const ANeuralNetworksCompilation,
-        index: u32,
-        alignment: *mut u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_getPreferredMemoryPaddingForInput(
-        compilation: *const ANeuralNetworksCompilation,
-        index: u32,
-        padding: *mut u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_getPreferredMemoryAlignmentForOutput(
-        compilation: *const ANeuralNetworksCompilation,
-        index: u32,
-        alignment: *mut u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksCompilation_getPreferredMemoryPaddingForOutput(
-        compilation: *const ANeuralNetworksCompilation,
-        index: u32,
-        padding: *mut u32,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ANeuralNetworksExecution_setReusable(
-        execution: *mut ANeuralNetworksExecution,
-        reusable: bool,
-    ) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct AObbInfo {
-    _unused: [u8; 0],
-}
-pub const AOBBINFO_OVERLAY: _bindgen_ty_37 = 1;
-pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
-extern "C" {
-    pub fn AObbScanner_getObbInfo(filename: *const ::std::os::raw::c_char) -> *mut AObbInfo;
-}
-extern "C" {
-    pub fn AObbInfo_delete(obbInfo: *mut AObbInfo);
-}
-extern "C" {
-    pub fn AObbInfo_getPackageName(obbInfo: *mut AObbInfo) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn AObbInfo_getVersion(obbInfo: *mut AObbInfo) -> i32;
-}
-extern "C" {
-    pub fn AObbInfo_getFlags(obbInfo: *mut AObbInfo) -> i32;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10659,27 +7231,27 @@ fn bindgen_test_layout_user() {
         "Offset of field: user::u_debugreg"
     );
 }
-pub const REG_GS: _bindgen_ty_38 = 0;
-pub const REG_FS: _bindgen_ty_38 = 1;
-pub const REG_ES: _bindgen_ty_38 = 2;
-pub const REG_DS: _bindgen_ty_38 = 3;
-pub const REG_EDI: _bindgen_ty_38 = 4;
-pub const REG_ESI: _bindgen_ty_38 = 5;
-pub const REG_EBP: _bindgen_ty_38 = 6;
-pub const REG_ESP: _bindgen_ty_38 = 7;
-pub const REG_EBX: _bindgen_ty_38 = 8;
-pub const REG_EDX: _bindgen_ty_38 = 9;
-pub const REG_ECX: _bindgen_ty_38 = 10;
-pub const REG_EAX: _bindgen_ty_38 = 11;
-pub const REG_TRAPNO: _bindgen_ty_38 = 12;
-pub const REG_ERR: _bindgen_ty_38 = 13;
-pub const REG_EIP: _bindgen_ty_38 = 14;
-pub const REG_CS: _bindgen_ty_38 = 15;
-pub const REG_EFL: _bindgen_ty_38 = 16;
-pub const REG_UESP: _bindgen_ty_38 = 17;
-pub const REG_SS: _bindgen_ty_38 = 18;
-pub const NGREG: _bindgen_ty_38 = 19;
-pub type _bindgen_ty_38 = ::std::os::raw::c_uint;
+pub const REG_GS: _bindgen_ty_32 = 0;
+pub const REG_FS: _bindgen_ty_32 = 1;
+pub const REG_ES: _bindgen_ty_32 = 2;
+pub const REG_DS: _bindgen_ty_32 = 3;
+pub const REG_EDI: _bindgen_ty_32 = 4;
+pub const REG_ESI: _bindgen_ty_32 = 5;
+pub const REG_EBP: _bindgen_ty_32 = 6;
+pub const REG_ESP: _bindgen_ty_32 = 7;
+pub const REG_EBX: _bindgen_ty_32 = 8;
+pub const REG_EDX: _bindgen_ty_32 = 9;
+pub const REG_ECX: _bindgen_ty_32 = 10;
+pub const REG_EAX: _bindgen_ty_32 = 11;
+pub const REG_TRAPNO: _bindgen_ty_32 = 12;
+pub const REG_ERR: _bindgen_ty_32 = 13;
+pub const REG_EIP: _bindgen_ty_32 = 14;
+pub const REG_CS: _bindgen_ty_32 = 15;
+pub const REG_EFL: _bindgen_ty_32 = 16;
+pub const REG_UESP: _bindgen_ty_32 = 17;
+pub const REG_SS: _bindgen_ty_32 = 18;
+pub const NGREG: _bindgen_ty_32 = 19;
+pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
 pub type greg_t = ::std::os::raw::c_int;
 pub type gregset_t = [greg_t; 19usize];
 #[repr(C)]
@@ -11108,6 +7680,3488 @@ extern "C" {
         __timeout: *const timespec,
         __mask: *const sigset_t,
     ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn gettimeofday(__tv: *mut timeval, __tz: *mut timezone) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn settimeofday(__tv: *const timeval, __tz: *const timezone) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getitimer(
+        __which: ::std::os::raw::c_int,
+        __current_value: *mut itimerval,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setitimer(
+        __which: ::std::os::raw::c_int,
+        __new_value: *const itimerval,
+        __old_value: *mut itimerval,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn utimes(
+        __path: *const ::std::os::raw::c_char,
+        __times: *const timeval,
+    ) -> ::std::os::raw::c_int;
+}
+impl android_LogPriority {
+    pub const ANDROID_LOG_UNKNOWN: android_LogPriority = android_LogPriority(0);
+    pub const ANDROID_LOG_DEFAULT: android_LogPriority = android_LogPriority(1);
+    pub const ANDROID_LOG_VERBOSE: android_LogPriority = android_LogPriority(2);
+    pub const ANDROID_LOG_DEBUG: android_LogPriority = android_LogPriority(3);
+    pub const ANDROID_LOG_INFO: android_LogPriority = android_LogPriority(4);
+    pub const ANDROID_LOG_WARN: android_LogPriority = android_LogPriority(5);
+    pub const ANDROID_LOG_ERROR: android_LogPriority = android_LogPriority(6);
+    pub const ANDROID_LOG_FATAL: android_LogPriority = android_LogPriority(7);
+    pub const ANDROID_LOG_SILENT: android_LogPriority = android_LogPriority(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct android_LogPriority(pub ::std::os::raw::c_uint);
+extern "C" {
+    pub fn __android_log_write(
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        text: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_print(
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_vprint(
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ap: va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_assert(
+        cond: *const ::std::os::raw::c_char,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> !;
+}
+impl log_id {
+    pub const LOG_ID_MIN: log_id = log_id(0);
+    pub const LOG_ID_MAIN: log_id = log_id(0);
+    pub const LOG_ID_RADIO: log_id = log_id(1);
+    pub const LOG_ID_EVENTS: log_id = log_id(2);
+    pub const LOG_ID_SYSTEM: log_id = log_id(3);
+    pub const LOG_ID_CRASH: log_id = log_id(4);
+    pub const LOG_ID_STATS: log_id = log_id(5);
+    pub const LOG_ID_SECURITY: log_id = log_id(6);
+    pub const LOG_ID_KERNEL: log_id = log_id(7);
+    pub const LOG_ID_MAX: log_id = log_id(8);
+    pub const LOG_ID_DEFAULT: log_id = log_id(2147483647);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct log_id(pub ::std::os::raw::c_uint);
+pub use self::log_id as log_id_t;
+extern "C" {
+    pub fn __android_log_buf_write(
+        log_id: ::std::os::raw::c_int,
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        text: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_buf_print(
+        log_id: ::std::os::raw::c_int,
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __android_log_message {
+    pub struct_size: usize,
+    pub buffer_id: i32,
+    pub priority: i32,
+    pub tag: *const ::std::os::raw::c_char,
+    pub file: *const ::std::os::raw::c_char,
+    pub line: u32,
+    pub message: *const ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout___android_log_message() {
+    const UNINIT: ::std::mem::MaybeUninit<__android_log_message> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<__android_log_message>(),
+        28usize,
+        "Size of __android_log_message"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__android_log_message>(),
+        4usize,
+        "Alignment of __android_log_message"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).struct_size) as usize - ptr as usize },
+        0usize,
+        "Offset of field: __android_log_message::struct_size"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).buffer_id) as usize - ptr as usize },
+        4usize,
+        "Offset of field: __android_log_message::buffer_id"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).priority) as usize - ptr as usize },
+        8usize,
+        "Offset of field: __android_log_message::priority"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).tag) as usize - ptr as usize },
+        12usize,
+        "Offset of field: __android_log_message::tag"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).file) as usize - ptr as usize },
+        16usize,
+        "Offset of field: __android_log_message::file"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).line) as usize - ptr as usize },
+        20usize,
+        "Offset of field: __android_log_message::line"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).message) as usize - ptr as usize },
+        24usize,
+        "Offset of field: __android_log_message::message"
+    );
+}
+pub type __android_logger_function =
+    ::std::option::Option<unsafe extern "C" fn(log_message: *const __android_log_message)>;
+pub type __android_aborter_function =
+    ::std::option::Option<unsafe extern "C" fn(abort_message: *const ::std::os::raw::c_char)>;
+extern "C" {
+    pub fn __android_log_write_log_message(log_message: *mut __android_log_message);
+}
+extern "C" {
+    pub fn __android_log_set_logger(logger: __android_logger_function);
+}
+extern "C" {
+    pub fn __android_log_logd_logger(log_message: *const __android_log_message);
+}
+extern "C" {
+    pub fn __android_log_logd_logger_with_timestamp(
+        log_message: *const __android_log_message,
+        timestamp: *const timespec,
+    );
+}
+extern "C" {
+    pub fn __android_log_stderr_logger(log_message: *const __android_log_message);
+}
+extern "C" {
+    pub fn __android_log_set_aborter(aborter: __android_aborter_function);
+}
+extern "C" {
+    pub fn __android_log_call_aborter(abort_message: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn __android_log_default_aborter(abort_message: *const ::std::os::raw::c_char) -> !;
+}
+extern "C" {
+    pub fn __android_log_is_loggable(
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        default_prio: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_is_loggable_len(
+        prio: ::std::os::raw::c_int,
+        tag: *const ::std::os::raw::c_char,
+        len: usize,
+        default_prio: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __android_log_set_minimum_priority(priority: i32) -> i32;
+}
+extern "C" {
+    pub fn __android_log_get_minimum_priority() -> i32;
+}
+extern "C" {
+    pub fn __android_log_set_default_tag(tag: *const ::std::os::raw::c_char);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct flock {
+    pub l_type: ::std::os::raw::c_short,
+    pub l_whence: ::std::os::raw::c_short,
+    pub l_start: off_t,
+    pub l_len: off_t,
+    pub l_pid: pid_t,
+}
+#[test]
+fn bindgen_test_layout_flock() {
+    const UNINIT: ::std::mem::MaybeUninit<flock> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<flock>(), 16usize, "Size of flock");
+    assert_eq!(
+        ::std::mem::align_of::<flock>(),
+        4usize,
+        "Alignment of flock"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
+        0usize,
+        "Offset of field: flock::l_type"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
+        2usize,
+        "Offset of field: flock::l_whence"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
+        4usize,
+        "Offset of field: flock::l_start"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
+        8usize,
+        "Offset of field: flock::l_len"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
+        12usize,
+        "Offset of field: flock::l_pid"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct flock64 {
+    pub l_type: ::std::os::raw::c_short,
+    pub l_whence: ::std::os::raw::c_short,
+    pub l_start: off64_t,
+    pub l_len: off64_t,
+    pub l_pid: pid_t,
+}
+#[test]
+fn bindgen_test_layout_flock64() {
+    const UNINIT: ::std::mem::MaybeUninit<flock64> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<flock64>(), 24usize, "Size of flock64");
+    assert_eq!(
+        ::std::mem::align_of::<flock64>(),
+        4usize,
+        "Alignment of flock64"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_type) as usize - ptr as usize },
+        0usize,
+        "Offset of field: flock64::l_type"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_whence) as usize - ptr as usize },
+        2usize,
+        "Offset of field: flock64::l_whence"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_start) as usize - ptr as usize },
+        4usize,
+        "Offset of field: flock64::l_start"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_len) as usize - ptr as usize },
+        12usize,
+        "Offset of field: flock64::l_len"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_pid) as usize - ptr as usize },
+        20usize,
+        "Offset of field: flock64::l_pid"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct f_owner_ex {
+    pub type_: ::std::os::raw::c_int,
+    pub pid: __kernel_pid_t,
+}
+#[test]
+fn bindgen_test_layout_f_owner_ex() {
+    const UNINIT: ::std::mem::MaybeUninit<f_owner_ex> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<f_owner_ex>(),
+        8usize,
+        "Size of f_owner_ex"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<f_owner_ex>(),
+        4usize,
+        "Alignment of f_owner_ex"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        0usize,
+        "Offset of field: f_owner_ex::type_"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
+        4usize,
+        "Offset of field: f_owner_ex::pid"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct iovec {
+    pub iov_base: *mut ::std::os::raw::c_void,
+    pub iov_len: __kernel_size_t,
+}
+#[test]
+fn bindgen_test_layout_iovec() {
+    const UNINIT: ::std::mem::MaybeUninit<iovec> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<iovec>(), 8usize, "Size of iovec");
+    assert_eq!(
+        ::std::mem::align_of::<iovec>(),
+        4usize,
+        "Alignment of iovec"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).iov_base) as usize - ptr as usize },
+        0usize,
+        "Offset of field: iovec::iov_base"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).iov_len) as usize - ptr as usize },
+        4usize,
+        "Offset of field: iovec::iov_len"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct dmabuf_cmsg {
+    pub frag_offset: __u64,
+    pub frag_size: __u32,
+    pub frag_token: __u32,
+    pub dmabuf_id: __u32,
+    pub flags: __u32,
+}
+#[test]
+fn bindgen_test_layout_dmabuf_cmsg() {
+    const UNINIT: ::std::mem::MaybeUninit<dmabuf_cmsg> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<dmabuf_cmsg>(),
+        24usize,
+        "Size of dmabuf_cmsg"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<dmabuf_cmsg>(),
+        4usize,
+        "Alignment of dmabuf_cmsg"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).frag_offset) as usize - ptr as usize },
+        0usize,
+        "Offset of field: dmabuf_cmsg::frag_offset"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).frag_size) as usize - ptr as usize },
+        8usize,
+        "Offset of field: dmabuf_cmsg::frag_size"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).frag_token) as usize - ptr as usize },
+        12usize,
+        "Offset of field: dmabuf_cmsg::frag_token"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).dmabuf_id) as usize - ptr as usize },
+        16usize,
+        "Offset of field: dmabuf_cmsg::dmabuf_id"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        20usize,
+        "Offset of field: dmabuf_cmsg::flags"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct dmabuf_token {
+    pub token_start: __u32,
+    pub token_count: __u32,
+}
+#[test]
+fn bindgen_test_layout_dmabuf_token() {
+    const UNINIT: ::std::mem::MaybeUninit<dmabuf_token> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<dmabuf_token>(),
+        8usize,
+        "Size of dmabuf_token"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<dmabuf_token>(),
+        4usize,
+        "Alignment of dmabuf_token"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).token_start) as usize - ptr as usize },
+        0usize,
+        "Offset of field: dmabuf_token::token_start"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).token_count) as usize - ptr as usize },
+        4usize,
+        "Offset of field: dmabuf_token::token_count"
+    );
+}
+pub type sa_family_t = ::std::os::raw::c_ushort;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct sockaddr_storage {
+    pub __bindgen_anon_1: sockaddr_storage__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union sockaddr_storage__bindgen_ty_1 {
+    pub __bindgen_anon_1: sockaddr_storage__bindgen_ty_1__bindgen_ty_1,
+    pub __align: *mut ::std::os::raw::c_void,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sockaddr_storage__bindgen_ty_1__bindgen_ty_1 {
+    pub ss_family: sa_family_t,
+    pub __data: [::std::os::raw::c_char; 126usize],
+}
+#[test]
+fn bindgen_test_layout_sockaddr_storage__bindgen_ty_1__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
+        128usize,
+        "Size of sockaddr_storage__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr_storage__bindgen_ty_1__bindgen_ty_1>(),
+        2usize,
+        "Alignment of sockaddr_storage__bindgen_ty_1__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ss_family) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sockaddr_storage__bindgen_ty_1__bindgen_ty_1::ss_family"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__data) as usize - ptr as usize },
+        2usize,
+        "Offset of field: sockaddr_storage__bindgen_ty_1__bindgen_ty_1::__data"
+    );
+}
+#[test]
+fn bindgen_test_layout_sockaddr_storage__bindgen_ty_1() {
+    const UNINIT: ::std::mem::MaybeUninit<sockaddr_storage__bindgen_ty_1> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr_storage__bindgen_ty_1>(),
+        128usize,
+        "Size of sockaddr_storage__bindgen_ty_1"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr_storage__bindgen_ty_1>(),
+        4usize,
+        "Alignment of sockaddr_storage__bindgen_ty_1"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).__align) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sockaddr_storage__bindgen_ty_1::__align"
+    );
+}
+#[test]
+fn bindgen_test_layout_sockaddr_storage() {
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr_storage>(),
+        128usize,
+        "Size of sockaddr_storage"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr_storage>(),
+        4usize,
+        "Alignment of sockaddr_storage"
+    );
+}
+pub const SHUT_RD: _bindgen_ty_33 = 0;
+pub const SHUT_WR: _bindgen_ty_33 = 1;
+pub const SHUT_RDWR: _bindgen_ty_33 = 2;
+pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sockaddr {
+    pub sa_family: sa_family_t,
+    pub sa_data: [::std::os::raw::c_char; 14usize],
+}
+#[test]
+fn bindgen_test_layout_sockaddr() {
+    const UNINIT: ::std::mem::MaybeUninit<sockaddr> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr>(),
+        16usize,
+        "Size of sockaddr"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr>(),
+        2usize,
+        "Alignment of sockaddr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_family) as usize - ptr as usize },
+        0usize,
+        "Offset of field: sockaddr::sa_family"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sa_data) as usize - ptr as usize },
+        2usize,
+        "Offset of field: sockaddr::sa_data"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct linger {
+    pub l_onoff: ::std::os::raw::c_int,
+    pub l_linger: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_linger() {
+    const UNINIT: ::std::mem::MaybeUninit<linger> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<linger>(), 8usize, "Size of linger");
+    assert_eq!(
+        ::std::mem::align_of::<linger>(),
+        4usize,
+        "Alignment of linger"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_onoff) as usize - ptr as usize },
+        0usize,
+        "Offset of field: linger::l_onoff"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).l_linger) as usize - ptr as usize },
+        4usize,
+        "Offset of field: linger::l_linger"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct msghdr {
+    pub msg_name: *mut ::std::os::raw::c_void,
+    pub msg_namelen: socklen_t,
+    pub msg_iov: *mut iovec,
+    pub msg_iovlen: usize,
+    pub msg_control: *mut ::std::os::raw::c_void,
+    pub msg_controllen: usize,
+    pub msg_flags: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_msghdr() {
+    const UNINIT: ::std::mem::MaybeUninit<msghdr> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<msghdr>(), 28usize, "Size of msghdr");
+    assert_eq!(
+        ::std::mem::align_of::<msghdr>(),
+        4usize,
+        "Alignment of msghdr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_name) as usize - ptr as usize },
+        0usize,
+        "Offset of field: msghdr::msg_name"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_namelen) as usize - ptr as usize },
+        4usize,
+        "Offset of field: msghdr::msg_namelen"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_iov) as usize - ptr as usize },
+        8usize,
+        "Offset of field: msghdr::msg_iov"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_iovlen) as usize - ptr as usize },
+        12usize,
+        "Offset of field: msghdr::msg_iovlen"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_control) as usize - ptr as usize },
+        16usize,
+        "Offset of field: msghdr::msg_control"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_controllen) as usize - ptr as usize },
+        20usize,
+        "Offset of field: msghdr::msg_controllen"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_flags) as usize - ptr as usize },
+        24usize,
+        "Offset of field: msghdr::msg_flags"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct mmsghdr {
+    pub msg_hdr: msghdr,
+    pub msg_len: ::std::os::raw::c_uint,
+}
+#[test]
+fn bindgen_test_layout_mmsghdr() {
+    const UNINIT: ::std::mem::MaybeUninit<mmsghdr> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<mmsghdr>(), 32usize, "Size of mmsghdr");
+    assert_eq!(
+        ::std::mem::align_of::<mmsghdr>(),
+        4usize,
+        "Alignment of mmsghdr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_hdr) as usize - ptr as usize },
+        0usize,
+        "Offset of field: mmsghdr::msg_hdr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).msg_len) as usize - ptr as usize },
+        28usize,
+        "Offset of field: mmsghdr::msg_len"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct cmsghdr {
+    pub cmsg_len: usize,
+    pub cmsg_level: ::std::os::raw::c_int,
+    pub cmsg_type: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_cmsghdr() {
+    const UNINIT: ::std::mem::MaybeUninit<cmsghdr> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<cmsghdr>(), 12usize, "Size of cmsghdr");
+    assert_eq!(
+        ::std::mem::align_of::<cmsghdr>(),
+        4usize,
+        "Alignment of cmsghdr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_len) as usize - ptr as usize },
+        0usize,
+        "Offset of field: cmsghdr::cmsg_len"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_level) as usize - ptr as usize },
+        4usize,
+        "Offset of field: cmsghdr::cmsg_level"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).cmsg_type) as usize - ptr as usize },
+        8usize,
+        "Offset of field: cmsghdr::cmsg_type"
+    );
+}
+extern "C" {
+    pub fn __cmsg_nxthdr(__msg: *mut msghdr, __cmsg: *mut cmsghdr) -> *mut cmsghdr;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ucred {
+    pub pid: pid_t,
+    pub uid: uid_t,
+    pub gid: gid_t,
+}
+#[test]
+fn bindgen_test_layout_ucred() {
+    const UNINIT: ::std::mem::MaybeUninit<ucred> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<ucred>(), 12usize, "Size of ucred");
+    assert_eq!(
+        ::std::mem::align_of::<ucred>(),
+        4usize,
+        "Alignment of ucred"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pid) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ucred::pid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uid) as usize - ptr as usize },
+        4usize,
+        "Offset of field: ucred::uid"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).gid) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ucred::gid"
+    );
+}
+extern "C" {
+    pub fn accept(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_length: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn accept4(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_length: *mut socklen_t,
+        __flags: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn bind(
+        __fd: ::std::os::raw::c_int,
+        __addr: *const sockaddr,
+        __addr_length: socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn connect(
+        __fd: ::std::os::raw::c_int,
+        __addr: *const sockaddr,
+        __addr_length: socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getpeername(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_length: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getsockname(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_length: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getsockopt(
+        __fd: ::std::os::raw::c_int,
+        __level: ::std::os::raw::c_int,
+        __option: ::std::os::raw::c_int,
+        __value: *mut ::std::os::raw::c_void,
+        __value_length: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn listen(
+        __fd: ::std::os::raw::c_int,
+        __backlog: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn recvmmsg(
+        __fd: ::std::os::raw::c_int,
+        __msgs: *mut mmsghdr,
+        __msg_count: ::std::os::raw::c_uint,
+        __flags: ::std::os::raw::c_int,
+        __timeout: *const timespec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn recvmsg(
+        __fd: ::std::os::raw::c_int,
+        __msg: *mut msghdr,
+        __flags: ::std::os::raw::c_int,
+    ) -> isize;
+}
+extern "C" {
+    pub fn sendmmsg(
+        __fd: ::std::os::raw::c_int,
+        __msgs: *const mmsghdr,
+        __msg_count: ::std::os::raw::c_uint,
+        __flags: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sendmsg(
+        __fd: ::std::os::raw::c_int,
+        __msg: *const msghdr,
+        __flags: ::std::os::raw::c_int,
+    ) -> isize;
+}
+extern "C" {
+    pub fn setsockopt(
+        __fd: ::std::os::raw::c_int,
+        __level: ::std::os::raw::c_int,
+        __option: ::std::os::raw::c_int,
+        __value: *const ::std::os::raw::c_void,
+        __value_length: socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn shutdown(
+        __fd: ::std::os::raw::c_int,
+        __how: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn socket(
+        __af: ::std::os::raw::c_int,
+        __type: ::std::os::raw::c_int,
+        __protocol: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn socketpair(
+        __af: ::std::os::raw::c_int,
+        __type: ::std::os::raw::c_int,
+        __protocol: ::std::os::raw::c_int,
+        __fds: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn recv(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+    ) -> isize;
+}
+extern "C" {
+    pub fn send(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+    ) -> isize;
+}
+extern "C" {
+    pub fn sendto(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+        __dst_addr: *const sockaddr,
+        __dst_addr_length: socklen_t,
+    ) -> isize;
+}
+extern "C" {
+    pub fn recvfrom(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __n: usize,
+        __flags: ::std::os::raw::c_int,
+        __src_addr: *mut sockaddr,
+        __src_addr_length: *mut socklen_t,
+    ) -> isize;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct hostent {
+    pub h_name: *mut ::std::os::raw::c_char,
+    pub h_aliases: *mut *mut ::std::os::raw::c_char,
+    pub h_addrtype: ::std::os::raw::c_int,
+    pub h_length: ::std::os::raw::c_int,
+    pub h_addr_list: *mut *mut ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_hostent() {
+    const UNINIT: ::std::mem::MaybeUninit<hostent> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<hostent>(), 20usize, "Size of hostent");
+    assert_eq!(
+        ::std::mem::align_of::<hostent>(),
+        4usize,
+        "Alignment of hostent"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).h_name) as usize - ptr as usize },
+        0usize,
+        "Offset of field: hostent::h_name"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).h_aliases) as usize - ptr as usize },
+        4usize,
+        "Offset of field: hostent::h_aliases"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).h_addrtype) as usize - ptr as usize },
+        8usize,
+        "Offset of field: hostent::h_addrtype"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).h_length) as usize - ptr as usize },
+        12usize,
+        "Offset of field: hostent::h_length"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).h_addr_list) as usize - ptr as usize },
+        16usize,
+        "Offset of field: hostent::h_addr_list"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct netent {
+    pub n_name: *mut ::std::os::raw::c_char,
+    pub n_aliases: *mut *mut ::std::os::raw::c_char,
+    pub n_addrtype: ::std::os::raw::c_int,
+    pub n_net: u32,
+}
+#[test]
+fn bindgen_test_layout_netent() {
+    const UNINIT: ::std::mem::MaybeUninit<netent> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<netent>(), 16usize, "Size of netent");
+    assert_eq!(
+        ::std::mem::align_of::<netent>(),
+        4usize,
+        "Alignment of netent"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).n_name) as usize - ptr as usize },
+        0usize,
+        "Offset of field: netent::n_name"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).n_aliases) as usize - ptr as usize },
+        4usize,
+        "Offset of field: netent::n_aliases"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).n_addrtype) as usize - ptr as usize },
+        8usize,
+        "Offset of field: netent::n_addrtype"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).n_net) as usize - ptr as usize },
+        12usize,
+        "Offset of field: netent::n_net"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct servent {
+    pub s_name: *mut ::std::os::raw::c_char,
+    pub s_aliases: *mut *mut ::std::os::raw::c_char,
+    pub s_port: ::std::os::raw::c_int,
+    pub s_proto: *mut ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_servent() {
+    const UNINIT: ::std::mem::MaybeUninit<servent> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<servent>(), 16usize, "Size of servent");
+    assert_eq!(
+        ::std::mem::align_of::<servent>(),
+        4usize,
+        "Alignment of servent"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).s_name) as usize - ptr as usize },
+        0usize,
+        "Offset of field: servent::s_name"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).s_aliases) as usize - ptr as usize },
+        4usize,
+        "Offset of field: servent::s_aliases"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).s_port) as usize - ptr as usize },
+        8usize,
+        "Offset of field: servent::s_port"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).s_proto) as usize - ptr as usize },
+        12usize,
+        "Offset of field: servent::s_proto"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct protoent {
+    pub p_name: *mut ::std::os::raw::c_char,
+    pub p_aliases: *mut *mut ::std::os::raw::c_char,
+    pub p_proto: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_protoent() {
+    const UNINIT: ::std::mem::MaybeUninit<protoent> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<protoent>(),
+        12usize,
+        "Size of protoent"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<protoent>(),
+        4usize,
+        "Alignment of protoent"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).p_name) as usize - ptr as usize },
+        0usize,
+        "Offset of field: protoent::p_name"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).p_aliases) as usize - ptr as usize },
+        4usize,
+        "Offset of field: protoent::p_aliases"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).p_proto) as usize - ptr as usize },
+        8usize,
+        "Offset of field: protoent::p_proto"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct addrinfo {
+    pub ai_flags: ::std::os::raw::c_int,
+    pub ai_family: ::std::os::raw::c_int,
+    pub ai_socktype: ::std::os::raw::c_int,
+    pub ai_protocol: ::std::os::raw::c_int,
+    pub ai_addrlen: socklen_t,
+    pub ai_canonname: *mut ::std::os::raw::c_char,
+    pub ai_addr: *mut sockaddr,
+    pub ai_next: *mut addrinfo,
+}
+#[test]
+fn bindgen_test_layout_addrinfo() {
+    const UNINIT: ::std::mem::MaybeUninit<addrinfo> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<addrinfo>(),
+        32usize,
+        "Size of addrinfo"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<addrinfo>(),
+        4usize,
+        "Alignment of addrinfo"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_flags) as usize - ptr as usize },
+        0usize,
+        "Offset of field: addrinfo::ai_flags"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_family) as usize - ptr as usize },
+        4usize,
+        "Offset of field: addrinfo::ai_family"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_socktype) as usize - ptr as usize },
+        8usize,
+        "Offset of field: addrinfo::ai_socktype"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_protocol) as usize - ptr as usize },
+        12usize,
+        "Offset of field: addrinfo::ai_protocol"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_addrlen) as usize - ptr as usize },
+        16usize,
+        "Offset of field: addrinfo::ai_addrlen"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_canonname) as usize - ptr as usize },
+        20usize,
+        "Offset of field: addrinfo::ai_canonname"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_addr) as usize - ptr as usize },
+        24usize,
+        "Offset of field: addrinfo::ai_addr"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ai_next) as usize - ptr as usize },
+        28usize,
+        "Offset of field: addrinfo::ai_next"
+    );
+}
+extern "C" {
+    pub fn getaddrinfo(
+        __node: *const ::std::os::raw::c_char,
+        __service: *const ::std::os::raw::c_char,
+        __hints: *const addrinfo,
+        __result: *mut *mut addrinfo,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn freeaddrinfo(__ptr: *mut addrinfo);
+}
+extern "C" {
+    pub fn getnameinfo(
+        __sa: *const sockaddr,
+        __sa_length: socklen_t,
+        __host: *mut ::std::os::raw::c_char,
+        __host_length: usize,
+        __service: *mut ::std::os::raw::c_char,
+        __service_length: usize,
+        __flags: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn gai_strerror(__error: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn __get_h_errno() -> *mut ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn herror(__s: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn hstrerror(__error: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn gethostbyaddr(
+        __addr: *const ::std::os::raw::c_void,
+        __length: socklen_t,
+        __type: ::std::os::raw::c_int,
+    ) -> *mut hostent;
+}
+extern "C" {
+    pub fn gethostbyname(__name: *const ::std::os::raw::c_char) -> *mut hostent;
+}
+extern "C" {
+    pub fn gethostbyname_r(
+        __name: *const ::std::os::raw::c_char,
+        __ret: *mut hostent,
+        __buf: *mut ::std::os::raw::c_char,
+        __buf_size: usize,
+        __result: *mut *mut hostent,
+        __h_errno_ptr: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn gethostbyname2(
+        __name: *const ::std::os::raw::c_char,
+        __af: ::std::os::raw::c_int,
+    ) -> *mut hostent;
+}
+extern "C" {
+    pub fn gethostent() -> *mut hostent;
+}
+extern "C" {
+    pub fn getnetbyaddr(__net: u32, __type: ::std::os::raw::c_int) -> *mut netent;
+}
+extern "C" {
+    pub fn getnetbyname(__name: *const ::std::os::raw::c_char) -> *mut netent;
+}
+extern "C" {
+    pub fn getprotobyname(__name: *const ::std::os::raw::c_char) -> *mut protoent;
+}
+extern "C" {
+    pub fn getprotobynumber(__proto: ::std::os::raw::c_int) -> *mut protoent;
+}
+extern "C" {
+    pub fn endservent();
+}
+extern "C" {
+    pub fn getservbyname(
+        __name: *const ::std::os::raw::c_char,
+        __proto: *const ::std::os::raw::c_char,
+    ) -> *mut servent;
+}
+extern "C" {
+    pub fn getservbyport(
+        __port_in_network_order: ::std::os::raw::c_int,
+        __proto: *const ::std::os::raw::c_char,
+    ) -> *mut servent;
+}
+extern "C" {
+    pub fn getservent() -> *mut servent;
+}
+extern "C" {
+    pub fn setservent(__stay_open: ::std::os::raw::c_int);
+}
+pub type fpos_t = off_t;
+pub type fpos64_t = off64_t;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __sFILE {
+    _unused: [u8; 0],
+}
+pub type FILE = __sFILE;
+extern "C" {
+    pub static mut stdin: *mut FILE;
+}
+extern "C" {
+    pub static mut stdout: *mut FILE;
+}
+extern "C" {
+    pub static mut stderr: *mut FILE;
+}
+extern "C" {
+    pub fn clearerr(__fp: *mut FILE);
+}
+extern "C" {
+    pub fn fclose(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn feof(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ferror(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fflush(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fgetc(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fgets(
+        __buf: *mut ::std::os::raw::c_char,
+        __size: ::std::os::raw::c_int,
+        __fp: *mut FILE,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn fprintf(
+        __fp: *mut FILE,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fputc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fputs(__s: *const ::std::os::raw::c_char, __fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fread(
+        __buf: *mut ::std::os::raw::c_void,
+        __size: ::std::os::raw::c_uint,
+        __count: ::std::os::raw::c_uint,
+        __fp: *mut FILE,
+    ) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+    pub fn fscanf(
+        __fp: *mut FILE,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fwrite(
+        __buf: *const ::std::os::raw::c_void,
+        __size: ::std::os::raw::c_uint,
+        __count: ::std::os::raw::c_uint,
+        __fp: *mut FILE,
+    ) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+    pub fn getc(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getchar() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getdelim(
+        __line_ptr: *mut *mut ::std::os::raw::c_char,
+        __line_length_ptr: *mut usize,
+        __delimiter: ::std::os::raw::c_int,
+        __fp: *mut FILE,
+    ) -> isize;
+}
+extern "C" {
+    pub fn getline(
+        __line_ptr: *mut *mut ::std::os::raw::c_char,
+        __line_length_ptr: *mut usize,
+        __fp: *mut FILE,
+    ) -> isize;
+}
+extern "C" {
+    pub fn perror(__msg: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn printf(__fmt: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putchar(__ch: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn puts(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn remove(__path: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn rewind(__fp: *mut FILE);
+}
+extern "C" {
+    pub fn scanf(__fmt: *const ::std::os::raw::c_char, ...) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setbuf(__fp: *mut FILE, __buf: *mut ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn setvbuf(
+        __fp: *mut FILE,
+        __buf: *mut ::std::os::raw::c_char,
+        __mode: ::std::os::raw::c_int,
+        __size: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sscanf(
+        __s: *const ::std::os::raw::c_char,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ungetc(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vfprintf(
+        __fp: *mut FILE,
+        __fmt: *const ::std::os::raw::c_char,
+        __args: __builtin_va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vprintf(
+        __fp: *const ::std::os::raw::c_char,
+        __args: __builtin_va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn dprintf(
+        __fd: ::std::os::raw::c_int,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vdprintf(
+        __fd: ::std::os::raw::c_int,
+        __fmt: *const ::std::os::raw::c_char,
+        __args: va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vsprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __fmt: *const ::std::os::raw::c_char,
+        __args: __builtin_va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn tmpnam(__s: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn tempnam(
+        __dir: *const ::std::os::raw::c_char,
+        __prefix: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn rename(
+        __old_path: *const ::std::os::raw::c_char,
+        __new_path: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn renameat(
+        __old_dir_fd: ::std::os::raw::c_int,
+        __old_path: *const ::std::os::raw::c_char,
+        __new_dir_fd: ::std::os::raw::c_int,
+        __new_path: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fseek(
+        __fp: *mut FILE,
+        __offset: ::std::os::raw::c_long,
+        __whence: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ftell(__fp: *mut FILE) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn fgetpos(__fp: *mut FILE, __pos: *mut fpos_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fsetpos(__fp: *mut FILE, __pos: *const fpos_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fseeko(
+        __fp: *mut FILE,
+        __offset: off_t,
+        __whence: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ftello(__fp: *mut FILE) -> off_t;
+}
+extern "C" {
+    pub fn fopen(
+        __path: *const ::std::os::raw::c_char,
+        __mode: *const ::std::os::raw::c_char,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn freopen(
+        __path: *const ::std::os::raw::c_char,
+        __mode: *const ::std::os::raw::c_char,
+        __fp: *mut FILE,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn tmpfile() -> *mut FILE;
+}
+extern "C" {
+    pub fn snprintf(
+        __buf: *mut ::std::os::raw::c_char,
+        __size: ::std::os::raw::c_uint,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vfscanf(
+        __fp: *mut FILE,
+        __fmt: *const ::std::os::raw::c_char,
+        __args: __builtin_va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vscanf(
+        __fmt: *const ::std::os::raw::c_char,
+        __args: __builtin_va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vsnprintf(
+        __buf: *mut ::std::os::raw::c_char,
+        __size: ::std::os::raw::c_uint,
+        __fmt: *const ::std::os::raw::c_char,
+        __args: __builtin_va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vsscanf(
+        __s: *const ::std::os::raw::c_char,
+        __fmt: *const ::std::os::raw::c_char,
+        __args: __builtin_va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fdopen(__fd: ::std::os::raw::c_int, __mode: *const ::std::os::raw::c_char) -> *mut FILE;
+}
+extern "C" {
+    pub fn fileno(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pclose(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn popen(
+        __command: *const ::std::os::raw::c_char,
+        __mode: *const ::std::os::raw::c_char,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn flockfile(__fp: *mut FILE);
+}
+extern "C" {
+    pub fn ftrylockfile(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn funlockfile(__fp: *mut FILE);
+}
+extern "C" {
+    pub fn getc_unlocked(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getchar_unlocked() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putc_unlocked(__ch: ::std::os::raw::c_int, __fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putchar_unlocked(__ch: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn asprintf(
+        __s_ptr: *mut *mut ::std::os::raw::c_char,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fgetln(__fp: *mut FILE, __length_ptr: *mut usize) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn fpurge(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setbuffer(
+        __fp: *mut FILE,
+        __buf: *mut ::std::os::raw::c_char,
+        __size: ::std::os::raw::c_int,
+    );
+}
+extern "C" {
+    pub fn setlinebuf(__fp: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vasprintf(
+        __s_ptr: *mut *mut ::std::os::raw::c_char,
+        __fmt: *const ::std::os::raw::c_char,
+        __args: va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn malloc(__byte_count: ::std::os::raw::c_uint) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn calloc(
+        __item_count: ::std::os::raw::c_uint,
+        __item_size: ::std::os::raw::c_uint,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn realloc(
+        __ptr: *mut ::std::os::raw::c_void,
+        __byte_count: ::std::os::raw::c_uint,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn reallocarray(
+        __ptr: *mut ::std::os::raw::c_void,
+        __item_count: usize,
+        __item_size: usize,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn free(__ptr: *mut ::std::os::raw::c_void);
+}
+extern "C" {
+    pub fn memalign(
+        __alignment: ::std::os::raw::c_uint,
+        __byte_count: ::std::os::raw::c_uint,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_usable_size(__ptr: *const ::std::os::raw::c_void) -> usize;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct mallinfo {
+    pub arena: usize,
+    pub ordblks: usize,
+    pub smblks: usize,
+    pub hblks: usize,
+    pub hblkhd: usize,
+    pub usmblks: usize,
+    pub fsmblks: usize,
+    pub uordblks: usize,
+    pub fordblks: usize,
+    pub keepcost: usize,
+}
+#[test]
+fn bindgen_test_layout_mallinfo() {
+    const UNINIT: ::std::mem::MaybeUninit<mallinfo> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<mallinfo>(),
+        40usize,
+        "Size of mallinfo"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<mallinfo>(),
+        4usize,
+        "Alignment of mallinfo"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
+        0usize,
+        "Offset of field: mallinfo::arena"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
+        4usize,
+        "Offset of field: mallinfo::ordblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
+        8usize,
+        "Offset of field: mallinfo::smblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
+        12usize,
+        "Offset of field: mallinfo::hblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
+        16usize,
+        "Offset of field: mallinfo::hblkhd"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
+        20usize,
+        "Offset of field: mallinfo::usmblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
+        24usize,
+        "Offset of field: mallinfo::fsmblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
+        28usize,
+        "Offset of field: mallinfo::uordblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
+        32usize,
+        "Offset of field: mallinfo::fordblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
+        36usize,
+        "Offset of field: mallinfo::keepcost"
+    );
+}
+extern "C" {
+    pub fn mallinfo() -> mallinfo;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct mallinfo2 {
+    pub arena: usize,
+    pub ordblks: usize,
+    pub smblks: usize,
+    pub hblks: usize,
+    pub hblkhd: usize,
+    pub usmblks: usize,
+    pub fsmblks: usize,
+    pub uordblks: usize,
+    pub fordblks: usize,
+    pub keepcost: usize,
+}
+#[test]
+fn bindgen_test_layout_mallinfo2() {
+    const UNINIT: ::std::mem::MaybeUninit<mallinfo2> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<mallinfo2>(),
+        40usize,
+        "Size of mallinfo2"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<mallinfo2>(),
+        4usize,
+        "Alignment of mallinfo2"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).arena) as usize - ptr as usize },
+        0usize,
+        "Offset of field: mallinfo2::arena"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ordblks) as usize - ptr as usize },
+        4usize,
+        "Offset of field: mallinfo2::ordblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).smblks) as usize - ptr as usize },
+        8usize,
+        "Offset of field: mallinfo2::smblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).hblks) as usize - ptr as usize },
+        12usize,
+        "Offset of field: mallinfo2::hblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).hblkhd) as usize - ptr as usize },
+        16usize,
+        "Offset of field: mallinfo2::hblkhd"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).usmblks) as usize - ptr as usize },
+        20usize,
+        "Offset of field: mallinfo2::usmblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fsmblks) as usize - ptr as usize },
+        24usize,
+        "Offset of field: mallinfo2::fsmblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).uordblks) as usize - ptr as usize },
+        28usize,
+        "Offset of field: mallinfo2::uordblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).fordblks) as usize - ptr as usize },
+        32usize,
+        "Offset of field: mallinfo2::fordblks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).keepcost) as usize - ptr as usize },
+        36usize,
+        "Offset of field: mallinfo2::keepcost"
+    );
+}
+impl HeapTaggingLevel {
+    pub const M_HEAP_TAGGING_LEVEL_NONE: HeapTaggingLevel = HeapTaggingLevel(0);
+    pub const M_HEAP_TAGGING_LEVEL_TBI: HeapTaggingLevel = HeapTaggingLevel(1);
+    pub const M_HEAP_TAGGING_LEVEL_ASYNC: HeapTaggingLevel = HeapTaggingLevel(2);
+    pub const M_HEAP_TAGGING_LEVEL_SYNC: HeapTaggingLevel = HeapTaggingLevel(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct HeapTaggingLevel(pub ::std::os::raw::c_uint);
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __locale_t {
+    _unused: [u8; 0],
+}
+pub type locale_t = *mut __locale_t;
+extern "C" {
+    pub fn abort() -> !;
+}
+extern "C" {
+    pub fn exit(__status: ::std::os::raw::c_int) -> !;
+}
+extern "C" {
+    pub fn _Exit(__status: ::std::os::raw::c_int) -> !;
+}
+extern "C" {
+    pub fn atexit(__fn: ::std::option::Option<unsafe extern "C" fn()>) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn at_quick_exit(
+        __fn: ::std::option::Option<unsafe extern "C" fn()>,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn quick_exit(__status: ::std::os::raw::c_int) -> !;
+}
+extern "C" {
+    pub fn getenv(__name: *const ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn putenv(__assignment: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setenv(
+        __name: *const ::std::os::raw::c_char,
+        __value: *const ::std::os::raw::c_char,
+        __overwrite: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn unsetenv(__name: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clearenv() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn mkdtemp(__template: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn mktemp(__template: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn mkstemp64(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn mkstemp(__template: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn mkstemps(
+        __template: *mut ::std::os::raw::c_char,
+        __flags: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn posix_memalign(
+        __memptr: *mut *mut ::std::os::raw::c_void,
+        __alignment: usize,
+        __size: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn realpath(
+        __path: *const ::std::os::raw::c_char,
+        __resolved: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn system(__command: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn bsearch(
+        __key: *const ::std::os::raw::c_void,
+        __base: *const ::std::os::raw::c_void,
+        __nmemb: usize,
+        __size: usize,
+        __comparator: ::std::option::Option<
+            unsafe extern "C" fn(
+                __lhs: *const ::std::os::raw::c_void,
+                __rhs: *const ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn qsort(
+        __array: *mut ::std::os::raw::c_void,
+        __n: usize,
+        __size: usize,
+        __comparator: ::std::option::Option<
+            unsafe extern "C" fn(
+                __lhs: *const ::std::os::raw::c_void,
+                __rhs: *const ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+    );
+}
+extern "C" {
+    pub fn arc4random() -> u32;
+}
+extern "C" {
+    pub fn arc4random_uniform(__upper_bound: u32) -> u32;
+}
+extern "C" {
+    pub fn arc4random_buf(__buf: *mut ::std::os::raw::c_void, __n: usize);
+}
+extern "C" {
+    pub fn rand_r(__seed_ptr: *mut ::std::os::raw::c_uint) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn drand48() -> f64;
+}
+extern "C" {
+    pub fn erand48(__xsubi: *mut ::std::os::raw::c_ushort) -> f64;
+}
+extern "C" {
+    pub fn lrand48() -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn mrand48() -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn nrand48(__xsubi: *mut ::std::os::raw::c_ushort) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn seed48(__seed16v: *mut ::std::os::raw::c_ushort) -> *mut ::std::os::raw::c_ushort;
+}
+extern "C" {
+    pub fn srand48(__seed: ::std::os::raw::c_long);
+}
+extern "C" {
+    pub fn initstate(
+        __seed: ::std::os::raw::c_uint,
+        __state: *mut ::std::os::raw::c_char,
+        __n: usize,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn setstate(__state: *mut ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn getpt() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn posix_openpt(__flags: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ptsname(__fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ptsname_r(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_char,
+        __n: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn unlockpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct div_t {
+    pub quot: ::std::os::raw::c_int,
+    pub rem: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_div_t() {
+    const UNINIT: ::std::mem::MaybeUninit<div_t> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<div_t>(), 8usize, "Size of div_t");
+    assert_eq!(
+        ::std::mem::align_of::<div_t>(),
+        4usize,
+        "Alignment of div_t"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
+        0usize,
+        "Offset of field: div_t::quot"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
+        4usize,
+        "Offset of field: div_t::rem"
+    );
+}
+extern "C" {
+    pub fn div(__numerator: ::std::os::raw::c_int, __denominator: ::std::os::raw::c_int) -> div_t;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ldiv_t {
+    pub quot: ::std::os::raw::c_long,
+    pub rem: ::std::os::raw::c_long,
+}
+#[test]
+fn bindgen_test_layout_ldiv_t() {
+    const UNINIT: ::std::mem::MaybeUninit<ldiv_t> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<ldiv_t>(), 8usize, "Size of ldiv_t");
+    assert_eq!(
+        ::std::mem::align_of::<ldiv_t>(),
+        4usize,
+        "Alignment of ldiv_t"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ldiv_t::quot"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
+        4usize,
+        "Offset of field: ldiv_t::rem"
+    );
+}
+extern "C" {
+    pub fn ldiv(
+        __numerator: ::std::os::raw::c_long,
+        __denominator: ::std::os::raw::c_long,
+    ) -> ldiv_t;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lldiv_t {
+    pub quot: ::std::os::raw::c_longlong,
+    pub rem: ::std::os::raw::c_longlong,
+}
+#[test]
+fn bindgen_test_layout_lldiv_t() {
+    const UNINIT: ::std::mem::MaybeUninit<lldiv_t> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(::std::mem::size_of::<lldiv_t>(), 16usize, "Size of lldiv_t");
+    assert_eq!(
+        ::std::mem::align_of::<lldiv_t>(),
+        4usize,
+        "Alignment of lldiv_t"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).quot) as usize - ptr as usize },
+        0usize,
+        "Offset of field: lldiv_t::quot"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).rem) as usize - ptr as usize },
+        8usize,
+        "Offset of field: lldiv_t::rem"
+    );
+}
+extern "C" {
+    pub fn lldiv(
+        __numerator: ::std::os::raw::c_longlong,
+        __denominator: ::std::os::raw::c_longlong,
+    ) -> lldiv_t;
+}
+extern "C" {
+    pub fn getprogname() -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn setprogname(__name: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn mbstowcs(__dst: *mut wchar_t, __src: *const ::std::os::raw::c_char, __n: usize)
+        -> usize;
+}
+extern "C" {
+    pub fn mbtowc(
+        __wc_ptr: *mut wchar_t,
+        __s: *const ::std::os::raw::c_char,
+        __n: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn wctomb(__dst: *mut ::std::os::raw::c_char, __wc: wchar_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn wcstombs(__dst: *mut ::std::os::raw::c_char, __src: *const wchar_t, __n: usize)
+        -> usize;
+}
+extern "C" {
+    pub fn __ctype_get_mb_cur_max() -> usize;
+}
+extern "C" {
+    pub fn abs(__x: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn labs(__x: ::std::os::raw::c_long) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn llabs(__x: ::std::os::raw::c_longlong) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn rand() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn srand(__seed: ::std::os::raw::c_uint);
+}
+extern "C" {
+    pub fn random() -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn srandom(__seed: ::std::os::raw::c_uint);
+}
+extern "C" {
+    pub fn grantpt(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn atof(__s: *const ::std::os::raw::c_char) -> f64;
+}
+extern "C" {
+    pub fn atoi(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn atol(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn atoll(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn strtol(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn strtoll(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn strtoll_l(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+        __l: locale_t,
+    ) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn strtoul(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn strtoull(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_ulonglong;
+}
+extern "C" {
+    pub fn strtoull_l(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+        __l: locale_t,
+    ) -> ::std::os::raw::c_ulonglong;
+}
+extern "C" {
+    pub fn strtof(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f32;
+}
+extern "C" {
+    pub fn strtod(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f64;
+}
+extern "C" {
+    pub fn strtold(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f64;
+}
+extern "C" {
+    pub fn strtold_l(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __l: locale_t,
+    ) -> f64;
+}
+extern "C" {
+    pub fn strtod_l(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __l: locale_t,
+    ) -> f64;
+}
+extern "C" {
+    pub fn strtof_l(
+        __s: *const ::std::os::raw::c_char,
+        __end_ptr: *mut *mut ::std::os::raw::c_char,
+        __l: locale_t,
+    ) -> f32;
+}
+pub type net_handle_t = u64;
+extern "C" {
+    pub fn android_setsocknetwork(
+        network: net_handle_t,
+        fd: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_setprocnetwork(network: net_handle_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_getprocnetwork(network: *mut net_handle_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_setprocdns(network: net_handle_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_getprocdns(network: *mut net_handle_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_getaddrinfofornetwork(
+        network: net_handle_t,
+        node: *const ::std::os::raw::c_char,
+        service: *const ::std::os::raw::c_char,
+        hints: *const addrinfo,
+        res: *mut *mut addrinfo,
+    ) -> ::std::os::raw::c_int;
+}
+impl ResNsendFlags {
+    pub const ANDROID_RESOLV_NO_RETRY: ResNsendFlags = ResNsendFlags(1);
+    pub const ANDROID_RESOLV_NO_CACHE_STORE: ResNsendFlags = ResNsendFlags(2);
+    pub const ANDROID_RESOLV_NO_CACHE_LOOKUP: ResNsendFlags = ResNsendFlags(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ResNsendFlags(pub u32);
+extern "C" {
+    pub fn android_res_nquery(
+        network: net_handle_t,
+        dname: *const ::std::os::raw::c_char,
+        ns_class: ::std::os::raw::c_int,
+        ns_type: ::std::os::raw::c_int,
+        flags: u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_res_nsend(
+        network: net_handle_t,
+        msg: *const u8,
+        msglen: usize,
+        flags: u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_res_nresult(
+        fd: ::std::os::raw::c_int,
+        rcode: *mut ::std::os::raw::c_int,
+        answer: *mut u8,
+        anslen: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_res_cancel(nsend_fd: ::std::os::raw::c_int);
+}
+extern "C" {
+    pub fn android_tag_socket_with_uid(
+        sockfd: ::std::os::raw::c_int,
+        tag: u32,
+        uid: uid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_tag_socket(sockfd: ::std::os::raw::c_int, tag: u32) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn android_untag_socket(sockfd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+impl ANativeWindow_LegacyFormat {
+    pub const WINDOW_FORMAT_RGBA_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(1);
+    pub const WINDOW_FORMAT_RGBX_8888: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(2);
+    pub const WINDOW_FORMAT_RGB_565: ANativeWindow_LegacyFormat = ANativeWindow_LegacyFormat(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindow_LegacyFormat(pub ::std::os::raw::c_uint);
+impl ANativeWindowTransform {
+    pub const ANATIVEWINDOW_TRANSFORM_IDENTITY: ANativeWindowTransform = ANativeWindowTransform(0);
+    pub const ANATIVEWINDOW_TRANSFORM_MIRROR_HORIZONTAL: ANativeWindowTransform =
+        ANativeWindowTransform(1);
+    pub const ANATIVEWINDOW_TRANSFORM_MIRROR_VERTICAL: ANativeWindowTransform =
+        ANativeWindowTransform(2);
+    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_90: ANativeWindowTransform = ANativeWindowTransform(4);
+    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_180: ANativeWindowTransform =
+        ANativeWindowTransform(3);
+    pub const ANATIVEWINDOW_TRANSFORM_ROTATE_270: ANativeWindowTransform =
+        ANativeWindowTransform(7);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindowTransform(pub ::std::os::raw::c_uint);
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANativeWindow {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANativeWindow_Buffer {
+    pub width: i32,
+    pub height: i32,
+    pub stride: i32,
+    pub format: i32,
+    pub bits: *mut ::std::os::raw::c_void,
+    pub reserved: [u32; 6usize],
+}
+#[test]
+fn bindgen_test_layout_ANativeWindow_Buffer() {
+    const UNINIT: ::std::mem::MaybeUninit<ANativeWindow_Buffer> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ANativeWindow_Buffer>(),
+        44usize,
+        "Size of ANativeWindow_Buffer"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ANativeWindow_Buffer>(),
+        4usize,
+        "Alignment of ANativeWindow_Buffer"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).width) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ANativeWindow_Buffer::width"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).height) as usize - ptr as usize },
+        4usize,
+        "Offset of field: ANativeWindow_Buffer::height"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).stride) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ANativeWindow_Buffer::stride"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).format) as usize - ptr as usize },
+        12usize,
+        "Offset of field: ANativeWindow_Buffer::format"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).bits) as usize - ptr as usize },
+        16usize,
+        "Offset of field: ANativeWindow_Buffer::bits"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
+        20usize,
+        "Offset of field: ANativeWindow_Buffer::reserved"
+    );
+}
+extern "C" {
+    pub fn ANativeWindow_acquire(window: *mut ANativeWindow);
+}
+extern "C" {
+    pub fn ANativeWindow_release(window: *mut ANativeWindow);
+}
+extern "C" {
+    pub fn ANativeWindow_getWidth(window: *mut ANativeWindow) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_getHeight(window: *mut ANativeWindow) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_getFormat(window: *mut ANativeWindow) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_setBuffersGeometry(
+        window: *mut ANativeWindow,
+        width: i32,
+        height: i32,
+        format: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_lock(
+        window: *mut ANativeWindow,
+        outBuffer: *mut ANativeWindow_Buffer,
+        inOutDirtyBounds: *mut ARect,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_unlockAndPost(window: *mut ANativeWindow) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_setBuffersTransform(window: *mut ANativeWindow, transform: i32) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_setBuffersDataSpace(window: *mut ANativeWindow, dataSpace: i32) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_getBuffersDataSpace(window: *mut ANativeWindow) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_getBuffersDefaultDataSpace(window: *mut ANativeWindow) -> i32;
+}
+impl ANativeWindow_FrameRateCompatibility {
+    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_DEFAULT: ANativeWindow_FrameRateCompatibility =
+        ANativeWindow_FrameRateCompatibility(0);
+    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE:
+        ANativeWindow_FrameRateCompatibility = ANativeWindow_FrameRateCompatibility(1);
+    pub const ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_GTE: ANativeWindow_FrameRateCompatibility =
+        ANativeWindow_FrameRateCompatibility(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindow_FrameRateCompatibility(pub ::std::os::raw::c_uint);
+extern "C" {
+    pub fn ANativeWindow_setFrameRate(
+        window: *mut ANativeWindow,
+        frameRate: f32,
+        compatibility: i8,
+    ) -> i32;
+}
+extern "C" {
+    pub fn ANativeWindow_tryAllocateBuffers(window: *mut ANativeWindow);
+}
+impl ANativeWindow_ChangeFrameRateStrategy {
+    pub const ANATIVEWINDOW_CHANGE_FRAME_RATE_ONLY_IF_SEAMLESS:
+        ANativeWindow_ChangeFrameRateStrategy = ANativeWindow_ChangeFrameRateStrategy(0);
+    pub const ANATIVEWINDOW_CHANGE_FRAME_RATE_ALWAYS: ANativeWindow_ChangeFrameRateStrategy =
+        ANativeWindow_ChangeFrameRateStrategy(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ANativeWindow_ChangeFrameRateStrategy(pub ::std::os::raw::c_uint);
+extern "C" {
+    pub fn ANativeWindow_setFrameRateWithChangeStrategy(
+        window: *mut ANativeWindow,
+        frameRate: f32,
+        compatibility: i8,
+        changeFrameRateStrategy: i8,
+    ) -> i32;
+}
+#[repr(C)]
+pub struct ANativeActivity {
+    pub callbacks: *mut ANativeActivityCallbacks,
+    pub vm: *mut JavaVM,
+    pub env: *mut JNIEnv,
+    pub clazz: jobject,
+    pub internalDataPath: *const ::std::os::raw::c_char,
+    pub externalDataPath: *const ::std::os::raw::c_char,
+    pub sdkVersion: i32,
+    pub instance: *mut ::std::os::raw::c_void,
+    pub assetManager: *mut AAssetManager,
+    pub obbPath: *const ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_ANativeActivity() {
+    const UNINIT: ::std::mem::MaybeUninit<ANativeActivity> = ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ANativeActivity>(),
+        40usize,
+        "Size of ANativeActivity"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ANativeActivity>(),
+        4usize,
+        "Alignment of ANativeActivity"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).callbacks) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ANativeActivity::callbacks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).vm) as usize - ptr as usize },
+        4usize,
+        "Offset of field: ANativeActivity::vm"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).env) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ANativeActivity::env"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).clazz) as usize - ptr as usize },
+        12usize,
+        "Offset of field: ANativeActivity::clazz"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).internalDataPath) as usize - ptr as usize },
+        16usize,
+        "Offset of field: ANativeActivity::internalDataPath"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).externalDataPath) as usize - ptr as usize },
+        20usize,
+        "Offset of field: ANativeActivity::externalDataPath"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).sdkVersion) as usize - ptr as usize },
+        24usize,
+        "Offset of field: ANativeActivity::sdkVersion"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).instance) as usize - ptr as usize },
+        28usize,
+        "Offset of field: ANativeActivity::instance"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).assetManager) as usize - ptr as usize },
+        32usize,
+        "Offset of field: ANativeActivity::assetManager"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).obbPath) as usize - ptr as usize },
+        36usize,
+        "Offset of field: ANativeActivity::obbPath"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANativeActivityCallbacks {
+    pub onStart: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onResume: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onSaveInstanceState: ::std::option::Option<
+        unsafe extern "C" fn(
+            activity: *mut ANativeActivity,
+            outSize: *mut usize,
+        ) -> *mut ::std::os::raw::c_void,
+    >,
+    pub onPause: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onStop: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onDestroy: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onWindowFocusChanged: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, hasFocus: ::std::os::raw::c_int),
+    >,
+    pub onNativeWindowCreated: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
+    >,
+    pub onNativeWindowResized: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
+    >,
+    pub onNativeWindowRedrawNeeded: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
+    >,
+    pub onNativeWindowDestroyed: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, window: *mut ANativeWindow),
+    >,
+    pub onInputQueueCreated: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
+    >,
+    pub onInputQueueDestroyed: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, queue: *mut AInputQueue),
+    >,
+    pub onContentRectChanged: ::std::option::Option<
+        unsafe extern "C" fn(activity: *mut ANativeActivity, rect: *const ARect),
+    >,
+    pub onConfigurationChanged:
+        ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+    pub onLowMemory: ::std::option::Option<unsafe extern "C" fn(activity: *mut ANativeActivity)>,
+}
+#[test]
+fn bindgen_test_layout_ANativeActivityCallbacks() {
+    const UNINIT: ::std::mem::MaybeUninit<ANativeActivityCallbacks> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ANativeActivityCallbacks>(),
+        64usize,
+        "Size of ANativeActivityCallbacks"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ANativeActivityCallbacks>(),
+        4usize,
+        "Alignment of ANativeActivityCallbacks"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onStart) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ANativeActivityCallbacks::onStart"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onResume) as usize - ptr as usize },
+        4usize,
+        "Offset of field: ANativeActivityCallbacks::onResume"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onSaveInstanceState) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ANativeActivityCallbacks::onSaveInstanceState"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onPause) as usize - ptr as usize },
+        12usize,
+        "Offset of field: ANativeActivityCallbacks::onPause"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onStop) as usize - ptr as usize },
+        16usize,
+        "Offset of field: ANativeActivityCallbacks::onStop"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onDestroy) as usize - ptr as usize },
+        20usize,
+        "Offset of field: ANativeActivityCallbacks::onDestroy"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onWindowFocusChanged) as usize - ptr as usize },
+        24usize,
+        "Offset of field: ANativeActivityCallbacks::onWindowFocusChanged"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowCreated) as usize - ptr as usize },
+        28usize,
+        "Offset of field: ANativeActivityCallbacks::onNativeWindowCreated"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowResized) as usize - ptr as usize },
+        32usize,
+        "Offset of field: ANativeActivityCallbacks::onNativeWindowResized"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowRedrawNeeded) as usize - ptr as usize },
+        36usize,
+        "Offset of field: ANativeActivityCallbacks::onNativeWindowRedrawNeeded"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onNativeWindowDestroyed) as usize - ptr as usize },
+        40usize,
+        "Offset of field: ANativeActivityCallbacks::onNativeWindowDestroyed"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueCreated) as usize - ptr as usize },
+        44usize,
+        "Offset of field: ANativeActivityCallbacks::onInputQueueCreated"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onInputQueueDestroyed) as usize - ptr as usize },
+        48usize,
+        "Offset of field: ANativeActivityCallbacks::onInputQueueDestroyed"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onContentRectChanged) as usize - ptr as usize },
+        52usize,
+        "Offset of field: ANativeActivityCallbacks::onContentRectChanged"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onConfigurationChanged) as usize - ptr as usize },
+        56usize,
+        "Offset of field: ANativeActivityCallbacks::onConfigurationChanged"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).onLowMemory) as usize - ptr as usize },
+        60usize,
+        "Offset of field: ANativeActivityCallbacks::onLowMemory"
+    );
+}
+pub type ANativeActivity_createFunc = ::std::option::Option<
+    unsafe extern "C" fn(
+        activity: *mut ANativeActivity,
+        savedState: *mut ::std::os::raw::c_void,
+        savedStateSize: usize,
+    ),
+>;
+extern "C" {
+    pub fn ANativeActivity_onCreate(
+        activity: *mut ANativeActivity,
+        savedState: *mut ::std::os::raw::c_void,
+        savedStateSize: usize,
+    );
+}
+extern "C" {
+    pub fn ANativeActivity_finish(activity: *mut ANativeActivity);
+}
+extern "C" {
+    pub fn ANativeActivity_setWindowFormat(activity: *mut ANativeActivity, format: i32);
+}
+extern "C" {
+    pub fn ANativeActivity_setWindowFlags(
+        activity: *mut ANativeActivity,
+        addFlags: u32,
+        removeFlags: u32,
+    );
+}
+pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_IMPLICIT: _bindgen_ty_34 = 1;
+pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_FORCED: _bindgen_ty_34 = 2;
+pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
+extern "C" {
+    pub fn ANativeActivity_showSoftInput(activity: *mut ANativeActivity, flags: u32);
+}
+pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_IMPLICIT_ONLY: _bindgen_ty_35 = 1;
+pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_35 = 2;
+pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
+extern "C" {
+    pub fn ANativeActivity_hideSoftInput(activity: *mut ANativeActivity, flags: u32);
+}
+extern "C" {
+    pub fn ANativeWindow_fromSurface(env: *mut JNIEnv, surface: jobject) -> *mut ANativeWindow;
+}
+extern "C" {
+    pub fn ANativeWindow_toSurface(env: *mut JNIEnv, window: *mut ANativeWindow) -> jobject;
+}
+impl OperandCode {
+    pub const ANEURALNETWORKS_FLOAT32: OperandCode = OperandCode(0);
+    pub const ANEURALNETWORKS_INT32: OperandCode = OperandCode(1);
+    pub const ANEURALNETWORKS_UINT32: OperandCode = OperandCode(2);
+    pub const ANEURALNETWORKS_TENSOR_FLOAT32: OperandCode = OperandCode(3);
+    pub const ANEURALNETWORKS_TENSOR_INT32: OperandCode = OperandCode(4);
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_ASYMM: OperandCode = OperandCode(5);
+    pub const ANEURALNETWORKS_BOOL: OperandCode = OperandCode(6);
+    pub const ANEURALNETWORKS_TENSOR_QUANT16_SYMM: OperandCode = OperandCode(7);
+    pub const ANEURALNETWORKS_TENSOR_FLOAT16: OperandCode = OperandCode(8);
+    pub const ANEURALNETWORKS_TENSOR_BOOL8: OperandCode = OperandCode(9);
+    pub const ANEURALNETWORKS_FLOAT16: OperandCode = OperandCode(10);
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_SYMM_PER_CHANNEL: OperandCode = OperandCode(11);
+    pub const ANEURALNETWORKS_TENSOR_QUANT16_ASYMM: OperandCode = OperandCode(12);
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_SYMM: OperandCode = OperandCode(13);
+    pub const ANEURALNETWORKS_TENSOR_QUANT8_ASYMM_SIGNED: OperandCode = OperandCode(14);
+    pub const ANEURALNETWORKS_MODEL: OperandCode = OperandCode(15);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct OperandCode(pub ::std::os::raw::c_uint);
+impl OperationCode {
+    pub const ANEURALNETWORKS_ADD: OperationCode = OperationCode(0);
+    pub const ANEURALNETWORKS_AVERAGE_POOL_2D: OperationCode = OperationCode(1);
+    pub const ANEURALNETWORKS_CONCATENATION: OperationCode = OperationCode(2);
+    pub const ANEURALNETWORKS_CONV_2D: OperationCode = OperationCode(3);
+    pub const ANEURALNETWORKS_DEPTHWISE_CONV_2D: OperationCode = OperationCode(4);
+    pub const ANEURALNETWORKS_DEPTH_TO_SPACE: OperationCode = OperationCode(5);
+    pub const ANEURALNETWORKS_DEQUANTIZE: OperationCode = OperationCode(6);
+    pub const ANEURALNETWORKS_EMBEDDING_LOOKUP: OperationCode = OperationCode(7);
+    pub const ANEURALNETWORKS_FLOOR: OperationCode = OperationCode(8);
+    pub const ANEURALNETWORKS_FULLY_CONNECTED: OperationCode = OperationCode(9);
+    pub const ANEURALNETWORKS_HASHTABLE_LOOKUP: OperationCode = OperationCode(10);
+    pub const ANEURALNETWORKS_L2_NORMALIZATION: OperationCode = OperationCode(11);
+    pub const ANEURALNETWORKS_L2_POOL_2D: OperationCode = OperationCode(12);
+    pub const ANEURALNETWORKS_LOCAL_RESPONSE_NORMALIZATION: OperationCode = OperationCode(13);
+    pub const ANEURALNETWORKS_LOGISTIC: OperationCode = OperationCode(14);
+    pub const ANEURALNETWORKS_LSH_PROJECTION: OperationCode = OperationCode(15);
+    pub const ANEURALNETWORKS_LSTM: OperationCode = OperationCode(16);
+    pub const ANEURALNETWORKS_MAX_POOL_2D: OperationCode = OperationCode(17);
+    pub const ANEURALNETWORKS_MUL: OperationCode = OperationCode(18);
+    pub const ANEURALNETWORKS_RELU: OperationCode = OperationCode(19);
+    pub const ANEURALNETWORKS_RELU1: OperationCode = OperationCode(20);
+    pub const ANEURALNETWORKS_RELU6: OperationCode = OperationCode(21);
+    pub const ANEURALNETWORKS_RESHAPE: OperationCode = OperationCode(22);
+    pub const ANEURALNETWORKS_RESIZE_BILINEAR: OperationCode = OperationCode(23);
+    pub const ANEURALNETWORKS_RNN: OperationCode = OperationCode(24);
+    pub const ANEURALNETWORKS_SOFTMAX: OperationCode = OperationCode(25);
+    pub const ANEURALNETWORKS_SPACE_TO_DEPTH: OperationCode = OperationCode(26);
+    pub const ANEURALNETWORKS_SVDF: OperationCode = OperationCode(27);
+    pub const ANEURALNETWORKS_TANH: OperationCode = OperationCode(28);
+    pub const ANEURALNETWORKS_BATCH_TO_SPACE_ND: OperationCode = OperationCode(29);
+    pub const ANEURALNETWORKS_DIV: OperationCode = OperationCode(30);
+    pub const ANEURALNETWORKS_MEAN: OperationCode = OperationCode(31);
+    pub const ANEURALNETWORKS_PAD: OperationCode = OperationCode(32);
+    pub const ANEURALNETWORKS_SPACE_TO_BATCH_ND: OperationCode = OperationCode(33);
+    pub const ANEURALNETWORKS_SQUEEZE: OperationCode = OperationCode(34);
+    pub const ANEURALNETWORKS_STRIDED_SLICE: OperationCode = OperationCode(35);
+    pub const ANEURALNETWORKS_SUB: OperationCode = OperationCode(36);
+    pub const ANEURALNETWORKS_TRANSPOSE: OperationCode = OperationCode(37);
+    pub const ANEURALNETWORKS_ABS: OperationCode = OperationCode(38);
+    pub const ANEURALNETWORKS_ARGMAX: OperationCode = OperationCode(39);
+    pub const ANEURALNETWORKS_ARGMIN: OperationCode = OperationCode(40);
+    pub const ANEURALNETWORKS_AXIS_ALIGNED_BBOX_TRANSFORM: OperationCode = OperationCode(41);
+    pub const ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = OperationCode(42);
+    pub const ANEURALNETWORKS_BIDIRECTIONAL_SEQUENCE_RNN: OperationCode = OperationCode(43);
+    pub const ANEURALNETWORKS_BOX_WITH_NMS_LIMIT: OperationCode = OperationCode(44);
+    pub const ANEURALNETWORKS_CAST: OperationCode = OperationCode(45);
+    pub const ANEURALNETWORKS_CHANNEL_SHUFFLE: OperationCode = OperationCode(46);
+    pub const ANEURALNETWORKS_DETECTION_POSTPROCESSING: OperationCode = OperationCode(47);
+    pub const ANEURALNETWORKS_EQUAL: OperationCode = OperationCode(48);
+    pub const ANEURALNETWORKS_EXP: OperationCode = OperationCode(49);
+    pub const ANEURALNETWORKS_EXPAND_DIMS: OperationCode = OperationCode(50);
+    pub const ANEURALNETWORKS_GATHER: OperationCode = OperationCode(51);
+    pub const ANEURALNETWORKS_GENERATE_PROPOSALS: OperationCode = OperationCode(52);
+    pub const ANEURALNETWORKS_GREATER: OperationCode = OperationCode(53);
+    pub const ANEURALNETWORKS_GREATER_EQUAL: OperationCode = OperationCode(54);
+    pub const ANEURALNETWORKS_GROUPED_CONV_2D: OperationCode = OperationCode(55);
+    pub const ANEURALNETWORKS_HEATMAP_MAX_KEYPOINT: OperationCode = OperationCode(56);
+    pub const ANEURALNETWORKS_INSTANCE_NORMALIZATION: OperationCode = OperationCode(57);
+    pub const ANEURALNETWORKS_LESS: OperationCode = OperationCode(58);
+    pub const ANEURALNETWORKS_LESS_EQUAL: OperationCode = OperationCode(59);
+    pub const ANEURALNETWORKS_LOG: OperationCode = OperationCode(60);
+    pub const ANEURALNETWORKS_LOGICAL_AND: OperationCode = OperationCode(61);
+    pub const ANEURALNETWORKS_LOGICAL_NOT: OperationCode = OperationCode(62);
+    pub const ANEURALNETWORKS_LOGICAL_OR: OperationCode = OperationCode(63);
+    pub const ANEURALNETWORKS_LOG_SOFTMAX: OperationCode = OperationCode(64);
+    pub const ANEURALNETWORKS_MAXIMUM: OperationCode = OperationCode(65);
+    pub const ANEURALNETWORKS_MINIMUM: OperationCode = OperationCode(66);
+    pub const ANEURALNETWORKS_NEG: OperationCode = OperationCode(67);
+    pub const ANEURALNETWORKS_NOT_EQUAL: OperationCode = OperationCode(68);
+    pub const ANEURALNETWORKS_PAD_V2: OperationCode = OperationCode(69);
+    pub const ANEURALNETWORKS_POW: OperationCode = OperationCode(70);
+    pub const ANEURALNETWORKS_PRELU: OperationCode = OperationCode(71);
+    pub const ANEURALNETWORKS_QUANTIZE: OperationCode = OperationCode(72);
+    pub const ANEURALNETWORKS_QUANTIZED_16BIT_LSTM: OperationCode = OperationCode(73);
+    pub const ANEURALNETWORKS_RANDOM_MULTINOMIAL: OperationCode = OperationCode(74);
+    pub const ANEURALNETWORKS_REDUCE_ALL: OperationCode = OperationCode(75);
+    pub const ANEURALNETWORKS_REDUCE_ANY: OperationCode = OperationCode(76);
+    pub const ANEURALNETWORKS_REDUCE_MAX: OperationCode = OperationCode(77);
+    pub const ANEURALNETWORKS_REDUCE_MIN: OperationCode = OperationCode(78);
+    pub const ANEURALNETWORKS_REDUCE_PROD: OperationCode = OperationCode(79);
+    pub const ANEURALNETWORKS_REDUCE_SUM: OperationCode = OperationCode(80);
+    pub const ANEURALNETWORKS_ROI_ALIGN: OperationCode = OperationCode(81);
+    pub const ANEURALNETWORKS_ROI_POOLING: OperationCode = OperationCode(82);
+    pub const ANEURALNETWORKS_RSQRT: OperationCode = OperationCode(83);
+    pub const ANEURALNETWORKS_SELECT: OperationCode = OperationCode(84);
+    pub const ANEURALNETWORKS_SIN: OperationCode = OperationCode(85);
+    pub const ANEURALNETWORKS_SLICE: OperationCode = OperationCode(86);
+    pub const ANEURALNETWORKS_SPLIT: OperationCode = OperationCode(87);
+    pub const ANEURALNETWORKS_SQRT: OperationCode = OperationCode(88);
+    pub const ANEURALNETWORKS_TILE: OperationCode = OperationCode(89);
+    pub const ANEURALNETWORKS_TOPK_V2: OperationCode = OperationCode(90);
+    pub const ANEURALNETWORKS_TRANSPOSE_CONV_2D: OperationCode = OperationCode(91);
+    pub const ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_LSTM: OperationCode = OperationCode(92);
+    pub const ANEURALNETWORKS_UNIDIRECTIONAL_SEQUENCE_RNN: OperationCode = OperationCode(93);
+    pub const ANEURALNETWORKS_RESIZE_NEAREST_NEIGHBOR: OperationCode = OperationCode(94);
+    pub const ANEURALNETWORKS_QUANTIZED_LSTM: OperationCode = OperationCode(95);
+    pub const ANEURALNETWORKS_IF: OperationCode = OperationCode(96);
+    pub const ANEURALNETWORKS_WHILE: OperationCode = OperationCode(97);
+    pub const ANEURALNETWORKS_ELU: OperationCode = OperationCode(98);
+    pub const ANEURALNETWORKS_HARD_SWISH: OperationCode = OperationCode(99);
+    pub const ANEURALNETWORKS_FILL: OperationCode = OperationCode(100);
+    pub const ANEURALNETWORKS_RANK: OperationCode = OperationCode(101);
+    pub const ANEURALNETWORKS_BATCH_MATMUL: OperationCode = OperationCode(102);
+    pub const ANEURALNETWORKS_PACK: OperationCode = OperationCode(103);
+    pub const ANEURALNETWORKS_MIRROR_PAD: OperationCode = OperationCode(104);
+    pub const ANEURALNETWORKS_REVERSE: OperationCode = OperationCode(105);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct OperationCode(pub ::std::os::raw::c_uint);
+impl FuseCode {
+    pub const ANEURALNETWORKS_FUSED_NONE: FuseCode = FuseCode(0);
+    pub const ANEURALNETWORKS_FUSED_RELU: FuseCode = FuseCode(1);
+    pub const ANEURALNETWORKS_FUSED_RELU1: FuseCode = FuseCode(2);
+    pub const ANEURALNETWORKS_FUSED_RELU6: FuseCode = FuseCode(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct FuseCode(pub ::std::os::raw::c_uint);
+impl PaddingCode {
+    pub const ANEURALNETWORKS_PADDING_SAME: PaddingCode = PaddingCode(1);
+    pub const ANEURALNETWORKS_PADDING_VALID: PaddingCode = PaddingCode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct PaddingCode(pub ::std::os::raw::c_uint);
+impl PreferenceCode {
+    pub const ANEURALNETWORKS_PREFER_LOW_POWER: PreferenceCode = PreferenceCode(0);
+    pub const ANEURALNETWORKS_PREFER_FAST_SINGLE_ANSWER: PreferenceCode = PreferenceCode(1);
+    pub const ANEURALNETWORKS_PREFER_SUSTAINED_SPEED: PreferenceCode = PreferenceCode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct PreferenceCode(pub ::std::os::raw::c_uint);
+impl DeviceTypeCode {
+    pub const ANEURALNETWORKS_DEVICE_UNKNOWN: DeviceTypeCode = DeviceTypeCode(0);
+    pub const ANEURALNETWORKS_DEVICE_OTHER: DeviceTypeCode = DeviceTypeCode(1);
+    pub const ANEURALNETWORKS_DEVICE_CPU: DeviceTypeCode = DeviceTypeCode(2);
+    pub const ANEURALNETWORKS_DEVICE_GPU: DeviceTypeCode = DeviceTypeCode(3);
+    pub const ANEURALNETWORKS_DEVICE_ACCELERATOR: DeviceTypeCode = DeviceTypeCode(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct DeviceTypeCode(pub ::std::os::raw::c_uint);
+impl FeatureLevelCode {
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_1: FeatureLevelCode = FeatureLevelCode(27);
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_2: FeatureLevelCode = FeatureLevelCode(28);
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_3: FeatureLevelCode = FeatureLevelCode(29);
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_4: FeatureLevelCode = FeatureLevelCode(30);
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_5: FeatureLevelCode = FeatureLevelCode(31);
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_6: FeatureLevelCode = FeatureLevelCode(1000006);
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_7: FeatureLevelCode = FeatureLevelCode(1000007);
+    pub const ANEURALNETWORKS_FEATURE_LEVEL_8: FeatureLevelCode = FeatureLevelCode(1000008);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct FeatureLevelCode(pub ::std::os::raw::c_uint);
+impl ResultCode {
+    pub const ANEURALNETWORKS_NO_ERROR: ResultCode = ResultCode(0);
+    pub const ANEURALNETWORKS_OUT_OF_MEMORY: ResultCode = ResultCode(1);
+    pub const ANEURALNETWORKS_INCOMPLETE: ResultCode = ResultCode(2);
+    pub const ANEURALNETWORKS_UNEXPECTED_NULL: ResultCode = ResultCode(3);
+    pub const ANEURALNETWORKS_BAD_DATA: ResultCode = ResultCode(4);
+    pub const ANEURALNETWORKS_OP_FAILED: ResultCode = ResultCode(5);
+    pub const ANEURALNETWORKS_BAD_STATE: ResultCode = ResultCode(6);
+    pub const ANEURALNETWORKS_UNMAPPABLE: ResultCode = ResultCode(7);
+    pub const ANEURALNETWORKS_OUTPUT_INSUFFICIENT_SIZE: ResultCode = ResultCode(8);
+    pub const ANEURALNETWORKS_UNAVAILABLE_DEVICE: ResultCode = ResultCode(9);
+    pub const ANEURALNETWORKS_MISSED_DEADLINE_TRANSIENT: ResultCode = ResultCode(10);
+    pub const ANEURALNETWORKS_MISSED_DEADLINE_PERSISTENT: ResultCode = ResultCode(11);
+    pub const ANEURALNETWORKS_RESOURCE_EXHAUSTED_TRANSIENT: ResultCode = ResultCode(12);
+    pub const ANEURALNETWORKS_RESOURCE_EXHAUSTED_PERSISTENT: ResultCode = ResultCode(13);
+    pub const ANEURALNETWORKS_DEAD_OBJECT: ResultCode = ResultCode(14);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ResultCode(pub ::std::os::raw::c_uint);
+pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: _bindgen_ty_36 = 128;
+pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
+pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: _bindgen_ty_37 = 32;
+pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
+impl DurationCode {
+    pub const ANEURALNETWORKS_DURATION_ON_HARDWARE: DurationCode = DurationCode(0);
+    pub const ANEURALNETWORKS_DURATION_IN_DRIVER: DurationCode = DurationCode(1);
+    pub const ANEURALNETWORKS_FENCED_DURATION_ON_HARDWARE: DurationCode = DurationCode(2);
+    pub const ANEURALNETWORKS_FENCED_DURATION_IN_DRIVER: DurationCode = DurationCode(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct DurationCode(pub ::std::os::raw::c_uint);
+impl PriorityCode {
+    pub const ANEURALNETWORKS_PRIORITY_LOW: PriorityCode = PriorityCode(90);
+    pub const ANEURALNETWORKS_PRIORITY_MEDIUM: PriorityCode = PriorityCode(100);
+    pub const ANEURALNETWORKS_PRIORITY_HIGH: PriorityCode = PriorityCode(110);
+    pub const ANEURALNETWORKS_PRIORITY_DEFAULT: PriorityCode = PriorityCode(100);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct PriorityCode(pub ::std::os::raw::c_uint);
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksMemory {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksModel {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksCompilation {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksExecution {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksSymmPerChannelQuantParams {
+    pub channelDim: u32,
+    pub scaleCount: u32,
+    pub scales: *const f32,
+}
+#[test]
+fn bindgen_test_layout_ANeuralNetworksSymmPerChannelQuantParams() {
+    const UNINIT: ::std::mem::MaybeUninit<ANeuralNetworksSymmPerChannelQuantParams> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
+        12usize,
+        "Size of ANeuralNetworksSymmPerChannelQuantParams"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ANeuralNetworksSymmPerChannelQuantParams>(),
+        4usize,
+        "Alignment of ANeuralNetworksSymmPerChannelQuantParams"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).channelDim) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::channelDim"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).scaleCount) as usize - ptr as usize },
+        4usize,
+        "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::scaleCount"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).scales) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ANeuralNetworksSymmPerChannelQuantParams::scales"
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksBurst {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksOperandType {
+    pub type_: i32,
+    pub dimensionCount: u32,
+    pub dimensions: *const u32,
+    pub scale: f32,
+    pub zeroPoint: i32,
+}
+#[test]
+fn bindgen_test_layout_ANeuralNetworksOperandType() {
+    const UNINIT: ::std::mem::MaybeUninit<ANeuralNetworksOperandType> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<ANeuralNetworksOperandType>(),
+        20usize,
+        "Size of ANeuralNetworksOperandType"
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ANeuralNetworksOperandType>(),
+        4usize,
+        "Alignment of ANeuralNetworksOperandType"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
+        0usize,
+        "Offset of field: ANeuralNetworksOperandType::type_"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).dimensionCount) as usize - ptr as usize },
+        4usize,
+        "Offset of field: ANeuralNetworksOperandType::dimensionCount"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).dimensions) as usize - ptr as usize },
+        8usize,
+        "Offset of field: ANeuralNetworksOperandType::dimensions"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).scale) as usize - ptr as usize },
+        12usize,
+        "Offset of field: ANeuralNetworksOperandType::scale"
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).zeroPoint) as usize - ptr as usize },
+        16usize,
+        "Offset of field: ANeuralNetworksOperandType::zeroPoint"
+    );
+}
+pub type ANeuralNetworksOperationType = i32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksEvent {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksDevice {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ANeuralNetworksMemoryDesc {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn ANeuralNetworksMemoryDesc_create(
+        desc: *mut *mut ANeuralNetworksMemoryDesc,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemoryDesc_free(desc: *mut ANeuralNetworksMemoryDesc);
+}
+extern "C" {
+    pub fn ANeuralNetworksMemoryDesc_addInputRole(
+        desc: *mut ANeuralNetworksMemoryDesc,
+        compilation: *const ANeuralNetworksCompilation,
+        index: u32,
+        frequency: f32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemoryDesc_addOutputRole(
+        desc: *mut ANeuralNetworksMemoryDesc,
+        compilation: *const ANeuralNetworksCompilation,
+        index: u32,
+        frequency: f32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemoryDesc_setDimensions(
+        desc: *mut ANeuralNetworksMemoryDesc,
+        rank: u32,
+        dimensions: *const u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemoryDesc_finish(
+        desc: *mut ANeuralNetworksMemoryDesc,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemory_createFromDesc(
+        desc: *const ANeuralNetworksMemoryDesc,
+        memory: *mut *mut ANeuralNetworksMemory,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemory_copy(
+        src: *const ANeuralNetworksMemory,
+        dst: *const ANeuralNetworksMemory,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworks_getDeviceCount(numDevices: *mut u32) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworks_getDevice(
+        devIndex: u32,
+        device: *mut *mut ANeuralNetworksDevice,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksDevice_getName(
+        device: *const ANeuralNetworksDevice,
+        name: *mut *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksDevice_getType(
+        device: *const ANeuralNetworksDevice,
+        type_: *mut i32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksDevice_getVersion(
+        device: *const ANeuralNetworksDevice,
+        version: *mut *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksDevice_getFeatureLevel(
+        device: *const ANeuralNetworksDevice,
+        featureLevel: *mut i64,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksDevice_wait(
+        device: *const ANeuralNetworksDevice,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_getSupportedOperationsForDevices(
+        model: *const ANeuralNetworksModel,
+        devices: *const *const ANeuralNetworksDevice,
+        numDevices: u32,
+        supportedOps: *mut bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_createForDevices(
+        model: *mut ANeuralNetworksModel,
+        devices: *const *const ANeuralNetworksDevice,
+        numDevices: u32,
+        compilation: *mut *mut ANeuralNetworksCompilation,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_setCaching(
+        compilation: *mut ANeuralNetworksCompilation,
+        cacheDir: *const ::std::os::raw::c_char,
+        token: *const u8,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_compute(
+        execution: *mut ANeuralNetworksExecution,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_getOutputOperandRank(
+        execution: *mut ANeuralNetworksExecution,
+        index: i32,
+        rank: *mut u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_getOutputOperandDimensions(
+        execution: *mut ANeuralNetworksExecution,
+        index: i32,
+        dimensions: *mut u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksBurst_create(
+        compilation: *mut ANeuralNetworksCompilation,
+        burst: *mut *mut ANeuralNetworksBurst,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksBurst_free(burst: *mut ANeuralNetworksBurst);
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_burstCompute(
+        execution: *mut ANeuralNetworksExecution,
+        burst: *mut ANeuralNetworksBurst,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemory_createFromAHardwareBuffer(
+        ahwb: *const AHardwareBuffer,
+        memory: *mut *mut ANeuralNetworksMemory,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setMeasureTiming(
+        execution: *mut ANeuralNetworksExecution,
+        measure: bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_getDuration(
+        execution: *const ANeuralNetworksExecution,
+        durationCode: i32,
+        duration: *mut u64,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemory_createFromFd(
+        size: usize,
+        protect: ::std::os::raw::c_int,
+        fd: ::std::os::raw::c_int,
+        offset: usize,
+        memory: *mut *mut ANeuralNetworksMemory,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksMemory_free(memory: *mut ANeuralNetworksMemory);
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_create(
+        model: *mut *mut ANeuralNetworksModel,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_free(model: *mut ANeuralNetworksModel);
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_finish(model: *mut ANeuralNetworksModel) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_addOperand(
+        model: *mut ANeuralNetworksModel,
+        type_: *const ANeuralNetworksOperandType,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_setOperandValue(
+        model: *mut ANeuralNetworksModel,
+        index: i32,
+        buffer: *const ::std::os::raw::c_void,
+        length: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_setOperandSymmPerChannelQuantParams(
+        model: *mut ANeuralNetworksModel,
+        index: i32,
+        channelQuant: *const ANeuralNetworksSymmPerChannelQuantParams,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_setOperandValueFromMemory(
+        model: *mut ANeuralNetworksModel,
+        index: i32,
+        memory: *const ANeuralNetworksMemory,
+        offset: usize,
+        length: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_setOperandValueFromModel(
+        model: *mut ANeuralNetworksModel,
+        index: i32,
+        value: *const ANeuralNetworksModel,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_addOperation(
+        model: *mut ANeuralNetworksModel,
+        type_: ANeuralNetworksOperationType,
+        inputCount: u32,
+        inputs: *const u32,
+        outputCount: u32,
+        outputs: *const u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_identifyInputsAndOutputs(
+        model: *mut ANeuralNetworksModel,
+        inputCount: u32,
+        inputs: *const u32,
+        outputCount: u32,
+        outputs: *const u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksModel_relaxComputationFloat32toFloat16(
+        model: *mut ANeuralNetworksModel,
+        allow: bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_create(
+        model: *mut ANeuralNetworksModel,
+        compilation: *mut *mut ANeuralNetworksCompilation,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_free(compilation: *mut ANeuralNetworksCompilation);
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_setPreference(
+        compilation: *mut ANeuralNetworksCompilation,
+        preference: i32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_finish(
+        compilation: *mut ANeuralNetworksCompilation,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_setPriority(
+        compilation: *mut ANeuralNetworksCompilation,
+        priority: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_setTimeout(
+        compilation: *mut ANeuralNetworksCompilation,
+        duration: u64,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_create(
+        compilation: *mut ANeuralNetworksCompilation,
+        execution: *mut *mut ANeuralNetworksExecution,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_free(execution: *mut ANeuralNetworksExecution);
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setInput(
+        execution: *mut ANeuralNetworksExecution,
+        index: i32,
+        type_: *const ANeuralNetworksOperandType,
+        buffer: *const ::std::os::raw::c_void,
+        length: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setInputFromMemory(
+        execution: *mut ANeuralNetworksExecution,
+        index: i32,
+        type_: *const ANeuralNetworksOperandType,
+        memory: *const ANeuralNetworksMemory,
+        offset: usize,
+        length: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setOutput(
+        execution: *mut ANeuralNetworksExecution,
+        index: i32,
+        type_: *const ANeuralNetworksOperandType,
+        buffer: *mut ::std::os::raw::c_void,
+        length: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setOutputFromMemory(
+        execution: *mut ANeuralNetworksExecution,
+        index: i32,
+        type_: *const ANeuralNetworksOperandType,
+        memory: *const ANeuralNetworksMemory,
+        offset: usize,
+        length: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_startCompute(
+        execution: *mut ANeuralNetworksExecution,
+        event: *mut *mut ANeuralNetworksEvent,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setTimeout(
+        execution: *mut ANeuralNetworksExecution,
+        duration: u64,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setLoopTimeout(
+        execution: *mut ANeuralNetworksExecution,
+        duration: u64,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworks_getDefaultLoopTimeout() -> u64;
+}
+extern "C" {
+    pub fn ANeuralNetworks_getMaximumLoopTimeout() -> u64;
+}
+extern "C" {
+    pub fn ANeuralNetworksEvent_wait(event: *mut ANeuralNetworksEvent) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksEvent_free(event: *mut ANeuralNetworksEvent);
+}
+extern "C" {
+    pub fn ANeuralNetworksEvent_createFromSyncFenceFd(
+        sync_fence_fd: ::std::os::raw::c_int,
+        event: *mut *mut ANeuralNetworksEvent,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksEvent_getSyncFenceFd(
+        event: *const ANeuralNetworksEvent,
+        sync_fence_fd: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_startComputeWithDependencies(
+        execution: *mut ANeuralNetworksExecution,
+        dependencies: *const *const ANeuralNetworksEvent,
+        num_dependencies: u32,
+        duration: u64,
+        event: *mut *mut ANeuralNetworksEvent,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworks_getRuntimeFeatureLevel() -> i64;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_enableInputAndOutputPadding(
+        execution: *mut ANeuralNetworksExecution,
+        enable: bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_getPreferredMemoryAlignmentForInput(
+        compilation: *const ANeuralNetworksCompilation,
+        index: u32,
+        alignment: *mut u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_getPreferredMemoryPaddingForInput(
+        compilation: *const ANeuralNetworksCompilation,
+        index: u32,
+        padding: *mut u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_getPreferredMemoryAlignmentForOutput(
+        compilation: *const ANeuralNetworksCompilation,
+        index: u32,
+        alignment: *mut u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksCompilation_getPreferredMemoryPaddingForOutput(
+        compilation: *const ANeuralNetworksCompilation,
+        index: u32,
+        padding: *mut u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ANeuralNetworksExecution_setReusable(
+        execution: *mut ANeuralNetworksExecution,
+        reusable: bool,
+    ) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AObbInfo {
+    _unused: [u8; 0],
+}
+pub const AOBBINFO_OVERLAY: _bindgen_ty_38 = 1;
+pub type _bindgen_ty_38 = ::std::os::raw::c_uint;
+extern "C" {
+    pub fn AObbScanner_getObbInfo(filename: *const ::std::os::raw::c_char) -> *mut AObbInfo;
+}
+extern "C" {
+    pub fn AObbInfo_delete(obbInfo: *mut AObbInfo);
+}
+extern "C" {
+    pub fn AObbInfo_getPackageName(obbInfo: *mut AObbInfo) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn AObbInfo_getVersion(obbInfo: *mut AObbInfo) -> i32;
+}
+extern "C" {
+    pub fn AObbInfo_getFlags(obbInfo: *mut AObbInfo) -> i32;
 }
 extern "C" {
     pub fn fcntl(
@@ -11607,6 +11661,16 @@ pub struct APerformanceHintSession {
 pub struct AWorkDuration {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASurfaceControl {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ASessionCreationConfig {
+    _unused: [u8; 0],
+}
 extern "C" {
     pub fn APerformanceHint_getManager() -> *mut APerformanceHintManager;
 }
@@ -11619,9 +11683,20 @@ extern "C" {
     ) -> *mut APerformanceHintSession;
 }
 extern "C" {
+    pub fn APerformanceHint_createSessionUsingConfig(
+        manager: *mut APerformanceHintManager,
+        config: *mut ASessionCreationConfig,
+    ) -> *mut APerformanceHintSession;
+}
+extern "C" {
     pub fn APerformanceHint_getPreferredUpdateRateNanos(
         manager: *mut APerformanceHintManager,
     ) -> i64;
+}
+extern "C" {
+    pub fn APerformanceHint_getMaxGraphicsPipelineThreadsCount(
+        manager: *mut APerformanceHintManager,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn APerformanceHint_updateTargetWorkDuration(
@@ -11658,6 +11733,39 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn APerformanceHint_notifyWorkloadIncrease(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        debugName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_notifyWorkloadReset(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        debugName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_notifyWorkloadSpike(
+        session: *mut APerformanceHintSession,
+        cpu: bool,
+        gpu: bool,
+        debugName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn APerformanceHint_setNativeSurfaces(
+        session: *mut APerformanceHintSession,
+        nativeWindows: *mut *mut ANativeWindow,
+        nativeWindowsSize: ::std::os::raw::c_int,
+        surfaceControls: *mut *mut ASurfaceControl,
+        surfaceControlsSize: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     pub fn AWorkDuration_create() -> *mut AWorkDuration;
 }
 extern "C" {
@@ -11686,6 +11794,59 @@ extern "C" {
         aWorkDuration: *mut AWorkDuration,
         actualGpuDurationNanos: i64,
     );
+}
+extern "C" {
+    pub fn APerformanceHint_borrowSessionFromJava(
+        env: *mut JNIEnv,
+        sessionObj: jobject,
+    ) -> *mut APerformanceHintSession;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_create() -> *mut ASessionCreationConfig;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_release(config: *mut ASessionCreationConfig);
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setTids(
+        config: *mut ASessionCreationConfig,
+        tids: *const pid_t,
+        size: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setTargetWorkDurationNanos(
+        config: *mut ASessionCreationConfig,
+        targetWorkDurationNanos: i64,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setPreferPowerEfficiency(
+        config: *mut ASessionCreationConfig,
+        enabled: bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setGraphicsPipeline(
+        config: *mut ASessionCreationConfig,
+        enabled: bool,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setNativeSurfaces(
+        config: *mut ASessionCreationConfig,
+        nativeWindows: *mut *mut ANativeWindow,
+        nativeWindowsSize: ::std::os::raw::c_int,
+        surfaceControls: *mut *mut ASurfaceControl,
+        surfaceControlsSize: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ASessionCreationConfig_setUseAutoTiming(
+        config: *mut ASessionCreationConfig,
+        cpu: bool,
+        gpu: bool,
+    ) -> ::std::os::raw::c_int;
 }
 pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_39 = 0;
 pub const PERMISSION_MANAGER_PERMISSION_DENIED: _bindgen_ty_39 = -1;
@@ -13984,11 +14145,6 @@ extern "C" {
         filename: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ASurfaceControl {
-    _unused: [u8; 0],
-}
 extern "C" {
     pub fn ASurfaceControl_createFromWindow(
         parent: *mut ANativeWindow,
@@ -14255,6 +14411,13 @@ extern "C" {
         transaction: *mut ASurfaceTransaction,
         surface_control: *mut ASurfaceControl,
         desiredHeadroom: f32,
+    );
+}
+extern "C" {
+    pub fn ASurfaceTransaction_setLuts(
+        transaction: *mut ASurfaceTransaction,
+        surface_control: *mut ASurfaceControl,
+        luts: *const ADisplayLuts,
     );
 }
 extern "C" {
@@ -14800,6 +14963,30 @@ extern "C" {
         size: *mut usize,
     ) -> ::std::os::raw::c_int;
 }
+pub type AThermal_HeadroomCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        data: *mut ::std::os::raw::c_void,
+        headroom: f32,
+        forecastHeadroom: f32,
+        forecastSeconds: ::std::os::raw::c_int,
+        thresholds: *const AThermalHeadroomThreshold,
+        thresholdsCount: usize,
+    ),
+>;
+extern "C" {
+    pub fn AThermal_registerThermalHeadroomListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_HeadroomCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn AThermal_unregisterThermalHeadroomListener(
+        manager: *mut AThermalManager,
+        callback: AThermal_HeadroomCallback,
+        data: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
 extern "C" {
     pub fn ATrace_isEnabled() -> bool;
 }
@@ -14842,31 +15029,6 @@ pub const AWINDOW_FLAG_SHOW_WALLPAPER: _bindgen_ty_48 = 1048576;
 pub const AWINDOW_FLAG_TURN_SCREEN_ON: _bindgen_ty_48 = 2097152;
 pub const AWINDOW_FLAG_DISMISS_KEYGUARD: _bindgen_ty_48 = 4194304;
 pub type _bindgen_ty_48 = ::std::os::raw::c_uint;
-extern "C" {
-    pub fn gettimeofday(__tv: *mut timeval, __tz: *mut timezone) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn settimeofday(__tv: *const timeval, __tz: *const timezone) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getitimer(
-        __which: ::std::os::raw::c_int,
-        __current_value: *mut itimerval,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setitimer(
-        __which: ::std::os::raw::c_int,
-        __new_value: *const itimerval,
-        __old_value: *mut itimerval,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn utimes(
-        __path: *const ::std::os::raw::c_char,
-        __times: *const timeval,
-    ) -> ::std::os::raw::c_int;
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __timezone_t {
@@ -15248,6 +15410,37 @@ pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_61 = 51303999;
 pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_61 = 260;
 pub type _bindgen_ty_61 = ::std::os::raw::c_int;
 pub type aaudio_channel_mask_t = u32;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_EARPIECE: AAudio_DeviceType = 1;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER: AAudio_DeviceType = 2;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADSET: AAudio_DeviceType = 3;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADPHONES: AAudio_DeviceType = 4;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_LINE_ANALOG: AAudio_DeviceType = 5;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_LINE_DIGITAL: AAudio_DeviceType = 6;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_SCO: AAudio_DeviceType = 7;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_A2DP: AAudio_DeviceType = 8;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI: AAudio_DeviceType = 9;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI_ARC: AAudio_DeviceType = 10;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_DEVICE: AAudio_DeviceType = 11;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_ACCESSORY: AAudio_DeviceType = 12;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_DOCK: AAudio_DeviceType = 13;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_FM: AAudio_DeviceType = 14;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_MIC: AAudio_DeviceType = 15;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_FM_TUNER: AAudio_DeviceType = 16;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_TV_TUNER: AAudio_DeviceType = 17;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_TELEPHONY: AAudio_DeviceType = 18;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_AUX_LINE: AAudio_DeviceType = 19;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_IP: AAudio_DeviceType = 20;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUS: AAudio_DeviceType = 21;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_USB_HEADSET: AAudio_DeviceType = 22;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HEARING_AID: AAudio_DeviceType = 23;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER_SAFE: AAudio_DeviceType = 24;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_REMOTE_SUBMIX: AAudio_DeviceType = 25;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_HEADSET: AAudio_DeviceType = 26;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_SPEAKER: AAudio_DeviceType = 27;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_HDMI_EARC: AAudio_DeviceType = 29;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_BLE_BROADCAST: AAudio_DeviceType = 30;
+pub const AAudio_DeviceType_AAUDIO_DEVICE_DOCK_ANALOG: AAudio_DeviceType = 31;
+pub type AAudio_DeviceType = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AAudioStreamStruct {
@@ -15526,6 +15719,13 @@ extern "C" {
     pub fn AAudioStream_getDeviceId(stream: *mut AAudioStream) -> i32;
 }
 extern "C" {
+    pub fn AAudioStream_getDeviceIds(
+        stream: *mut AAudioStream,
+        ids: *mut i32,
+        numIds: *mut i32,
+    ) -> aaudio_result_t;
+}
+extern "C" {
     pub fn AAudioStream_getFormat(stream: *mut AAudioStream) -> aaudio_format_t;
 }
 extern "C" {
@@ -15601,6 +15801,32 @@ extern "C" {
 extern "C" {
     pub fn AAudioStream_setOffloadEndOfStream(stream: *mut AAudioStream) -> aaudio_result_t;
 }
+pub const AAUDIO_POLICY_NEVER: _bindgen_ty_63 = 1;
+pub const AAUDIO_POLICY_AUTO: _bindgen_ty_63 = 2;
+pub const AAUDIO_POLICY_ALWAYS: _bindgen_ty_63 = 3;
+pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
+pub type aaudio_policy_t = i32;
+extern "C" {
+    pub fn AAudio_getPlatformMMapPolicy(
+        device: AAudio_DeviceType,
+        direction: aaudio_direction_t,
+    ) -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudio_getPlatformMMapExclusivePolicy(
+        device: AAudio_DeviceType,
+        direction: aaudio_direction_t,
+    ) -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudio_setMMapPolicy(policy: aaudio_policy_t) -> aaudio_result_t;
+}
+extern "C" {
+    pub fn AAudio_getMMapPolicy() -> aaudio_policy_t;
+}
+extern "C" {
+    pub fn AAudioStream_isMMapUsed(stream: *mut AAudioStream) -> bool;
+}
 impl media_status_t {
     pub const AMEDIA_OK: media_status_t = media_status_t(0);
     pub const AMEDIACODEC_ERROR_INSUFFICIENT_RESOURCE: media_status_t = media_status_t(1100);
@@ -15650,13 +15876,13 @@ pub struct AMidiInputPort {
 pub struct AMidiOutputPort {
     _unused: [u8; 0],
 }
-pub const AMIDI_OPCODE_DATA: _bindgen_ty_63 = 1;
-pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_63 = 2;
-pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
-pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_64 = 1;
-pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_64 = 2;
-pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_64 = 3;
+pub const AMIDI_OPCODE_DATA: _bindgen_ty_64 = 1;
+pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_64 = 2;
 pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
+pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_65 = 1;
+pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_65 = 2;
+pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_65 = 3;
+pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
 impl AMidiDevice_Protocol {
     pub const AMIDI_DEVICE_PROTOCOL_UMP_USE_MIDI_CI: AMidiDevice_Protocol = AMidiDevice_Protocol(0);
     pub const AMIDI_DEVICE_PROTOCOL_UMP_MIDI_1_0_UP_TO_64_BITS: AMidiDevice_Protocol =
@@ -15803,7 +16029,9 @@ impl acamera_metadata_section {
     pub const ACAMERA_AUTOMOTIVE_LENS: acamera_metadata_section = acamera_metadata_section(31);
     pub const ACAMERA_EXTENSION: acamera_metadata_section = acamera_metadata_section(32);
     pub const ACAMERA_JPEGR: acamera_metadata_section = acamera_metadata_section(33);
-    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(34);
+    pub const ACAMERA_SHARED_SESSION: acamera_metadata_section = acamera_metadata_section(34);
+    pub const ACAMERA_DESKTOP_EFFECTS: acamera_metadata_section = acamera_metadata_section(35);
+    pub const ACAMERA_SECTION_COUNT: acamera_metadata_section = acamera_metadata_section(36);
     pub const ACAMERA_VENDOR: acamera_metadata_section = acamera_metadata_section(32768);
 }
 #[repr(transparent)]
@@ -15879,6 +16107,10 @@ impl acamera_metadata_section_start {
         acamera_metadata_section_start(2097152);
     pub const ACAMERA_JPEGR_START: acamera_metadata_section_start =
         acamera_metadata_section_start(2162688);
+    pub const ACAMERA_SHARED_SESSION_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2228224);
+    pub const ACAMERA_DESKTOP_EFFECTS_START: acamera_metadata_section_start =
+        acamera_metadata_section_start(2293760);
     pub const ACAMERA_VENDOR_START: acamera_metadata_section_start =
         acamera_metadata_section_start(-2147483648);
 }
@@ -15894,7 +16126,14 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(3);
     pub const ACAMERA_COLOR_CORRECTION_AVAILABLE_ABERRATION_MODES: acamera_metadata_tag =
         acamera_metadata_tag(4);
-    pub const ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = acamera_metadata_tag(5);
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TEMPERATURE: acamera_metadata_tag =
+        acamera_metadata_tag(5);
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TINT: acamera_metadata_tag = acamera_metadata_tag(6);
+    pub const ACAMERA_COLOR_CORRECTION_COLOR_TEMPERATURE_RANGE: acamera_metadata_tag =
+        acamera_metadata_tag(7);
+    pub const ACAMERA_COLOR_CORRECTION_AVAILABLE_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(8);
+    pub const ACAMERA_COLOR_CORRECTION_END: acamera_metadata_tag = acamera_metadata_tag(9);
     pub const ACAMERA_CONTROL_AE_ANTIBANDING_MODE: acamera_metadata_tag =
         acamera_metadata_tag(65536);
     pub const ACAMERA_CONTROL_AE_EXPOSURE_COMPENSATION: acamera_metadata_tag =
@@ -15970,7 +16209,11 @@ impl acamera_metadata_tag {
         acamera_metadata_tag(65594);
     pub const ACAMERA_CONTROL_LOW_LIGHT_BOOST_STATE: acamera_metadata_tag =
         acamera_metadata_tag(65595);
-    pub const ACAMERA_CONTROL_END: acamera_metadata_tag = acamera_metadata_tag(65596);
+    pub const ACAMERA_CONTROL_ZOOM_METHOD: acamera_metadata_tag = acamera_metadata_tag(65596);
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE: acamera_metadata_tag = acamera_metadata_tag(65597);
+    pub const ACAMERA_CONTROL_AE_AVAILABLE_PRIORITY_MODES: acamera_metadata_tag =
+        acamera_metadata_tag(65598);
+    pub const ACAMERA_CONTROL_END: acamera_metadata_tag = acamera_metadata_tag(65599);
     pub const ACAMERA_EDGE_MODE: acamera_metadata_tag = acamera_metadata_tag(196608);
     pub const ACAMERA_EDGE_AVAILABLE_EDGE_MODES: acamera_metadata_tag =
         acamera_metadata_tag(196610);
@@ -16300,11 +16543,26 @@ impl acamera_metadata_tag {
         acamera_metadata_tag = acamera_metadata_tag(1835012);
     pub const ACAMERA_HEIC_AVAILABLE_HEIC_STALL_DURATIONS_MAXIMUM_RESOLUTION: acamera_metadata_tag =
         acamera_metadata_tag(1835013);
-    pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835014);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835014);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_MIN_FRAME_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835015);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STALL_DURATIONS: acamera_metadata_tag =
+        acamera_metadata_tag(1835016);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835017);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835018);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+        acamera_metadata_tag = acamera_metadata_tag(1835019);
+    pub const ACAMERA_HEIC_END: acamera_metadata_tag = acamera_metadata_tag(1835020);
     pub const ACAMERA_AUTOMOTIVE_LOCATION: acamera_metadata_tag = acamera_metadata_tag(1966080);
     pub const ACAMERA_AUTOMOTIVE_END: acamera_metadata_tag = acamera_metadata_tag(1966081);
     pub const ACAMERA_AUTOMOTIVE_LENS_FACING: acamera_metadata_tag = acamera_metadata_tag(2031616);
     pub const ACAMERA_AUTOMOTIVE_LENS_END: acamera_metadata_tag = acamera_metadata_tag(2031617);
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR: acamera_metadata_tag =
+        acamera_metadata_tag(2097154);
+    pub const ACAMERA_EXTENSION_END: acamera_metadata_tag = acamera_metadata_tag(2097155);
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_STREAM_CONFIGURATIONS: acamera_metadata_tag =
         acamera_metadata_tag(2162688);
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_MIN_FRAME_DURATIONS: acamera_metadata_tag =
@@ -16333,6 +16591,9 @@ impl acamera_metadata_enum_acamera_color_correction_mode {
     pub const ACAMERA_COLOR_CORRECTION_MODE_HIGH_QUALITY:
         acamera_metadata_enum_acamera_color_correction_mode =
         acamera_metadata_enum_acamera_color_correction_mode(2);
+    pub const ACAMERA_COLOR_CORRECTION_MODE_CCT:
+        acamera_metadata_enum_acamera_color_correction_mode =
+        acamera_metadata_enum_acamera_color_correction_mode(3);
 }
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
@@ -16813,6 +17074,32 @@ impl acamera_metadata_enum_acamera_control_low_light_boost_state {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_control_low_light_boost_state(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_control_low_light_boost_state as acamera_metadata_enum_android_control_low_light_boost_state_t;
+impl acamera_metadata_enum_acamera_control_zoom_method {
+    pub const ACAMERA_CONTROL_ZOOM_METHOD_AUTO: acamera_metadata_enum_acamera_control_zoom_method =
+        acamera_metadata_enum_acamera_control_zoom_method(0);
+    pub const ACAMERA_CONTROL_ZOOM_METHOD_ZOOM_RATIO:
+        acamera_metadata_enum_acamera_control_zoom_method =
+        acamera_metadata_enum_acamera_control_zoom_method(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_zoom_method(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_control_zoom_method as acamera_metadata_enum_android_control_zoom_method_t;
+impl acamera_metadata_enum_acamera_control_ae_priority_mode {
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_OFF:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(0);
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_SENSOR_SENSITIVITY_PRIORITY:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(1);
+    pub const ACAMERA_CONTROL_AE_PRIORITY_MODE_SENSOR_EXPOSURE_TIME_PRIORITY:
+        acamera_metadata_enum_acamera_control_ae_priority_mode =
+        acamera_metadata_enum_acamera_control_ae_priority_mode(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_control_ae_priority_mode(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_control_ae_priority_mode as acamera_metadata_enum_android_control_ae_priority_mode_t;
 impl acamera_metadata_enum_acamera_edge_mode {
     pub const ACAMERA_EDGE_MODE_OFF: acamera_metadata_enum_acamera_edge_mode =
         acamera_metadata_enum_acamera_edge_mode(0);
@@ -17700,6 +17987,27 @@ pub struct acamera_metadata_enum_acamera_heic_available_heic_stream_configuratio
     pub ::std::os::raw::c_uint,
 );
 pub use self::acamera_metadata_enum_acamera_heic_available_heic_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_stream_configurations_maximum_resolution_t;
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations {
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_OUTPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(0);
+    pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_INPUT:
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations =
+        acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations as acamera_metadata_enum_android_heic_available_heic_ultra_hdr_stream_configurations_t;
+impl acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution { pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT : acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution (0) ; pub const ACAMERA_HEIC_AVAILABLE_HEIC_ULTRA_HDR_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT : acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution = acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution (1) ; }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution(
+    pub ::std::os::raw::c_uint,
+);
+pub use self::acamera_metadata_enum_acamera_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution as acamera_metadata_enum_android_heic_available_heic_ultra_hdr_stream_configurations_maximum_resolution_t;
 impl acamera_metadata_enum_acamera_automotive_location {
     pub const ACAMERA_AUTOMOTIVE_LOCATION_INTERIOR:
         acamera_metadata_enum_acamera_automotive_location =
@@ -17790,6 +18098,21 @@ impl acamera_metadata_enum_acamera_automotive_lens_facing {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct acamera_metadata_enum_acamera_automotive_lens_facing(pub ::std::os::raw::c_uint);
 pub use self::acamera_metadata_enum_acamera_automotive_lens_facing as acamera_metadata_enum_android_automotive_lens_facing_t;
+impl acamera_metadata_enum_acamera_extension_night_mode_indicator {
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_UNKNOWN:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(0);
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_OFF:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(1);
+    pub const ACAMERA_EXTENSION_NIGHT_MODE_INDICATOR_ON:
+        acamera_metadata_enum_acamera_extension_night_mode_indicator =
+        acamera_metadata_enum_acamera_extension_night_mode_indicator(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct acamera_metadata_enum_acamera_extension_night_mode_indicator(pub ::std::os::raw::c_uint);
+pub use self::acamera_metadata_enum_acamera_extension_night_mode_indicator as acamera_metadata_enum_android_extension_night_mode_indicator_t;
 impl acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations {
     pub const ACAMERA_JPEGR_AVAILABLE_JPEG_R_STREAM_CONFIGURATIONS_OUTPUT:
         acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_configurations =
@@ -17819,14 +18142,14 @@ pub use self::acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_config
 pub struct ACameraMetadata {
     _unused: [u8; 0],
 }
-pub const ACAMERA_TYPE_BYTE: _bindgen_ty_65 = 0;
-pub const ACAMERA_TYPE_INT32: _bindgen_ty_65 = 1;
-pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_65 = 2;
-pub const ACAMERA_TYPE_INT64: _bindgen_ty_65 = 3;
-pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_65 = 4;
-pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_65 = 5;
-pub const ACAMERA_NUM_TYPES: _bindgen_ty_65 = 6;
-pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
+pub const ACAMERA_TYPE_BYTE: _bindgen_ty_66 = 0;
+pub const ACAMERA_TYPE_INT32: _bindgen_ty_66 = 1;
+pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_66 = 2;
+pub const ACAMERA_TYPE_INT64: _bindgen_ty_66 = 3;
+pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_66 = 4;
+pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_66 = 5;
+pub const ACAMERA_NUM_TYPES: _bindgen_ty_66 = 6;
+pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata_rational {
@@ -18337,9 +18660,9 @@ pub type ACameraCaptureSession_prepareCallback = ::std::option::Option<
         session: *mut ACameraCaptureSession,
     ),
 >;
-pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_66 = 0;
-pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_66 = 1;
-pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
+pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_67 = 0;
+pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_67 = 1;
+pub type _bindgen_ty_67 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureFailure {
@@ -18500,8 +18823,8 @@ fn bindgen_test_layout_ACameraCaptureSession_captureCallbacks() {
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureBufferLost"
     );
 }
-pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_67 = -1;
-pub type _bindgen_ty_67 = ::std::os::raw::c_int;
+pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_68 = -1;
+pub type _bindgen_ty_68 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ACameraCaptureSession_close(session: *mut ACameraCaptureSession);
 }
@@ -18838,6 +19161,29 @@ extern "C" {
         window: *mut ANativeWindow,
     ) -> camera_status_t;
 }
+extern "C" {
+    pub fn ACameraCaptureSessionShared_startStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_captureCallbacksV2,
+        numOutputWindows: ::std::os::raw::c_int,
+        window: *mut *mut ANativeWindow,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSessionShared_logicalCamera_startStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+        callbacks: *mut ACameraCaptureSession_logicalCamera_captureCallbacksV2,
+        numOutputWindows: ::std::os::raw::c_int,
+        windows: *mut *mut ANativeWindow,
+        captureSequenceId: *mut ::std::os::raw::c_int,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraCaptureSessionShared_stopStreaming(
+        sharedSession: *mut ACameraCaptureSession,
+    ) -> camera_status_t;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraIdList {
@@ -18869,12 +19215,12 @@ fn bindgen_test_layout_ACameraIdList() {
         "Offset of field: ACameraIdList::cameraIds"
     );
 }
-pub const ERROR_CAMERA_IN_USE: _bindgen_ty_68 = 1;
-pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_68 = 2;
-pub const ERROR_CAMERA_DISABLED: _bindgen_ty_68 = 3;
-pub const ERROR_CAMERA_DEVICE: _bindgen_ty_68 = 4;
-pub const ERROR_CAMERA_SERVICE: _bindgen_ty_68 = 5;
-pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
+pub const ERROR_CAMERA_IN_USE: _bindgen_ty_69 = 1;
+pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_69 = 2;
+pub const ERROR_CAMERA_DISABLED: _bindgen_ty_69 = 3;
+pub const ERROR_CAMERA_DEVICE: _bindgen_ty_69 = 4;
+pub const ERROR_CAMERA_SERVICE: _bindgen_ty_69 = 5;
+pub type _bindgen_ty_69 = ::std::os::raw::c_uint;
 pub type ACameraDevice_StateCallback = ::std::option::Option<
     unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, device: *mut ACameraDevice),
 >;
@@ -18885,12 +19231,21 @@ pub type ACameraDevice_ErrorStateCallback = ::std::option::Option<
         error: ::std::os::raw::c_int,
     ),
 >;
+pub type ACameraDevice_ClientSharedAccessPriorityChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        device: *mut ACameraDevice,
+        isPrimaryClient: bool,
+    ),
+>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraDevice_StateCallbacks {
     pub context: *mut ::std::os::raw::c_void,
     pub onDisconnected: ACameraDevice_StateCallback,
     pub onError: ACameraDevice_ErrorStateCallback,
+    pub onClientSharedAccessPriorityChanged:
+        ACameraDevice_ClientSharedAccessPriorityChangedCallback,
 }
 #[test]
 fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
@@ -18899,7 +19254,7 @@ fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<ACameraDevice_StateCallbacks>(),
-        12usize,
+        16usize,
         "Size of ACameraDevice_StateCallbacks"
     );
     assert_eq!(
@@ -18921,6 +19276,13 @@ fn bindgen_test_layout_ACameraDevice_StateCallbacks() {
         unsafe { ::std::ptr::addr_of!((*ptr).onError) as usize - ptr as usize },
         8usize,
         "Offset of field: ACameraDevice_StateCallbacks::onError"
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).onClientSharedAccessPriorityChanged) as usize - ptr as usize
+        },
+        12usize,
+        "Offset of field: ACameraDevice_StateCallbacks::onClientSharedAccessPriorityChanged"
     );
 }
 pub type ACameraDevice_stateCallbacks = ACameraDevice_StateCallbacks;
@@ -19140,6 +19502,15 @@ extern "C" {
         device: *mut *mut ACameraDevice,
     ) -> camera_status_t;
 }
+extern "C" {
+    pub fn ACameraManager_openSharedCamera(
+        manager: *mut ACameraManager,
+        cameraId: *const ::std::os::raw::c_char,
+        callback: *mut ACameraDevice_StateCallbacks,
+        device: *mut *mut ACameraDevice,
+        isPrimaryClient: *mut bool,
+    ) -> camera_status_t;
+}
 pub type ACameraManager_AccessPrioritiesChangedCallback =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
 #[repr(C)]
@@ -19199,6 +19570,13 @@ extern "C" {
     pub fn ACameraManager_unregisterExtendedAvailabilityCallback(
         manager: *mut ACameraManager,
         callback: *const ACameraManager_ExtendedAvailabilityCallbacks,
+    ) -> camera_status_t;
+}
+extern "C" {
+    pub fn ACameraManager_isCameraDeviceSharingSupported(
+        manager: *mut ACameraManager,
+        cameraId: *const ::std::os::raw::c_char,
+        isSharingSupported: *mut bool,
     ) -> camera_status_t;
 }
 #[repr(C)]
@@ -20172,18 +20550,18 @@ fn bindgen_test_layout_AMediaCodecBufferInfo() {
 pub struct AMediaCodecCryptoInfo {
     _unused: [u8; 0],
 }
-pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_69 = 1;
-pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_69 = 2;
-pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_69 = 4;
-pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_69 = 8;
-pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_69 = 16;
-pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_69 = 32;
-pub type _bindgen_ty_69 = ::std::os::raw::c_uint;
-pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_70 = 1;
-pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_70 = -3;
-pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_70 = -2;
-pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_70 = -1;
-pub type _bindgen_ty_70 = ::std::os::raw::c_int;
+pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_70 = 1;
+pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_70 = 2;
+pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_70 = 4;
+pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_70 = 8;
+pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_70 = 16;
+pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_70 = 32;
+pub type _bindgen_ty_70 = ::std::os::raw::c_uint;
+pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_71 = 1;
+pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_71 = -3;
+pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_71 = -2;
+pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_71 = -1;
+pub type _bindgen_ty_71 = ::std::os::raw::c_int;
 pub type AMediaCodecOnAsyncInputAvailable = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
@@ -21588,9 +21966,9 @@ extern "C" {
         arg1: *mut AMediaExtractor,
     ) -> *mut AMediaCodecCryptoInfo;
 }
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_71 = 1;
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_71 = 2;
-pub type _bindgen_ty_71 = ::std::os::raw::c_uint;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_72 = 1;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_72 = 2;
+pub type _bindgen_ty_72 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }

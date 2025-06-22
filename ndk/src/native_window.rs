@@ -438,6 +438,11 @@ pub enum FrameRateCompatibility {
     /// content.
     #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE")]
     FixedSource = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_FIXED_SOURCE.0 as i8,
+    /// The window requests a frame rate that is greater than or equal to the specified frame rate.
+    /// This value should be used for UIs, animations, scrolling, and anything that is not a game
+    /// or video.
+    #[doc(alias = "ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_GTE")]
+    GTE = ffi::ANativeWindow_FrameRateCompatibility::ANATIVEWINDOW_FRAME_RATE_COMPATIBILITY_GTE.0 as i8,
 }
 
 /// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
