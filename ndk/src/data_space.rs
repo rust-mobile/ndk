@@ -574,7 +574,7 @@ pub enum DataSpaceTransfer {
     /// n = 0.25 * 2610 / 4096 = 0.1593017578125
     /// ```
     /// - `L`: luminance of image 0 <= L <= 1 for HDR colorimetry.
-    ///        `L = 1` corresponds to `10000 cd/m2`
+    ///   `L = 1` corresponds to `10000 cd/m2`
     #[doc(alias = "TRANSFER_ST2084")]
     St2084 = ffi::ADataSpace::TRANSFER_ST2084.0,
     /// ARIB STD-B67 Hybrid Log Gamma.
@@ -589,7 +589,7 @@ pub enum DataSpaceTransfer {
     /// r = 0.5
     /// ```
     /// - `L`: luminance of image `0 <= L` for HDR colorimetry.
-    ///        `L = 1` corresponds to reference white level of `100 cd/m2`
+    ///   `L = 1` corresponds to reference white level of `100 cd/m2`
     /// - `E`: corresponding electrical signal
     #[doc(alias = "TRANSFER_HLG")]
     HLG = ffi::ADataSpace::TRANSFER_HLG.0,
