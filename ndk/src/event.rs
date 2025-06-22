@@ -1975,11 +1975,159 @@ pub enum Keycode {
     ThumbsDown = ffi::AKEYCODE_THUMBS_DOWN as i32,
     #[doc(alias = "AKEYCODE_PROFILE_SWITCH")]
     ProfileSwitch = ffi::AKEYCODE_PROFILE_SWITCH as i32,
-    // TODO: Still missing a bunch here
+    /// Video Application key #1.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_1")]
+    VideoApp1 = ffi::AKEYCODE_VIDEO_APP_1 as i32,
+    /// Video Application key #2.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_2")]
+    VideoApp2 = ffi::AKEYCODE_VIDEO_APP_2 as i32,
+    /// Video Application key #3.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_3")]
+    VideoApp3 = ffi::AKEYCODE_VIDEO_APP_3 as i32,
+    /// Video Application key #4.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_4")]
+    VideoApp4 = ffi::AKEYCODE_VIDEO_APP_4 as i32,
+    /// Video Application key #5.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_5")]
+    VideoApp5 = ffi::AKEYCODE_VIDEO_APP_5 as i32,
+    /// Video Application key #6.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_6")]
+    VideoApp6 = ffi::AKEYCODE_VIDEO_APP_6 as i32,
+    /// Video Application key #7.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_7")]
+    VideoApp7 = ffi::AKEYCODE_VIDEO_APP_7 as i32,
+    /// Video Application key #8.
+    #[doc(alias = "AKEYCODE_VIDEO_APP_8")]
+    VideoApp8 = ffi::AKEYCODE_VIDEO_APP_8 as i32,
+    /// Featured Application key #1.
+    #[doc(alias = "AKEYCODE_FEATURED_APP_1")]
+    FeaturedApp1 = ffi::AKEYCODE_FEATURED_APP_1 as i32,
+    /// Featured Application key #2.
+    #[doc(alias = "AKEYCODE_FEATURED_APP_2")]
+    FeaturedApp2 = ffi::AKEYCODE_FEATURED_APP_2 as i32,
+    /// Featured Application key #3.
+    #[doc(alias = "AKEYCODE_FEATURED_APP_3")]
+    FeaturedApp3 = ffi::AKEYCODE_FEATURED_APP_3 as i32,
+    /// Featured Application key #4.
+    #[doc(alias = "AKEYCODE_FEATURED_APP_4")]
+    FeaturedApp4 = ffi::AKEYCODE_FEATURED_APP_4 as i32,
+    /// Demo Application key #1.
+    #[doc(alias = "AKEYCODE_DEMO_APP_1")]
+    DemoApp1 = ffi::AKEYCODE_DEMO_APP_1 as i32,
+    /// Demo Application key #2.
+    #[doc(alias = "AKEYCODE_DEMO_APP_2")]
+    DemoApp2 = ffi::AKEYCODE_DEMO_APP_2 as i32,
+    /// Demo Application key #3.
+    #[doc(alias = "AKEYCODE_DEMO_APP_3")]
+    DemoApp3 = ffi::AKEYCODE_DEMO_APP_3 as i32,
+    /// Demo Application key #4.
+    #[doc(alias = "AKEYCODE_DEMO_APP_4")]
+    DemoApp4 = ffi::AKEYCODE_DEMO_APP_4 as i32,
+    /// Keyboard backlight Down key.
+    /// Adjusts the keyboard backlight brightness down.
+    #[doc(alias = "AKEYCODE_KEYBOARD_BACKLIGHT_DOWN")]
+    KEYBOARD_BACKLIGHT_DOWN = ffi::AKEYCODE_KEYBOARD_BACKLIGHT_DOWN as i32,
+    /// Keyboard backlight Up key.
+    /// Adjusts the keyboard backlight brightness up.
+    #[doc(alias = "AKEYCODE_KEYBOARD_BACKLIGHT_UP")]
+    KEYBOARD_BACKLIGHT_UP = ffi::AKEYCODE_KEYBOARD_BACKLIGHT_UP as i32,
+    /// Keyboard backlight Toggle key.
+    /// Toggles the keyboard backlight on/off.
+    #[doc(alias = "AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE")]
+    KEYBOARD_BACKLIGHT_TOGGLE = ffi::AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE as i32,
+    /// The primary button on the barrel of a stylus.
+    /// This is usually the button closest to the tip of the stylus.
+    #[doc(alias = "AKEYCODE_STYLUS_BUTTON_PRIMARY")]
+    STYLUS_BUTTON_PRIMARY = ffi::AKEYCODE_STYLUS_BUTTON_PRIMARY as i32,
+    /// The secondary button on the barrel of a stylus.
+    /// This is usually the second button from the tip of the stylus.
+    #[doc(alias = "AKEYCODE_STYLUS_BUTTON_SECONDARY")]
+    STYLUS_BUTTON_SECONDARY = ffi::AKEYCODE_STYLUS_BUTTON_SECONDARY as i32,
+    /// The tertiary button on the barrel of a stylus.
+    /// This is usually the third button from the tip of the stylus.
+    #[doc(alias = "AKEYCODE_STYLUS_BUTTON_TERTIARY")]
+    STYLUS_BUTTON_TERTIARY = ffi::AKEYCODE_STYLUS_BUTTON_TERTIARY as i32,
+    /// A button on the tail end of a stylus.
+    #[doc(alias = "AKEYCODE_STYLUS_BUTTON_TAIL")]
+    STYLUS_BUTTON_TAIL = ffi::AKEYCODE_STYLUS_BUTTON_TAIL as i32,
+    /// Key to open recent apps (a.k.a. Overview)
+    #[doc(alias = "AKEYCODE_RECENT_APPS")]
+    RecentApps = ffi::AKEYCODE_RECENT_APPS as i32,
+    /// User customizable key #1.
+    #[doc(alias = "AKEYCODE_MACRO_1")]
+    Macro1 = ffi::AKEYCODE_MACRO_1 as i32,
+    /// User customizable key #2.
+    #[doc(alias = "AKEYCODE_MACRO_2")]
+    Macro2 = ffi::AKEYCODE_MACRO_2 as i32,
+    /// User customizable key #3.
+    #[doc(alias = "AKEYCODE_MACRO_3")]
+    Macro3 = ffi::AKEYCODE_MACRO_3 as i32,
+    /// User customizable key #4.
+    #[doc(alias = "AKEYCODE_MACRO_4")]
+    Macro4 = ffi::AKEYCODE_MACRO_4 as i32,
     /// Open Emoji picker
+    #[doc(alias = "AKEYCODE_EMOJI_PICKER")]
     EmojiPicker = ffi::AKEYCODE_EMOJI_PICKER as i32,
     /// Take Screenshot
+    #[doc(alias = "AKEYCODE_SCREENSHOT")]
     Screenshot = ffi::AKEYCODE_SCREENSHOT as i32,
+    /// To start dictate to an input field
+    #[doc(alias = "AKEYCODE_DICTATE")]
+    Dictate = ffi::AKEYCODE_DICTATE as i32,
+    /// AC New
+    #[doc(alias = "AKEYCODE_NEW")]
+    New = ffi::AKEYCODE_NEW as i32,
+    /// AC Close
+    #[doc(alias = "AKEYCODE_CLOSE")]
+    Close = ffi::AKEYCODE_CLOSE as i32,
+    /// To toggle 'Do Not Disturb' mode
+    #[doc(alias = "AKEYCODE_DO_NOT_DISTURB")]
+    DoNotDisturb = ffi::AKEYCODE_DO_NOT_DISTURB as i32,
+    /// To Print
+    #[doc(alias = "AKEYCODE_PRINT")]
+    Print = ffi::AKEYCODE_PRINT as i32,
+    /// To Lock the screen
+    #[doc(alias = "AKEYCODE_LOCK")]
+    Lock = ffi::AKEYCODE_LOCK as i32,
+    /// To toggle fullscreen mode (on the current application)
+    #[doc(alias = "AKEYCODE_FULLSCREEN")]
+    Fullscreen = ffi::AKEYCODE_FULLSCREEN as i32,
+    /// F13 key
+    #[doc(alias = "AKEYCODE_F13")]
+    F13 = ffi::AKEYCODE_F13 as i32,
+    /// F14 key
+    #[doc(alias = "AKEYCODE_F14")]
+    F14 = ffi::AKEYCODE_F14 as i32,
+    /// F15 key
+    #[doc(alias = "AKEYCODE_F15")]
+    F15 = ffi::AKEYCODE_F15 as i32,
+    /// F16 key
+    #[doc(alias = "AKEYCODE_F16")]
+    F16 = ffi::AKEYCODE_F16 as i32,
+    /// F17 key
+    #[doc(alias = "AKEYCODE_F17")]
+    F17 = ffi::AKEYCODE_F17 as i32,
+    /// F18 key
+    #[doc(alias = "AKEYCODE_F18")]
+    F18 = ffi::AKEYCODE_F18 as i32,
+    /// F19 key
+    #[doc(alias = "AKEYCODE_F19")]
+    F19 = ffi::AKEYCODE_F19 as i32,
+    /// F20 key
+    #[doc(alias = "AKEYCODE_F20")]
+    F20 = ffi::AKEYCODE_F20 as i32,
+    /// F21 key
+    #[doc(alias = "AKEYCODE_F21")]
+    F21 = ffi::AKEYCODE_F21 as i32,
+    /// F22 key
+    #[doc(alias = "AKEYCODE_F22")]
+    F22 = ffi::AKEYCODE_F22 as i32,
+    /// F23 key
+    #[doc(alias = "AKEYCODE_F23")]
+    F23 = ffi::AKEYCODE_F23 as i32,
+    /// F24 key
+    #[doc(alias = "AKEYCODE_F24")]
+    F24 = ffi::AKEYCODE_F24 as i32,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]

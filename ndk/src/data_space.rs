@@ -216,6 +216,15 @@ pub enum DataSpace {
     /// [`BT.709` standard]: DataSpaceStandard::Bt709
     #[doc(alias = "ADATASPACE_SRGB_LINEAR")]
     SrgbLinear = ffi::ADataSpace::ADATASPACE_SRGB_LINEAR.0,
+    /// sRGB-encoded BT. 2020.
+    ///
+    /// Uses [full range], [`sRGB` transfer] and [`BT2020` standard].
+    ///
+    /// [full range]: DataSpaceRange::Full
+    /// [`sRGB` transfer]: DataSpaceTransfer::Srgb
+    /// [`BT2020` standard]: DataSpaceStandard::Bt2020
+    #[doc(alias = "ADATASPACE_DISPLAY_BT2020")]
+    DisplayBt2020 = ffi::ADataSpace::ADATASPACE_DISPLAY_BT2020.0,
 
     /// Depth.
     ///
