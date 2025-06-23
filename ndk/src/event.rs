@@ -10,7 +10,9 @@
 //! [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent
 //! [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
 
-use std::{ops::Deref, ptr::NonNull};
+#[cfg(feature = "api-level-31")]
+use std::ops::Deref;
+use std::ptr::NonNull;
 
 #[cfg(feature = "api-level-31")]
 use jni_sys::{jobject, JNIEnv};
@@ -27,10 +29,11 @@ pub enum InputEvent {
     KeyEvent(KeyEvent),
 }
 
-/// Wraps a Java [`MotionEvent`] acquired from [`MotionEvent::from_java()`] with respective [`Drop`] semantics.
+/// Wraps a Java [`MotionEvent`] acquired from [`MotionEvent::from_java()`] (or similar) with
+/// respective [`Drop`] semantics.
 #[cfg(feature = "api-level-31")]
 #[derive(Debug)]
-pub struct MotionEventJava(MotionEvent);
+pub struct MotionEventJava(pub(crate) MotionEvent);
 
 #[cfg(feature = "api-level-31")]
 impl Deref for MotionEventJava {
@@ -43,7 +46,7 @@ impl Deref for MotionEventJava {
 
 #[cfg(feature = "api-level-31")]
 impl Drop for MotionEventJava {
-    /// Releases interface objects created by [`MotionEvent::from_java()`].
+    /// Releases interface objects created by [`MotionEvent::from_java()`] (or similar).
     ///
     /// The underlying Java object remains valid and does not change its state.
     #[doc(alias = "AInputEvent_release")]
@@ -52,10 +55,11 @@ impl Drop for MotionEventJava {
     }
 }
 
-/// Wraps a Java [`KeyEvent`] acquired from [`KeyEvent::from_java()`] with respective [`Drop`] semantics.
+/// Wraps a Java [`KeyEvent`] acquired from [`KeyEvent::from_java()`] (or similar) with respective
+/// [`Drop`] semantics.
 #[cfg(feature = "api-level-31")]
 #[derive(Debug)]
-pub struct KeyEventJava(KeyEvent);
+pub struct KeyEventJava(pub(crate) KeyEvent);
 
 #[cfg(feature = "api-level-31")]
 impl Deref for KeyEventJava {
@@ -68,7 +72,7 @@ impl Deref for KeyEventJava {
 
 #[cfg(feature = "api-level-31")]
 impl Drop for KeyEventJava {
-    /// Releases interface objects created by [`KeyEvent::from_java()`].
+    /// Releases interface objects created by [`KeyEvent::from_java()`] (or similar).
     ///
     /// The underlying Java object remains valid and does not change its state.
     #[doc(alias = "AInputEvent_release")]
@@ -658,15 +662,31 @@ impl MotionEventFlags {
 }
 
 impl MotionEvent {
-    /// Constructs a MotionEvent from a pointer to a native [`ffi::AInputEvent`]
+    /// Initialize a [`MotionEvent`] from a native [`ffi::AInputEvent`] pointer.  The
+    /// [`MotionEvent`] will _not_ own the pointer.
     ///
     /// # Safety
-    /// By calling this method, you assert that the pointer is a valid, non-null pointer to a
-    /// native [`ffi::AInputEvent`] and that [`ffi::AInputEvent`]
-    /// is an `AMotionEvent`.
+    /// By calling this method, you assert that the pointer is a valid pointer to an
+    /// [`ffi::AInputEvent`], and that its type is [`ffi::AINPUT_EVENT_TYPE_MOTION`].
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
+        debug_assert_eq!(
+            unsafe { ffi::AInputEvent_getType(ptr.as_ptr()) },
+            ffi::AINPUT_EVENT_TYPE_MOTION as i32
+        );
         Self { ptr }
+    }
+
+    /// Initialize a [`MotionEvent`] from a native [`ffi::AInputEvent`] pointer that represents an
+    /// owned Java object which must be freed on [`Drop`].
+    ///
+    /// # Safety
+    /// By calling this method, you assert that the pointer is a valid pointer to an
+    /// [`ffi::AInputEvent`], and that its type is [`ffi::AINPUT_EVENT_TYPE_MOTION`].
+    #[cfg(feature = "api-level-31")]
+    #[inline]
+    pub unsafe fn java_from_ptr(ptr: NonNull<ffi::AInputEvent>) -> MotionEventJava {
+        MotionEventJava(Self::from_ptr(ptr))
     }
 
     /// Creates a native [`InputEvent`] object that is a copy of the specified
@@ -683,9 +703,7 @@ impl MotionEvent {
     #[doc(alias = "AMotionEvent_fromJava")]
     pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<MotionEventJava> {
         let ptr = unsafe { ffi::AMotionEvent_fromJava(env, key_event) };
-        Some(MotionEventJava(Self::from_ptr(NonNull::new(
-            ptr.cast_mut(),
-        )?)))
+        Some(Self::java_from_ptr(NonNull::new(ptr.cast_mut())?))
     }
 
     /// Returns a pointer to the native [`ffi::AInputEvent`].
@@ -2017,14 +2035,31 @@ pub enum Keycode {
 }
 
 impl KeyEvent {
-    /// Constructs a KeyEvent from a pointer to a native [`ffi::AInputEvent`]
+    /// Initialize a [`KeyEvent`] from a native [`ffi::AInputEvent`] pointer.  The [`KeyEvent`] will
+    /// _not_ own the pointer.
     ///
     /// # Safety
-    /// By calling this method, you assert that the pointer is a valid, non-null pointer to an
-    /// [`ffi::AInputEvent`], and that [`ffi::AInputEvent`] is an `AKeyEvent`.
+    /// By calling this method, you assert that the pointer is a valid pointer to an
+    /// [`ffi::AInputEvent`], and that its type is [`ffi::AINPUT_EVENT_TYPE_KEY`].
     #[inline]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
+        debug_assert_eq!(
+            unsafe { ffi::AInputEvent_getType(ptr.as_ptr()) },
+            ffi::AINPUT_EVENT_TYPE_KEY as i32
+        );
         Self { ptr }
+    }
+
+    /// Initialize a [`KeyEvent`] from a native [`ffi::AInputEvent`] pointer that represents an
+    /// owned Java object which must be freed on [`Drop`].
+    ///
+    /// # Safety
+    /// By calling this method, you assert that the pointer is a valid pointer to an
+    /// [`ffi::AInputEvent`], and that its type is [`ffi::AINPUT_EVENT_TYPE_KEY`].
+    #[cfg(feature = "api-level-31")]
+    #[inline]
+    pub unsafe fn java_from_ptr(ptr: NonNull<ffi::AInputEvent>) -> KeyEventJava {
+        KeyEventJava(Self::from_ptr(ptr))
     }
 
     /// Creates a native [`InputEvent`] object that is a copy of the specified Java
@@ -2041,7 +2076,7 @@ impl KeyEvent {
     #[doc(alias = "AKeyEvent_fromJava")]
     pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<KeyEventJava> {
         let ptr = unsafe { ffi::AKeyEvent_fromJava(env, key_event) };
-        Some(KeyEventJava(Self::from_ptr(NonNull::new(ptr.cast_mut())?)))
+        Some(Self::java_from_ptr(NonNull::new(ptr.cast_mut())?))
     }
 
     /// Returns a pointer to the native [`ffi::AInputEvent`].

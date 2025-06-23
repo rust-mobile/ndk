@@ -42,6 +42,8 @@ use crate::{
     utils::abort_on_panic,
 };
 
+pub mod input_receiver;
+
 pub type HdrMetadataSMPTE2086 = ffi::AHdrMetadata_smpte2086;
 pub type HdrMetadataCTA861_3 = ffi::AHdrMetadata_cta861_3;
 
