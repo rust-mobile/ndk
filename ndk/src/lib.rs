@@ -28,6 +28,7 @@ pub mod native_activity;
 pub mod native_window;
 pub mod performance_hint;
 pub mod shared_memory;
+pub mod surface_control;
 pub mod surface_texture;
 pub mod sync;
 pub mod trace;
