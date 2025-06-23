@@ -10,7 +10,7 @@
 //! [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent
 //! [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
 
-use std::ptr::NonNull;
+use std::{ops::Deref, ptr::NonNull};
 
 #[cfg(feature = "api-level-31")]
 use jni_sys::{jobject, JNIEnv};
@@ -27,26 +27,53 @@ pub enum InputEvent {
     KeyEvent(KeyEvent),
 }
 
-/// Wraps a Java [`InputEvent`] acquired from [`KeyEvent::from_java()`] or
-/// [`MotionEvent::from_java()`] with respective [`Drop`] semantics.
+/// Wraps a Java [`MotionEvent`] acquired from [`MotionEvent::from_java()`] with respective [`Drop`] semantics.
 #[cfg(feature = "api-level-31")]
 #[derive(Debug)]
-#[doc(alias = "AInputEvent")]
-pub struct InputEventJava(InputEvent);
+pub struct MotionEventJava(MotionEvent);
 
 #[cfg(feature = "api-level-31")]
-impl Drop for InputEventJava {
-    /// Releases interface objects created by [`KeyEvent::from_java()`] or
-    /// [`MotionEvent::from_java()`].
+impl Deref for MotionEventJava {
+    type Target = MotionEvent;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+#[cfg(feature = "api-level-31")]
+impl Drop for MotionEventJava {
+    /// Releases interface objects created by [`MotionEvent::from_java()`].
     ///
     /// The underlying Java object remains valid and does not change its state.
     #[doc(alias = "AInputEvent_release")]
     fn drop(&mut self) {
-        let ptr = match self.0 {
-            InputEvent::MotionEvent(MotionEvent { ptr })
-            | InputEvent::KeyEvent(KeyEvent { ptr }) => ptr.as_ptr().cast(),
-        };
-        unsafe { ffi::AInputEvent_release(ptr) }
+        unsafe { ffi::AInputEvent_release(self.0.ptr.as_ptr().cast()) }
+    }
+}
+
+/// Wraps a Java [`KeyEvent`] acquired from [`KeyEvent::from_java()`] with respective [`Drop`] semantics.
+#[cfg(feature = "api-level-31")]
+#[derive(Debug)]
+pub struct KeyEventJava(KeyEvent);
+
+#[cfg(feature = "api-level-31")]
+impl Deref for KeyEventJava {
+    type Target = KeyEvent;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+#[cfg(feature = "api-level-31")]
+impl Drop for KeyEventJava {
+    /// Releases interface objects created by [`KeyEvent::from_java()`].
+    ///
+    /// The underlying Java object remains valid and does not change its state.
+    #[doc(alias = "AInputEvent_release")]
+    fn drop(&mut self) {
+        unsafe { ffi::AInputEvent_release(self.0.ptr.as_ptr().cast()) }
     }
 }
 
@@ -641,11 +668,11 @@ impl MotionEvent {
     /// [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent
     #[cfg(feature = "api-level-31")]
     #[doc(alias = "AMotionEvent_fromJava")]
-    pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<InputEventJava> {
+    pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<MotionEventJava> {
         let ptr = unsafe { ffi::AMotionEvent_fromJava(env, key_event) };
-        Some(InputEventJava(InputEvent::MotionEvent(Self::from_ptr(
-            NonNull::new(ptr.cast_mut())?,
-        ))))
+        Some(MotionEventJava(Self::from_ptr(NonNull::new(
+            ptr.cast_mut(),
+        )?)))
     }
 
     /// Returns a pointer to the native [`ffi::AInputEvent`].
@@ -1994,11 +2021,9 @@ impl KeyEvent {
     /// [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
     #[cfg(feature = "api-level-31")]
     #[doc(alias = "AKeyEvent_fromJava")]
-    pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<InputEventJava> {
+    pub unsafe fn from_java(env: *mut JNIEnv, key_event: jobject) -> Option<KeyEventJava> {
         let ptr = unsafe { ffi::AKeyEvent_fromJava(env, key_event) };
-        Some(InputEventJava(InputEvent::KeyEvent(Self::from_ptr(
-            NonNull::new(ptr.cast_mut())?,
-        ))))
+        Some(KeyEventJava(Self::from_ptr(NonNull::new(ptr.cast_mut())?)))
     }
 
     /// Returns a pointer to the native [`ffi::AInputEvent`].
