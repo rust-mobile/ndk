@@ -315,6 +315,7 @@ impl WorkDuration {
     }
 }
 
+#[cfg(feature = "api-level-35")]
 impl Default for WorkDuration {
     #[doc(alias = "AWorkDuration_create")]
     fn default() -> Self {
@@ -322,6 +323,7 @@ impl Default for WorkDuration {
     }
 }
 
+#[cfg(feature = "api-level-35")]
 impl Drop for WorkDuration {
     /// Destroys [`WorkDuration`] and free all resources associated to it.
     #[doc(alias = "AWorkDuration_release")]
