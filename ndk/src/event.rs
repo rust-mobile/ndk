@@ -2071,64 +2071,63 @@ pub enum Keycode {
     /// Take Screenshot
     #[doc(alias = "AKEYCODE_SCREENSHOT")]
     Screenshot = ffi::AKEYCODE_SCREENSHOT as i32,
-    /// To start dictate to an input field
-    #[doc(alias = "AKEYCODE_DICTATE")]
-    Dictate = ffi::AKEYCODE_DICTATE as i32,
-    /// AC New
-    #[doc(alias = "AKEYCODE_NEW")]
-    New = ffi::AKEYCODE_NEW as i32,
-    /// AC Close
-    #[doc(alias = "AKEYCODE_CLOSE")]
-    Close = ffi::AKEYCODE_CLOSE as i32,
-    /// To toggle 'Do Not Disturb' mode
-    #[doc(alias = "AKEYCODE_DO_NOT_DISTURB")]
-    DoNotDisturb = ffi::AKEYCODE_DO_NOT_DISTURB as i32,
-    /// To Print
-    #[doc(alias = "AKEYCODE_PRINT")]
-    Print = ffi::AKEYCODE_PRINT as i32,
-    /// To Lock the screen
-    #[doc(alias = "AKEYCODE_LOCK")]
-    Lock = ffi::AKEYCODE_LOCK as i32,
-    /// To toggle fullscreen mode (on the current application)
-    #[doc(alias = "AKEYCODE_FULLSCREEN")]
-    Fullscreen = ffi::AKEYCODE_FULLSCREEN as i32,
-    /// F13 key
-    #[doc(alias = "AKEYCODE_F13")]
-    F13 = ffi::AKEYCODE_F13 as i32,
-    /// F14 key
-    #[doc(alias = "AKEYCODE_F14")]
-    F14 = ffi::AKEYCODE_F14 as i32,
-    /// F15 key
-    #[doc(alias = "AKEYCODE_F15")]
-    F15 = ffi::AKEYCODE_F15 as i32,
-    /// F16 key
-    #[doc(alias = "AKEYCODE_F16")]
-    F16 = ffi::AKEYCODE_F16 as i32,
-    /// F17 key
-    #[doc(alias = "AKEYCODE_F17")]
-    F17 = ffi::AKEYCODE_F17 as i32,
-    /// F18 key
-    #[doc(alias = "AKEYCODE_F18")]
-    F18 = ffi::AKEYCODE_F18 as i32,
-    /// F19 key
-    #[doc(alias = "AKEYCODE_F19")]
-    F19 = ffi::AKEYCODE_F19 as i32,
-    /// F20 key
-    #[doc(alias = "AKEYCODE_F20")]
-    F20 = ffi::AKEYCODE_F20 as i32,
-    /// F21 key
-    #[doc(alias = "AKEYCODE_F21")]
-    F21 = ffi::AKEYCODE_F21 as i32,
-    /// F22 key
-    #[doc(alias = "AKEYCODE_F22")]
-    F22 = ffi::AKEYCODE_F22 as i32,
-    /// F23 key
-    #[doc(alias = "AKEYCODE_F23")]
-    F23 = ffi::AKEYCODE_F23 as i32,
-    /// F24 key
-    #[doc(alias = "AKEYCODE_F24")]
-    F24 = ffi::AKEYCODE_F24 as i32,
-
+    // /// To start dictate to an input field
+    // #[doc(alias = "AKEYCODE_DICTATE")]
+    // Dictate = ffi::AKEYCODE_DICTATE as i32,
+    // /// AC New
+    // #[doc(alias = "AKEYCODE_NEW")]
+    // New = ffi::AKEYCODE_NEW as i32,
+    // /// AC Close
+    // #[doc(alias = "AKEYCODE_CLOSE")]
+    // Close = ffi::AKEYCODE_CLOSE as i32,
+    // /// To toggle 'Do Not Disturb' mode
+    // #[doc(alias = "AKEYCODE_DO_NOT_DISTURB")]
+    // DoNotDisturb = ffi::AKEYCODE_DO_NOT_DISTURB as i32,
+    // /// To Print
+    // #[doc(alias = "AKEYCODE_PRINT")]
+    // Print = ffi::AKEYCODE_PRINT as i32,
+    // /// To Lock the screen
+    // #[doc(alias = "AKEYCODE_LOCK")]
+    // Lock = ffi::AKEYCODE_LOCK as i32,
+    // /// To toggle fullscreen mode (on the current application)
+    // #[doc(alias = "AKEYCODE_FULLSCREEN")]
+    // Fullscreen = ffi::AKEYCODE_FULLSCREEN as i32,
+    // /// F13 key
+    // #[doc(alias = "AKEYCODE_F13")]
+    // F13 = ffi::AKEYCODE_F13 as i32,
+    // /// F14 key
+    // #[doc(alias = "AKEYCODE_F14")]
+    // F14 = ffi::AKEYCODE_F14 as i32,
+    // /// F15 key
+    // #[doc(alias = "AKEYCODE_F15")]
+    // F15 = ffi::AKEYCODE_F15 as i32,
+    // /// F16 key
+    // #[doc(alias = "AKEYCODE_F16")]
+    // F16 = ffi::AKEYCODE_F16 as i32,
+    // /// F17 key
+    // #[doc(alias = "AKEYCODE_F17")]
+    // F17 = ffi::AKEYCODE_F17 as i32,
+    // /// F18 key
+    // #[doc(alias = "AKEYCODE_F18")]
+    // F18 = ffi::AKEYCODE_F18 as i32,
+    // /// F19 key
+    // #[doc(alias = "AKEYCODE_F19")]
+    // F19 = ffi::AKEYCODE_F19 as i32,
+    // /// F20 key
+    // #[doc(alias = "AKEYCODE_F20")]
+    // F20 = ffi::AKEYCODE_F20 as i32,
+    // /// F21 key
+    // #[doc(alias = "AKEYCODE_F21")]
+    // F21 = ffi::AKEYCODE_F21 as i32,
+    // /// F22 key
+    // #[doc(alias = "AKEYCODE_F22")]
+    // F22 = ffi::AKEYCODE_F22 as i32,
+    // /// F23 key
+    // #[doc(alias = "AKEYCODE_F23")]
+    // F23 = ffi::AKEYCODE_F23 as i32,
+    // /// F24 key
+    // #[doc(alias = "AKEYCODE_F24")]
+    // F24 = ffi::AKEYCODE_F24 as i32,
     #[doc(hidden)]
     #[num_enum(catch_all)]
     __Unknown(i32),

@@ -18,7 +18,7 @@
 #include <android/configuration.h>
 #include <android/crash_detail.h>
 #include <android/data_space.h>
-#include <android/display_luts.h>
+// #include <android/display_luts.h>
 #include <android/dlext.h>
 #include <android/fdsan.h>
 #include <android/file_descriptor_jni.h>
@@ -64,7 +64,7 @@
 #include <android/surface_texture_jni.h>
 #include <android/sync.h>
 #include <android/system_fonts.h>
-#include <android/system_health.h>
+// #include <android/system_health.h>
 #include <android/thermal.h>
 #include <android/trace.h>
 #include <android/versioning.h>
