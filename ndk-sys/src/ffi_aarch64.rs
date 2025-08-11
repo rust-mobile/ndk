@@ -124,11 +124,11 @@ pub struct AAssetDir {
 pub struct AAsset {
     _unused: [u8; 0],
 }
-pub const AASSET_MODE_UNKNOWN: _bindgen_ty_2 = 0;
-pub const AASSET_MODE_RANDOM: _bindgen_ty_2 = 1;
-pub const AASSET_MODE_STREAMING: _bindgen_ty_2 = 2;
-pub const AASSET_MODE_BUFFER: _bindgen_ty_2 = 3;
-pub type _bindgen_ty_2 = ::std::os::raw::c_uint;
+pub const AASSET_MODE_UNKNOWN: _bindgen_ty_3 = 0;
+pub const AASSET_MODE_RANDOM: _bindgen_ty_3 = 1;
+pub const AASSET_MODE_STREAMING: _bindgen_ty_3 = 2;
+pub const AASSET_MODE_BUFFER: _bindgen_ty_3 = 3;
+pub type _bindgen_ty_3 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AAssetManager_openDir(
         mgr: *mut AAssetManager,
@@ -207,11 +207,754 @@ pub type va_list = __BindgenOpaqueArray<u64, 4usize>;
 extern "C" {
     pub fn AAssetManager_fromJava(env: *mut JNIEnv, assetManager: jobject) -> *mut AAssetManager;
 }
-pub const ANDROID_BITMAP_RESULT_SUCCESS: _bindgen_ty_3 = 0;
-pub const ANDROID_BITMAP_RESULT_BAD_PARAMETER: _bindgen_ty_3 = -1;
-pub const ANDROID_BITMAP_RESULT_JNI_EXCEPTION: _bindgen_ty_3 = -2;
-pub const ANDROID_BITMAP_RESULT_ALLOCATION_FAILED: _bindgen_ty_3 = -3;
-pub type _bindgen_ty_3 = ::std::os::raw::c_int;
+pub const STATUS_OK: _bindgen_ty_4 = 0;
+pub const STATUS_UNKNOWN_ERROR: _bindgen_ty_4 = -2147483648;
+pub const STATUS_NO_MEMORY: _bindgen_ty_4 = -12;
+pub const STATUS_INVALID_OPERATION: _bindgen_ty_4 = -38;
+pub const STATUS_BAD_VALUE: _bindgen_ty_4 = -22;
+pub const STATUS_BAD_TYPE: _bindgen_ty_4 = -2147483647;
+pub const STATUS_NAME_NOT_FOUND: _bindgen_ty_4 = -2;
+pub const STATUS_PERMISSION_DENIED: _bindgen_ty_4 = -1;
+pub const STATUS_NO_INIT: _bindgen_ty_4 = -19;
+pub const STATUS_ALREADY_EXISTS: _bindgen_ty_4 = -17;
+pub const STATUS_DEAD_OBJECT: _bindgen_ty_4 = -32;
+pub const STATUS_FAILED_TRANSACTION: _bindgen_ty_4 = -2147483646;
+pub const STATUS_BAD_INDEX: _bindgen_ty_4 = -75;
+pub const STATUS_NOT_ENOUGH_DATA: _bindgen_ty_4 = -61;
+pub const STATUS_WOULD_BLOCK: _bindgen_ty_4 = -11;
+pub const STATUS_TIMED_OUT: _bindgen_ty_4 = -110;
+pub const STATUS_UNKNOWN_TRANSACTION: _bindgen_ty_4 = -74;
+pub const STATUS_FDS_NOT_ALLOWED: _bindgen_ty_4 = -2147483641;
+pub const STATUS_UNEXPECTED_NULL: _bindgen_ty_4 = -2147483640;
+pub type _bindgen_ty_4 = ::std::os::raw::c_int;
+pub type binder_status_t = i32;
+pub const EX_NONE: _bindgen_ty_5 = 0;
+pub const EX_SECURITY: _bindgen_ty_5 = -1;
+pub const EX_BAD_PARCELABLE: _bindgen_ty_5 = -2;
+pub const EX_ILLEGAL_ARGUMENT: _bindgen_ty_5 = -3;
+pub const EX_NULL_POINTER: _bindgen_ty_5 = -4;
+pub const EX_ILLEGAL_STATE: _bindgen_ty_5 = -5;
+pub const EX_NETWORK_MAIN_THREAD: _bindgen_ty_5 = -6;
+pub const EX_UNSUPPORTED_OPERATION: _bindgen_ty_5 = -7;
+pub const EX_SERVICE_SPECIFIC: _bindgen_ty_5 = -8;
+pub const EX_PARCELABLE: _bindgen_ty_5 = -9;
+pub const EX_TRANSACTION_FAILED: _bindgen_ty_5 = -129;
+pub type _bindgen_ty_5 = ::std::os::raw::c_int;
+pub type binder_exception_t = i32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AStatus {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn AStatus_newOk() -> *mut AStatus;
+}
+extern "C" {
+    pub fn AStatus_fromExceptionCode(exception: binder_exception_t) -> *mut AStatus;
+}
+extern "C" {
+    pub fn AStatus_fromExceptionCodeWithMessage(
+        exception: binder_exception_t,
+        message: *const ::std::os::raw::c_char,
+    ) -> *mut AStatus;
+}
+extern "C" {
+    pub fn AStatus_fromServiceSpecificError(serviceSpecific: i32) -> *mut AStatus;
+}
+extern "C" {
+    pub fn AStatus_fromServiceSpecificErrorWithMessage(
+        serviceSpecific: i32,
+        message: *const ::std::os::raw::c_char,
+    ) -> *mut AStatus;
+}
+extern "C" {
+    pub fn AStatus_fromStatus(status: binder_status_t) -> *mut AStatus;
+}
+extern "C" {
+    pub fn AStatus_isOk(status: *const AStatus) -> bool;
+}
+extern "C" {
+    pub fn AStatus_getExceptionCode(status: *const AStatus) -> binder_exception_t;
+}
+extern "C" {
+    pub fn AStatus_getServiceSpecificError(status: *const AStatus) -> i32;
+}
+extern "C" {
+    pub fn AStatus_getStatus(status: *const AStatus) -> binder_status_t;
+}
+extern "C" {
+    pub fn AStatus_getMessage(status: *const AStatus) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn AStatus_getDescription(status: *const AStatus) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn AStatus_deleteDescription(description: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn AStatus_delete(status: *mut AStatus);
+}
+pub type char16_t = ::std::os::raw::c_ushort;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AIBinder {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AParcel {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn AParcel_delete(parcel: *mut AParcel);
+}
+extern "C" {
+    pub fn AParcel_setDataPosition(parcel: *const AParcel, position: i32) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_getDataPosition(parcel: *const AParcel) -> i32;
+}
+extern "C" {
+    pub fn AParcel_writeStrongBinder(
+        parcel: *mut AParcel,
+        binder: *mut AIBinder,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readStrongBinder(
+        parcel: *const AParcel,
+        binder: *mut *mut AIBinder,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeParcelFileDescriptor(
+        parcel: *mut AParcel,
+        fd: ::std::os::raw::c_int,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readParcelFileDescriptor(
+        parcel: *const AParcel,
+        fd: *mut ::std::os::raw::c_int,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeStatusHeader(
+        parcel: *mut AParcel,
+        status: *const AStatus,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readStatusHeader(
+        parcel: *const AParcel,
+        status: *mut *mut AStatus,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeString(
+        parcel: *mut AParcel,
+        string: *const ::std::os::raw::c_char,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readString(
+        parcel: *const AParcel,
+        stringData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut ::std::os::raw::c_char,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeStringArray(
+        parcel: *mut AParcel,
+        arrayData: *const ::std::os::raw::c_void,
+        length: i32,
+        getter: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *const ::std::os::raw::c_void,
+                arg2: usize,
+                arg3: *mut i32,
+            ) -> *const ::std::os::raw::c_char,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readStringArray(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void, arg2: i32) -> bool,
+        >,
+        elementAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: usize,
+                arg3: i32,
+                arg4: *mut *mut ::std::os::raw::c_char,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeParcelableArray(
+        parcel: *mut AParcel,
+        arrayData: *const ::std::os::raw::c_void,
+        length: i32,
+        elementWriter: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut AParcel,
+                arg2: *const ::std::os::raw::c_void,
+                arg3: usize,
+            ) -> binder_status_t,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readParcelableArray(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void, arg2: i32) -> bool,
+        >,
+        elementReader: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *const AParcel,
+                arg2: *mut ::std::os::raw::c_void,
+                arg3: usize,
+            ) -> binder_status_t,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeInt32(parcel: *mut AParcel, value: i32) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeUint32(parcel: *mut AParcel, value: u32) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeInt64(parcel: *mut AParcel, value: i64) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeUint64(parcel: *mut AParcel, value: u64) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeFloat(parcel: *mut AParcel, value: f32) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeDouble(parcel: *mut AParcel, value: f64) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeBool(parcel: *mut AParcel, value: bool) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeChar(parcel: *mut AParcel, value: char16_t) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeByte(parcel: *mut AParcel, value: i8) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readInt32(parcel: *const AParcel, value: *mut i32) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readUint32(parcel: *const AParcel, value: *mut u32) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readInt64(parcel: *const AParcel, value: *mut i64) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readUint64(parcel: *const AParcel, value: *mut u64) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readFloat(parcel: *const AParcel, value: *mut f32) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readDouble(parcel: *const AParcel, value: *mut f64) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readBool(parcel: *const AParcel, value: *mut bool) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readChar(parcel: *const AParcel, value: *mut char16_t) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readByte(parcel: *const AParcel, value: *mut i8) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeInt32Array(
+        parcel: *mut AParcel,
+        arrayData: *const i32,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeUint32Array(
+        parcel: *mut AParcel,
+        arrayData: *const u32,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeInt64Array(
+        parcel: *mut AParcel,
+        arrayData: *const i64,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeUint64Array(
+        parcel: *mut AParcel,
+        arrayData: *const u64,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeFloatArray(
+        parcel: *mut AParcel,
+        arrayData: *const f32,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeDoubleArray(
+        parcel: *mut AParcel,
+        arrayData: *const f64,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeBoolArray(
+        parcel: *mut AParcel,
+        arrayData: *const ::std::os::raw::c_void,
+        length: i32,
+        getter: ::std::option::Option<
+            unsafe extern "C" fn(arg1: *const ::std::os::raw::c_void, arg2: usize) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeCharArray(
+        parcel: *mut AParcel,
+        arrayData: *const char16_t,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_writeByteArray(
+        parcel: *mut AParcel,
+        arrayData: *const i8,
+        length: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readInt32Array(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut i32,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readUint32Array(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut u32,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readInt64Array(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut i64,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readUint64Array(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut u64,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readFloatArray(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut f32,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readDoubleArray(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut f64,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readBoolArray(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void, arg2: i32) -> bool,
+        >,
+        setter: ::std::option::Option<
+            unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void, arg2: usize, arg3: bool),
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readCharArray(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut char16_t,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_readByteArray(
+        parcel: *const AParcel,
+        arrayData: *mut ::std::os::raw::c_void,
+        allocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut ::std::os::raw::c_void,
+                arg2: i32,
+                arg3: *mut *mut i8,
+            ) -> bool,
+        >,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_reset(parcel: *mut AParcel) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_getDataSize(parcel: *const AParcel) -> i32;
+}
+extern "C" {
+    pub fn AParcel_getDataCapacity(parcel: *const AParcel) -> usize;
+}
+extern "C" {
+    pub fn AParcel_setDataCapacity(parcel: *mut AParcel, capacity: usize) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_appendFrom(
+        from: *const AParcel,
+        to: *mut AParcel,
+        start: i32,
+        size: i32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_create() -> *mut AParcel;
+}
+extern "C" {
+    pub fn AParcel_marshal(
+        parcel: *const AParcel,
+        buffer: *mut u8,
+        start: usize,
+        len: usize,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AParcel_unmarshal(
+        parcel: *mut AParcel,
+        buffer: *const u8,
+        len: usize,
+    ) -> binder_status_t;
+}
+pub type binder_flags_t = u32;
+pub const FLAG_ONEWAY: _bindgen_ty_6 = 1;
+pub type _bindgen_ty_6 = ::std::os::raw::c_uint;
+pub type transaction_code_t = u32;
+pub const FIRST_CALL_TRANSACTION: _bindgen_ty_7 = 1;
+pub const LAST_CALL_TRANSACTION: _bindgen_ty_7 = 16777215;
+pub type _bindgen_ty_7 = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AIBinder_Class {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AIBinder_Weak {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AIBinder_DeathRecipient {
+    _unused: [u8; 0],
+}
+pub type AIBinder_Class_onCreate = ::std::option::Option<
+    unsafe extern "C" fn(args: *mut ::std::os::raw::c_void) -> *mut ::std::os::raw::c_void,
+>;
+pub type AIBinder_Class_onDestroy =
+    ::std::option::Option<unsafe extern "C" fn(userData: *mut ::std::os::raw::c_void)>;
+pub type AIBinder_Class_onTransact = ::std::option::Option<
+    unsafe extern "C" fn(
+        binder: *mut AIBinder,
+        code: transaction_code_t,
+        in_: *const AParcel,
+        out: *mut AParcel,
+    ) -> binder_status_t,
+>;
+extern "C" {
+    pub fn AIBinder_Class_define(
+        interfaceDescriptor: *const ::std::os::raw::c_char,
+        onCreate: AIBinder_Class_onCreate,
+        onDestroy: AIBinder_Class_onDestroy,
+        onTransact: AIBinder_Class_onTransact,
+    ) -> *mut AIBinder_Class;
+}
+pub type AIBinder_onDump = ::std::option::Option<
+    unsafe extern "C" fn(
+        binder: *mut AIBinder,
+        fd: ::std::os::raw::c_int,
+        args: *mut *const ::std::os::raw::c_char,
+        numArgs: u32,
+    ) -> binder_status_t,
+>;
+extern "C" {
+    pub fn AIBinder_Class_setOnDump(clazz: *mut AIBinder_Class, onDump: AIBinder_onDump);
+}
+extern "C" {
+    pub fn AIBinder_Class_setTransactionCodeToFunctionNameMap(
+        clazz: *mut AIBinder_Class,
+        transactionCodeToFunctionMap: *const *const ::std::os::raw::c_char,
+        length: usize,
+    );
+}
+extern "C" {
+    pub fn AIBinder_Class_getFunctionName(
+        clazz: *const AIBinder_Class,
+        code: transaction_code_t,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn AIBinder_Class_disableInterfaceTokenHeader(clazz: *mut AIBinder_Class);
+}
+extern "C" {
+    pub fn AIBinder_new(
+        clazz: *const AIBinder_Class,
+        args: *mut ::std::os::raw::c_void,
+    ) -> *mut AIBinder;
+}
+extern "C" {
+    pub fn AIBinder_isRemote(binder: *const AIBinder) -> bool;
+}
+extern "C" {
+    pub fn AIBinder_isAlive(binder: *const AIBinder) -> bool;
+}
+extern "C" {
+    pub fn AIBinder_ping(binder: *mut AIBinder) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_dump(
+        binder: *mut AIBinder,
+        fd: ::std::os::raw::c_int,
+        args: *mut *const ::std::os::raw::c_char,
+        numArgs: u32,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_linkToDeath(
+        binder: *mut AIBinder,
+        recipient: *mut AIBinder_DeathRecipient,
+        cookie: *mut ::std::os::raw::c_void,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_unlinkToDeath(
+        binder: *mut AIBinder,
+        recipient: *mut AIBinder_DeathRecipient,
+        cookie: *mut ::std::os::raw::c_void,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_getCallingUid() -> uid_t;
+}
+extern "C" {
+    pub fn AIBinder_getCallingPid() -> pid_t;
+}
+extern "C" {
+    pub fn AIBinder_isHandlingTransaction() -> bool;
+}
+extern "C" {
+    pub fn AIBinder_incStrong(binder: *mut AIBinder);
+}
+extern "C" {
+    pub fn AIBinder_decStrong(binder: *mut AIBinder);
+}
+extern "C" {
+    pub fn AIBinder_debugGetRefCount(binder: *mut AIBinder) -> i32;
+}
+extern "C" {
+    pub fn AIBinder_associateClass(binder: *mut AIBinder, clazz: *const AIBinder_Class) -> bool;
+}
+extern "C" {
+    pub fn AIBinder_getClass(binder: *mut AIBinder) -> *const AIBinder_Class;
+}
+extern "C" {
+    pub fn AIBinder_getUserData(binder: *mut AIBinder) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn AIBinder_prepareTransaction(
+        binder: *mut AIBinder,
+        in_: *mut *mut AParcel,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_transact(
+        binder: *mut AIBinder,
+        code: transaction_code_t,
+        in_: *mut *mut AParcel,
+        out: *mut *mut AParcel,
+        flags: binder_flags_t,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_Weak_new(binder: *mut AIBinder) -> *mut AIBinder_Weak;
+}
+extern "C" {
+    pub fn AIBinder_Weak_delete(weakBinder: *mut AIBinder_Weak);
+}
+extern "C" {
+    pub fn AIBinder_Weak_promote(weakBinder: *mut AIBinder_Weak) -> *mut AIBinder;
+}
+pub type AIBinder_DeathRecipient_onBinderDied =
+    ::std::option::Option<unsafe extern "C" fn(cookie: *mut ::std::os::raw::c_void)>;
+pub type AIBinder_DeathRecipient_onBinderUnlinked =
+    ::std::option::Option<unsafe extern "C" fn(cookie: *mut ::std::os::raw::c_void)>;
+extern "C" {
+    pub fn AIBinder_DeathRecipient_new(
+        onBinderDied: AIBinder_DeathRecipient_onBinderDied,
+    ) -> *mut AIBinder_DeathRecipient;
+}
+extern "C" {
+    pub fn AIBinder_DeathRecipient_setOnUnlinked(
+        recipient: *mut AIBinder_DeathRecipient,
+        onUnlinked: AIBinder_DeathRecipient_onBinderUnlinked,
+    );
+}
+extern "C" {
+    pub fn AIBinder_DeathRecipient_delete(recipient: *mut AIBinder_DeathRecipient);
+}
+extern "C" {
+    pub fn AIBinder_getExtension(
+        binder: *mut AIBinder,
+        outExt: *mut *mut AIBinder,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_setExtension(binder: *mut AIBinder, ext: *mut AIBinder) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_Class_getDescriptor(
+        clazz: *const AIBinder_Class,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn AIBinder_lt(lhs: *const AIBinder, rhs: *const AIBinder) -> bool;
+}
+extern "C" {
+    pub fn AIBinder_Weak_clone(weak: *const AIBinder_Weak) -> *mut AIBinder_Weak;
+}
+extern "C" {
+    pub fn AIBinder_Weak_lt(lhs: *const AIBinder_Weak, rhs: *const AIBinder_Weak) -> bool;
+}
+extern "C" {
+    pub fn AIBinder_setMinRpcThreads(binder: *mut AIBinder, min: u16) -> binder_status_t;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AIBinder_FrozenStateChangeCallback {
+    _unused: [u8; 0],
+}
+pub type AIBinder_FrozenStateChangeCallback_onStateChanged =
+    ::std::option::Option<unsafe extern "C" fn(cookie: *mut ::std::os::raw::c_void, frozen: bool)>;
+pub type AIBinder_FrozenStateChangeCallback_onBinderUnlinked =
+    ::std::option::Option<unsafe extern "C" fn(cookie: *mut ::std::os::raw::c_void)>;
+extern "C" {
+    pub fn AIBinder_FrozenStateChangeCallback_new(
+        onStateChanged: AIBinder_FrozenStateChangeCallback_onStateChanged,
+        onUnlinked: AIBinder_FrozenStateChangeCallback_onBinderUnlinked,
+    ) -> *mut AIBinder_FrozenStateChangeCallback;
+}
+extern "C" {
+    pub fn AIBinder_FrozenStateChangeCallback_delete(
+        callback: *mut AIBinder_FrozenStateChangeCallback,
+    );
+}
+extern "C" {
+    pub fn AIBinder_addFrozenStateChangeCallback(
+        binder: *mut AIBinder,
+        callback: *mut AIBinder_FrozenStateChangeCallback,
+        cookie: *mut ::std::os::raw::c_void,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_removeFrozenStateChangeCallback(
+        binder: *mut AIBinder,
+        callback: *mut AIBinder_FrozenStateChangeCallback,
+        cookie: *mut ::std::os::raw::c_void,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AIBinder_fromJavaBinder(env: *mut JNIEnv, binder: jobject) -> *mut AIBinder;
+}
+extern "C" {
+    pub fn AIBinder_toJavaBinder(env: *mut JNIEnv, binder: *mut AIBinder) -> jobject;
+}
+extern "C" {
+    pub fn AParcel_fromJavaParcel(env: *mut JNIEnv, parcel: jobject) -> *mut AParcel;
+}
+pub const ANDROID_BITMAP_RESULT_SUCCESS: _bindgen_ty_8 = 0;
+pub const ANDROID_BITMAP_RESULT_BAD_PARAMETER: _bindgen_ty_8 = -1;
+pub const ANDROID_BITMAP_RESULT_JNI_EXCEPTION: _bindgen_ty_8 = -2;
+pub const ANDROID_BITMAP_RESULT_ALLOCATION_FAILED: _bindgen_ty_8 = -3;
+pub type _bindgen_ty_8 = ::std::os::raw::c_int;
 impl AndroidBitmapFormat {
     pub const ANDROID_BITMAP_FORMAT_NONE: AndroidBitmapFormat = AndroidBitmapFormat(0);
 }
@@ -236,14 +979,14 @@ impl AndroidBitmapFormat {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AndroidBitmapFormat(pub ::std::os::raw::c_uint);
-pub const ANDROID_BITMAP_FLAGS_ALPHA_PREMUL: _bindgen_ty_4 = 0;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_OPAQUE: _bindgen_ty_4 = 1;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_UNPREMUL: _bindgen_ty_4 = 2;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_MASK: _bindgen_ty_4 = 3;
-pub const ANDROID_BITMAP_FLAGS_ALPHA_SHIFT: _bindgen_ty_4 = 0;
-pub type _bindgen_ty_4 = ::std::os::raw::c_uint;
-pub const ANDROID_BITMAP_FLAGS_IS_HARDWARE: _bindgen_ty_5 = -2147483648;
-pub type _bindgen_ty_5 = ::std::os::raw::c_int;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_PREMUL: _bindgen_ty_9 = 0;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_OPAQUE: _bindgen_ty_9 = 1;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_UNPREMUL: _bindgen_ty_9 = 2;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_MASK: _bindgen_ty_9 = 3;
+pub const ANDROID_BITMAP_FLAGS_ALPHA_SHIFT: _bindgen_ty_9 = 0;
+pub type _bindgen_ty_9 = ::std::os::raw::c_uint;
+pub const ANDROID_BITMAP_FLAGS_IS_HARDWARE: _bindgen_ty_10 = -2147483648;
+pub type _bindgen_ty_10 = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AndroidBitmapInfo {
@@ -480,98 +1223,98 @@ extern "C" {
 pub struct AConfiguration {
     _unused: [u8; 0],
 }
-pub const ACONFIGURATION_ORIENTATION_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_ORIENTATION_PORT: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_ORIENTATION_LAND: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_ORIENTATION_SQUARE: _bindgen_ty_6 = 3;
-pub const ACONFIGURATION_TOUCHSCREEN_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_TOUCHSCREEN_NOTOUCH: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_TOUCHSCREEN_STYLUS: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_TOUCHSCREEN_FINGER: _bindgen_ty_6 = 3;
-pub const ACONFIGURATION_DENSITY_DEFAULT: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_DENSITY_LOW: _bindgen_ty_6 = 120;
-pub const ACONFIGURATION_DENSITY_MEDIUM: _bindgen_ty_6 = 160;
-pub const ACONFIGURATION_DENSITY_TV: _bindgen_ty_6 = 213;
-pub const ACONFIGURATION_DENSITY_HIGH: _bindgen_ty_6 = 240;
-pub const ACONFIGURATION_DENSITY_XHIGH: _bindgen_ty_6 = 320;
-pub const ACONFIGURATION_DENSITY_XXHIGH: _bindgen_ty_6 = 480;
-pub const ACONFIGURATION_DENSITY_XXXHIGH: _bindgen_ty_6 = 640;
-pub const ACONFIGURATION_DENSITY_ANY: _bindgen_ty_6 = 65534;
-pub const ACONFIGURATION_DENSITY_NONE: _bindgen_ty_6 = 65535;
-pub const ACONFIGURATION_KEYBOARD_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_KEYBOARD_NOKEYS: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_KEYBOARD_QWERTY: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_KEYBOARD_12KEY: _bindgen_ty_6 = 3;
-pub const ACONFIGURATION_NAVIGATION_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_NAVIGATION_NONAV: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_NAVIGATION_DPAD: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_NAVIGATION_TRACKBALL: _bindgen_ty_6 = 3;
-pub const ACONFIGURATION_NAVIGATION_WHEEL: _bindgen_ty_6 = 4;
-pub const ACONFIGURATION_KEYSHIDDEN_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_KEYSHIDDEN_NO: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_KEYSHIDDEN_YES: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_KEYSHIDDEN_SOFT: _bindgen_ty_6 = 3;
-pub const ACONFIGURATION_NAVHIDDEN_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_NAVHIDDEN_NO: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_NAVHIDDEN_YES: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_SCREENSIZE_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_SCREENSIZE_SMALL: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_SCREENSIZE_NORMAL: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_SCREENSIZE_LARGE: _bindgen_ty_6 = 3;
-pub const ACONFIGURATION_SCREENSIZE_XLARGE: _bindgen_ty_6 = 4;
-pub const ACONFIGURATION_SCREENLONG_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_SCREENLONG_NO: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_SCREENLONG_YES: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_SCREENROUND_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_SCREENROUND_NO: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_SCREENROUND_YES: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_WIDE_COLOR_GAMUT_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_WIDE_COLOR_GAMUT_NO: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_WIDE_COLOR_GAMUT_YES: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_HDR_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_HDR_NO: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_HDR_YES: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_UI_MODE_TYPE_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_UI_MODE_TYPE_NORMAL: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_UI_MODE_TYPE_DESK: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_UI_MODE_TYPE_CAR: _bindgen_ty_6 = 3;
-pub const ACONFIGURATION_UI_MODE_TYPE_TELEVISION: _bindgen_ty_6 = 4;
-pub const ACONFIGURATION_UI_MODE_TYPE_APPLIANCE: _bindgen_ty_6 = 5;
-pub const ACONFIGURATION_UI_MODE_TYPE_WATCH: _bindgen_ty_6 = 6;
-pub const ACONFIGURATION_UI_MODE_TYPE_VR_HEADSET: _bindgen_ty_6 = 7;
-pub const ACONFIGURATION_UI_MODE_NIGHT_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_UI_MODE_NIGHT_NO: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_UI_MODE_NIGHT_YES: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_SCREEN_WIDTH_DP_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_SCREEN_HEIGHT_DP_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_SMALLEST_SCREEN_WIDTH_DP_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_LAYOUTDIR_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_LAYOUTDIR_LTR: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_LAYOUTDIR_RTL: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_MCC: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_MNC: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_LOCALE: _bindgen_ty_6 = 4;
-pub const ACONFIGURATION_TOUCHSCREEN: _bindgen_ty_6 = 8;
-pub const ACONFIGURATION_KEYBOARD: _bindgen_ty_6 = 16;
-pub const ACONFIGURATION_KEYBOARD_HIDDEN: _bindgen_ty_6 = 32;
-pub const ACONFIGURATION_NAVIGATION: _bindgen_ty_6 = 64;
-pub const ACONFIGURATION_ORIENTATION: _bindgen_ty_6 = 128;
-pub const ACONFIGURATION_DENSITY: _bindgen_ty_6 = 256;
-pub const ACONFIGURATION_SCREEN_SIZE: _bindgen_ty_6 = 512;
-pub const ACONFIGURATION_VERSION: _bindgen_ty_6 = 1024;
-pub const ACONFIGURATION_SCREEN_LAYOUT: _bindgen_ty_6 = 2048;
-pub const ACONFIGURATION_UI_MODE: _bindgen_ty_6 = 4096;
-pub const ACONFIGURATION_SMALLEST_SCREEN_SIZE: _bindgen_ty_6 = 8192;
-pub const ACONFIGURATION_LAYOUTDIR: _bindgen_ty_6 = 16384;
-pub const ACONFIGURATION_SCREEN_ROUND: _bindgen_ty_6 = 32768;
-pub const ACONFIGURATION_COLOR_MODE: _bindgen_ty_6 = 65536;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER: _bindgen_ty_6 = 131072;
-pub const ACONFIGURATION_MNC_ZERO: _bindgen_ty_6 = 65535;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_ANY: _bindgen_ty_6 = 0;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_NEUTER: _bindgen_ty_6 = 1;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_FEMININE: _bindgen_ty_6 = 2;
-pub const ACONFIGURATION_GRAMMATICAL_GENDER_MASCULINE: _bindgen_ty_6 = 3;
-pub type _bindgen_ty_6 = ::std::os::raw::c_uint;
+pub const ACONFIGURATION_ORIENTATION_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_ORIENTATION_PORT: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_ORIENTATION_LAND: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_ORIENTATION_SQUARE: _bindgen_ty_11 = 3;
+pub const ACONFIGURATION_TOUCHSCREEN_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_TOUCHSCREEN_NOTOUCH: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_TOUCHSCREEN_STYLUS: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_TOUCHSCREEN_FINGER: _bindgen_ty_11 = 3;
+pub const ACONFIGURATION_DENSITY_DEFAULT: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_DENSITY_LOW: _bindgen_ty_11 = 120;
+pub const ACONFIGURATION_DENSITY_MEDIUM: _bindgen_ty_11 = 160;
+pub const ACONFIGURATION_DENSITY_TV: _bindgen_ty_11 = 213;
+pub const ACONFIGURATION_DENSITY_HIGH: _bindgen_ty_11 = 240;
+pub const ACONFIGURATION_DENSITY_XHIGH: _bindgen_ty_11 = 320;
+pub const ACONFIGURATION_DENSITY_XXHIGH: _bindgen_ty_11 = 480;
+pub const ACONFIGURATION_DENSITY_XXXHIGH: _bindgen_ty_11 = 640;
+pub const ACONFIGURATION_DENSITY_ANY: _bindgen_ty_11 = 65534;
+pub const ACONFIGURATION_DENSITY_NONE: _bindgen_ty_11 = 65535;
+pub const ACONFIGURATION_KEYBOARD_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_KEYBOARD_NOKEYS: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_KEYBOARD_QWERTY: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_KEYBOARD_12KEY: _bindgen_ty_11 = 3;
+pub const ACONFIGURATION_NAVIGATION_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_NAVIGATION_NONAV: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_NAVIGATION_DPAD: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_NAVIGATION_TRACKBALL: _bindgen_ty_11 = 3;
+pub const ACONFIGURATION_NAVIGATION_WHEEL: _bindgen_ty_11 = 4;
+pub const ACONFIGURATION_KEYSHIDDEN_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_KEYSHIDDEN_NO: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_KEYSHIDDEN_YES: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_KEYSHIDDEN_SOFT: _bindgen_ty_11 = 3;
+pub const ACONFIGURATION_NAVHIDDEN_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_NAVHIDDEN_NO: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_NAVHIDDEN_YES: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_SCREENSIZE_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_SCREENSIZE_SMALL: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_SCREENSIZE_NORMAL: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_SCREENSIZE_LARGE: _bindgen_ty_11 = 3;
+pub const ACONFIGURATION_SCREENSIZE_XLARGE: _bindgen_ty_11 = 4;
+pub const ACONFIGURATION_SCREENLONG_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_SCREENLONG_NO: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_SCREENLONG_YES: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_SCREENROUND_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_SCREENROUND_NO: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_SCREENROUND_YES: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_WIDE_COLOR_GAMUT_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_WIDE_COLOR_GAMUT_NO: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_WIDE_COLOR_GAMUT_YES: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_HDR_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_HDR_NO: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_HDR_YES: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_UI_MODE_TYPE_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_UI_MODE_TYPE_NORMAL: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_UI_MODE_TYPE_DESK: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_UI_MODE_TYPE_CAR: _bindgen_ty_11 = 3;
+pub const ACONFIGURATION_UI_MODE_TYPE_TELEVISION: _bindgen_ty_11 = 4;
+pub const ACONFIGURATION_UI_MODE_TYPE_APPLIANCE: _bindgen_ty_11 = 5;
+pub const ACONFIGURATION_UI_MODE_TYPE_WATCH: _bindgen_ty_11 = 6;
+pub const ACONFIGURATION_UI_MODE_TYPE_VR_HEADSET: _bindgen_ty_11 = 7;
+pub const ACONFIGURATION_UI_MODE_NIGHT_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_UI_MODE_NIGHT_NO: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_UI_MODE_NIGHT_YES: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_SCREEN_WIDTH_DP_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_SCREEN_HEIGHT_DP_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_SMALLEST_SCREEN_WIDTH_DP_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_LAYOUTDIR_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_LAYOUTDIR_LTR: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_LAYOUTDIR_RTL: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_MCC: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_MNC: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_LOCALE: _bindgen_ty_11 = 4;
+pub const ACONFIGURATION_TOUCHSCREEN: _bindgen_ty_11 = 8;
+pub const ACONFIGURATION_KEYBOARD: _bindgen_ty_11 = 16;
+pub const ACONFIGURATION_KEYBOARD_HIDDEN: _bindgen_ty_11 = 32;
+pub const ACONFIGURATION_NAVIGATION: _bindgen_ty_11 = 64;
+pub const ACONFIGURATION_ORIENTATION: _bindgen_ty_11 = 128;
+pub const ACONFIGURATION_DENSITY: _bindgen_ty_11 = 256;
+pub const ACONFIGURATION_SCREEN_SIZE: _bindgen_ty_11 = 512;
+pub const ACONFIGURATION_VERSION: _bindgen_ty_11 = 1024;
+pub const ACONFIGURATION_SCREEN_LAYOUT: _bindgen_ty_11 = 2048;
+pub const ACONFIGURATION_UI_MODE: _bindgen_ty_11 = 4096;
+pub const ACONFIGURATION_SMALLEST_SCREEN_SIZE: _bindgen_ty_11 = 8192;
+pub const ACONFIGURATION_LAYOUTDIR: _bindgen_ty_11 = 16384;
+pub const ACONFIGURATION_SCREEN_ROUND: _bindgen_ty_11 = 32768;
+pub const ACONFIGURATION_COLOR_MODE: _bindgen_ty_11 = 65536;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER: _bindgen_ty_11 = 131072;
+pub const ACONFIGURATION_MNC_ZERO: _bindgen_ty_11 = 65535;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_ANY: _bindgen_ty_11 = 0;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_NEUTER: _bindgen_ty_11 = 1;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_FEMININE: _bindgen_ty_11 = 2;
+pub const ACONFIGURATION_GRAMMATICAL_GENDER_MASCULINE: _bindgen_ty_11 = 3;
+pub type _bindgen_ty_11 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AConfiguration_new() -> *mut AConfiguration;
 }
@@ -999,17 +1742,17 @@ impl ADataSpace {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct ADataSpace(pub i32);
-pub const ANDROID_DLEXT_RESERVED_ADDRESS: _bindgen_ty_7 = 1;
-pub const ANDROID_DLEXT_RESERVED_ADDRESS_HINT: _bindgen_ty_7 = 2;
-pub const ANDROID_DLEXT_WRITE_RELRO: _bindgen_ty_7 = 4;
-pub const ANDROID_DLEXT_USE_RELRO: _bindgen_ty_7 = 8;
-pub const ANDROID_DLEXT_USE_LIBRARY_FD: _bindgen_ty_7 = 16;
-pub const ANDROID_DLEXT_USE_LIBRARY_FD_OFFSET: _bindgen_ty_7 = 32;
-pub const ANDROID_DLEXT_FORCE_LOAD: _bindgen_ty_7 = 64;
-pub const ANDROID_DLEXT_USE_NAMESPACE: _bindgen_ty_7 = 512;
-pub const ANDROID_DLEXT_RESERVED_ADDRESS_RECURSIVE: _bindgen_ty_7 = 1024;
-pub const ANDROID_DLEXT_VALID_FLAG_BITS: _bindgen_ty_7 = 1663;
-pub type _bindgen_ty_7 = ::std::os::raw::c_uint;
+pub const ANDROID_DLEXT_RESERVED_ADDRESS: _bindgen_ty_12 = 1;
+pub const ANDROID_DLEXT_RESERVED_ADDRESS_HINT: _bindgen_ty_12 = 2;
+pub const ANDROID_DLEXT_WRITE_RELRO: _bindgen_ty_12 = 4;
+pub const ANDROID_DLEXT_USE_RELRO: _bindgen_ty_12 = 8;
+pub const ANDROID_DLEXT_USE_LIBRARY_FD: _bindgen_ty_12 = 16;
+pub const ANDROID_DLEXT_USE_LIBRARY_FD_OFFSET: _bindgen_ty_12 = 32;
+pub const ANDROID_DLEXT_FORCE_LOAD: _bindgen_ty_12 = 64;
+pub const ANDROID_DLEXT_USE_NAMESPACE: _bindgen_ty_12 = 512;
+pub const ANDROID_DLEXT_RESERVED_ADDRESS_RECURSIVE: _bindgen_ty_12 = 1024;
+pub const ANDROID_DLEXT_VALID_FLAG_BITS: _bindgen_ty_12 = 1663;
+pub type _bindgen_ty_12 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct android_namespace_t {
@@ -1221,18 +1964,18 @@ extern "C" {
         fd: ::std::os::raw::c_int,
     );
 }
-pub const AFONT_WEIGHT_MIN: _bindgen_ty_8 = 0;
-pub const AFONT_WEIGHT_THIN: _bindgen_ty_8 = 100;
-pub const AFONT_WEIGHT_EXTRA_LIGHT: _bindgen_ty_8 = 200;
-pub const AFONT_WEIGHT_LIGHT: _bindgen_ty_8 = 300;
-pub const AFONT_WEIGHT_NORMAL: _bindgen_ty_8 = 400;
-pub const AFONT_WEIGHT_MEDIUM: _bindgen_ty_8 = 500;
-pub const AFONT_WEIGHT_SEMI_BOLD: _bindgen_ty_8 = 600;
-pub const AFONT_WEIGHT_BOLD: _bindgen_ty_8 = 700;
-pub const AFONT_WEIGHT_EXTRA_BOLD: _bindgen_ty_8 = 800;
-pub const AFONT_WEIGHT_BLACK: _bindgen_ty_8 = 900;
-pub const AFONT_WEIGHT_MAX: _bindgen_ty_8 = 1000;
-pub type _bindgen_ty_8 = ::std::os::raw::c_uint;
+pub const AFONT_WEIGHT_MIN: _bindgen_ty_13 = 0;
+pub const AFONT_WEIGHT_THIN: _bindgen_ty_13 = 100;
+pub const AFONT_WEIGHT_EXTRA_LIGHT: _bindgen_ty_13 = 200;
+pub const AFONT_WEIGHT_LIGHT: _bindgen_ty_13 = 300;
+pub const AFONT_WEIGHT_NORMAL: _bindgen_ty_13 = 400;
+pub const AFONT_WEIGHT_MEDIUM: _bindgen_ty_13 = 500;
+pub const AFONT_WEIGHT_SEMI_BOLD: _bindgen_ty_13 = 600;
+pub const AFONT_WEIGHT_BOLD: _bindgen_ty_13 = 700;
+pub const AFONT_WEIGHT_EXTRA_BOLD: _bindgen_ty_13 = 800;
+pub const AFONT_WEIGHT_BLACK: _bindgen_ty_13 = 900;
+pub const AFONT_WEIGHT_MAX: _bindgen_ty_13 = 1000;
+pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AFont {
@@ -1265,10 +2008,10 @@ extern "C" {
 extern "C" {
     pub fn AFont_getAxisValue(font: *const AFont, axisIndex: u32) -> f32;
 }
-pub const AFAMILY_VARIANT_DEFAULT: _bindgen_ty_9 = 0;
-pub const AFAMILY_VARIANT_COMPACT: _bindgen_ty_9 = 1;
-pub const AFAMILY_VARIANT_ELEGANT: _bindgen_ty_9 = 2;
-pub type _bindgen_ty_9 = ::std::os::raw::c_uint;
+pub const AFAMILY_VARIANT_DEFAULT: _bindgen_ty_14 = 0;
+pub const AFAMILY_VARIANT_COMPACT: _bindgen_ty_14 = 1;
+pub const AFAMILY_VARIANT_ELEGANT: _bindgen_ty_14 = 2;
+pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AFontMatcher {
@@ -1817,6 +2560,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn AHardwareBuffer_readFromParcel(
+        parcel: *const AParcel,
+        outBuffer: *mut *mut AHardwareBuffer,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn AHardwareBuffer_writeToParcel(
+        buffer: *const AHardwareBuffer,
+        parcel: *mut AParcel,
+    ) -> binder_status_t;
+}
+extern "C" {
     pub fn AHardwareBuffer_fromHardwareBuffer(
         env: *mut JNIEnv,
         hardwareBufferObj: jobject,
@@ -1959,19 +2714,19 @@ fn bindgen_test_layout_AHdrMetadata_cta861_3() {
         "Offset of field: AHdrMetadata_cta861_3::maxFrameAverageLightLevel"
     );
 }
-pub const ANDROID_IMAGE_DECODER_SUCCESS: _bindgen_ty_10 = 0;
-pub const ANDROID_IMAGE_DECODER_INCOMPLETE: _bindgen_ty_10 = -1;
-pub const ANDROID_IMAGE_DECODER_ERROR: _bindgen_ty_10 = -2;
-pub const ANDROID_IMAGE_DECODER_INVALID_CONVERSION: _bindgen_ty_10 = -3;
-pub const ANDROID_IMAGE_DECODER_INVALID_SCALE: _bindgen_ty_10 = -4;
-pub const ANDROID_IMAGE_DECODER_BAD_PARAMETER: _bindgen_ty_10 = -5;
-pub const ANDROID_IMAGE_DECODER_INVALID_INPUT: _bindgen_ty_10 = -6;
-pub const ANDROID_IMAGE_DECODER_SEEK_ERROR: _bindgen_ty_10 = -7;
-pub const ANDROID_IMAGE_DECODER_INTERNAL_ERROR: _bindgen_ty_10 = -8;
-pub const ANDROID_IMAGE_DECODER_UNSUPPORTED_FORMAT: _bindgen_ty_10 = -9;
-pub const ANDROID_IMAGE_DECODER_FINISHED: _bindgen_ty_10 = -10;
-pub const ANDROID_IMAGE_DECODER_INVALID_STATE: _bindgen_ty_10 = -11;
-pub type _bindgen_ty_10 = ::std::os::raw::c_int;
+pub const ANDROID_IMAGE_DECODER_SUCCESS: _bindgen_ty_15 = 0;
+pub const ANDROID_IMAGE_DECODER_INCOMPLETE: _bindgen_ty_15 = -1;
+pub const ANDROID_IMAGE_DECODER_ERROR: _bindgen_ty_15 = -2;
+pub const ANDROID_IMAGE_DECODER_INVALID_CONVERSION: _bindgen_ty_15 = -3;
+pub const ANDROID_IMAGE_DECODER_INVALID_SCALE: _bindgen_ty_15 = -4;
+pub const ANDROID_IMAGE_DECODER_BAD_PARAMETER: _bindgen_ty_15 = -5;
+pub const ANDROID_IMAGE_DECODER_INVALID_INPUT: _bindgen_ty_15 = -6;
+pub const ANDROID_IMAGE_DECODER_SEEK_ERROR: _bindgen_ty_15 = -7;
+pub const ANDROID_IMAGE_DECODER_INTERNAL_ERROR: _bindgen_ty_15 = -8;
+pub const ANDROID_IMAGE_DECODER_UNSUPPORTED_FORMAT: _bindgen_ty_15 = -9;
+pub const ANDROID_IMAGE_DECODER_FINISHED: _bindgen_ty_15 = -10;
+pub const ANDROID_IMAGE_DECODER_INVALID_STATE: _bindgen_ty_15 = -11;
+pub type _bindgen_ty_15 = ::std::os::raw::c_int;
 extern "C" {
     pub fn AImageDecoder_resultToString(
         arg1: ::std::os::raw::c_int,
@@ -2089,8 +2844,8 @@ extern "C" {
 extern "C" {
     pub fn AImageDecoder_isAnimated(decoder: *mut AImageDecoder) -> bool;
 }
-pub const ANDROID_IMAGE_DECODER_INFINITE: _bindgen_ty_11 = 2147483647;
-pub type _bindgen_ty_11 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_INFINITE: _bindgen_ty_16 = 2147483647;
+pub type _bindgen_ty_16 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoder_getRepeatCount(decoder: *mut AImageDecoder) -> i32;
 }
@@ -2127,16 +2882,16 @@ extern "C" {
     pub fn AImageDecoderFrameInfo_hasAlphaWithinBounds(info: *const AImageDecoderFrameInfo)
         -> bool;
 }
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_NONE: _bindgen_ty_12 = 1;
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_BACKGROUND: _bindgen_ty_12 = 2;
-pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_PREVIOUS: _bindgen_ty_12 = 3;
-pub type _bindgen_ty_12 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_NONE: _bindgen_ty_17 = 1;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_BACKGROUND: _bindgen_ty_17 = 2;
+pub const ANDROID_IMAGE_DECODER_DISPOSE_OP_PREVIOUS: _bindgen_ty_17 = 3;
+pub type _bindgen_ty_17 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getDisposeOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
-pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC: _bindgen_ty_13 = 1;
-pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC_OVER: _bindgen_ty_13 = 2;
-pub type _bindgen_ty_13 = ::std::os::raw::c_uint;
+pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC: _bindgen_ty_18 = 1;
+pub const ANDROID_IMAGE_DECODER_BLEND_OP_SRC_OVER: _bindgen_ty_18 = 2;
+pub type _bindgen_ty_18 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AImageDecoderFrameInfo_getBlendOp(info: *const AImageDecoderFrameInfo) -> i32;
 }
@@ -2146,348 +2901,348 @@ extern "C" {
         handleInternally: bool,
     );
 }
-pub const AKEYCODE_UNKNOWN: _bindgen_ty_14 = 0;
-pub const AKEYCODE_SOFT_LEFT: _bindgen_ty_14 = 1;
-pub const AKEYCODE_SOFT_RIGHT: _bindgen_ty_14 = 2;
-pub const AKEYCODE_HOME: _bindgen_ty_14 = 3;
-pub const AKEYCODE_BACK: _bindgen_ty_14 = 4;
-pub const AKEYCODE_CALL: _bindgen_ty_14 = 5;
-pub const AKEYCODE_ENDCALL: _bindgen_ty_14 = 6;
-pub const AKEYCODE_0: _bindgen_ty_14 = 7;
-pub const AKEYCODE_1: _bindgen_ty_14 = 8;
-pub const AKEYCODE_2: _bindgen_ty_14 = 9;
-pub const AKEYCODE_3: _bindgen_ty_14 = 10;
-pub const AKEYCODE_4: _bindgen_ty_14 = 11;
-pub const AKEYCODE_5: _bindgen_ty_14 = 12;
-pub const AKEYCODE_6: _bindgen_ty_14 = 13;
-pub const AKEYCODE_7: _bindgen_ty_14 = 14;
-pub const AKEYCODE_8: _bindgen_ty_14 = 15;
-pub const AKEYCODE_9: _bindgen_ty_14 = 16;
-pub const AKEYCODE_STAR: _bindgen_ty_14 = 17;
-pub const AKEYCODE_POUND: _bindgen_ty_14 = 18;
-pub const AKEYCODE_DPAD_UP: _bindgen_ty_14 = 19;
-pub const AKEYCODE_DPAD_DOWN: _bindgen_ty_14 = 20;
-pub const AKEYCODE_DPAD_LEFT: _bindgen_ty_14 = 21;
-pub const AKEYCODE_DPAD_RIGHT: _bindgen_ty_14 = 22;
-pub const AKEYCODE_DPAD_CENTER: _bindgen_ty_14 = 23;
-pub const AKEYCODE_VOLUME_UP: _bindgen_ty_14 = 24;
-pub const AKEYCODE_VOLUME_DOWN: _bindgen_ty_14 = 25;
-pub const AKEYCODE_POWER: _bindgen_ty_14 = 26;
-pub const AKEYCODE_CAMERA: _bindgen_ty_14 = 27;
-pub const AKEYCODE_CLEAR: _bindgen_ty_14 = 28;
-pub const AKEYCODE_A: _bindgen_ty_14 = 29;
-pub const AKEYCODE_B: _bindgen_ty_14 = 30;
-pub const AKEYCODE_C: _bindgen_ty_14 = 31;
-pub const AKEYCODE_D: _bindgen_ty_14 = 32;
-pub const AKEYCODE_E: _bindgen_ty_14 = 33;
-pub const AKEYCODE_F: _bindgen_ty_14 = 34;
-pub const AKEYCODE_G: _bindgen_ty_14 = 35;
-pub const AKEYCODE_H: _bindgen_ty_14 = 36;
-pub const AKEYCODE_I: _bindgen_ty_14 = 37;
-pub const AKEYCODE_J: _bindgen_ty_14 = 38;
-pub const AKEYCODE_K: _bindgen_ty_14 = 39;
-pub const AKEYCODE_L: _bindgen_ty_14 = 40;
-pub const AKEYCODE_M: _bindgen_ty_14 = 41;
-pub const AKEYCODE_N: _bindgen_ty_14 = 42;
-pub const AKEYCODE_O: _bindgen_ty_14 = 43;
-pub const AKEYCODE_P: _bindgen_ty_14 = 44;
-pub const AKEYCODE_Q: _bindgen_ty_14 = 45;
-pub const AKEYCODE_R: _bindgen_ty_14 = 46;
-pub const AKEYCODE_S: _bindgen_ty_14 = 47;
-pub const AKEYCODE_T: _bindgen_ty_14 = 48;
-pub const AKEYCODE_U: _bindgen_ty_14 = 49;
-pub const AKEYCODE_V: _bindgen_ty_14 = 50;
-pub const AKEYCODE_W: _bindgen_ty_14 = 51;
-pub const AKEYCODE_X: _bindgen_ty_14 = 52;
-pub const AKEYCODE_Y: _bindgen_ty_14 = 53;
-pub const AKEYCODE_Z: _bindgen_ty_14 = 54;
-pub const AKEYCODE_COMMA: _bindgen_ty_14 = 55;
-pub const AKEYCODE_PERIOD: _bindgen_ty_14 = 56;
-pub const AKEYCODE_ALT_LEFT: _bindgen_ty_14 = 57;
-pub const AKEYCODE_ALT_RIGHT: _bindgen_ty_14 = 58;
-pub const AKEYCODE_SHIFT_LEFT: _bindgen_ty_14 = 59;
-pub const AKEYCODE_SHIFT_RIGHT: _bindgen_ty_14 = 60;
-pub const AKEYCODE_TAB: _bindgen_ty_14 = 61;
-pub const AKEYCODE_SPACE: _bindgen_ty_14 = 62;
-pub const AKEYCODE_SYM: _bindgen_ty_14 = 63;
-pub const AKEYCODE_EXPLORER: _bindgen_ty_14 = 64;
-pub const AKEYCODE_ENVELOPE: _bindgen_ty_14 = 65;
-pub const AKEYCODE_ENTER: _bindgen_ty_14 = 66;
-pub const AKEYCODE_DEL: _bindgen_ty_14 = 67;
-pub const AKEYCODE_GRAVE: _bindgen_ty_14 = 68;
-pub const AKEYCODE_MINUS: _bindgen_ty_14 = 69;
-pub const AKEYCODE_EQUALS: _bindgen_ty_14 = 70;
-pub const AKEYCODE_LEFT_BRACKET: _bindgen_ty_14 = 71;
-pub const AKEYCODE_RIGHT_BRACKET: _bindgen_ty_14 = 72;
-pub const AKEYCODE_BACKSLASH: _bindgen_ty_14 = 73;
-pub const AKEYCODE_SEMICOLON: _bindgen_ty_14 = 74;
-pub const AKEYCODE_APOSTROPHE: _bindgen_ty_14 = 75;
-pub const AKEYCODE_SLASH: _bindgen_ty_14 = 76;
-pub const AKEYCODE_AT: _bindgen_ty_14 = 77;
-pub const AKEYCODE_NUM: _bindgen_ty_14 = 78;
-pub const AKEYCODE_HEADSETHOOK: _bindgen_ty_14 = 79;
-pub const AKEYCODE_FOCUS: _bindgen_ty_14 = 80;
-pub const AKEYCODE_PLUS: _bindgen_ty_14 = 81;
-pub const AKEYCODE_MENU: _bindgen_ty_14 = 82;
-pub const AKEYCODE_NOTIFICATION: _bindgen_ty_14 = 83;
-pub const AKEYCODE_SEARCH: _bindgen_ty_14 = 84;
-pub const AKEYCODE_MEDIA_PLAY_PAUSE: _bindgen_ty_14 = 85;
-pub const AKEYCODE_MEDIA_STOP: _bindgen_ty_14 = 86;
-pub const AKEYCODE_MEDIA_NEXT: _bindgen_ty_14 = 87;
-pub const AKEYCODE_MEDIA_PREVIOUS: _bindgen_ty_14 = 88;
-pub const AKEYCODE_MEDIA_REWIND: _bindgen_ty_14 = 89;
-pub const AKEYCODE_MEDIA_FAST_FORWARD: _bindgen_ty_14 = 90;
-pub const AKEYCODE_MUTE: _bindgen_ty_14 = 91;
-pub const AKEYCODE_PAGE_UP: _bindgen_ty_14 = 92;
-pub const AKEYCODE_PAGE_DOWN: _bindgen_ty_14 = 93;
-pub const AKEYCODE_PICTSYMBOLS: _bindgen_ty_14 = 94;
-pub const AKEYCODE_SWITCH_CHARSET: _bindgen_ty_14 = 95;
-pub const AKEYCODE_BUTTON_A: _bindgen_ty_14 = 96;
-pub const AKEYCODE_BUTTON_B: _bindgen_ty_14 = 97;
-pub const AKEYCODE_BUTTON_C: _bindgen_ty_14 = 98;
-pub const AKEYCODE_BUTTON_X: _bindgen_ty_14 = 99;
-pub const AKEYCODE_BUTTON_Y: _bindgen_ty_14 = 100;
-pub const AKEYCODE_BUTTON_Z: _bindgen_ty_14 = 101;
-pub const AKEYCODE_BUTTON_L1: _bindgen_ty_14 = 102;
-pub const AKEYCODE_BUTTON_R1: _bindgen_ty_14 = 103;
-pub const AKEYCODE_BUTTON_L2: _bindgen_ty_14 = 104;
-pub const AKEYCODE_BUTTON_R2: _bindgen_ty_14 = 105;
-pub const AKEYCODE_BUTTON_THUMBL: _bindgen_ty_14 = 106;
-pub const AKEYCODE_BUTTON_THUMBR: _bindgen_ty_14 = 107;
-pub const AKEYCODE_BUTTON_START: _bindgen_ty_14 = 108;
-pub const AKEYCODE_BUTTON_SELECT: _bindgen_ty_14 = 109;
-pub const AKEYCODE_BUTTON_MODE: _bindgen_ty_14 = 110;
-pub const AKEYCODE_ESCAPE: _bindgen_ty_14 = 111;
-pub const AKEYCODE_FORWARD_DEL: _bindgen_ty_14 = 112;
-pub const AKEYCODE_CTRL_LEFT: _bindgen_ty_14 = 113;
-pub const AKEYCODE_CTRL_RIGHT: _bindgen_ty_14 = 114;
-pub const AKEYCODE_CAPS_LOCK: _bindgen_ty_14 = 115;
-pub const AKEYCODE_SCROLL_LOCK: _bindgen_ty_14 = 116;
-pub const AKEYCODE_META_LEFT: _bindgen_ty_14 = 117;
-pub const AKEYCODE_META_RIGHT: _bindgen_ty_14 = 118;
-pub const AKEYCODE_FUNCTION: _bindgen_ty_14 = 119;
-pub const AKEYCODE_SYSRQ: _bindgen_ty_14 = 120;
-pub const AKEYCODE_BREAK: _bindgen_ty_14 = 121;
-pub const AKEYCODE_MOVE_HOME: _bindgen_ty_14 = 122;
-pub const AKEYCODE_MOVE_END: _bindgen_ty_14 = 123;
-pub const AKEYCODE_INSERT: _bindgen_ty_14 = 124;
-pub const AKEYCODE_FORWARD: _bindgen_ty_14 = 125;
-pub const AKEYCODE_MEDIA_PLAY: _bindgen_ty_14 = 126;
-pub const AKEYCODE_MEDIA_PAUSE: _bindgen_ty_14 = 127;
-pub const AKEYCODE_MEDIA_CLOSE: _bindgen_ty_14 = 128;
-pub const AKEYCODE_MEDIA_EJECT: _bindgen_ty_14 = 129;
-pub const AKEYCODE_MEDIA_RECORD: _bindgen_ty_14 = 130;
-pub const AKEYCODE_F1: _bindgen_ty_14 = 131;
-pub const AKEYCODE_F2: _bindgen_ty_14 = 132;
-pub const AKEYCODE_F3: _bindgen_ty_14 = 133;
-pub const AKEYCODE_F4: _bindgen_ty_14 = 134;
-pub const AKEYCODE_F5: _bindgen_ty_14 = 135;
-pub const AKEYCODE_F6: _bindgen_ty_14 = 136;
-pub const AKEYCODE_F7: _bindgen_ty_14 = 137;
-pub const AKEYCODE_F8: _bindgen_ty_14 = 138;
-pub const AKEYCODE_F9: _bindgen_ty_14 = 139;
-pub const AKEYCODE_F10: _bindgen_ty_14 = 140;
-pub const AKEYCODE_F11: _bindgen_ty_14 = 141;
-pub const AKEYCODE_F12: _bindgen_ty_14 = 142;
-pub const AKEYCODE_NUM_LOCK: _bindgen_ty_14 = 143;
-pub const AKEYCODE_NUMPAD_0: _bindgen_ty_14 = 144;
-pub const AKEYCODE_NUMPAD_1: _bindgen_ty_14 = 145;
-pub const AKEYCODE_NUMPAD_2: _bindgen_ty_14 = 146;
-pub const AKEYCODE_NUMPAD_3: _bindgen_ty_14 = 147;
-pub const AKEYCODE_NUMPAD_4: _bindgen_ty_14 = 148;
-pub const AKEYCODE_NUMPAD_5: _bindgen_ty_14 = 149;
-pub const AKEYCODE_NUMPAD_6: _bindgen_ty_14 = 150;
-pub const AKEYCODE_NUMPAD_7: _bindgen_ty_14 = 151;
-pub const AKEYCODE_NUMPAD_8: _bindgen_ty_14 = 152;
-pub const AKEYCODE_NUMPAD_9: _bindgen_ty_14 = 153;
-pub const AKEYCODE_NUMPAD_DIVIDE: _bindgen_ty_14 = 154;
-pub const AKEYCODE_NUMPAD_MULTIPLY: _bindgen_ty_14 = 155;
-pub const AKEYCODE_NUMPAD_SUBTRACT: _bindgen_ty_14 = 156;
-pub const AKEYCODE_NUMPAD_ADD: _bindgen_ty_14 = 157;
-pub const AKEYCODE_NUMPAD_DOT: _bindgen_ty_14 = 158;
-pub const AKEYCODE_NUMPAD_COMMA: _bindgen_ty_14 = 159;
-pub const AKEYCODE_NUMPAD_ENTER: _bindgen_ty_14 = 160;
-pub const AKEYCODE_NUMPAD_EQUALS: _bindgen_ty_14 = 161;
-pub const AKEYCODE_NUMPAD_LEFT_PAREN: _bindgen_ty_14 = 162;
-pub const AKEYCODE_NUMPAD_RIGHT_PAREN: _bindgen_ty_14 = 163;
-pub const AKEYCODE_VOLUME_MUTE: _bindgen_ty_14 = 164;
-pub const AKEYCODE_INFO: _bindgen_ty_14 = 165;
-pub const AKEYCODE_CHANNEL_UP: _bindgen_ty_14 = 166;
-pub const AKEYCODE_CHANNEL_DOWN: _bindgen_ty_14 = 167;
-pub const AKEYCODE_ZOOM_IN: _bindgen_ty_14 = 168;
-pub const AKEYCODE_ZOOM_OUT: _bindgen_ty_14 = 169;
-pub const AKEYCODE_TV: _bindgen_ty_14 = 170;
-pub const AKEYCODE_WINDOW: _bindgen_ty_14 = 171;
-pub const AKEYCODE_GUIDE: _bindgen_ty_14 = 172;
-pub const AKEYCODE_DVR: _bindgen_ty_14 = 173;
-pub const AKEYCODE_BOOKMARK: _bindgen_ty_14 = 174;
-pub const AKEYCODE_CAPTIONS: _bindgen_ty_14 = 175;
-pub const AKEYCODE_SETTINGS: _bindgen_ty_14 = 176;
-pub const AKEYCODE_TV_POWER: _bindgen_ty_14 = 177;
-pub const AKEYCODE_TV_INPUT: _bindgen_ty_14 = 178;
-pub const AKEYCODE_STB_POWER: _bindgen_ty_14 = 179;
-pub const AKEYCODE_STB_INPUT: _bindgen_ty_14 = 180;
-pub const AKEYCODE_AVR_POWER: _bindgen_ty_14 = 181;
-pub const AKEYCODE_AVR_INPUT: _bindgen_ty_14 = 182;
-pub const AKEYCODE_PROG_RED: _bindgen_ty_14 = 183;
-pub const AKEYCODE_PROG_GREEN: _bindgen_ty_14 = 184;
-pub const AKEYCODE_PROG_YELLOW: _bindgen_ty_14 = 185;
-pub const AKEYCODE_PROG_BLUE: _bindgen_ty_14 = 186;
-pub const AKEYCODE_APP_SWITCH: _bindgen_ty_14 = 187;
-pub const AKEYCODE_BUTTON_1: _bindgen_ty_14 = 188;
-pub const AKEYCODE_BUTTON_2: _bindgen_ty_14 = 189;
-pub const AKEYCODE_BUTTON_3: _bindgen_ty_14 = 190;
-pub const AKEYCODE_BUTTON_4: _bindgen_ty_14 = 191;
-pub const AKEYCODE_BUTTON_5: _bindgen_ty_14 = 192;
-pub const AKEYCODE_BUTTON_6: _bindgen_ty_14 = 193;
-pub const AKEYCODE_BUTTON_7: _bindgen_ty_14 = 194;
-pub const AKEYCODE_BUTTON_8: _bindgen_ty_14 = 195;
-pub const AKEYCODE_BUTTON_9: _bindgen_ty_14 = 196;
-pub const AKEYCODE_BUTTON_10: _bindgen_ty_14 = 197;
-pub const AKEYCODE_BUTTON_11: _bindgen_ty_14 = 198;
-pub const AKEYCODE_BUTTON_12: _bindgen_ty_14 = 199;
-pub const AKEYCODE_BUTTON_13: _bindgen_ty_14 = 200;
-pub const AKEYCODE_BUTTON_14: _bindgen_ty_14 = 201;
-pub const AKEYCODE_BUTTON_15: _bindgen_ty_14 = 202;
-pub const AKEYCODE_BUTTON_16: _bindgen_ty_14 = 203;
-pub const AKEYCODE_LANGUAGE_SWITCH: _bindgen_ty_14 = 204;
-pub const AKEYCODE_MANNER_MODE: _bindgen_ty_14 = 205;
-pub const AKEYCODE_3D_MODE: _bindgen_ty_14 = 206;
-pub const AKEYCODE_CONTACTS: _bindgen_ty_14 = 207;
-pub const AKEYCODE_CALENDAR: _bindgen_ty_14 = 208;
-pub const AKEYCODE_MUSIC: _bindgen_ty_14 = 209;
-pub const AKEYCODE_CALCULATOR: _bindgen_ty_14 = 210;
-pub const AKEYCODE_ZENKAKU_HANKAKU: _bindgen_ty_14 = 211;
-pub const AKEYCODE_EISU: _bindgen_ty_14 = 212;
-pub const AKEYCODE_MUHENKAN: _bindgen_ty_14 = 213;
-pub const AKEYCODE_HENKAN: _bindgen_ty_14 = 214;
-pub const AKEYCODE_KATAKANA_HIRAGANA: _bindgen_ty_14 = 215;
-pub const AKEYCODE_YEN: _bindgen_ty_14 = 216;
-pub const AKEYCODE_RO: _bindgen_ty_14 = 217;
-pub const AKEYCODE_KANA: _bindgen_ty_14 = 218;
-pub const AKEYCODE_ASSIST: _bindgen_ty_14 = 219;
-pub const AKEYCODE_BRIGHTNESS_DOWN: _bindgen_ty_14 = 220;
-pub const AKEYCODE_BRIGHTNESS_UP: _bindgen_ty_14 = 221;
-pub const AKEYCODE_MEDIA_AUDIO_TRACK: _bindgen_ty_14 = 222;
-pub const AKEYCODE_SLEEP: _bindgen_ty_14 = 223;
-pub const AKEYCODE_WAKEUP: _bindgen_ty_14 = 224;
-pub const AKEYCODE_PAIRING: _bindgen_ty_14 = 225;
-pub const AKEYCODE_MEDIA_TOP_MENU: _bindgen_ty_14 = 226;
-pub const AKEYCODE_11: _bindgen_ty_14 = 227;
-pub const AKEYCODE_12: _bindgen_ty_14 = 228;
-pub const AKEYCODE_LAST_CHANNEL: _bindgen_ty_14 = 229;
-pub const AKEYCODE_TV_DATA_SERVICE: _bindgen_ty_14 = 230;
-pub const AKEYCODE_VOICE_ASSIST: _bindgen_ty_14 = 231;
-pub const AKEYCODE_TV_RADIO_SERVICE: _bindgen_ty_14 = 232;
-pub const AKEYCODE_TV_TELETEXT: _bindgen_ty_14 = 233;
-pub const AKEYCODE_TV_NUMBER_ENTRY: _bindgen_ty_14 = 234;
-pub const AKEYCODE_TV_TERRESTRIAL_ANALOG: _bindgen_ty_14 = 235;
-pub const AKEYCODE_TV_TERRESTRIAL_DIGITAL: _bindgen_ty_14 = 236;
-pub const AKEYCODE_TV_SATELLITE: _bindgen_ty_14 = 237;
-pub const AKEYCODE_TV_SATELLITE_BS: _bindgen_ty_14 = 238;
-pub const AKEYCODE_TV_SATELLITE_CS: _bindgen_ty_14 = 239;
-pub const AKEYCODE_TV_SATELLITE_SERVICE: _bindgen_ty_14 = 240;
-pub const AKEYCODE_TV_NETWORK: _bindgen_ty_14 = 241;
-pub const AKEYCODE_TV_ANTENNA_CABLE: _bindgen_ty_14 = 242;
-pub const AKEYCODE_TV_INPUT_HDMI_1: _bindgen_ty_14 = 243;
-pub const AKEYCODE_TV_INPUT_HDMI_2: _bindgen_ty_14 = 244;
-pub const AKEYCODE_TV_INPUT_HDMI_3: _bindgen_ty_14 = 245;
-pub const AKEYCODE_TV_INPUT_HDMI_4: _bindgen_ty_14 = 246;
-pub const AKEYCODE_TV_INPUT_COMPOSITE_1: _bindgen_ty_14 = 247;
-pub const AKEYCODE_TV_INPUT_COMPOSITE_2: _bindgen_ty_14 = 248;
-pub const AKEYCODE_TV_INPUT_COMPONENT_1: _bindgen_ty_14 = 249;
-pub const AKEYCODE_TV_INPUT_COMPONENT_2: _bindgen_ty_14 = 250;
-pub const AKEYCODE_TV_INPUT_VGA_1: _bindgen_ty_14 = 251;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION: _bindgen_ty_14 = 252;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP: _bindgen_ty_14 = 253;
-pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN: _bindgen_ty_14 = 254;
-pub const AKEYCODE_TV_ZOOM_MODE: _bindgen_ty_14 = 255;
-pub const AKEYCODE_TV_CONTENTS_MENU: _bindgen_ty_14 = 256;
-pub const AKEYCODE_TV_MEDIA_CONTEXT_MENU: _bindgen_ty_14 = 257;
-pub const AKEYCODE_TV_TIMER_PROGRAMMING: _bindgen_ty_14 = 258;
-pub const AKEYCODE_HELP: _bindgen_ty_14 = 259;
-pub const AKEYCODE_NAVIGATE_PREVIOUS: _bindgen_ty_14 = 260;
-pub const AKEYCODE_NAVIGATE_NEXT: _bindgen_ty_14 = 261;
-pub const AKEYCODE_NAVIGATE_IN: _bindgen_ty_14 = 262;
-pub const AKEYCODE_NAVIGATE_OUT: _bindgen_ty_14 = 263;
-pub const AKEYCODE_STEM_PRIMARY: _bindgen_ty_14 = 264;
-pub const AKEYCODE_STEM_1: _bindgen_ty_14 = 265;
-pub const AKEYCODE_STEM_2: _bindgen_ty_14 = 266;
-pub const AKEYCODE_STEM_3: _bindgen_ty_14 = 267;
-pub const AKEYCODE_DPAD_UP_LEFT: _bindgen_ty_14 = 268;
-pub const AKEYCODE_DPAD_DOWN_LEFT: _bindgen_ty_14 = 269;
-pub const AKEYCODE_DPAD_UP_RIGHT: _bindgen_ty_14 = 270;
-pub const AKEYCODE_DPAD_DOWN_RIGHT: _bindgen_ty_14 = 271;
-pub const AKEYCODE_MEDIA_SKIP_FORWARD: _bindgen_ty_14 = 272;
-pub const AKEYCODE_MEDIA_SKIP_BACKWARD: _bindgen_ty_14 = 273;
-pub const AKEYCODE_MEDIA_STEP_FORWARD: _bindgen_ty_14 = 274;
-pub const AKEYCODE_MEDIA_STEP_BACKWARD: _bindgen_ty_14 = 275;
-pub const AKEYCODE_SOFT_SLEEP: _bindgen_ty_14 = 276;
-pub const AKEYCODE_CUT: _bindgen_ty_14 = 277;
-pub const AKEYCODE_COPY: _bindgen_ty_14 = 278;
-pub const AKEYCODE_PASTE: _bindgen_ty_14 = 279;
-pub const AKEYCODE_SYSTEM_NAVIGATION_UP: _bindgen_ty_14 = 280;
-pub const AKEYCODE_SYSTEM_NAVIGATION_DOWN: _bindgen_ty_14 = 281;
-pub const AKEYCODE_SYSTEM_NAVIGATION_LEFT: _bindgen_ty_14 = 282;
-pub const AKEYCODE_SYSTEM_NAVIGATION_RIGHT: _bindgen_ty_14 = 283;
-pub const AKEYCODE_ALL_APPS: _bindgen_ty_14 = 284;
-pub const AKEYCODE_REFRESH: _bindgen_ty_14 = 285;
-pub const AKEYCODE_THUMBS_UP: _bindgen_ty_14 = 286;
-pub const AKEYCODE_THUMBS_DOWN: _bindgen_ty_14 = 287;
-pub const AKEYCODE_PROFILE_SWITCH: _bindgen_ty_14 = 288;
-pub const AKEYCODE_VIDEO_APP_1: _bindgen_ty_14 = 289;
-pub const AKEYCODE_VIDEO_APP_2: _bindgen_ty_14 = 290;
-pub const AKEYCODE_VIDEO_APP_3: _bindgen_ty_14 = 291;
-pub const AKEYCODE_VIDEO_APP_4: _bindgen_ty_14 = 292;
-pub const AKEYCODE_VIDEO_APP_5: _bindgen_ty_14 = 293;
-pub const AKEYCODE_VIDEO_APP_6: _bindgen_ty_14 = 294;
-pub const AKEYCODE_VIDEO_APP_7: _bindgen_ty_14 = 295;
-pub const AKEYCODE_VIDEO_APP_8: _bindgen_ty_14 = 296;
-pub const AKEYCODE_FEATURED_APP_1: _bindgen_ty_14 = 297;
-pub const AKEYCODE_FEATURED_APP_2: _bindgen_ty_14 = 298;
-pub const AKEYCODE_FEATURED_APP_3: _bindgen_ty_14 = 299;
-pub const AKEYCODE_FEATURED_APP_4: _bindgen_ty_14 = 300;
-pub const AKEYCODE_DEMO_APP_1: _bindgen_ty_14 = 301;
-pub const AKEYCODE_DEMO_APP_2: _bindgen_ty_14 = 302;
-pub const AKEYCODE_DEMO_APP_3: _bindgen_ty_14 = 303;
-pub const AKEYCODE_DEMO_APP_4: _bindgen_ty_14 = 304;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_DOWN: _bindgen_ty_14 = 305;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_UP: _bindgen_ty_14 = 306;
-pub const AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE: _bindgen_ty_14 = 307;
-pub const AKEYCODE_STYLUS_BUTTON_PRIMARY: _bindgen_ty_14 = 308;
-pub const AKEYCODE_STYLUS_BUTTON_SECONDARY: _bindgen_ty_14 = 309;
-pub const AKEYCODE_STYLUS_BUTTON_TERTIARY: _bindgen_ty_14 = 310;
-pub const AKEYCODE_STYLUS_BUTTON_TAIL: _bindgen_ty_14 = 311;
-pub const AKEYCODE_RECENT_APPS: _bindgen_ty_14 = 312;
-pub const AKEYCODE_MACRO_1: _bindgen_ty_14 = 313;
-pub const AKEYCODE_MACRO_2: _bindgen_ty_14 = 314;
-pub const AKEYCODE_MACRO_3: _bindgen_ty_14 = 315;
-pub const AKEYCODE_MACRO_4: _bindgen_ty_14 = 316;
-pub const AKEYCODE_EMOJI_PICKER: _bindgen_ty_14 = 317;
-pub const AKEYCODE_SCREENSHOT: _bindgen_ty_14 = 318;
-pub const AKEYCODE_DICTATE: _bindgen_ty_14 = 319;
-pub const AKEYCODE_NEW: _bindgen_ty_14 = 320;
-pub const AKEYCODE_CLOSE: _bindgen_ty_14 = 321;
-pub const AKEYCODE_DO_NOT_DISTURB: _bindgen_ty_14 = 322;
-pub const AKEYCODE_PRINT: _bindgen_ty_14 = 323;
-pub const AKEYCODE_LOCK: _bindgen_ty_14 = 324;
-pub const AKEYCODE_FULLSCREEN: _bindgen_ty_14 = 325;
-pub const AKEYCODE_F13: _bindgen_ty_14 = 326;
-pub const AKEYCODE_F14: _bindgen_ty_14 = 327;
-pub const AKEYCODE_F15: _bindgen_ty_14 = 328;
-pub const AKEYCODE_F16: _bindgen_ty_14 = 329;
-pub const AKEYCODE_F17: _bindgen_ty_14 = 330;
-pub const AKEYCODE_F18: _bindgen_ty_14 = 331;
-pub const AKEYCODE_F19: _bindgen_ty_14 = 332;
-pub const AKEYCODE_F20: _bindgen_ty_14 = 333;
-pub const AKEYCODE_F21: _bindgen_ty_14 = 334;
-pub const AKEYCODE_F22: _bindgen_ty_14 = 335;
-pub const AKEYCODE_F23: _bindgen_ty_14 = 336;
-pub const AKEYCODE_F24: _bindgen_ty_14 = 337;
-pub const AKEYCODE_ACCESSIBILITY: _bindgen_ty_14 = 338;
-pub const AKEYCODE_CONTEXTUAL_SEARCH: _bindgen_ty_14 = 339;
-pub const AKEYCODE_CONTEXTUAL_INSERT: _bindgen_ty_14 = 340;
-pub type _bindgen_ty_14 = ::std::os::raw::c_uint;
+pub const AKEYCODE_UNKNOWN: _bindgen_ty_19 = 0;
+pub const AKEYCODE_SOFT_LEFT: _bindgen_ty_19 = 1;
+pub const AKEYCODE_SOFT_RIGHT: _bindgen_ty_19 = 2;
+pub const AKEYCODE_HOME: _bindgen_ty_19 = 3;
+pub const AKEYCODE_BACK: _bindgen_ty_19 = 4;
+pub const AKEYCODE_CALL: _bindgen_ty_19 = 5;
+pub const AKEYCODE_ENDCALL: _bindgen_ty_19 = 6;
+pub const AKEYCODE_0: _bindgen_ty_19 = 7;
+pub const AKEYCODE_1: _bindgen_ty_19 = 8;
+pub const AKEYCODE_2: _bindgen_ty_19 = 9;
+pub const AKEYCODE_3: _bindgen_ty_19 = 10;
+pub const AKEYCODE_4: _bindgen_ty_19 = 11;
+pub const AKEYCODE_5: _bindgen_ty_19 = 12;
+pub const AKEYCODE_6: _bindgen_ty_19 = 13;
+pub const AKEYCODE_7: _bindgen_ty_19 = 14;
+pub const AKEYCODE_8: _bindgen_ty_19 = 15;
+pub const AKEYCODE_9: _bindgen_ty_19 = 16;
+pub const AKEYCODE_STAR: _bindgen_ty_19 = 17;
+pub const AKEYCODE_POUND: _bindgen_ty_19 = 18;
+pub const AKEYCODE_DPAD_UP: _bindgen_ty_19 = 19;
+pub const AKEYCODE_DPAD_DOWN: _bindgen_ty_19 = 20;
+pub const AKEYCODE_DPAD_LEFT: _bindgen_ty_19 = 21;
+pub const AKEYCODE_DPAD_RIGHT: _bindgen_ty_19 = 22;
+pub const AKEYCODE_DPAD_CENTER: _bindgen_ty_19 = 23;
+pub const AKEYCODE_VOLUME_UP: _bindgen_ty_19 = 24;
+pub const AKEYCODE_VOLUME_DOWN: _bindgen_ty_19 = 25;
+pub const AKEYCODE_POWER: _bindgen_ty_19 = 26;
+pub const AKEYCODE_CAMERA: _bindgen_ty_19 = 27;
+pub const AKEYCODE_CLEAR: _bindgen_ty_19 = 28;
+pub const AKEYCODE_A: _bindgen_ty_19 = 29;
+pub const AKEYCODE_B: _bindgen_ty_19 = 30;
+pub const AKEYCODE_C: _bindgen_ty_19 = 31;
+pub const AKEYCODE_D: _bindgen_ty_19 = 32;
+pub const AKEYCODE_E: _bindgen_ty_19 = 33;
+pub const AKEYCODE_F: _bindgen_ty_19 = 34;
+pub const AKEYCODE_G: _bindgen_ty_19 = 35;
+pub const AKEYCODE_H: _bindgen_ty_19 = 36;
+pub const AKEYCODE_I: _bindgen_ty_19 = 37;
+pub const AKEYCODE_J: _bindgen_ty_19 = 38;
+pub const AKEYCODE_K: _bindgen_ty_19 = 39;
+pub const AKEYCODE_L: _bindgen_ty_19 = 40;
+pub const AKEYCODE_M: _bindgen_ty_19 = 41;
+pub const AKEYCODE_N: _bindgen_ty_19 = 42;
+pub const AKEYCODE_O: _bindgen_ty_19 = 43;
+pub const AKEYCODE_P: _bindgen_ty_19 = 44;
+pub const AKEYCODE_Q: _bindgen_ty_19 = 45;
+pub const AKEYCODE_R: _bindgen_ty_19 = 46;
+pub const AKEYCODE_S: _bindgen_ty_19 = 47;
+pub const AKEYCODE_T: _bindgen_ty_19 = 48;
+pub const AKEYCODE_U: _bindgen_ty_19 = 49;
+pub const AKEYCODE_V: _bindgen_ty_19 = 50;
+pub const AKEYCODE_W: _bindgen_ty_19 = 51;
+pub const AKEYCODE_X: _bindgen_ty_19 = 52;
+pub const AKEYCODE_Y: _bindgen_ty_19 = 53;
+pub const AKEYCODE_Z: _bindgen_ty_19 = 54;
+pub const AKEYCODE_COMMA: _bindgen_ty_19 = 55;
+pub const AKEYCODE_PERIOD: _bindgen_ty_19 = 56;
+pub const AKEYCODE_ALT_LEFT: _bindgen_ty_19 = 57;
+pub const AKEYCODE_ALT_RIGHT: _bindgen_ty_19 = 58;
+pub const AKEYCODE_SHIFT_LEFT: _bindgen_ty_19 = 59;
+pub const AKEYCODE_SHIFT_RIGHT: _bindgen_ty_19 = 60;
+pub const AKEYCODE_TAB: _bindgen_ty_19 = 61;
+pub const AKEYCODE_SPACE: _bindgen_ty_19 = 62;
+pub const AKEYCODE_SYM: _bindgen_ty_19 = 63;
+pub const AKEYCODE_EXPLORER: _bindgen_ty_19 = 64;
+pub const AKEYCODE_ENVELOPE: _bindgen_ty_19 = 65;
+pub const AKEYCODE_ENTER: _bindgen_ty_19 = 66;
+pub const AKEYCODE_DEL: _bindgen_ty_19 = 67;
+pub const AKEYCODE_GRAVE: _bindgen_ty_19 = 68;
+pub const AKEYCODE_MINUS: _bindgen_ty_19 = 69;
+pub const AKEYCODE_EQUALS: _bindgen_ty_19 = 70;
+pub const AKEYCODE_LEFT_BRACKET: _bindgen_ty_19 = 71;
+pub const AKEYCODE_RIGHT_BRACKET: _bindgen_ty_19 = 72;
+pub const AKEYCODE_BACKSLASH: _bindgen_ty_19 = 73;
+pub const AKEYCODE_SEMICOLON: _bindgen_ty_19 = 74;
+pub const AKEYCODE_APOSTROPHE: _bindgen_ty_19 = 75;
+pub const AKEYCODE_SLASH: _bindgen_ty_19 = 76;
+pub const AKEYCODE_AT: _bindgen_ty_19 = 77;
+pub const AKEYCODE_NUM: _bindgen_ty_19 = 78;
+pub const AKEYCODE_HEADSETHOOK: _bindgen_ty_19 = 79;
+pub const AKEYCODE_FOCUS: _bindgen_ty_19 = 80;
+pub const AKEYCODE_PLUS: _bindgen_ty_19 = 81;
+pub const AKEYCODE_MENU: _bindgen_ty_19 = 82;
+pub const AKEYCODE_NOTIFICATION: _bindgen_ty_19 = 83;
+pub const AKEYCODE_SEARCH: _bindgen_ty_19 = 84;
+pub const AKEYCODE_MEDIA_PLAY_PAUSE: _bindgen_ty_19 = 85;
+pub const AKEYCODE_MEDIA_STOP: _bindgen_ty_19 = 86;
+pub const AKEYCODE_MEDIA_NEXT: _bindgen_ty_19 = 87;
+pub const AKEYCODE_MEDIA_PREVIOUS: _bindgen_ty_19 = 88;
+pub const AKEYCODE_MEDIA_REWIND: _bindgen_ty_19 = 89;
+pub const AKEYCODE_MEDIA_FAST_FORWARD: _bindgen_ty_19 = 90;
+pub const AKEYCODE_MUTE: _bindgen_ty_19 = 91;
+pub const AKEYCODE_PAGE_UP: _bindgen_ty_19 = 92;
+pub const AKEYCODE_PAGE_DOWN: _bindgen_ty_19 = 93;
+pub const AKEYCODE_PICTSYMBOLS: _bindgen_ty_19 = 94;
+pub const AKEYCODE_SWITCH_CHARSET: _bindgen_ty_19 = 95;
+pub const AKEYCODE_BUTTON_A: _bindgen_ty_19 = 96;
+pub const AKEYCODE_BUTTON_B: _bindgen_ty_19 = 97;
+pub const AKEYCODE_BUTTON_C: _bindgen_ty_19 = 98;
+pub const AKEYCODE_BUTTON_X: _bindgen_ty_19 = 99;
+pub const AKEYCODE_BUTTON_Y: _bindgen_ty_19 = 100;
+pub const AKEYCODE_BUTTON_Z: _bindgen_ty_19 = 101;
+pub const AKEYCODE_BUTTON_L1: _bindgen_ty_19 = 102;
+pub const AKEYCODE_BUTTON_R1: _bindgen_ty_19 = 103;
+pub const AKEYCODE_BUTTON_L2: _bindgen_ty_19 = 104;
+pub const AKEYCODE_BUTTON_R2: _bindgen_ty_19 = 105;
+pub const AKEYCODE_BUTTON_THUMBL: _bindgen_ty_19 = 106;
+pub const AKEYCODE_BUTTON_THUMBR: _bindgen_ty_19 = 107;
+pub const AKEYCODE_BUTTON_START: _bindgen_ty_19 = 108;
+pub const AKEYCODE_BUTTON_SELECT: _bindgen_ty_19 = 109;
+pub const AKEYCODE_BUTTON_MODE: _bindgen_ty_19 = 110;
+pub const AKEYCODE_ESCAPE: _bindgen_ty_19 = 111;
+pub const AKEYCODE_FORWARD_DEL: _bindgen_ty_19 = 112;
+pub const AKEYCODE_CTRL_LEFT: _bindgen_ty_19 = 113;
+pub const AKEYCODE_CTRL_RIGHT: _bindgen_ty_19 = 114;
+pub const AKEYCODE_CAPS_LOCK: _bindgen_ty_19 = 115;
+pub const AKEYCODE_SCROLL_LOCK: _bindgen_ty_19 = 116;
+pub const AKEYCODE_META_LEFT: _bindgen_ty_19 = 117;
+pub const AKEYCODE_META_RIGHT: _bindgen_ty_19 = 118;
+pub const AKEYCODE_FUNCTION: _bindgen_ty_19 = 119;
+pub const AKEYCODE_SYSRQ: _bindgen_ty_19 = 120;
+pub const AKEYCODE_BREAK: _bindgen_ty_19 = 121;
+pub const AKEYCODE_MOVE_HOME: _bindgen_ty_19 = 122;
+pub const AKEYCODE_MOVE_END: _bindgen_ty_19 = 123;
+pub const AKEYCODE_INSERT: _bindgen_ty_19 = 124;
+pub const AKEYCODE_FORWARD: _bindgen_ty_19 = 125;
+pub const AKEYCODE_MEDIA_PLAY: _bindgen_ty_19 = 126;
+pub const AKEYCODE_MEDIA_PAUSE: _bindgen_ty_19 = 127;
+pub const AKEYCODE_MEDIA_CLOSE: _bindgen_ty_19 = 128;
+pub const AKEYCODE_MEDIA_EJECT: _bindgen_ty_19 = 129;
+pub const AKEYCODE_MEDIA_RECORD: _bindgen_ty_19 = 130;
+pub const AKEYCODE_F1: _bindgen_ty_19 = 131;
+pub const AKEYCODE_F2: _bindgen_ty_19 = 132;
+pub const AKEYCODE_F3: _bindgen_ty_19 = 133;
+pub const AKEYCODE_F4: _bindgen_ty_19 = 134;
+pub const AKEYCODE_F5: _bindgen_ty_19 = 135;
+pub const AKEYCODE_F6: _bindgen_ty_19 = 136;
+pub const AKEYCODE_F7: _bindgen_ty_19 = 137;
+pub const AKEYCODE_F8: _bindgen_ty_19 = 138;
+pub const AKEYCODE_F9: _bindgen_ty_19 = 139;
+pub const AKEYCODE_F10: _bindgen_ty_19 = 140;
+pub const AKEYCODE_F11: _bindgen_ty_19 = 141;
+pub const AKEYCODE_F12: _bindgen_ty_19 = 142;
+pub const AKEYCODE_NUM_LOCK: _bindgen_ty_19 = 143;
+pub const AKEYCODE_NUMPAD_0: _bindgen_ty_19 = 144;
+pub const AKEYCODE_NUMPAD_1: _bindgen_ty_19 = 145;
+pub const AKEYCODE_NUMPAD_2: _bindgen_ty_19 = 146;
+pub const AKEYCODE_NUMPAD_3: _bindgen_ty_19 = 147;
+pub const AKEYCODE_NUMPAD_4: _bindgen_ty_19 = 148;
+pub const AKEYCODE_NUMPAD_5: _bindgen_ty_19 = 149;
+pub const AKEYCODE_NUMPAD_6: _bindgen_ty_19 = 150;
+pub const AKEYCODE_NUMPAD_7: _bindgen_ty_19 = 151;
+pub const AKEYCODE_NUMPAD_8: _bindgen_ty_19 = 152;
+pub const AKEYCODE_NUMPAD_9: _bindgen_ty_19 = 153;
+pub const AKEYCODE_NUMPAD_DIVIDE: _bindgen_ty_19 = 154;
+pub const AKEYCODE_NUMPAD_MULTIPLY: _bindgen_ty_19 = 155;
+pub const AKEYCODE_NUMPAD_SUBTRACT: _bindgen_ty_19 = 156;
+pub const AKEYCODE_NUMPAD_ADD: _bindgen_ty_19 = 157;
+pub const AKEYCODE_NUMPAD_DOT: _bindgen_ty_19 = 158;
+pub const AKEYCODE_NUMPAD_COMMA: _bindgen_ty_19 = 159;
+pub const AKEYCODE_NUMPAD_ENTER: _bindgen_ty_19 = 160;
+pub const AKEYCODE_NUMPAD_EQUALS: _bindgen_ty_19 = 161;
+pub const AKEYCODE_NUMPAD_LEFT_PAREN: _bindgen_ty_19 = 162;
+pub const AKEYCODE_NUMPAD_RIGHT_PAREN: _bindgen_ty_19 = 163;
+pub const AKEYCODE_VOLUME_MUTE: _bindgen_ty_19 = 164;
+pub const AKEYCODE_INFO: _bindgen_ty_19 = 165;
+pub const AKEYCODE_CHANNEL_UP: _bindgen_ty_19 = 166;
+pub const AKEYCODE_CHANNEL_DOWN: _bindgen_ty_19 = 167;
+pub const AKEYCODE_ZOOM_IN: _bindgen_ty_19 = 168;
+pub const AKEYCODE_ZOOM_OUT: _bindgen_ty_19 = 169;
+pub const AKEYCODE_TV: _bindgen_ty_19 = 170;
+pub const AKEYCODE_WINDOW: _bindgen_ty_19 = 171;
+pub const AKEYCODE_GUIDE: _bindgen_ty_19 = 172;
+pub const AKEYCODE_DVR: _bindgen_ty_19 = 173;
+pub const AKEYCODE_BOOKMARK: _bindgen_ty_19 = 174;
+pub const AKEYCODE_CAPTIONS: _bindgen_ty_19 = 175;
+pub const AKEYCODE_SETTINGS: _bindgen_ty_19 = 176;
+pub const AKEYCODE_TV_POWER: _bindgen_ty_19 = 177;
+pub const AKEYCODE_TV_INPUT: _bindgen_ty_19 = 178;
+pub const AKEYCODE_STB_POWER: _bindgen_ty_19 = 179;
+pub const AKEYCODE_STB_INPUT: _bindgen_ty_19 = 180;
+pub const AKEYCODE_AVR_POWER: _bindgen_ty_19 = 181;
+pub const AKEYCODE_AVR_INPUT: _bindgen_ty_19 = 182;
+pub const AKEYCODE_PROG_RED: _bindgen_ty_19 = 183;
+pub const AKEYCODE_PROG_GREEN: _bindgen_ty_19 = 184;
+pub const AKEYCODE_PROG_YELLOW: _bindgen_ty_19 = 185;
+pub const AKEYCODE_PROG_BLUE: _bindgen_ty_19 = 186;
+pub const AKEYCODE_APP_SWITCH: _bindgen_ty_19 = 187;
+pub const AKEYCODE_BUTTON_1: _bindgen_ty_19 = 188;
+pub const AKEYCODE_BUTTON_2: _bindgen_ty_19 = 189;
+pub const AKEYCODE_BUTTON_3: _bindgen_ty_19 = 190;
+pub const AKEYCODE_BUTTON_4: _bindgen_ty_19 = 191;
+pub const AKEYCODE_BUTTON_5: _bindgen_ty_19 = 192;
+pub const AKEYCODE_BUTTON_6: _bindgen_ty_19 = 193;
+pub const AKEYCODE_BUTTON_7: _bindgen_ty_19 = 194;
+pub const AKEYCODE_BUTTON_8: _bindgen_ty_19 = 195;
+pub const AKEYCODE_BUTTON_9: _bindgen_ty_19 = 196;
+pub const AKEYCODE_BUTTON_10: _bindgen_ty_19 = 197;
+pub const AKEYCODE_BUTTON_11: _bindgen_ty_19 = 198;
+pub const AKEYCODE_BUTTON_12: _bindgen_ty_19 = 199;
+pub const AKEYCODE_BUTTON_13: _bindgen_ty_19 = 200;
+pub const AKEYCODE_BUTTON_14: _bindgen_ty_19 = 201;
+pub const AKEYCODE_BUTTON_15: _bindgen_ty_19 = 202;
+pub const AKEYCODE_BUTTON_16: _bindgen_ty_19 = 203;
+pub const AKEYCODE_LANGUAGE_SWITCH: _bindgen_ty_19 = 204;
+pub const AKEYCODE_MANNER_MODE: _bindgen_ty_19 = 205;
+pub const AKEYCODE_3D_MODE: _bindgen_ty_19 = 206;
+pub const AKEYCODE_CONTACTS: _bindgen_ty_19 = 207;
+pub const AKEYCODE_CALENDAR: _bindgen_ty_19 = 208;
+pub const AKEYCODE_MUSIC: _bindgen_ty_19 = 209;
+pub const AKEYCODE_CALCULATOR: _bindgen_ty_19 = 210;
+pub const AKEYCODE_ZENKAKU_HANKAKU: _bindgen_ty_19 = 211;
+pub const AKEYCODE_EISU: _bindgen_ty_19 = 212;
+pub const AKEYCODE_MUHENKAN: _bindgen_ty_19 = 213;
+pub const AKEYCODE_HENKAN: _bindgen_ty_19 = 214;
+pub const AKEYCODE_KATAKANA_HIRAGANA: _bindgen_ty_19 = 215;
+pub const AKEYCODE_YEN: _bindgen_ty_19 = 216;
+pub const AKEYCODE_RO: _bindgen_ty_19 = 217;
+pub const AKEYCODE_KANA: _bindgen_ty_19 = 218;
+pub const AKEYCODE_ASSIST: _bindgen_ty_19 = 219;
+pub const AKEYCODE_BRIGHTNESS_DOWN: _bindgen_ty_19 = 220;
+pub const AKEYCODE_BRIGHTNESS_UP: _bindgen_ty_19 = 221;
+pub const AKEYCODE_MEDIA_AUDIO_TRACK: _bindgen_ty_19 = 222;
+pub const AKEYCODE_SLEEP: _bindgen_ty_19 = 223;
+pub const AKEYCODE_WAKEUP: _bindgen_ty_19 = 224;
+pub const AKEYCODE_PAIRING: _bindgen_ty_19 = 225;
+pub const AKEYCODE_MEDIA_TOP_MENU: _bindgen_ty_19 = 226;
+pub const AKEYCODE_11: _bindgen_ty_19 = 227;
+pub const AKEYCODE_12: _bindgen_ty_19 = 228;
+pub const AKEYCODE_LAST_CHANNEL: _bindgen_ty_19 = 229;
+pub const AKEYCODE_TV_DATA_SERVICE: _bindgen_ty_19 = 230;
+pub const AKEYCODE_VOICE_ASSIST: _bindgen_ty_19 = 231;
+pub const AKEYCODE_TV_RADIO_SERVICE: _bindgen_ty_19 = 232;
+pub const AKEYCODE_TV_TELETEXT: _bindgen_ty_19 = 233;
+pub const AKEYCODE_TV_NUMBER_ENTRY: _bindgen_ty_19 = 234;
+pub const AKEYCODE_TV_TERRESTRIAL_ANALOG: _bindgen_ty_19 = 235;
+pub const AKEYCODE_TV_TERRESTRIAL_DIGITAL: _bindgen_ty_19 = 236;
+pub const AKEYCODE_TV_SATELLITE: _bindgen_ty_19 = 237;
+pub const AKEYCODE_TV_SATELLITE_BS: _bindgen_ty_19 = 238;
+pub const AKEYCODE_TV_SATELLITE_CS: _bindgen_ty_19 = 239;
+pub const AKEYCODE_TV_SATELLITE_SERVICE: _bindgen_ty_19 = 240;
+pub const AKEYCODE_TV_NETWORK: _bindgen_ty_19 = 241;
+pub const AKEYCODE_TV_ANTENNA_CABLE: _bindgen_ty_19 = 242;
+pub const AKEYCODE_TV_INPUT_HDMI_1: _bindgen_ty_19 = 243;
+pub const AKEYCODE_TV_INPUT_HDMI_2: _bindgen_ty_19 = 244;
+pub const AKEYCODE_TV_INPUT_HDMI_3: _bindgen_ty_19 = 245;
+pub const AKEYCODE_TV_INPUT_HDMI_4: _bindgen_ty_19 = 246;
+pub const AKEYCODE_TV_INPUT_COMPOSITE_1: _bindgen_ty_19 = 247;
+pub const AKEYCODE_TV_INPUT_COMPOSITE_2: _bindgen_ty_19 = 248;
+pub const AKEYCODE_TV_INPUT_COMPONENT_1: _bindgen_ty_19 = 249;
+pub const AKEYCODE_TV_INPUT_COMPONENT_2: _bindgen_ty_19 = 250;
+pub const AKEYCODE_TV_INPUT_VGA_1: _bindgen_ty_19 = 251;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION: _bindgen_ty_19 = 252;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP: _bindgen_ty_19 = 253;
+pub const AKEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN: _bindgen_ty_19 = 254;
+pub const AKEYCODE_TV_ZOOM_MODE: _bindgen_ty_19 = 255;
+pub const AKEYCODE_TV_CONTENTS_MENU: _bindgen_ty_19 = 256;
+pub const AKEYCODE_TV_MEDIA_CONTEXT_MENU: _bindgen_ty_19 = 257;
+pub const AKEYCODE_TV_TIMER_PROGRAMMING: _bindgen_ty_19 = 258;
+pub const AKEYCODE_HELP: _bindgen_ty_19 = 259;
+pub const AKEYCODE_NAVIGATE_PREVIOUS: _bindgen_ty_19 = 260;
+pub const AKEYCODE_NAVIGATE_NEXT: _bindgen_ty_19 = 261;
+pub const AKEYCODE_NAVIGATE_IN: _bindgen_ty_19 = 262;
+pub const AKEYCODE_NAVIGATE_OUT: _bindgen_ty_19 = 263;
+pub const AKEYCODE_STEM_PRIMARY: _bindgen_ty_19 = 264;
+pub const AKEYCODE_STEM_1: _bindgen_ty_19 = 265;
+pub const AKEYCODE_STEM_2: _bindgen_ty_19 = 266;
+pub const AKEYCODE_STEM_3: _bindgen_ty_19 = 267;
+pub const AKEYCODE_DPAD_UP_LEFT: _bindgen_ty_19 = 268;
+pub const AKEYCODE_DPAD_DOWN_LEFT: _bindgen_ty_19 = 269;
+pub const AKEYCODE_DPAD_UP_RIGHT: _bindgen_ty_19 = 270;
+pub const AKEYCODE_DPAD_DOWN_RIGHT: _bindgen_ty_19 = 271;
+pub const AKEYCODE_MEDIA_SKIP_FORWARD: _bindgen_ty_19 = 272;
+pub const AKEYCODE_MEDIA_SKIP_BACKWARD: _bindgen_ty_19 = 273;
+pub const AKEYCODE_MEDIA_STEP_FORWARD: _bindgen_ty_19 = 274;
+pub const AKEYCODE_MEDIA_STEP_BACKWARD: _bindgen_ty_19 = 275;
+pub const AKEYCODE_SOFT_SLEEP: _bindgen_ty_19 = 276;
+pub const AKEYCODE_CUT: _bindgen_ty_19 = 277;
+pub const AKEYCODE_COPY: _bindgen_ty_19 = 278;
+pub const AKEYCODE_PASTE: _bindgen_ty_19 = 279;
+pub const AKEYCODE_SYSTEM_NAVIGATION_UP: _bindgen_ty_19 = 280;
+pub const AKEYCODE_SYSTEM_NAVIGATION_DOWN: _bindgen_ty_19 = 281;
+pub const AKEYCODE_SYSTEM_NAVIGATION_LEFT: _bindgen_ty_19 = 282;
+pub const AKEYCODE_SYSTEM_NAVIGATION_RIGHT: _bindgen_ty_19 = 283;
+pub const AKEYCODE_ALL_APPS: _bindgen_ty_19 = 284;
+pub const AKEYCODE_REFRESH: _bindgen_ty_19 = 285;
+pub const AKEYCODE_THUMBS_UP: _bindgen_ty_19 = 286;
+pub const AKEYCODE_THUMBS_DOWN: _bindgen_ty_19 = 287;
+pub const AKEYCODE_PROFILE_SWITCH: _bindgen_ty_19 = 288;
+pub const AKEYCODE_VIDEO_APP_1: _bindgen_ty_19 = 289;
+pub const AKEYCODE_VIDEO_APP_2: _bindgen_ty_19 = 290;
+pub const AKEYCODE_VIDEO_APP_3: _bindgen_ty_19 = 291;
+pub const AKEYCODE_VIDEO_APP_4: _bindgen_ty_19 = 292;
+pub const AKEYCODE_VIDEO_APP_5: _bindgen_ty_19 = 293;
+pub const AKEYCODE_VIDEO_APP_6: _bindgen_ty_19 = 294;
+pub const AKEYCODE_VIDEO_APP_7: _bindgen_ty_19 = 295;
+pub const AKEYCODE_VIDEO_APP_8: _bindgen_ty_19 = 296;
+pub const AKEYCODE_FEATURED_APP_1: _bindgen_ty_19 = 297;
+pub const AKEYCODE_FEATURED_APP_2: _bindgen_ty_19 = 298;
+pub const AKEYCODE_FEATURED_APP_3: _bindgen_ty_19 = 299;
+pub const AKEYCODE_FEATURED_APP_4: _bindgen_ty_19 = 300;
+pub const AKEYCODE_DEMO_APP_1: _bindgen_ty_19 = 301;
+pub const AKEYCODE_DEMO_APP_2: _bindgen_ty_19 = 302;
+pub const AKEYCODE_DEMO_APP_3: _bindgen_ty_19 = 303;
+pub const AKEYCODE_DEMO_APP_4: _bindgen_ty_19 = 304;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_DOWN: _bindgen_ty_19 = 305;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_UP: _bindgen_ty_19 = 306;
+pub const AKEYCODE_KEYBOARD_BACKLIGHT_TOGGLE: _bindgen_ty_19 = 307;
+pub const AKEYCODE_STYLUS_BUTTON_PRIMARY: _bindgen_ty_19 = 308;
+pub const AKEYCODE_STYLUS_BUTTON_SECONDARY: _bindgen_ty_19 = 309;
+pub const AKEYCODE_STYLUS_BUTTON_TERTIARY: _bindgen_ty_19 = 310;
+pub const AKEYCODE_STYLUS_BUTTON_TAIL: _bindgen_ty_19 = 311;
+pub const AKEYCODE_RECENT_APPS: _bindgen_ty_19 = 312;
+pub const AKEYCODE_MACRO_1: _bindgen_ty_19 = 313;
+pub const AKEYCODE_MACRO_2: _bindgen_ty_19 = 314;
+pub const AKEYCODE_MACRO_3: _bindgen_ty_19 = 315;
+pub const AKEYCODE_MACRO_4: _bindgen_ty_19 = 316;
+pub const AKEYCODE_EMOJI_PICKER: _bindgen_ty_19 = 317;
+pub const AKEYCODE_SCREENSHOT: _bindgen_ty_19 = 318;
+pub const AKEYCODE_DICTATE: _bindgen_ty_19 = 319;
+pub const AKEYCODE_NEW: _bindgen_ty_19 = 320;
+pub const AKEYCODE_CLOSE: _bindgen_ty_19 = 321;
+pub const AKEYCODE_DO_NOT_DISTURB: _bindgen_ty_19 = 322;
+pub const AKEYCODE_PRINT: _bindgen_ty_19 = 323;
+pub const AKEYCODE_LOCK: _bindgen_ty_19 = 324;
+pub const AKEYCODE_FULLSCREEN: _bindgen_ty_19 = 325;
+pub const AKEYCODE_F13: _bindgen_ty_19 = 326;
+pub const AKEYCODE_F14: _bindgen_ty_19 = 327;
+pub const AKEYCODE_F15: _bindgen_ty_19 = 328;
+pub const AKEYCODE_F16: _bindgen_ty_19 = 329;
+pub const AKEYCODE_F17: _bindgen_ty_19 = 330;
+pub const AKEYCODE_F18: _bindgen_ty_19 = 331;
+pub const AKEYCODE_F19: _bindgen_ty_19 = 332;
+pub const AKEYCODE_F20: _bindgen_ty_19 = 333;
+pub const AKEYCODE_F21: _bindgen_ty_19 = 334;
+pub const AKEYCODE_F22: _bindgen_ty_19 = 335;
+pub const AKEYCODE_F23: _bindgen_ty_19 = 336;
+pub const AKEYCODE_F24: _bindgen_ty_19 = 337;
+pub const AKEYCODE_ACCESSIBILITY: _bindgen_ty_19 = 338;
+pub const AKEYCODE_CONTEXTUAL_SEARCH: _bindgen_ty_19 = 339;
+pub const AKEYCODE_CONTEXTUAL_INSERT: _bindgen_ty_19 = 340;
+pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ALooper {
@@ -2496,28 +3251,28 @@ pub struct ALooper {
 extern "C" {
     pub fn ALooper_forThread() -> *mut ALooper;
 }
-pub const ALOOPER_PREPARE_ALLOW_NON_CALLBACKS: _bindgen_ty_15 = 1;
-pub type _bindgen_ty_15 = ::std::os::raw::c_uint;
+pub const ALOOPER_PREPARE_ALLOW_NON_CALLBACKS: _bindgen_ty_20 = 1;
+pub type _bindgen_ty_20 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ALooper_prepare(opts: ::std::os::raw::c_int) -> *mut ALooper;
 }
-pub const ALOOPER_POLL_WAKE: _bindgen_ty_16 = -1;
-pub const ALOOPER_POLL_CALLBACK: _bindgen_ty_16 = -2;
-pub const ALOOPER_POLL_TIMEOUT: _bindgen_ty_16 = -3;
-pub const ALOOPER_POLL_ERROR: _bindgen_ty_16 = -4;
-pub type _bindgen_ty_16 = ::std::os::raw::c_int;
+pub const ALOOPER_POLL_WAKE: _bindgen_ty_21 = -1;
+pub const ALOOPER_POLL_CALLBACK: _bindgen_ty_21 = -2;
+pub const ALOOPER_POLL_TIMEOUT: _bindgen_ty_21 = -3;
+pub const ALOOPER_POLL_ERROR: _bindgen_ty_21 = -4;
+pub type _bindgen_ty_21 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ALooper_acquire(looper: *mut ALooper);
 }
 extern "C" {
     pub fn ALooper_release(looper: *mut ALooper);
 }
-pub const ALOOPER_EVENT_INPUT: _bindgen_ty_17 = 1;
-pub const ALOOPER_EVENT_OUTPUT: _bindgen_ty_17 = 2;
-pub const ALOOPER_EVENT_ERROR: _bindgen_ty_17 = 4;
-pub const ALOOPER_EVENT_HANGUP: _bindgen_ty_17 = 8;
-pub const ALOOPER_EVENT_INVALID: _bindgen_ty_17 = 16;
-pub type _bindgen_ty_17 = ::std::os::raw::c_uint;
+pub const ALOOPER_EVENT_INPUT: _bindgen_ty_22 = 1;
+pub const ALOOPER_EVENT_OUTPUT: _bindgen_ty_22 = 2;
+pub const ALOOPER_EVENT_ERROR: _bindgen_ty_22 = 4;
+pub const ALOOPER_EVENT_HANGUP: _bindgen_ty_22 = 8;
+pub const ALOOPER_EVENT_INVALID: _bindgen_ty_22 = 16;
+pub type _bindgen_ty_22 = ::std::os::raw::c_uint;
 pub type ALooper_callbackFunc = ::std::option::Option<
     unsafe extern "C" fn(
         fd: ::std::os::raw::c_int,
@@ -2560,150 +3315,150 @@ extern "C" {
         fd: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
-pub const AKEY_STATE_UNKNOWN: _bindgen_ty_18 = -1;
-pub const AKEY_STATE_UP: _bindgen_ty_18 = 0;
-pub const AKEY_STATE_DOWN: _bindgen_ty_18 = 1;
-pub const AKEY_STATE_VIRTUAL: _bindgen_ty_18 = 2;
-pub type _bindgen_ty_18 = ::std::os::raw::c_int;
-pub const AMETA_NONE: _bindgen_ty_19 = 0;
-pub const AMETA_ALT_ON: _bindgen_ty_19 = 2;
-pub const AMETA_ALT_LEFT_ON: _bindgen_ty_19 = 16;
-pub const AMETA_ALT_RIGHT_ON: _bindgen_ty_19 = 32;
-pub const AMETA_SHIFT_ON: _bindgen_ty_19 = 1;
-pub const AMETA_SHIFT_LEFT_ON: _bindgen_ty_19 = 64;
-pub const AMETA_SHIFT_RIGHT_ON: _bindgen_ty_19 = 128;
-pub const AMETA_SYM_ON: _bindgen_ty_19 = 4;
-pub const AMETA_FUNCTION_ON: _bindgen_ty_19 = 8;
-pub const AMETA_CTRL_ON: _bindgen_ty_19 = 4096;
-pub const AMETA_CTRL_LEFT_ON: _bindgen_ty_19 = 8192;
-pub const AMETA_CTRL_RIGHT_ON: _bindgen_ty_19 = 16384;
-pub const AMETA_META_ON: _bindgen_ty_19 = 65536;
-pub const AMETA_META_LEFT_ON: _bindgen_ty_19 = 131072;
-pub const AMETA_META_RIGHT_ON: _bindgen_ty_19 = 262144;
-pub const AMETA_CAPS_LOCK_ON: _bindgen_ty_19 = 1048576;
-pub const AMETA_NUM_LOCK_ON: _bindgen_ty_19 = 2097152;
-pub const AMETA_SCROLL_LOCK_ON: _bindgen_ty_19 = 4194304;
-pub type _bindgen_ty_19 = ::std::os::raw::c_uint;
+pub const AKEY_STATE_UNKNOWN: _bindgen_ty_23 = -1;
+pub const AKEY_STATE_UP: _bindgen_ty_23 = 0;
+pub const AKEY_STATE_DOWN: _bindgen_ty_23 = 1;
+pub const AKEY_STATE_VIRTUAL: _bindgen_ty_23 = 2;
+pub type _bindgen_ty_23 = ::std::os::raw::c_int;
+pub const AMETA_NONE: _bindgen_ty_24 = 0;
+pub const AMETA_ALT_ON: _bindgen_ty_24 = 2;
+pub const AMETA_ALT_LEFT_ON: _bindgen_ty_24 = 16;
+pub const AMETA_ALT_RIGHT_ON: _bindgen_ty_24 = 32;
+pub const AMETA_SHIFT_ON: _bindgen_ty_24 = 1;
+pub const AMETA_SHIFT_LEFT_ON: _bindgen_ty_24 = 64;
+pub const AMETA_SHIFT_RIGHT_ON: _bindgen_ty_24 = 128;
+pub const AMETA_SYM_ON: _bindgen_ty_24 = 4;
+pub const AMETA_FUNCTION_ON: _bindgen_ty_24 = 8;
+pub const AMETA_CTRL_ON: _bindgen_ty_24 = 4096;
+pub const AMETA_CTRL_LEFT_ON: _bindgen_ty_24 = 8192;
+pub const AMETA_CTRL_RIGHT_ON: _bindgen_ty_24 = 16384;
+pub const AMETA_META_ON: _bindgen_ty_24 = 65536;
+pub const AMETA_META_LEFT_ON: _bindgen_ty_24 = 131072;
+pub const AMETA_META_RIGHT_ON: _bindgen_ty_24 = 262144;
+pub const AMETA_CAPS_LOCK_ON: _bindgen_ty_24 = 1048576;
+pub const AMETA_NUM_LOCK_ON: _bindgen_ty_24 = 2097152;
+pub const AMETA_SCROLL_LOCK_ON: _bindgen_ty_24 = 4194304;
+pub type _bindgen_ty_24 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct AInputEvent {
     _unused: [u8; 0],
 }
-pub const AINPUT_EVENT_TYPE_KEY: _bindgen_ty_20 = 1;
-pub const AINPUT_EVENT_TYPE_MOTION: _bindgen_ty_20 = 2;
-pub const AINPUT_EVENT_TYPE_FOCUS: _bindgen_ty_20 = 3;
-pub const AINPUT_EVENT_TYPE_CAPTURE: _bindgen_ty_20 = 4;
-pub const AINPUT_EVENT_TYPE_DRAG: _bindgen_ty_20 = 5;
-pub const AINPUT_EVENT_TYPE_TOUCH_MODE: _bindgen_ty_20 = 6;
-pub type _bindgen_ty_20 = ::std::os::raw::c_uint;
-pub const AKEY_EVENT_ACTION_DOWN: _bindgen_ty_21 = 0;
-pub const AKEY_EVENT_ACTION_UP: _bindgen_ty_21 = 1;
-pub const AKEY_EVENT_ACTION_MULTIPLE: _bindgen_ty_21 = 2;
-pub type _bindgen_ty_21 = ::std::os::raw::c_uint;
-pub const AKEY_EVENT_FLAG_WOKE_HERE: _bindgen_ty_22 = 1;
-pub const AKEY_EVENT_FLAG_SOFT_KEYBOARD: _bindgen_ty_22 = 2;
-pub const AKEY_EVENT_FLAG_KEEP_TOUCH_MODE: _bindgen_ty_22 = 4;
-pub const AKEY_EVENT_FLAG_FROM_SYSTEM: _bindgen_ty_22 = 8;
-pub const AKEY_EVENT_FLAG_EDITOR_ACTION: _bindgen_ty_22 = 16;
-pub const AKEY_EVENT_FLAG_CANCELED: _bindgen_ty_22 = 32;
-pub const AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY: _bindgen_ty_22 = 64;
-pub const AKEY_EVENT_FLAG_LONG_PRESS: _bindgen_ty_22 = 128;
-pub const AKEY_EVENT_FLAG_CANCELED_LONG_PRESS: _bindgen_ty_22 = 256;
-pub const AKEY_EVENT_FLAG_TRACKING: _bindgen_ty_22 = 512;
-pub const AKEY_EVENT_FLAG_FALLBACK: _bindgen_ty_22 = 1024;
-pub type _bindgen_ty_22 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_ACTION_MASK: _bindgen_ty_23 = 255;
-pub const AMOTION_EVENT_ACTION_POINTER_INDEX_MASK: _bindgen_ty_23 = 65280;
-pub const AMOTION_EVENT_ACTION_DOWN: _bindgen_ty_23 = 0;
-pub const AMOTION_EVENT_ACTION_UP: _bindgen_ty_23 = 1;
-pub const AMOTION_EVENT_ACTION_MOVE: _bindgen_ty_23 = 2;
-pub const AMOTION_EVENT_ACTION_CANCEL: _bindgen_ty_23 = 3;
-pub const AMOTION_EVENT_ACTION_OUTSIDE: _bindgen_ty_23 = 4;
-pub const AMOTION_EVENT_ACTION_POINTER_DOWN: _bindgen_ty_23 = 5;
-pub const AMOTION_EVENT_ACTION_POINTER_UP: _bindgen_ty_23 = 6;
-pub const AMOTION_EVENT_ACTION_HOVER_MOVE: _bindgen_ty_23 = 7;
-pub const AMOTION_EVENT_ACTION_SCROLL: _bindgen_ty_23 = 8;
-pub const AMOTION_EVENT_ACTION_HOVER_ENTER: _bindgen_ty_23 = 9;
-pub const AMOTION_EVENT_ACTION_HOVER_EXIT: _bindgen_ty_23 = 10;
-pub const AMOTION_EVENT_ACTION_BUTTON_PRESS: _bindgen_ty_23 = 11;
-pub const AMOTION_EVENT_ACTION_BUTTON_RELEASE: _bindgen_ty_23 = 12;
-pub type _bindgen_ty_23 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED: _bindgen_ty_24 = 1;
-pub type _bindgen_ty_24 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_EDGE_FLAG_NONE: _bindgen_ty_25 = 0;
-pub const AMOTION_EVENT_EDGE_FLAG_TOP: _bindgen_ty_25 = 1;
-pub const AMOTION_EVENT_EDGE_FLAG_BOTTOM: _bindgen_ty_25 = 2;
-pub const AMOTION_EVENT_EDGE_FLAG_LEFT: _bindgen_ty_25 = 4;
-pub const AMOTION_EVENT_EDGE_FLAG_RIGHT: _bindgen_ty_25 = 8;
+pub const AINPUT_EVENT_TYPE_KEY: _bindgen_ty_25 = 1;
+pub const AINPUT_EVENT_TYPE_MOTION: _bindgen_ty_25 = 2;
+pub const AINPUT_EVENT_TYPE_FOCUS: _bindgen_ty_25 = 3;
+pub const AINPUT_EVENT_TYPE_CAPTURE: _bindgen_ty_25 = 4;
+pub const AINPUT_EVENT_TYPE_DRAG: _bindgen_ty_25 = 5;
+pub const AINPUT_EVENT_TYPE_TOUCH_MODE: _bindgen_ty_25 = 6;
 pub type _bindgen_ty_25 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_AXIS_X: _bindgen_ty_26 = 0;
-pub const AMOTION_EVENT_AXIS_Y: _bindgen_ty_26 = 1;
-pub const AMOTION_EVENT_AXIS_PRESSURE: _bindgen_ty_26 = 2;
-pub const AMOTION_EVENT_AXIS_SIZE: _bindgen_ty_26 = 3;
-pub const AMOTION_EVENT_AXIS_TOUCH_MAJOR: _bindgen_ty_26 = 4;
-pub const AMOTION_EVENT_AXIS_TOUCH_MINOR: _bindgen_ty_26 = 5;
-pub const AMOTION_EVENT_AXIS_TOOL_MAJOR: _bindgen_ty_26 = 6;
-pub const AMOTION_EVENT_AXIS_TOOL_MINOR: _bindgen_ty_26 = 7;
-pub const AMOTION_EVENT_AXIS_ORIENTATION: _bindgen_ty_26 = 8;
-pub const AMOTION_EVENT_AXIS_VSCROLL: _bindgen_ty_26 = 9;
-pub const AMOTION_EVENT_AXIS_HSCROLL: _bindgen_ty_26 = 10;
-pub const AMOTION_EVENT_AXIS_Z: _bindgen_ty_26 = 11;
-pub const AMOTION_EVENT_AXIS_RX: _bindgen_ty_26 = 12;
-pub const AMOTION_EVENT_AXIS_RY: _bindgen_ty_26 = 13;
-pub const AMOTION_EVENT_AXIS_RZ: _bindgen_ty_26 = 14;
-pub const AMOTION_EVENT_AXIS_HAT_X: _bindgen_ty_26 = 15;
-pub const AMOTION_EVENT_AXIS_HAT_Y: _bindgen_ty_26 = 16;
-pub const AMOTION_EVENT_AXIS_LTRIGGER: _bindgen_ty_26 = 17;
-pub const AMOTION_EVENT_AXIS_RTRIGGER: _bindgen_ty_26 = 18;
-pub const AMOTION_EVENT_AXIS_THROTTLE: _bindgen_ty_26 = 19;
-pub const AMOTION_EVENT_AXIS_RUDDER: _bindgen_ty_26 = 20;
-pub const AMOTION_EVENT_AXIS_WHEEL: _bindgen_ty_26 = 21;
-pub const AMOTION_EVENT_AXIS_GAS: _bindgen_ty_26 = 22;
-pub const AMOTION_EVENT_AXIS_BRAKE: _bindgen_ty_26 = 23;
-pub const AMOTION_EVENT_AXIS_DISTANCE: _bindgen_ty_26 = 24;
-pub const AMOTION_EVENT_AXIS_TILT: _bindgen_ty_26 = 25;
-pub const AMOTION_EVENT_AXIS_SCROLL: _bindgen_ty_26 = 26;
-pub const AMOTION_EVENT_AXIS_RELATIVE_X: _bindgen_ty_26 = 27;
-pub const AMOTION_EVENT_AXIS_RELATIVE_Y: _bindgen_ty_26 = 28;
-pub const AMOTION_EVENT_AXIS_GENERIC_1: _bindgen_ty_26 = 32;
-pub const AMOTION_EVENT_AXIS_GENERIC_2: _bindgen_ty_26 = 33;
-pub const AMOTION_EVENT_AXIS_GENERIC_3: _bindgen_ty_26 = 34;
-pub const AMOTION_EVENT_AXIS_GENERIC_4: _bindgen_ty_26 = 35;
-pub const AMOTION_EVENT_AXIS_GENERIC_5: _bindgen_ty_26 = 36;
-pub const AMOTION_EVENT_AXIS_GENERIC_6: _bindgen_ty_26 = 37;
-pub const AMOTION_EVENT_AXIS_GENERIC_7: _bindgen_ty_26 = 38;
-pub const AMOTION_EVENT_AXIS_GENERIC_8: _bindgen_ty_26 = 39;
-pub const AMOTION_EVENT_AXIS_GENERIC_9: _bindgen_ty_26 = 40;
-pub const AMOTION_EVENT_AXIS_GENERIC_10: _bindgen_ty_26 = 41;
-pub const AMOTION_EVENT_AXIS_GENERIC_11: _bindgen_ty_26 = 42;
-pub const AMOTION_EVENT_AXIS_GENERIC_12: _bindgen_ty_26 = 43;
-pub const AMOTION_EVENT_AXIS_GENERIC_13: _bindgen_ty_26 = 44;
-pub const AMOTION_EVENT_AXIS_GENERIC_14: _bindgen_ty_26 = 45;
-pub const AMOTION_EVENT_AXIS_GENERIC_15: _bindgen_ty_26 = 46;
-pub const AMOTION_EVENT_AXIS_GENERIC_16: _bindgen_ty_26 = 47;
-pub const AMOTION_EVENT_AXIS_GESTURE_X_OFFSET: _bindgen_ty_26 = 48;
-pub const AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET: _bindgen_ty_26 = 49;
-pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE: _bindgen_ty_26 = 50;
-pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE: _bindgen_ty_26 = 51;
-pub const AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR: _bindgen_ty_26 = 52;
-pub const AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT: _bindgen_ty_26 = 53;
-pub const AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE: _bindgen_ty_26 = 53;
+pub const AKEY_EVENT_ACTION_DOWN: _bindgen_ty_26 = 0;
+pub const AKEY_EVENT_ACTION_UP: _bindgen_ty_26 = 1;
+pub const AKEY_EVENT_ACTION_MULTIPLE: _bindgen_ty_26 = 2;
 pub type _bindgen_ty_26 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_BUTTON_PRIMARY: _bindgen_ty_27 = 1;
-pub const AMOTION_EVENT_BUTTON_SECONDARY: _bindgen_ty_27 = 2;
-pub const AMOTION_EVENT_BUTTON_TERTIARY: _bindgen_ty_27 = 4;
-pub const AMOTION_EVENT_BUTTON_BACK: _bindgen_ty_27 = 8;
-pub const AMOTION_EVENT_BUTTON_FORWARD: _bindgen_ty_27 = 16;
-pub const AMOTION_EVENT_BUTTON_STYLUS_PRIMARY: _bindgen_ty_27 = 32;
-pub const AMOTION_EVENT_BUTTON_STYLUS_SECONDARY: _bindgen_ty_27 = 64;
+pub const AKEY_EVENT_FLAG_WOKE_HERE: _bindgen_ty_27 = 1;
+pub const AKEY_EVENT_FLAG_SOFT_KEYBOARD: _bindgen_ty_27 = 2;
+pub const AKEY_EVENT_FLAG_KEEP_TOUCH_MODE: _bindgen_ty_27 = 4;
+pub const AKEY_EVENT_FLAG_FROM_SYSTEM: _bindgen_ty_27 = 8;
+pub const AKEY_EVENT_FLAG_EDITOR_ACTION: _bindgen_ty_27 = 16;
+pub const AKEY_EVENT_FLAG_CANCELED: _bindgen_ty_27 = 32;
+pub const AKEY_EVENT_FLAG_VIRTUAL_HARD_KEY: _bindgen_ty_27 = 64;
+pub const AKEY_EVENT_FLAG_LONG_PRESS: _bindgen_ty_27 = 128;
+pub const AKEY_EVENT_FLAG_CANCELED_LONG_PRESS: _bindgen_ty_27 = 256;
+pub const AKEY_EVENT_FLAG_TRACKING: _bindgen_ty_27 = 512;
+pub const AKEY_EVENT_FLAG_FALLBACK: _bindgen_ty_27 = 1024;
 pub type _bindgen_ty_27 = ::std::os::raw::c_uint;
-pub const AMOTION_EVENT_TOOL_TYPE_UNKNOWN: _bindgen_ty_28 = 0;
-pub const AMOTION_EVENT_TOOL_TYPE_FINGER: _bindgen_ty_28 = 1;
-pub const AMOTION_EVENT_TOOL_TYPE_STYLUS: _bindgen_ty_28 = 2;
-pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: _bindgen_ty_28 = 3;
-pub const AMOTION_EVENT_TOOL_TYPE_ERASER: _bindgen_ty_28 = 4;
-pub const AMOTION_EVENT_TOOL_TYPE_PALM: _bindgen_ty_28 = 5;
+pub const AMOTION_EVENT_ACTION_MASK: _bindgen_ty_28 = 255;
+pub const AMOTION_EVENT_ACTION_POINTER_INDEX_MASK: _bindgen_ty_28 = 65280;
+pub const AMOTION_EVENT_ACTION_DOWN: _bindgen_ty_28 = 0;
+pub const AMOTION_EVENT_ACTION_UP: _bindgen_ty_28 = 1;
+pub const AMOTION_EVENT_ACTION_MOVE: _bindgen_ty_28 = 2;
+pub const AMOTION_EVENT_ACTION_CANCEL: _bindgen_ty_28 = 3;
+pub const AMOTION_EVENT_ACTION_OUTSIDE: _bindgen_ty_28 = 4;
+pub const AMOTION_EVENT_ACTION_POINTER_DOWN: _bindgen_ty_28 = 5;
+pub const AMOTION_EVENT_ACTION_POINTER_UP: _bindgen_ty_28 = 6;
+pub const AMOTION_EVENT_ACTION_HOVER_MOVE: _bindgen_ty_28 = 7;
+pub const AMOTION_EVENT_ACTION_SCROLL: _bindgen_ty_28 = 8;
+pub const AMOTION_EVENT_ACTION_HOVER_ENTER: _bindgen_ty_28 = 9;
+pub const AMOTION_EVENT_ACTION_HOVER_EXIT: _bindgen_ty_28 = 10;
+pub const AMOTION_EVENT_ACTION_BUTTON_PRESS: _bindgen_ty_28 = 11;
+pub const AMOTION_EVENT_ACTION_BUTTON_RELEASE: _bindgen_ty_28 = 12;
 pub type _bindgen_ty_28 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_FLAG_WINDOW_IS_OBSCURED: _bindgen_ty_29 = 1;
+pub type _bindgen_ty_29 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_EDGE_FLAG_NONE: _bindgen_ty_30 = 0;
+pub const AMOTION_EVENT_EDGE_FLAG_TOP: _bindgen_ty_30 = 1;
+pub const AMOTION_EVENT_EDGE_FLAG_BOTTOM: _bindgen_ty_30 = 2;
+pub const AMOTION_EVENT_EDGE_FLAG_LEFT: _bindgen_ty_30 = 4;
+pub const AMOTION_EVENT_EDGE_FLAG_RIGHT: _bindgen_ty_30 = 8;
+pub type _bindgen_ty_30 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_AXIS_X: _bindgen_ty_31 = 0;
+pub const AMOTION_EVENT_AXIS_Y: _bindgen_ty_31 = 1;
+pub const AMOTION_EVENT_AXIS_PRESSURE: _bindgen_ty_31 = 2;
+pub const AMOTION_EVENT_AXIS_SIZE: _bindgen_ty_31 = 3;
+pub const AMOTION_EVENT_AXIS_TOUCH_MAJOR: _bindgen_ty_31 = 4;
+pub const AMOTION_EVENT_AXIS_TOUCH_MINOR: _bindgen_ty_31 = 5;
+pub const AMOTION_EVENT_AXIS_TOOL_MAJOR: _bindgen_ty_31 = 6;
+pub const AMOTION_EVENT_AXIS_TOOL_MINOR: _bindgen_ty_31 = 7;
+pub const AMOTION_EVENT_AXIS_ORIENTATION: _bindgen_ty_31 = 8;
+pub const AMOTION_EVENT_AXIS_VSCROLL: _bindgen_ty_31 = 9;
+pub const AMOTION_EVENT_AXIS_HSCROLL: _bindgen_ty_31 = 10;
+pub const AMOTION_EVENT_AXIS_Z: _bindgen_ty_31 = 11;
+pub const AMOTION_EVENT_AXIS_RX: _bindgen_ty_31 = 12;
+pub const AMOTION_EVENT_AXIS_RY: _bindgen_ty_31 = 13;
+pub const AMOTION_EVENT_AXIS_RZ: _bindgen_ty_31 = 14;
+pub const AMOTION_EVENT_AXIS_HAT_X: _bindgen_ty_31 = 15;
+pub const AMOTION_EVENT_AXIS_HAT_Y: _bindgen_ty_31 = 16;
+pub const AMOTION_EVENT_AXIS_LTRIGGER: _bindgen_ty_31 = 17;
+pub const AMOTION_EVENT_AXIS_RTRIGGER: _bindgen_ty_31 = 18;
+pub const AMOTION_EVENT_AXIS_THROTTLE: _bindgen_ty_31 = 19;
+pub const AMOTION_EVENT_AXIS_RUDDER: _bindgen_ty_31 = 20;
+pub const AMOTION_EVENT_AXIS_WHEEL: _bindgen_ty_31 = 21;
+pub const AMOTION_EVENT_AXIS_GAS: _bindgen_ty_31 = 22;
+pub const AMOTION_EVENT_AXIS_BRAKE: _bindgen_ty_31 = 23;
+pub const AMOTION_EVENT_AXIS_DISTANCE: _bindgen_ty_31 = 24;
+pub const AMOTION_EVENT_AXIS_TILT: _bindgen_ty_31 = 25;
+pub const AMOTION_EVENT_AXIS_SCROLL: _bindgen_ty_31 = 26;
+pub const AMOTION_EVENT_AXIS_RELATIVE_X: _bindgen_ty_31 = 27;
+pub const AMOTION_EVENT_AXIS_RELATIVE_Y: _bindgen_ty_31 = 28;
+pub const AMOTION_EVENT_AXIS_GENERIC_1: _bindgen_ty_31 = 32;
+pub const AMOTION_EVENT_AXIS_GENERIC_2: _bindgen_ty_31 = 33;
+pub const AMOTION_EVENT_AXIS_GENERIC_3: _bindgen_ty_31 = 34;
+pub const AMOTION_EVENT_AXIS_GENERIC_4: _bindgen_ty_31 = 35;
+pub const AMOTION_EVENT_AXIS_GENERIC_5: _bindgen_ty_31 = 36;
+pub const AMOTION_EVENT_AXIS_GENERIC_6: _bindgen_ty_31 = 37;
+pub const AMOTION_EVENT_AXIS_GENERIC_7: _bindgen_ty_31 = 38;
+pub const AMOTION_EVENT_AXIS_GENERIC_8: _bindgen_ty_31 = 39;
+pub const AMOTION_EVENT_AXIS_GENERIC_9: _bindgen_ty_31 = 40;
+pub const AMOTION_EVENT_AXIS_GENERIC_10: _bindgen_ty_31 = 41;
+pub const AMOTION_EVENT_AXIS_GENERIC_11: _bindgen_ty_31 = 42;
+pub const AMOTION_EVENT_AXIS_GENERIC_12: _bindgen_ty_31 = 43;
+pub const AMOTION_EVENT_AXIS_GENERIC_13: _bindgen_ty_31 = 44;
+pub const AMOTION_EVENT_AXIS_GENERIC_14: _bindgen_ty_31 = 45;
+pub const AMOTION_EVENT_AXIS_GENERIC_15: _bindgen_ty_31 = 46;
+pub const AMOTION_EVENT_AXIS_GENERIC_16: _bindgen_ty_31 = 47;
+pub const AMOTION_EVENT_AXIS_GESTURE_X_OFFSET: _bindgen_ty_31 = 48;
+pub const AMOTION_EVENT_AXIS_GESTURE_Y_OFFSET: _bindgen_ty_31 = 49;
+pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_X_DISTANCE: _bindgen_ty_31 = 50;
+pub const AMOTION_EVENT_AXIS_GESTURE_SCROLL_Y_DISTANCE: _bindgen_ty_31 = 51;
+pub const AMOTION_EVENT_AXIS_GESTURE_PINCH_SCALE_FACTOR: _bindgen_ty_31 = 52;
+pub const AMOTION_EVENT_AXIS_GESTURE_SWIPE_FINGER_COUNT: _bindgen_ty_31 = 53;
+pub const AMOTION_EVENT_MAXIMUM_VALID_AXIS_VALUE: _bindgen_ty_31 = 53;
+pub type _bindgen_ty_31 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_BUTTON_PRIMARY: _bindgen_ty_32 = 1;
+pub const AMOTION_EVENT_BUTTON_SECONDARY: _bindgen_ty_32 = 2;
+pub const AMOTION_EVENT_BUTTON_TERTIARY: _bindgen_ty_32 = 4;
+pub const AMOTION_EVENT_BUTTON_BACK: _bindgen_ty_32 = 8;
+pub const AMOTION_EVENT_BUTTON_FORWARD: _bindgen_ty_32 = 16;
+pub const AMOTION_EVENT_BUTTON_STYLUS_PRIMARY: _bindgen_ty_32 = 32;
+pub const AMOTION_EVENT_BUTTON_STYLUS_SECONDARY: _bindgen_ty_32 = 64;
+pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
+pub const AMOTION_EVENT_TOOL_TYPE_UNKNOWN: _bindgen_ty_33 = 0;
+pub const AMOTION_EVENT_TOOL_TYPE_FINGER: _bindgen_ty_33 = 1;
+pub const AMOTION_EVENT_TOOL_TYPE_STYLUS: _bindgen_ty_33 = 2;
+pub const AMOTION_EVENT_TOOL_TYPE_MOUSE: _bindgen_ty_33 = 3;
+pub const AMOTION_EVENT_TOOL_TYPE_ERASER: _bindgen_ty_33 = 4;
+pub const AMOTION_EVENT_TOOL_TYPE_PALM: _bindgen_ty_33 = 5;
+pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
 impl AMotionClassification {
     pub const AMOTION_EVENT_CLASSIFICATION_NONE: AMotionClassification = AMotionClassification(0);
 }
@@ -2729,46 +3484,46 @@ impl AMotionClassification {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct AMotionClassification(pub u32);
-pub const AINPUT_SOURCE_CLASS_MASK: _bindgen_ty_29 = 255;
-pub const AINPUT_SOURCE_CLASS_NONE: _bindgen_ty_29 = 0;
-pub const AINPUT_SOURCE_CLASS_BUTTON: _bindgen_ty_29 = 1;
-pub const AINPUT_SOURCE_CLASS_POINTER: _bindgen_ty_29 = 2;
-pub const AINPUT_SOURCE_CLASS_NAVIGATION: _bindgen_ty_29 = 4;
-pub const AINPUT_SOURCE_CLASS_POSITION: _bindgen_ty_29 = 8;
-pub const AINPUT_SOURCE_CLASS_JOYSTICK: _bindgen_ty_29 = 16;
-pub type _bindgen_ty_29 = ::std::os::raw::c_uint;
-pub const AINPUT_SOURCE_UNKNOWN: _bindgen_ty_30 = 0;
-pub const AINPUT_SOURCE_KEYBOARD: _bindgen_ty_30 = 257;
-pub const AINPUT_SOURCE_DPAD: _bindgen_ty_30 = 513;
-pub const AINPUT_SOURCE_GAMEPAD: _bindgen_ty_30 = 1025;
-pub const AINPUT_SOURCE_TOUCHSCREEN: _bindgen_ty_30 = 4098;
-pub const AINPUT_SOURCE_MOUSE: _bindgen_ty_30 = 8194;
-pub const AINPUT_SOURCE_STYLUS: _bindgen_ty_30 = 16386;
-pub const AINPUT_SOURCE_BLUETOOTH_STYLUS: _bindgen_ty_30 = 49154;
-pub const AINPUT_SOURCE_TRACKBALL: _bindgen_ty_30 = 65540;
-pub const AINPUT_SOURCE_MOUSE_RELATIVE: _bindgen_ty_30 = 131076;
-pub const AINPUT_SOURCE_TOUCHPAD: _bindgen_ty_30 = 1048584;
-pub const AINPUT_SOURCE_TOUCH_NAVIGATION: _bindgen_ty_30 = 2097152;
-pub const AINPUT_SOURCE_JOYSTICK: _bindgen_ty_30 = 16777232;
-pub const AINPUT_SOURCE_HDMI: _bindgen_ty_30 = 33554433;
-pub const AINPUT_SOURCE_SENSOR: _bindgen_ty_30 = 67108864;
-pub const AINPUT_SOURCE_ROTARY_ENCODER: _bindgen_ty_30 = 4194304;
-pub const AINPUT_SOURCE_ANY: _bindgen_ty_30 = 4294967040;
-pub type _bindgen_ty_30 = ::std::os::raw::c_uint;
-pub const AINPUT_KEYBOARD_TYPE_NONE: _bindgen_ty_31 = 0;
-pub const AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC: _bindgen_ty_31 = 1;
-pub const AINPUT_KEYBOARD_TYPE_ALPHABETIC: _bindgen_ty_31 = 2;
-pub type _bindgen_ty_31 = ::std::os::raw::c_uint;
-pub const AINPUT_MOTION_RANGE_X: _bindgen_ty_32 = 0;
-pub const AINPUT_MOTION_RANGE_Y: _bindgen_ty_32 = 1;
-pub const AINPUT_MOTION_RANGE_PRESSURE: _bindgen_ty_32 = 2;
-pub const AINPUT_MOTION_RANGE_SIZE: _bindgen_ty_32 = 3;
-pub const AINPUT_MOTION_RANGE_TOUCH_MAJOR: _bindgen_ty_32 = 4;
-pub const AINPUT_MOTION_RANGE_TOUCH_MINOR: _bindgen_ty_32 = 5;
-pub const AINPUT_MOTION_RANGE_TOOL_MAJOR: _bindgen_ty_32 = 6;
-pub const AINPUT_MOTION_RANGE_TOOL_MINOR: _bindgen_ty_32 = 7;
-pub const AINPUT_MOTION_RANGE_ORIENTATION: _bindgen_ty_32 = 8;
-pub type _bindgen_ty_32 = ::std::os::raw::c_uint;
+pub const AINPUT_SOURCE_CLASS_MASK: _bindgen_ty_34 = 255;
+pub const AINPUT_SOURCE_CLASS_NONE: _bindgen_ty_34 = 0;
+pub const AINPUT_SOURCE_CLASS_BUTTON: _bindgen_ty_34 = 1;
+pub const AINPUT_SOURCE_CLASS_POINTER: _bindgen_ty_34 = 2;
+pub const AINPUT_SOURCE_CLASS_NAVIGATION: _bindgen_ty_34 = 4;
+pub const AINPUT_SOURCE_CLASS_POSITION: _bindgen_ty_34 = 8;
+pub const AINPUT_SOURCE_CLASS_JOYSTICK: _bindgen_ty_34 = 16;
+pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
+pub const AINPUT_SOURCE_UNKNOWN: _bindgen_ty_35 = 0;
+pub const AINPUT_SOURCE_KEYBOARD: _bindgen_ty_35 = 257;
+pub const AINPUT_SOURCE_DPAD: _bindgen_ty_35 = 513;
+pub const AINPUT_SOURCE_GAMEPAD: _bindgen_ty_35 = 1025;
+pub const AINPUT_SOURCE_TOUCHSCREEN: _bindgen_ty_35 = 4098;
+pub const AINPUT_SOURCE_MOUSE: _bindgen_ty_35 = 8194;
+pub const AINPUT_SOURCE_STYLUS: _bindgen_ty_35 = 16386;
+pub const AINPUT_SOURCE_BLUETOOTH_STYLUS: _bindgen_ty_35 = 49154;
+pub const AINPUT_SOURCE_TRACKBALL: _bindgen_ty_35 = 65540;
+pub const AINPUT_SOURCE_MOUSE_RELATIVE: _bindgen_ty_35 = 131076;
+pub const AINPUT_SOURCE_TOUCHPAD: _bindgen_ty_35 = 1048584;
+pub const AINPUT_SOURCE_TOUCH_NAVIGATION: _bindgen_ty_35 = 2097152;
+pub const AINPUT_SOURCE_JOYSTICK: _bindgen_ty_35 = 16777232;
+pub const AINPUT_SOURCE_HDMI: _bindgen_ty_35 = 33554433;
+pub const AINPUT_SOURCE_SENSOR: _bindgen_ty_35 = 67108864;
+pub const AINPUT_SOURCE_ROTARY_ENCODER: _bindgen_ty_35 = 4194304;
+pub const AINPUT_SOURCE_ANY: _bindgen_ty_35 = 4294967040;
+pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
+pub const AINPUT_KEYBOARD_TYPE_NONE: _bindgen_ty_36 = 0;
+pub const AINPUT_KEYBOARD_TYPE_NON_ALPHABETIC: _bindgen_ty_36 = 1;
+pub const AINPUT_KEYBOARD_TYPE_ALPHABETIC: _bindgen_ty_36 = 2;
+pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
+pub const AINPUT_MOTION_RANGE_X: _bindgen_ty_37 = 0;
+pub const AINPUT_MOTION_RANGE_Y: _bindgen_ty_37 = 1;
+pub const AINPUT_MOTION_RANGE_PRESSURE: _bindgen_ty_37 = 2;
+pub const AINPUT_MOTION_RANGE_SIZE: _bindgen_ty_37 = 3;
+pub const AINPUT_MOTION_RANGE_TOUCH_MAJOR: _bindgen_ty_37 = 4;
+pub const AINPUT_MOTION_RANGE_TOUCH_MINOR: _bindgen_ty_37 = 5;
+pub const AINPUT_MOTION_RANGE_TOOL_MAJOR: _bindgen_ty_37 = 6;
+pub const AINPUT_MOTION_RANGE_TOOL_MINOR: _bindgen_ty_37 = 7;
+pub const AINPUT_MOTION_RANGE_ORIENTATION: _bindgen_ty_37 = 8;
+pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AInputEvent_getType(event: *const AInputEvent) -> i32;
 }
@@ -3834,17 +4589,29 @@ extern "C" {
         removeFlags: u32,
     );
 }
-pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_IMPLICIT: _bindgen_ty_33 = 1;
-pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_FORCED: _bindgen_ty_33 = 2;
-pub type _bindgen_ty_33 = ::std::os::raw::c_uint;
+pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_IMPLICIT: _bindgen_ty_38 = 1;
+pub const ANATIVEACTIVITY_SHOW_SOFT_INPUT_FORCED: _bindgen_ty_38 = 2;
+pub type _bindgen_ty_38 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ANativeActivity_showSoftInput(activity: *mut ANativeActivity, flags: u32);
 }
-pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_IMPLICIT_ONLY: _bindgen_ty_34 = 1;
-pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_34 = 2;
-pub type _bindgen_ty_34 = ::std::os::raw::c_uint;
+pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_IMPLICIT_ONLY: _bindgen_ty_39 = 1;
+pub const ANATIVEACTIVITY_HIDE_SOFT_INPUT_NOT_ALWAYS: _bindgen_ty_39 = 2;
+pub type _bindgen_ty_39 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn ANativeActivity_hideSoftInput(activity: *mut ANativeActivity, flags: u32);
+}
+extern "C" {
+    pub fn ANativeWindow_readFromParcel(
+        parcel: *const AParcel,
+        outWindow: *mut *mut ANativeWindow,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn ANativeWindow_writeToParcel(
+        window: *mut ANativeWindow,
+        parcel: *mut AParcel,
+    ) -> binder_status_t;
 }
 extern "C" {
     pub fn ANativeWindow_fromSurface(env: *mut JNIEnv, surface: jobject) -> *mut ANativeWindow;
@@ -4353,10 +5120,10 @@ impl ResultCode {
 #[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct ResultCode(pub ::std::os::raw::c_uint);
-pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: _bindgen_ty_35 = 128;
-pub type _bindgen_ty_35 = ::std::os::raw::c_uint;
-pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: _bindgen_ty_36 = 32;
-pub type _bindgen_ty_36 = ::std::os::raw::c_uint;
+pub const ANEURALNETWORKS_MAX_SIZE_OF_IMMEDIATELY_COPIED_VALUES: _bindgen_ty_40 = 128;
+pub type _bindgen_ty_40 = ::std::os::raw::c_uint;
+pub const ANEURALNETWORKS_BYTE_SIZE_OF_CACHE_TOKEN: _bindgen_ty_41 = 32;
+pub type _bindgen_ty_41 = ::std::os::raw::c_uint;
 impl DurationCode {
     pub const ANEURALNETWORKS_DURATION_ON_HARDWARE: DurationCode = DurationCode(0);
 }
@@ -4941,8 +5708,8 @@ extern "C" {
 pub struct AObbInfo {
     _unused: [u8; 0],
 }
-pub const AOBBINFO_OVERLAY: _bindgen_ty_37 = 1;
-pub type _bindgen_ty_37 = ::std::os::raw::c_uint;
+pub const AOBBINFO_OVERLAY: _bindgen_ty_42 = 1;
+pub type _bindgen_ty_42 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AObbScanner_getObbInfo(filename: *const ::std::os::raw::c_char) -> *mut AObbInfo;
 }
@@ -5171,13 +5938,13 @@ extern "C" {
         gpu: bool,
     );
 }
-pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_38 = 0;
-pub const PERMISSION_MANAGER_PERMISSION_DENIED: _bindgen_ty_38 = -1;
-pub type _bindgen_ty_38 = ::std::os::raw::c_int;
-pub const PERMISSION_MANAGER_STATUS_OK: _bindgen_ty_39 = 0;
-pub const PERMISSION_MANAGER_STATUS_ERROR_UNKNOWN: _bindgen_ty_39 = -1;
-pub const PERMISSION_MANAGER_STATUS_SERVICE_UNAVAILABLE: _bindgen_ty_39 = -2;
-pub type _bindgen_ty_39 = ::std::os::raw::c_int;
+pub const PERMISSION_MANAGER_PERMISSION_GRANTED: _bindgen_ty_43 = 0;
+pub const PERMISSION_MANAGER_PERMISSION_DENIED: _bindgen_ty_43 = -1;
+pub type _bindgen_ty_43 = ::std::os::raw::c_int;
+pub const PERMISSION_MANAGER_STATUS_OK: _bindgen_ty_44 = 0;
+pub const PERMISSION_MANAGER_STATUS_ERROR_UNKNOWN: _bindgen_ty_44 = -1;
+pub const PERMISSION_MANAGER_STATUS_SERVICE_UNAVAILABLE: _bindgen_ty_44 = -2;
+pub type _bindgen_ty_44 = ::std::os::raw::c_int;
 extern "C" {
     pub fn APermissionManager_checkPermission(
         permission: *const ::std::os::raw::c_char,
@@ -5186,71 +5953,477 @@ extern "C" {
         outResult: *mut i32,
     ) -> i32;
 }
-pub const ASENSOR_TYPE_INVALID: _bindgen_ty_40 = -1;
-pub const ASENSOR_TYPE_ACCELEROMETER: _bindgen_ty_40 = 1;
-pub const ASENSOR_TYPE_MAGNETIC_FIELD: _bindgen_ty_40 = 2;
-pub const ASENSOR_TYPE_GYROSCOPE: _bindgen_ty_40 = 4;
-pub const ASENSOR_TYPE_LIGHT: _bindgen_ty_40 = 5;
-pub const ASENSOR_TYPE_PRESSURE: _bindgen_ty_40 = 6;
-pub const ASENSOR_TYPE_PROXIMITY: _bindgen_ty_40 = 8;
-pub const ASENSOR_TYPE_GRAVITY: _bindgen_ty_40 = 9;
-pub const ASENSOR_TYPE_LINEAR_ACCELERATION: _bindgen_ty_40 = 10;
-pub const ASENSOR_TYPE_ROTATION_VECTOR: _bindgen_ty_40 = 11;
-pub const ASENSOR_TYPE_RELATIVE_HUMIDITY: _bindgen_ty_40 = 12;
-pub const ASENSOR_TYPE_AMBIENT_TEMPERATURE: _bindgen_ty_40 = 13;
-pub const ASENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED: _bindgen_ty_40 = 14;
-pub const ASENSOR_TYPE_GAME_ROTATION_VECTOR: _bindgen_ty_40 = 15;
-pub const ASENSOR_TYPE_GYROSCOPE_UNCALIBRATED: _bindgen_ty_40 = 16;
-pub const ASENSOR_TYPE_SIGNIFICANT_MOTION: _bindgen_ty_40 = 17;
-pub const ASENSOR_TYPE_STEP_DETECTOR: _bindgen_ty_40 = 18;
-pub const ASENSOR_TYPE_STEP_COUNTER: _bindgen_ty_40 = 19;
-pub const ASENSOR_TYPE_GEOMAGNETIC_ROTATION_VECTOR: _bindgen_ty_40 = 20;
-pub const ASENSOR_TYPE_HEART_RATE: _bindgen_ty_40 = 21;
-pub const ASENSOR_TYPE_POSE_6DOF: _bindgen_ty_40 = 28;
-pub const ASENSOR_TYPE_STATIONARY_DETECT: _bindgen_ty_40 = 29;
-pub const ASENSOR_TYPE_MOTION_DETECT: _bindgen_ty_40 = 30;
-pub const ASENSOR_TYPE_HEART_BEAT: _bindgen_ty_40 = 31;
-pub const ASENSOR_TYPE_DYNAMIC_SENSOR_META: _bindgen_ty_40 = 32;
-pub const ASENSOR_TYPE_ADDITIONAL_INFO: _bindgen_ty_40 = 33;
-pub const ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT: _bindgen_ty_40 = 34;
-pub const ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED: _bindgen_ty_40 = 35;
-pub const ASENSOR_TYPE_HINGE_ANGLE: _bindgen_ty_40 = 36;
-pub const ASENSOR_TYPE_HEAD_TRACKER: _bindgen_ty_40 = 37;
-pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES: _bindgen_ty_40 = 38;
-pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES: _bindgen_ty_40 = 39;
-pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 40;
-pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_40 = 41;
-pub const ASENSOR_TYPE_HEADING: _bindgen_ty_40 = 42;
-pub const ASENSOR_TYPE_MOISTURE_INTRUSION: _bindgen_ty_40 = 43;
-pub type _bindgen_ty_40 = ::std::os::raw::c_int;
-pub const ASENSOR_STATUS_NO_CONTACT: _bindgen_ty_41 = -1;
-pub const ASENSOR_STATUS_UNRELIABLE: _bindgen_ty_41 = 0;
-pub const ASENSOR_STATUS_ACCURACY_LOW: _bindgen_ty_41 = 1;
-pub const ASENSOR_STATUS_ACCURACY_MEDIUM: _bindgen_ty_41 = 2;
-pub const ASENSOR_STATUS_ACCURACY_HIGH: _bindgen_ty_41 = 3;
-pub type _bindgen_ty_41 = ::std::os::raw::c_int;
-pub const AREPORTING_MODE_INVALID: _bindgen_ty_42 = -1;
-pub const AREPORTING_MODE_CONTINUOUS: _bindgen_ty_42 = 0;
-pub const AREPORTING_MODE_ON_CHANGE: _bindgen_ty_42 = 1;
-pub const AREPORTING_MODE_ONE_SHOT: _bindgen_ty_42 = 2;
-pub const AREPORTING_MODE_SPECIAL_TRIGGER: _bindgen_ty_42 = 3;
-pub type _bindgen_ty_42 = ::std::os::raw::c_int;
-pub const ASENSOR_DIRECT_RATE_STOP: _bindgen_ty_43 = 0;
-pub const ASENSOR_DIRECT_RATE_NORMAL: _bindgen_ty_43 = 1;
-pub const ASENSOR_DIRECT_RATE_FAST: _bindgen_ty_43 = 2;
-pub const ASENSOR_DIRECT_RATE_VERY_FAST: _bindgen_ty_43 = 3;
-pub type _bindgen_ty_43 = ::std::os::raw::c_uint;
-pub const ASENSOR_DIRECT_CHANNEL_TYPE_SHARED_MEMORY: _bindgen_ty_44 = 1;
-pub const ASENSOR_DIRECT_CHANNEL_TYPE_HARDWARE_BUFFER: _bindgen_ty_44 = 2;
-pub type _bindgen_ty_44 = ::std::os::raw::c_uint;
-pub const ASENSOR_ADDITIONAL_INFO_BEGIN: _bindgen_ty_45 = 0;
-pub const ASENSOR_ADDITIONAL_INFO_END: _bindgen_ty_45 = 1;
-pub const ASENSOR_ADDITIONAL_INFO_UNTRACKED_DELAY: _bindgen_ty_45 = 65536;
-pub const ASENSOR_ADDITIONAL_INFO_INTERNAL_TEMPERATURE: _bindgen_ty_45 = 65537;
-pub const ASENSOR_ADDITIONAL_INFO_VEC3_CALIBRATION: _bindgen_ty_45 = 65538;
-pub const ASENSOR_ADDITIONAL_INFO_SENSOR_PLACEMENT: _bindgen_ty_45 = 65539;
-pub const ASENSOR_ADDITIONAL_INFO_SAMPLING: _bindgen_ty_45 = 65540;
-pub type _bindgen_ty_45 = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct APersistableBundle {
+    _unused: [u8; 0],
+}
+pub const APERSISTABLEBUNDLE_KEY_NOT_FOUND: _bindgen_ty_45 = -1;
+pub const APERSISTABLEBUNDLE_ALLOCATOR_FAILED: _bindgen_ty_45 = -2;
+pub type _bindgen_ty_45 = ::std::os::raw::c_int;
+extern "C" {
+    pub fn APersistableBundle_new() -> *mut APersistableBundle;
+}
+extern "C" {
+    pub fn APersistableBundle_dup(pBundle: *const APersistableBundle) -> *mut APersistableBundle;
+}
+extern "C" {
+    pub fn APersistableBundle_delete(pBundle: *mut APersistableBundle);
+}
+extern "C" {
+    pub fn APersistableBundle_isEqual(
+        lhs: *const APersistableBundle,
+        rhs: *const APersistableBundle,
+    ) -> bool;
+}
+extern "C" {
+    pub fn APersistableBundle_readFromParcel(
+        parcel: *const AParcel,
+        outPBundle: *mut *mut APersistableBundle,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn APersistableBundle_writeToParcel(
+        pBundle: *const APersistableBundle,
+        parcel: *mut AParcel,
+    ) -> binder_status_t;
+}
+extern "C" {
+    pub fn APersistableBundle_size(pBundle: *const APersistableBundle) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_erase(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_putBoolean(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: bool,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putInt(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: i32,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putLong(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: i64,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putDouble(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: f64,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putString(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putBooleanVector(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        vec: *const bool,
+        num: i32,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putByteVector(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        vec: *const u8,
+        num: i32,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putIntVector(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        vec: *const i32,
+        num: i32,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putLongVector(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        vec: *const i64,
+        num: i32,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putDoubleVector(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        vec: *const f64,
+        num: i32,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putStringVector(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        vec: *const *const ::std::os::raw::c_char,
+        num: i32,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_putPersistableBundle(
+        pBundle: *mut APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: *const APersistableBundle,
+    );
+}
+extern "C" {
+    pub fn APersistableBundle_getBoolean(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: *mut bool,
+    ) -> bool;
+}
+extern "C" {
+    pub fn APersistableBundle_getInt(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: *mut i32,
+    ) -> bool;
+}
+extern "C" {
+    pub fn APersistableBundle_getLong(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: *mut i64,
+    ) -> bool;
+}
+extern "C" {
+    pub fn APersistableBundle_getDouble(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: *mut f64,
+    ) -> bool;
+}
+extern "C" {
+    pub fn APersistableBundle_getString(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        val: *mut *mut ::std::os::raw::c_char,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getBooleanVector(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        buffer: *mut bool,
+        bufferSizeBytes: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getByteVector(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        buffer: *mut u8,
+        bufferSizeBytes: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getIntVector(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        buffer: *mut i32,
+        bufferSizeBytes: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getLongVector(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        buffer: *mut i64,
+        bufferSizeBytes: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getDoubleVector(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        buffer: *mut f64,
+        bufferSizeBytes: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getStringVector(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        buffer: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getPersistableBundle(
+        pBundle: *const APersistableBundle,
+        key: *const ::std::os::raw::c_char,
+        outBundle: *mut *mut APersistableBundle,
+    ) -> bool;
+}
+extern "C" {
+    pub fn APersistableBundle_getBooleanKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getIntKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getLongKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getDoubleKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getStringKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getBooleanVectorKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getByteVectorKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getIntVectorKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getLongVectorKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getDoubleVectorKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getStringVectorKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    pub fn APersistableBundle_getPersistableBundleKeys(
+        pBundle: *const APersistableBundle,
+        outKeys: *mut *mut ::std::os::raw::c_char,
+        bufferSizeBytes: i32,
+        stringAllocator: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: i32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> *mut ::std::os::raw::c_char,
+        >,
+        context: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+pub const ASENSOR_TYPE_INVALID: _bindgen_ty_46 = -1;
+pub const ASENSOR_TYPE_ACCELEROMETER: _bindgen_ty_46 = 1;
+pub const ASENSOR_TYPE_MAGNETIC_FIELD: _bindgen_ty_46 = 2;
+pub const ASENSOR_TYPE_GYROSCOPE: _bindgen_ty_46 = 4;
+pub const ASENSOR_TYPE_LIGHT: _bindgen_ty_46 = 5;
+pub const ASENSOR_TYPE_PRESSURE: _bindgen_ty_46 = 6;
+pub const ASENSOR_TYPE_PROXIMITY: _bindgen_ty_46 = 8;
+pub const ASENSOR_TYPE_GRAVITY: _bindgen_ty_46 = 9;
+pub const ASENSOR_TYPE_LINEAR_ACCELERATION: _bindgen_ty_46 = 10;
+pub const ASENSOR_TYPE_ROTATION_VECTOR: _bindgen_ty_46 = 11;
+pub const ASENSOR_TYPE_RELATIVE_HUMIDITY: _bindgen_ty_46 = 12;
+pub const ASENSOR_TYPE_AMBIENT_TEMPERATURE: _bindgen_ty_46 = 13;
+pub const ASENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED: _bindgen_ty_46 = 14;
+pub const ASENSOR_TYPE_GAME_ROTATION_VECTOR: _bindgen_ty_46 = 15;
+pub const ASENSOR_TYPE_GYROSCOPE_UNCALIBRATED: _bindgen_ty_46 = 16;
+pub const ASENSOR_TYPE_SIGNIFICANT_MOTION: _bindgen_ty_46 = 17;
+pub const ASENSOR_TYPE_STEP_DETECTOR: _bindgen_ty_46 = 18;
+pub const ASENSOR_TYPE_STEP_COUNTER: _bindgen_ty_46 = 19;
+pub const ASENSOR_TYPE_GEOMAGNETIC_ROTATION_VECTOR: _bindgen_ty_46 = 20;
+pub const ASENSOR_TYPE_HEART_RATE: _bindgen_ty_46 = 21;
+pub const ASENSOR_TYPE_POSE_6DOF: _bindgen_ty_46 = 28;
+pub const ASENSOR_TYPE_STATIONARY_DETECT: _bindgen_ty_46 = 29;
+pub const ASENSOR_TYPE_MOTION_DETECT: _bindgen_ty_46 = 30;
+pub const ASENSOR_TYPE_HEART_BEAT: _bindgen_ty_46 = 31;
+pub const ASENSOR_TYPE_DYNAMIC_SENSOR_META: _bindgen_ty_46 = 32;
+pub const ASENSOR_TYPE_ADDITIONAL_INFO: _bindgen_ty_46 = 33;
+pub const ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT: _bindgen_ty_46 = 34;
+pub const ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED: _bindgen_ty_46 = 35;
+pub const ASENSOR_TYPE_HINGE_ANGLE: _bindgen_ty_46 = 36;
+pub const ASENSOR_TYPE_HEAD_TRACKER: _bindgen_ty_46 = 37;
+pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES: _bindgen_ty_46 = 38;
+pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES: _bindgen_ty_46 = 39;
+pub const ASENSOR_TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_46 = 40;
+pub const ASENSOR_TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED: _bindgen_ty_46 = 41;
+pub const ASENSOR_TYPE_HEADING: _bindgen_ty_46 = 42;
+pub const ASENSOR_TYPE_MOISTURE_INTRUSION: _bindgen_ty_46 = 43;
+pub type _bindgen_ty_46 = ::std::os::raw::c_int;
+pub const ASENSOR_STATUS_NO_CONTACT: _bindgen_ty_47 = -1;
+pub const ASENSOR_STATUS_UNRELIABLE: _bindgen_ty_47 = 0;
+pub const ASENSOR_STATUS_ACCURACY_LOW: _bindgen_ty_47 = 1;
+pub const ASENSOR_STATUS_ACCURACY_MEDIUM: _bindgen_ty_47 = 2;
+pub const ASENSOR_STATUS_ACCURACY_HIGH: _bindgen_ty_47 = 3;
+pub type _bindgen_ty_47 = ::std::os::raw::c_int;
+pub const AREPORTING_MODE_INVALID: _bindgen_ty_48 = -1;
+pub const AREPORTING_MODE_CONTINUOUS: _bindgen_ty_48 = 0;
+pub const AREPORTING_MODE_ON_CHANGE: _bindgen_ty_48 = 1;
+pub const AREPORTING_MODE_ONE_SHOT: _bindgen_ty_48 = 2;
+pub const AREPORTING_MODE_SPECIAL_TRIGGER: _bindgen_ty_48 = 3;
+pub type _bindgen_ty_48 = ::std::os::raw::c_int;
+pub const ASENSOR_DIRECT_RATE_STOP: _bindgen_ty_49 = 0;
+pub const ASENSOR_DIRECT_RATE_NORMAL: _bindgen_ty_49 = 1;
+pub const ASENSOR_DIRECT_RATE_FAST: _bindgen_ty_49 = 2;
+pub const ASENSOR_DIRECT_RATE_VERY_FAST: _bindgen_ty_49 = 3;
+pub type _bindgen_ty_49 = ::std::os::raw::c_uint;
+pub const ASENSOR_DIRECT_CHANNEL_TYPE_SHARED_MEMORY: _bindgen_ty_50 = 1;
+pub const ASENSOR_DIRECT_CHANNEL_TYPE_HARDWARE_BUFFER: _bindgen_ty_50 = 2;
+pub type _bindgen_ty_50 = ::std::os::raw::c_uint;
+pub const ASENSOR_ADDITIONAL_INFO_BEGIN: _bindgen_ty_51 = 0;
+pub const ASENSOR_ADDITIONAL_INFO_END: _bindgen_ty_51 = 1;
+pub const ASENSOR_ADDITIONAL_INFO_UNTRACKED_DELAY: _bindgen_ty_51 = 65536;
+pub const ASENSOR_ADDITIONAL_INFO_INTERNAL_TEMPERATURE: _bindgen_ty_51 = 65537;
+pub const ASENSOR_ADDITIONAL_INFO_VEC3_CALIBRATION: _bindgen_ty_51 = 65538;
+pub const ASENSOR_ADDITIONAL_INFO_SENSOR_PLACEMENT: _bindgen_ty_51 = 65539;
+pub const ASENSOR_ADDITIONAL_INFO_SAMPLING: _bindgen_ty_51 = 65540;
+pub type _bindgen_ty_51 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ASensorVector {
@@ -6617,15 +7790,15 @@ extern "C" {
 pub struct AStorageManager {
     _unused: [u8; 0],
 }
-pub const AOBB_STATE_MOUNTED: _bindgen_ty_46 = 1;
-pub const AOBB_STATE_UNMOUNTED: _bindgen_ty_46 = 2;
-pub const AOBB_STATE_ERROR_INTERNAL: _bindgen_ty_46 = 20;
-pub const AOBB_STATE_ERROR_COULD_NOT_MOUNT: _bindgen_ty_46 = 21;
-pub const AOBB_STATE_ERROR_COULD_NOT_UNMOUNT: _bindgen_ty_46 = 22;
-pub const AOBB_STATE_ERROR_NOT_MOUNTED: _bindgen_ty_46 = 23;
-pub const AOBB_STATE_ERROR_ALREADY_MOUNTED: _bindgen_ty_46 = 24;
-pub const AOBB_STATE_ERROR_PERMISSION_DENIED: _bindgen_ty_46 = 25;
-pub type _bindgen_ty_46 = ::std::os::raw::c_uint;
+pub const AOBB_STATE_MOUNTED: _bindgen_ty_52 = 1;
+pub const AOBB_STATE_UNMOUNTED: _bindgen_ty_52 = 2;
+pub const AOBB_STATE_ERROR_INTERNAL: _bindgen_ty_52 = 20;
+pub const AOBB_STATE_ERROR_COULD_NOT_MOUNT: _bindgen_ty_52 = 21;
+pub const AOBB_STATE_ERROR_COULD_NOT_UNMOUNT: _bindgen_ty_52 = 22;
+pub const AOBB_STATE_ERROR_NOT_MOUNTED: _bindgen_ty_52 = 23;
+pub const AOBB_STATE_ERROR_ALREADY_MOUNTED: _bindgen_ty_52 = 24;
+pub const AOBB_STATE_ERROR_PERMISSION_DENIED: _bindgen_ty_52 = 25;
+pub type _bindgen_ty_52 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AStorageManager_new() -> *mut AStorageManager;
 }
@@ -7401,197 +8574,197 @@ extern "C" {
 extern "C" {
     pub fn ATrace_setCounter(counterName: *const ::std::os::raw::c_char, counterValue: i64);
 }
-pub const AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON: _bindgen_ty_47 = 1;
-pub const AWINDOW_FLAG_DIM_BEHIND: _bindgen_ty_47 = 2;
-pub const AWINDOW_FLAG_BLUR_BEHIND: _bindgen_ty_47 = 4;
-pub const AWINDOW_FLAG_NOT_FOCUSABLE: _bindgen_ty_47 = 8;
-pub const AWINDOW_FLAG_NOT_TOUCHABLE: _bindgen_ty_47 = 16;
-pub const AWINDOW_FLAG_NOT_TOUCH_MODAL: _bindgen_ty_47 = 32;
-pub const AWINDOW_FLAG_TOUCHABLE_WHEN_WAKING: _bindgen_ty_47 = 64;
-pub const AWINDOW_FLAG_KEEP_SCREEN_ON: _bindgen_ty_47 = 128;
-pub const AWINDOW_FLAG_LAYOUT_IN_SCREEN: _bindgen_ty_47 = 256;
-pub const AWINDOW_FLAG_LAYOUT_NO_LIMITS: _bindgen_ty_47 = 512;
-pub const AWINDOW_FLAG_FULLSCREEN: _bindgen_ty_47 = 1024;
-pub const AWINDOW_FLAG_FORCE_NOT_FULLSCREEN: _bindgen_ty_47 = 2048;
-pub const AWINDOW_FLAG_DITHER: _bindgen_ty_47 = 4096;
-pub const AWINDOW_FLAG_SECURE: _bindgen_ty_47 = 8192;
-pub const AWINDOW_FLAG_SCALED: _bindgen_ty_47 = 16384;
-pub const AWINDOW_FLAG_IGNORE_CHEEK_PRESSES: _bindgen_ty_47 = 32768;
-pub const AWINDOW_FLAG_LAYOUT_INSET_DECOR: _bindgen_ty_47 = 65536;
-pub const AWINDOW_FLAG_ALT_FOCUSABLE_IM: _bindgen_ty_47 = 131072;
-pub const AWINDOW_FLAG_WATCH_OUTSIDE_TOUCH: _bindgen_ty_47 = 262144;
-pub const AWINDOW_FLAG_SHOW_WHEN_LOCKED: _bindgen_ty_47 = 524288;
-pub const AWINDOW_FLAG_SHOW_WALLPAPER: _bindgen_ty_47 = 1048576;
-pub const AWINDOW_FLAG_TURN_SCREEN_ON: _bindgen_ty_47 = 2097152;
-pub const AWINDOW_FLAG_DISMISS_KEYGUARD: _bindgen_ty_47 = 4194304;
-pub type _bindgen_ty_47 = ::std::os::raw::c_uint;
-pub const AAUDIO_DIRECTION_OUTPUT: _bindgen_ty_48 = 0;
-pub const AAUDIO_DIRECTION_INPUT: _bindgen_ty_48 = 1;
-pub type _bindgen_ty_48 = ::std::os::raw::c_uint;
-pub type aaudio_direction_t = i32;
-pub const AAUDIO_FORMAT_INVALID: _bindgen_ty_49 = -1;
-pub const AAUDIO_FORMAT_UNSPECIFIED: _bindgen_ty_49 = 0;
-pub const AAUDIO_FORMAT_PCM_I16: _bindgen_ty_49 = 1;
-pub const AAUDIO_FORMAT_PCM_FLOAT: _bindgen_ty_49 = 2;
-pub const AAUDIO_FORMAT_PCM_I24_PACKED: _bindgen_ty_49 = 3;
-pub const AAUDIO_FORMAT_PCM_I32: _bindgen_ty_49 = 4;
-pub const AAUDIO_FORMAT_IEC61937: _bindgen_ty_49 = 5;
-pub const AAUDIO_FORMAT_MP3: _bindgen_ty_49 = 6;
-pub const AAUDIO_FORMAT_AAC_LC: _bindgen_ty_49 = 7;
-pub const AAUDIO_FORMAT_AAC_HE_V1: _bindgen_ty_49 = 8;
-pub const AAUDIO_FORMAT_AAC_HE_V2: _bindgen_ty_49 = 9;
-pub const AAUDIO_FORMAT_AAC_ELD: _bindgen_ty_49 = 10;
-pub const AAUDIO_FORMAT_AAC_XHE: _bindgen_ty_49 = 11;
-pub const AAUDIO_FORMAT_OPUS: _bindgen_ty_49 = 12;
-pub type _bindgen_ty_49 = ::std::os::raw::c_int;
-pub type aaudio_format_t = i32;
-pub const AAUDIO_OK: _bindgen_ty_50 = 0;
-pub const AAUDIO_ERROR_BASE: _bindgen_ty_50 = -900;
-pub const AAUDIO_ERROR_DISCONNECTED: _bindgen_ty_50 = -899;
-pub const AAUDIO_ERROR_ILLEGAL_ARGUMENT: _bindgen_ty_50 = -898;
-pub const AAUDIO_ERROR_INTERNAL: _bindgen_ty_50 = -896;
-pub const AAUDIO_ERROR_INVALID_STATE: _bindgen_ty_50 = -895;
-pub const AAUDIO_ERROR_INVALID_HANDLE: _bindgen_ty_50 = -892;
-pub const AAUDIO_ERROR_UNIMPLEMENTED: _bindgen_ty_50 = -890;
-pub const AAUDIO_ERROR_UNAVAILABLE: _bindgen_ty_50 = -889;
-pub const AAUDIO_ERROR_NO_FREE_HANDLES: _bindgen_ty_50 = -888;
-pub const AAUDIO_ERROR_NO_MEMORY: _bindgen_ty_50 = -887;
-pub const AAUDIO_ERROR_NULL: _bindgen_ty_50 = -886;
-pub const AAUDIO_ERROR_TIMEOUT: _bindgen_ty_50 = -885;
-pub const AAUDIO_ERROR_WOULD_BLOCK: _bindgen_ty_50 = -884;
-pub const AAUDIO_ERROR_INVALID_FORMAT: _bindgen_ty_50 = -883;
-pub const AAUDIO_ERROR_OUT_OF_RANGE: _bindgen_ty_50 = -882;
-pub const AAUDIO_ERROR_NO_SERVICE: _bindgen_ty_50 = -881;
-pub const AAUDIO_ERROR_INVALID_RATE: _bindgen_ty_50 = -880;
-pub type _bindgen_ty_50 = ::std::os::raw::c_int;
-pub type aaudio_result_t = i32;
-pub const AAUDIO_STREAM_STATE_UNINITIALIZED: _bindgen_ty_51 = 0;
-pub const AAUDIO_STREAM_STATE_UNKNOWN: _bindgen_ty_51 = 1;
-pub const AAUDIO_STREAM_STATE_OPEN: _bindgen_ty_51 = 2;
-pub const AAUDIO_STREAM_STATE_STARTING: _bindgen_ty_51 = 3;
-pub const AAUDIO_STREAM_STATE_STARTED: _bindgen_ty_51 = 4;
-pub const AAUDIO_STREAM_STATE_PAUSING: _bindgen_ty_51 = 5;
-pub const AAUDIO_STREAM_STATE_PAUSED: _bindgen_ty_51 = 6;
-pub const AAUDIO_STREAM_STATE_FLUSHING: _bindgen_ty_51 = 7;
-pub const AAUDIO_STREAM_STATE_FLUSHED: _bindgen_ty_51 = 8;
-pub const AAUDIO_STREAM_STATE_STOPPING: _bindgen_ty_51 = 9;
-pub const AAUDIO_STREAM_STATE_STOPPED: _bindgen_ty_51 = 10;
-pub const AAUDIO_STREAM_STATE_CLOSING: _bindgen_ty_51 = 11;
-pub const AAUDIO_STREAM_STATE_CLOSED: _bindgen_ty_51 = 12;
-pub const AAUDIO_STREAM_STATE_DISCONNECTED: _bindgen_ty_51 = 13;
-pub type _bindgen_ty_51 = ::std::os::raw::c_uint;
-pub type aaudio_stream_state_t = i32;
-pub const AAUDIO_SHARING_MODE_EXCLUSIVE: _bindgen_ty_52 = 0;
-pub const AAUDIO_SHARING_MODE_SHARED: _bindgen_ty_52 = 1;
-pub type _bindgen_ty_52 = ::std::os::raw::c_uint;
-pub type aaudio_sharing_mode_t = i32;
-pub const AAUDIO_PERFORMANCE_MODE_NONE: _bindgen_ty_53 = 10;
-pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING: _bindgen_ty_53 = 11;
-pub const AAUDIO_PERFORMANCE_MODE_LOW_LATENCY: _bindgen_ty_53 = 12;
-pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING_OFFLOADED: _bindgen_ty_53 = 13;
+pub const AWINDOW_FLAG_ALLOW_LOCK_WHILE_SCREEN_ON: _bindgen_ty_53 = 1;
+pub const AWINDOW_FLAG_DIM_BEHIND: _bindgen_ty_53 = 2;
+pub const AWINDOW_FLAG_BLUR_BEHIND: _bindgen_ty_53 = 4;
+pub const AWINDOW_FLAG_NOT_FOCUSABLE: _bindgen_ty_53 = 8;
+pub const AWINDOW_FLAG_NOT_TOUCHABLE: _bindgen_ty_53 = 16;
+pub const AWINDOW_FLAG_NOT_TOUCH_MODAL: _bindgen_ty_53 = 32;
+pub const AWINDOW_FLAG_TOUCHABLE_WHEN_WAKING: _bindgen_ty_53 = 64;
+pub const AWINDOW_FLAG_KEEP_SCREEN_ON: _bindgen_ty_53 = 128;
+pub const AWINDOW_FLAG_LAYOUT_IN_SCREEN: _bindgen_ty_53 = 256;
+pub const AWINDOW_FLAG_LAYOUT_NO_LIMITS: _bindgen_ty_53 = 512;
+pub const AWINDOW_FLAG_FULLSCREEN: _bindgen_ty_53 = 1024;
+pub const AWINDOW_FLAG_FORCE_NOT_FULLSCREEN: _bindgen_ty_53 = 2048;
+pub const AWINDOW_FLAG_DITHER: _bindgen_ty_53 = 4096;
+pub const AWINDOW_FLAG_SECURE: _bindgen_ty_53 = 8192;
+pub const AWINDOW_FLAG_SCALED: _bindgen_ty_53 = 16384;
+pub const AWINDOW_FLAG_IGNORE_CHEEK_PRESSES: _bindgen_ty_53 = 32768;
+pub const AWINDOW_FLAG_LAYOUT_INSET_DECOR: _bindgen_ty_53 = 65536;
+pub const AWINDOW_FLAG_ALT_FOCUSABLE_IM: _bindgen_ty_53 = 131072;
+pub const AWINDOW_FLAG_WATCH_OUTSIDE_TOUCH: _bindgen_ty_53 = 262144;
+pub const AWINDOW_FLAG_SHOW_WHEN_LOCKED: _bindgen_ty_53 = 524288;
+pub const AWINDOW_FLAG_SHOW_WALLPAPER: _bindgen_ty_53 = 1048576;
+pub const AWINDOW_FLAG_TURN_SCREEN_ON: _bindgen_ty_53 = 2097152;
+pub const AWINDOW_FLAG_DISMISS_KEYGUARD: _bindgen_ty_53 = 4194304;
 pub type _bindgen_ty_53 = ::std::os::raw::c_uint;
-pub type aaudio_performance_mode_t = i32;
-pub const AAUDIO_USAGE_MEDIA: _bindgen_ty_54 = 1;
-pub const AAUDIO_USAGE_VOICE_COMMUNICATION: _bindgen_ty_54 = 2;
-pub const AAUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING: _bindgen_ty_54 = 3;
-pub const AAUDIO_USAGE_ALARM: _bindgen_ty_54 = 4;
-pub const AAUDIO_USAGE_NOTIFICATION: _bindgen_ty_54 = 5;
-pub const AAUDIO_USAGE_NOTIFICATION_RINGTONE: _bindgen_ty_54 = 6;
-pub const AAUDIO_USAGE_NOTIFICATION_EVENT: _bindgen_ty_54 = 10;
-pub const AAUDIO_USAGE_ASSISTANCE_ACCESSIBILITY: _bindgen_ty_54 = 11;
-pub const AAUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE: _bindgen_ty_54 = 12;
-pub const AAUDIO_USAGE_ASSISTANCE_SONIFICATION: _bindgen_ty_54 = 13;
-pub const AAUDIO_USAGE_GAME: _bindgen_ty_54 = 14;
-pub const AAUDIO_USAGE_ASSISTANT: _bindgen_ty_54 = 16;
-pub const AAUDIO_SYSTEM_USAGE_EMERGENCY: _bindgen_ty_54 = 1000;
-pub const AAUDIO_SYSTEM_USAGE_SAFETY: _bindgen_ty_54 = 1001;
-pub const AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS: _bindgen_ty_54 = 1002;
-pub const AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT: _bindgen_ty_54 = 1003;
+pub const AAUDIO_DIRECTION_OUTPUT: _bindgen_ty_54 = 0;
+pub const AAUDIO_DIRECTION_INPUT: _bindgen_ty_54 = 1;
 pub type _bindgen_ty_54 = ::std::os::raw::c_uint;
-pub type aaudio_usage_t = i32;
-pub const AAUDIO_CONTENT_TYPE_SPEECH: _bindgen_ty_55 = 1;
-pub const AAUDIO_CONTENT_TYPE_MUSIC: _bindgen_ty_55 = 2;
-pub const AAUDIO_CONTENT_TYPE_MOVIE: _bindgen_ty_55 = 3;
-pub const AAUDIO_CONTENT_TYPE_SONIFICATION: _bindgen_ty_55 = 4;
-pub type _bindgen_ty_55 = ::std::os::raw::c_uint;
-pub type aaudio_content_type_t = i32;
-pub const AAUDIO_SPATIALIZATION_BEHAVIOR_AUTO: _bindgen_ty_56 = 1;
-pub const AAUDIO_SPATIALIZATION_BEHAVIOR_NEVER: _bindgen_ty_56 = 2;
-pub type _bindgen_ty_56 = ::std::os::raw::c_uint;
-pub type aaudio_spatialization_behavior_t = i32;
-pub const AAUDIO_INPUT_PRESET_GENERIC: _bindgen_ty_57 = 1;
-pub const AAUDIO_INPUT_PRESET_CAMCORDER: _bindgen_ty_57 = 5;
-pub const AAUDIO_INPUT_PRESET_VOICE_RECOGNITION: _bindgen_ty_57 = 6;
-pub const AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION: _bindgen_ty_57 = 7;
-pub const AAUDIO_INPUT_PRESET_UNPROCESSED: _bindgen_ty_57 = 9;
-pub const AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE: _bindgen_ty_57 = 10;
-pub const AAUDIO_INPUT_PRESET_SYSTEM_ECHO_REFERENCE: _bindgen_ty_57 = 1997;
-pub const AAUDIO_INPUT_PRESET_SYSTEM_HOTWORD: _bindgen_ty_57 = 1999;
+pub type aaudio_direction_t = i32;
+pub const AAUDIO_FORMAT_INVALID: _bindgen_ty_55 = -1;
+pub const AAUDIO_FORMAT_UNSPECIFIED: _bindgen_ty_55 = 0;
+pub const AAUDIO_FORMAT_PCM_I16: _bindgen_ty_55 = 1;
+pub const AAUDIO_FORMAT_PCM_FLOAT: _bindgen_ty_55 = 2;
+pub const AAUDIO_FORMAT_PCM_I24_PACKED: _bindgen_ty_55 = 3;
+pub const AAUDIO_FORMAT_PCM_I32: _bindgen_ty_55 = 4;
+pub const AAUDIO_FORMAT_IEC61937: _bindgen_ty_55 = 5;
+pub const AAUDIO_FORMAT_MP3: _bindgen_ty_55 = 6;
+pub const AAUDIO_FORMAT_AAC_LC: _bindgen_ty_55 = 7;
+pub const AAUDIO_FORMAT_AAC_HE_V1: _bindgen_ty_55 = 8;
+pub const AAUDIO_FORMAT_AAC_HE_V2: _bindgen_ty_55 = 9;
+pub const AAUDIO_FORMAT_AAC_ELD: _bindgen_ty_55 = 10;
+pub const AAUDIO_FORMAT_AAC_XHE: _bindgen_ty_55 = 11;
+pub const AAUDIO_FORMAT_OPUS: _bindgen_ty_55 = 12;
+pub type _bindgen_ty_55 = ::std::os::raw::c_int;
+pub type aaudio_format_t = i32;
+pub const AAUDIO_OK: _bindgen_ty_56 = 0;
+pub const AAUDIO_ERROR_BASE: _bindgen_ty_56 = -900;
+pub const AAUDIO_ERROR_DISCONNECTED: _bindgen_ty_56 = -899;
+pub const AAUDIO_ERROR_ILLEGAL_ARGUMENT: _bindgen_ty_56 = -898;
+pub const AAUDIO_ERROR_INTERNAL: _bindgen_ty_56 = -896;
+pub const AAUDIO_ERROR_INVALID_STATE: _bindgen_ty_56 = -895;
+pub const AAUDIO_ERROR_INVALID_HANDLE: _bindgen_ty_56 = -892;
+pub const AAUDIO_ERROR_UNIMPLEMENTED: _bindgen_ty_56 = -890;
+pub const AAUDIO_ERROR_UNAVAILABLE: _bindgen_ty_56 = -889;
+pub const AAUDIO_ERROR_NO_FREE_HANDLES: _bindgen_ty_56 = -888;
+pub const AAUDIO_ERROR_NO_MEMORY: _bindgen_ty_56 = -887;
+pub const AAUDIO_ERROR_NULL: _bindgen_ty_56 = -886;
+pub const AAUDIO_ERROR_TIMEOUT: _bindgen_ty_56 = -885;
+pub const AAUDIO_ERROR_WOULD_BLOCK: _bindgen_ty_56 = -884;
+pub const AAUDIO_ERROR_INVALID_FORMAT: _bindgen_ty_56 = -883;
+pub const AAUDIO_ERROR_OUT_OF_RANGE: _bindgen_ty_56 = -882;
+pub const AAUDIO_ERROR_NO_SERVICE: _bindgen_ty_56 = -881;
+pub const AAUDIO_ERROR_INVALID_RATE: _bindgen_ty_56 = -880;
+pub type _bindgen_ty_56 = ::std::os::raw::c_int;
+pub type aaudio_result_t = i32;
+pub const AAUDIO_STREAM_STATE_UNINITIALIZED: _bindgen_ty_57 = 0;
+pub const AAUDIO_STREAM_STATE_UNKNOWN: _bindgen_ty_57 = 1;
+pub const AAUDIO_STREAM_STATE_OPEN: _bindgen_ty_57 = 2;
+pub const AAUDIO_STREAM_STATE_STARTING: _bindgen_ty_57 = 3;
+pub const AAUDIO_STREAM_STATE_STARTED: _bindgen_ty_57 = 4;
+pub const AAUDIO_STREAM_STATE_PAUSING: _bindgen_ty_57 = 5;
+pub const AAUDIO_STREAM_STATE_PAUSED: _bindgen_ty_57 = 6;
+pub const AAUDIO_STREAM_STATE_FLUSHING: _bindgen_ty_57 = 7;
+pub const AAUDIO_STREAM_STATE_FLUSHED: _bindgen_ty_57 = 8;
+pub const AAUDIO_STREAM_STATE_STOPPING: _bindgen_ty_57 = 9;
+pub const AAUDIO_STREAM_STATE_STOPPED: _bindgen_ty_57 = 10;
+pub const AAUDIO_STREAM_STATE_CLOSING: _bindgen_ty_57 = 11;
+pub const AAUDIO_STREAM_STATE_CLOSED: _bindgen_ty_57 = 12;
+pub const AAUDIO_STREAM_STATE_DISCONNECTED: _bindgen_ty_57 = 13;
 pub type _bindgen_ty_57 = ::std::os::raw::c_uint;
-pub type aaudio_input_preset_t = i32;
-pub const AAUDIO_ALLOW_CAPTURE_BY_ALL: _bindgen_ty_58 = 1;
-pub const AAUDIO_ALLOW_CAPTURE_BY_SYSTEM: _bindgen_ty_58 = 2;
-pub const AAUDIO_ALLOW_CAPTURE_BY_NONE: _bindgen_ty_58 = 3;
+pub type aaudio_stream_state_t = i32;
+pub const AAUDIO_SHARING_MODE_EXCLUSIVE: _bindgen_ty_58 = 0;
+pub const AAUDIO_SHARING_MODE_SHARED: _bindgen_ty_58 = 1;
 pub type _bindgen_ty_58 = ::std::os::raw::c_uint;
+pub type aaudio_sharing_mode_t = i32;
+pub const AAUDIO_PERFORMANCE_MODE_NONE: _bindgen_ty_59 = 10;
+pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING: _bindgen_ty_59 = 11;
+pub const AAUDIO_PERFORMANCE_MODE_LOW_LATENCY: _bindgen_ty_59 = 12;
+pub const AAUDIO_PERFORMANCE_MODE_POWER_SAVING_OFFLOADED: _bindgen_ty_59 = 13;
+pub type _bindgen_ty_59 = ::std::os::raw::c_uint;
+pub type aaudio_performance_mode_t = i32;
+pub const AAUDIO_USAGE_MEDIA: _bindgen_ty_60 = 1;
+pub const AAUDIO_USAGE_VOICE_COMMUNICATION: _bindgen_ty_60 = 2;
+pub const AAUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING: _bindgen_ty_60 = 3;
+pub const AAUDIO_USAGE_ALARM: _bindgen_ty_60 = 4;
+pub const AAUDIO_USAGE_NOTIFICATION: _bindgen_ty_60 = 5;
+pub const AAUDIO_USAGE_NOTIFICATION_RINGTONE: _bindgen_ty_60 = 6;
+pub const AAUDIO_USAGE_NOTIFICATION_EVENT: _bindgen_ty_60 = 10;
+pub const AAUDIO_USAGE_ASSISTANCE_ACCESSIBILITY: _bindgen_ty_60 = 11;
+pub const AAUDIO_USAGE_ASSISTANCE_NAVIGATION_GUIDANCE: _bindgen_ty_60 = 12;
+pub const AAUDIO_USAGE_ASSISTANCE_SONIFICATION: _bindgen_ty_60 = 13;
+pub const AAUDIO_USAGE_GAME: _bindgen_ty_60 = 14;
+pub const AAUDIO_USAGE_ASSISTANT: _bindgen_ty_60 = 16;
+pub const AAUDIO_SYSTEM_USAGE_EMERGENCY: _bindgen_ty_60 = 1000;
+pub const AAUDIO_SYSTEM_USAGE_SAFETY: _bindgen_ty_60 = 1001;
+pub const AAUDIO_SYSTEM_USAGE_VEHICLE_STATUS: _bindgen_ty_60 = 1002;
+pub const AAUDIO_SYSTEM_USAGE_ANNOUNCEMENT: _bindgen_ty_60 = 1003;
+pub type _bindgen_ty_60 = ::std::os::raw::c_uint;
+pub type aaudio_usage_t = i32;
+pub const AAUDIO_CONTENT_TYPE_SPEECH: _bindgen_ty_61 = 1;
+pub const AAUDIO_CONTENT_TYPE_MUSIC: _bindgen_ty_61 = 2;
+pub const AAUDIO_CONTENT_TYPE_MOVIE: _bindgen_ty_61 = 3;
+pub const AAUDIO_CONTENT_TYPE_SONIFICATION: _bindgen_ty_61 = 4;
+pub type _bindgen_ty_61 = ::std::os::raw::c_uint;
+pub type aaudio_content_type_t = i32;
+pub const AAUDIO_SPATIALIZATION_BEHAVIOR_AUTO: _bindgen_ty_62 = 1;
+pub const AAUDIO_SPATIALIZATION_BEHAVIOR_NEVER: _bindgen_ty_62 = 2;
+pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
+pub type aaudio_spatialization_behavior_t = i32;
+pub const AAUDIO_INPUT_PRESET_GENERIC: _bindgen_ty_63 = 1;
+pub const AAUDIO_INPUT_PRESET_CAMCORDER: _bindgen_ty_63 = 5;
+pub const AAUDIO_INPUT_PRESET_VOICE_RECOGNITION: _bindgen_ty_63 = 6;
+pub const AAUDIO_INPUT_PRESET_VOICE_COMMUNICATION: _bindgen_ty_63 = 7;
+pub const AAUDIO_INPUT_PRESET_UNPROCESSED: _bindgen_ty_63 = 9;
+pub const AAUDIO_INPUT_PRESET_VOICE_PERFORMANCE: _bindgen_ty_63 = 10;
+pub const AAUDIO_INPUT_PRESET_SYSTEM_ECHO_REFERENCE: _bindgen_ty_63 = 1997;
+pub const AAUDIO_INPUT_PRESET_SYSTEM_HOTWORD: _bindgen_ty_63 = 1999;
+pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
+pub type aaudio_input_preset_t = i32;
+pub const AAUDIO_ALLOW_CAPTURE_BY_ALL: _bindgen_ty_64 = 1;
+pub const AAUDIO_ALLOW_CAPTURE_BY_SYSTEM: _bindgen_ty_64 = 2;
+pub const AAUDIO_ALLOW_CAPTURE_BY_NONE: _bindgen_ty_64 = 3;
+pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
 pub type aaudio_allowed_capture_policy_t = i32;
-pub const AAUDIO_SESSION_ID_NONE: _bindgen_ty_59 = -1;
-pub const AAUDIO_SESSION_ID_ALLOCATE: _bindgen_ty_59 = 0;
-pub type _bindgen_ty_59 = ::std::os::raw::c_int;
+pub const AAUDIO_SESSION_ID_NONE: _bindgen_ty_65 = -1;
+pub const AAUDIO_SESSION_ID_ALLOCATE: _bindgen_ty_65 = 0;
+pub type _bindgen_ty_65 = ::std::os::raw::c_int;
 pub type aaudio_session_id_t = i32;
-pub const AAUDIO_CHANNEL_INVALID: _bindgen_ty_60 = -1;
-pub const AAUDIO_CHANNEL_FRONT_LEFT: _bindgen_ty_60 = 1;
-pub const AAUDIO_CHANNEL_FRONT_RIGHT: _bindgen_ty_60 = 2;
-pub const AAUDIO_CHANNEL_FRONT_CENTER: _bindgen_ty_60 = 4;
-pub const AAUDIO_CHANNEL_LOW_FREQUENCY: _bindgen_ty_60 = 8;
-pub const AAUDIO_CHANNEL_BACK_LEFT: _bindgen_ty_60 = 16;
-pub const AAUDIO_CHANNEL_BACK_RIGHT: _bindgen_ty_60 = 32;
-pub const AAUDIO_CHANNEL_FRONT_LEFT_OF_CENTER: _bindgen_ty_60 = 64;
-pub const AAUDIO_CHANNEL_FRONT_RIGHT_OF_CENTER: _bindgen_ty_60 = 128;
-pub const AAUDIO_CHANNEL_BACK_CENTER: _bindgen_ty_60 = 256;
-pub const AAUDIO_CHANNEL_SIDE_LEFT: _bindgen_ty_60 = 512;
-pub const AAUDIO_CHANNEL_SIDE_RIGHT: _bindgen_ty_60 = 1024;
-pub const AAUDIO_CHANNEL_TOP_CENTER: _bindgen_ty_60 = 2048;
-pub const AAUDIO_CHANNEL_TOP_FRONT_LEFT: _bindgen_ty_60 = 4096;
-pub const AAUDIO_CHANNEL_TOP_FRONT_CENTER: _bindgen_ty_60 = 8192;
-pub const AAUDIO_CHANNEL_TOP_FRONT_RIGHT: _bindgen_ty_60 = 16384;
-pub const AAUDIO_CHANNEL_TOP_BACK_LEFT: _bindgen_ty_60 = 32768;
-pub const AAUDIO_CHANNEL_TOP_BACK_CENTER: _bindgen_ty_60 = 65536;
-pub const AAUDIO_CHANNEL_TOP_BACK_RIGHT: _bindgen_ty_60 = 131072;
-pub const AAUDIO_CHANNEL_TOP_SIDE_LEFT: _bindgen_ty_60 = 262144;
-pub const AAUDIO_CHANNEL_TOP_SIDE_RIGHT: _bindgen_ty_60 = 524288;
-pub const AAUDIO_CHANNEL_BOTTOM_FRONT_LEFT: _bindgen_ty_60 = 1048576;
-pub const AAUDIO_CHANNEL_BOTTOM_FRONT_CENTER: _bindgen_ty_60 = 2097152;
-pub const AAUDIO_CHANNEL_BOTTOM_FRONT_RIGHT: _bindgen_ty_60 = 4194304;
-pub const AAUDIO_CHANNEL_LOW_FREQUENCY_2: _bindgen_ty_60 = 8388608;
-pub const AAUDIO_CHANNEL_FRONT_WIDE_LEFT: _bindgen_ty_60 = 16777216;
-pub const AAUDIO_CHANNEL_FRONT_WIDE_RIGHT: _bindgen_ty_60 = 33554432;
-pub const AAUDIO_CHANNEL_MONO: _bindgen_ty_60 = 1;
-pub const AAUDIO_CHANNEL_STEREO: _bindgen_ty_60 = 3;
-pub const AAUDIO_CHANNEL_2POINT1: _bindgen_ty_60 = 11;
-pub const AAUDIO_CHANNEL_TRI: _bindgen_ty_60 = 7;
-pub const AAUDIO_CHANNEL_TRI_BACK: _bindgen_ty_60 = 259;
-pub const AAUDIO_CHANNEL_3POINT1: _bindgen_ty_60 = 15;
-pub const AAUDIO_CHANNEL_2POINT0POINT2: _bindgen_ty_60 = 786435;
-pub const AAUDIO_CHANNEL_2POINT1POINT2: _bindgen_ty_60 = 786443;
-pub const AAUDIO_CHANNEL_3POINT0POINT2: _bindgen_ty_60 = 786439;
-pub const AAUDIO_CHANNEL_3POINT1POINT2: _bindgen_ty_60 = 786447;
-pub const AAUDIO_CHANNEL_QUAD: _bindgen_ty_60 = 51;
-pub const AAUDIO_CHANNEL_QUAD_SIDE: _bindgen_ty_60 = 1539;
-pub const AAUDIO_CHANNEL_SURROUND: _bindgen_ty_60 = 263;
-pub const AAUDIO_CHANNEL_PENTA: _bindgen_ty_60 = 55;
-pub const AAUDIO_CHANNEL_5POINT1: _bindgen_ty_60 = 63;
-pub const AAUDIO_CHANNEL_5POINT1_SIDE: _bindgen_ty_60 = 1551;
-pub const AAUDIO_CHANNEL_6POINT1: _bindgen_ty_60 = 319;
-pub const AAUDIO_CHANNEL_7POINT1: _bindgen_ty_60 = 1599;
-pub const AAUDIO_CHANNEL_5POINT1POINT2: _bindgen_ty_60 = 786495;
-pub const AAUDIO_CHANNEL_5POINT1POINT4: _bindgen_ty_60 = 184383;
-pub const AAUDIO_CHANNEL_7POINT1POINT2: _bindgen_ty_60 = 788031;
-pub const AAUDIO_CHANNEL_7POINT1POINT4: _bindgen_ty_60 = 185919;
-pub const AAUDIO_CHANNEL_13POINT0: _bindgen_ty_60 = 7534087;
-pub const AAUDIO_CHANNEL_9POINT1POINT4: _bindgen_ty_60 = 50517567;
-pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_60 = 51303999;
-pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_60 = 260;
-pub type _bindgen_ty_60 = ::std::os::raw::c_int;
+pub const AAUDIO_CHANNEL_INVALID: _bindgen_ty_66 = -1;
+pub const AAUDIO_CHANNEL_FRONT_LEFT: _bindgen_ty_66 = 1;
+pub const AAUDIO_CHANNEL_FRONT_RIGHT: _bindgen_ty_66 = 2;
+pub const AAUDIO_CHANNEL_FRONT_CENTER: _bindgen_ty_66 = 4;
+pub const AAUDIO_CHANNEL_LOW_FREQUENCY: _bindgen_ty_66 = 8;
+pub const AAUDIO_CHANNEL_BACK_LEFT: _bindgen_ty_66 = 16;
+pub const AAUDIO_CHANNEL_BACK_RIGHT: _bindgen_ty_66 = 32;
+pub const AAUDIO_CHANNEL_FRONT_LEFT_OF_CENTER: _bindgen_ty_66 = 64;
+pub const AAUDIO_CHANNEL_FRONT_RIGHT_OF_CENTER: _bindgen_ty_66 = 128;
+pub const AAUDIO_CHANNEL_BACK_CENTER: _bindgen_ty_66 = 256;
+pub const AAUDIO_CHANNEL_SIDE_LEFT: _bindgen_ty_66 = 512;
+pub const AAUDIO_CHANNEL_SIDE_RIGHT: _bindgen_ty_66 = 1024;
+pub const AAUDIO_CHANNEL_TOP_CENTER: _bindgen_ty_66 = 2048;
+pub const AAUDIO_CHANNEL_TOP_FRONT_LEFT: _bindgen_ty_66 = 4096;
+pub const AAUDIO_CHANNEL_TOP_FRONT_CENTER: _bindgen_ty_66 = 8192;
+pub const AAUDIO_CHANNEL_TOP_FRONT_RIGHT: _bindgen_ty_66 = 16384;
+pub const AAUDIO_CHANNEL_TOP_BACK_LEFT: _bindgen_ty_66 = 32768;
+pub const AAUDIO_CHANNEL_TOP_BACK_CENTER: _bindgen_ty_66 = 65536;
+pub const AAUDIO_CHANNEL_TOP_BACK_RIGHT: _bindgen_ty_66 = 131072;
+pub const AAUDIO_CHANNEL_TOP_SIDE_LEFT: _bindgen_ty_66 = 262144;
+pub const AAUDIO_CHANNEL_TOP_SIDE_RIGHT: _bindgen_ty_66 = 524288;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_LEFT: _bindgen_ty_66 = 1048576;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_CENTER: _bindgen_ty_66 = 2097152;
+pub const AAUDIO_CHANNEL_BOTTOM_FRONT_RIGHT: _bindgen_ty_66 = 4194304;
+pub const AAUDIO_CHANNEL_LOW_FREQUENCY_2: _bindgen_ty_66 = 8388608;
+pub const AAUDIO_CHANNEL_FRONT_WIDE_LEFT: _bindgen_ty_66 = 16777216;
+pub const AAUDIO_CHANNEL_FRONT_WIDE_RIGHT: _bindgen_ty_66 = 33554432;
+pub const AAUDIO_CHANNEL_MONO: _bindgen_ty_66 = 1;
+pub const AAUDIO_CHANNEL_STEREO: _bindgen_ty_66 = 3;
+pub const AAUDIO_CHANNEL_2POINT1: _bindgen_ty_66 = 11;
+pub const AAUDIO_CHANNEL_TRI: _bindgen_ty_66 = 7;
+pub const AAUDIO_CHANNEL_TRI_BACK: _bindgen_ty_66 = 259;
+pub const AAUDIO_CHANNEL_3POINT1: _bindgen_ty_66 = 15;
+pub const AAUDIO_CHANNEL_2POINT0POINT2: _bindgen_ty_66 = 786435;
+pub const AAUDIO_CHANNEL_2POINT1POINT2: _bindgen_ty_66 = 786443;
+pub const AAUDIO_CHANNEL_3POINT0POINT2: _bindgen_ty_66 = 786439;
+pub const AAUDIO_CHANNEL_3POINT1POINT2: _bindgen_ty_66 = 786447;
+pub const AAUDIO_CHANNEL_QUAD: _bindgen_ty_66 = 51;
+pub const AAUDIO_CHANNEL_QUAD_SIDE: _bindgen_ty_66 = 1539;
+pub const AAUDIO_CHANNEL_SURROUND: _bindgen_ty_66 = 263;
+pub const AAUDIO_CHANNEL_PENTA: _bindgen_ty_66 = 55;
+pub const AAUDIO_CHANNEL_5POINT1: _bindgen_ty_66 = 63;
+pub const AAUDIO_CHANNEL_5POINT1_SIDE: _bindgen_ty_66 = 1551;
+pub const AAUDIO_CHANNEL_6POINT1: _bindgen_ty_66 = 319;
+pub const AAUDIO_CHANNEL_7POINT1: _bindgen_ty_66 = 1599;
+pub const AAUDIO_CHANNEL_5POINT1POINT2: _bindgen_ty_66 = 786495;
+pub const AAUDIO_CHANNEL_5POINT1POINT4: _bindgen_ty_66 = 184383;
+pub const AAUDIO_CHANNEL_7POINT1POINT2: _bindgen_ty_66 = 788031;
+pub const AAUDIO_CHANNEL_7POINT1POINT4: _bindgen_ty_66 = 185919;
+pub const AAUDIO_CHANNEL_13POINT0: _bindgen_ty_66 = 7534087;
+pub const AAUDIO_CHANNEL_9POINT1POINT4: _bindgen_ty_66 = 50517567;
+pub const AAUDIO_CHANNEL_9POINT1POINT6: _bindgen_ty_66 = 51303999;
+pub const AAUDIO_CHANNEL_FRONT_BACK: _bindgen_ty_66 = 260;
+pub type _bindgen_ty_66 = ::std::os::raw::c_int;
 pub type aaudio_channel_mask_t = u32;
 pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_EARPIECE: AAudio_DeviceType = 1;
 pub const AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER: AAudio_DeviceType = 2;
@@ -7766,9 +8939,9 @@ extern "C" {
         privacySensitive: bool,
     );
 }
-pub const AAUDIO_CALLBACK_RESULT_CONTINUE: _bindgen_ty_61 = 0;
-pub const AAUDIO_CALLBACK_RESULT_STOP: _bindgen_ty_61 = 1;
-pub type _bindgen_ty_61 = ::std::os::raw::c_uint;
+pub const AAUDIO_CALLBACK_RESULT_CONTINUE: _bindgen_ty_67 = 0;
+pub const AAUDIO_CALLBACK_RESULT_STOP: _bindgen_ty_67 = 1;
+pub type _bindgen_ty_67 = ::std::os::raw::c_uint;
 pub type aaudio_data_callback_result_t = i32;
 pub type AAudioStream_dataCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -8101,10 +9274,10 @@ extern "C" {
         outParameters: *mut AAudioPlaybackParameters,
     ) -> aaudio_result_t;
 }
-pub const AAUDIO_POLICY_NEVER: _bindgen_ty_62 = 1;
-pub const AAUDIO_POLICY_AUTO: _bindgen_ty_62 = 2;
-pub const AAUDIO_POLICY_ALWAYS: _bindgen_ty_62 = 3;
-pub type _bindgen_ty_62 = ::std::os::raw::c_uint;
+pub const AAUDIO_POLICY_NEVER: _bindgen_ty_68 = 1;
+pub const AAUDIO_POLICY_AUTO: _bindgen_ty_68 = 2;
+pub const AAUDIO_POLICY_ALWAYS: _bindgen_ty_68 = 3;
+pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
 pub type aaudio_policy_t = i32;
 extern "C" {
     pub fn AAudio_getPlatformMMapPolicy(
@@ -8232,13 +9405,13 @@ pub struct AMidiInputPort {
 pub struct AMidiOutputPort {
     _unused: [u8; 0],
 }
-pub const AMIDI_OPCODE_DATA: _bindgen_ty_63 = 1;
-pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_63 = 2;
-pub type _bindgen_ty_63 = ::std::os::raw::c_uint;
-pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_64 = 1;
-pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_64 = 2;
-pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_64 = 3;
-pub type _bindgen_ty_64 = ::std::os::raw::c_uint;
+pub const AMIDI_OPCODE_DATA: _bindgen_ty_69 = 1;
+pub const AMIDI_OPCODE_FLUSH: _bindgen_ty_69 = 2;
+pub type _bindgen_ty_69 = ::std::os::raw::c_uint;
+pub const AMIDI_DEVICE_TYPE_USB: _bindgen_ty_70 = 1;
+pub const AMIDI_DEVICE_TYPE_VIRTUAL: _bindgen_ty_70 = 2;
+pub const AMIDI_DEVICE_TYPE_BLUETOOTH: _bindgen_ty_70 = 3;
+pub type _bindgen_ty_70 = ::std::os::raw::c_uint;
 impl AMidiDevice_Protocol {
     pub const AMIDI_DEVICE_PROTOCOL_UMP_USE_MIDI_CI: AMidiDevice_Protocol = AMidiDevice_Protocol(0);
 }
@@ -11906,14 +13079,14 @@ pub use self::acamera_metadata_enum_acamera_jpegr_available_jpeg_r_stream_config
 pub struct ACameraMetadata {
     _unused: [u8; 0],
 }
-pub const ACAMERA_TYPE_BYTE: _bindgen_ty_65 = 0;
-pub const ACAMERA_TYPE_INT32: _bindgen_ty_65 = 1;
-pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_65 = 2;
-pub const ACAMERA_TYPE_INT64: _bindgen_ty_65 = 3;
-pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_65 = 4;
-pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_65 = 5;
-pub const ACAMERA_NUM_TYPES: _bindgen_ty_65 = 6;
-pub type _bindgen_ty_65 = ::std::os::raw::c_uint;
+pub const ACAMERA_TYPE_BYTE: _bindgen_ty_71 = 0;
+pub const ACAMERA_TYPE_INT32: _bindgen_ty_71 = 1;
+pub const ACAMERA_TYPE_FLOAT: _bindgen_ty_71 = 2;
+pub const ACAMERA_TYPE_INT64: _bindgen_ty_71 = 3;
+pub const ACAMERA_TYPE_DOUBLE: _bindgen_ty_71 = 4;
+pub const ACAMERA_TYPE_RATIONAL: _bindgen_ty_71 = 5;
+pub const ACAMERA_NUM_TYPES: _bindgen_ty_71 = 6;
+pub type _bindgen_ty_71 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraMetadata_rational {
@@ -12424,9 +13597,9 @@ pub type ACameraCaptureSession_prepareCallback = ::std::option::Option<
         session: *mut ACameraCaptureSession,
     ),
 >;
-pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_66 = 0;
-pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_66 = 1;
-pub type _bindgen_ty_66 = ::std::os::raw::c_uint;
+pub const CAPTURE_FAILURE_REASON_FLUSHED: _bindgen_ty_72 = 0;
+pub const CAPTURE_FAILURE_REASON_ERROR: _bindgen_ty_72 = 1;
+pub type _bindgen_ty_72 = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ACameraCaptureFailure {
@@ -12587,8 +13760,8 @@ fn bindgen_test_layout_ACameraCaptureSession_captureCallbacks() {
         "Offset of field: ACameraCaptureSession_captureCallbacks::onCaptureBufferLost"
     );
 }
-pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_67 = -1;
-pub type _bindgen_ty_67 = ::std::os::raw::c_int;
+pub const CAPTURE_SEQUENCE_ID_NONE: _bindgen_ty_73 = -1;
+pub type _bindgen_ty_73 = ::std::os::raw::c_int;
 extern "C" {
     pub fn ACameraCaptureSession_close(session: *mut ACameraCaptureSession);
 }
@@ -12979,12 +14152,12 @@ fn bindgen_test_layout_ACameraIdList() {
         "Offset of field: ACameraIdList::cameraIds"
     );
 }
-pub const ERROR_CAMERA_IN_USE: _bindgen_ty_68 = 1;
-pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_68 = 2;
-pub const ERROR_CAMERA_DISABLED: _bindgen_ty_68 = 3;
-pub const ERROR_CAMERA_DEVICE: _bindgen_ty_68 = 4;
-pub const ERROR_CAMERA_SERVICE: _bindgen_ty_68 = 5;
-pub type _bindgen_ty_68 = ::std::os::raw::c_uint;
+pub const ERROR_CAMERA_IN_USE: _bindgen_ty_74 = 1;
+pub const ERROR_MAX_CAMERAS_IN_USE: _bindgen_ty_74 = 2;
+pub const ERROR_CAMERA_DISABLED: _bindgen_ty_74 = 3;
+pub const ERROR_CAMERA_DEVICE: _bindgen_ty_74 = 4;
+pub const ERROR_CAMERA_SERVICE: _bindgen_ty_74 = 5;
+pub type _bindgen_ty_74 = ::std::os::raw::c_uint;
 pub type ACameraDevice_StateCallback = ::std::option::Option<
     unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, device: *mut ACameraDevice),
 >;
@@ -14393,18 +15566,18 @@ fn bindgen_test_layout_AMediaCodecBufferInfo() {
 pub struct AMediaCodecCryptoInfo {
     _unused: [u8; 0],
 }
-pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_69 = 1;
-pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_69 = 2;
-pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_69 = 4;
-pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_69 = 8;
-pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_69 = 16;
-pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_69 = 32;
-pub type _bindgen_ty_69 = ::std::os::raw::c_uint;
-pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_70 = 1;
-pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_70 = -3;
-pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_70 = -2;
-pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_70 = -1;
-pub type _bindgen_ty_70 = ::std::os::raw::c_int;
+pub const AMEDIACODEC_BUFFER_FLAG_KEY_FRAME: _bindgen_ty_75 = 1;
+pub const AMEDIACODEC_BUFFER_FLAG_CODEC_CONFIG: _bindgen_ty_75 = 2;
+pub const AMEDIACODEC_BUFFER_FLAG_END_OF_STREAM: _bindgen_ty_75 = 4;
+pub const AMEDIACODEC_BUFFER_FLAG_PARTIAL_FRAME: _bindgen_ty_75 = 8;
+pub const AMEDIACODEC_BUFFER_FLAG_MUXER_DATA: _bindgen_ty_75 = 16;
+pub const AMEDIACODEC_BUFFER_FLAG_DECODE_ONLY: _bindgen_ty_75 = 32;
+pub type _bindgen_ty_75 = ::std::os::raw::c_uint;
+pub const AMEDIACODEC_CONFIGURE_FLAG_ENCODE: _bindgen_ty_76 = 1;
+pub const AMEDIACODEC_INFO_OUTPUT_BUFFERS_CHANGED: _bindgen_ty_76 = -3;
+pub const AMEDIACODEC_INFO_OUTPUT_FORMAT_CHANGED: _bindgen_ty_76 = -2;
+pub const AMEDIACODEC_INFO_TRY_AGAIN_LATER: _bindgen_ty_76 = -1;
+pub type _bindgen_ty_76 = ::std::os::raw::c_int;
 pub type AMediaCodecOnAsyncInputAvailable = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut AMediaCodec,
@@ -15839,9 +17012,9 @@ extern "C" {
         arg1: *mut AMediaExtractor,
     ) -> *mut AMediaCodecCryptoInfo;
 }
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_71 = 1;
-pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_71 = 2;
-pub type _bindgen_ty_71 = ::std::os::raw::c_uint;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_SYNC: _bindgen_ty_77 = 1;
+pub const AMEDIAEXTRACTOR_SAMPLE_FLAG_ENCRYPTED: _bindgen_ty_77 = 2;
+pub type _bindgen_ty_77 = ::std::os::raw::c_uint;
 extern "C" {
     pub fn AMediaExtractor_getFileFormat(arg1: *mut AMediaExtractor) -> *mut AMediaFormat;
 }
