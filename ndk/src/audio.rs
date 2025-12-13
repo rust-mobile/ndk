@@ -479,14 +479,15 @@ impl AudioError {
         ptr.to_string_lossy()
     }
 
-    /// Returns [`Ok`] on [`ffi::AAUDIO_OK`], [`Err`] otherwise (including positive values).
+    /// Returns [`Ok`] on [`ffi::AAUDIO_OK`] or any positive value, for example, size, [`Err`] otherwise.
     ///
     /// Note that some known error codes (currently only for `AMediaCodec`) are positive.
     pub(crate) fn from_result(status: ffi::aaudio_result_t) -> Result<()> {
-        match status {
-            ffi::AAUDIO_OK => Ok(()),
-            x => Err(Self::from(x)),
+        if status >= ffi::AAUDIO_OK {
+            return Ok(())
         }
+
+        Err(Self::from(status))
     }
 }
 
