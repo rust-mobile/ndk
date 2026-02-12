@@ -9,7 +9,7 @@ use std::{
     mem::MaybeUninit,
     ops::Deref,
     os::{
-        fd::{AsRawFd, BorrowedFd, FromRawFd, IntoRawFd, OwnedFd},
+        fd::{AsRawFd as _, BorrowedFd, FromRawFd as _, IntoRawFd, OwnedFd},
         raw::c_void,
     },
     ptr::NonNull,

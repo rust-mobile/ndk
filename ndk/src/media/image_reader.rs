@@ -5,7 +5,7 @@
 #![cfg(feature = "api-level-24")]
 
 #[cfg(feature = "api-level-26")]
-use std::os::fd::{FromRawFd, IntoRawFd, OwnedFd};
+use std::os::fd::{FromRawFd as _, IntoRawFd as _, OwnedFd};
 use std::{ffi::c_void, fmt, mem::MaybeUninit, ptr::NonNull};
 
 use num_enum::{FromPrimitive, IntoPrimitive};

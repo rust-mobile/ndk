@@ -7,7 +7,7 @@ use std::{
     ffi::CStr,
     fmt::Debug,
     // TODO: Import from std::os::fd::{} since Rust 1.66
-    os::unix::io::{AsRawFd, BorrowedFd, FromRawFd, OwnedFd},
+    os::unix::io::{AsRawFd as _, BorrowedFd, FromRawFd as _, OwnedFd},
     ptr::NonNull,
 };
 

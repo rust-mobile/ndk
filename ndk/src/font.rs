@@ -9,7 +9,7 @@
 use std::convert::TryFrom;
 use std::ffi::{CStr, OsStr};
 use std::fmt::{self, Write as _};
-use std::os::unix::prelude::OsStrExt;
+use std::os::unix::prelude::OsStrExt as _;
 use std::path::Path;
 use std::ptr::NonNull;
 
