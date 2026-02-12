@@ -109,6 +109,7 @@ impl Configuration {
     }
 
     /// Create a new `Configuration`, with none of the values set.
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         unsafe {
             Self {

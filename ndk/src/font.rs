@@ -431,6 +431,7 @@ impl FontMatcher {
 
     /// Creates a new [`FontMatcher`] object. [`FontMatcher`] selects the best font from the
     /// parameters set by the user.
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         let ptr = NonNull::new(unsafe { ffi::AFontMatcher_create() })
             .expect("AFontMatcher_create returned NULL");
