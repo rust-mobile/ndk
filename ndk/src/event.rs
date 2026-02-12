@@ -15,6 +15,8 @@ use std::ptr::NonNull;
 #[cfg(feature = "api-level-31")]
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{FromPrimitive, IntoPrimitive};
+#[cfg(feature = "api-level-31")]
+use std::ops::Deref;
 
 /// A native [`AInputEvent *`]
 ///
@@ -33,7 +35,7 @@ pub enum InputEvent {
 pub struct MotionEventJava(MotionEvent);
 
 #[cfg(feature = "api-level-31")]
-impl std::ops::Deref for MotionEventJava {
+impl Deref for MotionEventJava {
     type Target = MotionEvent;
 
     fn deref(&self) -> &Self::Target {
@@ -58,7 +60,7 @@ impl Drop for MotionEventJava {
 pub struct KeyEventJava(KeyEvent);
 
 #[cfg(feature = "api-level-31")]
-impl std::ops::Deref for KeyEventJava {
+impl Deref for KeyEventJava {
     type Target = KeyEvent;
 
     fn deref(&self) -> &Self::Target {
