@@ -475,7 +475,7 @@ pub enum DataSpaceStandard {
 /// Transfer aspect.
 ///
 /// Transfer characteristics are the opto-electronic transfer characteristic at the source as a
-///function of linear optical intensity (luminance).
+/// function of linear optical intensity (luminance).
 ///
 /// For digital signals, `E` corresponds to the recorded value. Normally, the transfer function is
 /// applied in `RGB` space to each of the `R`, `G` and `B` components independently. This may result
