@@ -184,13 +184,13 @@ bitflags::bitflags! {
 impl HardwareBufferUsage {
     /// Helper to read [`HardwareBufferUsage::CPU_READ_MASK`] values.
     #[doc(alias = "AHARDWAREBUFFER_USAGE_CPU_READ_MASK")]
-    pub fn cpu_read(self) -> HardwareBufferUsage {
+    pub fn cpu_read(self) -> Self {
         self.intersection(Self::CPU_READ_MASK)
     }
 
     /// Helper to read [`HardwareBufferUsage::CPU_WRITE_MASK`] values.
     #[doc(alias = "AHARDWAREBUFFER_USAGE_CPU_WRITE_MASK")]
-    pub fn cpu_write(self) -> HardwareBufferUsage {
+    pub fn cpu_write(self) -> Self {
         self.intersection(Self::CPU_WRITE_MASK)
     }
 }

@@ -77,9 +77,9 @@ pub enum AcquireResult<T> {
 impl<T> AcquireResult<T> {
     fn map<U>(self, f: impl FnOnce(T) -> U) -> AcquireResult<U> {
         match self {
-            AcquireResult::Image(img) => AcquireResult::Image(f(img)),
-            AcquireResult::NoBufferAvailable => AcquireResult::NoBufferAvailable,
-            AcquireResult::MaxImagesAcquired => AcquireResult::MaxImagesAcquired,
+            Self::Image(img) => AcquireResult::Image(f(img)),
+            Self::NoBufferAvailable => AcquireResult::NoBufferAvailable,
+            Self::MaxImagesAcquired => AcquireResult::MaxImagesAcquired,
         }
     }
 }
