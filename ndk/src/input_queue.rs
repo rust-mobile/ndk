@@ -115,7 +115,7 @@ impl InputQueue {
     #[doc(alias = "AInputQueue_finishEvent")]
     pub fn finish_event(&self, event: InputEvent, handled: bool) {
         unsafe {
-            ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int)
+            ffi::AInputQueue_finishEvent(self.ptr.as_ptr(), event.ptr().as_ptr(), handled as c_int);
         }
     }
 
@@ -131,7 +131,7 @@ impl InputQueue {
                 id,
                 None,
                 ptr::null_mut(),
-            )
+            );
         }
     }
 

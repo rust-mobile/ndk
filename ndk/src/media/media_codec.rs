@@ -170,7 +170,7 @@ impl MediaCodec {
                 if let Some(f) = callback.on_input_available.as_mut() {
                     f(index as usize);
                 }
-            })
+            });
         }
 
         unsafe extern "C" fn ffi_on_output_available(
@@ -187,7 +187,7 @@ impl MediaCodec {
                     };
                     f(index as usize, &buffer_info);
                 }
-            })
+            });
         }
 
         unsafe extern "C" fn ffi_on_format_changed(
@@ -205,7 +205,7 @@ impl MediaCodec {
                 if let Some(f) = callback.on_format_changed.as_mut() {
                     f(&format);
                 }
-            })
+            });
         }
 
         unsafe extern "C" fn ffi_on_error(
@@ -224,7 +224,7 @@ impl MediaCodec {
                         CStr::from_ptr(detail),
                     );
                 }
-            })
+            });
         }
 
         let (callback, ffi_callback, user_data) = if let Some(callback) = callback {

@@ -573,7 +573,7 @@ impl AudioStreamBuilder {
     #[doc(alias = "AAudioStreamBuilder_setAllowedCapturePolicy")]
     pub fn allowed_capture_policy(self, capture_policy: AudioAllowedCapturePolicy) -> Self {
         unsafe {
-            ffi::AAudioStreamBuilder_setAllowedCapturePolicy(self.as_ptr(), capture_policy.into())
+            ffi::AAudioStreamBuilder_setAllowedCapturePolicy(self.as_ptr(), capture_policy.into());
         };
         self
     }
@@ -692,7 +692,7 @@ impl AudioStreamBuilder {
                 self.as_ptr(),
                 Some(ffi_callback),
                 ptr as *mut c_void,
-            )
+            );
         };
 
         self.data_callback = Some(boxed);
@@ -763,7 +763,7 @@ impl AudioStreamBuilder {
                 let err = AudioError::from_result(error).unwrap_err();
                 (*callback)(&stream, err);
                 std::mem::forget(stream);
-            })
+            });
         }
 
         unsafe {
@@ -771,7 +771,7 @@ impl AudioStreamBuilder {
                 self.as_ptr(),
                 Some(ffi_callback),
                 ptr as *mut c_void,
-            )
+            );
         };
 
         self.error_callback = Some(boxed);

@@ -225,7 +225,7 @@ impl ImageReader {
                 let listener: *mut ImageListener = context.cast();
                 (*listener)(&reader);
                 std::mem::forget(reader);
-            })
+            });
         }
 
         let mut listener = ffi::AImageReader_ImageListener {
@@ -257,7 +257,7 @@ impl ImageReader {
                 let listener: *mut BufferRemovedListener = context.cast();
                 (*listener)(&reader, &buffer);
                 std::mem::forget(reader);
-            })
+            });
         }
 
         let mut listener = ffi::AImageReader_BufferRemovedListener {

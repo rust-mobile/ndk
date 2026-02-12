@@ -259,7 +259,7 @@ impl WorkDuration {
                     .as_nanos()
                     .try_into()
                     .expect("Supplied timestamp is too large"),
-            )
+            );
         }
     }
 
@@ -276,7 +276,7 @@ impl WorkDuration {
                     .as_nanos()
                     .try_into()
                     .expect("Supplied duration is too large"),
-            )
+            );
         }
     }
 
@@ -293,7 +293,7 @@ impl WorkDuration {
                     .as_nanos()
                     .try_into()
                     .expect("Supplied duration is too large"),
-            )
+            );
         }
     }
 
@@ -310,7 +310,7 @@ impl WorkDuration {
                     .as_nanos()
                     .try_into()
                     .expect("Supplied duration is too large"),
-            )
+            );
         }
     }
 }

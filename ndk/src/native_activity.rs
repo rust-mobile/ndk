@@ -235,7 +235,7 @@ impl NativeActivity {
                 self.ptr.as_ptr(),
                 add_flags.bits(),
                 remove_flags.bits(),
-            )
+            );
         }
     }
 }
