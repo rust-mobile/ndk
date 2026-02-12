@@ -315,7 +315,10 @@ impl MediaCodec {
         }
     }
 
-    pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<DequeuedInputBufferResult<'_>> {
+    pub fn dequeue_input_buffer(
+        &mut self,
+        timeout: Duration,
+    ) -> Result<DequeuedInputBufferResult<'_>> {
         let result = unsafe {
             ffi::AMediaCodec_dequeueInputBuffer(
                 self.as_ptr(),
@@ -377,7 +380,7 @@ impl MediaCodec {
         MediaError::from_status(status)
     }
 
-    pub fn input_buffer(&self, index: usize) -> Option<&mut [MaybeUninit<u8>]> {
+    pub fn input_buffer(&mut self, index: usize) -> Option<&mut [MaybeUninit<u8>]> {
         unsafe {
             let mut out_size = 0;
             let buffer_ptr = ffi::AMediaCodec_getInputBuffer(self.as_ptr(), index, &mut out_size);
@@ -533,7 +536,7 @@ impl Drop for MediaCodec {
 
 #[derive(Debug)]
 pub struct InputBuffer<'a> {
-    codec: &'a MediaCodec,
+    codec: &'a mut MediaCodec,
     index: usize,
 }
 
