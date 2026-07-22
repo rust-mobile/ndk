@@ -415,6 +415,15 @@ pub struct FontMatcher {
     ptr: NonNull<ffi::AFontMatcher>,
 }
 
+impl Default for FontMatcher {
+    /// Creates a new [`FontMatcher`] object. [`FontMatcher`] selects the best font from the
+    /// parameters set by the user.
+    #[doc(alias = "AFontMatcher_create")]
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl FontMatcher {
     /// Assumes ownership of `ptr`.
     ///
@@ -431,6 +440,7 @@ impl FontMatcher {
 
     /// Creates a new [`FontMatcher`] object. [`FontMatcher`] selects the best font from the
     /// parameters set by the user.
+    #[doc(alias = "AFontMatcher_create")]
     pub fn new() -> Self {
         let ptr = NonNull::new(unsafe { ffi::AFontMatcher_create() })
             .expect("AFontMatcher_create returned NULL");
