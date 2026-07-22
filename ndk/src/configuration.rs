@@ -26,6 +26,14 @@ pub struct Configuration {
 unsafe impl Send for Configuration {}
 unsafe impl Sync for Configuration {}
 
+impl Default for Configuration {
+    /// Create a new `Configuration`, with none of the values set.
+    #[doc(alias = "AConfiguration_new")]
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Drop for Configuration {
     fn drop(&mut self) {
         unsafe { ffi::AConfiguration_delete(self.ptr.as_ptr()) }
@@ -109,6 +117,7 @@ impl Configuration {
     }
 
     /// Create a new `Configuration`, with none of the values set.
+    #[doc(alias = "AConfiguration_new")]
     pub fn new() -> Self {
         unsafe {
             Self {
