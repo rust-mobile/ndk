@@ -10,7 +10,7 @@
 //! [`android.view.MotionEvent`]: https://developer.android.com/reference/android/view/MotionEvent
 //! [`android.view.KeyEvent`]: https://developer.android.com/reference/android/view/KeyEvent
 
-use std::{ops::Deref, ptr::NonNull};
+use std::ptr::NonNull;
 
 #[cfg(feature = "api-level-31")]
 use jni_sys::{jobject, JNIEnv};
@@ -33,7 +33,7 @@ pub enum InputEvent {
 pub struct MotionEventJava(MotionEvent);
 
 #[cfg(feature = "api-level-31")]
-impl Deref for MotionEventJava {
+impl std::ops::Deref for MotionEventJava {
     type Target = MotionEvent;
 
     fn deref(&self) -> &Self::Target {
@@ -58,7 +58,7 @@ impl Drop for MotionEventJava {
 pub struct KeyEventJava(KeyEvent);
 
 #[cfg(feature = "api-level-31")]
-impl Deref for KeyEventJava {
+impl std::ops::Deref for KeyEventJava {
     type Target = KeyEvent;
 
     fn deref(&self) -> &Self::Target {
