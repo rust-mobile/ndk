@@ -68,7 +68,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        rust-channel: [stable, nightly]
         rust-target:
           - armv7-linux-androideabi
           - aarch64-linux-android
@@ -76,10 +75,8 @@ jobs:
           - x86_64-linux-android
         include:
           - os: windows-latest
-            rust-channel: stable
             rust-target: aarch64-linux-android
           - os: windows-latest
-            rust-channel: stable
             rust-target: x86_64-linux-android
 
     runs-on: ${{ matrix.os }}
@@ -88,11 +85,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Installing Rust ${{ matrix.rust-channel }} w/ ${{ matrix.rust-target }}
-        uses: dtolnay/rust-toolchain@master
-        with:
-          target: ${{ matrix.rust-target }}
-          toolchain: ${{ matrix.rust-channel }}
+      - name: Install rust toolchain ${{ matrix.rust-target }}
+        run: rustup toolchain install ${{ matrix.rust-target }}
 
       - name: Compile for ${{ matrix.rust-target }}
         run: cargo build --target ${{ matrix.rust-target }}
@@ -122,22 +116,11 @@ jobs:
         run: cargo test -p ndk --all-features
 
   docs:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        rust-channel: [stable, nightly]
-
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     name: Build-test docs
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Installing Rust ${{ matrix.rust-channel }}
-        uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ matrix.rust-channel }}
 
       - name: Document all crates
         env:
