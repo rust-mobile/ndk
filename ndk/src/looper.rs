@@ -11,7 +11,7 @@
 
 use std::mem::ManuallyDrop;
 use std::os::{
-    fd::{AsRawFd, BorrowedFd, RawFd},
+    fd::{AsRawFd as _, BorrowedFd, RawFd},
     raw::c_void,
 };
 use std::ptr;

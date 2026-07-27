@@ -15,6 +15,8 @@ use std::ptr::NonNull;
 #[cfg(feature = "api-level-31")]
 use jni_sys::{jobject, JNIEnv};
 use num_enum::{FromPrimitive, IntoPrimitive};
+#[cfg(feature = "api-level-31")]
+use std::ops::Deref;
 
 /// A native [`AInputEvent *`]
 ///
@@ -33,7 +35,7 @@ pub enum InputEvent {
 pub struct MotionEventJava(MotionEvent);
 
 #[cfg(feature = "api-level-31")]
-impl std::ops::Deref for MotionEventJava {
+impl Deref for MotionEventJava {
     type Target = MotionEvent;
 
     fn deref(&self) -> &Self::Target {
@@ -58,7 +60,7 @@ impl Drop for MotionEventJava {
 pub struct KeyEventJava(KeyEvent);
 
 #[cfg(feature = "api-level-31")]
-impl std::ops::Deref for KeyEventJava {
+impl Deref for KeyEventJava {
     type Target = KeyEvent;
 
     fn deref(&self) -> &Self::Target {
@@ -161,8 +163,8 @@ impl InputEvent {
     #[doc(alias = "AInputEvent_getType")]
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AInputEvent>) -> Self {
         match ffi::AInputEvent_getType(ptr.as_ptr()) as u32 {
-            ffi::AINPUT_EVENT_TYPE_KEY => InputEvent::KeyEvent(KeyEvent::from_ptr(ptr)),
-            ffi::AINPUT_EVENT_TYPE_MOTION => InputEvent::MotionEvent(MotionEvent::from_ptr(ptr)),
+            ffi::AINPUT_EVENT_TYPE_KEY => Self::KeyEvent(KeyEvent::from_ptr(ptr)),
+            ffi::AINPUT_EVENT_TYPE_MOTION => Self::MotionEvent(MotionEvent::from_ptr(ptr)),
             x => panic!("Bad event type received: {}", x),
         }
     }
@@ -171,8 +173,8 @@ impl InputEvent {
     #[inline]
     pub fn ptr(&self) -> NonNull<ffi::AInputEvent> {
         match self {
-            InputEvent::MotionEvent(MotionEvent { ptr }) => *ptr,
-            InputEvent::KeyEvent(KeyEvent { ptr }) => *ptr,
+            Self::MotionEvent(MotionEvent { ptr }) => *ptr,
+            Self::KeyEvent(KeyEvent { ptr }) => *ptr,
         }
     }
 

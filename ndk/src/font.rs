@@ -9,7 +9,7 @@
 use std::convert::TryFrom;
 use std::ffi::{CStr, OsStr};
 use std::fmt::{self, Write as _};
-use std::os::unix::prelude::OsStrExt;
+use std::os::unix::prelude::OsStrExt as _;
 use std::path::Path;
 use std::ptr::NonNull;
 
@@ -37,51 +37,51 @@ impl FontWeight {
     /// The minimum value for the font weight value. Unlike [`ffi::AFONT_WEIGHT_MIN`] being `0`,
     /// [`FontWeight::MIN`] is `1` to make the `MIN..MAX` range be inclusive, keeping consistency
     /// between [`FontWeight`] and other types like `std::num::NonZeroU*`.
-    pub const MIN: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MIN as u16 + 1);
+    pub const MIN: Self = Self(ffi::AFONT_WEIGHT_MIN as u16 + 1);
 
     /// A font weight value for the thin weight.
-    pub const THIN: FontWeight = FontWeight(ffi::AFONT_WEIGHT_THIN as u16);
+    pub const THIN: Self = Self(ffi::AFONT_WEIGHT_THIN as u16);
 
     /// A font weight value for the extra-light weight.
-    pub const EXTRA_LIGHT: FontWeight = FontWeight(ffi::AFONT_WEIGHT_EXTRA_LIGHT as u16);
+    pub const EXTRA_LIGHT: Self = Self(ffi::AFONT_WEIGHT_EXTRA_LIGHT as u16);
 
     /// A font weight value for the light weight.
-    pub const LIGHT: FontWeight = FontWeight(ffi::AFONT_WEIGHT_LIGHT as u16);
+    pub const LIGHT: Self = Self(ffi::AFONT_WEIGHT_LIGHT as u16);
 
     /// A font weight value for the normal weight.
-    pub const NORMAL: FontWeight = FontWeight(ffi::AFONT_WEIGHT_NORMAL as u16);
+    pub const NORMAL: Self = Self(ffi::AFONT_WEIGHT_NORMAL as u16);
 
     /// A font weight value for the medium weight.
-    pub const MEDIUM: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MEDIUM as u16);
+    pub const MEDIUM: Self = Self(ffi::AFONT_WEIGHT_MEDIUM as u16);
 
     /// A font weight value for the semi-bold weight.
-    pub const SEMI_BOLD: FontWeight = FontWeight(ffi::AFONT_WEIGHT_SEMI_BOLD as u16);
+    pub const SEMI_BOLD: Self = Self(ffi::AFONT_WEIGHT_SEMI_BOLD as u16);
 
     /// A font weight value for the bold weight.
-    pub const BOLD: FontWeight = FontWeight(ffi::AFONT_WEIGHT_BOLD as u16);
+    pub const BOLD: Self = Self(ffi::AFONT_WEIGHT_BOLD as u16);
 
     /// A font weight value for the extra-bold weight.
-    pub const EXTRA_BOLD: FontWeight = FontWeight(ffi::AFONT_WEIGHT_EXTRA_BOLD as u16);
+    pub const EXTRA_BOLD: Self = Self(ffi::AFONT_WEIGHT_EXTRA_BOLD as u16);
 
     /// A font weight value for the black weight.
-    pub const BLACK: FontWeight = FontWeight(ffi::AFONT_WEIGHT_BLACK as u16);
+    pub const BLACK: Self = Self(ffi::AFONT_WEIGHT_BLACK as u16);
 
     /// The maximum value for the font weight value.
-    pub const MAX: FontWeight = FontWeight(ffi::AFONT_WEIGHT_MAX as u16);
+    pub const MAX: Self = Self(ffi::AFONT_WEIGHT_MAX as u16);
 }
 
 impl fmt::Display for FontWeight {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(match *self {
-            FontWeight::THIN => "Thin",
-            FontWeight::EXTRA_LIGHT => "Extra Light (Ultra Light)",
-            FontWeight::LIGHT => "Light",
-            FontWeight::NORMAL => "Normal (Regular)",
-            FontWeight::MEDIUM => "Medium",
-            FontWeight::SEMI_BOLD => "Semi Bold (Demi Bold)",
-            FontWeight::BOLD => "Bold",
-            FontWeight::EXTRA_BOLD => "Extra Bold (Ultra Bold)",
-            FontWeight::BLACK => "Black (Heavy)",
+            Self::THIN => "Thin",
+            Self::EXTRA_LIGHT => "Extra Light (Ultra Light)",
+            Self::LIGHT => "Light",
+            Self::NORMAL => "Normal (Regular)",
+            Self::MEDIUM => "Medium",
+            Self::SEMI_BOLD => "Semi Bold (Demi Bold)",
+            Self::BOLD => "Bold",
+            Self::EXTRA_BOLD => "Extra Bold (Ultra Bold)",
+            Self::BLACK => "Black (Heavy)",
             _ => return writeln!(f, "{}", self.0),
         })
     }
@@ -103,7 +103,7 @@ impl TryFrom<u16> for FontWeight {
     type Error = FontWeightValueError;
 
     fn try_from(value: u16) -> Result<Self, Self::Error> {
-        FontWeight::new(value)
+        Self::new(value)
     }
 }
 
@@ -431,10 +431,11 @@ impl FontMatcher {
 
     /// Creates a new [`FontMatcher`] object. [`FontMatcher`] selects the best font from the
     /// parameters set by the user.
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         let ptr = NonNull::new(unsafe { ffi::AFontMatcher_create() })
             .expect("AFontMatcher_create returned NULL");
-        unsafe { FontMatcher::from_ptr(ptr) }
+        unsafe { Self::from_ptr(ptr) }
     }
 
     /// Performs the matching from the generic font family for the text and select one font.
@@ -532,7 +533,7 @@ impl SystemFontIterator {
     /// Creates a system font iterator.
     pub fn new() -> Option<Self> {
         NonNull::new(unsafe { ffi::ASystemFontIterator_open() })
-            .map(|p| unsafe { SystemFontIterator::from_ptr(p) })
+            .map(|p| unsafe { Self::from_ptr(p) })
     }
 }
 

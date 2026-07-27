@@ -51,7 +51,7 @@ impl SurfaceTexture {
     pub unsafe fn from_surface_texture(env: *mut JNIEnv, surface_texture: jobject) -> Option<Self> {
         let a_surface_texture_ptr = ffi::ASurfaceTexture_fromSurfaceTexture(env, surface_texture);
         let s = NonNull::new(a_surface_texture_ptr)?;
-        Some(SurfaceTexture::from_ptr(s))
+        Some(Self::from_ptr(s))
     }
 
     /// Returns a pointer to the native [`ffi::ASurfaceTexture`].

@@ -5,7 +5,7 @@
 use super::hardware_buffer_format::HardwareBufferFormat;
 use std::{
     ffi::{CStr, OsStr},
-    os::{raw::c_void, unix::prelude::OsStrExt},
+    os::{raw::c_void, unix::prelude::OsStrExt as _},
     path::Path,
     ptr::NonNull,
 };
@@ -235,7 +235,7 @@ impl NativeActivity {
                 self.ptr.as_ptr(),
                 add_flags.bits(),
                 remove_flags.bits(),
-            )
+            );
         }
     }
 }

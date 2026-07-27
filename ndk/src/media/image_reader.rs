@@ -5,7 +5,7 @@
 #![cfg(feature = "api-level-24")]
 
 #[cfg(feature = "api-level-26")]
-use std::os::fd::{FromRawFd, IntoRawFd, OwnedFd};
+use std::os::fd::{FromRawFd as _, IntoRawFd as _, OwnedFd};
 use std::{ffi::c_void, fmt, mem::MaybeUninit, ptr::NonNull};
 
 use num_enum::{FromPrimitive, IntoPrimitive};
@@ -77,9 +77,9 @@ pub enum AcquireResult<T> {
 impl<T> AcquireResult<T> {
     fn map<U>(self, f: impl FnOnce(T) -> U) -> AcquireResult<U> {
         match self {
-            AcquireResult::Image(img) => AcquireResult::Image(f(img)),
-            AcquireResult::NoBufferAvailable => AcquireResult::NoBufferAvailable,
-            AcquireResult::MaxImagesAcquired => AcquireResult::MaxImagesAcquired,
+            Self::Image(img) => AcquireResult::Image(f(img)),
+            Self::NoBufferAvailable => AcquireResult::NoBufferAvailable,
+            Self::MaxImagesAcquired => AcquireResult::MaxImagesAcquired,
         }
     }
 }
@@ -225,7 +225,7 @@ impl ImageReader {
                 let listener: *mut ImageListener = context.cast();
                 (*listener)(&reader);
                 std::mem::forget(reader);
-            })
+            });
         }
 
         let mut listener = ffi::AImageReader_ImageListener {
@@ -257,7 +257,7 @@ impl ImageReader {
                 let listener: *mut BufferRemovedListener = context.cast();
                 (*listener)(&reader, &buffer);
                 std::mem::forget(reader);
-            })
+            });
         }
 
         let mut listener = ffi::AImageReader_BufferRemovedListener {

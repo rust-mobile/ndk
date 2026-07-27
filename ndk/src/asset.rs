@@ -7,7 +7,7 @@
 use std::{
     ffi::{CStr, CString},
     io,
-    os::fd::{FromRawFd, OwnedFd},
+    os::fd::{FromRawFd as _, OwnedFd},
     ptr::NonNull,
 };
 

@@ -170,7 +170,7 @@ impl MediaCodec {
                 if let Some(f) = callback.on_input_available.as_mut() {
                     f(index as usize);
                 }
-            })
+            });
         }
 
         unsafe extern "C" fn ffi_on_output_available(
@@ -187,7 +187,7 @@ impl MediaCodec {
                     };
                     f(index as usize, &buffer_info);
                 }
-            })
+            });
         }
 
         unsafe extern "C" fn ffi_on_format_changed(
@@ -205,7 +205,7 @@ impl MediaCodec {
                 if let Some(f) = callback.on_format_changed.as_mut() {
                     f(&format);
                 }
-            })
+            });
         }
 
         unsafe extern "C" fn ffi_on_error(
@@ -224,7 +224,7 @@ impl MediaCodec {
                         CStr::from_ptr(detail),
                     );
                 }
-            })
+            });
         }
 
         let (callback, ffi_callback, user_data) = if let Some(callback) = callback {
@@ -315,7 +315,10 @@ impl MediaCodec {
         }
     }
 
-    pub fn dequeue_input_buffer(&self, timeout: Duration) -> Result<DequeuedInputBufferResult<'_>> {
+    pub fn dequeue_input_buffer(
+        &mut self,
+        timeout: Duration,
+    ) -> Result<DequeuedInputBufferResult<'_>> {
         let result = unsafe {
             ffi::AMediaCodec_dequeueInputBuffer(
                 self.as_ptr(),
@@ -377,7 +380,7 @@ impl MediaCodec {
         MediaError::from_status(status)
     }
 
-    pub fn input_buffer(&self, index: usize) -> Option<&mut [MaybeUninit<u8>]> {
+    pub fn input_buffer(&mut self, index: usize) -> Option<&mut [MaybeUninit<u8>]> {
         unsafe {
             let mut out_size = 0;
             let buffer_ptr = ffi::AMediaCodec_getInputBuffer(self.as_ptr(), index, &mut out_size);
@@ -533,7 +536,7 @@ impl Drop for MediaCodec {
 
 #[derive(Debug)]
 pub struct InputBuffer<'a> {
-    codec: &'a MediaCodec,
+    codec: &'a mut MediaCodec,
     index: usize,
 }
 
