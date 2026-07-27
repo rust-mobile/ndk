@@ -11,6 +11,8 @@ use std::{
     ptr::NonNull,
 };
 
+use jni_sys::{jobject, JNIEnv};
+
 /// A native [`AAssetManager *`]
 ///
 /// [`AAssetManager *`]: https://developer.android.com/ndk/reference/group/asset#aassetmanager
@@ -33,6 +35,22 @@ impl AssetManager {
     /// `AAssetManager`.
     pub unsafe fn from_ptr(ptr: NonNull<ffi::AAssetManager>) -> Self {
         Self { ptr }
+    }
+
+    /// Create an [`AssetManager`] from a Java [`android.content.res.AssetManager`] object.
+    ///
+    /// The Java object must be kept alive for the lifetime of the returned [`AssetManager`].
+    ///
+    /// # Safety
+    /// `env` must be a valid [`JNIEnv`] pointer for the current thread, and `asset_manager` must
+    /// be a valid reference to a Java `android.content.res.AssetManager` that has not been
+    /// garbage collected.
+    ///
+    /// [`android.content.res.AssetManager`]: https://developer.android.com/reference/android/content/res/AssetManager
+    #[doc(alias = "AAssetManager_fromJava")]
+    pub unsafe fn from_java(env: *mut JNIEnv, asset_manager: jobject) -> Option<Self> {
+        let ptr = unsafe { ffi::AAssetManager_fromJava(env, asset_manager) };
+        Some(Self::from_ptr(NonNull::new(ptr)?))
     }
 
     /// Returns the pointer to the native `AAssetManager`.
