@@ -236,6 +236,18 @@ pub enum DataSpace {
     __Unknown(i32),
 }
 
+impl From<DataSpace> for ffi::ADataSpace {
+    fn from(val: DataSpace) -> Self {
+        Self(val.into())
+    }
+}
+
+impl From<ffi::ADataSpace> for DataSpace {
+    fn from(val: ffi::ADataSpace) -> Self {
+        Self::from(val.0)
+    }
+}
+
 impl fmt::Display for DataSpace {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(match self {
@@ -425,7 +437,7 @@ pub enum DataSpaceStandard {
     /// Use the unadjusted `KR = 0.2627`, `KB = 0.0593` luminance interpretation for `RGB`
     /// conversion using the linear domain.
     #[doc(alias = "STANDARD_BT2020_CONSTANT_LUMINANCE")]
-    Bt2020ConstantLuminance = ffi::ADataSpace::STANDARD_BT2020_CONSTANT_LUMINANCE.0,
+    Bt2020ConstantLuminance = ffi::ADataSpace::ADATASPACE_STANDARD_BT2020_CONSTANT_LUMINANCE.0,
     /// | Primaries | x     | y    |
     /// | --------- | ----- | ---- |
     /// | green     | 0.21  |0.71  |

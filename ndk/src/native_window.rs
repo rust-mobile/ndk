@@ -165,6 +165,18 @@ impl NativeWindow {
         }
     }
 
+    /// Get the default dataspace of the buffers in this [`NativeWindow`] as set by the consumer.
+    #[cfg(all(feature = "nativewindow", feature = "api-level-34"))]
+    #[doc(alias = "ANativeWindow_getBuffersDefaultDataSpace")]
+    pub fn buffers_default_data_space(&self) -> io::Result<DataSpace> {
+        let status = unsafe { ffi::ANativeWindow_getBuffersDefaultDataSpace(self.ptr.as_ptr()) };
+        if status >= 0 {
+            Ok(status.into())
+        } else {
+            Err(status_to_io_result(status).unwrap_err())
+        }
+    }
+
     /// Sets the intended frame rate for this window.
     ///
     /// Same as [`set_frame_rate_with_change_strategy(window, frame_rate, compatibility, ChangeFrameRateStrategy::OnlyIfSeamless)`][`NativeWindow::set_frame_rate_with_change_strategy()`].
@@ -192,7 +204,7 @@ impl NativeWindow {
     /// may choose a display refresh rate to better match this window's frame rate. Usage of this
     /// API won't introduce frame rate throttling, or affect other aspects of the application's
     /// frame production pipeline. However, because the system may change the display refresh rate,
-    /// calls to this function may result in changes to Choreographer callback timings, and changes
+    /// calls to this function may result in changes to `Choreographer` callback timings, and changes
     /// to the time interval at which the system releases buffers back to the application.
     ///
     /// Note that this only has an effect for windows presented on the display. If this
@@ -378,7 +390,7 @@ impl Drop for NativeWindowBufferLockGuard<'_> {
     }
 }
 
-#[cfg(all(feature = "nativewindow", feature = "api-level-26"))]
+#[cfg(feature = "api-level-26")]
 bitflags::bitflags! {
     /// Transforms that can be applied to buffers as they are displayed to a window.
     ///
@@ -414,7 +426,7 @@ bitflags::bitflags! {
     doc = " and [`NativeWindow::set_frame_rate_with_change_strategy()`]"
 )]
 /// .
-#[cfg(all(feature = "nativewindow", feature = "api-level-30"))]
+#[cfg(feature = "api-level-30")]
 #[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_FrameRateCompatibility")]
@@ -441,7 +453,7 @@ pub enum FrameRateCompatibility {
 }
 
 /// Change frame rate strategy value for [`NativeWindow::set_frame_rate_with_change_strategy()`].
-#[cfg(all(feature = "nativewindow", feature = "api-level-31"))]
+#[cfg(feature = "api-level-31")]
 #[repr(i8)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq)]
 #[doc(alias = "ANativeWindow_ChangeFrameRateStrategy")]
