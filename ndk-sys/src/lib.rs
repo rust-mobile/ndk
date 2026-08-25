@@ -59,3 +59,7 @@ extern "C" {}
 #[cfg(all(feature = "sync", target_os = "android"))]
 #[link(name = "sync")]
 extern "C" {}
+
+#[cfg(all(feature = "camera", target_os = "android"))]
+#[link(name = "camera2ndk")]
+extern "C" {}
