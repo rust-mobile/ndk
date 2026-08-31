@@ -61,7 +61,7 @@
 #include <android/surface_texture_jni.h>
 #include <android/sync.h>
 #include <android/system_fonts.h>
-// #include <android/thermal.h>
+#include <android/thermal.h>
 #include <android/trace.h>
 #include <android/versioning.h>
 #include <android/window.h>
