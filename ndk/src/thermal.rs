@@ -326,6 +326,6 @@ impl Drop for ThermalManager {
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[doc(alias = "AThermalHeadroomThreshold")]
 pub struct ThermalHeadroomThreshold {
-    headroom: f32,
-    thermal_status: ThermalStatus,
+    pub headroom: f32,
+    pub thermal_status: ThermalStatus,
 }
