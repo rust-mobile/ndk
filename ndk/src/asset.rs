@@ -292,14 +292,12 @@ impl io::Seek for Asset {
         unsafe {
             let res = match seek {
                 io::SeekFrom::Start(x) => {
-                    ffi::AAsset_seek64(self.ptr.as_ptr(), x as i64, ffi::SEEK_SET as i32)
+                    ffi::AAsset_seek64(self.ptr.as_ptr(), x as i64, libc::SEEK_SET)
                 }
                 io::SeekFrom::Current(x) => {
-                    ffi::AAsset_seek64(self.ptr.as_ptr(), x, ffi::SEEK_CUR as i32)
+                    ffi::AAsset_seek64(self.ptr.as_ptr(), x, libc::SEEK_CUR)
                 }
-                io::SeekFrom::End(x) => {
-                    ffi::AAsset_seek64(self.ptr.as_ptr(), x, ffi::SEEK_END as i32)
-                }
+                io::SeekFrom::End(x) => ffi::AAsset_seek64(self.ptr.as_ptr(), x, libc::SEEK_END),
             };
             if res < 0 {
                 Err(io::Error::new(

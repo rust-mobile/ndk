@@ -27,6 +27,7 @@ sysroot="$PWD/ndk/sysroot/"
 while read ARCH && read TARGET ; do
     bindgen wrapper.h -o src/ffi_$ARCH.rs \
         --rust-target 1.60 \
+        --allowlist-file '.*/include/(aaudio|amidi|android|camera|media)/.*' \
         --blocklist-item 'JNI\w+' \
         --blocklist-item 'C?_?JNIEnv' \
         --blocklist-item '_?JavaVM' \

@@ -4,6 +4,7 @@
 - Add bindings for Performance Hint manager (`APerformanceHintManager`, `APerformanceHintSession`, `AWorkDuration`). (#480)
 - **Breaking:** media_codec: Revert asynchronous notification callbacks due to breaking all `AMediaCodec` invariants.
 - Drop `thiserror` dependency in favour of hand-written `Display` and `Error` implementations.
+- Use `libc` for `CLOCK_*` and `SEEK_*` constants, which are no longer exported by `ndk-sys`.
 
 # 0.9.0 (2024-04-26)
 

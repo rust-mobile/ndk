@@ -376,9 +376,9 @@ pub struct Timestamp {
 #[non_exhaustive]
 pub enum Clockid {
     #[doc(alias = "CLOCK_MONOTONIC")]
-    Monotonic = ffi::CLOCK_MONOTONIC,
+    Monotonic = libc::CLOCK_MONOTONIC as u32,
     #[doc(alias = "CLOCK_BOOTTIME")]
-    Boottime = ffi::CLOCK_BOOTTIME,
+    Boottime = libc::CLOCK_BOOTTIME as u32,
 }
 
 /// Value returned the data callback function.

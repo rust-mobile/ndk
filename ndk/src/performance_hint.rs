@@ -99,7 +99,7 @@ impl PerformanceHintManager {
 /// the client is expected to call [`PerformanceHintSession::report_actual_work_duration()`] each
 /// cycle to report the actual time taken to complete to the system.
 ///
-/// All timings should be from [`ffi::CLOCK_MONOTONIC`].
+/// All timings should be from [`libc::CLOCK_MONOTONIC`].
 #[derive(Debug, PartialEq, Eq, Hash)]
 #[doc(alias = "APerformanceHintSession")]
 pub struct PerformanceHintSession {
@@ -248,7 +248,7 @@ impl WorkDuration {
     /// Sets the work period start timestamp in nanoseconds.
     ///
     /// `work_period_start_timestamp` is the work period start timestamp based on
-    /// [`ffi::CLOCK_MONOTONIC`] about when the work starts.  This timestamp must be greater than
+    /// [`libc::CLOCK_MONOTONIC`] about when the work starts.  This timestamp must be greater than
     /// [`Duration::ZERO`].
     #[doc(alias = "AWorkDuration_setWorkPeriodStartTimestampNanos")]
     pub fn set_work_period_start_timestamp(&self, work_period_start_timestamp: Duration) {
