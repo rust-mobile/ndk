@@ -1,4 +1,4 @@
-[![ci](https://github.com/rust-mobile/ndk/actions/workflows/rust.yml/badge.svg)](https://github.com/rust-mobile/ndk/actions/workflows/rust.yml) ![MIT license](https://img.shields.io/badge/License-MIT-green.svg) ![APACHE2 license](https://img.shields.io/badge/License-APACHE2-green.svg)
+[![CI](https://github.com/rust-mobile/ndk/actions/workflows/rust.yml/badge.svg?branch=master&event=push)](https://github.com/rust-mobile/ndk/actions/workflows/rust.yml) ![MIT license](https://img.shields.io/badge/License-MIT-green.svg) ![APACHE2 license](https://img.shields.io/badge/License-APACHE2-green.svg)
 
 Rust bindings to the [Android NDK](https://developer.android.com/ndk)
 
