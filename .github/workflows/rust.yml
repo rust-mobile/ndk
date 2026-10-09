@@ -30,6 +30,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Generate lockfile with minimal dependency versions
+        run: cargo +nightly generate-lockfile -Zminimal-versions
+
       - uses: dtolnay/rust-toolchain@1.60.0
         with:
           target: aarch64-linux-android
