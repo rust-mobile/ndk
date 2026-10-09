@@ -245,6 +245,33 @@ impl NativeWindow {
         unsafe { ffi::ANativeWindow_tryAllocateBuffers(self.ptr.as_ptr()) }
     }
 
+    /// Sets whether the producer is throttled when queueing a buffer.
+    ///
+    /// When throttling is enabled (the default), `eglSwapBuffers()` or `vkQueuePresentKHR()`
+    /// stall the CPU until the GPU is done processing the previous frame. It is recommended to
+    /// disable throttling and perform proper synchronization in Vulkan instead.
+    ///
+    /// This has no effect in asynchronous mode, where throttling is always enabled.
+    #[cfg(all(feature = "nativewindow", feature = "api-level-37"))]
+    #[doc(alias = "ANativeWindow_setProducerThrottlingEnabled")]
+    pub fn set_producer_throttling_enabled(&self, enabled: bool) -> io::Result<()> {
+        let status =
+            unsafe { ffi::ANativeWindow_setProducerThrottlingEnabled(self.ptr.as_ptr(), enabled) };
+        status_to_io_result(status)
+    }
+
+    /// Returns whether the producer is throttled when queueing a buffer, see
+    /// [`NativeWindow::set_producer_throttling_enabled()`].
+    #[cfg(all(feature = "nativewindow", feature = "api-level-37"))]
+    #[doc(alias = "ANativeWindow_isProducerThrottlingEnabled")]
+    pub fn producer_throttling_enabled(&self) -> io::Result<bool> {
+        let mut enabled = false;
+        let status = unsafe {
+            ffi::ANativeWindow_isProducerThrottlingEnabled(self.ptr.as_ptr(), &mut enabled)
+        };
+        status_to_io_result(status).map(|()| enabled)
+    }
+
     /// Return the [`NativeWindow`] associated with a JNI [`android.view.Surface`] pointer.
     ///
     /// # Safety

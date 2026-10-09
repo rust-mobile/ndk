@@ -76,6 +76,42 @@ pub enum HardwareBufferFormat {
     #[doc(alias = "AHARDWAREBUFFER_FORMAT_R10G10B10A10_UNORM")]
     R10G10B10A10_UNORM =
         ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R10G10B10A10_UNORM.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_R12X4_UINT`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R12_UINT")]
+    R12_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R12_UINT.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_R14X2_UINT`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R14_UINT")]
+    R14_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R14_UINT.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_R12X4G12X4_UINT`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R12G12_UINT")]
+    R12G12_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R12G12_UINT.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_R14X2G14X2_UINT`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R14G14_UINT")]
+    R14G14_UINT = ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R14G14_UINT.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_R12X4G12X4B12X4A12X4_UINT`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R12G12B12A12_UINT")]
+    R12G12B12A12_UINT =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R12G12B12A12_UINT.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_R14X2G14X2B14X2A14X2_UINT`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_R14G14B14A14_UINT")]
+    R14G14B14A14_UINT =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_R14G14B14A14_UINT.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_A2R10G10B10_UNORM_PACK32`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_B10G10R10A2_UNORM")]
+    B10G10R10A2_UNORM =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_B10G10R10A2_UNORM.0 as i32,
+    /// Corresponds to Vulkan `VK_FORMAT_A2R10G10B10_UNORM_PACK32`.
+    #[cfg(feature = "api-level-26")]
+    #[doc(alias = "AHARDWAREBUFFER_FORMAT_B10G10R10X2_UNORM")]
+    B10G10R10X2_UNORM =
+        ffi::AHardwareBuffer_Format::AHARDWAREBUFFER_FORMAT_B10G10R10X2_UNORM.0 as i32,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
@@ -123,6 +159,22 @@ impl HardwareBufferFormat {
             Self::R16G16_UINT => 4,
             #[cfg(feature = "api-level-26")]
             Self::R10G10B10A10_UNORM => return None, // TODO: 5?
+            #[cfg(feature = "api-level-26")]
+            Self::R12_UINT => 2,
+            #[cfg(feature = "api-level-26")]
+            Self::R14_UINT => 2,
+            #[cfg(feature = "api-level-26")]
+            Self::R12G12_UINT => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::R14G14_UINT => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::R12G12B12A12_UINT => 8,
+            #[cfg(feature = "api-level-26")]
+            Self::R14G14B14A14_UINT => 8,
+            #[cfg(feature = "api-level-26")]
+            Self::B10G10R10A2_UNORM => 4,
+            #[cfg(feature = "api-level-26")]
+            Self::B10G10R10X2_UNORM => 4,
             Self::__Unknown(_) => return None,
         })
     }

@@ -14,6 +14,8 @@ use num_enum::{FromPrimitive, IntoPrimitive};
 use crate::hardware_buffer::{HardwareBuffer, HardwareBufferUsage};
 use crate::media_error::{construct, construct_never_null, MediaError, Result};
 use crate::native_window::NativeWindow;
+#[cfg(all(feature = "nativewindow", feature = "api-level-37"))]
+use crate::native_window::NativeWindowTransform;
 use crate::utils::abort_on_panic;
 #[cfg(feature = "api-level-34")]
 use crate::{data_space::DataSpace, hardware_buffer_format::HardwareBufferFormat};
@@ -35,6 +37,7 @@ pub enum ImageFormat {
     RAW_PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW_PRIVATE.0 as i32,
     RAW10 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW10.0 as i32,
     RAW12 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW12.0 as i32,
+    RAW14 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_RAW14.0 as i32,
     DEPTH16 = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH16.0 as i32,
     DEPTH_POINT_CLOUD = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_DEPTH_POINT_CLOUD.0 as i32,
     PRIVATE = ffi::AIMAGE_FORMATS::AIMAGE_FORMAT_PRIVATE.0 as i32,
@@ -305,6 +308,37 @@ impl ImageReader {
         construct(|res| unsafe { ffi::AImageReader_getMaxImages(self.as_ptr(), res) })
     }
 
+    /// Set the default buffer size of this image reader, replacing the `width` and `height` it was
+    /// created with.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AImageReader_setDefaultBufferSize")]
+    pub fn set_default_buffer_size(&self, width: i32, height: i32) -> Result<()> {
+        let status =
+            unsafe { ffi::AImageReader_setDefaultBufferSize(self.as_ptr(), width, height) };
+        MediaError::from_status(status)
+    }
+
+    /// Set the default [`HardwareBufferFormat`] of this image reader, overriding the format it
+    /// was created with.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AImageReader_setDefaultAHardwareBufferFormat")]
+    pub fn set_default_hardware_buffer_format(&self, format: HardwareBufferFormat) -> Result<()> {
+        let status = unsafe {
+            ffi::AImageReader_setDefaultAHardwareBufferFormat(self.as_ptr(), format.into())
+        };
+        MediaError::from_status(status)
+    }
+
+    /// Set the default [`DataSpace`] of this image reader.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AImageReader_setDefaultBufferDataSpace")]
+    pub fn set_default_buffer_data_space(&self, data_space: DataSpace) -> Result<()> {
+        let status = unsafe {
+            ffi::AImageReader_setDefaultBufferDataSpace(self.as_ptr(), data_space.into())
+        };
+        MediaError::from_status(status)
+    }
+
     #[doc(alias = "AImageReader_acquireNextImage")]
     pub fn acquire_next_image(&self) -> Result<AcquireResult<Image>> {
         AcquireResult::construct_never_null(|res| unsafe {
@@ -487,6 +521,17 @@ impl Image {
     pub fn data_space(&self) -> Result<DataSpace> {
         construct(|res| unsafe { ffi::AImage_getDataSpace(self.as_ptr(), res) })
             .map(DataSpace::from)
+    }
+
+    /// Query the transform of this image, set by the most recent call to `updateTexImage`.
+    ///
+    /// The stream content producer may implicitly apply this transform to the content, which
+    /// users of this image must compensate for.
+    #[cfg(all(feature = "nativewindow", feature = "api-level-37"))]
+    #[doc(alias = "AImage_getTransform")]
+    pub fn transform(&self) -> Result<NativeWindowTransform> {
+        construct(|res| unsafe { ffi::AImage_getTransform(self.as_ptr(), res) })
+            .map(NativeWindowTransform::from_bits_retain)
     }
 }
 

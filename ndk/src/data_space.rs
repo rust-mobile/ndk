@@ -216,15 +216,15 @@ pub enum DataSpace {
     /// [`BT.709` standard]: DataSpaceStandard::Bt709
     #[doc(alias = "ADATASPACE_SRGB_LINEAR")]
     SrgbLinear = ffi::ADataSpace::ADATASPACE_SRGB_LINEAR.0,
-    // /// sRGB-encoded BT. 2020.
-    // ///
-    // /// Uses [full range], [`sRGB` transfer] and [`BT2020` standard].
-    // ///
-    // /// [full range]: DataSpaceRange::Full
-    // /// [`sRGB` transfer]: DataSpaceTransfer::Srgb
-    // /// [`BT2020` standard]: DataSpaceStandard::Bt2020
-    // #[doc(alias = "ADATASPACE_DISPLAY_BT2020")]
-    // DisplayBt2020 = ffi::ADataSpace::ADATASPACE_DISPLAY_BT2020.0,
+    /// sRGB-encoded BT. 2020.
+    ///
+    /// Uses [full range], [`sRGB` transfer] and [`BT2020` standard].
+    ///
+    /// [full range]: DataSpaceRange::Full
+    /// [`sRGB` transfer]: DataSpaceTransfer::Srgb
+    /// [`BT2020` standard]: DataSpaceStandard::Bt2020
+    #[doc(alias = "ADATASPACE_DISPLAY_BT2020")]
+    DisplayBt2020 = ffi::ADataSpace::ADATASPACE_DISPLAY_BT2020.0,
     /// Depth.
     ///
     /// This value is valid with formats [`HAL_PIXEL_FORMAT_Y16`] and [`HAL_PIXEL_FORMAT_BLOB`].
@@ -264,7 +264,7 @@ impl fmt::Display for DataSpace {
             Self::ScrgbLinear => "ScrgbLinear",
             Self::Srgb => "Srgb",
             Self::SrgbLinear => "SrgbLinear",
-            // Self::DisplayBt2020 => "DisplayBt2020",
+            Self::DisplayBt2020 => "DisplayBt2020",
             Self::Depth => "Depth",
             Self::DynamicDepth => "DynamicDepth",
             Self::__Unknown(u) => {
@@ -305,23 +305,23 @@ impl DataSpace {
     }
 
     /// Extracts and returns the color-description aspect from this [`DataSpace`].
-    #[doc(alias = "STANDARD_MASK")]
+    #[doc(alias = "ADATASPACE_STANDARD_MASK")]
     pub fn standard(self) -> DataSpaceStandard {
-        let standard = i32::from(self) & ffi::ADataSpace::STANDARD_MASK.0;
+        let standard = i32::from(self) & ffi::ADataSpace::ADATASPACE_STANDARD_MASK.0;
         standard.into()
     }
 
     /// Extracts and returns the transfer aspect from this [`DataSpace`].
-    #[doc(alias = "TRANSFER_MASK")]
+    #[doc(alias = "ADATASPACE_TRANSFER_MASK")]
     pub fn transfer(self) -> DataSpaceTransfer {
-        let transfer = i32::from(self) & ffi::ADataSpace::TRANSFER_MASK.0;
+        let transfer = i32::from(self) & ffi::ADataSpace::ADATASPACE_TRANSFER_MASK.0;
         transfer.into()
     }
 
     /// Extracts and returns the range aspect from this [`DataSpace`].
-    #[doc(alias = "RANGE_MASK")]
+    #[doc(alias = "ADATASPACE_RANGE_MASK")]
     pub fn range(self) -> DataSpaceRange {
-        let range = i32::from(self) & ffi::ADataSpace::RANGE_MASK.0;
+        let range = i32::from(self) & ffi::ADataSpace::ADATASPACE_RANGE_MASK.0;
         range.into()
     }
 }
@@ -334,7 +334,7 @@ impl DataSpace {
 /// of `x` and `y` specified in ISO 11664-1.
 #[repr(i32)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
-#[doc(alias = "STANDARD_MASK")]
+#[doc(alias = "ADATASPACE_STANDARD_MASK")]
 #[non_exhaustive]
 pub enum DataSpaceStandard {
     /// Chromacity coordinates are unknown or are determined by the application. Implementations
@@ -351,8 +351,8 @@ pub enum DataSpaceStandard {
     ///
     /// [`BT.709`]: Self::Bt709
     /// [`BT.601_625`]: Self::Bt601_625
-    #[doc(alias = "STANDARD_UNSPECIFIED")]
-    Unspecified = ffi::ADataSpace::STANDARD_UNSPECIFIED.0,
+    #[doc(alias = "ADATASPACE_STANDARD_UNSPECIFIED")]
+    Unspecified = ffi::ADataSpace::ADATASPACE_STANDARD_UNSPECIFIED.0,
     /// | Primaries   | x      | y      |
     /// | ----------- | ------ | ------ |
     /// | green       | 0.300  | 0.600  |
@@ -362,8 +362,8 @@ pub enum DataSpaceStandard {
     ///
     /// Use the unadjusted `KR = 0.2126`, `KB = 0.0722` luminance interpretation for `RGB`
     /// conversion.
-    #[doc(alias = "STANDARD_BT709")]
-    Bt709 = ffi::ADataSpace::STANDARD_BT709.0,
+    #[doc(alias = "ADATASPACE_STANDARD_BT709")]
+    Bt709 = ffi::ADataSpace::ADATASPACE_STANDARD_BT709.0,
     /// | Primaries   | x      | y      |
     /// | ----------- | ------ | ------ |
     /// | green       | 0.290  | 0.600  |
@@ -376,8 +376,8 @@ pub enum DataSpaceStandard {
     /// space that uses [`BT.709`] primaries.
     ///
     /// [`BT.709`]: Self::Bt709
-    #[doc(alias = "STANDARD_BT601_625")]
-    Bt601_625 = ffi::ADataSpace::STANDARD_BT601_625.0,
+    #[doc(alias = "ADATASPACE_STANDARD_BT601_625")]
+    Bt601_625 = ffi::ADataSpace::ADATASPACE_STANDARD_BT601_625.0,
     /// | Primaries   | x      | y      |
     /// | ----------- | ------ | ------ |
     /// | green       | 0.290  | 0.600  |
@@ -386,8 +386,8 @@ pub enum DataSpaceStandard {
     /// | white (D65) | 0.3127 | 0.3290 |
     ///
     /// Use the unadjusted `KR = 0.222`, `KB = 0.071` luminance interpretation for `RGB` conversion.
-    #[doc(alias = "STANDARD_BT601_625_UNADJUSTED")]
-    Bt601_625Unadjusted = ffi::ADataSpace::STANDARD_BT601_625_UNADJUSTED.0,
+    #[doc(alias = "ADATASPACE_STANDARD_BT601_625_UNADJUSTED")]
+    Bt601_625Unadjusted = ffi::ADataSpace::ADATASPACE_STANDARD_BT601_625_UNADJUSTED.0,
     /// | Primaries   | x      | y      |
     /// | ----------- | ------ | ------ |
     /// | green       | 0.310  | 0.595  |
@@ -400,8 +400,8 @@ pub enum DataSpaceStandard {
     /// that uses [`BT.709`] primaries.
     ///
     /// [`BT.709`]: Self::Bt709
-    #[doc(alias = "STANDARD_BT601_525")]
-    Bt601_525 = ffi::ADataSpace::STANDARD_BT601_525.0,
+    #[doc(alias = "ADATASPACE_STANDARD_BT601_525")]
+    Bt601_525 = ffi::ADataSpace::ADATASPACE_STANDARD_BT601_525.0,
     /// | Primaries   | x      | y      |
     /// | ----------- | ------ | ------ |
     /// | green       | 0.310  | 0.595  |
@@ -411,8 +411,8 @@ pub enum DataSpaceStandard {
     ///
     /// Use the unadjusted `KR = 0.212`, `KB = 0.087` luminance interpretation
     /// for `RGB` conversion (as in `SMPTE 240M`).
-    #[doc(alias = "STANDARD_BT601_525_UNADJUSTED")]
-    Bt601_525Unadjusted = ffi::ADataSpace::STANDARD_BT601_525_UNADJUSTED.0,
+    #[doc(alias = "ADATASPACE_STANDARD_BT601_525_UNADJUSTED")]
+    Bt601_525Unadjusted = ffi::ADataSpace::ADATASPACE_STANDARD_BT601_525_UNADJUSTED.0,
     /// | Primaries   | x      | y      |
     /// | ----------- | ------ | ------ |
     /// | green       | 0.170  | 0.797  |
@@ -422,8 +422,8 @@ pub enum DataSpaceStandard {
     ///
     /// Use the unadjusted `KR = 0.2627`, `KB = 0.0593` luminance interpretation for `RGB`
     /// conversion.
-    #[doc(alias = "STANDARD_BT2020")]
-    Bt2020 = ffi::ADataSpace::STANDARD_BT2020.0,
+    #[doc(alias = "ADATASPACE_STANDARD_BT2020")]
+    Bt2020 = ffi::ADataSpace::ADATASPACE_STANDARD_BT2020.0,
     /// | Primaries   | x      | y      |
     /// | ----------- | ------ | ------ |
     /// | green       | 0.170  | 0.797  |
@@ -433,7 +433,7 @@ pub enum DataSpaceStandard {
     ///
     /// Use the unadjusted `KR = 0.2627`, `KB = 0.0593` luminance interpretation for `RGB`
     /// conversion using the linear domain.
-    #[doc(alias = "STANDARD_BT2020_CONSTANT_LUMINANCE")]
+    #[doc(alias = "ADATASPACE_STANDARD_BT2020_CONSTANT_LUMINANCE")]
     Bt2020ConstantLuminance = ffi::ADataSpace::ADATASPACE_STANDARD_BT2020_CONSTANT_LUMINANCE.0,
     /// | Primaries | x     | y    |
     /// | --------- | ----- | ---- |
@@ -443,8 +443,8 @@ pub enum DataSpaceStandard {
     /// | white (C) | 0.310 |0.316 |
     ///
     /// Use the unadjusted `KR = 0.30`, `KB = 0.11` luminance interpretation for `RGB` conversion.
-    #[doc(alias = "STANDARD_BT470M")]
-    Bt470M = ffi::ADataSpace::STANDARD_BT470M.0,
+    #[doc(alias = "ADATASPACE_STANDARD_BT470M")]
+    Bt470M = ffi::ADataSpace::ADATASPACE_STANDARD_BT470M.0,
     /// | Primaries | x     | y     |
     /// | --------- | ----- | ----- |
     /// | green     | 0.243 | 0.692 |
@@ -453,8 +453,8 @@ pub enum DataSpaceStandard {
     /// | white (C) | 0.310 | 0.316 |
     ///
     /// Use the unadjusted `KR = 0.254`, `KB = 0.068` luminance interpretation for `RGB` conversion.
-    #[doc(alias = "STANDARD_FILM")]
-    Film = ffi::ADataSpace::STANDARD_FILM.0,
+    #[doc(alias = "ADATASPACE_STANDARD_FILM")]
+    Film = ffi::ADataSpace::ADATASPACE_STANDARD_FILM.0,
     /// `SMPTE EG 432-1` and `SMPTE RP 431-2`. (`DCI-P3`)
     ///
     /// | Primaries   | x      | y      |
@@ -463,8 +463,8 @@ pub enum DataSpaceStandard {
     /// | blue        | 0.150  | 0.060  |
     /// | red         | 0.680  | 0.320  |
     /// | white (D65) | 0.3127 | 0.3290 |
-    #[doc(alias = "STANDARD_DCI_P3")]
-    DciP3 = ffi::ADataSpace::STANDARD_DCI_P3.0,
+    #[doc(alias = "ADATASPACE_STANDARD_DCI_P3")]
+    DciP3 = ffi::ADataSpace::ADATASPACE_STANDARD_DCI_P3.0,
     /// Adobe RGB
     ///
     /// | Primaries   | x      | y      |
@@ -473,8 +473,8 @@ pub enum DataSpaceStandard {
     /// | blue        | 0.150  | 0.060  |
     /// | red         | 0.640  | 0.330  |
     /// | white (D65) | 0.3127 | 0.3290 |
-    #[doc(alias = "STANDARD_ADOBE_RGB")]
-    AdobeRgb = ffi::ADataSpace::STANDARD_ADOBE_RGB.0,
+    #[doc(alias = "ADATASPACE_STANDARD_ADOBE_RGB")]
+    AdobeRgb = ffi::ADataSpace::ADATASPACE_STANDARD_ADOBE_RGB.0,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
@@ -493,7 +493,7 @@ pub enum DataSpaceStandard {
 /// formats if desired.
 #[repr(i32)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
-#[doc(alias = "TRANSFER_MASK")]
+#[doc(alias = "ADATASPACE_TRANSFER_MASK")]
 #[non_exhaustive]
 pub enum DataSpaceTransfer {
     /// Transfer characteristics are unknown or are determined by the application.
@@ -505,8 +505,8 @@ pub enum DataSpaceTransfer {
     ///
     /// For all other formats the transfer function is undefined, and implementations should use an
     /// appropriate standard for the data represented.
-    #[doc(alias = "TRANSFER_UNSPECIFIED")]
-    Unspecified = ffi::ADataSpace::TRANSFER_UNSPECIFIED.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_UNSPECIFIED")]
+    Unspecified = ffi::ADataSpace::ADATASPACE_TRANSFER_UNSPECIFIED.0,
 
     /// Linear transfer.
     ///
@@ -516,8 +516,8 @@ pub enum DataSpaceTransfer {
     /// ```
     /// - `L`: luminance of image `0 <= L <= 1` for conventional colorimetry
     /// - `E`: corresponding electrical signal
-    #[doc(alias = "TRANSFER_LINEAR")]
-    Linear = ffi::ADataSpace::TRANSFER_LINEAR.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_LINEAR")]
+    Linear = ffi::ADataSpace::ADATASPACE_TRANSFER_LINEAR.0,
     /// `sRGB` transfer.
     ///
     /// Transfer characteristic curve:
@@ -528,8 +528,8 @@ pub enum DataSpaceTransfer {
     /// ```
     /// - `L`: luminance of image `0 <= L <= 1` for conventional colorimetry
     /// - `E`: corresponding electrical signal
-    #[doc(alias = "TRANSFER_SRGB")]
-    Srgb = ffi::ADataSpace::TRANSFER_SRGB.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_SRGB")]
+    Srgb = ffi::ADataSpace::ADATASPACE_TRANSFER_SRGB.0,
     /// SMPTE 170M transfer.
     ///
     /// Transfer characteristic curve:
@@ -539,8 +539,8 @@ pub enum DataSpaceTransfer {
     /// ```
     /// - `L`: luminance of image `0 <= L <= 1` for conventional colorimetry
     /// - `E`: corresponding electrical signal
-    #[doc(alias = "TRANSFER_SMPTE_170M")]
-    Smpte170M = ffi::ADataSpace::TRANSFER_SMPTE_170M.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_SMPTE_170M")]
+    Smpte170M = ffi::ADataSpace::ADATASPACE_TRANSFER_SMPTE_170M.0,
     /// Display gamma `2.2`.
     ///
     /// Transfer characteristic curve:
@@ -549,8 +549,8 @@ pub enum DataSpaceTransfer {
     /// ```
     /// - `L`: luminance of image `0 <= L <= 1` for conventional colorimetry
     /// - `E`: corresponding electrical signal
-    #[doc(alias = "TRANSFER_GAMMA2_2")]
-    Gamma2_2 = ffi::ADataSpace::TRANSFER_GAMMA2_2.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_GAMMA2_2")]
+    Gamma2_2 = ffi::ADataSpace::ADATASPACE_TRANSFER_GAMMA2_2.0,
     /// Display gamma `2.6`.
     ///
     /// Transfer characteristic curve:
@@ -559,8 +559,8 @@ pub enum DataSpaceTransfer {
     /// ```
     /// - `L`: luminance of image `0 <= L <= 1` for conventional colorimetry
     /// - `E`: corresponding electrical signal
-    #[doc(alias = "TRANSFER_GAMMA2_6")]
-    Gamma2_6 = ffi::ADataSpace::TRANSFER_GAMMA2_6.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_GAMMA2_6")]
+    Gamma2_6 = ffi::ADataSpace::ADATASPACE_TRANSFER_GAMMA2_6.0,
     /// Display gamma `2.8`.
     ///
     /// Transfer characteristic curve:
@@ -569,8 +569,8 @@ pub enum DataSpaceTransfer {
     /// ```
     /// - `L`: luminance of image `0 <= L <= 1` for conventional colorimetry
     /// - `E`: corresponding electrical signal
-    #[doc(alias = "TRANSFER_GAMMA2_8")]
-    Gamma2_8 = ffi::ADataSpace::TRANSFER_GAMMA2_8.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_GAMMA2_8")]
+    Gamma2_8 = ffi::ADataSpace::ADATASPACE_TRANSFER_GAMMA2_8.0,
     /// SMPTE ST 2084 (Dolby Perceptual Quantizer).
     ///
     /// Transfer characteristic curve:
@@ -584,8 +584,8 @@ pub enum DataSpaceTransfer {
     /// ```
     /// - `L`: luminance of image 0 <= L <= 1 for HDR colorimetry.
     ///   `L = 1` corresponds to `10000 cd/m2`
-    #[doc(alias = "TRANSFER_ST2084")]
-    St2084 = ffi::ADataSpace::TRANSFER_ST2084.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_ST2084")]
+    St2084 = ffi::ADataSpace::ADATASPACE_TRANSFER_ST2084.0,
     /// ARIB STD-B67 Hybrid Log Gamma.
     ///
     /// Transfer characteristic curve:
@@ -600,8 +600,8 @@ pub enum DataSpaceTransfer {
     /// - `L`: luminance of image `0 <= L` for HDR colorimetry.
     ///   `L = 1` corresponds to reference white level of `100 cd/m2`
     /// - `E`: corresponding electrical signal
-    #[doc(alias = "TRANSFER_HLG")]
-    HLG = ffi::ADataSpace::TRANSFER_HLG.0,
+    #[doc(alias = "ADATASPACE_TRANSFER_HLG")]
+    HLG = ffi::ADataSpace::ADATASPACE_TRANSFER_HLG.0,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
@@ -614,7 +614,7 @@ pub enum DataSpaceTransfer {
 /// `YCbCr` only, but can be expanded to `RGB` space.
 #[repr(i32)]
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
-#[doc(alias = "RANGE_MASK")]
+#[doc(alias = "ADATASPACE_RANGE_MASK")]
 #[non_exhaustive]
 pub enum DataSpaceRange {
     /// Range is unknown or are determined by the application.  Implementations shall use the
@@ -626,12 +626,12 @@ pub enum DataSpaceRange {
     ///
     /// For all other formats range is undefined, and implementations should use an appropriate
     /// range for the data represented.
-    #[doc(alias = "RANGE_UNSPECIFIED")]
-    Unspecified = ffi::ADataSpace::RANGE_UNSPECIFIED.0,
+    #[doc(alias = "ADATASPACE_RANGE_UNSPECIFIED")]
+    Unspecified = ffi::ADataSpace::ADATASPACE_RANGE_UNSPECIFIED.0,
     /// Full range uses all values for `Y`, `Cb` and `Cr` from `0` to `2^b-1`, where `b` is the bit
     /// depth of the color format.
-    #[doc(alias = "RANGE_FULL")]
-    Full = ffi::ADataSpace::RANGE_FULL.0,
+    #[doc(alias = "ADATASPACE_RANGE_FULL")]
+    Full = ffi::ADataSpace::ADATASPACE_RANGE_FULL.0,
     /// Limited range uses values `16/256*2^b` to `235/256*2^b` for `Y`, and `1/16*2^b` to
     /// `15/16*2^b` for `Cb`, `Cr`, `R`, `G` and `B`, where `b` is the bit depth of the color
     /// format.
@@ -641,15 +641,15 @@ pub enum DataSpaceRange {
     ///
     /// For 10-bit-depth formats: Luma (`Y`) samples should range from `64` to `940`, inclusive
     /// Chroma `(Cb, Cr)` samples should range from `64` to `960`, inclusive.
-    #[doc(alias = "RANGE_LIMITED")]
-    Limited = ffi::ADataSpace::RANGE_LIMITED.0,
+    #[doc(alias = "ADATASPACE_RANGE_LIMITED")]
+    Limited = ffi::ADataSpace::ADATASPACE_RANGE_LIMITED.0,
     /// Extended range is used for `scRGB`.
     ///
     /// Intended for use with floating point pixel formats. `[0.0 - 1.0]` is the standard `sRGB`
     /// space. Values outside the range `0.0 - 1.0` can encode color outside the `sRGB` gamut. Used
     /// to blend / merge multiple dataspaces on a single display.
-    #[doc(alias = "RANGE_EXTENDED")]
-    Extended = ffi::ADataSpace::RANGE_EXTENDED.0,
+    #[doc(alias = "ADATASPACE_RANGE_EXTENDED")]
+    Extended = ffi::ADataSpace::ADATASPACE_RANGE_EXTENDED.0,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]

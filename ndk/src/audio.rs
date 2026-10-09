@@ -146,6 +146,60 @@ pub enum AudioFormat {
     /// <a href="https://developer.android.com/reference/android/media/AudioTrack#write(float[], int, int, int)"><code>AudioTrack#write(float[], int, int, int)</code></a>.
     #[doc(alias = "AAUDIO_FORMAT_PCM_FLOAT")]
     PCM_Float = ffi::AAUDIO_FORMAT_PCM_FLOAT as ffi::aaudio_format_t,
+    /// This format uses 24-bit samples packed into 3 bytes.
+    /// The bytes are in little-endian order, so the least significant byte
+    /// comes first in the byte array.
+    /// The maximum range of the data is -8388608 (0x800000)
+    /// to 8388607 (0x7FFFFF).
+    /// Note that the lower precision bits may be ignored by the device.
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "AAUDIO_FORMAT_PCM_I24_PACKED")]
+    PCM_I24_PACKED = ffi::AAUDIO_FORMAT_PCM_I24_PACKED as ffi::aaudio_format_t,
+    /// This format uses 32-bit samples stored in an i32 data type.
+    /// The maximum range of the data is -2147483648 (0x80000000)
+    /// to 2147483647 (0x7FFFFFFF).
+    /// Note that the lower precision bits may be ignored by the device.
+    #[cfg(feature = "api-level-31")]
+    #[doc(alias = "AAUDIO_FORMAT_PCM_I32")]
+    PCM_I32 = ffi::AAUDIO_FORMAT_PCM_I32 as ffi::aaudio_format_t,
+    /// This format is used for compressed audio wrapped in IEC61937 for HDMI
+    /// or S/PDIF passthrough.
+    ///
+    /// Unlike PCM playback, the Android framework is not able to do format
+    /// conversion for IEC61937. In that case, when IEC61937 is requested, sampling
+    /// rate and channel count or channel mask must be specified. Otherwise, it may
+    /// fail when opening the stream.
+    #[cfg(feature = "api-level-34")]
+    #[doc(alias = "AAUDIO_FORMAT_IEC61937")]
+    IEC61937 = ffi::AAUDIO_FORMAT_IEC61937 as ffi::aaudio_format_t,
+    /// This format is used for audio compressed in MP3 format.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_FORMAT_MP3")]
+    MP3 = ffi::AAUDIO_FORMAT_MP3 as ffi::aaudio_format_t,
+    /// This format is used for audio compressed in AAC LC format.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_FORMAT_AAC_LC")]
+    AAC_LC = ffi::AAUDIO_FORMAT_AAC_LC as ffi::aaudio_format_t,
+    /// This format is used for audio compressed in AAC HE V1 format.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_FORMAT_AAC_HE_V1")]
+    AAC_HE_V1 = ffi::AAUDIO_FORMAT_AAC_HE_V1 as ffi::aaudio_format_t,
+    /// This format is used for audio compressed in AAC HE V2 format.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_FORMAT_AAC_HE_V2")]
+    AAC_HE_V2 = ffi::AAUDIO_FORMAT_AAC_HE_V2 as ffi::aaudio_format_t,
+    /// This format is used for audio compressed in AAC ELD format.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_FORMAT_AAC_ELD")]
+    AAC_ELD = ffi::AAUDIO_FORMAT_AAC_ELD as ffi::aaudio_format_t,
+    /// This format is used for audio compressed in AAC XHE format.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_FORMAT_AAC_XHE")]
+    AAC_XHE = ffi::AAUDIO_FORMAT_AAC_XHE as ffi::aaudio_format_t,
+    /// This format is used for audio compressed in OPUS format.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_FORMAT_OPUS")]
+    OPUS = ffi::AAUDIO_FORMAT_OPUS as ffi::aaudio_format_t,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
@@ -209,6 +263,20 @@ pub enum AudioPerformanceMode {
     /// Reducing latency is more important than battery life.
     #[doc(alias = "AAUDIO_PERFORMANCE_MODE_LOW_LATENCY")]
     LowLatency = ffi::AAUDIO_PERFORMANCE_MODE_LOW_LATENCY as ffi::aaudio_performance_mode_t,
+    /// Extending battery life is more important than low latency.
+    ///
+    /// When this mode is used, the audio data can be written to the audio framework directly and
+    /// the data will be rendered by hardware, so the app is able to write a large amount (several
+    /// seconds) of data within a short time. The written data will be queued in a hardware buffer,
+    /// after which the app can suspend its audio thread/process. The audio framework's data pipe
+    /// will then be suspended automatically, allowing the CPU to sleep for power saving. When all
+    /// queued data has been played, the app gets a callback to feed more data.
+    ///
+    /// This mode is only supported by output streams.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAUDIO_PERFORMANCE_MODE_POWER_SAVING_OFFLOADED")]
+    PowerSavingOffloaded =
+        ffi::AAUDIO_PERFORMANCE_MODE_POWER_SAVING_OFFLOADED as ffi::aaudio_performance_mode_t,
 
     #[doc(hidden)]
     #[num_enum(catch_all)]
@@ -496,6 +564,301 @@ fn construct<T>(with_ptr: impl FnOnce(*mut T) -> ffi::aaudio_result_t) -> Result
     let mut result = MaybeUninit::uninit();
     let status = with_ptr(result.as_mut_ptr());
     AudioError::from_result(status).map(|()| unsafe { result.assume_init() })
+}
+
+/// A device type, used to query the platform's MMAP policy with [`platform_mmap_policy()`] and
+/// [`platform_mmap_exclusive_policy()`].
+#[cfg(feature = "api-level-36")]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[doc(alias = "AAudio_DeviceType")]
+#[non_exhaustive]
+pub enum AudioDeviceType {
+    /// A device type describing the attached earphone speaker.
+    #[doc(alias = "AAUDIO_DEVICE_BUILTIN_EARPIECE")]
+    BuiltinEarpiece = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_EARPIECE,
+    /// A device type describing the speaker system (i.e. a mono speaker or stereo speakers) built
+    /// in a device.
+    #[doc(alias = "AAUDIO_DEVICE_BUILTIN_SPEAKER")]
+    BuiltinSpeaker = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER,
+    /// A device type describing a headset, which is the combination of a headphones and microphone.
+    #[doc(alias = "AAUDIO_DEVICE_WIRED_HEADSET")]
+    WiredHeadset = ffi::AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADSET,
+    /// A device type describing a pair of wired headphones.
+    #[doc(alias = "AAUDIO_DEVICE_WIRED_HEADPHONES")]
+    WiredHeadphones = ffi::AAudio_DeviceType_AAUDIO_DEVICE_WIRED_HEADPHONES,
+    /// A device type describing an analog line-level connection.
+    #[doc(alias = "AAUDIO_DEVICE_LINE_ANALOG")]
+    LineAnalog = ffi::AAudio_DeviceType_AAUDIO_DEVICE_LINE_ANALOG,
+    /// A device type describing a digital line connection (e.g. SPDIF).
+    #[doc(alias = "AAUDIO_DEVICE_LINE_DIGITAL")]
+    LineDigital = ffi::AAudio_DeviceType_AAUDIO_DEVICE_LINE_DIGITAL,
+    /// A device type describing a Bluetooth device typically used for telephony.
+    #[doc(alias = "AAUDIO_DEVICE_BLUETOOTH_SCO")]
+    BluetoothSco = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_SCO,
+    /// A device type describing a Bluetooth device supporting the A2DP profile.
+    #[doc(alias = "AAUDIO_DEVICE_BLUETOOTH_A2DP")]
+    BluetoothA2dp = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLUETOOTH_A2DP,
+    /// A device type describing an HDMI connection .
+    #[doc(alias = "AAUDIO_DEVICE_HDMI")]
+    Hdmi = ffi::AAudio_DeviceType_AAUDIO_DEVICE_HDMI,
+    /// A device type describing the Audio Return Channel of an HDMI connection.
+    #[doc(alias = "AAUDIO_DEVICE_HDMI_ARC")]
+    HdmiArc = ffi::AAudio_DeviceType_AAUDIO_DEVICE_HDMI_ARC,
+    /// A device type describing a USB audio device.
+    #[doc(alias = "AAUDIO_DEVICE_USB_DEVICE")]
+    UsbDevice = ffi::AAudio_DeviceType_AAUDIO_DEVICE_USB_DEVICE,
+    /// A device type describing a USB audio device in accessory mode.
+    #[doc(alias = "AAUDIO_DEVICE_USB_ACCESSORY")]
+    UsbAccessory = ffi::AAudio_DeviceType_AAUDIO_DEVICE_USB_ACCESSORY,
+    /// A device type describing the audio device associated with a dock. Starting at API 34, this
+    /// device type only represents digital docks, while docks with an analog connection are
+    /// represented with {@link #AAUDIO_DEVICE_DOCK_ANALOG}.
+    #[doc(alias = "AAUDIO_DEVICE_DOCK")]
+    Dock = ffi::AAudio_DeviceType_AAUDIO_DEVICE_DOCK,
+    /// A device type associated with the transmission of audio signals over FM.
+    #[doc(alias = "AAUDIO_DEVICE_FM")]
+    Fm = ffi::AAudio_DeviceType_AAUDIO_DEVICE_FM,
+    /// A device type describing the microphone(s) built in a device.
+    #[doc(alias = "AAUDIO_DEVICE_BUILTIN_MIC")]
+    BuiltinMic = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_MIC,
+    /// A device type for accessing the audio content transmitted over FM.
+    #[doc(alias = "AAUDIO_DEVICE_FM_TUNER")]
+    FmTuner = ffi::AAudio_DeviceType_AAUDIO_DEVICE_FM_TUNER,
+    /// A device type for accessing the audio content transmitted over the TV tuner system.
+    #[doc(alias = "AAUDIO_DEVICE_TV_TUNER")]
+    TvTuner = ffi::AAudio_DeviceType_AAUDIO_DEVICE_TV_TUNER,
+    /// A device type describing the transmission of audio signals over the telephony network.
+    #[doc(alias = "AAUDIO_DEVICE_TELEPHONY")]
+    Telephony = ffi::AAudio_DeviceType_AAUDIO_DEVICE_TELEPHONY,
+    /// A device type describing the auxiliary line-level connectors.
+    #[doc(alias = "AAUDIO_DEVICE_AUX_LINE")]
+    AuxLine = ffi::AAudio_DeviceType_AAUDIO_DEVICE_AUX_LINE,
+    /// A device type connected over IP.
+    #[doc(alias = "AAUDIO_DEVICE_IP")]
+    Ip = ffi::AAudio_DeviceType_AAUDIO_DEVICE_IP,
+    /// A type-agnostic device used for communication with external audio systems.
+    #[doc(alias = "AAUDIO_DEVICE_BUS")]
+    Bus = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BUS,
+    /// A device type describing a USB audio headset.
+    #[doc(alias = "AAUDIO_DEVICE_USB_HEADSET")]
+    UsbHeadset = ffi::AAudio_DeviceType_AAUDIO_DEVICE_USB_HEADSET,
+    /// A device type describing a Hearing Aid.
+    #[doc(alias = "AAUDIO_DEVICE_HEARING_AID")]
+    HearingAid = ffi::AAudio_DeviceType_AAUDIO_DEVICE_HEARING_AID,
+    /// A device type describing the speaker system (i.e. a mono speaker or stereo speakers) built
+    /// in a device, that is specifically tuned for outputting sounds like notifications and alarms
+    /// (i.e. sounds the user couldn't necessarily anticipate). <p>Note that this physical audio
+    /// device may be the same as {@link #TYPE_BUILTIN_SPEAKER} but is driven differently to safely
+    /// accommodate the different use case.</p>
+    #[doc(alias = "AAUDIO_DEVICE_BUILTIN_SPEAKER_SAFE")]
+    BuiltinSpeakerSafe = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BUILTIN_SPEAKER_SAFE,
+    /// A device type for rerouting audio within the Android framework between mixes and system
+    /// applications.
+    #[doc(alias = "AAUDIO_DEVICE_REMOTE_SUBMIX")]
+    RemoteSubmix = ffi::AAudio_DeviceType_AAUDIO_DEVICE_REMOTE_SUBMIX,
+    /// A device type describing a Bluetooth Low Energy (BLE) audio headset or headphones.
+    /// Headphones are grouped with headsets when the device is a sink: the features of headsets and
+    /// headphones with regard to playback are the same.
+    #[doc(alias = "AAUDIO_DEVICE_BLE_HEADSET")]
+    BleHeadset = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLE_HEADSET,
+    /// A device type describing a Bluetooth Low Energy (BLE) audio speaker.
+    #[doc(alias = "AAUDIO_DEVICE_BLE_SPEAKER")]
+    BleSpeaker = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLE_SPEAKER,
+    /// A device type describing an Echo Canceller loopback Reference. This device is only used when
+    /// capturing with MediaRecorder.AudioSource.ECHO_REFERENCE, which requires privileged
+    /// permission {@link android.Manifest.permission#CAPTURE_AUDIO_OUTPUT}. Note that this is not
+    /// exposed as it is a system API that requires privileged permission. / //
+    /// AAUDIO_DEVICE_ECHO_REFERENCE = 28, /** A device type describing the Enhanced Audio Return
+    /// Channel of an HDMI connection.
+    #[doc(alias = "AAUDIO_DEVICE_HDMI_EARC")]
+    HdmiEarc = ffi::AAudio_DeviceType_AAUDIO_DEVICE_HDMI_EARC,
+    /// A device type describing a Bluetooth Low Energy (BLE) broadcast group.
+    #[doc(alias = "AAUDIO_DEVICE_BLE_BROADCAST")]
+    BleBroadcast = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLE_BROADCAST,
+    /// A device type describing the audio device associated with a dock using an analog connection.
+    #[doc(alias = "AAUDIO_DEVICE_DOCK_ANALOG")]
+    DockAnalog = ffi::AAudio_DeviceType_AAUDIO_DEVICE_DOCK_ANALOG,
+    /// A Bluetooth LE Hearing Aid
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AAUDIO_DEVICE_BLE_HEARING_AID")]
+    BleHearingAid = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLE_HEARING_AID,
+    /// A device corresponding to the receive or transmit path in an android implementation
+    /// operating in a Bluetooth LE Audio peripheral mode.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AAUDIO_DEVICE_BLE_CENTRAL")]
+    BleCentral = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLE_CENTRAL,
+    /// A device corresponding to the receive path in an android implementation operating in a
+    /// Bluetooth LE Audio peripheral mode part of a broadcast group.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AAUDIO_DEVICE_BLE_CENTRAL_BROADCAST")]
+    BleCentralBroadcast = ffi::AAudio_DeviceType_AAUDIO_DEVICE_BLE_CENTRAL_BROADCAST,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
+}
+
+/// Describes how the AAudio MMAP data path is supported.
+///
+/// When audio is played or recorded via the AAudio MMAP data path, apps write to or read from a
+/// memory region that is shared with the hardware, which reduces audio latency.
+#[cfg(feature = "api-level-36")]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[doc(alias = "aaudio_policy_t")]
+#[non_exhaustive]
+pub enum AudioMMapPolicy {
+    /// No policy was set, see [`mmap_policy()`].
+    #[doc(alias = "AAUDIO_UNSPECIFIED")]
+    Unspecified = ffi::AAUDIO_UNSPECIFIED as ffi::aaudio_policy_t,
+    /// AAudio MMAP is disabled and never used.
+    #[doc(alias = "AAUDIO_POLICY_NEVER")]
+    Never = ffi::AAUDIO_POLICY_NEVER as ffi::aaudio_policy_t,
+    /// AAudio MMAP support depends on the device's availability. It will be used when possible, or
+    /// fall back to the normal path where the audio data is delivered via the audio framework data
+    /// pipeline.
+    #[doc(alias = "AAUDIO_POLICY_AUTO")]
+    Auto = ffi::AAUDIO_POLICY_AUTO as ffi::aaudio_policy_t,
+    /// AAudio MMAP must be used or fail.
+    #[doc(alias = "AAUDIO_POLICY_ALWAYS")]
+    Always = ffi::AAUDIO_POLICY_ALWAYS as ffi::aaudio_policy_t,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
+}
+
+/// Converts an [`ffi::aaudio_policy_t`] return value that may also hold a negative error code.
+#[cfg(feature = "api-level-36")]
+fn mmap_policy_from_result(policy: ffi::aaudio_policy_t) -> Result<AudioMMapPolicy> {
+    if policy < 0 {
+        Err(AudioError::from(policy))
+    } else {
+        Ok(policy.into())
+    }
+}
+
+/// Query how AAudio MMAP is supported for the given device type and direction.
+#[cfg(feature = "api-level-36")]
+#[doc(alias = "AAudio_getPlatformMMapPolicy")]
+pub fn platform_mmap_policy(
+    device: AudioDeviceType,
+    direction: AudioDirection,
+) -> Result<AudioMMapPolicy> {
+    mmap_policy_from_result(unsafe {
+        ffi::AAudio_getPlatformMMapPolicy(device.into(), direction.into())
+    })
+}
+
+/// Query how AAudio exclusive MMAP is supported for the given device type and direction.
+#[cfg(feature = "api-level-36")]
+#[doc(alias = "AAudio_getPlatformMMapExclusivePolicy")]
+pub fn platform_mmap_exclusive_policy(
+    device: AudioDeviceType,
+    direction: AudioDirection,
+) -> Result<AudioMMapPolicy> {
+    mmap_policy_from_result(unsafe {
+        ffi::AAudio_getPlatformMMapExclusivePolicy(device.into(), direction.into())
+    })
+}
+
+/// Control whether [`AudioStreamBuilder::open_stream()`] will use the MMAP data path or the older
+/// "legacy" data path, for the current process only.
+///
+/// If [`AudioMMapPolicy::Unspecified`], the policy will be based on system properties or
+/// configuration.
+#[cfg(feature = "api-level-36")]
+#[doc(alias = "AAudio_setMMapPolicy")]
+pub fn set_mmap_policy(policy: AudioMMapPolicy) -> Result<()> {
+    AudioError::from_result(unsafe { ffi::AAudio_setMMapPolicy(policy.into()) })
+}
+
+/// Get the current MMAP policy set by [`set_mmap_policy()`], or [`AudioMMapPolicy::Unspecified`]
+/// if it was never set.
+#[cfg(feature = "api-level-36")]
+#[doc(alias = "AAudio_getMMapPolicy")]
+pub fn mmap_policy() -> AudioMMapPolicy {
+    unsafe { ffi::AAudio_getMMapPolicy() }.into()
+}
+
+/// The accuracy requirement for [`AudioStream::flush_from_frame()`].
+#[cfg(feature = "api-level-37")]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, IntoPrimitive)]
+#[doc(alias = "AAudio_FlushFromAccuracy")]
+#[non_exhaustive]
+pub enum AudioFlushFromAccuracy {
+    /// There is no requirement for frame accuracy when flushing, it is up to the framework to
+    /// select the right position to flush from.
+    #[doc(alias = "AAUDIO_FLUSH_FROM_ACCURACY_UNDEFINED")]
+    Undefined = ffi::AAudio_FlushFromAccuracy_AAUDIO_FLUSH_FROM_ACCURACY_UNDEFINED,
+    /// The stream must be flushed from the requested position. If it is not possible to flush from
+    /// the requested position, the stream must not be flushed.
+    #[doc(alias = "AAUDIO_FLUSH_FROM_FRAME_ACCURATE")]
+    FrameAccurate = ffi::AAudio_FlushFromAccuracy_AAUDIO_FLUSH_FROM_FRAME_ACCURATE,
+}
+
+/// Behavior when the values for speed and / or pitch are out of the applicable range.
+#[cfg(feature = "api-level-37")]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[doc(alias = "AAudio_FallbackMode")]
+#[non_exhaustive]
+pub enum AudioFallbackMode {
+    /// It is up to the system to choose the best handling.
+    #[doc(alias = "AAUDIO_FALLBACK_MODE_DEFAULT")]
+    Default = ffi::AAudio_FallbackMode_AAUDIO_FALLBACK_MODE_DEFAULT,
+    /// Play silence for parameter values that are out of range.
+    #[doc(alias = "AAUDIO_FALLBACK_MODE_MUTE")]
+    Mute = ffi::AAudio_FallbackMode_AAUDIO_FALLBACK_MODE_MUTE,
+    /// When the requested speed and or pitch is out of range, processing will be stopped and
+    /// [`AudioError::IllegalArgument`] will be returned.
+    #[doc(alias = "AAUDIO_FALLBACK_MODE_FAIL")]
+    Fail = ffi::AAudio_FallbackMode_AAUDIO_FALLBACK_MODE_FAIL,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
+}
+
+/// Algorithms used for time-stretching (preserving pitch while playing audio content at different
+/// speed).
+#[cfg(feature = "api-level-37")]
+#[repr(i32)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, FromPrimitive, IntoPrimitive)]
+#[doc(alias = "AAudio_StretchMode")]
+#[non_exhaustive]
+pub enum AudioStretchMode {
+    /// The time-stretching algorithm is selected by the system.
+    #[doc(alias = "AAUDIO_STRETCH_MODE_DEFAULT")]
+    Default = ffi::AAudio_StretchMode_AAUDIO_STRETCH_MODE_DEFAULT,
+    /// Selects the time-stretch algorithm best suited for voice (speech) content.
+    #[doc(alias = "AAUDIO_STRETCH_MODE_VOICE")]
+    Voice = ffi::AAudio_StretchMode_AAUDIO_STRETCH_MODE_VOICE,
+
+    #[doc(hidden)]
+    #[num_enum(catch_all)]
+    __Unknown(i32),
+}
+
+/// Common playback parameters, see [`AudioStream::set_playback_parameters()`] and
+/// [`AudioStream::playback_parameters()`].
+#[cfg(feature = "api-level-37")]
+#[derive(Copy, Clone, Debug, PartialEq)]
+#[doc(alias = "AAudioPlaybackParameters")]
+pub struct AudioPlaybackParameters {
+    pub fallback_mode: AudioFallbackMode,
+    pub stretch_mode: AudioStretchMode,
+    /// Increases or decreases the tonal frequency of the audio content.
+    ///
+    /// It is expressed as a multiplicative factor, where normal pitch is `1.0`. The pitch must be
+    /// in range of `[0.25, 4.0]`.
+    pub pitch: f32,
+    /// Increases or decreases the time to play back a set of audio frames.
+    ///
+    /// Normal speed is `1.0`. The speed must be in range of `[0.01, 20.0]`.
+    pub speed: f32,
 }
 
 /// A native [`AAudioStreamBuilder *`]
@@ -956,6 +1319,19 @@ impl AudioStreamBuilder {
         self
     }
 
+    /// Returns whether [`AudioStream::flush_from_frame()`] is supported for the stream that would
+    /// be created with this builder.
+    ///
+    /// It is only supported for offload playback, i.e. with
+    /// [`AudioPerformanceMode::PowerSavingOffloaded`]. The format, channel mask and sample rate
+    /// must be set to construct a valid builder to open an offload stream.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AAudio_getFlushFromFrameSupport")]
+    pub fn flush_from_frame_supported(&self) -> bool {
+        let support = unsafe { ffi::AAudio_getFlushFromFrameSupport(self.as_ptr()) };
+        support & ffi::AAudio_FlushFromFrameSupport_AAUDIO_FLUSH_FROM_FRAME_SUPPORTED != 0
+    }
+
     /// Open a stream based on the options in the AAudioStreamBuilder.
     #[doc(alias = "AAudioStreamBuilder_openStream")]
     pub fn open_stream(mut self) -> Result<AudioStream> {
@@ -1053,6 +1429,29 @@ impl AudioStream {
     #[doc(alias = "AAudioStream_getDeviceId")]
     pub fn device_id(&self) -> i32 {
         unsafe { ffi::AAudioStream_getDeviceId(self.as_ptr()) }
+    }
+
+    /// Returns all device identifiers used by this stream.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAudioStream_getDeviceIds")]
+    pub fn device_ids(&self) -> Result<Vec<i32>> {
+        // An array of size 16 should generally be large enough to fit all device identifiers
+        let mut ids = vec![0; 16];
+        loop {
+            let mut num_ids = ids.len() as i32;
+            let status = unsafe {
+                ffi::AAudioStream_getDeviceIds(self.as_ptr(), ids.as_mut_ptr(), &mut num_ids)
+            };
+            let num_ids = num_ids.try_into().unwrap();
+            match AudioError::from_result(status) {
+                Ok(()) => {
+                    ids.truncate(num_ids);
+                    return Ok(ids);
+                }
+                Err(AudioError::OutOfRange) if num_ids > ids.len() => ids.resize(num_ids, 0),
+                Err(e) => return Err(e),
+            }
+        }
     }
 
     /// Available since API level 26.
@@ -1246,6 +1645,119 @@ impl AudioStream {
     #[doc(alias = "AAudioStream_getXRunCount")]
     pub fn x_run_count(&self) -> i32 {
         unsafe { ffi::AAudioStream_getXRunCount(self.as_ptr()) }
+    }
+
+    /// Configures the delay and padding values in frames for this stream playing in offload mode.
+    ///
+    /// This should only be used on a stream whose performance mode is
+    /// [`AudioPerformanceMode::PowerSavingOffloaded`] and with a compressed format.
+    ///
+    /// - `delay_in_frames`: number of frames to be ignored at the beginning of the stream.
+    /// - `padding_in_frames`: number of frames to be ignored at the end of the stream.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAudioStream_setOffloadDelayPadding")]
+    pub fn set_offload_delay_padding(
+        &self,
+        delay_in_frames: i32,
+        padding_in_frames: i32,
+    ) -> Result<()> {
+        AudioError::from_result(unsafe {
+            ffi::AAudioStream_setOffloadDelayPadding(
+                self.as_ptr(),
+                delay_in_frames,
+                padding_in_frames,
+            )
+        })
+    }
+
+    /// Returns the decoder delay of this offloaded stream in frames, as previously set with
+    /// [`AudioStream::set_offload_delay_padding()`].
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAudioStream_getOffloadDelay")]
+    pub fn offload_delay(&self) -> Result<i32> {
+        let result = unsafe { ffi::AAudioStream_getOffloadDelay(self.as_ptr()) };
+        AudioError::from_result(result.min(0)).map(|()| result)
+    }
+
+    /// Returns the decoder padding of this offloaded stream in frames, as previously set with
+    /// [`AudioStream::set_offload_delay_padding()`].
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAudioStream_getOffloadPadding")]
+    pub fn offload_padding(&self) -> Result<i32> {
+        let result = unsafe { ffi::AAudioStream_getOffloadPadding(self.as_ptr()) };
+        AudioError::from_result(result.min(0)).map(|()| result)
+    }
+
+    /// Declares that the last data writing operation on this stream provided the last buffer of
+    /// this stream.
+    ///
+    /// After the end of stream, previously set padding and delay values are ignored, so that all
+    /// written data will be played. Use this method in the same thread as any data writing
+    /// operation.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAudioStream_setOffloadEndOfStream")]
+    pub fn set_offload_end_of_stream(&self) -> Result<()> {
+        AudioError::from_result(unsafe { ffi::AAudioStream_setOffloadEndOfStream(self.as_ptr()) })
+    }
+
+    /// Returns [`true`] if this stream uses the MMAP data path versus the legacy path.
+    #[cfg(feature = "api-level-36")]
+    #[doc(alias = "AAudioStream_isMMapUsed")]
+    pub fn is_mmap_used(&self) -> bool {
+        unsafe { ffi::AAudioStream_isMMapUsed(self.as_ptr()) }
+    }
+
+    /// Flush all data from the given `position` in frames.
+    ///
+    /// This only works when the performance mode is
+    /// [`AudioPerformanceMode::PowerSavingOffloaded`], see
+    /// [`AudioStreamBuilder::flush_from_frame_supported()`]. `position` must not be negative or
+    /// greater than [`AudioStream::frames_written()`].
+    ///
+    /// When flushing is supported, `position` is updated to the actual position that was flushed
+    /// from, or to the suggested position to flush from if it cannot flush from the requested
+    /// position. The next write or data callback should provide data from that position on. The
+    /// client must not write any data before this function returns.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AAudioStream_flushFromFrame")]
+    pub fn flush_from_frame(
+        &self,
+        accuracy: AudioFlushFromAccuracy,
+        position: &mut i64,
+    ) -> Result<()> {
+        AudioError::from_result(unsafe {
+            ffi::AAudioStream_flushFromFrame(self.as_ptr(), accuracy.into(), position)
+        })
+    }
+
+    /// Set the [`AudioPlaybackParameters`] for this output stream.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AAudioStream_setPlaybackParameters")]
+    pub fn set_playback_parameters(&self, parameters: &AudioPlaybackParameters) -> Result<()> {
+        let parameters = ffi::AAudioPlaybackParameters {
+            fallbackMode: parameters.fallback_mode.into(),
+            stretchMode: parameters.stretch_mode.into(),
+            pitch: parameters.pitch,
+            speed: parameters.speed,
+        };
+        AudioError::from_result(unsafe {
+            ffi::AAudioStream_setPlaybackParameters(self.as_ptr(), &parameters)
+        })
+    }
+
+    /// Get the current [`AudioPlaybackParameters`] for this output stream.
+    #[cfg(feature = "api-level-37")]
+    #[doc(alias = "AAudioStream_getPlaybackParameters")]
+    pub fn playback_parameters(&self) -> Result<AudioPlaybackParameters> {
+        let parameters = construct(|res| unsafe {
+            ffi::AAudioStream_getPlaybackParameters(self.as_ptr(), res)
+        })?;
+        Ok(AudioPlaybackParameters {
+            fallback_mode: parameters.fallbackMode.into(),
+            stretch_mode: parameters.stretchMode.into(),
+            pitch: parameters.pitch,
+            speed: parameters.speed,
+        })
     }
 
     /// Read data from the stream.
