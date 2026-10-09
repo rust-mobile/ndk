@@ -16,7 +16,7 @@ use std::os::{
 };
 use std::ptr;
 use std::time::Duration;
-use thiserror::Error;
+use std::{error, fmt};
 
 use crate::utils::abort_on_panic;
 
@@ -91,9 +91,16 @@ pub enum Poll<'fd> {
     },
 }
 
-#[derive(Debug, Copy, Clone, Error)]
-#[error("Android Looper error")]
+#[derive(Debug, Copy, Clone)]
 pub struct LooperError;
+
+impl fmt::Display for LooperError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str("Android Looper error")
+    }
+}
+
+impl error::Error for LooperError {}
 
 impl ThreadLooper {
     /// Prepares a looper for the current thread and returns it

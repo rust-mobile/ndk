@@ -477,13 +477,31 @@ pub enum BitmapCompressFormat {
 
 /// Encapsulates possible errors returned by [`Bitmap::compress()`] or [`Bitmap::compress_raw()`].
 #[cfg(feature = "api-level-30")]
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug)]
 pub enum BitmapCompressError {
-    #[error(transparent)]
-    BitmapError(#[from] BitmapError),
+    BitmapError(BitmapError),
     /// [`Bitmap`] compression requires a known [`DataSpace`].  [`DataSpace::Unknown`] is invalid
     /// even though it is typically treated as `sRGB`, for that [`DataSpace::Srgb`] has to be passed
     /// explicitly.
-    #[error("The dataspace for this Bitmap is Unknown")]
     DataSpaceUnknown,
+}
+
+#[cfg(feature = "api-level-30")]
+impl fmt::Display for BitmapCompressError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::BitmapError(e) => e.fmt(f),
+            Self::DataSpaceUnknown => f.write_str("The dataspace for this Bitmap is Unknown"),
+        }
+    }
+}
+
+#[cfg(feature = "api-level-30")]
+impl error::Error for BitmapCompressError {}
+
+#[cfg(feature = "api-level-30")]
+impl From<BitmapError> for BitmapCompressError {
+    fn from(e: BitmapError) -> Self {
+        Self::BitmapError(e)
+    }
 }
