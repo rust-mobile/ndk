@@ -233,6 +233,11 @@ pub struct HardwareBuffer {
     inner: NonNull<ffi::AHardwareBuffer>,
 }
 
+// SAFETY: AHardwareBuffer is a reference-counted type designed for cross-process and cross-thread
+// sharing. Acquire/release (ref-counting) operations are thread-safe.
+unsafe impl Send for HardwareBuffer {}
+unsafe impl Sync for HardwareBuffer {}
+
 impl HardwareBuffer {
     /// Create an _unowned_ [`HardwareBuffer`] from a native pointer
     ///
