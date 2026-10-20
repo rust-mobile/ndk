@@ -9,6 +9,7 @@
 //!
 //! [`ALooper`]: https://developer.android.com/ndk/reference/group/looper#alooper
 
+use std::cell::RefCell;
 use std::mem::ManuallyDrop;
 use std::os::{
     fd::{AsRawFd, BorrowedFd, RawFd},
@@ -19,6 +20,18 @@ use std::time::Duration;
 use std::{error, fmt};
 
 use crate::utils::abort_on_panic;
+
+thread_local! {
+    static POLLING: RefCell<()> = const { RefCell::new(()) };
+}
+
+fn with_polling_disabled<R>(callback: impl FnOnce() -> R) -> R {
+    POLLING.with(|polling| {
+        // An outer scope already holds the borrow.
+        let _guard = polling.try_borrow_mut().ok();
+        callback()
+    })
+}
 
 /// A thread-local native [`ALooper *`].  This promises that there is a looper associated with the
 /// current thread.
@@ -123,31 +136,45 @@ impl ThreadLooper {
         })
     }
 
+    /// Rejects this crate's polling calls during `callback`.
+    ///
+    /// Raw callback integrations must scope execution and destruction here.
+    /// Restores the prior state on return or unwind.
+    pub fn with_polling_disabled<R>(&self, callback: impl FnOnce() -> R) -> R {
+        with_polling_disabled(callback)
+    }
+
     /// Polls the looper, blocking on processing an event, but with a timeout in milliseconds.
     /// Give a timeout of `0` to make this non-blocking.
     fn poll_once_ms(&self, ms: i32) -> Result<Poll<'_>, LooperError> {
-        let mut fd = -1;
-        let mut events = -1;
-        let mut data: *mut c_void = ptr::null_mut();
-        match unsafe { ffi::ALooper_pollOnce(ms, &mut fd, &mut events, &mut data) } {
-            ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
-            ffi::ALOOPER_POLL_CALLBACK => Ok(Poll::Callback),
-            ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
-            ffi::ALOOPER_POLL_ERROR => Err(LooperError),
-            ident if ident >= 0 => Ok(Poll::Event {
-                ident,
-                // SAFETY: Even though this FD at least shouldn't outlive self, a user could have
-                // closed it after calling add_fd or add_fd_with_callback.
-                fd: unsafe { BorrowedFd::borrow_raw(fd) },
-                events: FdEvent::from_bits(events as u32)
-                    .expect("poll event contains unknown bits"),
-                data,
-            }),
-            _ => unreachable!(),
-        }
+        POLLING.with(|polling| {
+            let _guard = polling.try_borrow_mut().map_err(|_| LooperError)?;
+            let mut fd = -1;
+            let mut events = -1;
+            let mut data: *mut c_void = ptr::null_mut();
+            // SAFETY: Valid outputs, with crate-local reentry blocked.
+            match unsafe { ffi::ALooper_pollOnce(ms, &mut fd, &mut events, &mut data) } {
+                ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
+                ffi::ALOOPER_POLL_CALLBACK => Ok(Poll::Callback),
+                ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
+                ffi::ALOOPER_POLL_ERROR => Err(LooperError),
+                ident if ident >= 0 => Ok(Poll::Event {
+                    ident,
+                    // SAFETY: Even though this FD at least shouldn't outlive self, a user could have
+                    // closed it after calling add_fd or add_fd_with_callback.
+                    fd: unsafe { BorrowedFd::borrow_raw(fd) },
+                    events: FdEvent::from_bits(events as u32)
+                        .expect("poll event contains unknown bits"),
+                    data,
+                }),
+                _ => unreachable!(),
+            }
+        })
     }
 
     /// Polls the looper, blocking on processing an event.
+    ///
+    /// Returns [`LooperError`] on reentry or within [`Self::with_polling_disabled`].
     #[inline]
     pub fn poll_once(&self) -> Result<Poll<'_>, LooperError> {
         self.poll_once_ms(-1)
@@ -155,6 +182,8 @@ impl ThreadLooper {
 
     /// Polls the looper, blocking on processing an event, but with a timeout.  Give a timeout of
     /// [`Duration::ZERO`] to make this non-blocking.
+    ///
+    /// Returns [`LooperError`] on reentry or within [`Self::with_polling_disabled`].
     ///
     /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
@@ -173,29 +202,35 @@ impl ThreadLooper {
     ///
     /// This function will never return [`Poll::Callback`].
     fn poll_all_ms(&self, ms: i32) -> Result<Poll<'_>, LooperError> {
-        let mut fd = -1;
-        let mut events = -1;
-        let mut data: *mut c_void = ptr::null_mut();
-        match unsafe { ffi::ALooper_pollAll(ms, &mut fd, &mut events, &mut data) } {
-            ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
-            ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
-            ffi::ALOOPER_POLL_ERROR => Err(LooperError),
-            ident if ident >= 0 => Ok(Poll::Event {
-                ident,
-                // SAFETY: Even though this FD at least shouldn't outlive self, a user could have
-                // closed it after calling add_fd or add_fd_with_callback.
-                fd: unsafe { BorrowedFd::borrow_raw(fd) },
-                events: FdEvent::from_bits(events as u32)
-                    .expect("poll event contains unknown bits"),
-                data,
-            }),
-            _ => unreachable!(),
-        }
+        POLLING.with(|polling| {
+            let _guard = polling.try_borrow_mut().map_err(|_| LooperError)?;
+            let mut fd = -1;
+            let mut events = -1;
+            let mut data: *mut c_void = ptr::null_mut();
+            // SAFETY: Valid outputs, with crate-local reentry blocked.
+            match unsafe { ffi::ALooper_pollAll(ms, &mut fd, &mut events, &mut data) } {
+                ffi::ALOOPER_POLL_WAKE => Ok(Poll::Wake),
+                ffi::ALOOPER_POLL_TIMEOUT => Ok(Poll::Timeout),
+                ffi::ALOOPER_POLL_ERROR => Err(LooperError),
+                ident if ident >= 0 => Ok(Poll::Event {
+                    ident,
+                    // SAFETY: Even though this FD at least shouldn't outlive self, a user could have
+                    // closed it after calling add_fd or add_fd_with_callback.
+                    fd: unsafe { BorrowedFd::borrow_raw(fd) },
+                    events: FdEvent::from_bits(events as u32)
+                        .expect("poll event contains unknown bits"),
+                    data,
+                }),
+                _ => unreachable!(),
+            }
+        })
     }
 
     /// Repeatedly polls the looper, blocking on processing an event.
     ///
     /// This function will never return [`Poll::Callback`].
+    ///
+    /// Returns [`LooperError`] on reentry or within [`Self::with_polling_disabled`].
     #[inline]
     pub fn poll_all(&self) -> Result<Poll<'_>, LooperError> {
         self.poll_all_ms(-1)
@@ -205,6 +240,8 @@ impl ThreadLooper {
     /// timeout of [`Duration::ZERO`] to make this non-blocking.
     ///
     /// This function will never return [`Poll::Callback`].
+    ///
+    /// Returns [`LooperError`] on reentry or within [`Self::with_polling_disabled`].
     ///
     /// It panics if the timeout is larger than expressible as an [`i32`] of milliseconds (roughly 25
     /// days).
@@ -409,16 +446,19 @@ impl ForeignLooper {
             events: i32,
             data: *mut c_void,
         ) -> i32 {
-            abort_on_panic(|| unsafe {
-                let mut cb = ManuallyDrop::new(Box::<F>::from_raw(data as *mut _));
-                let events = FdEvent::from_bits_retain(
-                    events.try_into().expect("Unexpected sign bit in `events`"),
-                );
-                let keep_registered = cb(BorrowedFd::borrow_raw(fd), events);
-                if !keep_registered {
-                    ManuallyDrop::into_inner(cb);
-                }
-                keep_registered as i32
+            abort_on_panic(|| {
+                // SAFETY: Live callback and `fd`, with crate-local polling blocked.
+                with_polling_disabled(|| unsafe {
+                    let mut cb = ManuallyDrop::new(Box::<F>::from_raw(data as *mut _));
+                    let events = FdEvent::from_bits_retain(
+                        events.try_into().expect("Unexpected sign bit in `events`"),
+                    );
+                    let keep_registered = cb(BorrowedFd::borrow_raw(fd), events);
+                    if !keep_registered {
+                        ManuallyDrop::into_inner(cb);
+                    }
+                    keep_registered as i32
+                })
             })
         }
         let data = Box::into_raw(Box::new(callback)) as *mut _;

@@ -1,5 +1,6 @@
 # Unreleased
 
+- Looper polling returns `LooperError` on reentrant calls, and `ThreadLooper::with_polling_disabled()` protects callbacks in native integrations.
 - image_reader: Add `ImageReader::new_with_data_space()` constructor and `ImageReader::data_space()` getter from API level 34. (#474)
 - Add bindings for Performance Hint manager (`APerformanceHintManager`, `APerformanceHintSession`, `AWorkDuration`). (#480)
 - **Breaking:** media_codec: Revert asynchronous notification callbacks due to breaking all `AMediaCodec` invariants.
