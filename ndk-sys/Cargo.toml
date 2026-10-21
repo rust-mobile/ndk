@@ -12,6 +12,7 @@ homepage = "https://github.com/rust-mobile/ndk"
 repository = "https://github.com/rust-mobile/ndk"
 rust-version = "1.60"
 categories = ["os", "os::android-apis", "external-ffi-bindings"]
+include = ["Cargo.toml", "CHANGELOG.md", "src/**/*.rs", "../README.md"]
 
 [dependencies]
 jni-sys = "0.3.0"
