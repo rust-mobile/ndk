@@ -111,10 +111,10 @@ pub enum AudioContentType {
 #[doc(alias = "aaudio_direction_t")]
 #[non_exhaustive]
 pub enum AudioDirection {
-    /// Audio data will travel into the device, for example from a microphone.
+    /// Audio data will travel out of the device, for example through a speaker.
     #[doc(alias = "AAUDIO_DIRECTION_OUTPUT")]
     Output = ffi::AAUDIO_DIRECTION_OUTPUT as ffi::aaudio_direction_t,
-    /// Audio data will travel out of the device, for example through a speaker.
+    /// Audio data will travel into the device, for example from a microphone.
     #[doc(alias = "AAUDIO_DIRECTION_INPUT")]
     Input = ffi::AAUDIO_DIRECTION_INPUT as ffi::aaudio_direction_t,
 
