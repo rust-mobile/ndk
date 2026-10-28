@@ -5,6 +5,7 @@
 - **Breaking:** media_codec: Revert asynchronous notification callbacks due to breaking all `AMediaCodec` invariants.
 - Drop `thiserror` dependency in favour of hand-written `Display` and `Error` implementations.
 - Use `libc` for `CLOCK_*` and `SEEK_*` constants, which are no longer exported by `ndk-sys`.
+- audio: Fix `AudioStream::read()`, `write()` and `set_buffer_size_in_frames()` returning `Err` on success (regressed in 0.8.0).
 
 # 0.9.0 (2024-04-26)
 

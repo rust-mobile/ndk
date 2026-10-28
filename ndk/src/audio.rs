@@ -481,12 +481,18 @@ impl AudioError {
 
     /// Returns [`Ok`] on [`ffi::AAUDIO_OK`], [`Err`] otherwise (including positive values).
     ///
-    /// Note that some known error codes (currently only for `AMediaCodec`) are positive.
+    /// Use [`AudioError::from_result_if_negative()`] for functions that return a positive value on
+    /// success.
     pub(crate) fn from_result(status: ffi::aaudio_result_t) -> Result<()> {
         match status {
             ffi::AAUDIO_OK => Ok(()),
             x => Err(Self::from(x)),
         }
+    }
+
+    /// Returns the original value in [`Ok`] if it is not negative, [`Err`] otherwise.
+    pub(crate) fn from_result_if_negative(value: ffi::aaudio_result_t) -> Result<u32> {
+        u32::try_from(value).map_err(|_| Self::from(value))
     }
 }
 
@@ -1279,7 +1285,7 @@ impl AudioStream {
     ) -> Result<u32> {
         let result = ffi::AAudioStream_read(self.as_ptr(), buffer, num_frames, timeout_nanoseconds);
 
-        AudioError::from_result(result).map(|()| result as u32)
+        AudioError::from_result_if_negative(result)
     }
 
     /// Asynchronous request for the stream to flush.
@@ -1349,7 +1355,7 @@ impl AudioStream {
     #[doc(alias = "AAudioStream_setBufferSizeInFrames")]
     pub fn set_buffer_size_in_frames(&self, num_frames: i32) -> Result<i32> {
         let result = unsafe { ffi::AAudioStream_setBufferSizeInFrames(self.as_ptr(), num_frames) };
-        AudioError::from_result(result).map(|()| result)
+        AudioError::from_result_if_negative(result).map(|v| v as i32)
     }
 
     /// Wait until the current state no longer matches the input state.
@@ -1406,7 +1412,7 @@ impl AudioStream {
         let result =
             ffi::AAudioStream_write(self.as_ptr(), buffer, num_frames, timeout_nanoseconds);
 
-        AudioError::from_result(result).map(|()| result as u32)
+        AudioError::from_result_if_negative(result)
     }
 }
 
